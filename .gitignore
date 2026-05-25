@@ -1,4 +1,5 @@
 node_modules/
+.next/
 build/
 dist/
 coverage/
@@ -6,3 +7,4 @@ coverage/
 *.log
 .env*
 !.env.example
+.vscode/

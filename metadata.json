@@ -1,6 +1,0 @@
-{
-  "name": "Health Made Clear",
-  "description": "An interactive learning guide to improve public health literacy, featuring modules on prescription labels, healthcare system navigation, food nutrition, self-advocacy, along with quizzes and a server-side AI health jargon translator.",
-  "requestFramePermissions": [],
-  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
-}
