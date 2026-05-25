@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { useAppState } from "@/components/AppProviders";
 import { getMessages } from "@/lib/i18n";
 

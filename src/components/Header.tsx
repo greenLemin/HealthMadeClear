@@ -1,7 +1,6 @@
 "use client";
 
-import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { Link, usePathname } from "@/i18n/navigation";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { BookOpen, Home, Info, LayoutDashboard, Menu, Route, Search, Wrench, X } from "lucide-react";
 import AccessibilityControls from "@/components/AccessibilityControls";

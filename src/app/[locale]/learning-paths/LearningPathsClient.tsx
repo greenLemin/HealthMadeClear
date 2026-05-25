@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { ArrowRight, Clock, ListChecks } from "lucide-react";
 import { getLessonsByPath, getPathProgress } from "@/lib/content";
 import { useAppState } from "@/components/AppProviders";

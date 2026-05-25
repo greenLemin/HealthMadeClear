@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import Hero from "@/components/Hero";
 import SectionNav from "@/components/SectionNav";
 import Callout from "@/components/Callout";

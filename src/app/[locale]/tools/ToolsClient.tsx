@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { BookOpen, ClipboardList, MapPinned, MessagesSquare } from "lucide-react";
 import MedicalDisclaimer from "@/components/MedicalDisclaimer";
 import { useAppState } from "@/components/AppProviders";

@@ -61,8 +61,14 @@ function readArray(key: string) {
   }
 }
 
-export default function AppProviders({ children }: { children: ReactNode }) {
-  const [locale, setLocaleState] = useState<Locale>("en");
+export default function AppProviders({
+  children,
+  locale: initialLocale,
+}: {
+  children: ReactNode;
+  locale: Locale;
+}) {
+  const [locale, setLocaleState] = useState<Locale>(initialLocale);
   const [theme, setThemeState] = useState<ThemeMode>("light");
   const [textSize, setTextSizeState] = useState<TextSize>("standard");
   const [simpleMode, setSimpleModeState] = useState(false);
@@ -72,7 +78,7 @@ export default function AppProviders({ children }: { children: ReactNode }) {
   const [hydrated, setHydrated] = useState(false);
 
   useEffect(() => {
-    setLocaleState(readStoredLocale());
+    setLocaleState(initialLocale);
     setThemeState(readStoredTheme());
     setTextSizeState(readStoredTextSize());
     setSimpleModeState(readStoredSimpleMode());
@@ -80,7 +86,12 @@ export default function AppProviders({ children }: { children: ReactNode }) {
     setRecentLessons(readArray(STORAGE_KEYS.recentLessons));
     setStartedPaths(readArray(STORAGE_KEYS.startedPaths));
     setHydrated(true);
-  }, []);
+  }, [initialLocale]);
+
+  useEffect(() => {
+    if (!hydrated) return;
+    setLocaleState(initialLocale);
+  }, [hydrated, initialLocale]);
 
   useEffect(() => {
     if (!hydrated) return;

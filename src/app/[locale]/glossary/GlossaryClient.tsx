@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { Search } from "lucide-react";
 import { useAppState } from "@/components/AppProviders";
 import PageHeader from "@/components/PageHeader";

@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { BookOpen, HeartHandshake, ShieldCheck, Users } from "lucide-react";
 import { useAppState } from "@/components/AppProviders";
 import PageHeader from "@/components/PageHeader";

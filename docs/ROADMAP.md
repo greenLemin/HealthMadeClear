@@ -3,8 +3,9 @@
 ## Completed
 
 - **MDX lesson content** — `content/lessons/{en,es}/*.mdx` with `:::info` / `:::warning` / `:::success` callouts
-- **MDX learning paths** — `content/paths/{en,es}/*.mdx` (frontmatter: title, description, lessons, duration, level, icon)
-- **MDX glossary** — `content/glossary/{en,es}/*.mdx` (frontmatter + definition body; optional `relatedTerms`)
+- **MDX learning paths** — `content/paths/{en,es}/*.mdx`
+- **MDX glossary** — `content/glossary/{en,es}/*.mdx`
+- **Locale-prefixed routes** — `/en` and `/es` via `next-intl`, hreflang alternates in metadata and sitemap
 
 Run `npm run content:bundle` after editing MDX (or rely on `prebuild` before production builds).
 
@@ -14,8 +15,8 @@ Run `npm run content:bundle` after editing MDX (or rely on `prebuild` before pro
 
 ## Internationalization (next)
 
-- **next-intl** with locale-prefixed routes (`/en`, `/es`) and hreflang metadata
 - Additional locales beyond English and Spanish
+- Optional: migrate UI strings fully to `next-intl` `useTranslations` (messages already loaded in `src/i18n/request.ts`)
 
 ## Accounts and sync
 

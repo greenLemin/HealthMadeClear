@@ -14,7 +14,7 @@ npm install
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000).
+Open [http://localhost:3000/en](http://localhost:3000/en) (or `/es` for Spanish). Visiting `/` redirects to your preferred locale.
 
 ## Scripts
 

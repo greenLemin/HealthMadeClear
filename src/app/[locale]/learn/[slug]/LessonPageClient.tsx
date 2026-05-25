@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { ArrowLeft } from "lucide-react";
 import LessonActionsClient from "@/components/lesson/LessonActionsClient";
 import LessonRelatedClient from "@/components/lesson/LessonRelatedClient";
