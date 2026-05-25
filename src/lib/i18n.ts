@@ -1,234 +1,29 @@
+import en from "@/messages/en.json";
+import es from "@/messages/es.json";
+import type { LessonCategoryId } from "@/types/content";
+
 export type Locale = "en" | "es";
 
-export const messages = {
-  en: {
-    nav: {
-      home: "Home",
-      learn: "Learn",
-      paths: "Paths",
-      tools: "Tools",
-      dashboard: "Dashboard",
-      glossary: "Glossary",
-      about: "About",
-      language: "Language",
-      toggleNavigation: "Toggle navigation",
-    },
-    accessibility: {
-      display: "Display",
-      controls: "Accessibility controls",
-      textSize: "Text size",
-      colorTheme: "Color theme",
-      light: "Light",
-      dark: "Dark",
-      simpleMode: "Simple mode",
-      simpleModeDescription: "Reduce visual detail for easier scanning.",
-      on: "On",
-      off: "Off",
-    },
-    footer: {
-      tagline: "Demystifying healthcare through accessible, clear, and empathetic education.",
-      platform: "Platform",
-      legal: "Legal & Support",
-      accessibility: "Accessibility",
-      privacy: "Privacy",
-      contact: "Contact",
-      rights: "All rights reserved.",
-    },
-    common: {
-      completed: "Completed",
-      ready: "Ready",
-      continue: "Continue",
-      start: "Start",
-      useTool: "Use tool",
-      print: "Print",
-      readLesson: "Read lesson",
-      back: "Back",
-      searchLessons: "Search lessons",
-      searchTerms: "Search terms",
-      allTopics: "All topics",
-      all: "All",
-      beginner: "Beginner",
-      intermediate: "Intermediate",
-      advanced: "Advanced",
-      termsFound: "terms found",
-      lessonsFound: "lessons found",
-      noTermsFound: "No terms found",
-      noLessonsFound: "No lessons found",
-      showAllTerms: "Show all terms",
-      showAllLessons: "Show all lessons",
-      recommended: "Recommended for you",
-      exploreLibrary: "Explore Library",
-      category: "Category",
-      noResultsTryAnother: "No glossary terms match your search. Try another word.",
-      noLessonsTryBroader: "No lessons match your search yet. Try a broader term.",
-      of: "of",
-    },
-    glossary: {
-      title: "Health Glossary",
-      description: "Clear, everyday definitions for medical terms so you can understand your health journey without the confusion.",
-    },
-    learn: {
-      title: "What would you like to learn today?",
-      description: "Clear, reliable guides to help you navigate your health journey with confidence.",
-    },
-    paths: {
-      resumeJourney: "Resume journey",
-      goodPlaceToStart: "Good place to start",
-      lesson: "Lesson",
-      complete: "complete",
-      upNext: "Up next",
-      includedLessons: "Included lessons",
-      done: "Done",
-      ready: "Ready",
-      continue: "Continue",
-      startPath: "Start path",
-    },
-    dashboard: {
-      title: "Your learning dashboard",
-      description: "Track your progress, pick up where you left off, and build confidence one lesson at a time.",
-      completedLessons: "Completed lessons",
-      pathsInProgress: "Paths in progress",
-      pathsCompleted: "Completed paths",
-      recentMilestones: "Recent milestones",
-      overview: "Your overview",
-      ofLibrary: "of the library completed",
-      modulesCompleted: "modules completed",
-      noPathsProgress: "Start a path to see progress here.",
-      keepGoing: "Keep going. Every lesson adds up.",
-      noPathsCompleted: "Finish a full path to celebrate a milestone.",
-      pathsCompletedMsg: "You have completed guided journeys.",
-      upNext: "Up next in your path",
-      readyWhenYouAre: "Ready when you are",
-      startFirstLesson: "Start your first lesson",
-      browseIntroLessons: "Browse beginner-friendly lessons and guided paths tailored to common healthcare questions.",
-      resumeLesson: "Resume lesson",
-      explorePaths: "Explore paths",
-      noRecentMilestones: "Complete your first lesson to start building your milestone history.",
-      recentlyViewed: "Recently viewed",
-      seeAll: "See all",
-    },
-  },
-  es: {
-    nav: {
-      home: "Inicio",
-      learn: "Aprender",
-      paths: "Rutas",
-      tools: "Herramientas",
-      dashboard: "Panel",
-      glossary: "Glosario",
-      about: "Acerca de",
-      language: "Idioma",
-      toggleNavigation: "Abrir navegación",
-    },
-    accessibility: {
-      display: "Pantalla",
-      controls: "Controles de accesibilidad",
-      textSize: "Tamaño del texto",
-      colorTheme: "Tema de color",
-      light: "Claro",
-      dark: "Oscuro",
-      simpleMode: "Modo simple",
-      simpleModeDescription: "Reduce el detalle visual para facilitar la lectura.",
-      on: "Sí",
-      off: "No",
-    },
-    footer: {
-      tagline: "Aclaramos la atención médica con educación accesible, clara y empática.",
-      platform: "Plataforma",
-      legal: "Legal y ayuda",
-      accessibility: "Accesibilidad",
-      privacy: "Privacidad",
-      contact: "Contacto",
-      rights: "Todos los derechos reservados.",
-    },
-    common: {
-      completed: "Completado",
-      ready: "Listo",
-      continue: "Continuar",
-      start: "Comenzar",
-      useTool: "Usar herramienta",
-      print: "Imprimir",
-      readLesson: "Leer lección",
-      back: "Atrás",
-      searchLessons: "Buscar lecciones",
-      searchTerms: "Buscar términos",
-      allTopics: "Todos los temas",
-      all: "Todo",
-      beginner: "Principiante",
-      intermediate: "Intermedio",
-      advanced: "Avanzado",
-      termsFound: "términos encontrados",
-      lessonsFound: "lecciones encontradas",
-      noTermsFound: "No se encontraron términos",
-      noLessonsFound: "No se encontraron lecciones",
-      showAllTerms: "Mostrar todos los términos",
-      showAllLessons: "Mostrar todas las lecciones",
-      recommended: "Recomendado para ti",
-      exploreLibrary: "Explora la biblioteca",
-      category: "Categoría",
-      noResultsTryAnother: "No hay términos que coincidan con tu búsqueda. Intenta otra palabra.",
-      noLessonsTryBroader: "No hay lecciones que coincidan con tu búsqueda. Prueba un término más general.",
-      of: "de",
-    },
-    glossary: {
-      title: "Glosario de salud",
-      description: "Definiciones claras y cotidianas de términos médicos para que entiendas tu salud sin tanta confusión.",
-    },
-    learn: {
-      title: "¿Qué te gustaría aprender hoy?",
-      description: "Guías claras y confiables para ayudarte a recorrer tu camino de salud con más confianza.",
-    },
-    paths: {
-      resumeJourney: "Retomar recorrido",
-      goodPlaceToStart: "Buen punto para comenzar",
-      lesson: "Lección",
-      complete: "completado",
-      upNext: "Sigue",
-      includedLessons: "Lecciones incluidas",
-      done: "Listo",
-      ready: "Preparado",
-      continue: "Continuar",
-      startPath: "Comenzar ruta",
-    },
-    dashboard: {
-      title: "Tu panel de aprendizaje",
-      description: "Sigue tu progreso, retoma donde te quedaste y gana confianza una lección a la vez.",
-      completedLessons: "Lecciones completadas",
-      pathsInProgress: "Rutas en progreso",
-      pathsCompleted: "Rutas completadas",
-      recentMilestones: "Logros recientes",
-      overview: "Tu resumen",
-      ofLibrary: "de la biblioteca completada",
-      modulesCompleted: "módulos completados",
-      noPathsProgress: "Comienza una ruta para ver progreso aquí.",
-      keepGoing: "Sigue así. Cada lección cuenta.",
-      noPathsCompleted: "Termina una ruta completa para celebrar un logro.",
-      pathsCompletedMsg: "Has completado recorridos guiados.",
-      upNext: "Sigue en tu ruta",
-      readyWhenYouAre: "Cuando quieras",
-      startFirstLesson: "Comienza tu primera lección",
-      browseIntroLessons: "Explora lecciones introductorias y rutas guiadas diseñadas para preguntas comunes de salud.",
-      resumeLesson: "Retomar lección",
-      explorePaths: "Explorar rutas",
-      noRecentMilestones: "Completa tu primera lección para empezar tu historial de logros.",
-      recentlyViewed: "Visto recientemente",
-      seeAll: "Ver todo",
-    },
-  },
-} as const;
+export type Messages = typeof en;
 
-export function getMessages(locale: Locale) {
+export const messages: Record<Locale, Messages> = { en, es };
+
+export function getMessages(locale: Locale): Messages {
   return messages[locale];
 }
 
 export function formatLevel(level: "beginner" | "intermediate" | "advanced", locale: Locale) {
-  if (locale === "es") {
-    if (level === "beginner") return "Principiante";
-    if (level === "intermediate") return "Intermedio";
-    return "Avanzado";
-  }
+  const copy = getMessages(locale);
+  if (level === "beginner") return copy.common.beginner;
+  if (level === "intermediate") return copy.common.intermediate;
+  return copy.common.advanced;
+}
 
-  if (level === "beginner") return "Beginner";
-  if (level === "intermediate") return "Intermediate";
-  return "Advanced";
+export function getCategoryLabel(categoryId: LessonCategoryId, locale: Locale): string {
+  return getMessages(locale).categories[categoryId];
+}
+
+export function normalizeGlossaryLetter(term: string): string {
+  const first = term.trim().charAt(0).toUpperCase();
+  return first.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 }

@@ -1,8 +1,11 @@
+import type { LessonCategoryId, LessonId } from "@/types/content";
+
 export interface Lesson {
-  id: string;
+  id: LessonId;
   title: string;
   description: string;
   category: string;
+  categoryId: LessonCategoryId;
   duration: string;
   level: 'beginner' | 'intermediate' | 'advanced';
   content: {
@@ -23,6 +26,7 @@ export const lessons: Lesson[] = [
     title: 'Understanding Prescription Labels',
     description: 'Learn how to read and understand your medicine labels to take medications safely.',
     category: 'Medication Safety',
+    categoryId: 'medication-safety',
     duration: '15 minutes',
     level: 'beginner',
     content: {
@@ -73,6 +77,7 @@ export const lessons: Lesson[] = [
     title: 'Asking About Your Medications',
     description: 'Learn the right questions to ask your doctor or pharmacist about any new medication.',
     category: 'Medication Safety',
+    categoryId: 'medication-safety',
     duration: '10 minutes',
     level: 'beginner',
     content: {
@@ -103,6 +108,7 @@ export const lessons: Lesson[] = [
     title: 'Managing Side Effects',
     description: 'Learn what side effects are, which ones are normal, and when to call your doctor.',
     category: 'Medication Safety',
+    categoryId: 'medication-safety',
     duration: '12 minutes',
     level: 'beginner',
     content: {
@@ -133,6 +139,7 @@ export const lessons: Lesson[] = [
     title: 'Before Your Doctor Visit',
     description: 'Prepare for your appointment to get the most out of your time with your doctor.',
     category: 'Doctor Visits',
+    categoryId: 'doctor-visits',
     duration: '10 minutes',
     level: 'beginner',
     content: {
@@ -163,6 +170,7 @@ export const lessons: Lesson[] = [
     title: 'During Your Doctor Visit',
     description: 'Learn how to communicate effectively with your doctor during your appointment.',
     category: 'Doctor Visits',
+    categoryId: 'doctor-visits',
     duration: '10 minutes',
     level: 'beginner',
     content: {
@@ -193,6 +201,7 @@ export const lessons: Lesson[] = [
     title: 'After Your Doctor Visit',
     description: 'Follow up on your care plan and keep track of your health.',
     category: 'Doctor Visits',
+    categoryId: 'doctor-visits',
     duration: '8 minutes',
     level: 'beginner',
     content: {
@@ -223,6 +232,7 @@ export const lessons: Lesson[] = [
     title: 'Blood Test Basics',
     description: 'Understand what blood tests measure and why they\'re important.',
     category: 'Lab Results',
+    categoryId: 'lab-results',
     duration: '15 minutes',
     level: 'intermediate',
     content: {
@@ -253,6 +263,7 @@ export const lessons: Lesson[] = [
     title: 'Understanding Common Lab Tests',
     description: 'Learn what specific lab tests measure and what abnormal results might mean.',
     category: 'Lab Results',
+    categoryId: 'lab-results',
     duration: '20 minutes',
     level: 'intermediate',
     content: {
@@ -283,6 +294,7 @@ export const lessons: Lesson[] = [
     title: 'When to Worry About Lab Results',
     description: 'Learn which abnormal results need immediate attention and which can wait.',
     category: 'Lab Results',
+    categoryId: 'lab-results',
     duration: '10 minutes',
     level: 'intermediate',
     content: {

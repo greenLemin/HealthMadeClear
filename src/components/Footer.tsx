@@ -14,24 +14,34 @@ export default function Footer() {
         <div className="grid gap-10 md:grid-cols-[1.4fr_1fr_1fr]">
           <div>
             <p className="mb-3 text-label-lg text-primary">Health Made Clear</p>
-            <p className="max-w-md text-body-md text-on-surface-variant">
-              {copy.footer.tagline}
-            </p>
+            <p className="max-w-md text-body-md text-on-surface-variant">{copy.footer.tagline}</p>
           </div>
           <div>
             <p className="mb-3 text-label-md text-primary">{copy.footer.platform}</p>
             <div className="space-y-2 text-body-md text-on-surface-variant">
-              <div><Link href="/about">{copy.nav.about}</Link></div>
-              <div><Link href="/learning-paths">{copy.nav.paths}</Link></div>
-              <div><Link href="/tools">{copy.nav.tools}</Link></div>
+              <div>
+                <Link href="/about">{copy.nav.about}</Link>
+              </div>
+              <div>
+                <Link href="/learning-paths">{copy.nav.paths}</Link>
+              </div>
+              <div>
+                <Link href="/tools">{copy.nav.tools}</Link>
+              </div>
             </div>
           </div>
           <div>
             <p className="mb-3 text-label-md text-primary">{copy.footer.legal}</p>
             <div className="space-y-2 text-body-md text-on-surface-variant">
-              <div><Link href="/about">{copy.footer.accessibility}</Link></div>
-              <div><Link href="/privacy">{copy.footer.privacy}</Link></div>
-              <div><Link href="/about">{copy.footer.contact}</Link></div>
+              <div>
+                <Link href="/accessibility">{copy.footer.accessibility}</Link>
+              </div>
+              <div>
+                <Link href="/privacy">{copy.footer.privacy}</Link>
+              </div>
+              <div>
+                <a href="mailto:hello@healthmadeclear.org">{copy.footer.contact}</a>
+              </div>
             </div>
           </div>
         </div>

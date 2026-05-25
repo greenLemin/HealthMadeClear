@@ -9,9 +9,19 @@ import {
   type ReactNode,
 } from "react";
 import type { Locale } from "@/lib/i18n";
+import {
+  STORAGE_KEYS,
+  applyDocumentPreferences,
+  readStoredLocale,
+  readStoredSimpleMode,
+  readStoredTextSize,
+  readStoredTheme,
+  setPreferenceCookie,
+  type TextSize,
+  type ThemeMode,
+} from "@/lib/preferences";
 
-export type TextSize = "standard" | "large" | "largest";
-export type ThemeMode = "light" | "dark";
+export type { TextSize, ThemeMode };
 
 type AppContextValue = {
   locale: Locale;
@@ -29,16 +39,6 @@ type AppContextValue = {
   markLessonViewed: (lessonId: string) => void;
   markPathStarted: (pathId: string) => void;
 };
-
-const STORAGE_KEYS = {
-  locale: "hmc-locale",
-  theme: "hmc-theme",
-  textSize: "hmc-text-size",
-  simpleMode: "hmc-simple-mode",
-  completedLessons: "hmc-completed-lessons",
-  recentLessons: "hmc-recent-lessons",
-  startedPaths: "hmc-started-paths",
-} as const;
 
 const AppContext = createContext<AppContextValue | null>(null);
 
@@ -62,52 +62,58 @@ function readArray(key: string) {
 }
 
 export default function AppProviders({ children }: { children: ReactNode }) {
-  const [locale, setLocale] = useState<Locale>("en");
-  const [theme, setTheme] = useState<ThemeMode>("light");
-  const [textSize, setTextSize] = useState<TextSize>("standard");
-  const [simpleMode, setSimpleMode] = useState(false);
+  const [locale, setLocaleState] = useState<Locale>("en");
+  const [theme, setThemeState] = useState<ThemeMode>("light");
+  const [textSize, setTextSizeState] = useState<TextSize>("standard");
+  const [simpleMode, setSimpleModeState] = useState(false);
   const [completedLessons, setCompletedLessons] = useState<string[]>([]);
   const [recentLessons, setRecentLessons] = useState<string[]>([]);
   const [startedPaths, setStartedPaths] = useState<string[]>([]);
+  const [hydrated, setHydrated] = useState(false);
 
   useEffect(() => {
-    const savedLocale = window.localStorage.getItem(STORAGE_KEYS.locale) as Locale | null;
-    const savedTheme = window.localStorage.getItem(STORAGE_KEYS.theme) as ThemeMode | null;
-    const savedTextSize = window.localStorage.getItem(STORAGE_KEYS.textSize) as TextSize | null;
-    const savedSimpleMode = window.localStorage.getItem(STORAGE_KEYS.simpleMode);
-
-    setLocale(savedLocale === "es" ? "es" : "en");
-    setTheme(savedTheme === "dark" ? "dark" : "light");
-    setTextSize(savedTextSize === "large" || savedTextSize === "largest" ? savedTextSize : "standard");
-    setSimpleMode(savedSimpleMode === "true");
+    setLocaleState(readStoredLocale());
+    setThemeState(readStoredTheme());
+    setTextSizeState(readStoredTextSize());
+    setSimpleModeState(readStoredSimpleMode());
     setCompletedLessons(readArray(STORAGE_KEYS.completedLessons));
     setRecentLessons(readArray(STORAGE_KEYS.recentLessons));
     setStartedPaths(readArray(STORAGE_KEYS.startedPaths));
+    setHydrated(true);
   }, []);
 
   useEffect(() => {
-    document.documentElement.lang = locale;
-    document.documentElement.dataset.locale = locale;
-    document.documentElement.dataset.theme = theme;
-    document.documentElement.dataset.textSize = textSize;
-    document.documentElement.dataset.simpleMode = simpleMode ? "true" : "false";
+    if (!hydrated) return;
+    applyDocumentPreferences(locale, theme, textSize, simpleMode);
     window.localStorage.setItem(STORAGE_KEYS.locale, locale);
     window.localStorage.setItem(STORAGE_KEYS.theme, theme);
     window.localStorage.setItem(STORAGE_KEYS.textSize, textSize);
     window.localStorage.setItem(STORAGE_KEYS.simpleMode, String(simpleMode));
-  }, [locale, theme, textSize, simpleMode]);
+    setPreferenceCookie("hmc-locale", locale);
+    setPreferenceCookie("hmc-theme", theme);
+    setPreferenceCookie("hmc-text-size", textSize);
+    setPreferenceCookie("hmc-simple-mode", String(simpleMode));
+  }, [hydrated, locale, theme, textSize, simpleMode]);
 
   useEffect(() => {
+    if (!hydrated) return;
     window.localStorage.setItem(STORAGE_KEYS.completedLessons, JSON.stringify(completedLessons));
-  }, [completedLessons]);
+  }, [hydrated, completedLessons]);
 
   useEffect(() => {
+    if (!hydrated) return;
     window.localStorage.setItem(STORAGE_KEYS.recentLessons, JSON.stringify(recentLessons));
-  }, [recentLessons]);
+  }, [hydrated, recentLessons]);
 
   useEffect(() => {
+    if (!hydrated) return;
     window.localStorage.setItem(STORAGE_KEYS.startedPaths, JSON.stringify(startedPaths));
-  }, [startedPaths]);
+  }, [hydrated, startedPaths]);
+
+  const setLocale = (value: Locale) => setLocaleState(value);
+  const setTheme = (value: ThemeMode) => setThemeState(value);
+  const setTextSize = (value: TextSize) => setTextSizeState(value);
+  const setSimpleMode = (value: boolean) => setSimpleModeState(value);
 
   const value = useMemo<AppContextValue>(
     () => ({

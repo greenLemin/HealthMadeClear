@@ -1,5 +1,7 @@
+import type { PathId } from "@/types/content";
+
 export interface LearningPath {
-  id: string;
+  id: PathId;
   title: string;
   description: string;
   lessons: string[];

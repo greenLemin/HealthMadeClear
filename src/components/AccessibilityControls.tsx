@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Moon, Settings2, Sun, Type } from "lucide-react";
 import { useAppState } from "@/components/AppProviders";
+import { useFocusTrap } from "@/hooks/useFocusTrap";
 import { getMessages } from "@/lib/i18n";
 
 export default function AccessibilityControls() {
@@ -12,7 +13,8 @@ export default function AccessibilityControls() {
   const { locale, theme, setTheme, textSize, setTextSize, simpleMode, setSimpleMode } = useAppState();
   const copy = getMessages(locale);
 
-  // Close on Escape and click outside
+  useFocusTrap(panelRef, isOpen);
+
   useEffect(() => {
     if (!isOpen) return;
 
@@ -61,6 +63,7 @@ export default function AccessibilityControls() {
           id="accessibility-panel"
           ref={panelRef}
           role="dialog"
+          aria-modal="true"
           aria-label={copy.accessibility.controls}
           className="absolute right-0 top-14 z-50 w-80 rounded-xl border border-outline-variant bg-surface p-5 shadow-elevation-2"
         >
@@ -72,11 +75,13 @@ export default function AccessibilityControls() {
               {copy.accessibility.textSize}
             </div>
             <div className="grid grid-cols-3 gap-2" role="radiogroup" aria-label={copy.accessibility.textSize}>
-              {([
-                ["standard", "A"],
-                ["large", "A+"],
-                ["largest", "A++"],
-              ] as const).map(([value, label]) => (
+              {(
+                [
+                  ["standard", "A"],
+                  ["large", "A+"],
+                  ["largest", "A++"],
+                ] as const
+              ).map(([value, label]) => (
                 <button
                   key={value}
                   type="button"
@@ -138,7 +143,11 @@ export default function AccessibilityControls() {
               type="button"
               aria-pressed={simpleMode}
               onClick={() => setSimpleMode(!simpleMode)}
-              className={simpleMode ? "rounded-full bg-primary px-4 py-2 text-sm font-semibold text-on-primary" : "rounded-full border border-outline-variant px-4 py-2 text-sm font-semibold text-on-surface"}
+              className={
+                simpleMode
+                  ? "rounded-full bg-primary px-4 py-2 text-sm font-semibold text-on-primary"
+                  : "rounded-full border border-outline-variant px-4 py-2 text-sm font-semibold text-on-surface"
+              }
             >
               {simpleMode ? copy.accessibility.on : copy.accessibility.off}
             </button>

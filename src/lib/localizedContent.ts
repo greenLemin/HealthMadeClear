@@ -289,6 +289,7 @@ export function getLessons(locale: Locale) {
     const translation = esLessonCopy[lesson.id];
     return {
       ...lesson,
+      categoryId: lesson.categoryId,
       title: translation?.title ?? lesson.title,
       description: translation?.description ?? lesson.description,
       category: translation?.category ?? lesson.category,

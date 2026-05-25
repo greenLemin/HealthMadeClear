@@ -38,12 +38,16 @@ export function getPathProgress(
 
 export function getStartedPathCount(
   completedLessonIds: string[],
+  startedPathIds: string[] = [],
   lessonItems: Lesson[] = lessons,
   pathItems: LearningPath[] = learningPaths
 ) {
-  return pathItems.filter((path) =>
-    getLessonsByPath(path.id, lessonItems, pathItems).some((lesson) => completedLessonIds.includes(lesson.id))
-  ).length;
+  return pathItems.filter((path) => {
+    if (startedPathIds.includes(path.id)) return true;
+    return getLessonsByPath(path.id, lessonItems, pathItems).some((lesson) =>
+      completedLessonIds.includes(lesson.id)
+    );
+  }).length;
 }
 
 export function getCompletedPathCount(
