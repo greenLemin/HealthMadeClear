@@ -5,6 +5,7 @@ import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import LessonActionsClient from "@/components/lesson/LessonActionsClient";
 import LessonRelatedClient from "@/components/lesson/LessonRelatedClient";
+import Callout from "@/components/Callout";
 import MedicalDisclaimer from "@/components/MedicalDisclaimer";
 import { useAppState } from "@/components/AppProviders";
 import { formatLevel, getCategoryLabel, getMessages } from "@/lib/i18n";
@@ -81,18 +82,9 @@ export default function LessonPageClient({ slug }: { slug: string }) {
                   </div>
                   <div className="whitespace-pre-line text-body-md text-on-surface-variant">{section.content}</div>
                   {section.callouts?.map((callout, calloutIndex) => (
-                    <div
-                      key={`${section.title}-${calloutIndex}`}
-                      className={
-                        callout.type === "warning"
-                          ? "callout-warning mt-4"
-                          : callout.type === "success"
-                            ? "callout-success mt-4"
-                            : "callout-info mt-4"
-                      }
-                    >
-                      <p className="text-body-md text-on-surface">{callout.content}</p>
-                    </div>
+                    <Callout key={`${section.title}-${calloutIndex}`} type={callout.type} className="mt-4">
+                      {callout.content}
+                    </Callout>
                   ))}
                 </section>
               ))}

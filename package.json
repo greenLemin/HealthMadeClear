@@ -10,9 +10,18 @@
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "test:watch": "vitest",
-    "test:e2e": "playwright test"
+    "test:e2e": "playwright test",
+    "content:generate-lessons": "tsx scripts/generate-lesson-mdx.ts",
+    "content:bundle-lessons": "tsx scripts/bundle-lessons.ts",
+    "content:generate-paths": "tsx scripts/generate-path-mdx.ts",
+    "content:generate-glossary": "tsx scripts/generate-glossary-mdx.ts",
+    "content:bundle-paths": "tsx scripts/bundle-paths.ts",
+    "content:bundle-glossary": "tsx scripts/bundle-glossary.ts",
+    "content:bundle": "npm run content:bundle-lessons && npm run content:bundle-paths && npm run content:bundle-glossary",
+    "prebuild": "npm run content:bundle"
   },
   "dependencies": {
+    "gray-matter": "^4.0.3",
     "lucide-react": "^0.400.0",
     "next": "14.2.5",
     "react": "^18.3.1",
@@ -28,6 +37,7 @@
     "eslint-config-next": "14.2.5",
     "postcss": "^8.4.39",
     "tailwindcss": "^3.4.4",
+    "tsx": "^4.22.3",
     "typescript": "^5.5.3",
     "vitest": "^4.1.7"
   }

@@ -1,5 +1,5 @@
 import { learningPaths } from "@/data/learningPaths";
-import type { LearningPath } from "@/data/learningPaths";
+import type { LearningPath } from "@/types/learningPath";
 import { lessons } from "@/data/lessons";
 import type { Lesson } from "@/data/lessons";
 

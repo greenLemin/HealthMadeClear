@@ -15,7 +15,41 @@ export type LessonId = (typeof LESSON_IDS)[number];
 export const PATH_IDS = ["safer-medicine-use", "doctor-visit-prep", "understanding-labs"] as const;
 export type PathId = (typeof PATH_IDS)[number];
 
-export type GlossaryId = string;
+export const GLOSSARY_IDS = [
+  "blood-pressure",
+  "hypertension",
+  "hypotension",
+  "cholesterol",
+  "ldl",
+  "hdl",
+  "triglycerides",
+  "diabetes",
+  "blood-sugar",
+  "glucose",
+  "insulin",
+  "chronic",
+  "acute",
+  "symptom",
+  "sign",
+  "diagnosis",
+  "prognosis",
+  "side-effect",
+  "dosage",
+  "generic-drug",
+  "prescription",
+  "over-the-counter",
+  "biopsy",
+  "ct-scan",
+  "mri",
+  "ultrasound",
+  "inflammation",
+  "immune-system",
+  "metabolism",
+  "placebo",
+  "clinical-trial",
+] as const;
+
+export type GlossaryId = (typeof GLOSSARY_IDS)[number];
 
 export type LessonCategoryId = "medication-safety" | "doctor-visits" | "lab-results";
 

@@ -1,0 +1,16 @@
+import { describe, expect, it } from "vitest";
+import { getAllPathsFromMdx } from "@/lib/paths/mdxParser";
+
+describe("paths mdxParser", () => {
+  it("loads all English paths from MDX", () => {
+    const paths = getAllPathsFromMdx("en");
+    expect(paths).toHaveLength(3);
+    expect(paths[0]?.lessons.length).toBeGreaterThan(0);
+  });
+
+  it("loads Spanish path with translated title", () => {
+    const paths = getAllPathsFromMdx("es");
+    const path = paths.find((p) => p.id === "safer-medicine-use");
+    expect(path?.title).toBe("Uso más seguro de medicamentos");
+  });
+});

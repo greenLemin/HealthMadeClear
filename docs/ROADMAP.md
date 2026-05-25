@@ -1,13 +1,18 @@
 # Roadmap
 
-Items intentionally deferred after the comprehensive implementation pass.
+## Completed
 
-## Content platform
+- **MDX lesson content** — `content/lessons/{en,es}/*.mdx` with `:::info` / `:::warning` / `:::success` callouts
+- **MDX learning paths** — `content/paths/{en,es}/*.mdx` (frontmatter: title, description, lessons, duration, level, icon)
+- **MDX glossary** — `content/glossary/{en,es}/*.mdx` (frontmatter + definition body; optional `relatedTerms`)
 
-- **MDX or headless CMS** for lessons, paths, and glossary — reduces duplication between English data files and `localizedContent.ts`
+Run `npm run content:bundle` after editing MDX (or rely on `prebuild` before production builds).
+
+## Content platform (next)
+
 - **Clinical review workflow** — last-reviewed dates, sources, and sign-off process (operational, not only code)
 
-## Internationalization
+## Internationalization (next)
 
 - **next-intl** with locale-prefixed routes (`/en`, `/es`) and hreflang metadata
 - Additional locales beyond English and Spanish
@@ -25,3 +30,4 @@ Items intentionally deferred after the comprehensive implementation pass.
 
 - Visual regression testing for light/dark/simple/large-text modes
 - Content Security Policy and security headers at the edge
+- JSON-LD structured data for lessons and glossary terms

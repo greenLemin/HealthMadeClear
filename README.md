@@ -27,15 +27,20 @@ Open [http://localhost:3000](http://localhost:3000).
 | `npm run typecheck` | TypeScript check |
 | `npm test` | Unit tests (Vitest) |
 | `npm run test:e2e` | E2E smoke tests (Playwright) |
+| `npm run content:bundle` | Rebuild all content bundles from MDX (runs automatically before `build`) |
+| `npm run content:bundle-lessons` | Rebuild lessons only |
+| `npm run content:bundle-paths` | Rebuild learning paths only |
+| `npm run content:bundle-glossary` | Rebuild glossary only |
 
 ## Editing content
 
+Edit the MDX files below, then run `npm run content:bundle` (or `npm run build`).
+
 | Content | Location |
 |---------|----------|
-| Lessons (English) | [`src/data/lessons.ts`](src/data/lessons.ts) |
-| Learning paths | [`src/data/learningPaths.ts`](src/data/learningPaths.ts) |
-| Glossary | [`src/data/glossary.ts`](src/data/glossary.ts) |
-| Spanish lesson/path/glossary copy | [`src/lib/localizedContent.ts`](src/lib/localizedContent.ts) |
+| Lessons | [`content/lessons/{en,es}/*.mdx`](content/lessons/en/) |
+| Learning paths | [`content/paths/{en,es}/*.mdx`](content/paths/en/) |
+| Glossary | [`content/glossary/{en,es}/*.mdx`](content/glossary/en/) |
 | UI strings (EN/ES) | [`src/messages/en.json`](src/messages/en.json), [`src/messages/es.json`](src/messages/es.json) |
 
 ## Environment variables
