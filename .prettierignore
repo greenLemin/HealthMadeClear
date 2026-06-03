@@ -1,0 +1,6 @@
+.next
+node_modules
+src/data/*Bundles.ts
+package-lock.json
+test-results
+playwright-report

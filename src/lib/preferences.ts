@@ -26,7 +26,8 @@ const COOKIE_MAX_AGE = 60 * 60 * 24 * 365;
 
 export function setPreferenceCookie(name: string, value: string) {
   if (typeof document === "undefined") return;
-  document.cookie = `${name}=${encodeURIComponent(value)};path=/;max-age=${COOKIE_MAX_AGE};SameSite=Lax`;
+  const secure = process.env.NODE_ENV === "production" ? ";Secure" : "";
+  document.cookie = `${name}=${encodeURIComponent(value)};path=/;max-age=${COOKIE_MAX_AGE};SameSite=Lax${secure}`;
 }
 
 export function getCookieValue(name: string): string | null {
@@ -63,6 +64,30 @@ export function readStoredTextSize(): TextSize {
     if (fromStorage === "large" || fromStorage === "largest") return fromStorage;
   }
   return "standard";
+}
+
+export function readStoredJson<T>(key: string, validate: (value: unknown) => T | null): T | null {
+  if (typeof window === "undefined") return null;
+
+  const raw = window.localStorage.getItem(key);
+  if (!raw) return null;
+
+  try {
+    return validate(JSON.parse(raw));
+  } catch {
+    return null;
+  }
+}
+
+export function writeStoredJson(key: string, value: unknown) {
+  if (typeof window === "undefined") return;
+  window.localStorage.setItem(key, JSON.stringify(value));
+}
+
+export function readStoredStringArray(key: string): string[] {
+  const parsed = readStoredJson(key, (value) => (Array.isArray(value) ? value : null));
+  if (!parsed) return [];
+  return parsed.filter((item): item is string => typeof item === "string");
 }
 
 export function readStoredSimpleMode(): boolean {

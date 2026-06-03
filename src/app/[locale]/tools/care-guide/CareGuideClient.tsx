@@ -1,28 +1,35 @@
 "use client";
 
 import MedicalDisclaimer from "@/components/MedicalDisclaimer";
-import { useAppState } from "@/components/AppProviders";
 import PageHeader from "@/components/PageHeader";
-import { getMessages } from "@/lib/i18n";
+import { useTranslations } from "next-intl";
 
 export default function CareGuideClient() {
-  const { locale } = useAppState();
-  const copy = getMessages(locale);
+  const t = useTranslations("tools");
+  const tDisclaimer = useTranslations("disclaimer");
 
   const careOptions = [
-    { title: copy.tools.homeCare, description: copy.tools.homeCareBody, tone: "border-outline-variant bg-surface" },
-    { title: copy.tools.primaryCare, description: copy.tools.primaryCareBody, tone: "border-outline-variant bg-secondary-container/40" },
-    { title: copy.tools.urgentCare, description: copy.tools.urgentCareBody, tone: "border-transparent bg-secondary-container" },
-    { title: copy.tools.emergency, description: copy.tools.emergencyBody, tone: "border-error bg-error-container" },
+    { title: t("homeCare"), description: t("homeCareBody"), tone: "border-outline-variant bg-surface" },
+    {
+      title: t("primaryCare"),
+      description: t("primaryCareBody"),
+      tone: "border-outline-variant bg-secondary-container/40",
+    },
+    {
+      title: t("urgentCare"),
+      description: t("urgentCareBody"),
+      tone: "border-transparent bg-secondary-container",
+    },
+    { title: t("emergency"), description: t("emergencyBody"), tone: "border-error bg-error-container" },
   ];
 
   return (
     <main className="pb-16">
       <div className="no-print bg-error px-4 py-3 text-center text-sm font-semibold text-on-error">
-        {copy.disclaimer.emergencyBody}
+        {tDisclaimer("emergencyBody")}
       </div>
       <div className="max-w-container mx-auto px-4 py-12 md:px-6">
-        <PageHeader centered title={copy.tools.careGuideTitle} description={copy.tools.careGuideDescription} />
+        <PageHeader centered title={t("careGuideTitle")} description={t("careGuideDescription")} />
 
         <section className="mb-12">
           <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
@@ -35,7 +42,7 @@ export default function CareGuideClient() {
           </div>
         </section>
 
-        <MedicalDisclaimer locale={locale} variant="emergency" />
+        <MedicalDisclaimer variant="emergency" />
       </div>
     </main>
   );

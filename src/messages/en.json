@@ -55,6 +55,7 @@
     "emergencyCallAria": "Call emergency services (911 in the US)"
   },
   "common": {
+    "add": "Add",
     "completed": "Completed",
     "ready": "Ready",
     "continue": "Continue",
@@ -92,7 +93,9 @@
   },
   "glossary": {
     "title": "Health Glossary",
-    "description": "Clear, everyday definitions for medical terms so you can understand your health journey without the confusion."
+    "description": "Clear, everyday definitions for medical terms so you can understand your health journey without the confusion.",
+    "backToGlossary": "Back to glossary",
+    "viewTerm": "View full definition"
   },
   "learn": {
     "title": "What would you like to learn today?",
@@ -111,7 +114,21 @@
     "tipWarnings": "Look for warnings.",
     "tipMissedDose": "Ask what happens if you miss a dose.",
     "pharmacistTip": "Pharmacists can explain labels in simple language.",
-    "keepLearning": "Keep learning"
+    "sidebarBodyDoctor": "Prepare for your next doctor's visit.",
+    "tipDoctorAppointmentTime": "Write down the date and time.",
+    "tipDoctorInsurance": "Bring your insurance card and photo ID.",
+    "tipDoctorQuestions": "Make a list of questions to ask.",
+    "tipDoctorMeds": "Bring all your current medications.",
+    "doctorTip": "Your doctor is there to partner with you on your health.",
+    "sidebarBodyLabs": "Prepare for your lab tests.",
+    "tipLabsFasting": "Check if you need to fast.",
+    "tipLabsHydration": "Drink plenty of water before the test.",
+    "tipLabsComfort": "Wear comfortable clothing with loose sleeves.",
+    "tipLabsResults": "Ask when and how you will get your results.",
+    "labsTip": "Lab technicians can explain the testing process.",
+    "keepLearning": "Keep learning",
+    "lastReviewed": "Last reviewed",
+    "sources": "Sources"
   },
   "paths": {
     "resumeJourney": "Resume journey",
@@ -151,7 +168,11 @@
     "noRecentMilestones": "Complete your first lesson to start building your milestone history.",
     "recentlyViewed": "Recently viewed",
     "seeAll": "See all",
-    "overallProgress": "Overall progress"
+    "overallProgress": "Overall progress",
+    "exportProgress": "Export progress",
+    "importProgress": "Import progress",
+    "importSuccess": "Progress restored from file.",
+    "importError": "Could not read that file. Choose a valid Health Made Clear export."
   },
   "home": {
     "introBadge": "New to health terminology?",
@@ -238,6 +259,10 @@
     "printList": "Print my list",
     "yourVisitPlan": "Your visit plan",
     "questionsToAsk": "Questions to ask",
+    "customQuestionsTitle": "Your Custom Questions",
+    "customQuestionPlaceholder": "Type your custom question here...",
+    "remove": "Remove",
+    "noQuestionsSelected": "No questions selected.",
     "yourNotes": "Your notes",
     "noNotes": "No personal notes added yet.",
     "editQuestions": "Edit questions",
@@ -310,5 +335,11 @@
     "glossaryDescription": "Find plain-language definitions for medical terms.",
     "toolsTitle": "Tools",
     "toolsDescription": "Use practical resources for visits and care decisions."
+  },
+  "errors": {
+    "title": "Something went wrong",
+    "body": "We could not load this page. Your progress on this device is unchanged.",
+    "retry": "Try again",
+    "home": "Go home"
   }
 }

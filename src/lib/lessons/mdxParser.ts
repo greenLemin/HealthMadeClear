@@ -50,6 +50,11 @@ function lessonFromFile(filePath: string): Lesson {
     categoryId,
     duration: String(data.duration),
     level,
+    lastReviewed: data.lastReviewed ? String(data.lastReviewed) : undefined,
+    sources: Array.isArray(data.sources) ? data.sources.map(String) : undefined,
+    image: data.image ? String(data.image) : undefined,
+    sidebarTips: Array.isArray(data.sidebarTips) ? data.sidebarTips.map(String) : undefined,
+    sidebarTitle: data.sidebarTitle ? String(data.sidebarTitle) : undefined,
     content: { sections: parseSections(content.trim()) },
   };
 }

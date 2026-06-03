@@ -3,28 +3,51 @@
 import { Link } from "@/i18n/navigation";
 import { BookOpen, ClipboardList, MapPinned, MessagesSquare } from "lucide-react";
 import MedicalDisclaimer from "@/components/MedicalDisclaimer";
-import { useAppState } from "@/components/AppProviders";
 import PageHeader from "@/components/PageHeader";
-import { getMessages } from "@/lib/i18n";
+import { useTranslations } from "next-intl";
 
 export default function ToolsClient() {
-  const { locale } = useAppState();
-  const copy = getMessages(locale);
+  const t = useTranslations("tools");
+  const tCommon = useTranslations("common");
 
   const tools = [
-    { title: copy.tools.askTitle, description: copy.tools.askDescription, href: "/tools/visit-planner", icon: MessagesSquare, featured: true },
-    { title: copy.tools.careTitle, description: copy.tools.careDescription, href: "/tools/care-guide", icon: MapPinned, featured: false },
-    { title: copy.tools.labelsTitle, description: copy.tools.labelsDescription, href: "/learn/understanding-prescription-labels", icon: BookOpen, featured: false },
-    { title: copy.tools.checklistTitle, description: copy.tools.checklistDescription, href: "/tools/visit-checklist", icon: ClipboardList, featured: true },
+    {
+      title: t("askTitle"),
+      description: t("askDescription"),
+      href: "/tools/visit-planner",
+      icon: MessagesSquare,
+      featured: true,
+    },
+    {
+      title: t("careTitle"),
+      description: t("careDescription"),
+      href: "/tools/care-guide",
+      icon: MapPinned,
+      featured: false,
+    },
+    {
+      title: t("labelsTitle"),
+      description: t("labelsDescription"),
+      href: "/learn/understanding-prescription-labels",
+      icon: BookOpen,
+      featured: false,
+    },
+    {
+      title: t("checklistTitle"),
+      description: t("checklistDescription"),
+      href: "/tools/visit-checklist",
+      icon: ClipboardList,
+      featured: true,
+    },
   ];
 
   return (
     <main className="py-12 md:py-16">
       <div className="max-w-container mx-auto px-4 md:px-6">
-        <PageHeader badge={copy.tools.pageBadge} title={copy.tools.pageTitle} description={copy.tools.pageDescription} />
+        <PageHeader badge={t("pageBadge")} title={t("pageTitle")} description={t("pageDescription")} />
 
         <div className="mb-10">
-          <MedicalDisclaimer locale={locale} />
+          <MedicalDisclaimer />
         </div>
 
         <div className="grid gap-6 md:grid-cols-2">
@@ -46,7 +69,7 @@ export default function ToolsClient() {
                 <h2 className="mb-3 text-headline-lg text-primary">{tool.title}</h2>
                 <p className="mb-6 text-body-md text-on-surface-variant">{tool.description}</p>
                 <span className="inline-flex min-h-[48px] items-center rounded-full border border-primary px-5 text-sm font-semibold text-primary">
-                  {copy.common.useTool}
+                  {tCommon("useTool")}
                 </span>
               </Link>
             );

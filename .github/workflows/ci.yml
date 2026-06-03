@@ -9,6 +9,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      NEXT_PUBLIC_SITE_URL: https://healthmadeclear.org
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -16,9 +18,15 @@ jobs:
           node-version: "20"
           cache: npm
       - run: npm ci
+      - run: npm run content:bundle
+      - run: npm run content:validate
+      - run: git diff --exit-code
+      - run: npm run format:check
+      - run: npm audit --audit-level=high
+        continue-on-error: true
       - run: npm run lint
       - run: npm run typecheck
-      - run: npm test
+      - run: npm run test:coverage
       - run: npm run build
       - run: npx playwright install chromium --with-deps
       - run: npm run test:e2e

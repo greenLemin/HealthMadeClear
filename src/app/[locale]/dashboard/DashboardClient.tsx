@@ -1,17 +1,27 @@
 "use client";
 
+import { useRef } from "react";
 import { Link } from "@/i18n/navigation";
 import { BookOpen, CheckCircle2, Clock, TrendingUp } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { useAppState } from "@/components/AppProviders";
 import PageHeader from "@/components/PageHeader";
 import { getCategoryLabel } from "@/lib/i18n";
 import { getCompletedPathCount, getPathProgress, getStartedPathCount } from "@/lib/content";
-import { getMessages } from "@/lib/i18n";
 import { getLearningPaths, getLessons } from "@/lib/localizedContent";
+import {
+  applyProgressImport,
+  buildProgressExport,
+  downloadProgressExport,
+  parseProgressImport,
+} from "@/lib/progressExport";
 
 export default function DashboardClient() {
   const { completedLessons, locale, recentLessons, startedPaths } = useAppState();
-  const copy = getMessages(locale);
+  const t = useTranslations("dashboard");
+  const tCommon = useTranslations("common");
+  const tPaths = useTranslations("paths");
+  const importInputRef = useRef<HTMLInputElement>(null);
   const lessons = getLessons(locale);
   const learningPaths = getLearningPaths(locale);
 
@@ -43,7 +53,41 @@ export default function DashboardClient() {
   return (
     <main className="py-12 md:py-16">
       <div className="max-w-container mx-auto px-4 md:px-6">
-        <PageHeader title={copy.dashboard.title} description={copy.dashboard.description} />
+        <PageHeader title={t("title")} description={t("description")} />
+
+        <div className="no-print mb-8 flex flex-wrap gap-3">
+          <button
+            type="button"
+            className="btn-secondary"
+            onClick={() =>
+              downloadProgressExport(buildProgressExport(completedLessons, recentLessons, startedPaths))
+            }
+          >
+            {t("exportProgress")}
+          </button>
+          <button type="button" className="btn-secondary" onClick={() => importInputRef.current?.click()}>
+            {t("importProgress")}
+          </button>
+          <input
+            ref={importInputRef}
+            type="file"
+            accept="application/json"
+            className="sr-only"
+            onChange={async (event) => {
+              const file = event.target.files?.[0];
+              if (!file) return;
+              const text = await file.text();
+              const data = parseProgressImport(text);
+              if (!data) {
+                window.alert(t("importError"));
+                return;
+              }
+              applyProgressImport(data);
+              window.alert(t("importSuccess"));
+              window.location.reload();
+            }}
+          />
+        </div>
 
         <div className="mb-12 grid gap-6 md:grid-cols-3">
           <div className="card">
@@ -52,7 +96,7 @@ export default function DashboardClient() {
                 <BookOpen size={22} />
               </div>
               <div>
-                <div className="text-label-md text-on-surface-variant">{copy.dashboard.completedLessons}</div>
+                <div className="text-label-md text-on-surface-variant">{t("completedLessons")}</div>
                 <div className="text-headline-lg text-primary">
                   {completedCount} / {totalLessons}
                 </div>
@@ -64,12 +108,12 @@ export default function DashboardClient() {
               aria-valuenow={progressPercentage}
               aria-valuemin={0}
               aria-valuemax={100}
-              aria-label={copy.dashboard.overallProgress}
+              aria-label={t("overallProgress")}
             >
               <div className="progress-fill" style={{ width: `${progressPercentage}%` }} />
             </div>
             <div className="text-sm text-on-surface-variant">
-              {progressPercentage}% {copy.dashboard.ofLibrary}
+              {progressPercentage}% {t("ofLibrary")}
             </div>
           </div>
 
@@ -79,12 +123,12 @@ export default function DashboardClient() {
                 <TrendingUp size={22} />
               </div>
               <div>
-                <div className="text-label-md text-on-surface-variant">{copy.dashboard.pathsInProgress}</div>
+                <div className="text-label-md text-on-surface-variant">{t("pathsInProgress")}</div>
                 <div className="text-headline-lg text-primary">{startedPathCount}</div>
               </div>
             </div>
             <div className="text-body-md text-on-surface-variant">
-              {startedPathCount === 0 ? copy.dashboard.noPathsProgress : copy.dashboard.keepGoing}
+              {startedPathCount === 0 ? t("noPathsProgress") : t("keepGoing")}
             </div>
           </div>
 
@@ -94,12 +138,12 @@ export default function DashboardClient() {
                 <CheckCircle2 size={22} />
               </div>
               <div>
-                <div className="text-label-md text-on-surface-variant">{copy.dashboard.pathsCompleted}</div>
+                <div className="text-label-md text-on-surface-variant">{t("pathsCompleted")}</div>
                 <div className="text-headline-lg text-primary">{completedPathCount}</div>
               </div>
             </div>
             <div className="text-body-md text-on-surface-variant">
-              {completedPathCount === 0 ? copy.dashboard.noPathsCompleted : copy.dashboard.pathsCompletedMsg}
+              {completedPathCount === 0 ? t("noPathsCompleted") : t("pathsCompletedMsg")}
             </div>
           </div>
         </div>
@@ -110,29 +154,31 @@ export default function DashboardClient() {
               <div className="min-h-72 bg-gradient-to-br from-primary-container to-primary-fixed" />
               <div className="p-6 md:p-8">
                 <div className="mb-3 inline-flex rounded-full bg-surface-container px-4 py-2 text-sm font-semibold text-primary">
-                  {activePath ? copy.dashboard.upNext : copy.dashboard.readyWhenYouAre}
+                  {activePath ? t("upNext") : t("readyWhenYouAre")}
                 </div>
                 <h2 className="mb-3 text-headline-lg text-primary">
-                  {nextLesson ? nextLesson.title : copy.dashboard.startFirstLesson}
+                  {nextLesson ? nextLesson.title : t("startFirstLesson")}
                 </h2>
                 <p className="mb-6 text-body-md text-on-surface-variant">
-                  {nextLesson ? nextLesson.description : copy.dashboard.browseIntroLessons}
+                  {nextLesson ? nextLesson.description : t("browseIntroLessons")}
                 </p>
                 <div className="flex flex-wrap items-center gap-4">
                   <Link
                     href={nextLesson ? `/learn/${nextLesson.id}` : "/learning-paths"}
                     className="btn-primary inline-flex items-center justify-center"
                   >
-                    {nextLesson ? copy.dashboard.resumeLesson : copy.dashboard.explorePaths}
+                    {nextLesson ? t("resumeLesson") : t("explorePaths")}
                   </Link>
-                  {nextLesson ? <span className="text-sm text-on-surface-variant">{nextLesson.duration}</span> : null}
+                  {nextLesson ? (
+                    <span className="text-sm text-on-surface-variant">{nextLesson.duration}</span>
+                  ) : null}
                 </div>
               </div>
             </div>
           </section>
 
           <section className="card">
-            <h2 className="mb-5 text-headline-md text-primary">{copy.dashboard.overview}</h2>
+            <h2 className="mb-5 text-headline-md text-primary">{t("overview")}</h2>
             <div className="space-y-5">
               {learningPaths.slice(0, 3).map((path) => {
                 const progress = getPathProgress(path.id, completedLessons, lessons, learningPaths);
@@ -148,12 +194,12 @@ export default function DashboardClient() {
                       aria-valuenow={progress.percentage}
                       aria-valuemin={0}
                       aria-valuemax={100}
-                      aria-label={`${path.title} ${copy.paths.progressLabel}`}
+                      aria-label={`${path.title} ${tPaths("progressLabel")}`}
                     >
                       <div className="progress-fill" style={{ width: `${progress.percentage}%` }} />
                     </div>
                     <div className="text-sm text-on-surface-variant">
-                      {progress.completedCount} {copy.common.of} {progress.totalCount} {copy.dashboard.modulesCompleted}
+                      {progress.completedCount} {tCommon("of")} {progress.totalCount} {t("modulesCompleted")}
                     </div>
                   </div>
                 );
@@ -164,22 +210,25 @@ export default function DashboardClient() {
 
         <div className="grid gap-6 lg:grid-cols-[0.9fr_1.1fr]">
           <section className="card">
-            <h2 className="mb-6 text-headline-md text-primary">{copy.dashboard.recentMilestones}</h2>
+            <h2 className="mb-6 text-headline-md text-primary">{t("recentMilestones")}</h2>
             <div className="space-y-4">
               {completedCount === 0 ? (
-                <div className="text-body-md text-on-surface-variant">{copy.dashboard.noRecentMilestones}</div>
+                <div className="text-body-md text-on-surface-variant">{t("noRecentMilestones")}</div>
               ) : (
                 completedLessons.slice(0, 3).map((lessonId) => {
                   const lesson = lessons.find((item) => item.id === lessonId);
                   if (!lesson) return null;
                   return (
-                    <div key={lesson.id} className="flex items-start gap-3 rounded-lg bg-surface-container-low p-4">
+                    <div
+                      key={lesson.id}
+                      className="flex items-start gap-3 rounded-lg bg-surface-container-low p-4"
+                    >
                       <div className="mt-1 rounded-full bg-secondary-container p-1 text-primary">
                         <CheckCircle2 size={16} />
                       </div>
                       <div>
                         <div className="text-label-md text-on-surface">
-                          {copy.common.completed}: {lesson.title}
+                          {tCommon("completed")}: {lesson.title}
                         </div>
                         <div className="text-sm text-on-surface-variant">
                           {getCategoryLabel(lesson.categoryId, locale)}
@@ -194,9 +243,9 @@ export default function DashboardClient() {
 
           <section>
             <div className="mb-6 flex items-end justify-between gap-4">
-              <h2 className="text-headline-md text-primary">{copy.dashboard.recentlyViewed}</h2>
+              <h2 className="text-headline-md text-primary">{t("recentlyViewed")}</h2>
               <Link href="/learn" className="text-sm font-semibold text-primary">
-                {copy.dashboard.seeAll}
+                {t("seeAll")}
               </Link>
             </div>
             <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">

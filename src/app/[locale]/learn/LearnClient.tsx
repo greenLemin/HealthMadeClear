@@ -5,9 +5,10 @@ import { Link } from "@/i18n/navigation";
 import { Clock, Search } from "lucide-react";
 import { useAppState } from "@/components/AppProviders";
 import PageHeader from "@/components/PageHeader";
-import { formatLevel, getCategoryLabel, getMessages } from "@/lib/i18n";
+import { formatLevel, getCategoryLabel } from "@/lib/i18n";
 import { getLessons } from "@/lib/localizedContent";
 import { LESSON_CATEGORY_IDS, type LessonCategoryId } from "@/types/content";
+import { useTranslations } from "next-intl";
 
 const ALL_CATEGORIES = "all";
 
@@ -16,16 +17,17 @@ type CategoryFilter = typeof ALL_CATEGORIES | LessonCategoryId;
 export default function LearnClient() {
   const [query, setQuery] = useState("");
   const { completedLessons, locale, markLessonViewed } = useAppState();
-  const copy = getMessages(locale);
+  const t = useTranslations("learn");
+  const tCommon = useTranslations("common");
   const lessons = getLessons(locale);
   const [activeCategory, setActiveCategory] = useState<CategoryFilter>(ALL_CATEGORIES);
 
   const categoryFilters: { id: CategoryFilter; label: string }[] = useMemo(
     () => [
-      { id: ALL_CATEGORIES, label: copy.common.allTopics },
+      { id: ALL_CATEGORIES, label: tCommon("allTopics") },
       ...LESSON_CATEGORY_IDS.map((id) => ({ id, label: getCategoryLabel(id, locale) })),
     ],
-    [copy.common.allTopics, locale]
+    [locale, tCommon]
   );
 
   const filteredLessons = useMemo(() => {
@@ -46,15 +48,18 @@ export default function LearnClient() {
   return (
     <main className="py-12 md:py-16">
       <div className="max-w-container mx-auto px-4 md:px-6">
-        <PageHeader centered title={copy.learn.title} description={copy.learn.description}>
+        <PageHeader centered title={t("title")} description={t("description")}>
           <label className="relative mt-6 block text-left">
-            <span className="sr-only">{copy.common.searchLessons}</span>
-            <Search className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant" size={18} />
+            <span className="sr-only">{tCommon("searchLessons")}</span>
+            <Search
+              className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant"
+              size={18}
+            />
             <input
               className="input-field pl-12"
               value={query}
               onChange={(event) => setQuery(event.target.value)}
-              placeholder={copy.common.searchLessons}
+              placeholder={tCommon("searchLessons")}
               aria-describedby="learn-results-count"
             />
           </label>
@@ -79,13 +84,13 @@ export default function LearnClient() {
 
         <div id="learn-results-count" className="mb-4 text-sm text-on-surface-variant" aria-live="polite">
           {filteredLessons.length > 0
-            ? `${filteredLessons.length} ${copy.common.lessonsFound}`
-            : copy.common.noLessonsFound}
+            ? `${filteredLessons.length} ${tCommon("lessonsFound")}`
+            : tCommon("noLessonsFound")}
         </div>
 
         {featuredLessons.length > 0 ? (
           <section className="mb-14">
-            <h2 className="mb-6 text-headline-lg text-primary">{copy.common.recommended}</h2>
+            <h2 className="mb-6 text-headline-lg text-primary">{tCommon("recommended")}</h2>
             <div className="grid gap-6 lg:grid-cols-2">
               {featuredLessons.map((lesson, index) => (
                 <Link
@@ -113,7 +118,9 @@ export default function LearnClient() {
                           <Clock size={16} />
                           {lesson.duration}
                         </span>
-                        <span>{completedLessons.includes(lesson.id) ? copy.common.completed : copy.common.ready}</span>
+                        <span>
+                          {completedLessons.includes(lesson.id) ? tCommon("completed") : tCommon("ready")}
+                        </span>
                       </div>
                     </div>
                   </div>
@@ -125,7 +132,7 @@ export default function LearnClient() {
 
         {libraryLessons.length > 0 ? (
           <section>
-            <h2 className="mb-6 text-headline-lg text-primary">{copy.common.exploreLibrary}</h2>
+            <h2 className="mb-6 text-headline-lg text-primary">{tCommon("exploreLibrary")}</h2>
             <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
               {libraryLessons.map((lesson) => (
                 <Link
@@ -145,7 +152,9 @@ export default function LearnClient() {
                       {lesson.duration}
                     </span>
                     <span>
-                      {completedLessons.includes(lesson.id) ? copy.common.completed : formatLevel(lesson.level, locale)}
+                      {completedLessons.includes(lesson.id)
+                        ? tCommon("completed")
+                        : formatLevel(lesson.level, locale)}
                     </span>
                   </div>
                 </Link>
@@ -156,7 +165,7 @@ export default function LearnClient() {
 
         {filteredLessons.length === 0 ? (
           <div className="card mt-6 text-center" role="status">
-            <p className="text-body-md text-on-surface-variant">{copy.common.noLessonsTryBroader}</p>
+            <p className="text-body-md text-on-surface-variant">{tCommon("noLessonsTryBroader")}</p>
             <button
               type="button"
               className="btn-secondary mt-4 inline-flex items-center"
@@ -165,7 +174,7 @@ export default function LearnClient() {
                 setActiveCategory(ALL_CATEGORIES);
               }}
             >
-              {copy.common.showAllLessons}
+              {tCommon("showAllLessons")}
             </button>
           </div>
         ) : null}

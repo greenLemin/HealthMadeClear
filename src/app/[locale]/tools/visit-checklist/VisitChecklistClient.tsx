@@ -1,33 +1,28 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Printer } from "lucide-react";
 import MedicalDisclaimer from "@/components/MedicalDisclaimer";
-import { useAppState } from "@/components/AppProviders";
 import PageHeader from "@/components/PageHeader";
-import { getMessages } from "@/lib/i18n";
-import { STORAGE_KEYS } from "@/lib/preferences";
+import { STORAGE_KEYS, readStoredStringArray, writeStoredJson } from "@/lib/preferences";
+import { useTranslations } from "next-intl";
 
 export default function VisitChecklistClient() {
-  const { locale } = useAppState();
-  const copy = getMessages(locale);
-  const checklistItems = copy.tools.checklistItems;
+  const t = useTranslations("tools");
+  const tCommon = useTranslations("common");
+  const checklistItems = useMemo(() => t.raw("checklistItems") as string[], [t]);
   const [checkedItems, setCheckedItems] = useState<string[]>([]);
+  const [hydrated, setHydrated] = useState(false);
 
   useEffect(() => {
-    const saved = window.localStorage.getItem(STORAGE_KEYS.checklist);
-    if (!saved) return;
-    try {
-      const parsed = JSON.parse(saved);
-      if (Array.isArray(parsed)) setCheckedItems(parsed);
-    } catch {
-      /* ignore */
-    }
+    setCheckedItems(readStoredStringArray(STORAGE_KEYS.checklist));
+    setHydrated(true);
   }, []);
 
   useEffect(() => {
-    window.localStorage.setItem(STORAGE_KEYS.checklist, JSON.stringify(checkedItems));
-  }, [checkedItems]);
+    if (!hydrated) return;
+    writeStoredJson(STORAGE_KEYS.checklist, checkedItems);
+  }, [checkedItems, hydrated]);
 
   const toggleItem = (item: string) => {
     setCheckedItems((current) =>
@@ -38,19 +33,24 @@ export default function VisitChecklistClient() {
   return (
     <main className="py-12 md:py-16">
       <div className="max-w-container mx-auto px-4 md:px-6">
-        <PageHeader title={copy.tools.checklistPageTitle} description={copy.tools.checklistPageDescription} />
+        <PageHeader title={t("checklistPageTitle")} description={t("checklistPageDescription")} />
 
         <div className="card max-w-4xl">
           <div className="mb-6 flex items-center justify-between gap-4">
             <div>
-              <div className="text-label-lg text-primary">{copy.tools.readyBeforeGo}</div>
+              <div className="text-label-lg text-primary">{t("readyBeforeGo")}</div>
               <div className="text-body-md text-on-surface-variant">
-                {checkedItems.length} {copy.common.of} {checklistItems.length} {copy.common.completed.toLowerCase()}
+                {checkedItems.length} {tCommon("of")} {checklistItems.length}{" "}
+                {tCommon("completed").toLowerCase()}
               </div>
             </div>
-            <button type="button" className="btn-secondary no-print inline-flex items-center gap-2" onClick={() => window.print()}>
+            <button
+              type="button"
+              className="btn-secondary no-print inline-flex items-center gap-2"
+              onClick={() => window.print()}
+            >
               <Printer size={18} />
-              {copy.tools.printChecklist}
+              {t("printChecklist")}
             </button>
           </div>
 
@@ -60,7 +60,7 @@ export default function VisitChecklistClient() {
             aria-valuenow={checkedItems.length}
             aria-valuemin={0}
             aria-valuemax={checklistItems.length}
-            aria-label={copy.tools.checklistProgress}
+            aria-label={t("checklistProgress")}
           >
             <div
               className="progress-fill"
@@ -97,7 +97,7 @@ export default function VisitChecklistClient() {
         </div>
 
         <div className="mt-8 max-w-4xl">
-          <MedicalDisclaimer locale={locale} />
+          <MedicalDisclaimer />
         </div>
       </div>
     </main>

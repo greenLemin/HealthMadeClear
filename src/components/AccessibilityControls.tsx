@@ -1,48 +1,27 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { Moon, Settings2, Sun, Type } from "lucide-react";
 import { useAppState } from "@/components/AppProviders";
+import { useDismissibleOverlay } from "@/hooks/useDismissibleOverlay";
 import { useFocusTrap } from "@/hooks/useFocusTrap";
-import { getMessages } from "@/lib/i18n";
+import { useTranslations } from "next-intl";
 
 export default function AccessibilityControls() {
   const [isOpen, setIsOpen] = useState(false);
   const panelRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
-  const { locale, theme, setTheme, textSize, setTextSize, simpleMode, setSimpleMode } = useAppState();
-  const copy = getMessages(locale);
+  const { theme, setTheme, textSize, setTextSize, simpleMode, setSimpleMode } = useAppState();
+  const t = useTranslations("accessibility");
 
   useFocusTrap(panelRef, isOpen);
-
-  useEffect(() => {
-    if (!isOpen) return;
-
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") {
-        setIsOpen(false);
-        triggerRef.current?.focus();
-      }
-    };
-
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        panelRef.current &&
-        !panelRef.current.contains(event.target as Node) &&
-        !triggerRef.current?.contains(event.target as Node)
-      ) {
-        setIsOpen(false);
-      }
-    };
-
-    document.addEventListener("keydown", handleKeyDown);
-    document.addEventListener("mousedown", handleClickOutside);
-
-    return () => {
-      document.removeEventListener("keydown", handleKeyDown);
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [isOpen]);
+  useDismissibleOverlay({
+    isOpen,
+    onClose: () => setIsOpen(false),
+    containerRef: panelRef,
+    triggerRef,
+    returnFocusRef: triggerRef,
+  });
 
   return (
     <div className="relative">
@@ -55,7 +34,7 @@ export default function AccessibilityControls() {
         aria-controls="accessibility-panel"
       >
         <Settings2 size={18} />
-        {copy.accessibility.display}
+        {t("display")}
       </button>
 
       {isOpen ? (
@@ -64,17 +43,17 @@ export default function AccessibilityControls() {
           ref={panelRef}
           role="dialog"
           aria-modal="true"
-          aria-label={copy.accessibility.controls}
+          aria-label={t("controls")}
           className="absolute right-0 top-14 z-50 w-80 rounded-xl border border-outline-variant bg-surface p-5 shadow-elevation-2"
         >
-          <div className="mb-5 text-label-lg text-primary">{copy.accessibility.controls}</div>
+          <div className="mb-5 text-label-lg text-primary">{t("controls")}</div>
 
           <div className="mb-5">
             <div className="mb-2 flex items-center gap-2 text-label-md text-on-surface">
               <Type size={16} />
-              {copy.accessibility.textSize}
+              {t("textSize")}
             </div>
-            <div className="grid grid-cols-3 gap-2" role="radiogroup" aria-label={copy.accessibility.textSize}>
+            <div className="grid grid-cols-3 gap-2" role="radiogroup" aria-label={t("textSize")}>
               {(
                 [
                   ["standard", "A"],
@@ -101,8 +80,8 @@ export default function AccessibilityControls() {
           </div>
 
           <div className="mb-5">
-            <div className="mb-2 text-label-md text-on-surface">{copy.accessibility.colorTheme}</div>
-            <div className="grid grid-cols-2 gap-2" role="radiogroup" aria-label={copy.accessibility.colorTheme}>
+            <div className="mb-2 text-label-md text-on-surface">{t("colorTheme")}</div>
+            <div className="grid grid-cols-2 gap-2" role="radiogroup" aria-label={t("colorTheme")}>
               <button
                 type="button"
                 role="radio"
@@ -115,7 +94,7 @@ export default function AccessibilityControls() {
                 }
               >
                 <Sun size={16} />
-                {copy.accessibility.light}
+                {t("light")}
               </button>
               <button
                 type="button"
@@ -129,15 +108,15 @@ export default function AccessibilityControls() {
                 }
               >
                 <Moon size={16} />
-                {copy.accessibility.dark}
+                {t("dark")}
               </button>
             </div>
           </div>
 
           <div className="flex items-center justify-between rounded-lg bg-surface-container-low px-4 py-4">
             <div>
-              <div className="text-label-md text-on-surface">{copy.accessibility.simpleMode}</div>
-              <div className="text-sm text-on-surface-variant">{copy.accessibility.simpleModeDescription}</div>
+              <div className="text-label-md text-on-surface">{t("simpleMode")}</div>
+              <div className="text-sm text-on-surface-variant">{t("simpleModeDescription")}</div>
             </div>
             <button
               type="button"
@@ -149,7 +128,7 @@ export default function AccessibilityControls() {
                   : "rounded-full border border-outline-variant px-4 py-2 text-sm font-semibold text-on-surface"
               }
             >
-              {simpleMode ? copy.accessibility.on : copy.accessibility.off}
+              {simpleMode ? t("on") : t("off")}
             </button>
           </div>
         </div>

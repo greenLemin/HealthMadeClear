@@ -8,6 +8,11 @@ export interface Lesson {
   categoryId: LessonCategoryId;
   duration: string;
   level: "beginner" | "intermediate" | "advanced";
+  lastReviewed?: string;
+  sources?: string[];
+  image?: string;
+  sidebarTips?: string[];
+  sidebarTitle?: string;
   content: {
     sections: {
       title: string;

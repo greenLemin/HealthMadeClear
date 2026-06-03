@@ -1,21 +1,20 @@
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import { lessons } from "@/data/lessons";
-import type { Locale } from "@/lib/i18n";
+import { requireLocale } from "@/lib/locale";
 import { getLessonById } from "@/lib/localizedContent";
+import JsonLd from "@/components/JsonLd";
 import { getSiteUrl } from "@/lib/site";
 import LessonPageClient from "./LessonPageClient";
 
 type Props = { params: { locale: string; slug: string } };
 
 export function generateStaticParams() {
-  return routing.locales.flatMap((locale) =>
-    lessons.map((lesson) => ({ locale, slug: lesson.id }))
-  );
+  return routing.locales.flatMap((locale) => lessons.map((lesson) => ({ locale, slug: lesson.id })));
 }
 
 export function generateMetadata({ params }: Props) {
-  const locale = params.locale as Locale;
+  const locale = requireLocale(params.locale);
   const lesson = getLessonById(params.slug, locale);
   if (!lesson) return { title: "Lesson not found" };
 
@@ -43,10 +42,31 @@ export function generateMetadata({ params }: Props) {
 }
 
 export default function LessonDetailPage({ params }: Props) {
-  const locale = params.locale as Locale;
-  if (!getLessonById(params.slug, locale)) {
+  const locale = requireLocale(params.locale);
+  const lesson = getLessonById(params.slug, locale);
+  if (!lesson) {
     notFound();
   }
 
-  return <LessonPageClient slug={params.slug} />;
+  const base = getSiteUrl();
+  const url = `${base}/${locale}/learn/${lesson.id}`;
+
+  return (
+    <>
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@type": "LearningResource",
+          name: lesson.title,
+          description: lesson.description,
+          inLanguage: locale,
+          url,
+          learningResourceType: "Lesson",
+          educationalLevel: lesson.level,
+          timeRequired: lesson.duration,
+        }}
+      />
+      <LessonPageClient lesson={lesson} />
+    </>
+  );
 }

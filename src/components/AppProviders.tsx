@@ -1,18 +1,11 @@
 "use client";
 
-import {
-  createContext,
-  useContext,
-  useEffect,
-  useMemo,
-  useState,
-  type ReactNode,
-} from "react";
+import { createContext, useContext, useEffect, useMemo, useState, type ReactNode } from "react";
 import type { Locale } from "@/lib/i18n";
 import {
   STORAGE_KEYS,
   applyDocumentPreferences,
-  readStoredLocale,
+  readStoredStringArray,
   readStoredSimpleMode,
   readStoredTextSize,
   readStoredTheme,
@@ -42,25 +35,6 @@ type AppContextValue = {
 
 const AppContext = createContext<AppContextValue | null>(null);
 
-function readArray(key: string) {
-  if (typeof window === "undefined") {
-    return [] as string[];
-  }
-
-  const value = window.localStorage.getItem(key);
-
-  if (!value) {
-    return [] as string[];
-  }
-
-  try {
-    const parsed = JSON.parse(value);
-    return Array.isArray(parsed) ? parsed : [];
-  } catch {
-    return [] as string[];
-  }
-}
-
 export default function AppProviders({
   children,
   locale: initialLocale,
@@ -82,9 +56,9 @@ export default function AppProviders({
     setThemeState(readStoredTheme());
     setTextSizeState(readStoredTextSize());
     setSimpleModeState(readStoredSimpleMode());
-    setCompletedLessons(readArray(STORAGE_KEYS.completedLessons));
-    setRecentLessons(readArray(STORAGE_KEYS.recentLessons));
-    setStartedPaths(readArray(STORAGE_KEYS.startedPaths));
+    setCompletedLessons(readStoredStringArray(STORAGE_KEYS.completedLessons));
+    setRecentLessons(readStoredStringArray(STORAGE_KEYS.recentLessons));
+    setStartedPaths(readStoredStringArray(STORAGE_KEYS.startedPaths));
     setHydrated(true);
   }, [initialLocale]);
 
@@ -141,9 +115,7 @@ export default function AppProviders({
       setSimpleMode,
       toggleLessonComplete: (lessonId) => {
         setCompletedLessons((current) =>
-          current.includes(lessonId)
-            ? current.filter((id) => id !== lessonId)
-            : [...current, lessonId]
+          current.includes(lessonId) ? current.filter((id) => id !== lessonId) : [...current, lessonId]
         );
       },
       markLessonViewed: (lessonId) => {

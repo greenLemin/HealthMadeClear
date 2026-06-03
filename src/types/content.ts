@@ -53,8 +53,4 @@ export type GlossaryId = (typeof GLOSSARY_IDS)[number];
 
 export type LessonCategoryId = "medication-safety" | "doctor-visits" | "lab-results";
 
-export const LESSON_CATEGORY_IDS: LessonCategoryId[] = [
-  "medication-safety",
-  "doctor-visits",
-  "lab-results",
-];
+export const LESSON_CATEGORY_IDS: LessonCategoryId[] = ["medication-safety", "doctor-visits", "lab-results"];

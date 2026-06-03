@@ -10,6 +10,7 @@ import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import { routing } from "@/i18n/routing";
 import type { Locale } from "@/lib/i18n";
+import { requireLocale } from "@/lib/locale";
 import { PREFERENCE_BOOTSTRAP_SCRIPT } from "@/lib/preferences";
 import { getSiteUrl } from "@/lib/site";
 import "../globals.css";
@@ -20,12 +21,8 @@ export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
 }
 
-export async function generateMetadata({
-  params,
-}: {
-  params: { locale: string };
-}): Promise<Metadata> {
-  const locale = params.locale as Locale;
+export async function generateMetadata({ params }: { params: { locale: string } }): Promise<Metadata> {
+  const locale = requireLocale(params.locale);
 
   return {
     metadataBase: new URL(siteUrl),
@@ -50,10 +47,18 @@ export async function generateMetadata({
       siteName: "Health Made Clear",
       title: "Health Made Clear",
       description: "Free, accessible health education in plain language.",
+      images: [{ url: "/og-image.svg", width: 1200, height: 630, alt: "Health Made Clear" }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: "Health Made Clear",
+      description: "Free, accessible health education in plain language.",
+      images: ["/og-image.svg"],
     },
     icons: {
       icon: "/favicon.svg",
     },
+    manifest: "/manifest.json",
   };
 }
 
@@ -68,7 +73,7 @@ export default async function LocaleLayout({
     notFound();
   }
 
-  const locale = params.locale as Locale;
+  const locale = requireLocale(params.locale);
   setRequestLocale(locale);
   const messages = await getMessages();
 

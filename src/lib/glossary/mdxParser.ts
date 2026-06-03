@@ -15,8 +15,7 @@ function termFromFile(filePath: string): GlossaryTerm {
     term: String(data.term),
     category: String(data.category),
     definition: content.trim(),
-    relatedTerms:
-      Array.isArray(related) && related.length > 0 ? related.map(String) : undefined,
+    relatedTerms: Array.isArray(related) && related.length > 0 ? related.map(String) : undefined,
   };
 }
 

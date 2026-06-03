@@ -3,12 +3,12 @@
 import { useEffect } from "react";
 import { CheckCircle2, Printer } from "lucide-react";
 import { useAppState } from "@/components/AppProviders";
-import { getMessages } from "@/lib/i18n";
 import type { LessonId } from "@/types/content";
+import { useTranslations } from "next-intl";
 
 export default function LessonActionsClient({ lessonId }: { lessonId: LessonId }) {
-  const { completedLessons, locale, toggleLessonComplete, markLessonViewed } = useAppState();
-  const copy = getMessages(locale);
+  const { completedLessons, toggleLessonComplete, markLessonViewed } = useAppState();
+  const t = useTranslations("learn");
   const isCompleted = completedLessons.includes(lessonId);
 
   useEffect(() => {
@@ -19,15 +19,23 @@ export default function LessonActionsClient({ lessonId }: { lessonId: LessonId }
     <div className="no-print mb-8 flex flex-wrap gap-3">
       <button
         type="button"
-        className={isCompleted ? "btn-secondary inline-flex items-center gap-2" : "btn-primary inline-flex items-center gap-2"}
+        className={
+          isCompleted
+            ? "btn-secondary inline-flex items-center gap-2"
+            : "btn-primary inline-flex items-center gap-2"
+        }
         onClick={() => toggleLessonComplete(lessonId)}
       >
         <CheckCircle2 size={18} />
-        {isCompleted ? copy.learn.markIncomplete : copy.learn.markComplete}
+        {isCompleted ? t("markIncomplete") : t("markComplete")}
       </button>
-      <button type="button" className="btn-secondary inline-flex items-center gap-2" onClick={() => window.print()}>
+      <button
+        type="button"
+        className="btn-secondary inline-flex items-center gap-2"
+        onClick={() => window.print()}
+      >
         <Printer size={18} />
-        {copy.learn.printLesson}
+        {t("printLesson")}
       </button>
     </div>
   );

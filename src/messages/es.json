@@ -55,6 +55,7 @@
     "emergencyCallAria": "Llamar a emergencias (911 en EE. UU.)"
   },
   "common": {
+    "add": "Agregar",
     "completed": "Completado",
     "ready": "Listo",
     "continue": "Continuar",
@@ -92,7 +93,9 @@
   },
   "glossary": {
     "title": "Glosario de salud",
-    "description": "Definiciones claras y cotidianas de términos médicos para que entiendas tu salud sin tanta confusión."
+    "description": "Definiciones claras y cotidianas de términos médicos para que entiendas tu salud sin tanta confusión.",
+    "backToGlossary": "Volver al glosario",
+    "viewTerm": "Ver definición completa"
   },
   "learn": {
     "title": "¿Qué te gustaría aprender hoy?",
@@ -111,7 +114,21 @@
     "tipWarnings": "Busca advertencias.",
     "tipMissedDose": "Pregunta qué pasa si se te olvida una dosis.",
     "pharmacistTip": "Los farmacéuticos pueden explicar las etiquetas con lenguaje sencillo.",
-    "keepLearning": "Sigue aprendiendo"
+    "sidebarBodyDoctor": "Prepárate para tu próxima consulta médica.",
+    "tipDoctorAppointmentTime": "Anota la fecha y la hora.",
+    "tipDoctorInsurance": "Lleva tu tarjeta de seguro e identificación con foto.",
+    "tipDoctorQuestions": "Haz una lista de preguntas para hacer.",
+    "tipDoctorMeds": "Lleva todos tus medicamentos actuales.",
+    "doctorTip": "Tu médico está para colaborar contigo en tu salud.",
+    "sidebarBodyLabs": "Prepárate para tus análisis de laboratorio.",
+    "tipLabsFasting": "Revisa si necesitas estar en ayunas.",
+    "tipLabsHydration": "Toma suficiente agua antes del análisis.",
+    "tipLabsComfort": "Usa ropa cómoda con mangas sueltas.",
+    "tipLabsResults": "Pregunta cuándo y cómo recibirás tus resultados.",
+    "labsTip": "Los técnicos de laboratorio pueden explicarte el proceso.",
+    "keepLearning": "Sigue aprendiendo",
+    "lastReviewed": "Última revisión",
+    "sources": "Fuentes"
   },
   "paths": {
     "resumeJourney": "Retomar recorrido",
@@ -151,7 +168,11 @@
     "noRecentMilestones": "Completa tu primera lección para empezar tu historial de logros.",
     "recentlyViewed": "Visto recientemente",
     "seeAll": "Ver todo",
-    "overallProgress": "Progreso general"
+    "overallProgress": "Progreso general",
+    "exportProgress": "Exportar progreso",
+    "importProgress": "Importar progreso",
+    "importSuccess": "Progreso restaurado desde el archivo.",
+    "importError": "No se pudo leer el archivo. Elige una exportación válida de Health Made Clear."
   },
   "home": {
     "introBadge": "¿Nuevo en términos de salud?",
@@ -238,6 +259,10 @@
     "printList": "Imprimir mi lista",
     "yourVisitPlan": "Tu plan de visita",
     "questionsToAsk": "Preguntas para hacer",
+    "customQuestionsTitle": "Tus preguntas personalizadas",
+    "customQuestionPlaceholder": "Escribe tu pregunta personalizada aquí...",
+    "remove": "Eliminar",
+    "noQuestionsSelected": "Ninguna pregunta seleccionada.",
     "yourNotes": "Tus notas",
     "noNotes": "Todavía no hay notas personales.",
     "editQuestions": "Editar preguntas",
@@ -310,5 +335,11 @@
     "glossaryDescription": "Encuentra definiciones sencillas de términos médicos.",
     "toolsTitle": "Herramientas",
     "toolsDescription": "Usa recursos prácticos para citas y decisiones de cuidado."
+  },
+  "errors": {
+    "title": "Algo salió mal",
+    "body": "No pudimos cargar esta página. Tu progreso en este dispositivo no cambió.",
+    "retry": "Intentar de nuevo",
+    "home": "Ir al inicio"
   }
 }

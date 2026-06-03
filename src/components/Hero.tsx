@@ -2,12 +2,10 @@
 
 import Image from "next/image";
 import { Link } from "@/i18n/navigation";
-import { useAppState } from "@/components/AppProviders";
-import { getMessages } from "@/lib/i18n";
+import { useTranslations } from "next-intl";
 
 export default function Hero() {
-  const { locale } = useAppState();
-  const copy = getMessages(locale);
+  const t = useTranslations("hero");
 
   return (
     <section className="hero-gradient relative overflow-hidden py-16 md:py-24">
@@ -16,16 +14,16 @@ export default function Hero() {
         <div className="grid items-center gap-10 lg:grid-cols-[1.1fr_0.9fr]">
           <div className="max-w-3xl">
             <div className="mb-5 inline-flex rounded-full border border-outline-variant bg-surface/80 px-4 py-2 text-sm font-semibold text-primary shadow-sm">
-              {copy.hero.badge}
+              {t("badge")}
             </div>
-            <h1 className="mb-6 text-headline-xl text-primary">{copy.hero.title}</h1>
-            <p className="mb-8 max-w-2xl text-body-lg text-on-surface-variant">{copy.hero.subtitle}</p>
+            <h1 className="mb-6 text-headline-xl text-primary">{t("title")}</h1>
+            <p className="mb-8 max-w-2xl text-body-lg text-on-surface-variant">{t("subtitle")}</p>
             <div className="flex flex-wrap gap-4">
               <Link href="/learning-paths" className="btn-primary inline-flex items-center justify-center">
-                {copy.hero.startLearning}
+                {t("startLearning")}
               </Link>
               <Link href="/glossary" className="btn-secondary inline-flex items-center justify-center">
-                {copy.hero.browseGlossary}
+                {t("browseGlossary")}
               </Link>
             </div>
           </div>
@@ -44,15 +42,15 @@ export default function Hero() {
                 <div className="mb-2 text-2xl" aria-hidden="true">
                   🩺
                 </div>
-                <div className="text-label-md text-primary">{copy.hero.preparedVisits}</div>
-                <p className="mt-2 text-sm text-on-surface-variant">{copy.hero.preparedVisitsBody}</p>
+                <div className="text-label-md text-primary">{t("preparedVisits")}</div>
+                <p className="mt-2 text-sm text-on-surface-variant">{t("preparedVisitsBody")}</p>
               </div>
               <div className="rounded-2xl bg-primary-fixed/70 p-5">
                 <div className="mb-2 text-2xl" aria-hidden="true">
                   📘
                 </div>
-                <div className="text-label-md text-primary">{copy.hero.clearLessons}</div>
-                <p className="mt-2 text-sm text-on-surface-variant">{copy.hero.clearLessonsBody}</p>
+                <div className="text-label-md text-primary">{t("clearLessons")}</div>
+                <p className="mt-2 text-sm text-on-surface-variant">{t("clearLessonsBody")}</p>
               </div>
             </div>
           </div>

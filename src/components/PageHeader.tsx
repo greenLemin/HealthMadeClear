@@ -10,7 +10,13 @@ interface PageHeaderProps {
   children?: ReactNode;
 }
 
-export default function PageHeader({ badge, title, description, centered = false, children }: PageHeaderProps) {
+export default function PageHeader({
+  badge,
+  title,
+  description,
+  centered = false,
+  children,
+}: PageHeaderProps) {
   return (
     <div className={centered ? "mx-auto mb-12 max-w-3xl text-center" : "mb-10 max-w-3xl"}>
       {badge ? (

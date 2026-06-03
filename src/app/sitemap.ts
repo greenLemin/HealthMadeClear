@@ -1,6 +1,8 @@
 import type { MetadataRoute } from "next";
 import { routing } from "@/i18n/routing";
 import { lessons } from "@/data/lessons";
+import { glossaryBundles } from "@/data/glossaryBundles";
+import { learningPaths } from "@/data/learningPaths";
 import { getSiteUrl } from "@/lib/site";
 
 const staticPaths = [
@@ -29,9 +31,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "weekly" as const,
       priority: path === "" ? 1 : 0.8,
       alternates: {
-        languages: Object.fromEntries(
-          routing.locales.map((alt) => [alt, `${base}/${alt}${path}`])
-        ),
+        languages: Object.fromEntries(routing.locales.map((alt) => [alt, `${base}/${alt}${path}`])),
       },
     }))
   );
@@ -50,5 +50,33 @@ export default function sitemap(): MetadataRoute.Sitemap {
     }))
   );
 
-  return [...localizedStatic, ...localizedLessons];
+  const localizedPaths = routing.locales.flatMap((locale) =>
+    learningPaths.map((path) => ({
+      url: `${base}/${locale}/learning-paths#${path.id}`,
+      lastModified: now,
+      changeFrequency: "monthly" as const,
+      priority: 0.75,
+      alternates: {
+        languages: Object.fromEntries(
+          routing.locales.map((alt) => [alt, `${base}/${alt}/learning-paths#${path.id}`])
+        ),
+      },
+    }))
+  );
+
+  const localizedGlossaryTerms = routing.locales.flatMap((locale) =>
+    glossaryBundles[locale as keyof typeof glossaryBundles].map((term) => ({
+      url: `${base}/${locale}/glossary/${term.id}`,
+      lastModified: now,
+      changeFrequency: "monthly" as const,
+      priority: 0.6,
+      alternates: {
+        languages: Object.fromEntries(
+          routing.locales.map((alt) => [alt, `${base}/${alt}/glossary/${term.id}`])
+        ),
+      },
+    }))
+  );
+
+  return [...localizedStatic, ...localizedLessons, ...localizedPaths, ...localizedGlossaryTerms];
 }

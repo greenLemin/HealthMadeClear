@@ -1,10 +1,5 @@
 import { describe, expect, it } from "vitest";
-import {
-  getGlossaryTerms,
-  getLearningPaths,
-  getLessonById,
-  getLessons,
-} from "@/lib/localizedContent";
+import { getGlossaryTerms, getLearningPaths, getLessonById, getLessons } from "@/lib/localizedContent";
 
 describe("localizedContent", () => {
   it("returns Spanish lesson titles when locale is es", () => {

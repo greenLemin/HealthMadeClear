@@ -4,11 +4,11 @@ import { Languages } from "lucide-react";
 import { useAppState } from "@/components/AppProviders";
 import { usePathname, useRouter } from "@/i18n/navigation";
 import type { Locale } from "@/lib/i18n";
-import { getMessages } from "@/lib/i18n";
+import { useTranslations } from "next-intl";
 
 export default function LanguageToggle() {
   const { locale, setLocale } = useAppState();
-  const copy = getMessages(locale);
+  const t = useTranslations("nav");
   const pathname = usePathname();
   const router = useRouter();
 
@@ -22,10 +22,12 @@ export default function LanguageToggle() {
     <div className="inline-flex items-center gap-2 rounded-full border border-outline-variant bg-surface-container-low px-2 py-2">
       <div className="hidden items-center gap-2 pl-2 text-xs font-semibold uppercase tracking-[0.08em] text-on-surface-variant sm:flex">
         <Languages size={14} />
-        {copy.nav.language}
+        {t("language")}
       </div>
       <button
         type="button"
+        lang="en"
+        aria-pressed={locale === "en"}
         onClick={() => switchLocale("en")}
         className={
           locale === "en"
@@ -37,6 +39,8 @@ export default function LanguageToggle() {
       </button>
       <button
         type="button"
+        lang="es"
+        aria-pressed={locale === "es"}
         onClick={() => switchLocale("es")}
         className={
           locale === "es"

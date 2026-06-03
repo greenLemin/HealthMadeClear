@@ -29,6 +29,8 @@ Run `npm run content:bundle` after editing MDX (or rely on `prebuild` before pro
 
 ## Infrastructure
 
-- Visual regression testing for light/dark/simple/large-text modes
-- Content Security Policy and security headers at the edge
-- JSON-LD structured data for lessons and glossary terms
+- ~~Visual regression testing for light/dark modes (Playwright snapshots)~~
+- ~~Content Security Policy and security headers at the edge~~
+- ~~JSON-LD structured data for lessons and glossary terms~~
+- Glossary term routes at `/[locale]/glossary/[term]`
+- Progress export/import on dashboard (local JSON)

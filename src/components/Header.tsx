@@ -1,64 +1,40 @@
 "use client";
 
 import { Link, usePathname } from "@/i18n/navigation";
-import { useEffect, useRef, useState, type ReactNode } from "react";
+import { useRef, useState, type ReactNode } from "react";
 import { BookOpen, Home, Info, LayoutDashboard, Menu, Route, Search, Wrench, X } from "lucide-react";
 import AccessibilityControls from "@/components/AccessibilityControls";
 import LanguageToggle from "@/components/LanguageToggle";
-import { useAppState } from "@/components/AppProviders";
+import { useDismissibleOverlay } from "@/hooks/useDismissibleOverlay";
 import { useFocusTrap } from "@/hooks/useFocusTrap";
-import { getMessages } from "@/lib/i18n";
+import { useTranslations } from "next-intl";
 
 export default function Header() {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   const mobileMenuRef = useRef<HTMLDivElement>(null);
   const toggleButtonRef = useRef<HTMLButtonElement>(null);
-  const { locale } = useAppState();
-  const copy = getMessages(locale);
+  const t = useTranslations("nav");
 
   useFocusTrap(mobileMenuRef, isOpen);
+  useDismissibleOverlay({
+    isOpen,
+    onClose: () => setIsOpen(false),
+    containerRef: mobileMenuRef,
+    triggerRef: toggleButtonRef,
+    lockBodyScroll: true,
+    returnFocusRef: toggleButtonRef,
+  });
 
   const navItems = [
-    { href: "/", label: copy.nav.home, icon: <Home size={18} /> },
-    { href: "/learn", label: copy.nav.learn, icon: <BookOpen size={18} /> },
-    { href: "/learning-paths", label: copy.nav.paths, icon: <Route size={18} /> },
-    { href: "/tools", label: copy.nav.tools, icon: <Wrench size={18} /> },
-    { href: "/dashboard", label: copy.nav.dashboard, icon: <LayoutDashboard size={18} /> },
-    { href: "/glossary", label: copy.nav.glossary, icon: <Search size={18} /> },
-    { href: "/about", label: copy.nav.about, icon: <Info size={18} /> },
+    { href: "/", label: t("home"), icon: <Home size={18} /> },
+    { href: "/learn", label: t("learn"), icon: <BookOpen size={18} /> },
+    { href: "/learning-paths", label: t("paths"), icon: <Route size={18} /> },
+    { href: "/tools", label: t("tools"), icon: <Wrench size={18} /> },
+    { href: "/dashboard", label: t("dashboard"), icon: <LayoutDashboard size={18} /> },
+    { href: "/glossary", label: t("glossary"), icon: <Search size={18} /> },
+    { href: "/about", label: t("about"), icon: <Info size={18} /> },
   ];
-
-  useEffect(() => {
-    if (!isOpen) return;
-
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") {
-        setIsOpen(false);
-        toggleButtonRef.current?.focus();
-      }
-    };
-
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        mobileMenuRef.current &&
-        !mobileMenuRef.current.contains(event.target as Node) &&
-        !toggleButtonRef.current?.contains(event.target as Node)
-      ) {
-        setIsOpen(false);
-      }
-    };
-
-    document.addEventListener("keydown", handleKeyDown);
-    document.addEventListener("mousedown", handleClickOutside);
-    document.body.style.overflow = "hidden";
-
-    return () => {
-      document.removeEventListener("keydown", handleKeyDown);
-      document.removeEventListener("mousedown", handleClickOutside);
-      document.body.style.overflow = "";
-    };
-  }, [isOpen]);
 
   const handleSkip = (event: React.MouseEvent<HTMLAnchorElement>) => {
     event.preventDefault();
@@ -73,7 +49,7 @@ export default function Header() {
         onClick={handleSkip}
         className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[60] focus:rounded-lg focus:bg-primary focus:px-4 focus:py-3 focus:text-on-primary focus:shadow-elevation-2"
       >
-        {copy.nav.skipToContent}
+        {t("skipToContent")}
       </a>
       <div className="max-w-container mx-auto px-4 md:px-6">
         <div className="flex min-h-16 items-center justify-between gap-4 py-3">
@@ -84,12 +60,12 @@ export default function Header() {
             <div className="hidden sm:block">
               <span className="block text-label-lg text-primary">Health Made Clear</span>
               <span className="text-xs uppercase tracking-[0.08em] text-on-surface-variant">
-                {copy.nav.taglineShort}
+                {t("taglineShort")}
               </span>
             </div>
           </Link>
 
-          <nav className="hidden items-center gap-1 lg:flex" aria-label={copy.nav.mainNavigation}>
+          <nav className="hidden items-center gap-1 lg:flex" aria-label={t("mainNavigation")}>
             {navItems.map((item) => (
               <NavLink
                 key={item.href}
@@ -117,7 +93,7 @@ export default function Header() {
             onClick={() => setIsOpen((current) => !current)}
             aria-expanded={isOpen}
             aria-controls="mobile-menu"
-            aria-label={copy.nav.toggleNavigation}
+            aria-label={t("toggleNavigation")}
           >
             {isOpen ? <X size={20} /> : <Menu size={20} />}
           </button>
@@ -129,7 +105,7 @@ export default function Header() {
             ref={mobileMenuRef}
             role="dialog"
             aria-modal="true"
-            aria-label={copy.nav.mobileNavigation}
+            aria-label={t("mobileNavigation")}
             className="border-t border-outline-variant py-4 lg:hidden"
           >
             <div className="mb-4 md:hidden">
@@ -138,7 +114,7 @@ export default function Header() {
               </div>
               <AccessibilityControls />
             </div>
-            <nav className="grid gap-2" aria-label={copy.nav.mobileNavigation}>
+            <nav className="grid gap-2" aria-label={t("mobileNavigation")}>
               {navItems.map((item) => (
                 <NavLink
                   key={item.href}

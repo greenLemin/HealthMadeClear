@@ -2,35 +2,33 @@
 
 import { Link } from "@/i18n/navigation";
 import { BookOpen, HeartHandshake, ShieldCheck, Users } from "lucide-react";
-import { useAppState } from "@/components/AppProviders";
 import PageHeader from "@/components/PageHeader";
 import Callout from "@/components/Callout";
-import { getMessages } from "@/lib/i18n";
+import { useTranslations } from "next-intl";
 
 export default function AboutClient() {
-  const { locale } = useAppState();
-  const copy = getMessages(locale);
+  const t = useTranslations("about");
 
   const values = [
-    { title: copy.about.valueEducationTitle, description: copy.about.valueEducationBody, icon: ShieldCheck },
-    { title: copy.about.valueEveryoneTitle, description: copy.about.valueEveryoneBody, icon: Users },
-    { title: copy.about.valueStructuredTitle, description: copy.about.valueStructuredBody, icon: BookOpen },
+    { title: t("valueEducationTitle"), description: t("valueEducationBody"), icon: ShieldCheck },
+    { title: t("valueEveryoneTitle"), description: t("valueEveryoneBody"), icon: Users },
+    { title: t("valueStructuredTitle"), description: t("valueStructuredBody"), icon: BookOpen },
   ];
 
   return (
     <main className="py-12 md:py-16">
       <div className="max-w-container mx-auto px-4 md:px-6">
-        <PageHeader centered title={copy.about.title} description={copy.about.description} />
+        <PageHeader centered title={t("title")} description={t("description")} />
 
         <div className="mb-8 grid gap-6 lg:grid-cols-[1.2fr_0.8fr]">
-          <Callout type="info" title={copy.about.valueEducationTitle}>
+          <Callout type="info" title={t("valueEducationTitle")}>
             <div className="space-y-4">
-              <p>{copy.about.educationDetail}</p>
-              <p>{copy.about.warningBody}</p>
+              <p>{t("educationDetail")}</p>
+              <p>{t("warningBody")}</p>
             </div>
           </Callout>
-          <Callout type="success" title={copy.about.whyMattersTitle}>
-            <p>{copy.about.whyMattersBody}</p>
+          <Callout type="success" title={t("whyMattersTitle")}>
+            <p>{t("whyMattersBody")}</p>
           </Callout>
         </div>
 
@@ -51,25 +49,25 @@ export default function AboutClient() {
 
         <section className="rounded-2xl bg-surface-container-low p-8 text-center">
           <div className="mb-4 inline-flex rounded-full bg-primary-fixed px-4 py-2 text-sm font-semibold text-primary">
-            {copy.about.joinBadge}
+            {t("joinBadge")}
           </div>
-          <h2 className="mb-4 text-headline-lg text-primary">{copy.about.joinTitle}</h2>
-          <p className="mx-auto mb-8 max-w-3xl text-body-md text-on-surface-variant">{copy.about.joinBody}</p>
+          <h2 className="mb-4 text-headline-lg text-primary">{t("joinTitle")}</h2>
+          <p className="mx-auto mb-8 max-w-3xl text-body-md text-on-surface-variant">{t("joinBody")}</p>
           <div className="flex flex-wrap justify-center gap-4">
             <Link href="/learn" className="btn-primary inline-flex items-center gap-2">
               <HeartHandshake size={18} />
-              {copy.about.exploreLibrary}
+              {t("exploreLibrary")}
             </Link>
             <Link href="/tools" className="btn-secondary inline-flex items-center gap-2">
-              {copy.about.learnWithTools}
+              {t("learnWithTools")}
             </Link>
           </div>
         </section>
 
         <section className="mt-12 text-center" id="contact">
-          <h2 className="mb-2 text-headline-md text-primary">{copy.about.contactTitle}</h2>
+          <h2 className="mb-2 text-headline-md text-primary">{t("contactTitle")}</h2>
           <p className="text-body-md text-on-surface-variant">
-            {copy.about.contactBody}{" "}
+            {t("contactBody")}{" "}
             <a href="mailto:hello@healthmadeclear.org" className="font-semibold text-primary">
               hello@healthmadeclear.org
             </a>

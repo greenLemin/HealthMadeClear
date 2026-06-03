@@ -1,10 +1,5 @@
 import { describe, expect, it } from "vitest";
-import {
-  getCompletedPathCount,
-  getLessonsByPath,
-  getPathProgress,
-  getStartedPathCount,
-} from "@/lib/content";
+import { getCompletedPathCount, getLessonsByPath, getPathProgress, getStartedPathCount } from "@/lib/content";
 
 describe("content helpers", () => {
   it("returns lessons for a valid path", () => {
@@ -13,11 +8,21 @@ describe("content helpers", () => {
     expect(pathLessons[0]?.id).toBe("understanding-prescription-labels");
   });
 
+  it("returns empty array for unknown path", () => {
+    expect(getLessonsByPath("missing-path")).toEqual([]);
+  });
+
   it("calculates path progress", () => {
     const progress = getPathProgress("safer-medicine-use", ["understanding-prescription-labels"]);
     expect(progress.completedCount).toBe(1);
     expect(progress.totalCount).toBe(3);
     expect(progress.percentage).toBe(33);
+  });
+
+  it("returns zero progress for unknown path", () => {
+    const progress = getPathProgress("missing-path", []);
+    expect(progress.totalCount).toBe(0);
+    expect(progress.percentage).toBe(0);
   });
 
   it("counts started paths from explicit starts or lesson progress", () => {
