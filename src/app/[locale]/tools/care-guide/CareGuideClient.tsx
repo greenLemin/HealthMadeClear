@@ -26,12 +26,13 @@ export default function CareGuideClient() {
   return (
     <main className="pb-16">
       <div className="no-print bg-error px-4 py-3 text-center text-sm font-semibold text-on-error">
-        {tDisclaimer("emergencyBody")}
+        {tDisclaimer("emergencyTitle")}: {t("emergencyShort", { defaultValue: "Call 911 if you have a life-threatening emergency." })}
       </div>
       <div className="max-w-container mx-auto px-4 py-12 md:px-6">
         <PageHeader centered title={t("careGuideTitle")} description={t("careGuideDescription")} />
 
         <section className="mb-12">
+          <h2 className="sr-only">{t("careOptionsHeading", { defaultValue: "Care Options" })}</h2>
           <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
             {careOptions.map((option) => (
               <article key={option.title} className={`rounded-lg border p-6 ${option.tone}`}>

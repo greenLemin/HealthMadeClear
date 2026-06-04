@@ -15,11 +15,47 @@ import type { LessonId } from "@/types/content";
 
 import GlossaryHighlighter from "@/components/mdx/GlossaryHighlighter";
 
+type SidebarContent = {
+  body: string;
+  tips: string[];
+  footer: string;
+};
+
+/** Derives category-specific sidebar copy from i18n translations. */
+function useSidebarContent(
+  lesson: Lesson,
+  t: ReturnType<typeof useTranslations<"learn">>
+): SidebarContent {
+  if (lesson.sidebarTips) {
+    return { body: t("sidebarBody"), tips: lesson.sidebarTips, footer: t("pharmacistTip") };
+  }
+  if (lesson.categoryId === "doctor-visits") {
+    return {
+      body: t("sidebarBodyDoctor"),
+      tips: [t("tipDoctorAppointmentTime"), t("tipDoctorInsurance"), t("tipDoctorQuestions"), t("tipDoctorMeds")],
+      footer: t("doctorTip"),
+    };
+  }
+  if (lesson.categoryId === "lab-results") {
+    return {
+      body: t("sidebarBodyLabs"),
+      tips: [t("tipLabsFasting"), t("tipLabsHydration"), t("tipLabsComfort"), t("tipLabsResults")],
+      footer: t("labsTip"),
+    };
+  }
+  return {
+    body: t("sidebarBody"),
+    tips: [t("tipCheckName"), t("tipReadDose"), t("tipWarnings"), t("tipMissedDose")],
+    footer: t("pharmacistTip"),
+  };
+}
+
 export default function LessonPageClient({ lesson }: { lesson: Lesson }) {
   const { locale } = useAppState();
   const t = useTranslations("learn");
   const lessonId = lesson.id as LessonId;
   const heroImage = lesson.image ?? null;
+  const sidebar = useSidebarContent(lesson, t);
 
   return (
     <main className="py-12 md:py-16">
@@ -51,7 +87,7 @@ export default function LessonPageClient({ lesson }: { lesson: Lesson }) {
               <div className="mb-8 overflow-hidden rounded-lg border border-outline-variant">
                 <Image
                   src={heroImage}
-                  alt=""
+                  alt={lesson.title}
                   width={800}
                   height={450}
                   className="h-auto w-full object-cover"
@@ -111,50 +147,13 @@ export default function LessonPageClient({ lesson }: { lesson: Lesson }) {
               <h3 className="mb-3 text-headline-md text-primary">
                 {lesson.sidebarTitle || t("stillConfused")}
               </h3>
-              <p className="mb-4 text-body-md text-on-surface-variant">
-                {lesson.sidebarTips
-                  ? t("sidebarBody")
-                  : lesson.categoryId === "doctor-visits"
-                    ? t("sidebarBodyDoctor")
-                    : lesson.categoryId === "lab-results"
-                      ? t("sidebarBodyLabs")
-                      : t("sidebarBody")}
-              </p>
+              <p className="mb-4 text-body-md text-on-surface-variant">{sidebar.body}</p>
               <ul className="space-y-3 text-body-md text-on-surface-variant">
-                {lesson.sidebarTips ? (
-                  lesson.sidebarTips.map((tip, idx) => <li key={idx}>{tip}</li>)
-                ) : lesson.categoryId === "doctor-visits" ? (
-                  <>
-                    <li>{t("tipDoctorAppointmentTime")}</li>
-                    <li>{t("tipDoctorInsurance")}</li>
-                    <li>{t("tipDoctorQuestions")}</li>
-                    <li>{t("tipDoctorMeds")}</li>
-                  </>
-                ) : lesson.categoryId === "lab-results" ? (
-                  <>
-                    <li>{t("tipLabsFasting")}</li>
-                    <li>{t("tipLabsHydration")}</li>
-                    <li>{t("tipLabsComfort")}</li>
-                    <li>{t("tipLabsResults")}</li>
-                  </>
-                ) : (
-                  <>
-                    <li>{t("tipCheckName")}</li>
-                    <li>{t("tipReadDose")}</li>
-                    <li>{t("tipWarnings")}</li>
-                    <li>{t("tipMissedDose")}</li>
-                  </>
-                )}
+                {sidebar.tips.map((tip) => (
+                  <li key={tip}>{tip}</li>
+                ))}
               </ul>
-              <p className="mt-4 text-sm font-semibold text-primary">
-                {lesson.sidebarTips
-                  ? t("pharmacistTip")
-                  : lesson.categoryId === "doctor-visits"
-                    ? t("doctorTip")
-                    : lesson.categoryId === "lab-results"
-                      ? t("labsTip")
-                      : t("pharmacistTip")}
-              </p>
+              <p className="mt-4 text-sm font-semibold text-primary">{sidebar.footer}</p>
             </div>
           </aside>
         </div>

@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { Link } from "@/i18n/navigation";
 import { BookOpen, CheckCircle2, Clock, TrendingUp } from "lucide-react";
 import { useTranslations } from "next-intl";
@@ -22,6 +22,7 @@ export default function DashboardClient() {
   const tCommon = useTranslations("common");
   const tPaths = useTranslations("paths");
   const importInputRef = useRef<HTMLInputElement>(null);
+  const [importStatus, setImportStatus] = useState<"success" | "error" | null>(null);
   const lessons = getLessons(locale);
   const learningPaths = getLearningPaths(locale);
 
@@ -79,14 +80,28 @@ export default function DashboardClient() {
               const text = await file.text();
               const data = parseProgressImport(text);
               if (!data) {
-                window.alert(t("importError"));
+                setImportStatus("error");
+                setTimeout(() => setImportStatus(null), 5000);
                 return;
               }
               applyProgressImport(data);
-              window.alert(t("importSuccess"));
-              window.location.reload();
+              setImportStatus("success");
+              setTimeout(() => window.location.reload(), 1000);
             }}
           />
+          {importStatus && (
+            <p
+              role="status"
+              aria-live="polite"
+              className={`rounded-full px-4 py-2 text-sm font-semibold ${
+                importStatus === "success"
+                  ? "bg-secondary-container text-on-secondary-container"
+                  : "bg-error-container text-on-error-container"
+              }`}
+            >
+              {importStatus === "success" ? t("importSuccess") : t("importError")}
+            </p>
+          )}
         </div>
 
         <div className="mb-12 grid gap-6 md:grid-cols-3">

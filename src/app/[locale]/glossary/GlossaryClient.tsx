@@ -62,18 +62,18 @@ export default function GlossaryClient() {
 
         {showAlphabet ? (
           <div className="mb-8 flex flex-wrap gap-2">
-            {[allLabel, ...alphabet.slice(1)].map((letter) => (
+            {alphabet.map((letter) => (
               <button
                 key={letter}
                 type="button"
-                onClick={() => setActiveLetter(letter === allLabel ? "All" : letter)}
+                onClick={() => setActiveLetter(letter)}
                 className={
-                  (activeLetter === "All" ? allLabel : activeLetter) === letter
+                  activeLetter === letter
                     ? "flex h-10 min-w-10 items-center justify-center rounded-lg bg-primary px-3 text-sm font-semibold text-on-primary"
                     : "flex h-10 min-w-10 items-center justify-center rounded-lg bg-surface-container px-3 text-sm font-semibold text-on-surface-variant"
                 }
               >
-                {letter}
+                {letter === "All" ? allLabel : letter}
               </button>
             ))}
           </div>

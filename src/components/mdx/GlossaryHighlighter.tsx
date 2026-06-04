@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useMemo } from "react";
+import { useMemo } from "react";
 import { useAppState } from "@/components/AppProviders";
 import { getGlossaryTerms } from "@/lib/localizedContent";
 import InlineGlossaryTerm from "./InlineGlossaryTerm";
@@ -15,7 +15,8 @@ function escapeRegExp(string: string) {
 
 export default function GlossaryHighlighter({ text }: GlossaryHighlighterProps) {
   const { locale } = useAppState();
-  const glossaryTerms = getGlossaryTerms(locale);
+  // Fetch once per component instance — passed down to each InlineGlossaryTerm
+  const glossaryTerms = useMemo(() => getGlossaryTerms(locale), [locale]);
 
   const parsedContent = useMemo(() => {
     if (!text || glossaryTerms.length === 0) return [text];
@@ -23,27 +24,30 @@ export default function GlossaryHighlighter({ text }: GlossaryHighlighterProps) 
     // Sort terms by length desc to match longer terms first (e.g. "blood pressure" before "blood")
     const sortedTerms = [...glossaryTerms].sort((a, b) => b.term.length - a.term.length);
 
-    // Map terms to regex-friendly strings
-    const termMap = new Map<string, string>();
+    // Map lower-cased term name → term object for O(1) lookup
+    const termMap = new Map<string, (typeof glossaryTerms)[number]>();
     const patterns: string[] = [];
 
     for (const termObj of sortedTerms) {
-      const termName = termObj.term;
-      termMap.set(termName.toLowerCase(), termObj.id);
-      patterns.push(escapeRegExp(termName));
+      termMap.set(termObj.term.toLowerCase(), termObj);
+      patterns.push(escapeRegExp(termObj.term));
     }
 
     // Match word boundaries (supporting unicode letters for Spanish accents)
-    // Note: We use \b in regex, but to support Spanish characters we can match boundaries or use a simpler split
     const regex = new RegExp(`\\b(${patterns.join("|")})\\b`, "gi");
     const parts = text.split(regex);
 
     return parts.map((part, index) => {
-      const lowerPart = part.toLowerCase();
-      const termId = termMap.get(lowerPart);
+      const termObj = termMap.get(part.toLowerCase());
 
-      if (termId) {
-        return <InlineGlossaryTerm key={index} termId={termId} displayText={part} />;
+      if (termObj) {
+        return (
+          <InlineGlossaryTerm
+            key={`${termObj.id}-${index}`}
+            term={termObj}
+            displayText={part}
+          />
+        );
       }
       return part;
     });

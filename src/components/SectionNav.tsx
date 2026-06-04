@@ -1,7 +1,7 @@
 "use client";
 
 import { Link } from "@/i18n/navigation";
-import { ArrowRight, BookOpen, Search, Wrench } from "lucide-react";
+import { ArrowRight, BookOpen, GraduationCap, Search, Wrench } from "lucide-react";
 import { useTranslations } from "next-intl";
 
 export default function SectionNav() {
@@ -18,7 +18,7 @@ export default function SectionNav() {
     {
       title: t("learnTitle"),
       description: t("learnDescription"),
-      icon: <BookOpen size={32} className="text-primary" />,
+      icon: <GraduationCap size={32} className="text-primary" />,
       href: "/learn",
       color: "bg-primary-fixed/70",
     },

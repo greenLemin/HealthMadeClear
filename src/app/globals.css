@@ -198,6 +198,16 @@
       transform: none !important;
       transition: none !important;
     }
+    .btn-primary,
+    .btn-secondary {
+      transition: none !important;
+    }
+    .card-hover {
+      transition: none !important;
+    }
+    .progress-fill {
+      transition: none !important;
+    }
     .hover-lift:hover {
       transform: none !important;
     }
@@ -312,4 +322,15 @@
 :root[data-simple-mode="true"] .backdrop-blur-sm,
 :root[data-simple-mode="true"] .backdrop-blur-xl {
   backdrop-filter: none !important;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, useEffect, useMemo, useState, type ReactNode } from "react";
+import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from "react";
 import type { Locale } from "@/lib/i18n";
 import {
   STORAGE_KEYS,
@@ -62,10 +62,6 @@ export default function AppProviders({
     setHydrated(true);
   }, [initialLocale]);
 
-  useEffect(() => {
-    if (!hydrated) return;
-    setLocaleState(initialLocale);
-  }, [hydrated, initialLocale]);
 
   useEffect(() => {
     if (!hydrated) return;
@@ -95,10 +91,24 @@ export default function AppProviders({
     window.localStorage.setItem(STORAGE_KEYS.startedPaths, JSON.stringify(startedPaths));
   }, [hydrated, startedPaths]);
 
-  const setLocale = (value: Locale) => setLocaleState(value);
-  const setTheme = (value: ThemeMode) => setThemeState(value);
-  const setTextSize = (value: TextSize) => setTextSizeState(value);
-  const setSimpleMode = (value: boolean) => setSimpleModeState(value);
+  const setLocale = useCallback((value: Locale) => setLocaleState(value), []);
+  const setTheme = useCallback((value: ThemeMode) => setThemeState(value), []);
+  const setTextSize = useCallback((value: TextSize) => setTextSizeState(value), []);
+  const setSimpleMode = useCallback((value: boolean) => setSimpleModeState(value), []);
+
+  const toggleLessonComplete = useCallback((lessonId: string) => {
+    setCompletedLessons((current) =>
+      current.includes(lessonId) ? current.filter((id) => id !== lessonId) : [...current, lessonId]
+    );
+  }, []);
+
+  const markLessonViewed = useCallback((lessonId: string) => {
+    setRecentLessons((current) => [lessonId, ...current.filter((id) => id !== lessonId)].slice(0, 6));
+  }, []);
+
+  const markPathStarted = useCallback((pathId: string) => {
+    setStartedPaths((current) => (current.includes(pathId) ? current : [...current, pathId]));
+  }, []);
 
   const value = useMemo<AppContextValue>(
     () => ({
@@ -113,18 +123,11 @@ export default function AppProviders({
       setTheme,
       setTextSize,
       setSimpleMode,
-      toggleLessonComplete: (lessonId) => {
-        setCompletedLessons((current) =>
-          current.includes(lessonId) ? current.filter((id) => id !== lessonId) : [...current, lessonId]
-        );
-      },
-      markLessonViewed: (lessonId) => {
-        setRecentLessons((current) => [lessonId, ...current.filter((id) => id !== lessonId)].slice(0, 6));
-      },
-      markPathStarted: (pathId) => {
-        setStartedPaths((current) => (current.includes(pathId) ? current : [...current, pathId]));
-      },
+      toggleLessonComplete,
+      markLessonViewed,
+      markPathStarted,
     }),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [locale, theme, textSize, simpleMode, completedLessons, recentLessons, startedPaths]
   );
 

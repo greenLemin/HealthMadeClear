@@ -2,22 +2,24 @@
 
 import { useState, useRef, useEffect } from "react";
 import { Link } from "@/i18n/navigation";
-import { useAppState } from "@/components/AppProviders";
-import { getGlossaryTerms } from "@/lib/localizedContent";
 import { useTranslations } from "next-intl";
 
+/** The minimal shape of a glossary term needed to render the popover. */
+export interface GlossaryTermSummary {
+  id: string;
+  term: string;
+  definition: string;
+}
+
 interface InlineGlossaryTermProps {
-  termId: string;
+  term: GlossaryTermSummary;
   displayText: string;
 }
 
-export default function InlineGlossaryTerm({ termId, displayText }: InlineGlossaryTermProps) {
+export default function InlineGlossaryTerm({ term, displayText }: InlineGlossaryTermProps) {
   const [isOpen, setIsOpen] = useState(false);
-  const { locale } = useAppState();
   const t = useTranslations("glossary");
   const containerRef = useRef<HTMLSpanElement>(null);
-  const glossaryTerms = getGlossaryTerms(locale);
-  const term = glossaryTerms.find((t) => t.id === termId);
 
   useEffect(() => {
     if (!isOpen) return;
@@ -42,10 +44,6 @@ export default function InlineGlossaryTerm({ termId, displayText }: InlineGlossa
     };
   }, [isOpen]);
 
-  if (!term) {
-    return <span>{displayText}</span>;
-  }
-
   return (
     <span ref={containerRef} className="relative inline-block">
       <button
@@ -69,7 +67,8 @@ export default function InlineGlossaryTerm({ termId, displayText }: InlineGlossa
         <span
           role="dialog"
           aria-label={term.term}
-          className="no-print absolute bottom-full left-1/2 z-50 mb-2 w-72 -translate-x-1/2 rounded-lg border border-outline-variant bg-surface p-4 shadow-elevation-2 animate-fade-in block"
+          className="no-print absolute bottom-full left-1/2 z-50 mb-2 w-72 -translate-x-1/2 rounded-lg border border-outline-variant bg-surface p-4 shadow-elevation-2 block"
+          style={{ animation: "fadeIn 0.15s ease-out" }}
         >
           <span className="block mb-1 text-label-md font-bold text-primary">{term.term}</span>
           <span className="block mb-3 text-sm leading-relaxed text-on-surface-variant">

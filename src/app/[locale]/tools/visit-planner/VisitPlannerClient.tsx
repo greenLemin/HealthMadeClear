@@ -10,10 +10,12 @@ import { useTranslations } from "next-intl";
 const VISIT_TYPE_KEYS = ["new-symptom", "medication", "followup"] as const;
 type VisitTypeKey = (typeof VISIT_TYPE_KEYS)[number];
 
+type CustomQuestion = { id: string; text: string };
+
 type PlannerState = {
   visitType: VisitTypeKey;
   selectedQuestions: string[];
-  customQuestions?: string[];
+  customQuestions?: CustomQuestion[];
   notes: string;
   step: number;
 };
@@ -46,7 +48,7 @@ export default function VisitPlannerClient() {
   const [selectedQuestions, setSelectedQuestions] = useState<string[]>(
     visitTypes["new-symptom"].questions.slice(0, 2)
   );
-  const [customQuestions, setCustomQuestions] = useState<string[]>([]);
+  const [customQuestions, setCustomQuestions] = useState<CustomQuestion[]>([]);
   const [customInput, setCustomInput] = useState("");
   const [notes, setNotes] = useState("");
 
@@ -55,14 +57,19 @@ export default function VisitPlannerClient() {
       if (!value || typeof value !== "object") return null;
       const parsed = value as Partial<PlannerState>;
       if (!VISIT_TYPE_KEYS.includes(parsed.visitType as VisitTypeKey)) return null;
+      const rawCustom = parsed.customQuestions;
+      const customQuestions: CustomQuestion[] = Array.isArray(rawCustom)
+        ? rawCustom.filter(
+            (q): q is CustomQuestion =>
+              !!q && typeof (q as CustomQuestion).id === "string" && typeof (q as CustomQuestion).text === "string"
+          )
+        : [];
       return {
         visitType: parsed.visitType as VisitTypeKey,
         selectedQuestions: Array.isArray(parsed.selectedQuestions)
           ? parsed.selectedQuestions.filter((q): q is string => typeof q === "string")
           : [],
-        customQuestions: Array.isArray(parsed.customQuestions)
-          ? parsed.customQuestions.filter((q): q is string => typeof q === "string")
-          : [],
+        customQuestions,
         notes: typeof parsed.notes === "string" ? parsed.notes.slice(0, 2000) : "",
         step: typeof parsed.step === "number" && parsed.step >= 1 && parsed.step <= 3 ? parsed.step : 1,
       };
@@ -95,13 +102,13 @@ export default function VisitPlannerClient() {
   const addCustomQuestion = () => {
     const trimmed = customInput.trim();
     if (!trimmed) return;
-    if (customQuestions.includes(trimmed)) return;
-    setCustomQuestions((current) => [...current, trimmed]);
+    if (customQuestions.some((q) => q.text === trimmed)) return;
+    setCustomQuestions((current) => [...current, { id: `cq-${Date.now()}`, text: trimmed }]);
     setCustomInput("");
   };
 
-  const removeCustomQuestion = (indexToRemove: number) => {
-    setCustomQuestions((current) => current.filter((_, idx) => idx !== indexToRemove));
+  const removeCustomQuestion = (idToRemove: string) => {
+    setCustomQuestions((current) => current.filter((q) => q.id !== idToRemove));
   };
 
   const toggleQuestion = (question: string) => {
@@ -232,18 +239,18 @@ export default function VisitPlannerClient() {
                   </button>
                 </div>
 
-                {customQuestions.length > 0 && (
+                  {customQuestions.length > 0 && (
                   <div className="grid gap-4 md:grid-cols-2">
-                    {customQuestions.map((question, index) => (
+                    {customQuestions.map((cq) => (
                       <div
-                        key={index}
+                        key={cq.id}
                         className="flex items-center justify-between gap-4 rounded-lg border border-outline-variant bg-surface px-5 py-4"
                       >
-                        <span className="text-body-md text-on-surface">{question}</span>
+                        <span className="text-body-md text-on-surface">{cq.text}</span>
                         <button
                           type="button"
                           className="text-error hover:text-red-700 font-semibold text-sm"
-                          onClick={() => removeCustomQuestion(index)}
+                          onClick={() => removeCustomQuestion(cq.id)}
                         >
                           {t("remove", { defaultValue: "Remove" })}
                         </button>
@@ -260,6 +267,7 @@ export default function VisitPlannerClient() {
                   value={notes}
                   onChange={(event) => setNotes(event.target.value)}
                   placeholder={t("notesPlaceholder")}
+                  maxLength={2000}
                 />
               </label>
               <div className="mt-8 flex flex-wrap justify-between gap-3">
@@ -301,8 +309,8 @@ export default function VisitPlannerClient() {
                   {selectedQuestions.map((question) => (
                     <li key={question}>- {question}</li>
                   ))}
-                  {customQuestions.map((question, index) => (
-                    <li key={`custom-${index}`}>- {question}</li>
+                  {customQuestions.map((cq) => (
+                    <li key={cq.id}>- {cq.text}</li>
                   ))}
                   {selectedQuestions.length === 0 && customQuestions.length === 0 && (
                     <li>{t("noQuestionsSelected", { defaultValue: "No questions selected." })}</li>
