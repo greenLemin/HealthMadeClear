@@ -31,12 +31,13 @@ export default function LearnClient() {
   );
 
   const filteredLessons = useMemo(() => {
+    const lowerQuery = query.toLowerCase();
     return lessons.filter((lesson) => {
       const categoryLabel = getCategoryLabel(lesson.categoryId, locale);
       const matchesQuery =
-        lesson.title.toLowerCase().includes(query.toLowerCase()) ||
-        lesson.description.toLowerCase().includes(query.toLowerCase()) ||
-        categoryLabel.toLowerCase().includes(query.toLowerCase());
+        lesson.title.toLowerCase().includes(lowerQuery) ||
+        lesson.description.toLowerCase().includes(lowerQuery) ||
+        categoryLabel.toLowerCase().includes(lowerQuery);
       const matchesCategory = activeCategory === ALL_CATEGORIES || lesson.categoryId === activeCategory;
       return matchesQuery && matchesCategory;
     });
