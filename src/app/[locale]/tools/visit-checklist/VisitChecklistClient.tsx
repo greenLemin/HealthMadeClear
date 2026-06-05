@@ -64,9 +64,7 @@ export default function VisitChecklistClient() {
           >
             <div
               className="progress-fill"
-              style={{
-                width: `${checklistItems.length === 0 ? 0 : Math.round((checkedItems.length / checklistItems.length) * 100)}%`,
-              }}
+              style={{ width: `${checklistItems.length === 0 ? 0 : Math.round((checkedItems.length / checklistItems.length) * 100)}%` }}
             />
           </div>
 

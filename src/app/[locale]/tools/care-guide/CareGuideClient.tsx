@@ -26,8 +26,7 @@ export default function CareGuideClient() {
   return (
     <main className="pb-16">
       <div className="no-print bg-error px-4 py-3 text-center text-sm font-semibold text-on-error">
-        {tDisclaimer("emergencyTitle")}:{" "}
-        {t("emergencyShort", { defaultValue: "Call 911 if you have a life-threatening emergency." })}
+        {tDisclaimer("emergencyTitle")}: {t("emergencyShort", { defaultValue: "Call 911 if you have a life-threatening emergency." })}
       </div>
       <div className="max-w-container mx-auto px-4 py-12 md:px-6">
         <PageHeader centered title={t("careGuideTitle")} description={t("careGuideDescription")} />
