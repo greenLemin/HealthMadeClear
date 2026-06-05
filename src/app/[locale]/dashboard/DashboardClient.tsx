@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import { Link } from "@/i18n/navigation";
 import { BookOpen, CheckCircle2, Clock, TrendingUp } from "lucide-react";
 import { useTranslations } from "next-intl";
@@ -26,6 +26,15 @@ export default function DashboardClient() {
   const lessons = getLessons(locale);
   const learningPaths = getLearningPaths(locale);
 
+  const pathsWithProgress = useMemo(
+    () =>
+      learningPaths.map((path) => ({
+        path,
+        progress: getPathProgress(path.id, completedLessons, lessons, learningPaths),
+      })),
+    [learningPaths, completedLessons, lessons]
+  );
+
   const totalLessons = lessons.length;
   const completedCount = completedLessons.length;
   const startedPathCount = getStartedPathCount(completedLessons, startedPaths, lessons, learningPaths);
@@ -38,12 +47,9 @@ export default function DashboardClient() {
     .slice(0, 3);
 
   const activePath =
-    learningPaths
-      .map((path) => ({ path, progress: getPathProgress(path.id, completedLessons, lessons, learningPaths) }))
-      .find(({ progress }) => progress.completedCount > 0 && progress.completedCount < progress.totalCount) ??
-    learningPaths
-      .map((path) => ({ path, progress: getPathProgress(path.id, completedLessons, lessons, learningPaths) }))
-      .find(({ progress }) => progress.totalCount > 0);
+    pathsWithProgress.find(
+      ({ progress }) => progress.completedCount > 0 && progress.completedCount < progress.totalCount
+    ) ?? pathsWithProgress.find(({ progress }) => progress.totalCount > 0);
 
   const nextLesson = activePath
     ? (lessons.find(
@@ -195,8 +201,7 @@ export default function DashboardClient() {
           <section className="card">
             <h2 className="mb-5 text-headline-md text-primary">{t("overview")}</h2>
             <div className="space-y-5">
-              {learningPaths.slice(0, 3).map((path) => {
-                const progress = getPathProgress(path.id, completedLessons, lessons, learningPaths);
+              {pathsWithProgress.slice(0, 3).map(({ path, progress }) => {
                 return (
                   <div key={path.id}>
                     <div className="mb-2 flex items-center justify-between gap-3">
