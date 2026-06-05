@@ -7,8 +7,10 @@ describe("setPreferenceCookie", () => {
 
   beforeEach(() => {
     // Clear cookies before each test
-    document.cookie.split(";").forEach(function(c) {
-      document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
+    document.cookie.split(";").forEach(function (c) {
+      document.cookie = c
+        .replace(/^ +/, "")
+        .replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
     });
   });
 
@@ -48,21 +50,13 @@ describe("setPreferenceCookie", () => {
 
     // Spy on document.cookie setter to verify the exact string passed
     // since jsdom might hide attributes like Secure or SameSite when reading
-    const cookieSpy = vi.spyOn(document, 'cookie', 'set');
+    const cookieSpy = vi.spyOn(document, "cookie", "set");
 
     setPreferenceCookie("hmc-locale", "es");
 
-    expect(cookieSpy).toHaveBeenCalledWith(
-      expect.stringContaining("hmc-locale=es")
-    );
-    expect(cookieSpy).toHaveBeenCalledWith(
-      expect.stringContaining(";Secure")
-    );
-    expect(cookieSpy).toHaveBeenCalledWith(
-      expect.stringContaining("SameSite=Lax")
-    );
-    expect(cookieSpy).toHaveBeenCalledWith(
-      expect.stringContaining("max-age=31536000")
-    );
+    expect(cookieSpy).toHaveBeenCalledWith(expect.stringContaining("hmc-locale=es"));
+    expect(cookieSpy).toHaveBeenCalledWith(expect.stringContaining(";Secure"));
+    expect(cookieSpy).toHaveBeenCalledWith(expect.stringContaining("SameSite=Lax"));
+    expect(cookieSpy).toHaveBeenCalledWith(expect.stringContaining("max-age=31536000"));
   });
 });
