@@ -41,7 +41,13 @@ export default function GlossaryHighlighter({ text }: GlossaryHighlighterProps) 
       const termObj = termMap.get(part.toLowerCase());
 
       if (termObj) {
-        return <InlineGlossaryTerm key={`${termObj.id}-${index}`} term={termObj} displayText={part} />;
+        return (
+          <InlineGlossaryTerm
+            key={`${termObj.id}-${index}`}
+            term={termObj}
+            displayText={part}
+          />
+        );
       }
       return part;
     });

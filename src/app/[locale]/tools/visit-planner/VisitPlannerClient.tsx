@@ -61,9 +61,7 @@ export default function VisitPlannerClient() {
       const customQuestions: CustomQuestion[] = Array.isArray(rawCustom)
         ? rawCustom.filter(
             (q): q is CustomQuestion =>
-              !!q &&
-              typeof (q as CustomQuestion).id === "string" &&
-              typeof (q as CustomQuestion).text === "string"
+              !!q && typeof (q as CustomQuestion).id === "string" && typeof (q as CustomQuestion).text === "string"
           )
         : [];
       return {
@@ -222,9 +220,7 @@ export default function VisitPlannerClient() {
                   <input
                     type="text"
                     className="input-field py-2"
-                    placeholder={t("customQuestionPlaceholder", {
-                      defaultValue: "Type your custom question here...",
-                    })}
+                    placeholder={t("customQuestionPlaceholder", { defaultValue: "Type your custom question here..." })}
                     value={customInput}
                     onChange={(e) => setCustomInput(e.target.value)}
                     onKeyDown={(e) => {
@@ -243,7 +239,7 @@ export default function VisitPlannerClient() {
                   </button>
                 </div>
 
-                {customQuestions.length > 0 && (
+                  {customQuestions.length > 0 && (
                   <div className="grid gap-4 md:grid-cols-2">
                     {customQuestions.map((cq) => (
                       <div
