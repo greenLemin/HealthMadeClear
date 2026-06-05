@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from "react";
+import { createContext, useCallback, useContext, useEffect, useMemo, useState } from "react";
 import type { Locale } from "@/lib/i18n";
 import {
   STORAGE_KEYS,
@@ -41,7 +41,7 @@ export default function AppProviders({
   children,
   locale: initialLocale,
 }: {
-  children: ReactNode;
+  children: React.ReactNode;
   locale: Locale;
 }) {
   const [locale, setLocaleState] = useState<Locale>(initialLocale);
