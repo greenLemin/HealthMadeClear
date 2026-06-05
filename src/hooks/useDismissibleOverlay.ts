@@ -1,12 +1,12 @@
-import { useEffect, type RefObject } from "react";
+import { useEffect } from "react";
 
 type Options = {
   isOpen: boolean;
   onClose: () => void;
-  containerRef: RefObject<HTMLElement | null>;
-  triggerRef?: RefObject<HTMLElement | null>;
+  containerRef: React.RefObject<HTMLElement | null>;
+  triggerRef?: React.RefObject<HTMLElement | null>;
   lockBodyScroll?: boolean;
-  returnFocusRef?: RefObject<HTMLElement | null>;
+  returnFocusRef?: React.RefObject<HTMLElement | null>;
 };
 
 export function useDismissibleOverlay({
