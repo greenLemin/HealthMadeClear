@@ -5,239 +5,233 @@ import type { GlossaryTerm } from "@/types/glossary";
 
 export const terms: GlossaryTerm[] = [
   {
-    "id": "blood-pressure",
-    "term": "Blood Pressure",
-    "category": "General",
-    "definition": "The force of blood pushing against the walls of your arteries. It's measured with two numbers: systolic (when the heart beats) over diastolic (when the heart rests). Normal blood pressure is usually around 120/80.",
-    "relatedTerms": [
-      "hypertension",
-      "hypotension"
-    ]
+    id: "blood-pressure",
+    term: "Blood Pressure",
+    category: "General",
+    definition:
+      "The force of blood pushing against the walls of your arteries. It's measured with two numbers: systolic (when the heart beats) over diastolic (when the heart rests). Normal blood pressure is usually around 120/80.",
+    relatedTerms: ["hypertension", "hypotension"],
   },
   {
-    "id": "hypertension",
-    "term": "Hypertension",
-    "category": "Conditions",
-    "definition": "High blood pressure. This means the force of blood against your artery walls is consistently too high. It can damage your blood vessels and increase your risk of heart disease and stroke.",
-    "relatedTerms": [
-      "blood-pressure"
-    ]
+    id: "hypertension",
+    term: "Hypertension",
+    category: "Conditions",
+    definition:
+      "High blood pressure. This means the force of blood against your artery walls is consistently too high. It can damage your blood vessels and increase your risk of heart disease and stroke.",
+    relatedTerms: ["blood-pressure"],
   },
   {
-    "id": "hypotension",
-    "term": "Hypotension",
-    "category": "Conditions",
-    "definition": "Low blood pressure. This can cause dizziness, fainting, and fatigue. While often less serious than high blood pressure, it still needs medical attention if it causes symptoms.",
-    "relatedTerms": [
-      "blood-pressure"
-    ]
+    id: "hypotension",
+    term: "Hypotension",
+    category: "Conditions",
+    definition:
+      "Low blood pressure. This can cause dizziness, fainting, and fatigue. While often less serious than high blood pressure, it still needs medical attention if it causes symptoms.",
+    relatedTerms: ["blood-pressure"],
   },
   {
-    "id": "cholesterol",
-    "term": "Cholesterol",
-    "category": "General",
-    "definition": "A waxy, fat-like substance found in all cells of your body. Your body needs some cholesterol to work properly, but too much can build up in your arteries and cause heart disease.",
-    "relatedTerms": [
-      "ldl",
-      "hdl",
-      "triglycerides"
-    ]
+    id: "cholesterol",
+    term: "Cholesterol",
+    category: "General",
+    definition:
+      "A waxy, fat-like substance found in all cells of your body. Your body needs some cholesterol to work properly, but too much can build up in your arteries and cause heart disease.",
+    relatedTerms: ["ldl", "hdl", "triglycerides"],
   },
   {
-    "id": "ldl",
-    "term": "LDL Cholesterol",
-    "category": "Lab Results",
-    "definition": "Low-density lipoprotein, often called \"bad\" cholesterol. It can build up in your arteries and form plaque, which can narrow your arteries and increase your risk of heart disease.",
-    "relatedTerms": [
-      "cholesterol",
-      "hdl"
-    ]
+    id: "ldl",
+    term: "LDL Cholesterol",
+    category: "Lab Results",
+    definition:
+      'Low-density lipoprotein, often called "bad" cholesterol. It can build up in your arteries and form plaque, which can narrow your arteries and increase your risk of heart disease.',
+    relatedTerms: ["cholesterol", "hdl"],
   },
   {
-    "id": "hdl",
-    "term": "HDL Cholesterol",
-    "category": "Lab Results",
-    "definition": "High-density lipoprotein, often called \"good\" cholesterol. It helps remove LDL cholesterol from your arteries and carries it back to your liver to be processed. Higher HDL levels are generally better.",
-    "relatedTerms": [
-      "cholesterol",
-      "ldl"
-    ]
+    id: "hdl",
+    term: "HDL Cholesterol",
+    category: "Lab Results",
+    definition:
+      'High-density lipoprotein, often called "good" cholesterol. It helps remove LDL cholesterol from your arteries and carries it back to your liver to be processed. Higher HDL levels are generally better.',
+    relatedTerms: ["cholesterol", "ldl"],
   },
   {
-    "id": "triglycerides",
-    "term": "Triglycerides",
-    "category": "Lab Results",
-    "definition": "A type of fat in your blood that your body uses for energy. High levels can increase your risk of heart disease, especially when combined with high LDL or low HDL cholesterol.",
-    "relatedTerms": [
-      "cholesterol"
-    ]
+    id: "triglycerides",
+    term: "Triglycerides",
+    category: "Lab Results",
+    definition:
+      "A type of fat in your blood that your body uses for energy. High levels can increase your risk of heart disease, especially when combined with high LDL or low HDL cholesterol.",
+    relatedTerms: ["cholesterol"],
   },
   {
-    "id": "diabetes",
-    "term": "Diabetes",
-    "category": "Conditions",
-    "definition": "A chronic disease that affects how your body turns food into energy. With diabetes, your body either doesn't make enough insulin or can't use insulin properly, causing high blood sugar levels.",
-    "relatedTerms": [
-      "blood-sugar",
-      "insulin",
-      "glucose"
-    ]
+    id: "diabetes",
+    term: "Diabetes",
+    category: "Conditions",
+    definition:
+      "A chronic disease that affects how your body turns food into energy. With diabetes, your body either doesn't make enough insulin or can't use insulin properly, causing high blood sugar levels.",
+    relatedTerms: ["blood-sugar", "insulin", "glucose"],
   },
   {
-    "id": "blood-sugar",
-    "term": "Blood Sugar",
-    "category": "General",
-    "definition": "Also called blood glucose, this is the main sugar found in your blood. It comes from the food you eat and is your body's main source of energy. Insulin helps move blood sugar into your cells.",
-    "relatedTerms": [
-      "diabetes",
-      "glucose",
-      "insulin"
-    ]
+    id: "blood-sugar",
+    term: "Blood Sugar",
+    category: "General",
+    definition:
+      "Also called blood glucose, this is the main sugar found in your blood. It comes from the food you eat and is your body's main source of energy. Insulin helps move blood sugar into your cells.",
+    relatedTerms: ["diabetes", "glucose", "insulin"],
   },
   {
-    "id": "glucose",
-    "term": "Glucose",
-    "category": "General",
-    "definition": "A simple sugar that is the body's main source of energy. It's also known as blood sugar when it's in your bloodstream. Your body gets glucose from the carbohydrates you eat.",
-    "relatedTerms": [
-      "blood-sugar",
-      "diabetes"
-    ]
+    id: "glucose",
+    term: "Glucose",
+    category: "General",
+    definition:
+      "A simple sugar that is the body's main source of energy. It's also known as blood sugar when it's in your bloodstream. Your body gets glucose from the carbohydrates you eat.",
+    relatedTerms: ["blood-sugar", "diabetes"],
   },
   {
-    "id": "insulin",
-    "term": "Insulin",
-    "category": "General",
-    "definition": "A hormone made by your pancreas that helps your body use glucose for energy. It acts like a key that lets sugar into your cells. In diabetes, the body either doesn't make enough insulin or can't use it properly.",
-    "relatedTerms": [
-      "diabetes",
-      "blood-sugar"
-    ]
+    id: "insulin",
+    term: "Insulin",
+    category: "General",
+    definition:
+      "A hormone made by your pancreas that helps your body use glucose for energy. It acts like a key that lets sugar into your cells. In diabetes, the body either doesn't make enough insulin or can't use it properly.",
+    relatedTerms: ["diabetes", "blood-sugar"],
   },
   {
-    "id": "chronic",
-    "term": "Chronic",
-    "category": "General",
-    "definition": "A health condition that lasts for a long time, often for the rest of a person's life. Chronic conditions usually can't be cured but can be managed with treatment and lifestyle changes."
+    id: "chronic",
+    term: "Chronic",
+    category: "General",
+    definition:
+      "A health condition that lasts for a long time, often for the rest of a person's life. Chronic conditions usually can't be cured but can be managed with treatment and lifestyle changes.",
   },
   {
-    "id": "acute",
-    "term": "Acute",
-    "category": "General",
-    "definition": "A health condition that comes on suddenly and usually lasts for a short time. Acute conditions often need immediate treatment but can be cured or resolve on their own."
+    id: "acute",
+    term: "Acute",
+    category: "General",
+    definition:
+      "A health condition that comes on suddenly and usually lasts for a short time. Acute conditions often need immediate treatment but can be cured or resolve on their own.",
   },
   {
-    "id": "symptom",
-    "term": "Symptom",
-    "category": "General",
-    "definition": "A physical or mental problem that a person experiences that may indicate a disease or condition. Symptoms are what you feel and report to your doctor, like pain, fatigue, or nausea.",
-    "relatedTerms": [
-      "sign"
-    ]
+    id: "symptom",
+    term: "Symptom",
+    category: "General",
+    definition:
+      "A physical or mental problem that a person experiences that may indicate a disease or condition. Symptoms are what you feel and report to your doctor, like pain, fatigue, or nausea.",
+    relatedTerms: ["sign"],
   },
   {
-    "id": "sign",
-    "term": "Sign",
-    "category": "General",
-    "definition": "Something a doctor can observe or measure during an examination, like fever, rash, or high blood pressure. Signs are different from symptoms, which are what you feel.",
-    "relatedTerms": [
-      "symptom"
-    ]
+    id: "sign",
+    term: "Sign",
+    category: "General",
+    definition:
+      "Something a doctor can observe or measure during an examination, like fever, rash, or high blood pressure. Signs are different from symptoms, which are what you feel.",
+    relatedTerms: ["symptom"],
   },
   {
-    "id": "diagnosis",
-    "term": "Diagnosis",
-    "category": "General",
-    "definition": "The process of identifying a disease or condition based on a person's symptoms, medical history, and test results. It's also the name given to the identified condition."
+    id: "diagnosis",
+    term: "Diagnosis",
+    category: "General",
+    definition:
+      "The process of identifying a disease or condition based on a person's symptoms, medical history, and test results. It's also the name given to the identified condition.",
   },
   {
-    "id": "prognosis",
-    "term": "Prognosis",
-    "category": "General",
-    "definition": "The likely course or outcome of a disease or condition. A prognosis tells you what to expect in the future, such as whether a condition will improve, stay the same, or get worse."
+    id: "prognosis",
+    term: "Prognosis",
+    category: "General",
+    definition:
+      "The likely course or outcome of a disease or condition. A prognosis tells you what to expect in the future, such as whether a condition will improve, stay the same, or get worse.",
   },
   {
-    "id": "side-effect",
-    "term": "Side Effect",
-    "category": "Medications",
-    "definition": "An unwanted effect that happens when you take a medication. Side effects can range from mild (like dry mouth) to severe (like allergic reactions). Not everyone experiences side effects."
+    id: "side-effect",
+    term: "Side Effect",
+    category: "Medications",
+    definition:
+      "An unwanted effect that happens when you take a medication. Side effects can range from mild (like dry mouth) to severe (like allergic reactions). Not everyone experiences side effects.",
   },
   {
-    "id": "dosage",
-    "term": "Dosage",
-    "category": "Medications",
-    "definition": "The amount of medication you should take and how often you should take it. Dosage is carefully determined by your doctor based on your age, weight, medical condition, and other factors."
+    id: "dosage",
+    term: "Dosage",
+    category: "Medications",
+    definition:
+      "The amount of medication you should take and how often you should take it. Dosage is carefully determined by your doctor based on your age, weight, medical condition, and other factors.",
   },
   {
-    "id": "generic-drug",
-    "term": "Generic Drug",
-    "category": "Medications",
-    "definition": "A medication that has the same active ingredients as a brand-name drug but usually costs less. Generic drugs are just as safe and effective as brand-name drugs and must meet the same quality standards."
+    id: "generic-drug",
+    term: "Generic Drug",
+    category: "Medications",
+    definition:
+      "A medication that has the same active ingredients as a brand-name drug but usually costs less. Generic drugs are just as safe and effective as brand-name drugs and must meet the same quality standards.",
   },
   {
-    "id": "prescription",
-    "term": "Prescription",
-    "category": "Medications",
-    "definition": "A written order from a doctor for a medication or treatment. Prescription medications can only be obtained from a pharmacy with a doctor's authorization."
+    id: "prescription",
+    term: "Prescription",
+    category: "Medications",
+    definition:
+      "A written order from a doctor for a medication or treatment. Prescription medications can only be obtained from a pharmacy with a doctor's authorization.",
   },
   {
-    "id": "over-the-counter",
-    "term": "Over-the-Counter (OTC)",
-    "category": "Medications",
-    "definition": "Medications you can buy without a prescription from a doctor. These include common medicines like pain relievers, cold medicines, and allergy medications. Even though they don't require a prescription, they can still have side effects and interactions."
+    id: "over-the-counter",
+    term: "Over-the-Counter (OTC)",
+    category: "Medications",
+    definition:
+      "Medications you can buy without a prescription from a doctor. These include common medicines like pain relievers, cold medicines, and allergy medications. Even though they don't require a prescription, they can still have side effects and interactions.",
   },
   {
-    "id": "biopsy",
-    "term": "Biopsy",
-    "category": "Procedures",
-    "definition": "A medical procedure where a small sample of tissue is removed from your body for examination under a microscope. Biopsies are often used to diagnose cancer or other diseases."
+    id: "biopsy",
+    term: "Biopsy",
+    category: "Procedures",
+    definition:
+      "A medical procedure where a small sample of tissue is removed from your body for examination under a microscope. Biopsies are often used to diagnose cancer or other diseases.",
   },
   {
-    "id": "ct-scan",
-    "term": "CT Scan",
-    "category": "Procedures",
-    "definition": "Computed Tomography scan. A special X-ray test that uses a computer to create detailed pictures of your body. It can help diagnose many conditions, including cancer, heart disease, and injuries."
+    id: "ct-scan",
+    term: "CT Scan",
+    category: "Procedures",
+    definition:
+      "Computed Tomography scan. A special X-ray test that uses a computer to create detailed pictures of your body. It can help diagnose many conditions, including cancer, heart disease, and injuries.",
   },
   {
-    "id": "mri",
-    "term": "MRI",
-    "category": "Procedures",
-    "definition": "Magnetic Resonance Imaging. A test that uses powerful magnets and radio waves to create detailed pictures of your body. It's especially useful for looking at soft tissues like the brain, muscles, and joints."
+    id: "mri",
+    term: "MRI",
+    category: "Procedures",
+    definition:
+      "Magnetic Resonance Imaging. A test that uses powerful magnets and radio waves to create detailed pictures of your body. It's especially useful for looking at soft tissues like the brain, muscles, and joints.",
   },
   {
-    "id": "ultrasound",
-    "term": "Ultrasound",
-    "category": "Procedures",
-    "definition": "A test that uses sound waves to create pictures of the inside of your body. It's commonly used during pregnancy but can also examine organs like the heart, liver, and kidneys."
+    id: "ultrasound",
+    term: "Ultrasound",
+    category: "Procedures",
+    definition:
+      "A test that uses sound waves to create pictures of the inside of your body. It's commonly used during pregnancy but can also examine organs like the heart, liver, and kidneys.",
   },
   {
-    "id": "inflammation",
-    "term": "Inflammation",
-    "category": "General",
-    "definition": "Your body's response to injury or infection. It causes redness, swelling, heat, and pain. Short-term inflammation helps your body heal, but long-term (chronic) inflammation can damage your body."
+    id: "inflammation",
+    term: "Inflammation",
+    category: "General",
+    definition:
+      "Your body's response to injury or infection. It causes redness, swelling, heat, and pain. Short-term inflammation helps your body heal, but long-term (chronic) inflammation can damage your body.",
   },
   {
-    "id": "immune-system",
-    "term": "Immune System",
-    "category": "General",
-    "definition": "Your body's defense system against infections and diseases. It includes white blood cells, antibodies, and other organs and tissues that work together to protect you from germs and harmful substances."
+    id: "immune-system",
+    term: "Immune System",
+    category: "General",
+    definition:
+      "Your body's defense system against infections and diseases. It includes white blood cells, antibodies, and other organs and tissues that work together to protect you from germs and harmful substances.",
   },
   {
-    "id": "metabolism",
-    "term": "Metabolism",
-    "category": "General",
-    "definition": "The chemical processes in your body that convert food and drink into energy. It includes all the reactions that keep your body functioning, like breathing, digesting food, and repairing cells."
+    id: "metabolism",
+    term: "Metabolism",
+    category: "General",
+    definition:
+      "The chemical processes in your body that convert food and drink into energy. It includes all the reactions that keep your body functioning, like breathing, digesting food, and repairing cells.",
   },
   {
-    "id": "placebo",
-    "term": "Placebo",
-    "category": "Research",
-    "definition": "A substance with no active ingredients, used in medical studies as a control. In clinical trials, some people get the real treatment while others get a placebo to compare the effects."
+    id: "placebo",
+    term: "Placebo",
+    category: "Research",
+    definition:
+      "A substance with no active ingredients, used in medical studies as a control. In clinical trials, some people get the real treatment while others get a placebo to compare the effects.",
   },
   {
-    "id": "clinical-trial",
-    "term": "Clinical Trial",
-    "category": "Research",
-    "definition": "A research study that tests new medical treatments, drugs, or devices in people. Clinical trials help determine if new treatments are safe and effective before they're made available to the public."
-  }
+    id: "clinical-trial",
+    term: "Clinical Trial",
+    category: "Research",
+    definition:
+      "A research study that tests new medical treatments, drugs, or devices in people. Clinical trials help determine if new treatments are safe and effective before they're made available to the public.",
+  },
 ] as const;
