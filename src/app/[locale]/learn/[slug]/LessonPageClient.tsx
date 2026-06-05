@@ -22,17 +22,19 @@ type SidebarContent = {
 };
 
 /** Derives category-specific sidebar copy from i18n translations. */
-function useSidebarContent(
-  lesson: Lesson,
-  t: ReturnType<typeof useTranslations<"learn">>
-): SidebarContent {
+function useSidebarContent(lesson: Lesson, t: ReturnType<typeof useTranslations<"learn">>): SidebarContent {
   if (lesson.sidebarTips) {
     return { body: t("sidebarBody"), tips: lesson.sidebarTips, footer: t("pharmacistTip") };
   }
   if (lesson.categoryId === "doctor-visits") {
     return {
       body: t("sidebarBodyDoctor"),
-      tips: [t("tipDoctorAppointmentTime"), t("tipDoctorInsurance"), t("tipDoctorQuestions"), t("tipDoctorMeds")],
+      tips: [
+        t("tipDoctorAppointmentTime"),
+        t("tipDoctorInsurance"),
+        t("tipDoctorQuestions"),
+        t("tipDoctorMeds"),
+      ],
       footer: t("doctorTip"),
     };
   }
