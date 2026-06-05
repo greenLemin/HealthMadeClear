@@ -12,4 +12,3 @@ if (!siteUrl || siteUrl.includes("localhost")) {
   console.error("NEXT_PUBLIC_SITE_URL must be set to a public URL for production/CI builds.");
   process.exit(1);
 }
-

@@ -31,22 +31,14 @@ describe("reportClientError", () => {
 
     it("logs normalized string errors to console", () => {
       reportClientError("A string error");
-      expect(consoleSpy).toHaveBeenCalledWith(
-        "[hmc]",
-        expect.any(Error),
-        undefined
-      );
+      expect(consoleSpy).toHaveBeenCalledWith("[hmc]", expect.any(Error), undefined);
       expect(consoleSpy.mock.calls[0][1].message).toBe("A string error");
     });
 
     it("logs Error instances to console", () => {
       const error = new Error("An error object");
       reportClientError(error);
-      expect(consoleSpy).toHaveBeenCalledWith(
-        "[hmc]",
-        error,
-        undefined
-      );
+      expect(consoleSpy).toHaveBeenCalledWith("[hmc]", error, undefined);
     });
 
     it("sanitizes context", () => {
@@ -57,22 +49,14 @@ describe("reportClientError", () => {
         mySecret: "no",
         PHI_data: "no",
         something_cookie: "no",
-        localStorage_thing: "no"
+        localStorage_thing: "no",
       });
-      expect(consoleSpy).toHaveBeenCalledWith(
-        "[hmc]",
-        expect.any(Error),
-        { safe: "yes" }
-      );
+      expect(consoleSpy).toHaveBeenCalledWith("[hmc]", expect.any(Error), { safe: "yes" });
     });
 
     it("handles undefined context", () => {
       reportClientError("Error", undefined);
-      expect(consoleSpy).toHaveBeenCalledWith(
-        "[hmc]",
-        expect.any(Error),
-        undefined
-      );
+      expect(consoleSpy).toHaveBeenCalledWith("[hmc]", expect.any(Error), undefined);
     });
   });
 
@@ -117,24 +101,28 @@ describe("reportClientError", () => {
       // Wait for dynamic import to resolve
       await new Promise((resolve) => setTimeout(resolve, 0));
 
-      expect(Sentry.init).toHaveBeenCalledWith(expect.objectContaining({
-        dsn: "https://examplePublicKey@o0.ingest.sentry.io/0",
-        environment: "production",
-      }));
+      expect(Sentry.init).toHaveBeenCalledWith(
+        expect.objectContaining({
+          dsn: "https://examplePublicKey@o0.ingest.sentry.io/0",
+          environment: "production",
+        })
+      );
 
       // Test the beforeBreadcrumb logic
       const initCall = vi.mocked(Sentry.init).mock.calls[0][0];
       expect(initCall?.beforeBreadcrumb).toBeDefined();
 
       if (initCall?.beforeBreadcrumb) {
-        expect(initCall.beforeBreadcrumb({ category: "console", message: "test" } as any, undefined)).toBeNull();
-        expect(initCall.beforeBreadcrumb({ category: "ui", message: "click" } as any, undefined)).toEqual({ category: "ui", message: "click" });
+        expect(
+          initCall.beforeBreadcrumb({ category: "console", message: "test" } as any, undefined)
+        ).toBeNull();
+        expect(initCall.beforeBreadcrumb({ category: "ui", message: "click" } as any, undefined)).toEqual({
+          category: "ui",
+          message: "click",
+        });
       }
 
-      expect(Sentry.captureException).toHaveBeenCalledWith(
-        expect.any(Error),
-        { extra: { safe: "data" } }
-      );
+      expect(Sentry.captureException).toHaveBeenCalledWith(expect.any(Error), { extra: { safe: "data" } });
     });
 
     it("does not initialize Sentry if client already exists", async () => {
