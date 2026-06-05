@@ -235,6 +235,8 @@
     "pageBadge": "Resources",
     "pageTitle": "Your Health Toolkit",
     "pageDescription": "Navigating healthcare does not have to be confusing. Use these practical tools to prepare for visits, understand care options, and ask better questions.",
+    "emergencyShort": "Call 911 if you have a life-threatening emergency.",
+    "careOptionsHeading": "Care Options",
     "askTitle": "What should I ask?",
     "askDescription": "Generate a personalized list of questions to bring to your next doctor's appointment.",
     "careTitle": "Where should I go?",
