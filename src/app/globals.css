@@ -131,7 +131,8 @@
       max-width: 100% !important;
       width: 100% !important;
     }
-    .max-w-container, .max-w-4xl {
+    .max-w-container,
+    .max-w-4xl {
       max-width: 100% !important;
       width: 100% !important;
       padding: 0 !important;
@@ -143,7 +144,9 @@
       padding: 1.5rem !important;
       page-break-inside: avoid;
     }
-    section, article, li {
+    section,
+    article,
+    li {
       page-break-inside: avoid;
     }
     input[type="checkbox"] {
