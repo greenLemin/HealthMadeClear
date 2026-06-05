@@ -247,6 +247,8 @@
     "plannerDescription": "Prepárate para tu próxima cita creando una lista personalizada de preguntas y notas para que no se te pase nada.",
     "step": "Paso",
     "visitType": "Tipo de visita",
+    "emergencyShort": "Llame al 911 si tiene una emergencia médica que pone en peligro su vida.",
+    "careOptionsHeading": "Opciones de atención",
     "questions": "Preguntas",
     "review": "Revisión",
     "chooseVisitType": "Elige el tipo de visita",
