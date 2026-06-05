@@ -232,6 +232,8 @@
     "controlBody": "You can clear your browser storage at any time to reset your preferences and progress."
   },
   "tools": {
+    "emergencyShort": "Experiencing a medical emergency? Call 911.",
+    "careOptionsHeading": "Understanding your care options",
     "pageBadge": "Resources",
     "pageTitle": "Your Health Toolkit",
     "pageDescription": "Navigating healthcare does not have to be confusing. Use these practical tools to prepare for visits, understand care options, and ask better questions.",
