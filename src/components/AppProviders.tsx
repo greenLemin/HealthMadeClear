@@ -62,7 +62,6 @@ export default function AppProviders({
     setHydrated(true);
   }, [initialLocale]);
 
-
   useEffect(() => {
     if (!hydrated) return;
     applyDocumentPreferences(locale, theme, textSize, simpleMode);
