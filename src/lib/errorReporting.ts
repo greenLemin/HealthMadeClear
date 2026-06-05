@@ -5,9 +5,11 @@ const SENSITIVE_KEY_PATTERN = /localStorage|cookie|password|token|secret|note|ph
 function sanitizeContext(context?: ErrorContext): ErrorContext | undefined {
   if (!context) return undefined;
   const safe: ErrorContext = {};
-  for (const [key, value] of Object.entries(context)) {
-    if (SENSITIVE_KEY_PATTERN.test(key)) continue;
-    safe[key] = value;
+  for (const key in context) {
+    if (Object.prototype.hasOwnProperty.call(context, key)) {
+      if (SENSITIVE_KEY_PATTERN.test(key)) continue;
+      safe[key] = context[key];
+    }
   }
   return safe;
 }
