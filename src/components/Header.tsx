@@ -1,7 +1,7 @@
 "use client";
 
 import { Link, usePathname } from "@/i18n/navigation";
-import { useRef, useState, type ReactNode } from "react";
+import { useRef, useState } from "react";
 import { BookOpen, Home, Info, LayoutDashboard, Menu, Route, Search, Wrench, X } from "lucide-react";
 import AccessibilityControls from "@/components/AccessibilityControls";
 import LanguageToggle from "@/components/LanguageToggle";
@@ -145,7 +145,7 @@ function NavLink({
   onClick,
 }: {
   href: string;
-  icon: ReactNode;
+  icon: React.ReactNode;
   label: string;
   active: boolean;
   onClick?: () => void;
