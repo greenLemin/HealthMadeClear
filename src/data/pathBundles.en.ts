@@ -5,33 +5,42 @@ import type { LearningPath } from "@/types/learningPath";
 
 export const paths: LearningPath[] = [
   {
-    id: "safer-medicine-use",
-    title: "Safer Medicine Use",
-    description:
-      "Learn how to safely take and manage your medications, understand prescription labels, and avoid drug interactions.",
-    lessons: ["understanding-prescription-labels", "asking-about-medications", "managing-side-effects"],
-    duration: "30 minutes",
-    level: "beginner",
-    icon: "💊",
+    "id": "safer-medicine-use",
+    "title": "Safer Medicine Use",
+    "description": "Learn how to safely take and manage your medications, understand prescription labels, and avoid drug interactions.",
+    "lessons": [
+      "understanding-prescription-labels",
+      "asking-about-medications",
+      "managing-side-effects"
+    ],
+    "duration": "30 minutes",
+    "level": "beginner",
+    "icon": "💊"
   },
   {
-    id: "doctor-visit-prep",
-    title: "Preparing for Doctor Visits",
-    description:
-      "Get ready for your appointments by knowing what to bring, what questions to ask, and how to follow up.",
-    lessons: ["before-your-visit", "during-your-visit", "after-your-visit"],
-    duration: "25 minutes",
-    level: "beginner",
-    icon: "🩺",
+    "id": "doctor-visit-prep",
+    "title": "Preparing for Doctor Visits",
+    "description": "Get ready for your appointments by knowing what to bring, what questions to ask, and how to follow up.",
+    "lessons": [
+      "before-your-visit",
+      "during-your-visit",
+      "after-your-visit"
+    ],
+    "duration": "25 minutes",
+    "level": "beginner",
+    "icon": "🩺"
   },
   {
-    id: "understanding-labs",
-    title: "Understanding Lab Results",
-    description:
-      "Learn to read common blood test results and understand what the numbers mean for your health.",
-    lessons: ["blood-basics", "common-tests", "when-to-worry"],
-    duration: "40 minutes",
-    level: "intermediate",
-    icon: "🔬",
-  },
+    "id": "understanding-labs",
+    "title": "Understanding Lab Results",
+    "description": "Learn to read common blood test results and understand what the numbers mean for your health.",
+    "lessons": [
+      "blood-basics",
+      "common-tests",
+      "when-to-worry"
+    ],
+    "duration": "40 minutes",
+    "level": "intermediate",
+    "icon": "🔬"
+  }
 ] as const;

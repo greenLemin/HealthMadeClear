@@ -316,6 +316,8 @@
     "urgentCare": "Urgent care",
     "urgentCareBody": "Walk-in clinics for problems that need same-day attention but are not life-threatening.",
     "emergency": "Emergency room",
+    "emergencyShort": "Call 911 if you have a life-threatening emergency.",
+    "careOptionsHeading": "Care Options",
     "emergencyBody": "Severe chest pain, trouble breathing, stroke signs, heavy bleeding, or other life-threatening symptoms."
   },
   "sectionNav": {
