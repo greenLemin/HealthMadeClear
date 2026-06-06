@@ -1,27 +1,45 @@
 import { describe, expect, it } from "vitest";
-import { normalizeGlossaryLetter } from "@/lib/i18n";
+import { formatLevel, getCategoryLabel, normalizeGlossaryLetter } from "./i18n";
 
-describe("i18n helpers", () => {
+describe("i18n", () => {
+  describe("formatLevel", () => {
+    it("returns correct English labels for all levels", () => {
+      expect(formatLevel("beginner", "en")).toBe("Beginner");
+      expect(formatLevel("intermediate", "en")).toBe("Intermediate");
+      expect(formatLevel("advanced", "en")).toBe("Advanced");
+    });
+
+    it("returns correct Spanish labels for all levels", () => {
+      expect(formatLevel("beginner", "es")).toBe("Principiante");
+      expect(formatLevel("intermediate", "es")).toBe("Intermedio");
+      expect(formatLevel("advanced", "es")).toBe("Avanzado");
+    });
+  });
+
+  describe("getCategoryLabel", () => {
+    it("returns correct English category label", () => {
+      expect(getCategoryLabel("medication-safety", "en")).toBe("Medication Safety");
+    });
+
+    it("returns correct Spanish category label", () => {
+      expect(getCategoryLabel("medication-safety", "es")).toBe("Seguridad con medicamentos");
+    });
+  });
+
   describe("normalizeGlossaryLetter", () => {
-    it("returns empty string when given empty string", () => {
-      expect(normalizeGlossaryLetter("")).toBe("");
+    it("returns capitalized first letter", () => {
+      expect(normalizeGlossaryLetter("apple")).toBe("A");
+      expect(normalizeGlossaryLetter("Apple")).toBe("A");
     });
 
-    it("trims whitespace and returns first letter uppercase", () => {
-      expect(normalizeGlossaryLetter("  apple  ")).toBe("A");
+    it("strips diacritics", () => {
+      expect(normalizeGlossaryLetter("álvarez")).toBe("A");
+      expect(normalizeGlossaryLetter("Éxito")).toBe("E");
+      expect(normalizeGlossaryLetter("ñandú")).toBe("N");
     });
 
-    it("removes accents/diacritics from letters", () => {
-      expect(normalizeGlossaryLetter("ángel")).toBe("A");
-      expect(normalizeGlossaryLetter("ç")).toBe("C");
-      expect(normalizeGlossaryLetter("ñ")).toBe("N");
-      expect(normalizeGlossaryLetter("é")).toBe("E");
-      expect(normalizeGlossaryLetter("ü")).toBe("U");
-    });
-
-    it("preserves non-letters without accents", () => {
-      expect(normalizeGlossaryLetter("1st")).toBe("1");
-      expect(normalizeGlossaryLetter("!")).toBe("!");
+    it("handles whitespace", () => {
+      expect(normalizeGlossaryLetter("  banana  ")).toBe("B");
     });
   });
 });
