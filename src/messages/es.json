@@ -12,10 +12,7 @@
     "mainNavigation": "Navegación principal",
     "mobileNavigation": "Navegación móvil",
     "skipToContent": "Saltar al contenido principal",
-    "taglineShort": "Aprendizaje claro de salud",
-    "brandName": "Health Made Clear",
-    "switchToEnglish": "Cambiar idioma a inglés",
-    "switchToSpanish": "Cambiar idioma a español"
+    "taglineShort": "Aprendizaje claro de salud"
   },
   "accessibility": {
     "display": "Pantalla",
@@ -28,12 +25,7 @@
     "simpleModeDescription": "Reduce el detalle visual para facilitar la lectura.",
     "on": "Sí",
     "off": "No",
-    "textSizeStandard": "Tamaño de texto estándar",
-    "textSizeLarge": "Tamaño de texto grande",
-    "textSizeLargest": "Tamaño de texto extra grande",
     "pageTitle": "Accesibilidad",
-    "emergencyShort": "Llame al 911 si tiene una emergencia que pone en peligro su vida.",
-    "careOptionsHeading": "Opciones de atención",
     "pageDescription": "Cómo Health Made Clear apoya un aprendizaje accesible.",
     "commitmentTitle": "Nuestro compromiso",
     "commitmentBody": "Buscamos cumplir WCAG 2.1 nivel AA cuando sea posible. La información de salud debe ser legible, navegable con teclado y adaptable a tus necesidades.",
@@ -92,8 +84,7 @@
     "noLessonsTryBroader": "No hay lecciones que coincidan con tu búsqueda. Prueba un término más general.",
     "of": "de",
     "modules": "módulos",
-    "relatedTerms": "Términos relacionados",
-    "itemsCompleted": "{completed} de {total} completados"
+    "relatedTerms": "Términos relacionados"
   },
   "categories": {
     "medication-safety": "Seguridad con medicamentos",
@@ -103,14 +94,12 @@
   "glossary": {
     "title": "Glosario de salud",
     "description": "Definiciones claras y cotidianas de términos médicos para que entiendas tu salud sin tanta confusión.",
-    "filterByLetter": "Filtrar términos por letra",
     "backToGlossary": "Volver al glosario",
     "viewTerm": "Ver definición completa"
   },
   "learn": {
     "title": "¿Qué te gustaría aprender hoy?",
     "description": "Guías claras y confiables para ayudarte a recorrer tu camino de salud con más confianza.",
-    "filterByCategory": "Filtrar lecciones por categoría",
     "notFoundTitle": "Lección no encontrada",
     "notFoundBody": "La lección que buscas no está disponible en este momento.",
     "backToLibrary": "Volver a la biblioteca",
@@ -154,10 +143,7 @@
     "startPath": "Comenzar ruta",
     "pageTitle": "Rutas de aprendizaje",
     "pageBadge": "Aprendizaje guiado",
-    "progressLabel": "progreso de la ruta",
-    "pathComplete": "Ruta completada",
-    "allLessonsComplete": "Todas las lecciones completadas",
-    "noLessonsInPath": "Aún no hay lecciones en esta ruta"
+    "progressLabel": "progreso de la ruta"
   },
   "dashboard": {
     "title": "Tu panel de aprendizaje",
@@ -248,11 +234,7 @@
   "tools": {
     "pageBadge": "Recursos",
     "pageTitle": "Tus herramientas de salud",
-    "emergencyShort": "Llame al 911 si tiene una emergencia que pone en peligro su vida.",
-    "careOptionsHeading": "Opciones de atención",
     "pageDescription": "Navegar el sistema de salud no tiene que ser confuso. Usa estas herramientas para prepararte, entender opciones de atención y hacer mejores preguntas.",
-    "emergencyShort": "Llama al 911 si tienes una emergencia que ponga en peligro tu vida.",
-    "careOptionsHeading": "Opciones de Atención",
     "askTitle": "¿Qué debo preguntar?",
     "askDescription": "Crea una lista personalizada de preguntas para llevar a tu próxima cita médica.",
     "careTitle": "¿Dónde debo ir?",
@@ -283,7 +265,6 @@
     "noQuestionsSelected": "Ninguna pregunta seleccionada.",
     "yourNotes": "Tus notas",
     "noNotes": "Todavía no hay notas personales.",
-    "clearPlan": "Limpiar y empezar de nuevo",
     "editQuestions": "Editar preguntas",
     "visitTypes": {
       "new-symptom": "Síntoma nuevo",
@@ -336,8 +317,8 @@
     "urgentCareBody": "Clínicas sin cita para problemas que requieren atención el mismo día pero no son mortales.",
     "emergency": "Sala de emergencias",
     "emergencyBody": "Dolor fuerte en el pecho, dificultad para respirar, signos de derrame cerebral, sangrado abundante u otros síntomas graves.",
-    "emergencyShort": "Llame al 911 si tiene una emergencia que ponga en peligro su vida.",
-    "careOptionsHeading": "Opciones de atención"
+    "emergencyShort": "Llama al 911 si tienes una emergencia que ponga en peligro tu vida.",
+    "careOptionsHeading": "Opciones de Atención"
   },
   "sectionNav": {
     "learn": "Aprender",

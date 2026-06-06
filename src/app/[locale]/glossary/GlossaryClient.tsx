@@ -29,14 +29,18 @@ export default function GlossaryClient() {
   }, []);
 
   const filteredTerms = useMemo(() => {
+    const lowerQuery = query.toLowerCase();
     return glossaryTerms.filter((term) => {
       const normalized = normalizeGlossaryLetter(term.term);
       const matchesLetter = activeLetter === "All" || normalized === activeLetter;
+
+      if (!matchesLetter) return false;
+
       const matchesQuery =
-        term.term.toLowerCase().includes(query.toLowerCase()) ||
-        term.definition.toLowerCase().includes(query.toLowerCase()) ||
-        term.category.toLowerCase().includes(query.toLowerCase());
-      return matchesLetter && matchesQuery;
+        term.term.toLowerCase().includes(lowerQuery) ||
+        term.definition.toLowerCase().includes(lowerQuery) ||
+        term.category.toLowerCase().includes(lowerQuery);
+      return matchesQuery;
     });
   }, [activeLetter, glossaryTerms, query]);
 
