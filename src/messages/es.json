@@ -317,8 +317,8 @@
     "urgentCareBody": "Clínicas sin cita para problemas que requieren atención el mismo día pero no son mortales.",
     "emergency": "Sala de emergencias",
     "emergencyBody": "Dolor fuerte en el pecho, dificultad para respirar, signos de derrame cerebral, sangrado abundante u otros síntomas graves.",
-    "emergencyShort": "Llame al 911 si tiene una emergencia que pone en peligro la vida.",
-    "careOptionsHeading": "Opciones de Atención"
+    "emergencyShort": "Llama al 911 si tienes una emergencia que pone en peligro tu vida.",
+    "careOptionsHeading": "Opciones comunes de atención"
   },
   "sectionNav": {
     "learn": "Aprender",

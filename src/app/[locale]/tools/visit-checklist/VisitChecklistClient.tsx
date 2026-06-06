@@ -11,29 +11,23 @@ export default function VisitChecklistClient() {
   const t = useTranslations("tools");
   const tCommon = useTranslations("common");
   const checklistItems = useMemo(() => t.raw("checklistItems") as string[], [t]);
-  const [checkedItems, setCheckedItems] = useState<Set<string>>(new Set());
+  const [checkedItems, setCheckedItems] = useState<string[]>([]);
   const [hydrated, setHydrated] = useState(false);
 
   useEffect(() => {
-    setCheckedItems(new Set(readStoredStringArray(STORAGE_KEYS.checklist)));
+    setCheckedItems(readStoredStringArray(STORAGE_KEYS.checklist));
     setHydrated(true);
   }, []);
 
   useEffect(() => {
     if (!hydrated) return;
-    writeStoredJson(STORAGE_KEYS.checklist, Array.from(checkedItems));
+    writeStoredJson(STORAGE_KEYS.checklist, checkedItems);
   }, [checkedItems, hydrated]);
 
   const toggleItem = (item: string) => {
-    setCheckedItems((current) => {
-      const next = new Set(current);
-      if (next.has(item)) {
-        next.delete(item);
-      } else {
-        next.add(item);
-      }
-      return next;
-    });
+    setCheckedItems((current) =>
+      current.includes(item) ? current.filter((value) => value !== item) : [...current, item]
+    );
   };
 
   return (
@@ -46,7 +40,7 @@ export default function VisitChecklistClient() {
             <div>
               <div className="text-label-lg text-primary">{t("readyBeforeGo")}</div>
               <div className="text-body-md text-on-surface-variant">
-                {checkedItems.size} {tCommon("of")} {checklistItems.length}{" "}
+                {checkedItems.length} {tCommon("of")} {checklistItems.length}{" "}
                 {tCommon("completed").toLowerCase()}
               </div>
             </div>
@@ -63,7 +57,7 @@ export default function VisitChecklistClient() {
           <div
             className="progress-bar mb-8 h-3"
             role="progressbar"
-            aria-valuenow={checkedItems.size}
+            aria-valuenow={checkedItems.length}
             aria-valuemin={0}
             aria-valuemax={checklistItems.length}
             aria-label={t("checklistProgress")}
@@ -71,14 +65,14 @@ export default function VisitChecklistClient() {
             <div
               className="progress-fill"
               style={{
-                width: `${checklistItems.length === 0 ? 0 : Math.round((checkedItems.size / checklistItems.length) * 100)}%`,
+                width: `${checklistItems.length === 0 ? 0 : Math.round((checkedItems.length / checklistItems.length) * 100)}%`,
               }}
             />
           </div>
 
           <div className="space-y-3">
             {checklistItems.map((item) => {
-              const checked = checkedItems.has(item);
+              const checked = checkedItems.includes(item);
               const inputId = `checklist-${item.replace(/\s+/g, "-")}`;
               return (
                 <label
