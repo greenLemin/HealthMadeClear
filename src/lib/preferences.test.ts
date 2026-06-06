@@ -1,53 +1,62 @@
 // @vitest-environment jsdom
-import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
-import { applyDocumentPreferences } from "./preferences";
+import { describe, expect, it, vi, beforeEach, afterEach } from "vitest";
+import { setPreferenceCookie } from "./preferences";
 
-describe("applyDocumentPreferences", () => {
+describe("setPreferenceCookie", () => {
+  const originalEnv = process.env.NODE_ENV;
+
   beforeEach(() => {
-    // Reset document element attributes
-    document.documentElement.lang = "";
-    document.documentElement.dataset.locale = "";
-    document.documentElement.dataset.theme = "";
-    document.documentElement.dataset.textSize = "";
-    document.documentElement.dataset.simpleMode = "";
+    // Clear cookies before each test
+    document.cookie.split(";").forEach(function (c) {
+      document.cookie = c
+        .replace(/^ +/, "")
+        .replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
+    });
   });
 
   afterEach(() => {
+    process.env.NODE_ENV = originalEnv;
     vi.restoreAllMocks();
   });
 
-  it("applies light theme, standard text size, non-simple mode, English locale", () => {
-    applyDocumentPreferences("en", "light", "standard", false);
-
-    expect(document.documentElement.lang).toBe("en");
-    expect(document.documentElement.dataset.locale).toBe("en");
-    expect(document.documentElement.dataset.theme).toBe("light");
-    expect(document.documentElement.dataset.textSize).toBe("standard");
-    expect(document.documentElement.dataset.simpleMode).toBe("false");
-  });
-
-  it("applies dark theme, large text size, simple mode, Spanish locale", () => {
-    applyDocumentPreferences("es", "dark", "large", true);
-
-    expect(document.documentElement.lang).toBe("es");
-    expect(document.documentElement.dataset.locale).toBe("es");
-    expect(document.documentElement.dataset.theme).toBe("dark");
-    expect(document.documentElement.dataset.textSize).toBe("large");
-    expect(document.documentElement.dataset.simpleMode).toBe("true");
-  });
-
   it("does nothing when document is undefined", () => {
-    // Mock the global document to be undefined specifically for this test
+    // Temporarily mock document as undefined to test the early return
     const originalDocument = global.document;
-    // @ts-ignore
+    // @ts-expect-error - overriding for testing
     delete global.document;
 
-    // This should not throw an error
-    expect(() => {
-      applyDocumentPreferences("en", "light", "standard", false);
-    }).not.toThrow();
+    expect(() => setPreferenceCookie("test", "value")).not.toThrow();
 
     // Restore document
     global.document = originalDocument;
+  });
+
+  it("sets a basic cookie with the correct value", () => {
+    process.env.NODE_ENV = "development";
+    setPreferenceCookie("hmc-theme", "dark");
+
+    expect(document.cookie).toContain("hmc-theme=dark");
+  });
+
+  it("encodes the cookie value", () => {
+    process.env.NODE_ENV = "development";
+    setPreferenceCookie("test-special", "hello world &");
+
+    expect(document.cookie).toContain("test-special=hello%20world%20%26");
+  });
+
+  it("includes secure flag in production environment", () => {
+    process.env.NODE_ENV = "production";
+
+    // Spy on document.cookie setter to verify the exact string passed
+    // since jsdom might hide attributes like Secure or SameSite when reading
+    const cookieSpy = vi.spyOn(document, "cookie", "set");
+
+    setPreferenceCookie("hmc-locale", "es");
+
+    expect(cookieSpy).toHaveBeenCalledWith(expect.stringContaining("hmc-locale=es"));
+    expect(cookieSpy).toHaveBeenCalledWith(expect.stringContaining(";Secure"));
+    expect(cookieSpy).toHaveBeenCalledWith(expect.stringContaining("SameSite=Lax"));
+    expect(cookieSpy).toHaveBeenCalledWith(expect.stringContaining("max-age=31536000"));
   });
 });
