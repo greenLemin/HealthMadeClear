@@ -1,5 +1,6 @@
 import fs from "fs";
 import path from "path";
+import { execSync } from "child_process";
 import { getAllPathsFromMdx } from "../src/lib/paths/mdxParser";
 import { assertLocaleIdParity } from "./lib/validateLocaleParity";
 
@@ -18,6 +19,8 @@ const writeLocaleBundle = (locale: "en" | "es", paths: typeof en) => {
     `${header}export const paths: LearningPath[] = ${JSON.stringify(paths, null, 2)} as const;\n`,
     "utf8"
   );
+  execSync(`npx prettier --write ${outPath}`);
+  return outPath;
 };
 
 writeLocaleBundle("en", en);

@@ -1,5 +1,6 @@
 import fs from "fs";
 import path from "path";
+import { execSync } from "child_process";
 import { getAllLessonsFromMdx } from "../src/lib/lessons/mdxParser";
 import { assertLocaleIdParity } from "./lib/validateLocaleParity";
 
@@ -18,6 +19,7 @@ const writeLocaleBundle = (locale: "en" | "es", lessons: typeof en) => {
     `${header}export const lessons: Lesson[] = ${JSON.stringify(lessons, null, 2)} as const;\n`,
     "utf8"
   );
+  execSync(`npx prettier --write ${outPath}`);
   return outPath;
 };
 
