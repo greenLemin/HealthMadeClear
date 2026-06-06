@@ -8,8 +8,13 @@ export function getLessonsByPath(pathId: string, lessonItems: Lesson[], pathItem
     return [];
   }
 
+  const lessonMap = new Map<string, Lesson>();
+  for (const lesson of lessonItems) {
+    lessonMap.set(lesson.id, lesson);
+  }
+
   return path.lessons
-    .map((lessonId) => lessonItems.find((lesson) => lesson.id === lessonId))
+    .map((lessonId) => lessonMap.get(lessonId))
     .filter((lesson): lesson is Lesson => Boolean(lesson));
 }
 
@@ -20,7 +25,8 @@ export function getPathProgress(
   pathItems: LearningPath[]
 ) {
   const pathLessons = getLessonsByPath(pathId, lessonItems, pathItems);
-  const completedCount = pathLessons.filter((lesson) => completedLessonIds.includes(lesson.id)).length;
+  const completedLessonIdsSet = new Set(completedLessonIds);
+  const completedCount = pathLessons.filter((lesson) => completedLessonIdsSet.has(lesson.id)).length;
   const totalCount = pathLessons.length;
 
   return {
@@ -36,10 +42,13 @@ export function getStartedPathCount(
   lessonItems: Lesson[],
   pathItems: LearningPath[]
 ) {
+  const completedLessonIdsSet = new Set(completedLessonIds);
+  const startedPathIdsSet = new Set(startedPathIds);
+
   return pathItems.filter((path) => {
-    if (startedPathIds.includes(path.id)) return true;
+    if (startedPathIdsSet.has(path.id)) return true;
     return getLessonsByPath(path.id, lessonItems, pathItems).some((lesson) =>
-      completedLessonIds.includes(lesson.id)
+      completedLessonIdsSet.has(lesson.id)
     );
   }).length;
 }
@@ -49,8 +58,10 @@ export function getCompletedPathCount(
   lessonItems: Lesson[],
   pathItems: LearningPath[]
 ) {
+  const completedLessonIdsSet = new Set(completedLessonIds);
+
   return pathItems.filter((path) => {
     const pathLessons = getLessonsByPath(path.id, lessonItems, pathItems);
-    return pathLessons.length > 0 && pathLessons.every((lesson) => completedLessonIds.includes(lesson.id));
+    return pathLessons.length > 0 && pathLessons.every((lesson) => completedLessonIdsSet.has(lesson.id));
   }).length;
 }

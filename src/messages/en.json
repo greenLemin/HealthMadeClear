@@ -265,6 +265,8 @@
     "plannerDescription": "Prepare for your upcoming appointment by building a custom list of questions and notes so nothing gets missed.",
     "step": "Step",
     "visitType": "Visit type",
+    "emergencyShort": "Call 911 if you have a life-threatening emergency.",
+    "careOptionsHeading": "Care Options",
     "questions": "Questions",
     "review": "Review",
     "chooseVisitType": "Choose your visit type",
