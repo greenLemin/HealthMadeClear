@@ -3,6 +3,7 @@ import path from "path";
 import { execSync } from "child_process";
 import { getAllLessonsFromMdx } from "../src/lib/lessons/mdxParser";
 import { assertLocaleIdParity } from "./lib/validateLocaleParity";
+import { execSync } from "child_process";
 
 const en = getAllLessonsFromMdx("en");
 const es = getAllLessonsFromMdx("es");

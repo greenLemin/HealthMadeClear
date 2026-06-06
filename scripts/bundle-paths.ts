@@ -3,6 +3,7 @@ import path from "path";
 import { execSync } from "child_process";
 import { getAllPathsFromMdx } from "../src/lib/paths/mdxParser";
 import { assertLocaleIdParity } from "./lib/validateLocaleParity";
+import { execSync } from "child_process";
 
 const en = getAllPathsFromMdx("en");
 const es = getAllPathsFromMdx("es");
