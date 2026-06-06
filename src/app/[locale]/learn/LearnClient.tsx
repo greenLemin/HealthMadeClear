@@ -7,12 +7,12 @@ import { useAppState } from "@/components/AppProviders";
 import PageHeader from "@/components/PageHeader";
 import { formatLevel, getCategoryLabel } from "@/lib/i18n";
 import { getLessons } from "@/lib/localizedContent";
-import { LESSON_CATEGORY_IDS, type LessonCategoryId } from "@/types/content";
+import { LESSON_CATEGORY_IDS } from "@/types/content";
 import { useTranslations } from "next-intl";
 
 const ALL_CATEGORIES = "all";
 
-type CategoryFilter = typeof ALL_CATEGORIES | LessonCategoryId;
+type CategoryFilter = typeof ALL_CATEGORIES | (typeof LESSON_CATEGORY_IDS)[number];
 
 export default function LearnClient() {
   const [query, setQuery] = useState("");
