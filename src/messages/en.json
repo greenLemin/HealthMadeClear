@@ -12,12 +12,17 @@
     "mainNavigation": "Main navigation",
     "mobileNavigation": "Mobile navigation",
     "skipToContent": "Skip to main content",
-    "taglineShort": "Clear health learning"
+    "taglineShort": "Clear health learning",
+    "switchToEnglish": "Switch to English",
+    "switchToSpanish": "Switch to Spanish"
   },
   "accessibility": {
     "display": "Display",
     "controls": "Accessibility controls",
     "textSize": "Text size",
+    "textSizeStandard": "Standard text size",
+    "textSizeLarge": "Large text size",
+    "textSizeLargest": "Largest text size",
     "colorTheme": "Color theme",
     "light": "Light",
     "dark": "Dark",
@@ -345,10 +350,5 @@
     "body": "We could not load this page. Your progress on this device is unchanged.",
     "retry": "Try again",
     "home": "Go home"
-  },
-  "switchToEnglish": "Switch to English",
-  "switchToSpanish": "Switch to Spanish",
-  "textSizeStandard": "Standard text size",
-  "textSizeLarge": "Large text size",
-  "textSizeLargest": "Largest text size"
+  }
 }
