@@ -12,10 +12,7 @@
     "mainNavigation": "Main navigation",
     "mobileNavigation": "Mobile navigation",
     "skipToContent": "Skip to main content",
-    "taglineShort": "Clear health learning",
-    "brandName": "Health Made Clear",
-    "switchToEnglish": "Switch language to English",
-    "switchToSpanish": "Switch language to Spanish"
+    "taglineShort": "Clear health learning"
   },
   "accessibility": {
     "display": "Display",
@@ -28,12 +25,7 @@
     "simpleModeDescription": "Reduce visual detail for easier scanning.",
     "on": "On",
     "off": "Off",
-    "textSizeStandard": "Standard text size",
-    "textSizeLarge": "Large text size",
-    "textSizeLargest": "Largest text size",
     "pageTitle": "Accessibility",
-    "emergencyShort": "Call 911 if you have a life-threatening emergency.",
-    "careOptionsHeading": "Care Options",
     "pageDescription": "How Health Made Clear supports accessible learning.",
     "commitmentTitle": "Our commitment",
     "commitmentBody": "We aim for WCAG 2.1 Level AA where possible. Health information should be readable, navigable by keyboard, and adaptable to your needs.",
@@ -92,8 +84,7 @@
     "noLessonsTryBroader": "No lessons match your search yet. Try a broader term.",
     "of": "of",
     "modules": "modules",
-    "relatedTerms": "Related terms",
-    "itemsCompleted": "{completed} of {total} completed"
+    "relatedTerms": "Related terms"
   },
   "categories": {
     "medication-safety": "Medication Safety",
@@ -103,14 +94,12 @@
   "glossary": {
     "title": "Health Glossary",
     "description": "Clear, everyday definitions for medical terms so you can understand your health journey without the confusion.",
-    "filterByLetter": "Filter terms by letter",
     "backToGlossary": "Back to glossary",
     "viewTerm": "View full definition"
   },
   "learn": {
     "title": "What would you like to learn today?",
     "description": "Clear, reliable guides to help you navigate your health journey with confidence.",
-    "filterByCategory": "Filter lessons by category",
     "notFoundTitle": "Lesson not found",
     "notFoundBody": "The lesson you are looking for is not available right now.",
     "backToLibrary": "Back to library",
@@ -154,10 +143,7 @@
     "startPath": "Start path",
     "pageTitle": "Learning Paths",
     "pageBadge": "Guided learning",
-    "progressLabel": "path progress",
-    "pathComplete": "Path complete",
-    "allLessonsComplete": "All lessons complete",
-    "noLessonsInPath": "No lessons in this path yet"
+    "progressLabel": "path progress"
   },
   "dashboard": {
     "title": "Your learning dashboard",
@@ -248,11 +234,7 @@
   "tools": {
     "pageBadge": "Resources",
     "pageTitle": "Your Health Toolkit",
-    "emergencyShort": "Call 911 if you have a life-threatening emergency.",
-    "careOptionsHeading": "Care Options",
     "pageDescription": "Navigating healthcare does not have to be confusing. Use these practical tools to prepare for visits, understand care options, and ask better questions.",
-    "emergencyShort": "Call 911 if you have a life-threatening emergency.",
-    "careOptionsHeading": "Care Options",
     "askTitle": "What should I ask?",
     "askDescription": "Generate a personalized list of questions to bring to your next doctor's appointment.",
     "careTitle": "Where should I go?",
@@ -265,8 +247,6 @@
     "plannerDescription": "Prepare for your upcoming appointment by building a custom list of questions and notes so nothing gets missed.",
     "step": "Step",
     "visitType": "Visit type",
-    "emergencyShort": "Call 911 if you have a life-threatening emergency.",
-    "careOptionsHeading": "Care Options",
     "questions": "Questions",
     "review": "Review",
     "chooseVisitType": "Choose your visit type",
@@ -285,7 +265,6 @@
     "noQuestionsSelected": "No questions selected.",
     "yourNotes": "Your notes",
     "noNotes": "No personal notes added yet.",
-    "clearPlan": "Clear & start over",
     "editQuestions": "Edit questions",
     "visitTypes": {
       "new-symptom": "New symptom",
@@ -337,9 +316,9 @@
     "urgentCare": "Urgent care",
     "urgentCareBody": "Walk-in clinics for problems that need same-day attention but are not life-threatening.",
     "emergency": "Emergency room",
-    "emergencyBody": "Severe chest pain, trouble breathing, stroke signs, heavy bleeding, or other life-threatening symptoms.",
     "emergencyShort": "Call 911 if you have a life-threatening emergency.",
-    "careOptionsHeading": "Care Options"
+    "careOptionsHeading": "Care Options",
+    "emergencyBody": "Severe chest pain, trouble breathing, stroke signs, heavy bleeding, or other life-threatening symptoms."
   },
   "sectionNav": {
     "learn": "Learn",

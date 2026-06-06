@@ -247,8 +247,6 @@
     "plannerDescription": "Prepárate para tu próxima cita creando una lista personalizada de preguntas y notas para que no se te pase nada.",
     "step": "Paso",
     "visitType": "Tipo de visita",
-    "emergencyShort": "Llame al 911 si tiene una emergencia médica que pone en peligro su vida.",
-    "careOptionsHeading": "Opciones de atención",
     "questions": "Preguntas",
     "review": "Revisión",
     "chooseVisitType": "Elige el tipo de visita",
@@ -318,9 +316,9 @@
     "urgentCare": "Urgencias ambulatorias",
     "urgentCareBody": "Clínicas sin cita para problemas que requieren atención el mismo día pero no son mortales.",
     "emergency": "Sala de emergencias",
-    "emergencyBody": "Dolor fuerte en el pecho, dificultad para respirar, signos de derrame cerebral, sangrado abundante u otros síntomas graves.",
     "emergencyShort": "Llama al 911 si tienes una emergencia que ponga en peligro tu vida.",
-    "careOptionsHeading": "Opciones de Atención"
+    "careOptionsHeading": "Opciones de atención",
+    "emergencyBody": "Dolor fuerte en el pecho, dificultad para respirar, signos de derrame cerebral, sangrado abundante u otros síntomas graves."
   },
   "sectionNav": {
     "learn": "Aprender",
