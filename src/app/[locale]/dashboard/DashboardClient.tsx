@@ -41,10 +41,15 @@ export default function DashboardClient() {
   const completedPathCount = getCompletedPathCount(completedLessons, lessons, learningPaths);
   const progressPercentage = totalLessons > 0 ? Math.round((completedCount / totalLessons) * 100) : 0;
 
-  const recentLessonItems = recentLessons
-    .map((lessonId) => lessons.find((lesson) => lesson.id === lessonId))
-    .filter((lesson): lesson is (typeof lessons)[number] => Boolean(lesson))
-    .slice(0, 3);
+  const lessonsMap = new Map<string, (typeof lessons)[number]>(lessons.map((lesson) => [lesson.id, lesson]));
+  const recentLessonItems: (typeof lessons)[number][] = [];
+  for (const lessonId of recentLessons) {
+    const lesson = lessonsMap.get(lessonId);
+    if (lesson) {
+      recentLessonItems.push(lesson);
+      if (recentLessonItems.length === 3) break;
+    }
+  }
 
   const activePath =
     pathsWithProgress.find(
