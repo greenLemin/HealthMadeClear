@@ -1,9 +1,9 @@
-import { useEffect, type RefObject } from "react";
+import React, { useEffect } from "react";
 
 const FOCUSABLE =
   'a[href],button:not([disabled]),textarea:not([disabled]),input:not([disabled]),select:not([disabled]),[tabindex]:not([tabindex="-1"])';
 
-export function useFocusTrap(containerRef: RefObject<HTMLElement | null>, active: boolean) {
+export function useFocusTrap(containerRef: React.RefObject<HTMLElement | null>, active: boolean) {
   useEffect(() => {
     if (!active || !containerRef.current) return;
 
