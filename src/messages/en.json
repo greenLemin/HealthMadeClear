@@ -32,6 +32,8 @@
     "textSizeLarge": "Large text size",
     "textSizeLargest": "Largest text size",
     "pageTitle": "Accessibility",
+    "emergencyShort": "Call 911 if you have a life-threatening emergency.",
+    "careOptionsHeading": "Care Options",
     "pageDescription": "How Health Made Clear supports accessible learning.",
     "commitmentTitle": "Our commitment",
     "commitmentBody": "We aim for WCAG 2.1 Level AA where possible. Health information should be readable, navigable by keyboard, and adaptable to your needs.",
@@ -246,6 +248,8 @@
   "tools": {
     "pageBadge": "Resources",
     "pageTitle": "Your Health Toolkit",
+    "emergencyShort": "Call 911 if you have a life-threatening emergency.",
+    "careOptionsHeading": "Care Options",
     "pageDescription": "Navigating healthcare does not have to be confusing. Use these practical tools to prepare for visits, understand care options, and ask better questions.",
     "askTitle": "What should I ask?",
     "askDescription": "Generate a personalized list of questions to bring to your next doctor's appointment.",

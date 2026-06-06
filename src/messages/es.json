@@ -32,6 +32,8 @@
     "textSizeLarge": "Tamaño de texto grande",
     "textSizeLargest": "Tamaño de texto extra grande",
     "pageTitle": "Accesibilidad",
+    "emergencyShort": "Llame al 911 si tiene una emergencia que pone en peligro su vida.",
+    "careOptionsHeading": "Opciones de atención",
     "pageDescription": "Cómo Health Made Clear apoya un aprendizaje accesible.",
     "commitmentTitle": "Nuestro compromiso",
     "commitmentBody": "Buscamos cumplir WCAG 2.1 nivel AA cuando sea posible. La información de salud debe ser legible, navegable con teclado y adaptable a tus necesidades.",
@@ -246,6 +248,8 @@
   "tools": {
     "pageBadge": "Recursos",
     "pageTitle": "Tus herramientas de salud",
+    "emergencyShort": "Llame al 911 si tiene una emergencia que pone en peligro su vida.",
+    "careOptionsHeading": "Opciones de atención",
     "pageDescription": "Navegar el sistema de salud no tiene que ser confuso. Usa estas herramientas para prepararte, entender opciones de atención y hacer mejores preguntas.",
     "askTitle": "¿Qué debo preguntar?",
     "askDescription": "Crea una lista personalizada de preguntas para llevar a tu próxima cita médica.",
