@@ -232,6 +232,8 @@
     "controlBody": "Puedes borrar el almacenamiento del navegador en cualquier momento para restablecer tus preferencias y progreso."
   },
   "tools": {
+    "emergencyShort": "¿Experimenta una emergencia médica? Llame al 911.",
+    "careOptionsHeading": "Comprender sus opciones de atención",
     "pageBadge": "Recursos",
     "pageTitle": "Tus herramientas de salud",
     "pageDescription": "Navegar el sistema de salud no tiene que ser confuso. Usa estas herramientas para prepararte, entender opciones de atención y hacer mejores preguntas.",
