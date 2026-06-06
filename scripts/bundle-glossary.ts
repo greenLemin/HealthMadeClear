@@ -3,7 +3,6 @@ import path from "path";
 import { execSync } from "child_process";
 import { getAllGlossaryFromMdx } from "../src/lib/glossary/mdxParser";
 import { assertLocaleIdParity } from "./lib/validateLocaleParity";
-import { execSync } from "child_process";
 
 const en = getAllGlossaryFromMdx("en");
 const es = getAllGlossaryFromMdx("es");
