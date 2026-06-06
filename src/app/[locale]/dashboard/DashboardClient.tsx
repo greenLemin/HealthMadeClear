@@ -37,13 +37,21 @@ export default function DashboardClient() {
     .filter((lesson): lesson is (typeof lessons)[number] => Boolean(lesson))
     .slice(0, 3);
 
-  const activePath =
-    learningPaths
-      .map((path) => ({ path, progress: getPathProgress(path.id, completedLessons, lessons, learningPaths) }))
-      .find(({ progress }) => progress.completedCount > 0 && progress.completedCount < progress.totalCount) ??
-    learningPaths
-      .map((path) => ({ path, progress: getPathProgress(path.id, completedLessons, lessons, learningPaths) }))
-      .find(({ progress }) => progress.totalCount > 0);
+  const activePath = (() => {
+    let fallback:
+      | { path: (typeof learningPaths)[0]; progress: ReturnType<typeof getPathProgress> }
+      | undefined;
+    for (const path of learningPaths) {
+      const progress = getPathProgress(path.id, completedLessons, lessons, learningPaths);
+      if (progress.completedCount > 0 && progress.completedCount < progress.totalCount) {
+        return { path, progress };
+      }
+      if (!fallback && progress.totalCount > 0) {
+        fallback = { path, progress };
+      }
+    }
+    return fallback;
+  })();
 
   const nextLesson = activePath
     ? (lessons.find(
