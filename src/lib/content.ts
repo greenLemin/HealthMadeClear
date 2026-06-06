@@ -1,11 +1,7 @@
 import type { Lesson } from "@/types/lesson";
 import type { LearningPath } from "@/types/learningPath";
 
-export function getLessonsByPath(
-  pathId: string,
-  lessonItems: Lesson[],
-  pathItems: LearningPath[]
-) {
+export function getLessonsByPath(pathId: string, lessonItems: Lesson[], pathItems: LearningPath[]) {
   const path = pathItems.find((item) => item.id === pathId);
 
   if (!path) {

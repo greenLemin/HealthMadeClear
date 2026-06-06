@@ -76,9 +76,7 @@ describe("useDismissibleOverlay", () => {
 
   it("locks and unlocks body scroll", () => {
     const onClose = vi.fn();
-    const { unmount } = render(
-      <OverlayFixture isOpen={true} onClose={onClose} lockBodyScroll />
-    );
+    const { unmount } = render(<OverlayFixture isOpen={true} onClose={onClose} lockBodyScroll />);
 
     expect(document.body.style.overflow).toBe("hidden");
 

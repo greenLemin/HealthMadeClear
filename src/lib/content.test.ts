@@ -15,7 +15,12 @@ describe("content helpers", () => {
   });
 
   it("calculates path progress", () => {
-    const progress = getPathProgress("safer-medicine-use", ["understanding-prescription-labels"], lessons, learningPaths);
+    const progress = getPathProgress(
+      "safer-medicine-use",
+      ["understanding-prescription-labels"],
+      lessons,
+      learningPaths
+    );
     expect(progress.completedCount).toBe(1);
     expect(progress.totalCount).toBe(3);
     expect(progress.percentage).toBe(33);
@@ -37,11 +42,11 @@ describe("content helpers", () => {
     const partial = getCompletedPathCount(["understanding-prescription-labels"], lessons, learningPaths);
     expect(partial).toBe(0);
 
-    const full = getCompletedPathCount([
-      "understanding-prescription-labels",
-      "asking-about-medications",
-      "managing-side-effects",
-    ], lessons, learningPaths);
+    const full = getCompletedPathCount(
+      ["understanding-prescription-labels", "asking-about-medications", "managing-side-effects"],
+      lessons,
+      learningPaths
+    );
     expect(full).toBe(1);
   });
 });

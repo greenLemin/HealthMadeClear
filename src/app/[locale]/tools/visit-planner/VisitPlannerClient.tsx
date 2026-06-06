@@ -62,7 +62,9 @@ export default function VisitPlannerClient() {
       const customQuestions: CustomQuestion[] = Array.isArray(rawCustom)
         ? rawCustom.filter(
             (q): q is CustomQuestion =>
-              !!q && typeof (q as CustomQuestion).id === "string" && typeof (q as CustomQuestion).text === "string"
+              !!q &&
+              typeof (q as CustomQuestion).id === "string" &&
+              typeof (q as CustomQuestion).text === "string"
           )
         : [];
       return {
@@ -231,9 +233,7 @@ export default function VisitPlannerClient() {
 
               {/* Custom Questions Section */}
               <div className="mt-8 border-t border-outline-variant pt-8">
-                <h3 className="mb-4 text-headline-md text-primary">
-                  {t("customQuestionsTitle")}
-                </h3>
+                <h3 className="mb-4 text-headline-md text-primary">{t("customQuestionsTitle")}</h3>
                 <div className="mb-4 flex flex-col gap-3 sm:flex-row">
                   <label className="sr-only" htmlFor="custom-question">
                     {t("customQuestionPlaceholder")}

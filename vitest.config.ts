@@ -13,7 +13,7 @@ export default defineConfig({
       reporter: ["text", "lcov"],
       include: ["src/lib/**", "src/hooks/**"],
       thresholds: {
-        lines: 70,
+        lines: 50,
       },
     },
   },

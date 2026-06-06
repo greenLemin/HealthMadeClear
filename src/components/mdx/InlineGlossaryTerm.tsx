@@ -17,7 +17,15 @@ interface InlineGlossaryTermProps {
   displayText: string;
 }
 
-function Popover({ term, triggerRect, onClose }: { term: GlossaryTermSummary; triggerRect: DOMRect; onClose: () => void }) {
+function Popover({
+  term,
+  triggerRect,
+  onClose,
+}: {
+  term: GlossaryTermSummary;
+  triggerRect: DOMRect;
+  onClose: () => void;
+}) {
   const t = useTranslations("glossary");
   const popoverRef = useRef<HTMLDivElement>(null);
   const [popoverHeight, setPopoverHeight] = useState(0);
@@ -34,9 +42,7 @@ function Popover({ term, triggerRect, onClose }: { term: GlossaryTermSummary; tr
   const spaceBelow = window.innerHeight - triggerRect.bottom - gap;
   const placeAbove = spaceAbove >= spaceBelow && spaceAbove >= 100;
 
-  const top = placeAbove
-    ? triggerRect.top - popoverHeight - gap
-    : triggerRect.bottom + gap;
+  const top = placeAbove ? triggerRect.top - popoverHeight - gap : triggerRect.bottom + gap;
 
   const left = Math.max(
     8,
@@ -60,9 +66,7 @@ function Popover({ term, triggerRect, onClose }: { term: GlossaryTermSummary; tr
       }}
     >
       <span className="mb-1 block text-label-md font-bold text-primary">{term.term}</span>
-      <span className="mb-3 block text-sm leading-relaxed text-on-surface-variant">
-        {term.definition}
-      </span>
+      <span className="mb-3 block text-sm leading-relaxed text-on-surface-variant">{term.definition}</span>
       <Link
         href={`/glossary/${term.id}`}
         className="inline-flex text-xs font-semibold text-primary hover:underline"
@@ -146,10 +150,10 @@ export default function InlineGlossaryTerm({ term, displayText }: InlineGlossary
       </button>
       <span className="print-only font-semibold">{displayText}</span>
 
-      {isOpen && triggerRect && typeof document !== "undefined" && createPortal(
-        <Popover term={term} triggerRect={triggerRect} onClose={close} />,
-        document.body
-      )}
+      {isOpen &&
+        triggerRect &&
+        typeof document !== "undefined" &&
+        createPortal(<Popover term={term} triggerRect={triggerRect} onClose={close} />, document.body)}
     </span>
   );
 }
