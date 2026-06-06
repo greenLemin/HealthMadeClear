@@ -51,12 +51,6 @@
     --color-on-tertiary-fixed: #301400;
     --color-on-tertiary-fixed-variant: #693b17;
     --color-surface-variant: #e0e3e5;
-    --callout-info-bg: #eff6ff;
-    --callout-info-border: #60a5fa;
-    --callout-success-bg: #f0fdf4;
-    --callout-success-border: #4ade80;
-    --callout-warning-bg: #fefce8;
-    --callout-warning-border: #facc15;
     --hero-gradient:
       radial-gradient(circle at top left, rgba(171, 238, 246, 0.75), transparent 32%),
       linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(241, 246, 247, 0.98));
@@ -92,12 +86,6 @@
     --color-on-error-container: #ffbfb9;
     --color-outline: #8a9496;
     --color-outline-variant: #4f5a5c;
-    --callout-info-bg: #1a2332;
-    --callout-info-border: #4a7db3;
-    --callout-success-bg: #1a2f25;
-    --callout-success-border: #4a9b6b;
-    --callout-warning-bg: #2f2a1a;
-    --callout-warning-border: #b3a34a;
     --hero-gradient:
       radial-gradient(circle at top left, rgba(13, 92, 99, 0.5), transparent 32%),
       linear-gradient(180deg, rgba(25, 28, 30, 0.99), rgba(25, 28, 30, 0.96));
@@ -111,6 +99,28 @@
     @apply bg-surface text-on-surface font-hyperlegible antialiased;
     background-color: var(--background);
     color: var(--foreground);
+  }
+
+  :root,
+  :root * {
+    transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    :root,
+    :root * {
+      transition: none !important;
+    }
+  }
+
+  html,
+  body {
+    max-width: 100%;
+  }
+
+  main#main-content {
+    overflow-x: clip;
+    overflow-wrap: anywhere;
   }
 
   @media print {
@@ -229,23 +239,7 @@
     @apply h-full rounded-full bg-secondary-container transition-all duration-300;
   }
 
-  .callout-info {
-    @apply border-l-4 p-4 rounded-r;
-    background-color: var(--callout-info-bg);
-    border-color: var(--callout-info-border);
-  }
 
-  .callout-success {
-    @apply border-l-4 p-4 rounded-r;
-    background-color: var(--callout-success-bg);
-    border-color: var(--callout-success-border);
-  }
-
-  .callout-warning {
-    @apply border-l-4 p-4 rounded-r;
-    background-color: var(--callout-warning-bg);
-    border-color: var(--callout-warning-border);
-  }
 }
 
 .hero-gradient {

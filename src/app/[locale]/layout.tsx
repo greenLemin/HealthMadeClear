@@ -8,6 +8,7 @@ import { atkinson } from "@/app/fonts";
 import AppProviders from "@/components/AppProviders";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
+import ScrollToTop from "@/components/ScrollToTop";
 import { routing } from "@/i18n/routing";
 import type { Locale } from "@/lib/i18n";
 import { requireLocale } from "@/lib/locale";
@@ -80,6 +81,8 @@ export default async function LocaleLayout({
   return (
     <html lang={locale} suppressHydrationWarning className={atkinson.variable}>
       <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
         <Script id="hmc-preferences" strategy="beforeInteractive">
           {PREFERENCE_BOOTSTRAP_SCRIPT}
         </Script>
@@ -89,9 +92,10 @@ export default async function LocaleLayout({
           <AppProviders locale={locale}>
             <div className="min-h-screen bg-surface text-on-surface">
               <Header />
-              <div id="main-content" tabIndex={-1}>
+              <main id="main-content" tabIndex={-1}>
                 {children}
-              </div>
+              </main>
+              <ScrollToTop />
               <Footer />
             </div>
           </AppProviders>

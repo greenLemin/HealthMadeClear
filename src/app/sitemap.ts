@@ -2,7 +2,6 @@ import type { MetadataRoute } from "next";
 import { routing } from "@/i18n/routing";
 import { lessons } from "@/data/lessons";
 import { glossaryBundles } from "@/data/glossaryBundles";
-import { learningPaths } from "@/data/learningPaths";
 import { getSiteUrl } from "@/lib/site";
 
 const staticPaths = [
@@ -50,20 +49,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     }))
   );
 
-  const localizedPaths = routing.locales.flatMap((locale) =>
-    learningPaths.map((path) => ({
-      url: `${base}/${locale}/learning-paths#${path.id}`,
-      lastModified: now,
-      changeFrequency: "monthly" as const,
-      priority: 0.75,
-      alternates: {
-        languages: Object.fromEntries(
-          routing.locales.map((alt) => [alt, `${base}/${alt}/learning-paths#${path.id}`])
-        ),
-      },
-    }))
-  );
-
   const localizedGlossaryTerms = routing.locales.flatMap((locale) =>
     glossaryBundles[locale as keyof typeof glossaryBundles].map((term) => ({
       url: `${base}/${locale}/glossary/${term.id}`,
@@ -78,5 +63,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     }))
   );
 
-  return [...localizedStatic, ...localizedLessons, ...localizedPaths, ...localizedGlossaryTerms];
+  return [...localizedStatic, ...localizedLessons, ...localizedGlossaryTerms];
 }

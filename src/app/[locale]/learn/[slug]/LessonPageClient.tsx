@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import dynamic from "next/dynamic";
 import { Link } from "@/i18n/navigation";
 import { ArrowLeft } from "lucide-react";
 import LessonActionsClient from "@/components/lesson/LessonActionsClient";
@@ -13,7 +14,7 @@ import { formatLevel, getCategoryLabel } from "@/lib/i18n";
 import type { Lesson } from "@/types/lesson";
 import type { LessonId } from "@/types/content";
 
-import GlossaryHighlighter from "@/components/mdx/GlossaryHighlighter";
+const GlossaryHighlighter = dynamic(() => import("@/components/mdx/GlossaryHighlighter"), { ssr: false });
 
 type SidebarContent = {
   body: string;
@@ -58,7 +59,7 @@ export default function LessonPageClient({ lesson }: { lesson: Lesson }) {
   const sidebar = useSidebarContent(lesson, t);
 
   return (
-    <main className="py-12 md:py-16">
+    <div className="py-12 md:py-16">
       <div className="max-w-container mx-auto px-4 md:px-6">
         <div className="mb-6 flex flex-wrap items-center gap-3 text-sm text-on-surface-variant">
           <span className="rounded-full bg-surface-container px-3 py-1">{lesson.duration}</span>
@@ -160,6 +161,6 @@ export default function LessonPageClient({ lesson }: { lesson: Lesson }) {
 
         <LessonRelatedClient lessonId={lessonId} categoryId={lesson.categoryId} />
       </div>
-    </main>
+    </div>
   );
 }

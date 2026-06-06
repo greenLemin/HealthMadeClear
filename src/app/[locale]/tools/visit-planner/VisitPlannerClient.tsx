@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { ArrowLeft, Printer } from "lucide-react";
 import MedicalDisclaimer from "@/components/MedicalDisclaimer";
 import PageHeader from "@/components/PageHeader";
@@ -50,6 +50,7 @@ export default function VisitPlannerClient() {
   );
   const [customQuestions, setCustomQuestions] = useState<CustomQuestion[]>([]);
   const [customInput, setCustomInput] = useState("");
+  const questionIdCounter = useRef(0);
   const [notes, setNotes] = useState("");
 
   useEffect(() => {
@@ -95,15 +96,12 @@ export default function VisitPlannerClient() {
 
   const questions = visitTypes[visitType].questions;
 
-  useEffect(() => {
-    setSelectedQuestions(visitTypes[visitType].questions.slice(0, 2));
-  }, [visitType, visitTypes]);
-
   const addCustomQuestion = () => {
     const trimmed = customInput.trim();
     if (!trimmed) return;
     if (customQuestions.some((q) => q.text === trimmed)) return;
-    setCustomQuestions((current) => [...current, { id: `cq-${Date.now()}`, text: trimmed }]);
+    questionIdCounter.current += 1;
+    setCustomQuestions((current) => [...current, { id: `cq-${questionIdCounter.current}`, text: trimmed }]);
     setCustomInput("");
   };
 
@@ -118,42 +116,62 @@ export default function VisitPlannerClient() {
   };
 
   return (
-    <main className="py-12 md:py-16">
+    <div className="py-12 md:py-16">
       <div className="max-w-container mx-auto px-4 md:px-6">
         <PageHeader title={t("plannerTitle")} description={t("plannerDescription")} />
 
-        <div className="no-print mb-8 grid gap-3 md:grid-cols-3">
-          {[1, 2, 3].map((value) => (
-            <button
-              key={value}
-              type="button"
-              className={
-                value === step
-                  ? "rounded-lg bg-primary px-4 py-3 text-left text-on-primary"
-                  : "rounded-lg bg-surface-container px-4 py-3 text-left text-on-surface-variant"
-              }
-              onClick={() => setStep(value)}
-            >
-              <div className="text-sm font-semibold">
-                {t("step")} {value}
-              </div>
-              <div className="text-sm">
-                {value === 1 ? t("visitType") : value === 2 ? t("questions") : t("review")}
-              </div>
-            </button>
-          ))}
+        <div className="no-print mb-8 flex items-center justify-between gap-4">
+          <div className="grid flex-1 gap-3 md:grid-cols-3">
+            {[1, 2, 3].map((value) => (
+              <button
+                key={value}
+                type="button"
+                className={
+                  value === step
+                    ? "rounded-lg bg-primary px-4 py-3 text-left text-on-primary"
+                    : "rounded-lg bg-surface-container px-4 py-3 text-left text-on-surface-variant"
+                }
+                aria-current={value === step ? "step" : undefined}
+                onClick={() => setStep(value)}
+              >
+                <div className="text-sm font-semibold">
+                  {t("step")} {value}
+                </div>
+                <div className="text-sm">
+                  {value === 1 ? t("visitType") : value === 2 ? t("questions") : t("review")}
+                </div>
+              </button>
+            ))}
+          </div>
+          <button
+            type="button"
+            className="shrink-0 text-sm font-semibold text-error hover:text-red-700"
+            onClick={() => {
+              setStep(1);
+              setVisitType("new-symptom");
+              setSelectedQuestions(visitTypes["new-symptom"].questions.slice(0, 2));
+              setCustomQuestions([]);
+              setCustomInput("");
+              setNotes("");
+              questionIdCounter.current = 0;
+            }}
+          >
+            {t("clearPlan")}
+          </button>
         </div>
 
         <div className="card">
           {step === 1 ? (
             <div>
               <h2 className="mb-6 text-headline-md text-primary">{t("chooseVisitType")}</h2>
-              <div className="grid gap-4 md:grid-cols-3">
+              <div className="grid gap-4 md:grid-cols-3" role="radiogroup" aria-label={t("chooseVisitType")}>
                 {(Object.entries(visitTypes) as [VisitTypeKey, (typeof visitTypes)[VisitTypeKey]][]).map(
                   ([key, value]) => (
                     <button
                       key={key}
                       type="button"
+                      role="radio"
+                      aria-checked={visitType === key}
                       className={
                         visitType === key
                           ? "rounded-lg border-2 border-primary bg-primary-fixed px-5 py-5 text-left"
@@ -214,13 +232,17 @@ export default function VisitPlannerClient() {
               {/* Custom Questions Section */}
               <div className="mt-8 border-t border-outline-variant pt-8">
                 <h3 className="mb-4 text-headline-md text-primary">
-                  {t("customQuestionsTitle", { defaultValue: "Your Custom Questions" })}
+                  {t("customQuestionsTitle")}
                 </h3>
-                <div className="mb-4 flex gap-3">
+                <div className="mb-4 flex flex-col gap-3 sm:flex-row">
+                  <label className="sr-only" htmlFor="custom-question">
+                    {t("customQuestionPlaceholder")}
+                  </label>
                   <input
+                    id="custom-question"
                     type="text"
                     className="input-field py-2"
-                    placeholder={t("customQuestionPlaceholder", { defaultValue: "Type your custom question here..." })}
+                    placeholder={t("customQuestionPlaceholder")}
                     value={customInput}
                     onChange={(e) => setCustomInput(e.target.value)}
                     onKeyDown={(e) => {
@@ -232,27 +254,27 @@ export default function VisitPlannerClient() {
                   />
                   <button
                     type="button"
-                    className="btn-primary min-h-[48px] py-2 px-4"
+                    className="btn-primary min-h-[48px] px-4 py-2"
                     onClick={addCustomQuestion}
                   >
-                    {tCommon("add", { defaultValue: "Add" })}
+                    {tCommon("add")}
                   </button>
                 </div>
 
-                  {customQuestions.length > 0 && (
+                {customQuestions.length > 0 && (
                   <div className="grid gap-4 md:grid-cols-2">
                     {customQuestions.map((cq) => (
                       <div
                         key={cq.id}
                         className="flex items-center justify-between gap-4 rounded-lg border border-outline-variant bg-surface px-5 py-4"
                       >
-                        <span className="text-body-md text-on-surface">{cq.text}</span>
+                        <span className="min-w-0 break-words text-body-md text-on-surface">{cq.text}</span>
                         <button
                           type="button"
-                          className="text-error hover:text-red-700 font-semibold text-sm"
+                          className="shrink-0 text-sm font-semibold text-error hover:text-red-700"
                           onClick={() => removeCustomQuestion(cq.id)}
                         >
-                          {t("remove", { defaultValue: "Remove" })}
+                          {t("remove")}
                         </button>
                       </div>
                     ))}
@@ -313,7 +335,7 @@ export default function VisitPlannerClient() {
                     <li key={cq.id}>- {cq.text}</li>
                   ))}
                   {selectedQuestions.length === 0 && customQuestions.length === 0 && (
-                    <li>{t("noQuestionsSelected", { defaultValue: "No questions selected." })}</li>
+                    <li>{t("noQuestionsSelected")}</li>
                   )}
                 </ul>
               </div>
@@ -349,6 +371,6 @@ export default function VisitPlannerClient() {
           <MedicalDisclaimer />
         </div>
       </div>
-    </main>
+    </div>
   );
 }

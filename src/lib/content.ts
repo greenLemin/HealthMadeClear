@@ -1,12 +1,10 @@
-import { learningPaths } from "@/data/learningPaths";
+import type { Lesson } from "@/types/lesson";
 import type { LearningPath } from "@/types/learningPath";
-import { lessons } from "@/data/lessons";
-import type { Lesson } from "@/data/lessons";
 
 export function getLessonsByPath(
   pathId: string,
-  lessonItems: Lesson[] = lessons,
-  pathItems: LearningPath[] = learningPaths
+  lessonItems: Lesson[],
+  pathItems: LearningPath[]
 ) {
   const path = pathItems.find((item) => item.id === pathId);
 
@@ -22,8 +20,8 @@ export function getLessonsByPath(
 export function getPathProgress(
   pathId: string,
   completedLessonIds: string[],
-  lessonItems: Lesson[] = lessons,
-  pathItems: LearningPath[] = learningPaths
+  lessonItems: Lesson[],
+  pathItems: LearningPath[]
 ) {
   const pathLessons = getLessonsByPath(pathId, lessonItems, pathItems);
   const completedCount = pathLessons.filter((lesson) => completedLessonIds.includes(lesson.id)).length;
@@ -38,9 +36,9 @@ export function getPathProgress(
 
 export function getStartedPathCount(
   completedLessonIds: string[],
-  startedPathIds: string[] = [],
-  lessonItems: Lesson[] = lessons,
-  pathItems: LearningPath[] = learningPaths
+  startedPathIds: string[],
+  lessonItems: Lesson[],
+  pathItems: LearningPath[]
 ) {
   return pathItems.filter((path) => {
     if (startedPathIds.includes(path.id)) return true;
@@ -52,8 +50,8 @@ export function getStartedPathCount(
 
 export function getCompletedPathCount(
   completedLessonIds: string[],
-  lessonItems: Lesson[] = lessons,
-  pathItems: LearningPath[] = learningPaths
+  lessonItems: Lesson[],
+  pathItems: LearningPath[]
 ) {
   return pathItems.filter((path) => {
     const pathLessons = getLessonsByPath(path.id, lessonItems, pathItems);

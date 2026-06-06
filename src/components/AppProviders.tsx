@@ -13,6 +13,7 @@ import {
   type TextSize,
   type ThemeMode,
 } from "@/lib/preferences";
+import type { ExportedProgress } from "@/lib/progressExport";
 
 export type { TextSize, ThemeMode };
 
@@ -31,6 +32,7 @@ type AppContextValue = {
   toggleLessonComplete: (lessonId: string) => void;
   markLessonViewed: (lessonId: string) => void;
   markPathStarted: (pathId: string) => void;
+  importProgress: (data: ExportedProgress) => void;
 };
 
 const AppContext = createContext<AppContextValue | null>(null);
@@ -79,17 +81,9 @@ export default function AppProviders({
   useEffect(() => {
     if (!hydrated) return;
     window.localStorage.setItem(STORAGE_KEYS.completedLessons, JSON.stringify(completedLessons));
-  }, [hydrated, completedLessons]);
-
-  useEffect(() => {
-    if (!hydrated) return;
     window.localStorage.setItem(STORAGE_KEYS.recentLessons, JSON.stringify(recentLessons));
-  }, [hydrated, recentLessons]);
-
-  useEffect(() => {
-    if (!hydrated) return;
     window.localStorage.setItem(STORAGE_KEYS.startedPaths, JSON.stringify(startedPaths));
-  }, [hydrated, startedPaths]);
+  }, [hydrated, completedLessons, recentLessons, startedPaths]);
 
   const setLocale = useCallback((value: Locale) => setLocaleState(value), []);
   const setTheme = useCallback((value: ThemeMode) => setThemeState(value), []);
@@ -110,6 +104,12 @@ export default function AppProviders({
     setStartedPaths((current) => (current.includes(pathId) ? current : [...current, pathId]));
   }, []);
 
+  const importProgress = useCallback((data: ExportedProgress) => {
+    setCompletedLessons(data.completedLessons);
+    setRecentLessons(data.recentLessons);
+    setStartedPaths(data.startedPaths);
+  }, []);
+
   const value = useMemo<AppContextValue>(
     () => ({
       locale,
@@ -126,6 +126,7 @@ export default function AppProviders({
       toggleLessonComplete,
       markLessonViewed,
       markPathStarted,
+      importProgress,
     }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [locale, theme, textSize, simpleMode, completedLessons, recentLessons, startedPaths]
