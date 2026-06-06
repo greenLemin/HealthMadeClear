@@ -345,5 +345,10 @@
     "body": "No pudimos cargar esta página. Tu progreso en este dispositivo no cambió.",
     "retry": "Intentar de nuevo",
     "home": "Ir al inicio"
-  }
+  },
+  "switchToEnglish": "Cambiar a inglés",
+  "switchToSpanish": "Cambiar a español",
+  "textSizeStandard": "Tamaño de texto estándar",
+  "textSizeLarge": "Tamaño de texto grande",
+  "textSizeLargest": "Tamaño de texto más grande"
 }

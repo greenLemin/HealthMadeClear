@@ -345,5 +345,10 @@
     "body": "We could not load this page. Your progress on this device is unchanged.",
     "retry": "Try again",
     "home": "Go home"
-  }
+  },
+  "switchToEnglish": "Switch to English",
+  "switchToSpanish": "Switch to Spanish",
+  "textSizeStandard": "Standard text size",
+  "textSizeLarge": "Large text size",
+  "textSizeLargest": "Largest text size"
 }
