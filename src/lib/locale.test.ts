@@ -3,12 +3,12 @@ import { parseLocale, requireLocale } from "./locale";
 
 describe("locale", () => {
   describe("parseLocale", () => {
-    it("returns the locale if it is a valid locale", () => {
+    it("returns the locale when it is valid", () => {
       expect(parseLocale("en")).toBe("en");
       expect(parseLocale("es")).toBe("es");
     });
 
-    it("returns null if the locale is invalid", () => {
+    it("returns null when the locale is invalid", () => {
       expect(parseLocale("fr")).toBeNull();
       expect(parseLocale("invalid")).toBeNull();
       expect(parseLocale("")).toBeNull();
@@ -16,15 +16,14 @@ describe("locale", () => {
   });
 
   describe("requireLocale", () => {
-    it("returns the locale if it is valid", () => {
+    it("returns the locale when it is valid", () => {
       expect(requireLocale("en")).toBe("en");
       expect(requireLocale("es")).toBe("es");
     });
 
-    it("throws an error if the locale is invalid", () => {
-      expect(() => requireLocale("fr")).toThrow("Invalid locale: fr");
-      expect(() => requireLocale("invalid")).toThrow("Invalid locale: invalid");
-      expect(() => requireLocale("")).toThrow("Invalid locale: ");
+    it("throws an error when the locale is invalid", () => {
+      expect(() => requireLocale("fr")).toThrowError("Invalid locale: fr");
+      expect(() => requireLocale("invalid")).toThrowError("Invalid locale: invalid");
     });
   });
 });

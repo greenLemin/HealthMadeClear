@@ -22,7 +22,7 @@
     "content:generate-glossary": "tsx scripts/generate-glossary-mdx.ts",
     "content:bundle-paths": "tsx scripts/bundle-paths.ts",
     "content:bundle-glossary": "tsx scripts/bundle-glossary.ts",
-    "content:bundle": "npm run content:bundle-lessons && npm run content:bundle-paths && npm run content:bundle-glossary",
+    "content:bundle": "npm run content:bundle-lessons && npm run content:bundle-paths && npm run content:bundle-glossary && npm run format",
     "content:validate": "tsx scripts/validate-content.ts",
     "test:coverage": "vitest run --coverage",
     "analyze": "ANALYZE=true next build",
