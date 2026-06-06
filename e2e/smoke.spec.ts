@@ -9,7 +9,7 @@ test("home loads and navigates to learn library", async ({ page }) => {
 
 test("language preference persists in localStorage and URL", async ({ page }) => {
   await page.goto("/en");
-  await page.getByRole("button", { name: "ES" }).click();
+  await page.getByRole("radio", { name: /spanish/i }).click();
   await expect(page).toHaveURL(/\/es(\/|$)/);
   await page.reload();
   const locale = await page.evaluate(() => window.localStorage.getItem("hmc-locale"));

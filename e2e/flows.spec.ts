@@ -27,7 +27,7 @@ test("dark mode toggle updates document dataset", async ({ page }) => {
 test("simple mode toggle", async ({ page }) => {
   await page.goto("/en");
   await page.getByRole("button", { name: /display/i }).click();
-  await page.getByRole("button", { name: /^off$/i }).click();
+  await page.getByRole("button", { name: /simple mode.*off/i }).click();
   await expect(page.locator("html")).toHaveAttribute("data-simple-mode", "true");
 });
 
