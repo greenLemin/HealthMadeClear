@@ -1,62 +1,83 @@
 // @vitest-environment jsdom
-import { describe, expect, it, vi, beforeEach, afterEach } from "vitest";
-import { setPreferenceCookie } from "./preferences";
+import { describe, expect, it, beforeEach, vi, afterEach } from "vitest";
+import { readStoredJson, readStoredStringArray, writeStoredJson } from "@/lib/preferences";
 
-describe("setPreferenceCookie", () => {
-  const originalEnv = process.env.NODE_ENV;
+describe("preferences", () => {
+  const originalWindow = global.window;
 
   beforeEach(() => {
-    // Clear cookies before each test
-    document.cookie.split(";").forEach(function (c) {
-      document.cookie = c
-        .replace(/^ +/, "")
-        .replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
-    });
+    window.localStorage.clear();
   });
 
   afterEach(() => {
-    process.env.NODE_ENV = originalEnv;
+    global.window = originalWindow;
     vi.restoreAllMocks();
   });
 
-  it("does nothing when document is undefined", () => {
-    // Temporarily mock document as undefined to test the early return
-    const originalDocument = global.document;
-    // @ts-expect-error - overriding for testing
-    delete global.document;
+  describe("readStoredJson", () => {
+    it("returns null if window is undefined", () => {
+      // Create an environment where window is undefined
+      const { window, ...globalWithoutWindow } = global as any;
+      const originalGlobal = global;
 
-    expect(() => setPreferenceCookie("test", "value")).not.toThrow();
+      try {
+        // Mock global scope to simulate window being undefined
+        vi.stubGlobal("window", undefined);
+        const validate = vi.fn((val) => val);
+        const result = readStoredJson("some-key", validate);
+        expect(result).toBeNull();
+      } finally {
+        vi.unstubAllGlobals();
+      }
+    });
 
-    // Restore document
-    global.document = originalDocument;
-  });
+    it("returns null if key does not exist", () => {
+      const validate = vi.fn((val) => val);
+      const result = readStoredJson("nonexistent-key", validate);
+      expect(result).toBeNull();
+      expect(validate).not.toHaveBeenCalled();
+    });
 
-  it("sets a basic cookie with the correct value", () => {
-    process.env.NODE_ENV = "development";
-    setPreferenceCookie("hmc-theme", "dark");
+    it("returns parsed and validated data for valid JSON", () => {
+      window.localStorage.setItem("valid-json-key", JSON.stringify({ a: 1 }));
+      const validate = vi.fn((val) => val as { a: number });
 
-    expect(document.cookie).toContain("hmc-theme=dark");
-  });
+      const result = readStoredJson("valid-json-key", validate);
 
-  it("encodes the cookie value", () => {
-    process.env.NODE_ENV = "development";
-    setPreferenceCookie("test-special", "hello world &");
+      expect(result).toEqual({ a: 1 });
+      expect(validate).toHaveBeenCalledWith({ a: 1 });
+    });
 
-    expect(document.cookie).toContain("test-special=hello%20world%20%26");
-  });
+    it("returns null when invalid JSON is present (error path)", () => {
+      window.localStorage.setItem("invalid-json-key", "{ invalid json }");
+      const validate = vi.fn((val) => val);
 
-  it("includes secure flag in production environment", () => {
-    process.env.NODE_ENV = "production";
+      const result = readStoredJson("invalid-json-key", validate);
 
-    // Spy on document.cookie setter to verify the exact string passed
-    // since jsdom might hide attributes like Secure or SameSite when reading
-    const cookieSpy = vi.spyOn(document, "cookie", "set");
+      expect(result).toBeNull();
+      expect(validate).not.toHaveBeenCalled();
+    });
 
-    setPreferenceCookie("hmc-locale", "es");
+    it("returns null when validation fails or throws", () => {
+      window.localStorage.setItem("valid-json-key", JSON.stringify({ a: 1 }));
+      const validate = vi.fn(() => {
+        throw new Error("Validation failed");
+      });
 
-    expect(cookieSpy).toHaveBeenCalledWith(expect.stringContaining("hmc-locale=es"));
-    expect(cookieSpy).toHaveBeenCalledWith(expect.stringContaining(";Secure"));
-    expect(cookieSpy).toHaveBeenCalledWith(expect.stringContaining("SameSite=Lax"));
-    expect(cookieSpy).toHaveBeenCalledWith(expect.stringContaining("max-age=31536000"));
+      const result = readStoredJson("valid-json-key", validate);
+
+      expect(result).toBeNull();
+      expect(validate).toHaveBeenCalledWith({ a: 1 });
+    });
+
+    it("returns what validator returns", () => {
+      window.localStorage.setItem("valid-json-key", JSON.stringify({ a: 1 }));
+      const validate = vi.fn((val) => null); // validator rejects it
+
+      const result = readStoredJson("valid-json-key", validate);
+
+      expect(result).toBeNull();
+      expect(validate).toHaveBeenCalledWith({ a: 1 });
+    });
   });
 });
