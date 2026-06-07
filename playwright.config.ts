@@ -8,6 +8,15 @@ export default defineConfig({
   use: {
     baseURL: "http://127.0.0.1:3000",
     trace: "on-first-retry",
+    storageState: {
+      cookies: [],
+      origins: [
+        {
+          origin: "http://127.0.0.1:3000",
+          localStorage: [{ name: "hmc_onboarded", value: "true" }],
+        },
+      ],
+    },
   },
   webServer: {
     command: "npm run dev",

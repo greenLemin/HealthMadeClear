@@ -34,7 +34,7 @@ export default function OnboardingDialog() {
           <X size={18} />
         </button>
 
-        <h1 className="mb-1 text-headline-lg text-primary">{t("welcome")}</h1>
+        <h2 className="mb-1 text-headline-lg text-primary">{t("welcome")}</h2>
         <p className="mb-6 text-body-md text-on-surface-variant">{t("subtitle")}</p>
 
         <div className="mb-6 space-y-4">
