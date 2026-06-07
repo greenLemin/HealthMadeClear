@@ -8,7 +8,7 @@ export const paths: LearningPath[] = [
     id: "safer-medicine-use",
     title: "Uso más seguro de medicamentos",
     description:
-      "Aprende a tomar y organizar tus medicinas de forma segura, entender las etiquetas y evitar interacciones.",
+      "Aprende a tomar y manejar tus medicamentos de forma segura, entender las etiquetas de receta y evitar interacciones farmacológicas.",
     lessons: ["understanding-prescription-labels", "asking-about-medications", "managing-side-effects"],
     duration: "30 minutos",
     level: "beginner",
@@ -16,9 +16,8 @@ export const paths: LearningPath[] = [
   },
   {
     id: "doctor-visit-prep",
-    title: "Prepararte para tus consultas médicas",
-    description:
-      "Llega a tus citas con más confianza sabiendo qué llevar, qué preguntar y cómo dar seguimiento.",
+    title: "Preparación para visitas al médico",
+    description: "Prepárate para tus citas sabiendo qué llevar, qué preguntas hacer y cómo dar seguimiento.",
     lessons: ["before-your-visit", "during-your-visit", "after-your-visit"],
     duration: "25 minutos",
     level: "beginner",
@@ -26,12 +25,68 @@ export const paths: LearningPath[] = [
   },
   {
     id: "understanding-labs",
-    title: "Entender los resultados de laboratorio",
+    title: "Entendiendo los resultados de laboratorio",
     description:
-      "Aprende a leer análisis de sangre comunes y a comprender qué significan los números para tu salud.",
+      "Aprende qué miden los análisis de sangre comunes, qué significan los rangos de referencia y cómo interpretar tus resultados.",
     lessons: ["blood-basics", "common-tests", "when-to-worry"],
-    duration: "40 minutos",
+    duration: "35 minutos",
     level: "intermediate",
     icon: "🔬",
+  },
+  {
+    id: "managing-new-diagnosis",
+    title: "Manejando un nuevo diagnóstico",
+    description:
+      "Aprende sobre condiciones crónicas comunes y cómo entender y manejar un nuevo diagnóstico de salud.",
+    lessons: [
+      "living-with-hypertension",
+      "understanding-type2-diabetes",
+      "introduction-to-heart-disease",
+      "asthma-basics",
+    ],
+    duration: "45 minutos",
+    level: "intermediate",
+    icon: "🏥",
+  },
+  {
+    id: "staying-healthy-preventive",
+    title: "Mantenerse saludable: atención preventiva",
+    description: "Desarrolla hábitos saludables y mantente al día con vacunas y pruebas de detección.",
+    lessons: [
+      "why-preventive-care-matters",
+      "common-adult-screenings",
+      "understanding-vaccines",
+      "reading-nutrition-labels",
+      "building-balanced-plate",
+    ],
+    duration: "45 minutos",
+    level: "beginner",
+    icon: "🌿",
+  },
+  {
+    id: "mental-wellness-basics",
+    title: "Conceptos básicos de bienestar mental",
+    description:
+      "Comprende la depresión y la ansiedad, aprende estrategias de afrontamiento y descubre cómo el sueño afecta la salud mental.",
+    lessons: ["understanding-depression", "anxiety-and-panic", "sleep-and-health"],
+    duration: "30 minutos",
+    level: "beginner",
+    icon: "🧠",
+  },
+  {
+    id: "navigating-healthcare",
+    title: "Navegando el sistema de salud",
+    description:
+      "Aprende cómo funciona el seguro de salud, cómo leer facturas médicas, cuándo buscar atención de emergencia y cómo prepararte para las visitas al médico.",
+    lessons: [
+      "understanding-health-insurance",
+      "reading-medical-bills",
+      "when-to-call-911",
+      "before-your-visit",
+      "building-first-aid-kit",
+    ],
+    duration: "40 minutos",
+    level: "intermediate",
+    icon: "📋",
   },
 ] as const;

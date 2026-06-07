@@ -10,7 +10,7 @@ describe("localizedContent", () => {
   it("returns Spanish path titles when locale is es", () => {
     const paths = getLearningPaths("es");
     const path = paths.find((p) => p.id === "doctor-visit-prep");
-    expect(path?.title).toBe("Prepararte para tus consultas médicas");
+    expect(path?.title).toBe("Preparación para visitas al médico");
   });
 
   it("returns Spanish glossary terms when locale is es", () => {

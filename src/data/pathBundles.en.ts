@@ -28,10 +28,67 @@ export const paths: LearningPath[] = [
     id: "understanding-labs",
     title: "Understanding Lab Results",
     description:
-      "Learn to read common blood test results and understand what the numbers mean for your health.",
+      "Learn what common blood tests measure, what reference ranges mean, and how to interpret your results.",
     lessons: ["blood-basics", "common-tests", "when-to-worry"],
-    duration: "40 minutes",
+    duration: "35 minutes",
     level: "intermediate",
     icon: "🔬",
+  },
+  {
+    id: "managing-new-diagnosis",
+    title: "Managing a New Diagnosis",
+    description:
+      "Learn about common chronic conditions and how to understand and manage a new health diagnosis.",
+    lessons: [
+      "living-with-hypertension",
+      "understanding-type2-diabetes",
+      "introduction-to-heart-disease",
+      "asthma-basics",
+    ],
+    duration: "45 minutes",
+    level: "intermediate",
+    icon: "🏥",
+  },
+  {
+    id: "staying-healthy-preventive",
+    title: "Staying Healthy: Preventive Care",
+    description:
+      "Build healthy habits and stay up to date on vaccines and screenings to prevent illness before it starts.",
+    lessons: [
+      "why-preventive-care-matters",
+      "common-adult-screenings",
+      "understanding-vaccines",
+      "reading-nutrition-labels",
+      "building-balanced-plate",
+    ],
+    duration: "45 minutes",
+    level: "beginner",
+    icon: "🌿",
+  },
+  {
+    id: "mental-wellness-basics",
+    title: "Mental Wellness Basics",
+    description:
+      "Understand depression and anxiety, learn coping strategies, and discover how sleep impacts mental health.",
+    lessons: ["understanding-depression", "anxiety-and-panic", "sleep-and-health"],
+    duration: "30 minutes",
+    level: "beginner",
+    icon: "🧠",
+  },
+  {
+    id: "navigating-healthcare",
+    title: "Navigating Healthcare",
+    description:
+      "Learn how health insurance works, how to read medical bills, when to seek emergency care, and how to prepare for doctor visits.",
+    lessons: [
+      "understanding-health-insurance",
+      "reading-medical-bills",
+      "when-to-call-911",
+      "before-your-visit",
+      "building-first-aid-kit",
+    ],
+    duration: "40 minutes",
+    level: "intermediate",
+    icon: "📋",
   },
 ] as const;

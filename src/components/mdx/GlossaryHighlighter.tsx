@@ -1,25 +1,23 @@
-"use client";
-
 import { useMemo } from "react";
-import { useAppState } from "@/components/AppProviders";
-import { getGlossaryTerms } from "@/lib/localizedContent";
 import InlineGlossaryTerm from "./InlineGlossaryTerm";
+import type { GlossaryTerm } from "@/types/glossary";
 
 interface GlossaryHighlighterProps {
   text: string;
+  glossaryTerms: GlossaryTerm[];
 }
 
 function escapeRegExp(string: string) {
   return string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }
 
-export default function GlossaryHighlighter({ text }: GlossaryHighlighterProps) {
-  const { locale } = useAppState();
-  // Fetch once per component instance — passed down to each InlineGlossaryTerm
-  const glossaryTerms = useMemo(() => getGlossaryTerms(locale), [locale]);
+let instanceCounter = 0;
 
+export default function GlossaryHighlighter({ text, glossaryTerms }: GlossaryHighlighterProps) {
   const parsedContent = useMemo(() => {
     if (!text || glossaryTerms.length === 0) return [text];
+
+    instanceCounter = 0;
 
     // Sort terms by length desc to match longer terms first (e.g. "blood pressure" before "blood")
     const sortedTerms = [...glossaryTerms].sort((a, b) => b.term.length - a.term.length);
@@ -41,7 +39,15 @@ export default function GlossaryHighlighter({ text }: GlossaryHighlighterProps) 
       const termObj = termMap.get(part.toLowerCase());
 
       if (termObj) {
-        return <InlineGlossaryTerm key={`${termObj.id}-${index}`} term={termObj} displayText={part} />;
+        const instanceId = `glossary-term-${instanceCounter++}`;
+        return (
+          <InlineGlossaryTerm
+            key={`${termObj.id}-${index}`}
+            term={{ id: termObj.id, term: termObj.term, definition: termObj.definition }}
+            displayText={part}
+            instanceId={instanceId}
+          />
+        );
       }
       return part;
     });

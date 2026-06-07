@@ -2,6 +2,7 @@
 
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from "react";
 import type { Locale } from "@/lib/i18n";
+import OnboardingDialog from "@/components/OnboardingDialog";
 import {
   STORAGE_KEYS,
   applyDocumentPreferences,
@@ -131,7 +132,12 @@ export default function AppProviders({
     [locale, theme, textSize, simpleMode, completedLessons, recentLessons, startedPaths]
   );
 
-  return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
+  return (
+    <AppContext.Provider value={value}>
+      {children}
+      <OnboardingDialog />
+    </AppContext.Provider>
+  );
 }
 
 export function useAppState() {

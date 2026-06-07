@@ -5,6 +5,7 @@ import { useRef, useState } from "react";
 import { BookOpen, Home, Info, LayoutDashboard, Menu, Route, Search, Wrench, X } from "lucide-react";
 import AccessibilityControls from "@/components/AccessibilityControls";
 import LanguageToggle from "@/components/LanguageToggle";
+import SearchDialog from "@/components/SearchDialog";
 import { useDismissibleOverlay } from "@/hooks/useDismissibleOverlay";
 import { useFocusTrap } from "@/hooks/useFocusTrap";
 import { useTranslations } from "next-intl";
@@ -82,6 +83,7 @@ export default function Header() {
           </nav>
 
           <div className="hidden items-center gap-3 md:flex">
+            <SearchDialog />
             <LanguageToggle />
             <AccessibilityControls />
           </div>

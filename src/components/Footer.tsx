@@ -45,7 +45,7 @@ export default function Footer() {
           </div>
         </div>
         <div className="mt-10 border-t border-outline-variant pt-6 text-sm text-on-surface-variant">
-          © 2026 Health Made Clear. {t("rights")}
+          © {new Date().getFullYear()} Health Made Clear. {t("rights")}
         </div>
       </div>
     </footer>

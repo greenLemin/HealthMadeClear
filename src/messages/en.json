@@ -94,7 +94,13 @@
   "categories": {
     "medication-safety": "Medication Safety",
     "doctor-visits": "Doctor Visits",
-    "lab-results": "Lab Results"
+    "lab-results": "Lab Results",
+    "preventive-care": "Preventive Care",
+    "chronic-conditions": "Chronic Conditions",
+    "mental-health": "Mental Health",
+    "insurance-billing": "Insurance & Billing",
+    "emergency": "Emergency & First Aid",
+    "nutrition": "Nutrition & Diet"
   },
   "glossary": {
     "title": "Health Glossary",
@@ -133,7 +139,8 @@
     "labsTip": "Lab technicians can explain the testing process.",
     "keepLearning": "Keep learning",
     "lastReviewed": "Last reviewed",
-    "sources": "Sources"
+    "sources": "Sources",
+    "takeQuiz": "Take quiz"
   },
   "paths": {
     "resumeJourney": "Resume journey",
@@ -345,10 +352,51 @@
     "toolsTitle": "Tools",
     "toolsDescription": "Use practical resources for visits and care decisions."
   },
+  "quiz": {
+    "description": "Test your knowledge of {title} with {count} questions.",
+    "passRequirement": "You need at least {score}% to pass.",
+    "startQuiz": "Start quiz",
+    "backToLesson": "Back to lesson",
+    "questionXofY": "Question {current} of {total}",
+    "answered": "{count} answered",
+    "previous": "Previous",
+    "next": "Next question",
+    "checkAnswer": "Check answer",
+    "seeResults": "See results",
+    "correct": "Correct!",
+    "incorrect": "Not quite.",
+    "explanation": "Explanation",
+    "scoreLabel": "You scored {score}% ({correct} of {total} correct)",
+    "passed": "You passed!",
+    "tryAgain": "Keep studying and try again.",
+    "retake": "Retake quiz"
+  },
+  "search": {
+    "openSearch": "Open search",
+    "searchDialog": "Search lessons",
+    "placeholder": "Search lessons…",
+    "close": "Close search",
+    "noResults": "No lessons found. Try a different search term."
+  },
+  "onboarding": {
+    "welcome": "Welcome to Health Made Clear",
+    "subtitle": "Your guide to understanding health topics in plain language.",
+    "step1Title": "Learn at your own pace",
+    "step1Body": "Browse our library of clear lessons on medications, doctor visits, lab results, and more.",
+    "step2Title": "Follow learning paths",
+    "step2Body": "Structured guides help you build understanding step by step, from basics to advanced topics.",
+    "step3Title": "Find what you need",
+    "step3Body": "Use search to quickly find the health topic you are looking for.",
+    "getStarted": "Get started",
+    "close": "Close"
+  },
   "errors": {
     "title": "Something went wrong",
     "body": "We could not load this page. Your progress on this device is unchanged.",
     "retry": "Try again",
-    "home": "Go home"
+    "home": "Go home",
+    "notFoundTitle": "Page not found",
+    "notFoundBody": "The page you are looking for does not exist or has been moved.",
+    "goHome": "Go home"
   }
 }

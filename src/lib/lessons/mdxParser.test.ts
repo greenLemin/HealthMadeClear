@@ -4,7 +4,7 @@ import { getAllLessonsFromMdx, getLessonFromMdx } from "@/lib/lessons/mdxParser"
 describe("mdxParser", () => {
   it("loads all English lessons from MDX", () => {
     const lessons = getAllLessonsFromMdx("en");
-    expect(lessons).toHaveLength(9);
+    expect(lessons).toHaveLength(25);
     expect(lessons[0]?.content.sections.length).toBeGreaterThan(0);
   });
 

@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import { lessons } from "@/data/lessons";
 import { requireLocale } from "@/lib/locale";
-import { getLessonById } from "@/lib/localizedContent";
+import { getLessonById, getGlossaryTerms } from "@/lib/localizedContent";
 import JsonLd from "@/components/JsonLd";
 import { getSiteUrl } from "@/lib/site";
 import LessonPageClient from "./LessonPageClient";
@@ -50,6 +50,7 @@ export default function LessonDetailPage({ params }: Props) {
 
   const base = getSiteUrl();
   const url = `${base}/${locale}/learn/${lesson.id}`;
+  const glossaryTerms = getGlossaryTerms(locale);
 
   return (
     <>
@@ -66,7 +67,7 @@ export default function LessonDetailPage({ params }: Props) {
           timeRequired: lesson.duration,
         }}
       />
-      <LessonPageClient lesson={lesson} />
+      <LessonPageClient lesson={lesson} glossaryTerms={glossaryTerms} />
     </>
   );
 }

@@ -4,6 +4,7 @@ import { useState, useRef, useEffect, useCallback } from "react";
 import { Link } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
 import { createPortal } from "react-dom";
+import { useScrollSpyContext } from "./ScrollSpyProvider";
 
 /** The minimal shape of a glossary term needed to render the popover. */
 export interface GlossaryTermSummary {
@@ -15,6 +16,7 @@ export interface GlossaryTermSummary {
 interface InlineGlossaryTermProps {
   term: GlossaryTermSummary;
   displayText: string;
+  instanceId?: string;
 }
 
 function Popover({
@@ -78,12 +80,22 @@ function Popover({
   );
 }
 
-export default function InlineGlossaryTerm({ term, displayText }: InlineGlossaryTermProps) {
+export default function InlineGlossaryTerm({ term, displayText, instanceId }: InlineGlossaryTermProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [triggerRect, setTriggerRect] = useState<DOMRect | null>(null);
   const t = useTranslations("glossary");
   const containerRef = useRef<HTMLSpanElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
+  const { registerTerm, unregisterTerm, activeTermIds } = useScrollSpyContext();
+
+  const isActive = instanceId && activeTermIds.has(instanceId);
+
+  useEffect(() => {
+    if (instanceId) {
+      registerTerm(instanceId, buttonRef.current);
+      return () => unregisterTerm(instanceId);
+    }
+  }, [instanceId, registerTerm, unregisterTerm]);
 
   const close = useCallback(() => {
     setIsOpen(false);
@@ -130,10 +142,15 @@ export default function InlineGlossaryTerm({ term, displayText }: InlineGlossary
     };
   }, [isOpen, close]);
 
+  const baseClasses =
+    "no-print cursor-help border-b-2 border-dashed border-primary-container font-semibold text-primary hover:bg-primary-container/10 focus:bg-primary-container/20 focus:outline-none transition-colors";
+  const activeClasses = isActive ? "bg-primary-container/20 shadow-sm" : "";
+
   return (
     <span ref={containerRef} className="relative inline-block">
       <button
         ref={buttonRef}
+        id={instanceId}
         type="button"
         onClick={toggle}
         onKeyDown={(e) => {
@@ -142,7 +159,7 @@ export default function InlineGlossaryTerm({ term, displayText }: InlineGlossary
             toggle();
           }
         }}
-        className="no-print cursor-help border-b-2 border-dashed border-primary-container font-semibold text-primary hover:bg-primary-container/10 focus:bg-primary-container/20 focus:outline-none"
+        className={`${baseClasses} ${activeClasses}`}
         aria-haspopup="dialog"
         aria-expanded={isOpen}
       >

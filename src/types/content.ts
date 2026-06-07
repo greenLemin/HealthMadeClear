@@ -8,11 +8,35 @@ export const LESSON_IDS = [
   "blood-basics",
   "common-tests",
   "when-to-worry",
+  "why-preventive-care-matters",
+  "common-adult-screenings",
+  "understanding-vaccines",
+  "living-with-hypertension",
+  "understanding-type2-diabetes",
+  "asthma-basics",
+  "introduction-to-heart-disease",
+  "understanding-depression",
+  "anxiety-and-panic",
+  "sleep-and-health",
+  "understanding-health-insurance",
+  "reading-medical-bills",
+  "when-to-call-911",
+  "building-first-aid-kit",
+  "reading-nutrition-labels",
+  "building-balanced-plate",
 ] as const;
 
 export type LessonId = (typeof LESSON_IDS)[number];
 
-export const PATH_IDS = ["safer-medicine-use", "doctor-visit-prep", "understanding-labs"] as const;
+export const PATH_IDS = [
+  "safer-medicine-use",
+  "doctor-visit-prep",
+  "understanding-labs",
+  "managing-new-diagnosis",
+  "staying-healthy-preventive",
+  "mental-wellness-basics",
+  "navigating-healthcare",
+] as const;
 export type PathId = (typeof PATH_IDS)[number];
 
 export const GLOSSARY_IDS = [
@@ -51,6 +75,25 @@ export const GLOSSARY_IDS = [
 
 export type GlossaryId = (typeof GLOSSARY_IDS)[number];
 
-export type LessonCategoryId = "medication-safety" | "doctor-visits" | "lab-results";
+export type LessonCategoryId =
+  | "medication-safety"
+  | "doctor-visits"
+  | "lab-results"
+  | "preventive-care"
+  | "chronic-conditions"
+  | "mental-health"
+  | "insurance-billing"
+  | "emergency"
+  | "nutrition";
 
-export const LESSON_CATEGORY_IDS: LessonCategoryId[] = ["medication-safety", "doctor-visits", "lab-results"];
+export const LESSON_CATEGORY_IDS: LessonCategoryId[] = [
+  "medication-safety",
+  "doctor-visits",
+  "lab-results",
+  "preventive-care",
+  "chronic-conditions",
+  "mental-health",
+  "insurance-billing",
+  "emergency",
+  "nutrition",
+];

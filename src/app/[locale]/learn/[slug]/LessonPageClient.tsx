@@ -1,20 +1,20 @@
 "use client";
 
 import Image from "next/image";
-import dynamic from "next/dynamic";
-import { Link } from "@/i18n/navigation";
 import { ArrowLeft } from "lucide-react";
+import { Link } from "@/i18n/navigation";
 import LessonActionsClient from "@/components/lesson/LessonActionsClient";
 import LessonRelatedClient from "@/components/lesson/LessonRelatedClient";
 import Callout from "@/components/Callout";
 import MedicalDisclaimer from "@/components/MedicalDisclaimer";
+import MarkdownRenderer from "@/components/mdx/MarkdownRenderer";
+import { ScrollSpyProvider } from "@/components/mdx/ScrollSpyProvider";
 import { useAppState } from "@/components/AppProviders";
 import { useTranslations } from "next-intl";
 import { formatLevel, getCategoryLabel } from "@/lib/i18n";
 import type { Lesson } from "@/types/lesson";
 import type { LessonId } from "@/types/content";
-
-const GlossaryHighlighter = dynamic(() => import("@/components/mdx/GlossaryHighlighter"), { ssr: false });
+import type { GlossaryTerm } from "@/types/glossary";
 
 type SidebarContent = {
   body: string;
@@ -53,7 +53,13 @@ function useSidebarContent(lesson: Lesson, t: ReturnType<typeof useTranslations<
   };
 }
 
-export default function LessonPageClient({ lesson }: { lesson: Lesson }) {
+export default function LessonPageClient({
+  lesson,
+  glossaryTerms,
+}: {
+  lesson: Lesson;
+  glossaryTerms: GlossaryTerm[];
+}) {
   const { locale } = useAppState();
   const t = useTranslations("learn");
   const lessonId = lesson.id as LessonId;
@@ -75,74 +81,82 @@ export default function LessonPageClient({ lesson }: { lesson: Lesson }) {
 
         <div className="grid gap-8 lg:grid-cols-[1.2fr_0.55fr]">
           <article>
-            <Link
-              href="/learn"
-              className="no-print mb-6 inline-flex items-center gap-2 text-sm font-semibold text-primary"
-            >
-              <ArrowLeft size={18} />
-              {t("backToLessons")}
-            </Link>
-            <h1 className="mb-4 text-headline-xl text-primary">{lesson.title}</h1>
-            <p className="mb-8 max-w-3xl text-body-lg text-on-surface-variant">{lesson.description}</p>
-            <LessonActionsClient lessonId={lessonId} />
+            <ScrollSpyProvider>
+              <Link
+                href="/learn"
+                className="no-print mb-6 inline-flex items-center gap-2 text-sm font-semibold text-primary"
+              >
+                <ArrowLeft size={18} />
+                {t("backToLessons")}
+              </Link>
+              <h1 className="mb-4 text-headline-xl text-primary">{lesson.title}</h1>
+              <p className="mb-8 max-w-3xl text-body-lg text-on-surface-variant">{lesson.description}</p>
+              <LessonActionsClient lessonId={lessonId} />
 
-            {heroImage ? (
-              <div className="mb-8 overflow-hidden rounded-lg border border-outline-variant">
-                <Image
-                  src={heroImage}
-                  alt={lesson.title}
-                  width={800}
-                  height={450}
-                  className="h-auto w-full object-cover"
-                  priority
-                />
-              </div>
-            ) : (
-              <div className="mb-8 rounded-lg border border-outline-variant bg-surface-container-low p-6">
-                <div className="min-h-48 rounded-lg bg-gradient-to-br from-primary-container to-primary-fixed" />
-              </div>
-            )}
+              {heroImage ? (
+                <div className="mb-8 overflow-hidden rounded-lg border border-outline-variant">
+                  <Image
+                    src={heroImage}
+                    alt={lesson.title}
+                    width={800}
+                    height={450}
+                    className="h-auto w-full object-cover"
+                    priority
+                  />
+                </div>
+              ) : (
+                <div className="mb-8 rounded-lg border border-outline-variant bg-surface-container-low p-6">
+                  <div className="min-h-48 rounded-lg bg-gradient-to-br from-primary-container to-primary-fixed" />
+                </div>
+              )}
 
-            <div className="space-y-8">
-              {lesson.content.sections.map((section, index) => (
-                <section key={section.title}>
-                  <div className="mb-3 flex items-center gap-3">
-                    <div className="flex h-8 w-8 items-center justify-center rounded-full bg-secondary-container text-sm font-bold text-primary">
-                      {index + 1}
+              <div className="space-y-8">
+                {lesson.content.sections.map((section, index) => (
+                  <section key={section.title}>
+                    <div className="mb-3 flex items-center gap-3">
+                      <div className="flex h-8 w-8 items-center justify-center rounded-full bg-secondary-container text-sm font-bold text-primary">
+                        {index + 1}
+                      </div>
+                      <h2 className="text-headline-md text-primary">{section.title}</h2>
                     </div>
-                    <h2 className="text-headline-md text-primary">{section.title}</h2>
-                  </div>
-                  <div className="whitespace-pre-line text-body-md text-on-surface-variant">
-                    <GlossaryHighlighter text={section.content} />
-                  </div>
-                  {section.callouts?.map((callout, calloutIndex) => (
-                    <Callout key={`${section.title}-${calloutIndex}`} type={callout.type} className="mt-4">
-                      {callout.content}
-                    </Callout>
-                  ))}
-                </section>
-              ))}
-            </div>
-
-            {lesson.lastReviewed ? (
-              <p className="mt-8 text-sm text-on-surface-variant">
-                {t("lastReviewed")}: {lesson.lastReviewed}
-              </p>
-            ) : null}
-            {lesson.sources?.length ? (
-              <div className="mt-4 text-sm text-on-surface-variant">
-                <div className="font-semibold text-primary">{t("sources")}</div>
-                <ul className="mt-2 list-disc space-y-1 pl-5">
-                  {lesson.sources.map((source) => (
-                    <li key={source}>{source}</li>
-                  ))}
-                </ul>
+                    <div className="whitespace-pre-line text-body-md text-on-surface-variant">
+                      <MarkdownRenderer text={section.content} glossaryTerms={glossaryTerms} />
+                    </div>
+                    {section.callouts?.map((callout, calloutIndex) => (
+                      <Callout key={`${section.title}-${calloutIndex}`} type={callout.type} className="mt-4">
+                        {callout.content}
+                      </Callout>
+                    ))}
+                  </section>
+                ))}
               </div>
-            ) : null}
 
-            <div className="mt-10">
-              <MedicalDisclaimer />
-            </div>
+              {lesson.lastReviewed ? (
+                <p className="mt-8 text-sm text-on-surface-variant">
+                  {t("lastReviewed")}: {lesson.lastReviewed}
+                </p>
+              ) : null}
+              {lesson.sources?.length ? (
+                <div className="mt-4 text-sm text-on-surface-variant">
+                  <div className="font-semibold text-primary">{t("sources")}</div>
+                  <ul className="mt-2 list-disc space-y-1 pl-5">
+                    {lesson.sources.map((source) => (
+                      <li key={source}>{source}</li>
+                    ))}
+                  </ul>
+                </div>
+              ) : null}
+
+              <div className="mt-8 flex flex-wrap items-center gap-4">
+                <Link href={`/learn/${lessonId}/quiz`} className="btn-primary inline-flex items-center gap-2">
+                  {t("takeQuiz")}
+                </Link>
+              </div>
+
+              <div className="mt-10">
+                <MedicalDisclaimer />
+              </div>
+            </ScrollSpyProvider>
           </article>
 
           <aside className="space-y-6">

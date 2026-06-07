@@ -12,6 +12,8 @@ export const lessons: Lesson[] = [
     categoryId: "medication-safety",
     duration: "15 minutes",
     level: "beginner",
+    lastReviewed: "2026-06-01",
+    sources: ["FDA - How to Read a Prescription Label", "CDC - Medication Safety Basics"],
     image: "/stitch/lesson_understanding_prescription_labels.png",
     sidebarTips: [
       "Check the name.",
@@ -78,6 +80,8 @@ export const lessons: Lesson[] = [
     categoryId: "medication-safety",
     duration: "10 minutes",
     level: "beginner",
+    lastReviewed: "2026-06-01",
+    sources: ["CDC - Medication Safety", "NIH MedlinePlus"],
     content: {
       sections: [
         {
@@ -112,6 +116,8 @@ export const lessons: Lesson[] = [
     categoryId: "medication-safety",
     duration: "12 minutes",
     level: "beginner",
+    lastReviewed: "2026-06-01",
+    sources: ["FDA - Medication Side Effects", "CDC - Drug Safety"],
     content: {
       sections: [
         {
@@ -146,6 +152,8 @@ export const lessons: Lesson[] = [
     categoryId: "doctor-visits",
     duration: "10 minutes",
     level: "beginner",
+    lastReviewed: "2026-06-01",
+    sources: ["CDC - Doctor Visit Tips", "Agency for Healthcare Research and Quality"],
     content: {
       sections: [
         {
@@ -180,6 +188,8 @@ export const lessons: Lesson[] = [
     categoryId: "doctor-visits",
     duration: "10 minutes",
     level: "beginner",
+    lastReviewed: "2026-06-01",
+    sources: ["CDC - Doctor Visit Tips", "Agency for Healthcare Research and Quality"],
     content: {
       sections: [
         {
@@ -214,6 +224,8 @@ export const lessons: Lesson[] = [
     categoryId: "doctor-visits",
     duration: "8 minutes",
     level: "beginner",
+    lastReviewed: "2026-06-01",
+    sources: ["CDC - Follow-up Care", "NIH MedlinePlus"],
     content: {
       sections: [
         {
@@ -249,6 +261,8 @@ export const lessons: Lesson[] = [
     categoryId: "lab-results",
     duration: "15 minutes",
     level: "intermediate",
+    lastReviewed: "2026-06-01",
+    sources: ["NIH - Blood Tests", "CDC - Lab Tests"],
     sidebarTips: [
       "Ask if you need to fast (no eating or drinking).",
       "Drink plenty of water unless told not to.",
@@ -290,6 +304,8 @@ export const lessons: Lesson[] = [
     categoryId: "lab-results",
     duration: "20 minutes",
     level: "intermediate",
+    lastReviewed: "2026-06-01",
+    sources: ["NIH - Lab Tests", "CDC - Laboratory Quality"],
     content: {
       sections: [
         {
@@ -324,6 +340,8 @@ export const lessons: Lesson[] = [
     categoryId: "lab-results",
     duration: "10 minutes",
     level: "intermediate",
+    lastReviewed: "2026-06-01",
+    sources: ["CDC - Lab Test Results", "NIH MedlinePlus"],
     content: {
       sections: [
         {
@@ -347,6 +365,1248 @@ export const lessons: Lesson[] = [
           title: "Questions to Ask Your Doctor",
           content:
             "When discussing abnormal results, ask:\n\n- How serious is this result?\n- What could be causing it?\n- Do I need more tests?\n- What treatment do I need?\n- How will we monitor this?\n- What changes should I make?",
+        },
+      ],
+    },
+  },
+  {
+    id: "why-preventive-care-matters",
+    title: "Why Preventive Care Matters",
+    description: "Learn what preventive care is, why it matters, and how it can help you stay healthy.",
+    category: "Preventive Care",
+    categoryId: "preventive-care",
+    duration: "10 minutes",
+    level: "beginner",
+    lastReviewed: "2026-06-01",
+    sources: ["CDC - Preventive Care", "USPSTF Recommendations"],
+    sidebarTips: [
+      "Most insurance plans cover preventive care at no cost to you.",
+      "Schedule your annual check-up even if you feel fine.",
+    ],
+    sidebarTitle: "Quick tip",
+    content: {
+      sections: [
+        {
+          title: "What Is Preventive Care?",
+          content:
+            "Preventive care means health services that help you stay healthy and catch problems early. Instead of waiting until you're sick, preventive care helps you:\n\n- Find health issues before they become serious\n- Get vaccines that protect you from diseases\n- Learn healthy habits that prevent illness\n- Save money by avoiding costly treatments later",
+        },
+        {
+          title: "Types of Preventive Care",
+          content:
+            "### Screening Tests\n\nScreening tests check for diseases before you have symptoms. Common screenings include:\n\n- Blood pressure checks\n- Cholesterol tests\n- Cancer screenings (mammograms, colonoscopies, Pap tests)\n- Diabetes screening\n- Depression screening\n\n### Vaccines (Immunizations)\n\nVaccines protect you from serious diseases. They train your immune system to fight infections. Common adult vaccines:\n\n- Flu shot (every year)\n- Tdap (tetanus, diphtheria, pertussis) - every 10 years\n- Shingles vaccine (age 50+)\n- Pneumonia vaccine (age 65+)\n- COVID-19 vaccines (as recommended)\n\n### Wellness Visits\n\nA wellness visit is a check-up focused on prevention. Your doctor will:\n\n- Review your health history\n- Check your vital signs\n- Discuss which screenings you need\n- Talk about healthy lifestyle choices\n- Update your vaccines",
+          callouts: [
+            {
+              type: "info",
+              content:
+                "Under the Affordable Care Act, most insurance plans must cover preventive services at no cost to you. This means no copay, no coinsurance, and no deductible for these services.",
+            },
+          ],
+        },
+        {
+          title: "Why It Matters",
+          content:
+            "Many serious diseases start silently. High blood pressure, high cholesterol, and early cancer often have no symptoms. By the time you feel sick, the disease may be harder to treat.",
+          callouts: [
+            {
+              type: "warning",
+              content:
+                "Skipping preventive care does not save money. Treating advanced disease costs far more than preventing it.",
+            },
+          ],
+        },
+        {
+          title: "Healthy Habits Are Prevention Too",
+          content:
+            "Prevention isn't just medical visits. Daily choices matter:\n\n- Eat a balanced diet with fruits, vegetables, and whole grains\n- Move your body 150 minutes per week\n- Get 7-9 hours of sleep\n- Don't smoke; limit alcohol\n- Manage stress",
+          callouts: [
+            {
+              type: "success",
+              content: "Small changes add up. A 10-minute walk daily is better than no walk at all.",
+            },
+          ],
+        },
+        {
+          title: "Talk to Your Doctor",
+          content:
+            "Ask your doctor:\n\n- What screenings do I need for my age?\n- Am I up to date on vaccines?\n- What lifestyle changes would help me most?\n- When should I come back?",
+        },
+      ],
+    },
+  },
+  {
+    id: "common-adult-screenings",
+    title: "Common Adult Screenings by Age",
+    description: "Learn which health screenings you need at each age and why they matter.",
+    category: "Preventive Care",
+    categoryId: "preventive-care",
+    duration: "12 minutes",
+    level: "beginner",
+    lastReviewed: "2026-06-01",
+    sources: ["USPSTF Recommendations", "CDC Screening Guidelines", "American Cancer Society"],
+    sidebarTips: [
+      "Your personal schedule may differ based on family history and risk factors.",
+      "Ask your doctor which screenings are right for you.",
+      "Keep a record of your screening dates and results.",
+    ],
+    sidebarTitle: "Screening cheat sheet",
+    content: {
+      sections: [
+        {
+          title: "Why Screening Schedules Vary",
+          content:
+            "Screening recommendations depend on:\n\n- Age\n- Sex assigned at birth\n- Family history\n- Personal health history\n- Lifestyle factors (smoking, weight, etc.)\n\nThe guidelines below are from the U.S. Preventive Services Task Force (USPSTF). **Always discuss with your doctor** — they may recommend different timing based on your situation.",
+        },
+        {
+          title: "Ages 18-39",
+          content:
+            "| Screening         | Frequency       | Notes                                     |\n| ----------------- | --------------- | ----------------------------------------- |\n| Blood pressure    | Every 1-2 years | More often if high                        |\n| Cholesterol       | Every 4-6 years | Start at 20 if risk factors               |\n| Skin cancer check | Talk to doctor  | Especially if fair skin or family history |\n| STI screening     | As recommended  | Based on sexual activity                  |\n| Dental exam       | Every 6 months  |                                           |\n| Eye exam          | Every 2-4 years |                                           |",
+          callouts: [
+            {
+              type: "info",
+              content:
+                "Women should also discuss: Pap test (cervical cancer) starting at 21, clinical breast exam, and chlamydia/gonorrhea screening if sexually active.",
+            },
+          ],
+        },
+        {
+          title: "Ages 40-49",
+          content:
+            "| Screening          | Frequency           | Notes                                     |\n| ------------------ | ------------------- | ----------------------------------------- |\n| Blood pressure     | Every year          |                                           |\n| Cholesterol        | Every 4-6 years     | More often if risk factors                |\n| Diabetes screening | Every 3 years       | Start at 35 if overweight                 |\n| Colorectal cancer  | **Start at 45**     | Colonoscopy every 10 years or other tests |\n| Mammogram (women)  | Every 1-2 years     | Talk to doctor about starting at 40       |\n| Skin cancer check  | Yearly if high risk |                                           |\n| Dental exam        | Every 6 months      |                                           |\n| Eye exam           | Every 2-4 years     |                                           |",
+          callouts: [
+            {
+              type: "warning",
+              content:
+                "Colorectal cancer screening now starts at **age 45** (changed from 50 in 2021). Don't delay — early detection saves lives.",
+            },
+          ],
+        },
+        {
+          title: "Ages 50-64",
+          content:
+            "| Screening             | Frequency                        | Notes                                        |\n| --------------------- | -------------------------------- | -------------------------------------------- |\n| Blood pressure        | Every year                       |                                              |\n| Cholesterol           | Every 4-6 years                  |                                              |\n| Diabetes              | Every 3 years                    |                                              |\n| Colorectal cancer     | Every 10 years (colonoscopy)     | Or yearly FIT test                           |\n| Mammogram (women)     | Every 1-2 years                  |                                              |\n| Lung cancer (CT scan) | Yearly                           | Ages 50-80 with 20 pack-year smoking history |\n| Osteoporosis (women)  | At 65 or earlier if risk factors | Bone density scan                            |\n| Prostate cancer (men) | Talk to doctor                   | Ages 55-69, individual decision              |\n| Shingles vaccine      | Two doses                        | Age 50+                                      |\n| Dental exam           | Every 6 months                   |                                              |\n| Eye exam              | Every 1-2 years                  |                                              |",
+        },
+        {
+          title: "Ages 65+",
+          content:
+            "| Screening            | Frequency        | Notes                       |\n| -------------------- | ---------------- | --------------------------- |\n| Blood pressure       | Every year       |                             |\n| Cholesterol          | Every 4-6 years  |                             |\n| Colorectal cancer    | Until age 75     | Discuss after 75            |\n| Mammogram (women)    | Every 1-2 years  | Until 74, then discuss      |\n| Lung cancer (CT)     | Yearly           | Until 80 if smoking history |\n| Osteoporosis         | Every 2 years    |                             |\n| Fall risk assessment | Yearly           |                             |\n| Cognitive screening  | Yearly           |                             |\n| Pneumonia vaccine    | One or two doses | Age 65+                     |\n| Flu vaccine          | Every year       |                             |\n| Dental exam          | Every 6 months   |                             |\n| Eye exam             | Every year       |                             |",
+        },
+        {
+          title: "How to Prepare for Screenings",
+          content:
+            "1. **Know your family history** — Write down what conditions run in your family\n2. **Bring your records** — Previous screening results, vaccine records\n3. **Ask about fasting** — Some blood tests require 8-12 hours without food\n4. **Wear comfortable clothes** — Easy to remove for exams\n5. **Write down questions** — Don't rely on memory",
+          callouts: [
+            {
+              type: "success",
+              content:
+                "Put screening reminders on your calendar. Treat them like any other important appointment.",
+            },
+          ],
+        },
+      ],
+    },
+  },
+  {
+    id: "understanding-vaccines",
+    title: "Understanding Vaccines",
+    description: "Learn how vaccines work, which ones adults need, and the facts behind common myths.",
+    category: "Preventive Care",
+    categoryId: "preventive-care",
+    duration: "12 minutes",
+    level: "beginner",
+    lastReviewed: "2026-06-01",
+    sources: ["CDC - Vaccines", "WHO Immunization", "Immunization Action Coalition"],
+    sidebarTips: [
+      "You cannot get the disease from a vaccine.",
+      "Side effects are usually mild and mean your immune system is working.",
+      "Vaccines are tested for years before approval.",
+    ],
+    sidebarTitle: "Vaccine facts",
+    content: {
+      sections: [
+        {
+          title: "How Vaccines Work",
+          content:
+            "Vaccines train your immune system to recognize and fight specific germs (viruses or bacteria) without making you sick. They contain:\n\n- A weakened or dead germ\n- Or just a piece of the germ (like a protein)\n- Or instructions (mRNA) for your cells to make a harmless piece\n\nYour immune system learns to recognize the germ and makes antibodies. If you're exposed later, your body fights it off quickly — often before you get sick.",
+          callouts: [
+            {
+              type: "info",
+              content:
+                'Think of a vaccine like a "wanted poster" for your immune system. It shows your body what the enemy looks like so it\'s ready to attack.',
+            },
+          ],
+        },
+        {
+          title: "Types of Vaccines",
+          content:
+            "| Type              | How It Works                         | Examples                              |\n| ----------------- | ------------------------------------ | ------------------------------------- |\n| Live attenuated   | Weakened germ                        | MMR, chickenpox, nasal flu            |\n| Inactivated       | Killed germ                          | Flu shot, polio, hepatitis A          |\n| Subunit/Conjugate | Piece of germ                        | HPV, hepatitis B, shingles (Shingrix) |\n| mRNA              | Instructions to make protein         | COVID-19 (Pfizer, Moderna)            |\n| Viral vector      | Harmless virus delivers instructions | COVID-19 (J&J)                        |",
+        },
+        {
+          title: "Recommended Vaccines for Adults",
+          content:
+            "### Everyone (Annual)\n\n- **Flu (influenza)** — Every fall, protects against that year's strains\n- **COVID-19** — As recommended by CDC (updated boosters)\n\n### Every 10 Years\n\n- **Tdap or Td** — Tetanus, diphtheria, pertussis (whooping cough)\n\n### Age 50+\n\n- **Shingles (Shingrix)** — Two doses, 2-6 months apart\n- **RSV** — Single dose (ages 60+, talk to doctor)\n\n### Age 65+\n\n- **Pneumococcal** — Protects against pneumonia, meningitis, bloodstream infections\n  - PCV20 (one dose) OR\n  - PCV15 followed by PPSV23 (one year later)\n\n### Based on Risk Factors\n\n- **Hepatitis A** — Travel, liver disease, men who have sex with men\n- **Hepatitis B** — Healthcare workers, diabetes, multiple sex partners\n- **HPV** — Through age 26 (or 27-45 after discussion with doctor)\n- **Meningococcal** — College dorms, military, certain medical conditions\n- **MMR** — If born after 1957 and no evidence of immunity",
+        },
+        {
+          title: "Common Myths vs. Facts",
+          content:
+            '| Myth                                   | Fact                                                                                              |\n| -------------------------------------- | ------------------------------------------------------------------------------------------------- |\n| "Vaccines cause autism"                | **False.** Large studies found no link. The original study was retracted.                         |\n| "Natural immunity is better"           | **Risky.** Getting the disease can cause severe complications or death.                           |\n| "Vaccines contain dangerous toxins"    | **False.** Ingredients are in tiny, safe amounts. Aluminum in vaccines < aluminum in breast milk. |\n| "I don\'t need vaccines if I\'m healthy" | **False.** Healthy people can get very sick and spread disease to vulnerable people.              |\n| "Vaccines overload the immune system"  | **False.** Your immune system handles thousands of germs daily. Vaccines are a tiny fraction.     |',
+          callouts: [
+            {
+              type: "warning",
+              content:
+                "Vaccine side effects (sore arm, low fever, tiredness) are normal and usually last 1-2 days. They mean your immune system is responding. Serious reactions are extremely rare.",
+            },
+          ],
+        },
+        {
+          title: "What to Expect When Getting Vaccinated",
+          content:
+            "1. **Before** — Tell the provider about allergies, past reactions, and if you're sick\n2. **During** — Quick shot in the upper arm (or nose for nasal flu)\n3. **After** — Wait 15 minutes (30 if history of severe allergies)\n4. **At home** — Move your arm, stay hydrated, use cool compress if sore",
+          callouts: [
+            {
+              type: "success",
+              content:
+                "Keep a vaccine record. Ask your pharmacy or doctor for a copy. Many states have immunization registries.",
+            },
+          ],
+        },
+        {
+          title: "Questions to Ask Your Provider",
+          content:
+            "1. Which vaccines do I need right now?\n2. Are there any I should avoid due to my health conditions?\n3. What side effects are normal?\n4. When should I get the next dose?\n5. Is there a cost? (Most are covered by insurance)",
+        },
+      ],
+    },
+  },
+  {
+    id: "living-with-hypertension",
+    title: "Living with Hypertension",
+    description:
+      "Understand high blood pressure, what the numbers mean, and how to manage it with lifestyle and medication.",
+    category: "Chronic Conditions",
+    categoryId: "chronic-conditions",
+    duration: "15 minutes",
+    level: "intermediate",
+    lastReviewed: "2026-06-01",
+    sources: ["American Heart Association", "CDC - High Blood Pressure", "ACC/AHA Guidelines"],
+    sidebarTips: [
+      "Check your blood pressure at home and keep a log.",
+      "Take medication exactly as prescribed — don't skip doses.",
+      "Reduce sodium: aim for less than 1,500 mg per day.",
+      "Move daily — even a 20-minute walk helps.",
+    ],
+    sidebarTitle: "BP management tips",
+    content: {
+      sections: [
+        {
+          title: "What Is Hypertension?",
+          content:
+            "Hypertension (high blood pressure) means the force of blood against your artery walls is consistently too high. Over time, this damages arteries and increases risk of:\n\n- Heart attack and heart failure\n- Stroke\n- Kidney disease\n- Vision loss\n- Dementia",
+        },
+        {
+          title: "Understanding Your Numbers",
+          content:
+            "Blood pressure has two numbers:\n\n- **Systolic (top)** — Pressure when heart beats\n- **Diastolic (bottom)** — Pressure when heart rests\n\n| Category             | Systolic | Diastolic |\n| -------------------- | -------- | --------- |\n| Normal               | < 120    | < 80      |\n| Elevated             | 120-129  | < 80      |\n| Stage 1 Hypertension | 130-139  | 80-89     |\n| Stage 2 Hypertension | ≥ 140    | ≥ 90      |\n| Hypertensive Crisis  | > 180    | > 120     |",
+          callouts: [
+            {
+              type: "warning",
+              content:
+                "**Hypertensive crisis (180/120 or higher) is a medical emergency.** Call 911 if you have chest pain, shortness of breath, vision changes, or confusion with these numbers.",
+            },
+          ],
+        },
+        {
+          title: "What Causes High Blood Pressure?",
+          content:
+            "### Modifiable Risk Factors\n\n- High sodium diet (processed foods, restaurant meals)\n- Physical inactivity\n- Excess weight\n- Heavy alcohol use\n- Smoking\n- Chronic stress\n- Not enough potassium (fruits, vegetables)\n\n### Non-Modifiable Risk Factors\n\n- Age (risk increases over 65)\n- Family history\n- Race (Black adults have higher rates)\n- Chronic kidney disease\n- Sleep apnea",
+        },
+        {
+          title: "Lifestyle Changes That Lower BP",
+          content:
+            "### DASH Diet (Dietary Approaches to Stop Hypertension)\n\n- Fruits and vegetables: 4-5 servings each per day\n- Whole grains: 6-8 servings\n- Low-fat dairy: 2-3 servings\n- Lean protein: 6 oz or less per day\n- Nuts, seeds, legumes: 4-5 servings per week\n- **Limit sodium to 1,500-2,300 mg/day**\n\n\n\n### Other Key Changes\n\n- **Exercise:** 150 minutes moderate activity per week (30 min, 5 days)\n- **Weight loss:** Losing 5-10% of body weight can significantly lower BP\n- **Alcohol:** Limit to 1 drink/day (women), 2 drinks/day (men)\n- **Quit smoking:** Each cigarette raises BP temporarily; long-term damages vessels\n- **Stress management:** Meditation, deep breathing, adequate sleep",
+          callouts: [
+            {
+              type: "success",
+              content: "The DASH diet can lower systolic BP by 8-14 points — similar to some medications.",
+            },
+          ],
+        },
+        {
+          title: "Medications for Hypertension",
+          content:
+            'If lifestyle changes aren\'t enough, your doctor may prescribe medication. Common classes:\n\n| Class                     | How It Works                  | Common Examples                     |\n| ------------------------- | ----------------------------- | ----------------------------------- |\n| ACE inhibitors            | Relax blood vessels           | Lisinopril, enalapril               |\n| ARBs                      | Block angiotensin II          | Losartan, valsartan                 |\n| Calcium channel blockers  | Relax vessel muscles          | Amlodipine, diltiazem               |\n| Diuretics ("water pills") | Remove excess sodium/water    | Hydrochlorothiazide, chlorthalidone |\n| Beta blockers             | Slow heart rate, reduce force | Metoprolol, carvedilol              |',
+          callouts: [
+            {
+              type: "info",
+              content:
+                "Most people need 2+ medications to reach target BP. This is normal — different drugs work in different ways.",
+            },
+          ],
+        },
+        {
+          title: "Monitoring at Home",
+          content:
+            "Home monitoring gives a better picture than occasional office readings:\n\n- Use a validated upper-arm cuff (not wrist)\n- Measure twice daily (morning and evening)\n- Sit quietly 5 minutes before measuring\n- Take 2 readings, 1 minute apart, record both\n- Bring log to every appointment",
+        },
+        {
+          title: "When to Call Your Doctor",
+          content:
+            "- BP consistently above your target\n- Side effects from medication (dizziness, cough, swelling)\n- Symptoms: severe headache, chest pain, vision changes, confusion\n- Planning pregnancy (some BP meds unsafe in pregnancy)",
+          callouts: [
+            {
+              type: "success",
+              content:
+                'Hypertension is a "silent killer" — you usually feel fine. That\'s why checking and treating it matters, even when you feel well.',
+            },
+          ],
+        },
+      ],
+    },
+  },
+  {
+    id: "understanding-type2-diabetes",
+    title: "Understanding Type 2 Diabetes",
+    description:
+      "Learn what type 2 diabetes is, how it's diagnosed, and how to manage blood sugar through lifestyle and medication.",
+    category: "Chronic Conditions",
+    categoryId: "chronic-conditions",
+    duration: "18 minutes",
+    level: "intermediate",
+    lastReviewed: "2026-06-01",
+    sources: ["American Diabetes Association", "CDC - Diabetes", "NIDDK"],
+    sidebarTips: [
+      "Check blood sugar as directed and keep a log.",
+      "Eat consistent meals — don't skip meals.",
+      "Move after meals — even a 10-minute walk lowers blood sugar.",
+      "Take medications exactly as prescribed.",
+    ],
+    sidebarTitle: "Diabetes management",
+    content: {
+      sections: [
+        {
+          title: "What Is Type 2 Diabetes?",
+          content:
+            "Type 2 diabetes means your body doesn't use insulin properly. Insulin is a hormone that helps glucose (sugar) enter your cells for energy. When insulin doesn't work well:\n\n- Glucose builds up in your blood (high blood sugar)\n- Your cells don't get the energy they need\n- Over time, high blood sugar damages nerves, blood vessels, and organs",
+        },
+        {
+          title: "How Is It Diagnosed?",
+          content:
+            "| Test            | Normal      | Prediabetes | Diabetes              |\n| --------------- | ----------- | ----------- | --------------------- |\n| A1C             | < 5.7%      | 5.7-6.4%    | ≥ 6.5%                |\n| Fasting glucose | < 100 mg/dL | 100-125     | ≥ 126                 |\n| Random glucose  | < 140       | —           | ≥ 200 (with symptoms) |",
+          callouts: [
+            {
+              type: "info",
+              content:
+                "**A1C** measures your average blood sugar over 2-3 months. It doesn't require fasting.",
+            },
+          ],
+        },
+        {
+          title: "Risk Factors",
+          content:
+            "### You Can Change\n\n- Overweight or obesity (especially belly fat)\n- Physical inactivity\n- Unhealthy diet (high in processed foods, sugary drinks)\n- Smoking\n\n### You Can't Change\n\n- Age 45+\n- Family history (parent or sibling with type 2)\n- Race/ethnicity (Black, Hispanic, Native American, Asian American, Pacific Islander higher risk)\n- History of gestational diabetes\n- PCOS (polycystic ovary syndrome)",
+        },
+        {
+          title: "Managing Blood Sugar",
+          content:
+            "### The ABCs of Diabetes\n\n- **A** — **A1C** (target usually < 7%, individualized)\n- **B** — **Blood pressure** (target < 130/80)\n- **C** — **Cholesterol** (LDL < 70 or < 100 depending on risk)\n\n### Food Choices\n\n- **Carbohydrates** raise blood sugar the most. Choose:\n  - Complex carbs: whole grains, beans, vegetables\n  - Limit: white bread, pasta, rice, sweets, sugary drinks\n- **Protein and healthy fats** have minimal effect on blood sugar\n- **Fiber** slows sugar absorption — aim for 25-30g daily\n\n\n\n### Physical Activity\n\n- 150 minutes moderate activity per week\n- **Resistance training** 2-3 times/week builds muscle, which uses glucose\n- **Break up sitting** — stand or walk every 30 minutes\n\n### Medications\n\nMany options exist. Your doctor chooses based on:\n\n- Your A1C\n- Other health conditions\n- Cost and insurance\n- Side effect profile\n\n| Class            | How It Works                          | Common Examples              |\n| ---------------- | ------------------------------------- | ---------------------------- |\n| Metformin        | Lowers liver glucose production       | First-line for most          |\n| SGLT2 inhibitors | Excrete glucose in urine              | Empagliflozin, dapagliflozin |\n| GLP-1 agonists   | Increase insulin, slow digestion      | Semaglutide, dulaglutide     |\n| DPP-4 inhibitors | Increase insulin after meals          | Sitagliptin, linagliptin     |\n| Sulfonylureas    | Stimulate pancreas to release insulin | Glipizide, glimepiride       |\n| Insulin          | Replaces missing insulin              | Various types                |",
+          callouts: [
+            {
+              type: "success",
+              content:
+                'The "plate method": 1/2 plate non-starchy vegetables, 1/4 lean protein, 1/4 complex carbs.',
+            },
+            {
+              type: "warning",
+              content:
+                "Some diabetes medications can cause **low blood sugar (hypoglycemia)**. Know the signs: shaky, sweaty, confused, fast heartbeat. Treat with 15g fast-acting carbs (juice, glucose tabs).",
+            },
+          ],
+        },
+        {
+          title: "Monitoring Blood Sugar",
+          content:
+            "- **A1C:** Every 3-6 months\n- **Self-monitoring:** As directed (before meals, bedtime, or after meals)\n- **Continuous glucose monitor (CGM):** Real-time readings, alerts for high/low",
+        },
+        {
+          title: "Preventing Complications",
+          content:
+            "High blood sugar over time damages:\n\n- **Eyes** (retinopathy) — Yearly dilated eye exam\n- **Kidneys** (nephropathy) — Yearly urine albumin test\n- **Nerves** (neuropathy) — Yearly foot exam, daily foot checks\n- **Heart and vessels** — Manage BP, cholesterol, don't smoke\n- **Feet** — Poor circulation + nerve damage = infection risk",
+          callouts: [
+            {
+              type: "success",
+              content:
+                "Good control dramatically reduces complication risk. Small improvements in A1C make a big difference.",
+            },
+          ],
+        },
+        {
+          title: "When to Call Your Doctor",
+          content:
+            "- Blood sugar consistently above target\n- Symptoms of high blood sugar: extreme thirst, frequent urination, blurred vision, fatigue\n- Symptoms of low blood sugar: shaky, sweaty, confused, dizzy\n- Illness (blood sugar often rises when sick)\n- New symptoms: foot sores, vision changes, numbness",
+        },
+      ],
+    },
+  },
+  {
+    id: "asthma-basics",
+    title: "Asthma Basics",
+    description:
+      "Learn what asthma is, how to recognize triggers, use inhalers correctly, and create an asthma action plan.",
+    category: "Chronic Conditions",
+    categoryId: "chronic-conditions",
+    duration: "14 minutes",
+    level: "beginner",
+    lastReviewed: "2026-06-01",
+    sources: ["NHLBI - Asthma", "AAAAI", "CDC - Asthma"],
+    sidebarTips: [
+      "Always carry your rescue inhaler.",
+      "Use a spacer with your metered-dose inhaler — it gets more medicine to your lungs.",
+      "Know your triggers and avoid them when possible.",
+      "Get a written asthma action plan from your doctor.",
+    ],
+    sidebarTitle: "Asthma quick tips",
+    content: {
+      sections: [
+        {
+          title: "What Is Asthma?",
+          content:
+            "Asthma is a chronic lung disease where airways become inflamed, narrow, and produce extra mucus. This makes breathing difficult. Symptoms include:\n\n- Wheezing (whistling sound when breathing)\n- Shortness of breath\n- Chest tightness\n- Coughing (especially at night or early morning)",
+        },
+        {
+          title: "What Happens During an Asthma Attack?",
+          content:
+            "1. **Trigger** irritates airways\n2. **Inflammation** — airway lining swells\n3. **Bronchoconstriction** — muscles around airways tighten\n4. **Mucus** — thick mucus clogs airways\n5. **Result** — air can't move in and out easily",
+          callouts: [
+            {
+              type: "warning",
+              content:
+                "**Severe asthma attack is a medical emergency.** Call 911 if: rescue inhaler doesn't help, can't speak in full sentences, lips/fingernails blue, chest/neck skin pulls in with breathing.",
+            },
+          ],
+        },
+        {
+          title: "Common Triggers",
+          content:
+            "| Category    | Examples                                                               |\n| ----------- | ---------------------------------------------------------------------- |\n| Allergens   | Pollen, dust mites, mold, pet dander, cockroaches                      |\n| Irritants   | Smoke (tobacco, wood, wildfire), strong odors, air pollution, cold air |\n| Exercise    | Especially in cold, dry air                                            |\n| Infections  | Colds, flu, COVID-19, sinus infections                                 |\n| Emotions    | Strong laughter, crying, stress                                        |\n| Medications | Aspirin, NSAIDs (ibuprofen), beta blockers (in some people)            |",
+        },
+        {
+          title: "Two Types of Inhalers",
+          content:
+            "### 1. Quick-Relief (Rescue) Inhaler\n\n- **Short-acting beta agonist (SABA):** Albuterol, levalbuterol\n- **Use:** For sudden symptoms or before exercise (if prescribed)\n- **Works in:** Minutes\n- **Lasts:** 4-6 hours\n- **Color code:** Often **red** or blue\n\n\n\n### 2. Controller (Maintenance) Inhaler\n\n- **Inhaled corticosteroids (ICS):** Fluticasone, budesonide, beclomethasone\n- **Use:** Daily, even when feeling well\n- **Works over:** Days to weeks\n- **Prevents:** Inflammation and attacks\n- **Color code:** Often **orange**, brown, or purple\n\n### Combination Inhalers\n\n- **ICS + Long-acting beta agonist (LABA):** Fluticasone/salmeterol, budesonide/formoterol\n- **Used as:** Daily controller (some also approved for rescue)",
+          callouts: [
+            {
+              type: "info",
+              content:
+                "If you use your rescue inhaler more than 2 times per week (not counting pre-exercise), your asthma is not well controlled. Talk to your doctor.",
+            },
+          ],
+        },
+        {
+          title: "How to Use a Metered-Dose Inhaler (MDI) with Spacer",
+          content:
+            "1. **Shake** the inhaler well (5-10 seconds)\n2. **Attach** spacer to inhaler\n3. **Breathe out** fully, away from spacer\n4. **Place** spacer mouthpiece in mouth, seal lips\n5. **Press** inhaler **once**\n6. **Breathe in** slowly and deeply (3-5 seconds)\n7. **Hold breath** 10 seconds (or as long as comfortable)\n8. **Breathe out** slowly\n9. **Wait** 1 minute between puffs if 2 puffs prescribed\n10. **Rinse mouth** with water after steroid inhalers",
+          callouts: [
+            {
+              type: "success",
+              content:
+                "A spacer (holding chamber) doubles the amount of medicine reaching your lungs. Always use one with MDIs.",
+            },
+          ],
+        },
+        {
+          title: "Asthma Action Plan",
+          content:
+            "A written plan from your doctor with three zones:\n\n### Green Zone (Doing Well)\n\n- No symptoms\n- Peak flow 80-100% of personal best\n- **Action:** Take daily controller meds as prescribed\n\n### Yellow Zone (Caution)\n\n- Symptoms: cough, wheeze, chest tight, night waking\n- Peak flow 50-79% of personal best\n- **Action:** Add quick-relief inhaler (2-4 puffs every 20 min up to 1 hour). Call doctor if not improving.\n\n### Red Zone (Emergency)\n\n- Severe symptoms: can't talk, rescue inhaler not helping\n- Peak flow < 50% of personal best\n- **Action:** Take quick-relief inhaler (4-6 puffs). **Call 911 or go to ER.**",
+        },
+        {
+          title: "Managing Asthma Daily",
+          content:
+            "- **Take controller meds daily** — even when feeling fine\n- **Identify and avoid triggers** — allergy testing can help\n- **Monitor peak flow** — if your doctor recommends it\n- **Stay active** — exercise is good for asthma; use pre-exercise inhaler if prescribed\n- **Get vaccinated** — flu, COVID-19, pneumonia vaccines\n- **Quit smoking** — smoke is a major trigger\n- **Treat allergies** — nasal sprays, antihistamines help",
+        },
+        {
+          title: "When to See Your Doctor",
+          content:
+            "- Symptoms more than 2 days/week\n- Night waking more than 2 times/month\n- Rescue inhaler use more than 2 days/week\n- Limiting activities due to asthma\n- Peak flow in yellow or red zone\n- Need to refill rescue inhaler more than twice/year",
+        },
+      ],
+    },
+  },
+  {
+    id: "introduction-to-heart-disease",
+    title: "Introduction to Heart Disease",
+    description: "Learn what heart disease is, the main types, risk factors, and how to protect your heart.",
+    category: "Chronic Conditions",
+    categoryId: "chronic-conditions",
+    duration: "15 minutes",
+    level: "intermediate",
+    lastReviewed: "2026-06-01",
+    sources: ["American Heart Association", "CDC - Heart Disease", "NHLBI"],
+    sidebarTips: [
+      "Know your numbers: BP, cholesterol, blood sugar, weight.",
+      "Move daily — aim for 150 minutes moderate activity per week.",
+      "Eat more plants, less processed food.",
+      "Don't smoke. If you do, quitting is the single best thing for your heart.",
+    ],
+    sidebarTitle: "Heart health tips",
+    content: {
+      sections: [
+        {
+          title: "What Is Heart Disease?",
+          content:
+            "Heart disease (cardiovascular disease) refers to several conditions affecting the heart and blood vessels. The most common type is **coronary artery disease (CAD)** — when plaque builds up in the arteries supplying the heart.",
+        },
+        {
+          title: "Main Types of Heart Disease",
+          content:
+            "### Coronary Artery Disease (CAD)\n\nPlaque (cholesterol, fat, calcium) narrows coronary arteries. Reduces blood flow to heart muscle.\n\n- **Angina:** Chest pain/discomfort from reduced blood flow\n- **Heart attack:** Blood flow completely blocked — heart muscle dies\n\n### Heart Failure\n\nHeart can't pump enough blood to meet body's needs. Doesn't mean heart \"stops\" — means it's not working efficiently.\n\n- Symptoms: shortness of breath, fatigue, swelling in legs/ankles, rapid weight gain\n\n### Arrhythmia\n\nIrregular heartbeat — too fast, too slow, or irregular.\n\n- **Atrial fibrillation (AFib):** Most common; increases stroke risk 5x\n- Symptoms: palpitations, dizziness, fatigue, shortness of breath\n\n### Valve Disease\n\nHeart valves don't open or close properly. Can be present at birth or develop later.",
+        },
+        {
+          title: "Major Risk Factors",
+          content:
+            "### Modifiable (You Can Change)\n\n- **High blood pressure** — #1 risk factor\n- **High LDL cholesterol** — builds plaque\n- **Diabetes** — damages blood vessels\n- **Smoking** — damages vessels, raises BP, lowers oxygen\n- **Obesity** — especially belly fat\n- **Physical inactivity**\n- **Unhealthy diet** — high sodium, saturated fat, added sugar\n- **Excessive alcohol**\n- **Stress and poor sleep**\n\n### Non-Modifiable\n\n- Age (men 45+, women 55+)\n- Family history of early heart disease\n- Sex (men higher risk earlier; women catch up after menopause)\n- Race/ethnicity (Black adults higher rates)",
+        },
+        {
+          title: "Warning Signs of Heart Attack",
+          content:
+            "| Symptom                | Description                                                                                  |\n| ---------------------- | -------------------------------------------------------------------------------------------- |\n| Chest discomfort       | Pressure, squeezing, fullness, pain in center/left chest — lasts > few minutes or comes/goes |\n| Upper body pain        | Arms, back, neck, jaw, stomach                                                               |\n| Shortness of breath    | With or without chest discomfort                                                             |\n| Cold sweat             | Unexplained sweating                                                                         |\n| Nausea/lightheadedness | Especially in women                                                                          |",
+          callouts: [
+            {
+              type: "warning",
+              content:
+                "**Women often have different symptoms:** unusual fatigue, sleep disturbances, indigestion, anxiety, shortness of breath without chest pain. Don't ignore subtle signs.",
+            },
+          ],
+        },
+        {
+          title: "Warning Signs of Stroke (BE FAST)",
+          content:
+            "- **B**alance — sudden loss\n- **E**yes — vision changes\n- **F**ace — drooping on one side\n- **A**rm — weakness/numbness\n- **S**peech — slurred or confused\n- **T**ime — call 911 immediately",
+        },
+        {
+          title: "Protecting Your Heart",
+          content:
+            '### Life\'s Essential 8 (American Heart Association)\n\n1. **Eat better** — Mediterranean or DASH diet\n2. **Be active** — 150 min moderate or 75 min vigorous/week\n3. **Quit tobacco** — including vaping\n4. **Get healthy sleep** — 7-9 hours/night\n5. **Manage weight** — BMI 18.5-24.9\n6. **Control cholesterol** — LDL < 100 (or < 70 if high risk)\n7. **Manage blood sugar** — A1C < 5.7%\n8. **Manage blood pressure** — < 120/80\n\n\n\n### Heart-Healthy Eating\n\n- **More:** vegetables, fruits, whole grains, beans, nuts, fish, olive oil\n- **Less:** red meat, processed meat, refined grains, added sugar, sodium\n- **Limit saturated fat** to < 10% of calories\n- **No trans fats** (partially hydrogenated oils)\n\n### Know Your Numbers (Get Checked)\n\n| Test              | Target                    |\n| ----------------- | ------------------------- |\n| Blood pressure    | < 120/80                  |\n| Total cholesterol | < 200 mg/dL               |\n| LDL ("bad")       | < 100 (or < 70 high risk) |\n| HDL ("good")      | > 40 men, > 50 women      |\n| Triglycerides     | < 150                     |\n| Fasting glucose   | < 100                     |\n| A1C               | < 5.7%                    |',
+          callouts: [
+            {
+              type: "success",
+              content:
+                "You don't have to be perfect. Every healthy choice adds up. Progress, not perfection.",
+            },
+          ],
+        },
+        {
+          title: "When to Call Your Doctor",
+          content:
+            "- New or worsening chest discomfort\n- Shortness of breath with activity or at rest\n- Irregular heartbeat (fluttering, racing, skipping)\n- Swelling in legs, ankles, feet\n- Unexplained fatigue or inability to do usual activities\n- Dizziness, fainting, or near-fainting",
+        },
+      ],
+    },
+  },
+  {
+    id: "understanding-depression",
+    title: "Understanding Depression",
+    description: "Learn about depression symptoms, when to seek help, and what treatments are available.",
+    category: "Mental Health",
+    categoryId: "mental-health",
+    duration: "12 minutes",
+    level: "beginner",
+    lastReviewed: "2026-06-01",
+    sources: ["NIMH - Depression", "American Psychiatric Association", "CDC - Mental Health"],
+    sidebarTips: [
+      "Depression is a medical condition, not a character flaw.",
+      "Talk therapy and medication both work — often best together.",
+      "If you have thoughts of self-harm, call 988 immediately.",
+    ],
+    sidebarTitle: "Getting help",
+    content: {
+      sections: [
+        {
+          title: "What Is Depression?",
+          content:
+            "Depression (major depressive disorder) is a common medical condition that affects how you think, feel, and handle daily life. It is not sadness or grief — it is a persistent state that lasts at least 2 weeks and interferes with functioning.",
+        },
+        {
+          title: "Common Symptoms",
+          content:
+            "- **Emotional:** Persistent sad, empty, or hopeless mood; loss of interest in hobbies; irritability\n- **Physical:** Fatigue, sleep changes (too much or too little), significant weight/appetite change, slowed movements\n- **Cognitive:** Trouble concentrating, making decisions, or remembering; negative self-talk; excessive guilt\n- **Behavioral:** Withdrawing from friends and activities; difficulty doing work or chores\n\nNot everyone experiences all symptoms. Diagnosis requires 5+ symptoms lasting 2+ weeks, with at least one being depressed mood or loss of interest.",
+        },
+        {
+          title: "When to Seek Help",
+          content:
+            "Seek professional help if symptoms:\n\n- Last more than 2 weeks\n- Interfere with work, school, or relationships\n- Cause significant distress\n- Include thoughts of self-harm\n\n### Medical emergency — call 988 (Suicide & Crisis Lifeline) if:\n\n- Thoughts of suicide\n- Plans to harm yourself\n- Feeling unable to keep yourself safe",
+          callouts: [
+            {
+              type: "warning",
+              content:
+                "If you or someone you know is in crisis, call or text **988** (US). You matter. Help is available 24/7.",
+            },
+          ],
+        },
+        {
+          title: "What Causes Depression?",
+          content:
+            '- **Genetics:** Runs in families (but no single "depression gene")\n- **Life events:** Trauma, loss, financial stress, divorce\n- **Medical conditions:** Chronic pain, thyroid disorders, heart disease, cancer\n- **Medications:** Some drugs can trigger depression\n- **Brain chemistry:** Imbalance in neurotransmitters (serotonin, norepinephrine, dopamine)',
+        },
+        {
+          title: "Treatment Options",
+          content:
+            "### Psychotherapy (Talk Therapy)\n\n- **Cognitive Behavioral Therapy (CBT)** — Most researched; focuses on changing negative thought patterns\n- **Interpersonal Therapy (IPT)** — Focuses on relationships and life changes\n- **Duration:** Usually 12-20 sessions over 3-4 months\n- **Effectiveness:** 50-70% improvement rate\n\n### Medications (Antidepressants)\n\n| Class     | How It Works                        | Examples                                                         |\n| --------- | ----------------------------------- | ---------------------------------------------------------------- |\n| SSRIs     | Increase serotonin                  | Fluoxetine (Prozac), sertraline (Zoloft), escitalopram (Lexapro) |\n| SNRIs     | Increase serotonin + norepinephrine | Venlafaxine (Effexor), duloxetine (Cymbalta)                     |\n| NDRIs     | Increase norepinephrine + dopamine  | Bupropion (Wellbutrin)                                           |\n| Atypicals | Various                             | Mirtazapine, trazodone                                           |\n\n\n\n### Lifestyle Support\n\n- **Exercise:** 30 minutes moderate activity 5x/week — as effective as medication for mild-moderate depression\n- **Sleep:** Consistent bed/wake times\n- **Diet:** Mediterranean diet linked to lower risk\n- **Social connection:** Even 1 supportive relationship matters",
+          callouts: [
+            {
+              type: "info",
+              content:
+                "Antidepressants take 2-4 weeks to begin working, and 6-8 weeks for full effect. Side effects (nausea, insomnia, sexual changes) often improve within 2 weeks.",
+            },
+          ],
+        },
+        {
+          title: "What Recovery Looks Like",
+          content:
+            "- **Acute phase (6-12 weeks):** Symptoms begin to improve\n- **Continuation phase (4-9 months):** Treatment continues to prevent relapse\n- **Maintenance phase (1+ year):** For chronic or recurrent depression\n\nMost people improve with treatment. About 70% respond to first antidepressant. If one doesn't work, another likely will.",
+        },
+        {
+          title: "How to Support Someone with Depression",
+          content:
+            '- **Listen, don\'t fix.** "That sounds hard" is better than "Just cheer up"\n- **Offer specific help:** "I\'ll bring dinner Tuesday" not "Let me know if you need anything"\n- **Encourage professional help** without pressuring\n- **Check in regularly** — depression is isolating\n- **Take suicide seriously** — always ask directly if having thoughts of self-harm',
+          callouts: [
+            {
+              type: "success",
+              content:
+                "Recovery from depression is the rule, not the exception. With treatment, most people return to their usual level of functioning.",
+            },
+          ],
+        },
+      ],
+    },
+  },
+  {
+    id: "anxiety-and-panic",
+    title: "Anxiety and Panic",
+    description: "Understand anxiety disorders, panic attacks, and practical strategies to manage them.",
+    category: "Mental Health",
+    categoryId: "mental-health",
+    duration: "12 minutes",
+    level: "beginner",
+    lastReviewed: "2026-06-01",
+    sources: ["NIMH - Anxiety Disorders", "ADAA", "American Psychological Association"],
+    sidebarTips: [
+      "Breathe: 4 counts in, 6 counts out — activates relaxation response.",
+      "Ground yourself: name 5 things you see, 4 you feel, 3 you hear, 2 you smell, 1 you taste.",
+      "Panic attacks are not dangerous. They pass in 5-20 minutes.",
+      "Avoid caffeine and alcohol — both worsen anxiety.",
+    ],
+    sidebarTitle: "Coping quick guide",
+    content: {
+      sections: [
+        {
+          title: "What Is Anxiety?",
+          content:
+            "Anxiety is your body's natural alarm system. It prepares you for danger — but sometimes the alarm goes off when there's no threat. When anxiety is frequent, intense, or out of proportion to the situation, it may be an anxiety disorder.",
+        },
+        {
+          title: "Normal Anxiety vs. Anxiety Disorder",
+          content:
+            "| Normal Anxiety              | Anxiety Disorder                                 |\n| --------------------------- | ------------------------------------------------ |\n| Temporary, passes quickly   | Persistent (weeks/months)                        |\n| Proportionate to situation  | Out of proportion                                |\n| Doesn't interfere with life | Interferes with work, relationships, daily tasks |\n| You can redirect attention  | Hard to control or stop                          |",
+        },
+        {
+          title: "Common Types of Anxiety Disorders",
+          content:
+            "### Generalized Anxiety Disorder (GAD)\n\n- Excessive worry about many things (health, money, family, work)\n- Physical symptoms: muscle tension, fatigue, restlessness, trouble sleeping\n- Difficulty controlling worry\n\n### Panic Disorder\n\n- Recurrent, unexpected panic attacks\n- Fear of having another attack\n- Avoidance of places where attacks occurred\n\n### Social Anxiety Disorder\n\n- Intense fear of social situations\n- Fear of being judged, embarrassed, or humiliated\n- Avoidance of social events, speaking up, eating in public\n\n### Specific Phobias\n\n- Intense fear of a specific object/situation (needles, heights, flying, enclosed spaces)\n- Immediate anxiety response on exposure",
+        },
+        {
+          title: "What Is a Panic Attack?",
+          content:
+            'A panic attack is a sudden surge of intense fear that peaks within minutes. Symptoms include:\n\n- Racing or pounding heart\n- Sweating, trembling, shaking\n- Shortness of breath or choking sensation\n- Chest pain or discomfort\n- Nausea or stomach distress\n- Dizziness, lightheadedness, feeling faint\n- Chills or heat sensations\n- Numbness or tingling\n- Feeling detached from yourself or reality\n- Fear of losing control, "going crazy," or dying',
+          callouts: [
+            {
+              type: "warning",
+              content:
+                "Panic attack symptoms can mimic a heart attack. If you're unsure, seek emergency care. Once diagnosed, you can learn to recognize them.",
+            },
+          ],
+        },
+        {
+          title: "What Causes Anxiety Disorders?",
+          content:
+            "- **Genetics:** 30-40% heritability\n- **Brain chemistry:** Imbalance in serotonin, GABA, norepinephrine\n- **Personality:** High neuroticism, behavioral inhibition\n- **Trauma:** Childhood adversity, abuse, neglect\n- **Stress:** Major life changes, chronic stress, financial pressure\n- **Medical causes:** Thyroid problems, heart arrhythmia, caffeine, medications",
+        },
+        {
+          title: "Managing Anxiety",
+          content:
+            '### Grounding Techniques (for acute anxiety/panic)\n\n1. **5-4-3-2-1:** Name 5 things you see, 4 you can touch, 3 you hear, 2 you smell, 1 you taste\n2. **Deep breathing:** Inhale 4 counts, hold 4, exhale 6 — activates parasympathetic nervous system\n3. **Cold water:** Splash cold water on face — triggers diving reflex, slows heart rate\n4. **Self-talk:** "This is uncomfortable but not dangerous. It will pass."\n\n### Lifestyle\n\n- **Limit caffeine:** Increases heart rate, mimics anxiety symptoms\n- **Regular exercise:** Burns off stress hormones, produces endorphins\n- **Sleep:** 7-9 hours — sleep deprivation worsens anxiety\n- **Reduce alcohol:** Short-term relief, long-term worsening\n- **Mindfulness meditation:** 10 minutes daily reduces amygdala reactivity\n\n### Professional Treatments\n\n- **CBT (Cognitive Behavioral Therapy)** — Gold standard for all anxiety disorders. Teaches you to challenge anxious thoughts and face fears gradually\n- **Exposure therapy** — Gradually and safely facing feared situations\n- **Acceptance and Commitment Therapy (ACT)** — Accepts anxiety, commits to valued action\n- **Medications:**\n  - SSRIs/SNRIs (same as depression) — daily, long-term\n  - Buspirone — for GAD\n  - Benzodiazepines (e.g., clonazepam, lorazepam) — short-term or as-needed only',
+          callouts: [
+            {
+              type: "success",
+              content:
+                "Anxiety disorders are highly treatable. 70-90% of people improve with evidence-based treatment. You don't have to live with constant fear.",
+            },
+          ],
+        },
+        {
+          title: "When to Seek Professional Help",
+          content:
+            "- Anxiety prevents you from doing things you want to do\n- You avoid work, school, or social situations\n- Anxiety has lasted months and isn't improving\n- You rely on alcohol or drugs to cope\n- You have thoughts of self-harm\n\nCall **988** (Suicide & Crisis Lifeline) if anxiety is overwhelming and you feel you can't cope.",
+        },
+      ],
+    },
+  },
+  {
+    id: "sleep-and-health",
+    title: "Sleep and Health",
+    description: "Learn why sleep matters for your health and how to improve your sleep habits.",
+    category: "Mental Health",
+    categoryId: "mental-health",
+    duration: "10 minutes",
+    level: "beginner",
+    lastReviewed: "2026-06-01",
+    sources: ["CDC - Sleep", "NHLBI - Sleep Deprivation", "American Academy of Sleep Medicine"],
+    sidebarTips: [
+      "Keep consistent bed/wake times — even on weekends.",
+      "No screens 30-60 minutes before bed.",
+      "Cool, dark, quiet room — 65-68°F ideal.",
+      "No caffeine after noon.",
+    ],
+    sidebarTitle: "Sleep hygiene basics",
+    content: {
+      sections: [
+        {
+          title: "Why Sleep Matters",
+          content:
+            "Sleep is essential for physical and mental health. During sleep, your body:\n\n- Repairs muscle and tissue\n- Consolidates memories and learning\n- Regulates mood and emotions\n- Supports immune function\n- Manages hunger and metabolism hormones",
+        },
+        {
+          title: "How Much Sleep Do You Need?",
+          content:
+            "| Age             | Recommended Hours |\n| --------------- | ----------------- |\n| Adults 18-60    | 7+ hours          |\n| Adults 61-64    | 7-9 hours         |\n| Adults 65+      | 7-8 hours         |\n| Teenagers 14-17 | 8-10 hours        |\n| Children 6-12   | 9-12 hours        |",
+        },
+        {
+          title: "What Happens When You Don't Get Enough Sleep?",
+          content:
+            "### Short-term effects (1-2 nights):\n\n- Irritability and mood swings\n- Difficulty concentrating and making decisions\n- Slower reaction time (similar to alcohol impairment)\n- Increased appetite, especially for high-sugar foods\n\n### Long-term effects (chronic sleep loss):\n\n- Higher risk: obesity, diabetes, heart disease, high blood pressure\n- Weakened immune system (more colds, slower recovery)\n- Increased risk of depression and anxiety\n- Memory problems and cognitive decline\n- Reduced life expectancy",
+          callouts: [
+            {
+              type: "warning",
+              content:
+                "Driving while sleep-deprived is as dangerous as driving drunk. After 18+ hours awake, your impairment equals a BAC of 0.05%.",
+            },
+          ],
+        },
+        {
+          title: "Common Sleep Disorders",
+          content:
+            '### Insomnia\n\n- Difficulty falling asleep, staying asleep, or waking too early\n- Affects 30% of adults (10% chronic)\n- Treatment: CBT-I (cognitive behavioral therapy for insomnia) is first-line\n\n### Sleep Apnea\n\n- Breathing stops and starts during sleep\n- Loud snoring, gasping, choking sounds\n- Daytime sleepiness despite "sleeping through the night"\n- Increases heart disease and stroke risk\n- Treatment: CPAP machine, oral appliance, weight loss\n\n### Restless Legs Syndrome (RLS)\n\n- Uncontrollable urge to move legs, especially at rest\n- Worse at night — disrupts sleep\n- Treatment: Iron supplements (if low), medications, lifestyle changes',
+        },
+        {
+          title: "Sleep Hygiene: Your Daily Habits",
+          content:
+            "### Do\n\n- **Wake up same time daily** — most important for regulating circadian rhythm\n- **Get morning sunlight** — 10-15 minutes within 1 hour of waking\n- **Exercise regularly** — but not within 2-3 hours of bedtime\n- **Create a wind-down routine** — 30-60 minutes before bed (read, stretch, warm bath)\n- **Use bed only for sleep and sex** — trains brain to associate bed with sleep\n- **Keep bedroom cool** — 65-68°F optimal\n\n### Don't\n\n- **No screens before bed** — blue light suppresses melatonin, content stimulates brain\n- **No caffeine after noon** — half-life is 5-6 hours\n- **No alcohol within 3 hours of bed** — disrupts REM sleep, causes night waking\n- **No large meals within 2-3 hours** — digestion interferes with sleep\n- **No clock-watching** — anxiety about time makes insomnia worse",
+          callouts: [
+            {
+              type: "info",
+              content:
+                "CBT-I (Cognitive Behavioral Therapy for Insomnia) is the most effective treatment for chronic insomnia — more effective than sleep medications long-term.",
+            },
+          ],
+        },
+        {
+          title: "When to See a Doctor About Sleep",
+          content:
+            "- Trouble sleeping 3+ nights/week for 3+ months\n- Loud snoring with gasping or choking sounds\n- Falling asleep during daytime activities (driving, working)\n- Leg sensations that prevent sleep\n- Awake feeling unrefreshed despite 7-8 hours in bed",
+        },
+        {
+          title: "Common Sleep Myths",
+          content:
+            '| Myth                                    | Truth                                                         |\n| --------------------------------------- | ------------------------------------------------------------- |\n| "You can catch up on sleep on weekends" | Partial recovery, but circadian disruption remains            |\n| "Older people need less sleep"          | Need stays 7-8 hours; ability to get it often changes         |\n| "Alcohol helps you sleep better"        | Helps fall asleep faster but ruins sleep quality              |\n| "Your body adapts to less sleep"        | No — performance declines even if you feel fine               |\n| "Melatonin fixes all sleep problems"    | Good for jet lag/shift work; limited use for chronic insomnia |',
+          callouts: [
+            {
+              type: "success",
+              content:
+                "Better sleep is achievable. Start with one change — consistent wake time — and build from there.",
+            },
+          ],
+        },
+      ],
+    },
+  },
+  {
+    id: "understanding-health-insurance",
+    title: "Understanding Your Health Insurance",
+    description:
+      "Learn how health insurance works: premiums, deductibles, copays, networks, and how to choose a plan.",
+    category: "Insurance & Billing",
+    categoryId: "insurance-billing",
+    duration: "15 minutes",
+    level: "intermediate",
+    lastReviewed: "2026-06-01",
+    sources: ["Healthcare.gov", "Kaiser Family Foundation", "CMS"],
+    sidebarTips: [
+      "Premium = monthly payment. Deductible = what you pay before insurance starts paying.",
+      "In-network providers cost less. Always check before booking.",
+      "Preventive care (annual physical, vaccines) is free on most plans.",
+      "Open enrollment is once per year — don't miss it.",
+    ],
+    sidebarTitle: "Insurance cheat sheet",
+    content: {
+      sections: [
+        {
+          title: "Key Terms You Need to Know",
+          content:
+            "### Premium\n\nThe amount you pay every month for health insurance. You pay this even if you don't use any healthcare.\n\n### Deductible\n\nThe amount you pay for covered services before your insurance starts paying. For example: if deductible is $1,500, you pay the first $1,500 of covered care (except free preventive services).\n\n### Copay\n\nA fixed dollar amount you pay at the time of service ($20-$50 per doctor visit, $10 for generic drugs).\n\n### Coinsurance\n\nA percentage you pay after meeting your deductible (e.g., 20% of a bill). If your coinsurance is 20%, you pay 20% and insurance pays 80%.\n\n### Out-of-Pocket Maximum\n\nThe most you pay in a year. Once reached, insurance pays 100% of covered services. Includes deductible + copays + coinsurance.\n\n| Term              | You Pay            | Example     |\n| ----------------- | ------------------ | ----------- |\n| Premium           | Monthly            | $450/month  |\n| Deductible        | First $X of care   | $1,500/year |\n| Copay             | Per visit          | $30/visit   |\n| Coinsurance       | % after deductible | 20%         |\n| Out-of-pocket max | Cap per year       | $6,000/year |",
+        },
+        {
+          title: "Understanding Networks",
+          content:
+            "- **In-network:** Providers and hospitals that have a contract with your insurance. Lower costs.\n- **Out-of-network:** No contract. You pay more — possibly much more.\n- **HMO:** You pick a primary care doctor (PCP). They refer you to specialists. Out-of-network not covered (except emergencies).\n- **PPO:** See any provider, in or out of network. More flexibility, higher premiums.\n- **EPO:** In-network only (like HMO) but can see specialists without referral (like PPO).",
+          callouts: [
+            {
+              type: "warning",
+              content:
+                "**Out-of-network care can be extremely expensive.** Always check if a doctor or hospital is in your network before making an appointment. Emergency care is usually covered at in-network rates.",
+            },
+          ],
+        },
+        {
+          title: "Types of Plans",
+          content:
+            "### Employer-Sponsored Insurance\n\n- Most common (49% of Americans)\n- Employer typically pays ~70% of premium\n- Enroll during open enrollment or after qualifying life event\n\n### Marketplace (ACA / Obamacare)\n\n- Healthcare.gov or state equivalent\n- Income-based subsidies (premium tax credits) available\n- Open enrollment: Nov 1 - Jan 15 (varies by state)\n- Four tiers: Bronze (lowest premium, highest costs) → Platinum (highest premium, lowest costs)\n\n| Metal Tier | Plan Pays | You Pay (avg) | Best For                             |\n| ---------- | --------- | ------------- | ------------------------------------ |\n| Bronze     | 60%       | 40%           | Young, healthy, few visits           |\n| Silver     | 70%       | 30%           | Most people; subsidy available       |\n| Gold       | 80%       | 20%           | Regular doctor visits, prescriptions |\n| Platinum   | 90%       | 10%           | Frequent care, chronic conditions    |\n\n### Medicare\n\n- Federal program for 65+ and certain disabilities\n- Part A (hospital) — free if you worked 10+ years\n- Part B (medical) — ~$175/month (2026)\n- Part D (drugs) — varies\n- Medigap (supplemental) — covers what Original Medicare doesn't\n\n### Medicaid\n\n- State + federal program for low-income individuals\n- Eligibility varies by state (expanded in most states under ACA)\n- Low or no cost",
+        },
+        {
+          title: "How to Choose a Plan",
+          content:
+            "When comparing plans, ask:\n\n1. **Are my doctors and hospital in-network?**\n2. **What drugs are covered?** (Check the formulary)\n3. **What's the total estimated cost?** Premium + expected care costs\n4. **Do I have chronic conditions?** Higher deductible plans cost more long-term for regular care\n5. **What's the out-of-pocket max?** Worst-case scenario",
+          callouts: [
+            {
+              type: "info",
+              content:
+                "The cheapest premium isn't always the cheapest plan. If you have regular doctor visits or prescriptions, a Silver or Gold plan may cost less overall than Bronze.",
+            },
+          ],
+        },
+        {
+          title: "Using Your Insurance",
+          content:
+            "- **Get an ID card** — carry it in wallet and phone\n- **Find in-network providers** — search online directory or call member services\n- **Know your copays** — $ for primary care, specialist, urgent care, ER\n- **Get pre-authorization** — some tests and surgeries require approval\n- **Check for step therapy** — may need to try cheaper drug first\n- **Appeal if denied** — you have the right to challenge coverage denials",
+        },
+        {
+          title: "What If You Lose or Can't Afford Insurance?",
+          content:
+            "- **COBRA:** Continue employer plan for 18 months (you pay full premium)\n- **Marketplace:** Special enrollment period (60 days after losing coverage)\n- **Medicaid:** Apply anytime (if eligible in your state)\n- **Community health centers:** Sliding-scale fees based on income\n- **Hospital financial assistance:** Many hospitals offer charity care",
+          callouts: [
+            {
+              type: "success",
+              content:
+                "Understanding your insurance saves money and stress. If terms confuse you, call your insurer's member services line — they must explain benefits clearly.",
+            },
+          ],
+        },
+      ],
+    },
+  },
+  {
+    id: "reading-medical-bills",
+    title: "How to Read a Medical Bill",
+    description: "Understand medical bills, identify errors, and learn how to dispute charges.",
+    category: "Insurance & Billing",
+    categoryId: "insurance-billing",
+    duration: "12 minutes",
+    level: "beginner",
+    lastReviewed: "2026-06-01",
+    sources: ["CMS - Medical Billing", "Consumer Financial Protection Bureau", "Kaiser Family Foundation"],
+    sidebarTips: [
+      "Don't pay the first bill — wait for the Explanation of Benefits (EOB) from insurance.",
+      "Medical bills often have errors. Review carefully.",
+      "Always ask for an itemized bill — it's your right.",
+      "Hospitals have financial assistance programs — apply if cost is a problem.",
+    ],
+    sidebarTitle: "Billing tips",
+    content: {
+      sections: [
+        {
+          title: "Three Documents You'll Receive",
+          content:
+            "### 1. The Bill\n\nSent by the hospital or doctor's office. Shows total charges. **Do not pay immediately** — wait for EOB.\n\n### 2. Explanation of Benefits (EOB)\n\nSent by insurance company. Shows what they paid and what you owe. **Not a bill.** Keep for comparison.\n\n### 3. Summary of Benefits and Coverage (SBC)\n\nSent with new plans. Shows what the plan covers, deductibles, copays, and out-of-pocket max.",
+        },
+        {
+          title: "Parts of a Medical Bill",
+          content:
+            "### Header\n\n- Provider name and address\n- Patient name and account number\n- Date of service\n- Medical record number\n\n### Charges Section\n\n| Term                    | Meaning                                  |\n| ----------------------- | ---------------------------------------- |\n| Service date            | When you received care                   |\n| CPT code                | Code for procedure/test (defined by AMA) |\n| Diagnosis code (ICD-10) | Code for why care was needed             |\n| Charge                  | What provider billed (full price)        |\n| Adjustments             | Discounts negotiated with insurance      |\n| Insurance paid          | What insurance already paid              |\n| Patient responsibility  | What you owe                             |\n\n### Balance Section\n\nShows total charges, total adjustments, total payments, and the final amount you owe.",
+        },
+        {
+          title: "Common Billing Errors",
+          content:
+            "- **Duplicate charges** — billed twice for same service\n- **Upcoding** — billed for a more expensive service than received (e.g., comprehensive visit vs brief check)\n- **Unbundling** — services that should be a single package billed separately\n- **Wrong insurance** — insurance applied incorrectly\n- **Balance billing** — out-of-network provider bills difference between their charge and insurance payment (sometimes illegal)\n- **Mismatched dates** — dates of service don't match your visit\n- **Services you didn't receive** — wrong patient, wrong procedure",
+          callouts: [
+            {
+              type: "warning",
+              content: "Up to 80% of medical bills contain errors. Never assume a bill is correct.",
+            },
+          ],
+        },
+        {
+          title: "Step-by-Step: How to Review a Bill",
+          content:
+            '### Step 1: Compare to EOB\n\nLine up the bill with your Explanation of Benefits. Everything on the bill should match — service dates, codes, provider name. If EOB says you owe $150 and the bill says $500, something is wrong.\n\n### Step 2: Check for Known Charges\n\n- Did you get this test/procedure?\n- Was it on the right date?\n- Was the provider in-network?\n\n### Step 3: Request an Itemized Bill\n\nIf the bill shows only a total, call billing and request a detailed itemized statement. By law, you\'re entitled to it.\n\n### Step 4: Ask Questions\n\nCall the billing department. Be polite but firm:\n\n- "Can you explain this charge?"\n- "Why wasn\'t this covered?"\n- "This CPT code doesn\'t match what I received."',
+        },
+        {
+          title: "How to Dispute a Charge",
+          content:
+            "1. **Document everything** — keep copies of bills, EOBs, insurance cards\n2. **Call provider billing** first — most errors resolved at this level\n3. **Call insurance** — your insurer can help if provider billing is incorrect\n4. **Put it in writing** — send a written dispute via certified mail\n5. **Request corrected bill** — get a revised bill before paying anything",
+        },
+        {
+          title: "Financial Assistance",
+          content:
+            "### Hospital Charity Care\n\n- Non-profit hospitals must offer financial assistance by law\n- Income up to 200-400% of poverty level may qualify for free or discounted care\n- **You must apply** — hospitals don't automatically offer it\n\n### Payment Plans\n\n- Most hospitals offer interest-free payment plans\n- Ask for $25-50/month, not lump sum\n\n### Negotiating\n\n- Offer 50-60% of the bill in cash to settle\n- Hospitals often accept less than full amount\n- Use phrases like: \"I can't afford this. Is there a discount for paying today?\"",
+        },
+        {
+          title: "Red Flags",
+          content:
+            '| Flag                                                            | What to Do                                   |\n| --------------------------------------------------------------- | -------------------------------------------- |\n| Bill says "past due" but you just got it                        | Dispute — premature billing                  |\n| Collection agency contacts you                                  | Don\'t pay yet — verify the debt first        |\n| Balance billing from in-network hospital                        | May violate No Surprises Act — report to CMS |\n| Bill for services insurance should cover 100% (preventive care) | Call insurance — preventive care is free     |',
+          callouts: [
+            {
+              type: "info",
+              content:
+                "The **No Surprises Act** (effective 2022) protects you from surprise out-of-network bills for emergency care and certain non-emergency services at in-network facilities. You can't be balance-billed for these.",
+            },
+          ],
+        },
+        {
+          title: "When to Get Help",
+          content:
+            "- **Insurance department:** File a complaint with your state\n- **Patient advocate:** Many hospitals have patient advocates\n- **Consumer assistance program:** Some states offer free billing help\n- **Legal aid:** If facing wage garnishment or liens\n- **Nonprofit credit counseling:** For large medical debts",
+          callouts: [
+            {
+              type: "success",
+              content:
+                "You have rights as a patient. A correct bill is lower than the first one. Always review, question, and negotiate.",
+            },
+          ],
+        },
+      ],
+    },
+  },
+  {
+    id: "when-to-call-911",
+    title: "When to Call 911 vs Go to Urgent Care",
+    description: "Learn how to decide between 911, emergency room, urgent care, and your doctor.",
+    category: "Emergency & First Aid",
+    categoryId: "emergency",
+    duration: "10 minutes",
+    level: "beginner",
+    lastReviewed: "2026-06-01",
+    sources: ["American College of Emergency Physicians", "CDC - Emergency Preparedness", "Red Cross"],
+    sidebarTips: [
+      "When in doubt, call 911. It's better to be safe.",
+      "Know your nearest ER and urgent care location before you need them.",
+      "Save emergency contacts in your phone under 'ICE' (In Case of Emergency).",
+    ],
+    sidebarTitle: "Quick decision guide",
+    content: {
+      sections: [
+        {
+          title: "Decision Matrix",
+          content:
+            "| Situation                                         | Where to Go           | Why                                                  |\n| ------------------------------------------------- | --------------------- | ---------------------------------------------------- |\n| Chest pain, difficulty breathing, stroke symptoms | **Call 911**          | These are emergencies that need treatment in minutes |\n| Broken bone (no bone through skin)                | **Urgent care or ER** |                                                      |\n| Fever 101°F+, feels awful but can walk/talk       | **Urgent care**       |                                                      |\n| Fever 103°F+ or confusion                         | **ER**                | Could be serious infection                           |\n| Deep cut with bleeding                            | **ER**                | May need stitches                                    |\n| Skin infection (red, warm, swollen)               | **Urgent care**       |                                                      |\n| Migraine, eye pain, vision changes                | **ER**                | Could be serious                                     |\n| Small cut, mild cold, regular check-up            | **Doctor's office**   |                                                      |\n| Allergic reaction with trouble breathing          | **Call 911**          |                                                      |",
+        },
+        {
+          title: "Call 911 (Emergency) For",
+          content:
+            "### Heart Attack Signs\n\n- Chest discomfort (pressure, squeezing, fullness)\n- Pain spreading to arms, back, neck, jaw, stomach\n- Shortness of breath — with or without chest pain\n- Cold sweat, nausea, lightheadedness\n\n### Stroke Signs (BE FAST)\n\n- **B**alance — sudden dizziness or loss of balance\n- **E**yes — sudden vision changes or loss\n- **F**ace drooping — one side doesn't move\n- **A**rm weakness — one arm drifts down\n- **S**peech difficulty — slurred or hard to understand\n- **T**ime — call 911 immediately\n\n### Other 911 Emergencies\n\n- Difficulty breathing (not just a little winded)\n- Severe allergic reaction (swelling face/lips, trouble breathing)\n- Severe bleeding (blood spurting, can't stop with pressure)\n- Seizure (especially first one, lasting >5 minutes, or in water)\n- Head injury with confusion or passing out\n- Poisoning or overdose\n- Drowning or near-drowning\n- Major burn (large area, deep, electrical, or to face/hands/genitals)\n- Suicidal thoughts with plan or means",
+          callouts: [
+            {
+              type: "warning",
+              content:
+                "If you're not sure if it's an emergency, **call 911 anyway.** Dispatchers can help assess. It's better to cancel an unnecessary ambulance than to delay emergency care.",
+            },
+          ],
+        },
+        {
+          title: "Go to Emergency Room For",
+          content:
+            "- Broken bone or dislocated joint\n- Deep cut that may need stitches\n- Severe abdominal pain\n- Vomiting blood or blood in stool\n- Severe burn\n- Severe headache (worst of your life)\n- Confusion or sudden behavior change\n- Fever >103°F in adult (or >100.4°F in infant under 3 months)\n- Dehydration (can't keep fluids down)\n- Allergic reaction without breathing trouble but with hives/swelling\n- Pregnancy complications (bleeding, severe pain)",
+        },
+        {
+          title: "Go to Urgent Care For",
+          content:
+            "- Cold, flu, sore throat, ear pain, sinus pain\n- Minor cuts (may need stitches but not deep or bleeding badly)\n- Sprains, strains, minor fractures (fingers, toes)\n- Urinary tract infection (UTI)\n- Mild to moderate allergic reaction (rash, hives)\n- Pink eye (conjunctivitis)\n- Minor burns (small, first-degree)\n- Rash or skin infection (red, warm, but no fever, no spreading rapidly)\n- Fever <103°F and otherwise OK",
+        },
+        {
+          title: "Go to Your Doctor For",
+          content:
+            "- Routine check-ups and physicals\n- Ongoing management of chronic conditions\n- Vaccines\n- Prescription refills\n- Non-urgent concerns (mild symptoms lasting weeks)\n- Mental health concerns (therapy, medication management)",
+        },
+        {
+          title: "What to Have Ready When You Call 911",
+          content:
+            "- Your exact location (address, cross streets, building, floor, apartment)\n- Phone number you're calling from\n- What happened (brief description)\n- Who is affected (age, sex, conscious? breathing?)\n- Any known medical conditions, allergies, medications\n- Don't hang up until dispatcher says to",
+          callouts: [
+            {
+              type: "info",
+              content:
+                "Know your location even if traveling. Use What3Words app or share your phone's GPS coordinates.",
+            },
+          ],
+        },
+        {
+          title: "What to Bring to the ER",
+          content:
+            "- Photo ID and insurance card\n- List of medications and doses\n- List of allergies\n- Emergency contact name and phone\n- Phone charger\n- Something for comfort (glasses, hearing aids, inhaler)\n- Don't bring valuables or large amounts of cash",
+        },
+        {
+          title: "Before You Go to Urgent Care",
+          content:
+            "- Call ahead — some accept walk-ins, some prefer appointments\n- Check if they accept your insurance\n- Know their hours — many close by 9 PM\n- Bring ID and insurance card",
+          callouts: [
+            {
+              type: "success",
+              content:
+                'Most emergencies are not dramatic. Trust your gut. If something feels wrong or "off," seek care.',
+            },
+          ],
+        },
+      ],
+    },
+  },
+  {
+    id: "building-first-aid-kit",
+    title: "Building a Home First-Aid Kit",
+    description: "Learn what supplies every home first-aid kit needs and how to use them.",
+    category: "Emergency & First Aid",
+    categoryId: "emergency",
+    duration: "8 minutes",
+    level: "beginner",
+    lastReviewed: "2026-06-01",
+    sources: ["American Red Cross", "CDC - Emergency Kit", "Mayo Clinic"],
+    sidebarTips: [
+      "Check your kit every 6 months — replace expired items.",
+      "Keep a small kit in your car and workplace too.",
+      "Store in a cool, dry place — not the bathroom (moisture damages supplies).",
+      "Make sure every adult knows where the kit is.",
+    ],
+    sidebarTitle: "Kit checklist",
+    content: {
+      sections: [
+        {
+          title: "Choosing Your Kit Container",
+          content:
+            '- **Plastic storage bin** with lid — waterproof, easy to carry\n- **Clear** — you can see contents without opening\n- **Label clearly** — "FIRST AID" with a red cross\n- **Size:** Big enough for supplies, small enough to carry',
+        },
+        {
+          title: "Essential Supplies",
+          content:
+            "### Wound Care\n\n- **Adhesive bandages** — assorted sizes (including butterfly strips for small cuts)\n- **Sterile gauze pads** — 4x4 inches (pack of 10-20)\n- **Medical tape** — cloth tape to secure gauze (paper tape for sensitive skin)\n- **Antiseptic wipes** — individually wrapped (alcohol or chlorhexidine)\n- **Antibiotic ointment** — bacitracin or triple antibiotic (Neosporin)\n- **Hydrocortisone cream** — 1% for itching and allergic reactions\n- **Hydrogen peroxide** — for cleaning minor wounds (don't use on deep wounds)\n\n### Tools\n\n- **Scissors** — sturdy, blunt-tipped for cutting tape, gauze, clothing\n- **Tweezers** — fine-tipped for splinters, ticks, glass shards\n- **Safety pins** — for slings, securing bandages\n- **Instant cold pack** — squeeze to activate (no refrigerator needed)\n- **Disposable gloves** — nitrile or vinyl (latex allergy risk)\n- **CPR face shield** — for giving rescue breaths safely\n- **Flashlight** — small LED with extra batteries\n- **Thermometer** — digital (no glass mercury)\n\n### Medications\n\n- **Pain/fever relievers:**\n  - Acetaminophen (Tylenol) — safe for most people, doesn't upset stomach\n  - Ibuprofen (Advil, Motrin) — anti-inflammatory, good for sprains\n- **Antihistamine** — diphenhydramine (Benadryl) for allergic reactions\n- **Anti-diarrheal** — loperamide (Imodium)\n- **Antacids** — calcium carbonate (Tums) or famotidine (Pepcid)\n- **Oral rehydration salts** — or sports drink powder packets\n\n### Documentation\n\n- **First aid manual** — print a simple guide from Red Cross website\n- **Emergency contact numbers:**\n  - 911 (emergency)\n  - Poison Control: 1-800-222-1222\n  - Doctor's office\n  - Local urgent care and ER\n  - Pharmacy\n- **List of allergies and medical conditions** for each family member\n- **Insurance cards** (copies)",
+        },
+        {
+          title: "How to Use Key Items",
+          content:
+            "### Cleaning a Minor Wound\n\n1. Wash hands (or wear gloves)\n2. Clean wound with cool water and mild soap\n3. Pat dry with sterile gauze\n4. Apply antibiotic ointment\n5. Cover with adhesive bandage or gauze + tape\n6. Change bandage daily or when wet/dirty\n\n### Treating a Sprain (RICE Method)\n\n- **R**est — stop using injured area\n- **I**ce — apply cold pack 20 minutes on, 20 off\n- **C**ompression — wrap with elastic bandage (ACE wrap)\n- **E**levation — raise above heart level\n\n\n\n### Splinter or Tick Removal\n\n1. Clean area with antiseptic wipe\n2. Use tweezers to grasp as close to skin as possible\n3. Pull straight out (don't twist for splinters; do twist gently for ticks)\n4. Clean again and apply antibiotic ointment",
+          callouts: [
+            {
+              type: "info",
+              content:
+                "A compression bandage should be snug but not tight. If fingers/toes turn blue or tingle, loosen it.",
+            },
+          ],
+        },
+        {
+          title: "What NOT to Put in Your Kit",
+          content:
+            "- **Tourniquets** (unless trained) — can cause more harm\n- **Aspirin for children** — Reye's syndrome risk\n- **Ipecac syrup** — no longer recommended for poisoning; call Poison Control instead\n- **Opened supplies** — once opened, not sterile\n- **Expired medications** — check dates every 6 months",
+        },
+        {
+          title: "Seasonal and Special Items",
+          content:
+            "### Summer\n\n- Aloe vera gel (sunburn)\n- Insect repellent (DEET or picaridin)\n- Sunscreen SPF 30+\n- EpiPen if allergic to stings\n\n### Winter\n\n- Hand warmers\n- Extra blanket in car kit\n- Ice melt/salt packets in car kit\n\n### For Babies and Children\n\n- Children's acetaminophen/ibuprofen (weight-based dose)\n- Oral syringe or dosing cup\n- Baby-safe thermometer (rectal for infants)\n- Orajel or teething gel\n- Children's Benadryl\n\n### For Older Adults\n\n- Blood pressure monitor (if hypertensive)\n- Glucose tablets (if diabetic)\n- Daily medication pill organizer\n- Copy of medical power of attorney / advance directive",
+          callouts: [
+            {
+              type: "warning",
+              content:
+                "If someone is unconscious, not breathing, severely bleeding, or has a suspected spinal injury, **do not move them** — call 911 immediately.",
+            },
+          ],
+        },
+        {
+          title: "When to Restock",
+          content:
+            "- **Every 6 months:** Check expiration dates on all supplies\n- **After every use:** Replace used items within 24 hours\n- **Time change (spring/fall):** Good reminder to check your kit\n- **After a kit is opened:** Replace sterile items",
+          callouts: [
+            {
+              type: "success",
+              content:
+                "Your first-aid kit is only useful if you know where it is, what's in it, and how to use it. Review contents yearly with everyone in your home.",
+            },
+          ],
+        },
+      ],
+    },
+  },
+  {
+    id: "reading-nutrition-labels",
+    title: "Reading a Nutrition Label",
+    description: "Learn how to read nutrition labels to make informed food choices.",
+    category: "Nutrition & Diet",
+    categoryId: "nutrition",
+    duration: "10 minutes",
+    level: "beginner",
+    lastReviewed: "2026-06-01",
+    sources: ["FDA - Nutrition Facts Label", "USDA Dietary Guidelines", "American Heart Association"],
+    sidebarTips: [
+      "Check serving size first — all numbers are per serving.",
+      "% Daily Value: 5% or less is low, 20% or more is high.",
+      "Aim for more fiber, vitamins, minerals. Less saturated fat, sodium, added sugar.",
+    ],
+    sidebarTitle: "Label reading quick guide",
+    content: {
+      sections: [
+        {
+          title: "The Updated Nutrition Facts Label",
+          content:
+            'In 2020, the FDA updated the label to make it easier to read. Key changes:\n\n- Serving sizes updated to realistic amounts\n- "Added sugars" listed separately\n- Larger type for calories\n- Vitamin D and potassium added; vitamins A and C removed',
+        },
+        {
+          title: "Section 1: Serving Size",
+          content:
+            "**The most important number on the label.** All other numbers are per serving.\n\n- Servings per container: how many servings in the package\n- Serving size: amount considered one serving\n\nExample: A bag of chips with 3 servings per container. If you eat the whole bag, multiply everything by 3.",
+          callouts: [
+            {
+              type: "info",
+              content:
+                "Serving sizes are standardized by the FDA so you can compare similar products. They're based on what people actually eat, not what they should eat.",
+            },
+          ],
+        },
+        {
+          title: "Section 2: Calories",
+          content: "- Calories per serving\n- 400+ calories per serving = high (check portion size)",
+        },
+        {
+          title: "Section 3: Nutrients to Limit",
+          content:
+            '### Saturated Fat\n\n- **Goal:** Less than 10% of daily calories (about 20g/day on 2000-calorie diet)\n- **Found in:** Fatty meats, butter, cheese, full-fat dairy, coconut oil, palm oil\n- **Why limit:** Raises LDL ("bad") cholesterol\n\n### Trans Fat\n\n- **Goal:** As little as possible (ideally 0g)\n- **Found in:** Partially hydrogenated oils (now banned from US food supply, but still trace amounts)\n- **Why limit:** Raises LDL, lowers HDL — no safe amount\n\n### Sodium\n\n- **Goal:** Less than 2,300 mg/day (ideally 1,500 mg)\n- **Found in:** Processed foods, restaurant meals, canned soups, breads, deli meats, frozen dinners\n- **Why limit:** Raises blood pressure\n\n### Added Sugars\n\n- **Goal:** Less than 50g/day (200 calories, 10% of total)\n- **Found in:** Soda, candy, baked goods, flavored yogurt, granola bars, cereals, ketchup, pasta sauce\n- **Why limit:** Empty calories linked to obesity, diabetes, heart disease',
+          callouts: [
+            {
+              type: "warning",
+              content:
+                '"Added sugars" are different from naturally occurring sugars in fruit and milk. Added sugars are the ones to limit.',
+            },
+          ],
+        },
+        {
+          title: "Section 4: Nutrients to Get More Of",
+          content:
+            "### Dietary Fiber\n\n- **Goal:** 25g/day (women), 38g/day (men); Americans average only 15g\n- **Found in:** Beans, lentils, vegetables, fruits, whole grains, nuts, seeds\n- **Why:** Lowers cholesterol, controls blood sugar, keeps you full\n\n### Vitamin D\n\n- **Goal:** 20mcg (800 IU)/day\n- **Found in:** Fatty fish (salmon, tuna), fortified milk, egg yolks\n- **Why:** Bone health, immune function; most Americans are low\n\n### Calcium\n\n- **Goal:** 1,000-1,200 mg/day\n- **Found in:** Dairy, fortified plant milks, leafy greens, tofu with calcium\n- **Why:** Bone density, muscle function, nerve signaling\n\n### Potassium\n\n- **Goal:** 4,700 mg/day\n- **Found in:** Bananas, potatoes, beans, leafy greens, avocados, yogurt\n- **Why:** Lowers blood pressure, counteracts sodium\n\n### Iron\n\n- **Goal:** 8mg (men), 18mg (women), 27mg (pregnancy)\n- **Found in:** Red meat, beans, spinach, fortified cereals\n- **Why:** Oxygen transport in blood",
+        },
+        {
+          title: "Section 5: The % Daily Value (%DV)",
+          content:
+            "This tells you how much a nutrient contributes to a daily diet (based on 2,000 calories/day).\n\n- **5% DV or less = Low** — use for nutrients to limit (saturated fat, sodium, added sugar)\n- **20% DV or more = High** — use for nutrients to get more of (fiber, vitamins, minerals)",
+        },
+        {
+          title: "Section 6: Ingredient List",
+          content:
+            "Ingredients are listed in **descending order by weight.** The first ingredient is the most abundant.\n\n- **Watch for:** Sugar under many names (sucrose, high-fructose corn syrup, dextrose, maltose, honey, agave, cane sugar, fruit juice concentrate)\n- **Short list = better** — fewer ingredients usually means less processing\n- **Look for:** Whole foods as first ingredients (oats, chicken, beans, apples)",
+        },
+        {
+          title: "Quick Comparison Example",
+          content:
+            "| Nutrient      | Better Choice | Worse Choice  |\n| ------------- | ------------- | ------------- |\n| Calories      | 150           | 300           |\n| Saturated fat | 1g (5%DV)     | 8g (40%DV)    |\n| Sodium        | 140mg (6%DV)  | 700mg (30%DV) |\n| Added sugar   | 5g (10%DV)    | 25g (50%DV)   |\n| Fiber         | 6g (21%DV)    | 0g (0%DV)     |",
+        },
+        {
+          title: "Common Label Tricks",
+          content:
+            '- **"Made with whole grains"** — might be mostly white flour\n- **"Natural"** — not regulated; doesn\'t mean healthy\n- **"Low-fat"** — often extra sugar to compensate for taste\n- **"No added sugar"** — might still be high in naturally occurring sugar (fruit juice)\n- **"Gluten-free"** — healthier if you have celiac disease; not inherently healthier otherwise\n- **"Organic"** — fewer pesticides, not fewer calories',
+          callouts: [
+            {
+              type: "success",
+              content:
+                "You don't need to read every label perfectly. Focus on the first check: serving size, calories, saturated fat, sodium, added sugar. That catches 90% of the important info.",
+            },
+          ],
+        },
+      ],
+    },
+  },
+  {
+    id: "building-balanced-plate",
+    title: "Building a Balanced Plate",
+    description:
+      "Learn simple ways to build balanced meals using the plate method and healthy eating guidelines.",
+    category: "Nutrition & Diet",
+    categoryId: "nutrition",
+    duration: "10 minutes",
+    level: "beginner",
+    lastReviewed: "2026-06-01",
+    sources: [
+      "USDA MyPlate",
+      "Dietary Guidelines for Americans",
+      "Harvard T.H. Chan School of Public Health",
+    ],
+    sidebarTips: [
+      "Half your plate = vegetables and fruits.",
+      "Quarter = lean protein. Quarter = whole grains/complex carbs.",
+      "Eat colors — different colored plants have different nutrients.",
+      "Don't drink your calories: water, unsweetened tea, or coffee.",
+    ],
+    sidebarTitle: "Plate method",
+    content: {
+      sections: [
+        {
+          title: "The Plate Method",
+          content:
+            "The simplest way to build a healthy meal is the plate method. Divide your plate:\n\n| Section             | Portion       | Examples                                                  |\n| ------------------- | ------------- | --------------------------------------------------------- |\n| Vegetables + Fruits | **1/2 plate** | Salad, roasted broccoli, berries, bell peppers, carrots   |\n| Lean Protein        | **1/4 plate** | Chicken breast, fish, tofu, beans, eggs, Greek yogurt     |\n| Complex Carbs       | **1/4 plate** | Brown rice, quinoa, whole wheat pasta, sweet potato, oats |\n\nAdd: healthy fat (olive oil, avocado, nuts), water to drink.",
+        },
+        {
+          title: "What Goes Where",
+          content:
+            "### Vegetables and Fruits (Half Your Plate)\n\n- **Go for color:** Different colors = different nutrients\n  - **Green:** Broccoli, spinach, kale, zucchini — folate, vitamin K, fiber\n  - **Red:** Tomatoes, red peppers, strawberries — lycopene, vitamin C\n  - **Orange/Yellow:** Carrots, sweet potatoes, squash — beta-carotene, vitamin A\n  - **Blue/Purple:** Blueberries, eggplant, purple cabbage — anthocyanins (antioxidants)\n- **Fresh, frozen, or canned (no added salt/sugar) — all count**\n\n### Lean Proteins (Quarter of Plate)\n\n- **Animal options:** Chicken/turkey breast (skinless), fish, lean beef, eggs, Greek yogurt, cottage cheese\n- **Plant options:** Beans (black, kidney, chickpea), lentils, tofu, tempeh, edamame, seitan\n- **Fish twice a week:** Salmon, sardines, mackerel, trout (omega-3 fatty acids)\n\n\n\n### Complex Carbs (Quarter of Plate)\n\n- **Choose whole grains:** Brown rice, quinoa, oats, barley, whole wheat bread, whole wheat pasta\n- **Starchy vegetables:** Sweet potatoes, peas, corn, winter squash\n- **Legumes:** Beans, lentils, chickpeas (can also be protein)",
+          callouts: [
+            {
+              type: "info",
+              content:
+                "Plant proteins (beans, lentils) also count as vegetables AND protein. They're excellent sources of fiber too — aim for a few plant-based meals per week.",
+            },
+          ],
+        },
+        {
+          title: "Healthy Fats (Added to Meals)",
+          content:
+            "| Fat          | Use                       | Nutrient                          |\n| ------------ | ------------------------- | --------------------------------- |\n| Olive oil    | Cooking, dressings        | Monounsaturated fat, antioxidants |\n| Avocado      | Sandwiches, salads, toast | Fiber, potassium, healthy fat     |\n| Nuts & seeds | Snacks, toppings          | Vitamin E, magnesium, healthy fat |\n| Nut butters  | Sandwiches, oatmeal       | Protein, healthy fat              |",
+        },
+        {
+          title: "What About Dairy?",
+          content:
+            "- **Best choices:** Plain yogurt (Greek or regular), milk (cow or unsweetened plant-based), cottage cheese, cheese in moderation\n- **Goal:** 2-3 servings/day for calcium and vitamin D\n- **Watch:** Flavored yogurts are often high in added sugar. Choose plain.",
+        },
+        {
+          title: "Sample Balanced Meals",
+          content:
+            "### Breakfast\n\n- **Oatmeal** (1/4 plate) with **berries** (1/2 plate) and **nuts** (protein/fat)\n- **Scrambled eggs** (1/4) with **sautéed spinach and peppers** (1/2) and **whole wheat toast** (1/4)\n\n### Lunch\n\n- **Grilled chicken breast** (1/4) on a **large salad** (1/2) with **quinoa** (1/4) and **olive oil dressing** (fat)\n- **Lentil soup** (protein + carbs) with a **side salad** (1/2 plate) and a **whole grain roll**\n\n### Dinner\n\n- **Baked salmon** (1/4) with **roasted broccoli** (1/2) and **brown rice** (1/4)\n- **Stir-fry with tofu** (1/4), **mixed vegetables** (1/2), and **brown rice noodles** (1/4)",
+        },
+        {
+          title: "Tips for Eating Well on a Budget",
+          content:
+            "- **Frozen vegetables** are as nutritious as fresh and often cheaper\n- **Canned beans** — rinse to reduce sodium by 40%\n- **Buy in bulk** — rice, oats, beans, lentils\n- **Seasonal produce** — cheaper and fresher\n- **Frozen fruit** — good for smoothies, oatmeal, yogurt",
+        },
+        {
+          title: "Foods to Limit",
+          content:
+            '- **Sugary drinks** — soda, sweet tea, fruit punch, energy drinks (largest source of added sugar in American diet)\n- **Ultra-processed foods** — packaged snacks, fast food, frozen meals, sugary cereals, processed meats (bacon, sausage, hot dogs)\n- **Not a "never" list** — a balanced approach means less often, not never',
+          callouts: [
+            {
+              type: "success",
+              content:
+                "A balanced plate doesn't have to be perfect. Start with one change: add one extra serving of vegetables to one meal per day.",
+            },
+          ],
+        },
+        {
+          title: "Common Mistakes",
+          content:
+            '1. **Portion distortion** — restaurant portions are often 2-3x actual serving sizes\n2. **Skipping meals** — leads to overeating later\n3. **Drinking too many calories** — soda, juice, sports drinks, sweetened coffee\n4. **"Healthy" labels on packaged foods** — granola, protein bars, dried fruit can be high in sugar\n5. **Not enough fiber** — most Americans get half the recommended amount',
+        },
+        {
+          title: "Listen to Your Body",
+          content:
+            "- **Eat when hungry** — don't wait until ravenous (you'll overeat)\n- **Stop when comfortable** — not stuffed\n- **Eat slowly** — it takes 20 minutes for your brain to register fullness\n- **Don't eat distracted** — TV, phone, computer make you eat more",
         },
       ],
     },

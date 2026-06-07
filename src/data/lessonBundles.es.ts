@@ -12,6 +12,8 @@ export const lessons: Lesson[] = [
     categoryId: "medication-safety",
     duration: "15 minutos",
     level: "beginner",
+    lastReviewed: "2026-06-01",
+    sources: ["FDA - Cómo leer una etiqueta de receta", "CDC - Seguridad de medicamentos"],
     image: "/stitch/lesson_understanding_prescription_labels.png",
     sidebarTips: [
       "Revisa el nombre.",
@@ -79,6 +81,8 @@ export const lessons: Lesson[] = [
     categoryId: "medication-safety",
     duration: "10 minutos",
     level: "beginner",
+    lastReviewed: "2026-06-01",
+    sources: ["CDC - Seguridad de medicamentos", "NIH MedlinePlus"],
     content: {
       sections: [
         {
@@ -113,6 +117,8 @@ export const lessons: Lesson[] = [
     categoryId: "medication-safety",
     duration: "12 minutos",
     level: "beginner",
+    lastReviewed: "2026-06-01",
+    sources: ["FDA - Efectos secundarios de medicamentos", "CDC - Seguridad de medicamentos"],
     content: {
       sections: [
         {
@@ -147,6 +153,8 @@ export const lessons: Lesson[] = [
     categoryId: "doctor-visits",
     duration: "10 minutos",
     level: "beginner",
+    lastReviewed: "2026-06-01",
+    sources: ["CDC - Consejos para visitas al médico", "Agency for Healthcare Research and Quality"],
     content: {
       sections: [
         {
@@ -181,6 +189,8 @@ export const lessons: Lesson[] = [
     categoryId: "doctor-visits",
     duration: "10 minutos",
     level: "beginner",
+    lastReviewed: "2026-06-01",
+    sources: ["CDC - Consejos para visitas al médico", "Agency for Healthcare Research and Quality"],
     content: {
       sections: [
         {
@@ -215,6 +225,8 @@ export const lessons: Lesson[] = [
     categoryId: "doctor-visits",
     duration: "8 minutos",
     level: "beginner",
+    lastReviewed: "2026-06-01",
+    sources: ["CDC - Cuidado de seguimiento", "NIH MedlinePlus"],
     content: {
       sections: [
         {
@@ -250,6 +262,8 @@ export const lessons: Lesson[] = [
     categoryId: "lab-results",
     duration: "15 minutos",
     level: "intermediate",
+    lastReviewed: "2026-06-01",
+    sources: ["NIH - Análisis de sangre", "CDC - Pruebas de laboratorio"],
     sidebarTips: [
       "Pregunta si necesitas estar en ayunas.",
       "Toma suficiente agua a menos que te indiquen lo contrario.",
@@ -291,6 +305,8 @@ export const lessons: Lesson[] = [
     categoryId: "lab-results",
     duration: "20 minutos",
     level: "intermediate",
+    lastReviewed: "2026-06-01",
+    sources: ["NIH - Pruebas de laboratorio", "CDC - Calidad de laboratorio"],
     content: {
       sections: [
         {
@@ -325,6 +341,8 @@ export const lessons: Lesson[] = [
     categoryId: "lab-results",
     duration: "10 minutos",
     level: "intermediate",
+    lastReviewed: "2026-06-01",
+    sources: ["CDC - Resultados de laboratorio", "NIH MedlinePlus"],
     content: {
       sections: [
         {
@@ -348,6 +366,817 @@ export const lessons: Lesson[] = [
           title: "Preguntas para tu médico",
           content:
             "Cuando hables de resultados anormales, pregunta:\n\n- ¿Qué tan serio es este resultado?\n- ¿Qué podría causarlo?\n- ¿Necesito más pruebas?\n- ¿Qué tratamiento necesito?\n- ¿Cómo vamos a vigilarlo?\n- ¿Qué cambios debo hacer?",
+        },
+      ],
+    },
+  },
+  {
+    id: "why-preventive-care-matters",
+    title: "Por qué es importante la atención preventiva",
+    description:
+      "Aprende qué es la atención preventiva, por qué es importante y cómo te ayuda a mantenerte saludable.",
+    category: "Atención preventiva",
+    categoryId: "preventive-care",
+    duration: "10 minutos",
+    level: "beginner",
+    lastReviewed: "2026-06-01",
+    sources: ["CDC - Atención preventiva", "USPSTF Recomendaciones"],
+    sidebarTips: [
+      "La mayoría de los seguros cubren la atención preventiva sin costo.",
+      "Programa tu chequeo anual aunque te sientas bien.",
+    ],
+    sidebarTitle: "Consejo rápido",
+    content: {
+      sections: [
+        {
+          title: "¿Qué es la atención preventiva?",
+          content:
+            "La atención preventiva incluye servicios de salud que te ayudan a mantenerte saludable y detectar problemas a tiempo. En lugar de esperar a enfermarte, la atención preventiva te ayuda a:\n\n- Encontrar problemas de salud antes de que sean graves\n- Recibir vacunas que te protegen de enfermedades\n- Aprender hábitos saludables que previenen enfermedades\n- Ahorrar dinero al evitar tratamientos costosos después",
+        },
+        {
+          title: "Tipos de atención preventiva",
+          content:
+            "### Pruebas de detección\n\nLas pruebas de detección buscan enfermedades antes de tener síntomas. Las más comunes incluyen:\n\n- Control de presión arterial\n- Pruebas de colesterol\n- Detección de cáncer (mamografías, colonoscopías, pruebas de Papanicolaou)\n- Detección de diabetes\n- Detección de depresión\n\n### Vacunas (inmunizaciones)\n\nLas vacunas te protegen de enfermedades graves. Entrenan a tu sistema inmunológico para combatir infecciones. Vacunas comunes para adultos:\n\n- Vacuna contra la gripe (cada año)\n- Tdap (tétanos, difteria, tos ferina) - cada 10 años\n- Vacuna contra el herpes zóster (a partir de los 50)\n- Vacuna contra la neumonía (a partir de los 65)\n- Vacunas contra el COVID-19 (según recomendación)\n\n### Visitas de bienestar\n\nUna visita de bienestar es un chequeo enfocado en la prevención. Tu médico:\n\n- Revisará tu historial médico\n- Controlará tus signos vitales\n- Discutirá qué pruebas de detección necesitas\n- Hablará sobre opciones de estilo de vida saludable\n- Actualizará tus vacunas",
+          callouts: [
+            {
+              type: "info",
+              content:
+                "Según la Ley de Cuidado de Salud Asequible, la mayoría de los seguros deben cubrir servicios preventivos sin costo para ti. Esto significa sin copago, sin coseguro y sin deducible.",
+            },
+          ],
+        },
+        {
+          title: "Por qué es importante",
+          content:
+            "Muchas enfermedades graves comienzan en silencio. La presión arterial alta, el colesterol alto y el cáncer temprano a menudo no tienen síntomas. Cuando te sientes enfermo, la enfermedad puede ser más difícil de tratar.",
+          callouts: [
+            {
+              type: "warning",
+              content:
+                "Evitar la atención preventiva no ahorra dinero. Tratar una enfermedad avanzada cuesta mucho más que prevenirla.",
+            },
+          ],
+        },
+        {
+          title: "Los hábitos saludables también son prevención",
+          content:
+            "La prevención no son solo visitas médicas. Las decisiones diarias importan:\n\n- Come una dieta balanceada con frutas, verduras y granos integrales\n- Muévete 150 minutos por semana\n- Duerme 7-9 horas\n- No fumes; limita el alcohol\n- Maneja el estrés",
+          callouts: [
+            {
+              type: "success",
+              content:
+                "Los pequeños cambios se acumulan. Una caminata de 10 minutos al día es mejor que ninguna.",
+            },
+          ],
+        },
+        {
+          title: "Habla con tu médico",
+          content:
+            "Pregunta a tu médico:\n\n- ¿Qué pruebas de detección necesito para mi edad?\n- ¿Estoy al día con mis vacunas?\n- ¿Qué cambios de estilo de vida me ayudarían más?\n- ¿Cuándo debo regresar?",
+        },
+      ],
+    },
+  },
+  {
+    id: "common-adult-screenings",
+    title: "Pruebas de detección comunes según la edad",
+    description: "Aprende qué pruebas de detección necesitas a cada edad y por qué son importantes.",
+    category: "Atención preventiva",
+    categoryId: "preventive-care",
+    duration: "12 minutos",
+    level: "beginner",
+    lastReviewed: "2026-06-01",
+    sources: ["USPSTF Recomendaciones", "CDC Guías de detección", "Sociedad Americana del Cáncer"],
+    sidebarTips: [
+      "Tu programa personal puede variar según antecedentes familiares y factores de riesgo.",
+      "Pregunta a tu médico qué pruebas son adecuadas para ti.",
+      "Mantén un registro de tus fechas y resultados de detección.",
+    ],
+    sidebarTitle: "Guía rápida de detección",
+    content: {
+      sections: [
+        {
+          title: "Por qué varían los programas de detección",
+          content:
+            "Las recomendaciones de detección dependen de:\n\n- Edad\n- Sexo asignado al nacer\n- Antecedentes familiares\n- Historial médico personal\n- Factores de estilo de vida (tabaquismo, peso, etc.)",
+        },
+        {
+          title: "Edades 18-39",
+          content:
+            "| Prueba             | Frecuencia    | Notas                                  |\n| ------------------ | ------------- | -------------------------------------- |\n| Presión arterial   | Cada 1-2 años | Más seguido si alta                    |\n| Colesterol         | Cada 4-6 años | Desde los 20 si hay factores de riesgo |\n| Examen dental      | Cada 6 meses  |                                        |\n| Examen de la vista | Cada 2-4 años |                                        |",
+        },
+        {
+          title: "Edades 40-49",
+          content:
+            "| Prueba               | Frecuencia       | Notas                         |\n| -------------------- | ---------------- | ----------------------------- |\n| Presión arterial     | Cada año         |                               |\n| Colesterol           | Cada 4-6 años    |                               |\n| Diabetes             | Cada 3 años      | Desde los 35 si hay sobrepeso |\n| Cáncer colorrectal   | **Desde los 45** | Colonoscopía cada 10 años     |\n| Mamografía (mujeres) | Cada 1-2 años    |                               |\n| Examen dental        | Cada 6 meses     |                               |",
+        },
+        {
+          title: "Edades 50-64",
+          content:
+            "| Prueba               | Frecuencia    | Notas          |\n| -------------------- | ------------- | -------------- |\n| Presión arterial     | Cada año      |                |\n| Colesterol           | Cada 4-6 años |                |\n| Diabetes             | Cada 3 años   |                |\n| Cáncer colorrectal   | Cada 10 años  |                |\n| Mamografía (mujeres) | Cada 1-2 años |                |\n| Vacuna herpes zóster | Dos dosis     | A partir de 50 |",
+        },
+        {
+          title: "Edades 65+",
+          content:
+            "| Prueba             | Frecuencia    | Notas |\n| ------------------ | ------------- | ----- |\n| Presión arterial   | Cada año      |       |\n| Colesterol         | Cada 4-6 años |       |\n| Cáncer colorrectal | Hasta 75      |       |\n| Osteoporosis       | Cada 2 años   |       |\n| Vacuna neumonía    | 1-2 dosis     |       |\n| Vacuna gripe       | Cada año      |       |",
+          callouts: [
+            {
+              type: "success",
+              content:
+                "Pon recordatorios de detección en tu calendario. Trátalos como cualquier cita importante.",
+            },
+          ],
+        },
+      ],
+    },
+  },
+  {
+    id: "understanding-vaccines",
+    title: "Entendiendo las vacunas",
+    description:
+      "Aprende cómo funcionan las vacunas, cuáles necesitan los adultos y los datos detrás de los mitos comunes.",
+    category: "Atención preventiva",
+    categoryId: "preventive-care",
+    duration: "12 minutos",
+    level: "beginner",
+    lastReviewed: "2026-06-01",
+    sources: ["CDC - Vacunas", "OMS Inmunización"],
+    sidebarTips: [
+      "No puedes contraer la enfermedad por la vacuna.",
+      "Los efectos secundarios son leves y significan que tu sistema inmune está funcionando.",
+      "Las vacunas se prueban durante años antes de aprobarse.",
+    ],
+    sidebarTitle: "Datos sobre vacunas",
+    content: {
+      sections: [
+        {
+          title: "Cómo funcionan las vacunas",
+          content:
+            "Las vacunas entrenan a tu sistema inmunológico para reconocer y combatir gérmenes específicos sin enfermarte. Contienen:\n\n- Un germen debilitado o muerto\n- O solo una parte del germen (como una proteína)\n- O instrucciones (ARNm) para que tus células produzcan una pieza inofensiva",
+        },
+        {
+          title: "Vacunas recomendadas para adultos",
+          content:
+            "### Todos (anuales)\n\n- **Gripe** — Cada otoño\n- **COVID-19** — Según recomendación\n\n### Cada 10 años\n\n- **Tdap** — Tétanos, difteria, tos ferina\n\n### A partir de 50\n\n- **Herpes zóster (Shingrix)** — Dos dosis\n\n### A partir de 65\n\n- **Neumocócica** — Protege contra neumonía, meningitis",
+          callouts: [
+            {
+              type: "success",
+              content:
+                "Mantén un registro de vacunas. Pide una copia a tu farmacia o médico. Muchos estados tienen registros de inmunización.",
+            },
+          ],
+        },
+      ],
+    },
+  },
+  {
+    id: "living-with-hypertension",
+    title: "Viviendo con hipertensión",
+    description: "Comprende la presión arterial alta, qué significan los números y cómo manejarla.",
+    category: "Condiciones crónicas",
+    categoryId: "chronic-conditions",
+    duration: "15 minutos",
+    level: "intermediate",
+    lastReviewed: "2026-06-01",
+    sources: ["Asociación Americana del Corazón", "CDC - Presión arterial alta"],
+    sidebarTips: [
+      "Mide tu presión en casa y lleva un registro.",
+      "Toma los medicamentos exactamente como te los recetaron.",
+      "Reduce el sodio: menos de 1,500 mg al día.",
+      "Muévete a diario — incluso una caminata de 20 minutos ayuda.",
+    ],
+    sidebarTitle: "Consejos para manejar la presión",
+    content: {
+      sections: [
+        {
+          title: "¿Qué es la hipertensión?",
+          content:
+            "La hipertensión (presión arterial alta) significa que la fuerza de la sangre contra las paredes de tus arterias es constantemente demasiado alta. Con el tiempo, esto daña las arterias y aumenta el riesgo de:\n\n- Ataque cardíaco e insuficiencia cardíaca\n- Accidente cerebrovascular\n- Enfermedad renal\n- Pérdida de visión\n- Demencia",
+        },
+        {
+          title: "Entendiendo tus números",
+          content:
+            "La presión arterial tiene dos números:\n\n- **Sistólica (superior)** — Presión cuando el corazón late\n- **Diastólica (inferior)** — Presión cuando el corazón descansa\n\n| Categoría | Sistólica | Diastólica |\n| --------- | --------- | ---------- |\n| Normal    | < 120     | < 80       |\n| Elevada   | 120-129   | < 80       |\n| Etapa 1   | 130-139   | 80-89      |\n| Etapa 2   | ≥ 140     | ≥ 90       |\n| Crisis    | > 180     | > 120      |",
+        },
+        {
+          title: "Causas de la presión alta",
+          content:
+            "### Modificables\n\n- Dieta alta en sodio\n- Inactividad física\n- Exceso de peso\n- Consumo excesivo de alcohol\n- Tabaquismo\n- Estrés crónico\n\n### No modificables\n\n- Edad (mayor riesgo después de 65)\n- Antecedentes familiares\n- Raza (adultos negros tienen tasas más altas)",
+        },
+        {
+          title: "Cambios de estilo de vida",
+          content:
+            "### Dieta DASH\n\n- Frutas y verduras: 4-5 porciones cada una al día\n- Granos integrales: 6-8 porciones\n- Lácteos bajos en grasa: 2-3 porciones\n- Proteína magra: máximo 170g al día\n- **Limitar sodio a 1,500-2,300 mg/día**\n\n### Ejercicio\n\n- 150 minutos de actividad moderada por semana\n- Caminar 30 minutos, 5 días a la semana\n\n### Otros cambios clave\n\n- **Pérdida de peso:** Perder 5-10% del peso corporal puede reducir la presión significativamente\n- **Alcohol:** Máximo 1 trago/día (mujeres), 2 tragos/día (hombres)\n- **Dejar de fumar:** Cada cigarrillo eleva la presión temporalmente",
+        },
+        {
+          title: "Medicamentos para la hipertensión",
+          content:
+            "Si los cambios de estilo de vida no son suficientes, tu médico puede recetar medicamentos. Clases comunes:\n\n| Clase                  | Cómo funciona                 | Ejemplos comunes      |\n| ---------------------- | ----------------------------- | --------------------- |\n| Inhibidores ACE        | Relajan vasos sanguíneos      | Lisinopril, enalapril |\n| BRA                    | Bloquean angiotensina II      | Losartán, valsartán   |\n| Bloqueadores de calcio | Relajan músculos de vasos     | Amlodipino, diltiazem |\n| Diuréticos             | Eliminan exceso de sodio/agua | Hidroclorotiazida     |",
+          callouts: [
+            {
+              type: "info",
+              content:
+                "La mayoría de las personas necesitan 2+ medicamentos para alcanzar la presión objetivo. Esto es normal.",
+            },
+          ],
+        },
+        {
+          title: "Monitoreo en casa",
+          content:
+            "- Usa un brazalete validado para la parte superior del brazo\n- Mide dos veces al día (mañana y noche)\n- Siéntate tranquilo 5 minutos antes de medir\n- Toma 2 lecturas, con 1 minuto de diferencia",
+          callouts: [
+            {
+              type: "success",
+              content:
+                'La hipertensión es un "asesino silencioso" — generalmente te sientes bien. Por eso es importante medirla y tratarla, incluso cuando te sientes bien.',
+            },
+          ],
+        },
+      ],
+    },
+  },
+  {
+    id: "understanding-type2-diabetes",
+    title: "Entendiendo la diabetes tipo 2",
+    description:
+      "Aprende qué es la diabetes tipo 2, cómo se diagnostica y cómo controlar el azúcar en la sangre.",
+    category: "Condiciones crónicas",
+    categoryId: "chronic-conditions",
+    duration: "18 minutos",
+    level: "intermediate",
+    lastReviewed: "2026-06-01",
+    sources: ["Asociación Americana de Diabetes", "CDC - Diabetes"],
+    sidebarTips: [
+      "Revisa tu nivel de azúcar según las indicaciones y lleva un registro.",
+      "Come comidas consistentes: no te saltes comidas.",
+      "Camina después de comer: incluso 10 minutos ayudan a bajar el azúcar.",
+      "Toma los medicamentos exactamente como te los recetaron.",
+    ],
+    sidebarTitle: "Manejo de la diabetes",
+    content: {
+      sections: [
+        {
+          title: "¿Qué es la diabetes tipo 2?",
+          content:
+            "La diabetes tipo 2 significa que tu cuerpo no usa la insulina adecuadamente. Cuando la insulina no funciona bien:\n\n- La glucosa se acumula en la sangre (azúcar alta)\n- Tus células no reciben la energía que necesitan\n- Con el tiempo, el azúcar alta daña los nervios, vasos sanguíneos y órganos",
+        },
+        {
+          title: "Diagnóstico",
+          content:
+            "| Prueba            | Normal      | Prediabetes | Diabetes |\n| ----------------- | ----------- | ----------- | -------- |\n| A1C               | < 5.7%      | 5.7-6.4%    | ≥ 6.5%   |\n| Glucosa en ayunas | < 100 mg/dL | 100-125     | ≥ 126    |",
+        },
+        {
+          title: "Controlando el azúcar en la sangre",
+          content:
+            "### Los ABC de la diabetes\n\n- **A** — **A1C** (objetivo generalmente < 7%)\n- **B** — **Presión arterial** (objetivo < 130/80)\n- **C** — **Colesterol** (LDL < 70 o < 100 según riesgo)\n\n### Alimentación\n\n- Los **carbohidratos** elevan más el azúcar. Elige:\n  - Carbohidratos complejos: granos integrales, frijoles, verduras\n  - Limita: pan blanco, pasta, arroz, dulces, bebidas azucaradas\n- La **fibra** retarda la absorción de azúcar: busca 25-30g al día\n\n### Actividad física\n\n- 150 minutos de actividad moderada por semana\n- Entrenamiento de resistencia 2-3 veces/semana\n- Levántate y camina cada 30 minutos",
+          callouts: [
+            {
+              type: "success",
+              content:
+                "El buen control reduce drásticamente el riesgo de complicaciones. Pequeñas mejoras en el A1C hacen una gran diferencia.",
+            },
+          ],
+        },
+      ],
+    },
+  },
+  {
+    id: "asthma-basics",
+    title: "Conceptos básicos del asma",
+    description:
+      "Aprende qué es el asma, cómo reconocer los desencadenantes y usar los inhaladores correctamente.",
+    category: "Condiciones crónicas",
+    categoryId: "chronic-conditions",
+    duration: "14 minutos",
+    level: "beginner",
+    lastReviewed: "2026-06-01",
+    sources: ["NHLBI - Asma", "CDC - Asma"],
+    sidebarTips: [
+      "Siempre lleva tu inhalador de rescate.",
+      "Usa un espaciador con tu inhalador de dosis medida.",
+      "Conoce tus desencadenantes y evítalos cuando sea posible.",
+      "Obtén un plan de acción para el asma por escrito.",
+    ],
+    sidebarTitle: "Consejos rápidos para el asma",
+    content: {
+      sections: [
+        {
+          title: "¿Qué es el asma?",
+          content:
+            "El asma es una enfermedad pulmonar crónica donde las vías respiratorias se inflaman, estrechan y producen moco adicional. Los síntomas incluyen:\n\n- Sibilancias (silbido al respirar)\n- Falta de aire\n- Opresión en el pecho\n- Tos (especialmente de noche o temprano)",
+        },
+        {
+          title: "Desencadenantes comunes",
+          content:
+            "| Categoría   | Ejemplos                               |\n| ----------- | -------------------------------------- |\n| Alérgenos   | Polen, ácaros, moho, caspa de mascotas |\n| Irritantes  | Humo, olores fuertes, aire frío        |\n| Ejercicio   | Especialmente en aire frío y seco      |\n| Infecciones | Resfriados, gripe, COVID-19            |\n| Emociones   | Risa fuerte, llanto, estrés            |",
+        },
+        {
+          title: "Dos tipos de inhaladores",
+          content:
+            "### Inhalador de alivio rápido (rescate)\n\n- **Uso:** Para síntomas repentinos o antes de ejercicio\n- **Funciona en:** Minutos\n- **Dura:** 4-6 horas\n\n### Inhalador de control (mantenimiento)\n\n- **Uso:** A diario, incluso cuando te sientas bien\n- **Funciona:** Días a semanas\n- **Previene:** Inflamación y ataques",
+          callouts: [
+            {
+              type: "success",
+              content:
+                "Un espaciador duplica la cantidad de medicamento que llega a tus pulmones. Úsalo siempre con inhaladores de dosis medida.",
+            },
+          ],
+        },
+      ],
+    },
+  },
+  {
+    id: "introduction-to-heart-disease",
+    title: "Introducción a las enfermedades del corazón",
+    description:
+      "Aprende qué son las enfermedades cardíacas, los principales tipos, factores de riesgo y cómo proteger tu corazón.",
+    category: "Condiciones crónicas",
+    categoryId: "chronic-conditions",
+    duration: "15 minutos",
+    level: "intermediate",
+    lastReviewed: "2026-06-01",
+    sources: ["Asociación Americana del Corazón", "CDC - Enfermedades cardíacas"],
+    sidebarTips: [
+      "Conoce tus números: presión arterial, colesterol, azúcar, peso.",
+      "Muévete a diario: 150 minutos de actividad moderada por semana.",
+      "Come más plantas, menos procesados.",
+      "No fumes. Dejarlo es lo mejor que puedes hacer por tu corazón.",
+    ],
+    sidebarTitle: "Consejos para la salud del corazón",
+    content: {
+      sections: [
+        {
+          title: "¿Qué son las enfermedades del corazón?",
+          content:
+            "La enfermedad cardíaca se refiere a varias condiciones que afectan el corazón y los vasos sanguíneos. El tipo más común es la **enfermedad de las arterias coronarias**.",
+        },
+        {
+          title: "Factores de riesgo principales",
+          content:
+            "### Modificables\n\n- Presión arterial alta\n- Colesterol LDL alto\n- Diabetes\n- Tabaquismo\n- Obesidad\n- Inactividad física\n- Dieta poco saludable\n\n### No modificables\n\n- Edad (hombres 45+, mujeres 55+)\n- Antecedentes familiares",
+        },
+        {
+          title: "Señales de advertencia de ataque cardíaco",
+          content:
+            "| Síntoma                               | Descripción                                               |\n| ------------------------------------- | --------------------------------------------------------- |\n| Molestia en el pecho                  | Presión, opresión, dolor en el centro/izquierdo del pecho |\n| Dolor en la parte superior del cuerpo | Brazos, espalda, cuello, mandíbula, estómago              |\n| Falta de aire                         | Con o sin molestia en el pecho                            |\n| Sudor frío                            | Sudoración inexplicable                                   |\n| Náuseas/mareos                        | Especialmente en mujeres                                  |",
+        },
+        {
+          title: "Protegiendo tu corazón",
+          content:
+            "### Los 8 esenciales para la vida (Asociación Americana del Corazón)\n\n1. **Come mejor** — Dieta mediterránea o DASH\n2. **Sé activo** — 150 min moderados o 75 min vigorosos/semana\n3. **Deja el tabaco**\n4. **Duerme bien** — 7-9 horas/noche\n5. **Controla tu peso** — IMC 18.5-24.9\n6. **Controla el colesterol** — LDL < 100\n7. **Controla el azúcar** — A1C < 5.7%\n8. **Controla la presión arterial** — < 120/80",
+          callouts: [
+            {
+              type: "success",
+              content: "No tienes que ser perfecto. Cada elección saludable suma. Progreso, no perfección.",
+            },
+          ],
+        },
+      ],
+    },
+  },
+  {
+    id: "understanding-depression",
+    title: "Entendiendo la depresión",
+    description:
+      "Aprende sobre los síntomas de la depresión, cuándo buscar ayuda y qué tratamientos están disponibles.",
+    category: "Salud mental",
+    categoryId: "mental-health",
+    duration: "12 minutos",
+    level: "beginner",
+    lastReviewed: "2026-06-01",
+    sources: ["NIMH - Depresión", "Asociación Americana de Psiquiatría"],
+    sidebarTips: [
+      "La depresión es una condición médica, no un defecto de carácter.",
+      "La terapia y los medicamentos funcionan, a menudo mejor juntos.",
+      "Si tienes pensamientos de autolesión, llama al 988 inmediatamente.",
+    ],
+    sidebarTitle: "Obteniendo ayuda",
+    content: {
+      sections: [
+        {
+          title: "¿Qué es la depresión?",
+          content:
+            "La depresión (trastorno depresivo mayor) es una condición médica común que afecta cómo piensas, sientes y manejas la vida diaria. No es tristeza o duelo — es un estado persistente que dura al menos 2 semanas e interfiere con el funcionamiento.",
+        },
+        {
+          title: "Síntomas comunes",
+          content:
+            "- **Emocionales:** Tristeza persistente, vacío, desesperanza; pérdida de interés en pasatiempos; irritabilidad\n- **Físicos:** Fatiga, cambios en el sueño, cambios significativos de peso/apetito\n- **Cognitivos:** Dificultad para concentrarse, tomar decisiones o recordar; autocrítica negativa; culpa excesiva\n- **Conductuales:** Aislamiento; dificultad para hacer trabajo o tareas",
+        },
+        {
+          title: "Cuándo buscar ayuda",
+          content:
+            "Busca ayuda profesional si los síntomas:\n\n- Duran más de 2 semanas\n- Interfieren con el trabajo, la escuela o las relaciones\n- Causan angustia significativa\n- Incluyen pensamientos de autolesión",
+          callouts: [
+            {
+              type: "warning",
+              content:
+                "Si tú o alguien que conoces está en crisis, llama o envía un mensaje de texto al **988** (EE.UU.). Hay ayuda disponible 24/7.",
+            },
+          ],
+        },
+        {
+          title: "Opciones de tratamiento",
+          content:
+            "### Psicoterapia (terapia de conversación)\n\n- **Terapia Cognitivo-Conductual (TCC)** — La más investigada; se enfoca en cambiar patrones de pensamiento negativos\n- **Duración:** Generalmente 12-20 sesiones en 3-4 meses\n- **Efectividad:** 50-70% de mejora\n\n### Medicamentos (antidepresivos)\n\n| Clase | Cómo funciona                       | Ejemplos                             |\n| ----- | ----------------------------------- | ------------------------------------ |\n| ISRS  | Aumentan serotonina                 | Fluoxetina, sertralina, escitalopram |\n| IRSN  | Aumentan serotonina + norepinefrina | Venlafaxina, duloxetina              |\n\n### Apoyo de estilo de vida\n\n- **Ejercicio:** 30 minutos de actividad moderada 5x/semana\n- **Sueño:** Horarios consistentes de acostarse y levantarse\n- **Conexión social:** Incluso 1 relación de apoyo importa",
+        },
+        {
+          title: "Cómo apoyar a alguien con depresión",
+          content:
+            '- **Escucha, no arregles.** "Suena difícil" es mejor que "Solo alégrate"\n- **Ofrece ayuda específica:** "Traeré la cena el martes"\n- **Anima a buscar ayuda profesional** sin presionar\n- **Tómate el suicidio en serio** — pregunta directamente si tiene pensamientos de autolesión',
+          callouts: [
+            {
+              type: "success",
+              content:
+                "La recuperación de la depresión es la regla, no la excepción. Con tratamiento, la mayoría de las personas vuelven a su nivel habitual de funcionamiento.",
+            },
+          ],
+        },
+      ],
+    },
+  },
+  {
+    id: "anxiety-and-panic",
+    title: "Ansiedad y pánico",
+    description:
+      "Comprende los trastornos de ansiedad, los ataques de pánico y estrategias prácticas para manejarlos.",
+    category: "Salud mental",
+    categoryId: "mental-health",
+    duration: "12 minutos",
+    level: "beginner",
+    lastReviewed: "2026-06-01",
+    sources: ["NIMH - Trastornos de ansiedad"],
+    sidebarTips: [
+      "Respira: 4 segundos al inhalar, 6 al exhalar.",
+      "Conéctate con el presente: nombra 5 cosas que ves, 4 que sientes, 3 que oyes.",
+      "Los ataques de pánico no son peligrosos. Pasan en 5-20 minutos.",
+      "Evita la cafeína y el alcohol — ambos empeoran la ansiedad.",
+    ],
+    sidebarTitle: "Guía rápida de afrontamiento",
+    content: {
+      sections: [
+        {
+          title: "¿Qué es la ansiedad?",
+          content:
+            "La ansiedad es el sistema de alarma natural de tu cuerpo. Te prepara para el peligro — pero a veces la alarma se activa cuando no hay amenaza. Cuando la ansiedad es frecuente, intensa o desproporcionada, puede ser un trastorno de ansiedad.",
+        },
+        {
+          title: "Ataque de pánico",
+          content:
+            'Un ataque de pánico es una oleada repentina de miedo intenso que alcanza su punto máximo en minutos. Los síntomas incluyen:\n\n- Corazón acelerado o palpitaciones\n- Sudoración, temblores, sacudidas\n- Falta de aire o sensación de asfixia\n- Dolor en el pecho\n- Náuseas o malestar estomacal\n- Mareos, aturdimiento, sensación de desmayo\n- Miedo a perder el control, "volverse loco" o morir',
+        },
+        {
+          title: "Manejo de la ansiedad",
+          content:
+            "### Técnicas de conexión a tierra\n\n1. **5-4-3-2-1:** Nombra 5 cosas que ves, 4 que tocas, 3 que oyes, 2 que hueles, 1 que saboreas\n2. **Respiración profunda:** Inhala 4 segundos, mantén 4, exhala 6\n3. **Agua fría:** Rocía agua fría en tu cara\n\n### Tratamiento profesional\n\n- **TCC (Terapia Cognitivo-Conductual)** — Estándar de oro para todos los trastornos de ansiedad\n- **Medicamentos:** ISRS/IRSN (mismos que para depresión), buspirona, benzodiazepinas (a corto plazo)",
+          callouts: [
+            {
+              type: "success",
+              content:
+                "Los trastornos de ansiedad son altamente tratables. El 70-90% de las personas mejoran con tratamiento basado en evidencia.",
+            },
+          ],
+        },
+      ],
+    },
+  },
+  {
+    id: "sleep-and-health",
+    title: "Sueño y salud",
+    description: "Aprende por qué el sueño es importante para tu salud y cómo mejorar tus hábitos de sueño.",
+    category: "Salud mental",
+    categoryId: "mental-health",
+    duration: "10 minutos",
+    level: "beginner",
+    lastReviewed: "2026-06-01",
+    sources: ["CDC - Sueño", "Academia Americana de Medicina del Sueño"],
+    sidebarTips: [
+      "Mantén horarios consistentes para acostarte y levantarte.",
+      "Sin pantallas 30-60 minutos antes de dormir.",
+      "Habitación fresca, oscura y silenciosa.",
+      "Sin cafeína después del mediodía.",
+    ],
+    sidebarTitle: "Higiene del sueño básica",
+    content: {
+      sections: [
+        {
+          title: "Por qué el sueño es importante",
+          content:
+            "Durante el sueño, tu cuerpo:\n\n- Repara músculos y tejidos\n- Consolida recuerdos y aprendizaje\n- Regula el estado de ánimo y las emociones\n- Apoya la función inmunológica",
+        },
+        {
+          title: "¿Cuánto sueño necesitas?",
+          content:
+            "| Edad          | Horas recomendadas |\n| ------------- | ------------------ |\n| Adultos 18-60 | 7+ horas           |\n| Adultos 61-64 | 7-9 horas          |\n| Adultos 65+   | 7-8 horas          |",
+        },
+        {
+          title: "Higiene del sueño",
+          content:
+            "### Haz\n\n- **Levántate a la misma hora todos los días**\n- **Toma luz solar matutina** — 10-15 minutos al despertar\n- **Ejercítate regularmente** — pero no 2-3 horas antes de dormir\n- **Crea una rutina relajante** — 30-60 minutos antes de acostarte\n- **Mantén el dormitorio fresco** — 18-20°C\n\n### No hagas\n\n- **Sin pantallas antes de dormir** — la luz azul suprime la melatonina\n- **Sin cafeína después del mediodía**\n- **Sin alcohol 3 horas antes de acostarte**\n- **Sin comidas grandes 2-3 horas antes**",
+          callouts: [
+            {
+              type: "success",
+              content:
+                "Un mejor sueño es alcanzable. Comienza con un cambio: hora constante para despertarte.",
+            },
+          ],
+        },
+      ],
+    },
+  },
+  {
+    id: "understanding-health-insurance",
+    title: "Entendiendo tu seguro de salud",
+    description:
+      "Aprende cómo funciona el seguro de salud: primas, deducibles, copagos, redes y cómo elegir un plan.",
+    category: "Seguros y facturación",
+    categoryId: "insurance-billing",
+    duration: "15 minutos",
+    level: "intermediate",
+    lastReviewed: "2026-06-01",
+    sources: ["Healthcare.gov", "Kaiser Family Foundation"],
+    sidebarTips: [
+      "Prima = pago mensual. Deducible = lo que pagas antes de que el seguro empiece a pagar.",
+      "Los proveedores dentro de la red cuestan menos. Siempre verifica antes de reservar.",
+      "La atención preventiva (chequeo anual, vacunas) es gratis en la mayoría de los planes.",
+    ],
+    sidebarTitle: "Guía rápida de seguros",
+    content: {
+      sections: [
+        {
+          title: "Términos clave",
+          content:
+            "### Prima\n\nCantidad que pagas cada mes por el seguro. La pagas incluso si no usas ningún servicio médico.\n\n### Deducible\n\nCantidad que pagas por servicios cubiertos antes de que el seguro comience a pagar.\n\n### Copago\n\nCantidad fija que pagas en el momento del servicio ($20-50 por visita).\n\n### Coseguro\n\nPorcentaje que pagas después de cumplir con el deducible (ej. 20% de una factura).\n\n### Máximo de desembolso personal\n\nLo máximo que pagas en un año. Una vez alcanzado, el seguro paga el 100%.",
+        },
+        {
+          title: "Tipos de planes",
+          content:
+            "### Seguro patrocinado por el empleador\n\n- El más común (49% de los estadounidenses)\n- El empleador paga ~70% de la prima\n\n### Mercado (ACA / Obamacare)\n\n- Healthcare.gov o equivalente estatal\n- Subsidios basados en ingresos disponibles\n\n### Medicare\n\n- Programa federal para 65+ y ciertas discapacidades\n\n### Medicaid\n\n- Programa estatal + federal para personas de bajos ingresos",
+        },
+        {
+          title: "Cómo elegir un plan",
+          content:
+            "1. **¿Mis médicos y hospital están en la red?**\n2. **¿Qué medicamentos están cubiertos?**\n3. **¿Cuál es el costo total estimado?** Prima + costos esperados de atención",
+          callouts: [
+            {
+              type: "success",
+              content:
+                "Entender tu seguro ahorra dinero y estrés. Si los términos te confunden, llama a la línea de servicio al miembro de tu aseguradora.",
+            },
+          ],
+        },
+      ],
+    },
+  },
+  {
+    id: "reading-medical-bills",
+    title: "Cómo leer una factura médica",
+    description: "Comprende las facturas médicas, identifica errores y aprende a disputar cargos.",
+    category: "Seguros y facturación",
+    categoryId: "insurance-billing",
+    duration: "12 minutos",
+    level: "beginner",
+    lastReviewed: "2026-06-01",
+    sources: ["CMS - Facturación médica", "Oficina de Protección Financiera del Consumidor"],
+    sidebarTips: [
+      "No pagues la primera factura: espera la Explicación de Beneficios del seguro.",
+      "Las facturas médicas a menudo tienen errores. Revísalas cuidadosamente.",
+      "Siempre pide una factura detallada: es tu derecho.",
+    ],
+    sidebarTitle: "Consejos de facturación",
+    content: {
+      sections: [
+        {
+          title: "Tres documentos que recibirás",
+          content:
+            "### 1. La factura\n\nEnviada por el hospital o consultorio. Muestra los cargos totales. **No pagues inmediatamente** — espera la EOB.\n\n### 2. Explicación de Beneficios (EOB)\n\nEnviada por la compañía de seguros. Muestra lo que pagaron y lo que debes. **No es una factura.**\n\n### 3. Resumen de Beneficios y Cobertura (SBC)\n\nEnviado con planes nuevos. Muestra lo que cubre el plan.",
+        },
+        {
+          title: "Errores comunes en facturación",
+          content:
+            "- **Cargos duplicados** — facturado dos veces por el mismo servicio\n- **Sobrecodificación** — facturado por un servicio más caro del recibido\n- **Facturación de saldo** — proveedor fuera de red cobra la diferencia",
+          callouts: [
+            {
+              type: "warning",
+              content:
+                "Hasta el 80% de las facturas médicas contienen errores. Nunca asumas que una factura es correcta.",
+            },
+          ],
+        },
+        {
+          title: "Cómo revisar una factura",
+          content:
+            "1. **Compara con la EOB** — Todo debe coincidir\n2. **Solicita una factura detallada** — Por ley tienes derecho\n3. **Pregunta** al departamento de facturación",
+        },
+        {
+          title: "Cómo disputar un cargo",
+          content:
+            "1. **Documenta todo**\n2. **Llama al proveedor primero**\n3. **Llama al seguro**\n4. **Presenta por escrito**",
+        },
+        {
+          title: "Asistencia financiera",
+          content:
+            "- **Atención de caridad hospitalaria** — Los hospitales sin fines de lucro deben ofrecer asistencia\n- **Planes de pago** — La mayoría ofrece planes sin intereses\n- **Negociación** — Ofrece 50-60% de la factura en efectivo para saldar",
+          callouts: [
+            {
+              type: "success",
+              content:
+                "Tienes derechos como paciente. Una factura correcta es más baja que la primera. Siempre revisa, cuestiona y negocia.",
+            },
+          ],
+        },
+      ],
+    },
+  },
+  {
+    id: "when-to-call-911",
+    title: "Cuándo llamar al 911 vs ir a atención de urgencia",
+    description:
+      "Aprende a decidir entre el 911, la sala de emergencias, la atención de urgencia y tu médico.",
+    category: "Emergencias y primeros auxilios",
+    categoryId: "emergency",
+    duration: "10 minutos",
+    level: "beginner",
+    lastReviewed: "2026-06-01",
+    sources: ["Colegio Americano de Médicos de Emergencia", "CDC - Preparación para emergencias"],
+    sidebarTips: [
+      "En caso de duda, llama al 911. Es mejor prevenir.",
+      "Conoce la ubicación de tu sala de emergencias y centro de urgencia más cercanos.",
+      "Guarda contactos de emergencia en tu teléfono como 'ICE'.",
+    ],
+    sidebarTitle: "Guía rápida de decisiones",
+    content: {
+      sections: [
+        {
+          title: "Matriz de decisiones",
+          content:
+            "| Situación                                              | Dónde ir               | Por qué                                        |\n| ------------------------------------------------------ | ---------------------- | ---------------------------------------------- |\n| Dolor en el pecho, dificultad para respirar            | **Llama al 911**       | Emergencia que necesita tratamiento en minutos |\n| Hueso roto (sin hueso expuesto)                        | **Urgencia o ER**      |                                                |\n| Fiebre 101°F+, se siente mal pero puede caminar/hablar | **Urgencia**           |                                                |\n| Fiebre 103°F+ o confusión                              | **ER**                 | Podría ser infección grave                     |\n| Corte profundo con sangrado                            | **ER**                 | Puede necesitar puntos                         |\n| Resfriado leve, chequeo de rutina                      | **Consultorio médico** |                                                |",
+        },
+        {
+          title: "Llama al 911 para emergencias",
+          content:
+            "### Señales de ataque cardíaco\n\n- Molestia en el pecho (presión, opresión)\n- Dolor que se extiende a brazos, espalda, cuello, mandíbula\n- Falta de aire\n- Sudor frío, náuseas, mareos\n\n### Señales de accidente cerebrovascular (RÁPIDO)\n\n- **R**ostro — ¿un lado del rostro se cae?\n- **Á**mbos brazos — ¿un brazo se desploma?\n- **P**alabra — ¿arrastra las palabras?\n- **I**nmediatamente — llama al 911\n- **O**portunidad — el tiempo es crítico\n\n### Otras emergencias\n\n- Dificultad para respirar\n- Reacción alérgica grave (hinchazón de cara/labios, dificultad para respirar)\n- Sangrado grave\n- Convulsión\n- Lesión en la cabeza con confusión o desmayo\n- Envenenamiento o sobredosis\n- Quemadura grave",
+          callouts: [
+            {
+              type: "warning",
+              content:
+                "Si no estás seguro de si es una emergencia, **llama al 911 de todos modos.** Los despachadores pueden ayudar a evaluar.",
+            },
+          ],
+        },
+      ],
+    },
+  },
+  {
+    id: "building-first-aid-kit",
+    title: "Armando un botiquín de primeros auxilios",
+    description: "Aprende qué suministros necesita todo botiquín casero y cómo usarlos.",
+    category: "Emergencias y primeros auxilios",
+    categoryId: "emergency",
+    duration: "8 minutos",
+    level: "beginner",
+    lastReviewed: "2026-06-01",
+    sources: ["Cruz Roja Americana", "CDC - Kit de emergencia"],
+    sidebarTips: [
+      "Revisa tu botiquín cada 6 meses: reemplaza los artículos vencidos.",
+      "Mantén un botiquín pequeño en tu auto y en el trabajo.",
+      "Guarda en un lugar fresco y seco.",
+    ],
+    sidebarTitle: "Lista de verificación del botiquín",
+    content: {
+      sections: [
+        {
+          title: "Suministros esenciales",
+          content:
+            "### Cuidado de heridas\n\n- **Vendas adhesivas** — varios tamaños\n- **Gasa estéril** — 10x10 cm (paquete de 10-20)\n- **Cinta médica** — para fijar gasa\n- **Toallitas antisépticas** — individuales\n- **Ungüento antibiótico** — bacitracina o triple antibiótico\n- **Crema de hidrocortisona** — al 1% para picazón\n\n### Herramientas\n\n- **Tijeras** — resistentes, de punta roma\n- **Pinzas** — de punta fina para astillas y garrapatas\n- **Bolsa de frío instantáneo** — se activa al apretar\n- **Guantes desechables** — nitrilo o vinilo\n- **Linterna** — LED pequeña con pilas extra\n- **Termómetro** — digital\n\n### Medicamentos\n\n- **Analgésicos/antifebriles:** acetaminofén (Tylenol), ibuprofeno (Advil)\n- **Antihistamínico** — difenhidramina (Benadryl)\n- **Antidiarreico** — loperamida (Imodium)\n- **Antiácidos**\n\n### Documentación\n\n- **Manual de primeros auxilios**\n- **Números de emergencia:**\n  - 911 (emergencia)\n  - Centro de Toxicología: 1-800-222-1222\n  - Consultorio médico\n  - Farmacia",
+        },
+        {
+          title: "Cómo usar artículos clave",
+          content:
+            "### Limpiar una herida menor\n\n1. Lávate las manos (o usa guantes)\n2. Limpia con agua fría y jabón suave\n3. Seca con gasa estéril\n4. Aplica ungüento antibiótico\n5. Cubre con venda adhesiva o gasa + cinta\n6. Cambia el vendaje diariamente\n\n### Tratar un esguince (método RICE)\n\n- **R**eposo — deja de usar el área lesionada\n- **H**ielo — aplica frío 20 minutos, descansa 20\n- **C**ompresión — envuelve con venda elástica\n- **E**levación — eleva por encima del nivel del corazón",
+          callouts: [
+            {
+              type: "success",
+              content:
+                "Tu botiquín de primeros auxilios solo es útil si sabes dónde está, qué contiene y cómo usarlo. Revisa su contenido anualmente con todos en tu hogar.",
+            },
+          ],
+        },
+      ],
+    },
+  },
+  {
+    id: "reading-nutrition-labels",
+    title: "Leyendo las etiquetas de nutrición",
+    description:
+      "Aprende a leer las etiquetas de nutrición para tomar decisiones informadas sobre los alimentos.",
+    category: "Nutrición y dieta",
+    categoryId: "nutrition",
+    duration: "10 minutos",
+    level: "beginner",
+    lastReviewed: "2026-06-01",
+    sources: ["FDA - Etiqueta de información nutricional", "USDA Guías alimentarias"],
+    sidebarTips: [
+      "Revisa primero el tamaño de la porción: todos los números son por porción.",
+      "% Valor Diario: 5% o menos es bajo, 20% o más es alto.",
+      "Busca más fibra, vitaminas y minerales. Menos grasa saturada, sodio y azúcar añadida.",
+    ],
+    sidebarTitle: "Guía rápida para leer etiquetas",
+    content: {
+      sections: [
+        {
+          title: "La etiqueta actualizada",
+          content:
+            'En 2020, la FDA actualizó la etiqueta para que sea más fácil de leer. Cambios clave:\n\n- Tamaños de porción actualizados a cantidades realistas\n- "Azúcares añadidos" listados por separado\n- Calorías en letra más grande\n- Vitamina D y potasio añadidos',
+        },
+        {
+          title: "Sección 1: Tamaño de la porción",
+          content: "**El número más importante de la etiqueta.** Todos los demás números son por porción.",
+        },
+        {
+          title: "Sección 2: Calorías",
+          content: "- Calorías por porción\n- 400+ calorías por porción = alta",
+        },
+        {
+          title: "Sección 3: Nutrientes a limitar",
+          content:
+            "### Grasa saturada\n\n- **Objetivo:** Menos del 10% de las calorías diarias\n- **Encontrada en:** Carnes grasas, mantequilla, queso, lácteos enteros\n\n### Sodio\n\n- **Objetivo:** Menos de 2,300 mg/día (idealmente 1,500 mg)\n- **Encontrado en:** Alimentos procesados, comidas de restaurante, sopas enlatadas\n\n### Azúcares añadidos\n\n- **Objetivo:** Menos de 50g/día\n- **Encontrados en:** Refrescos, dulces, yogur saborizado, cereales, salsa de tomate",
+        },
+        {
+          title: "Sección 4: Nutrientes a obtener más",
+          content:
+            "### Fibra dietética\n\n- **Objetivo:** 25g/día (mujeres), 38g/día (hombres)\n\n### Vitamina D, Calcio, Potasio, Hierro",
+        },
+        {
+          title: "Sección 5: % Valor Diario (%VD)",
+          content:
+            "- **5% VD o menos = Bajo** — para nutrientes a limitar\n- **20% VD o más = Alto** — para nutrientes a obtener más",
+        },
+        {
+          title: "Trucos comunes de las etiquetas",
+          content:
+            '- **"Hecho con granos integrales"** — puede ser principalmente harina blanca\n- **"Natural"** — no regulado; no significa saludable\n- **"Bajo en grasa"** — a menudo tiene azúcar extra\n- **"Sin azúcar añadida"** — puede tener azúcar natural alta',
+          callouts: [
+            {
+              type: "success",
+              content:
+                "No necesitas leer cada etiqueta perfectamente. Concéntrate en: tamaño de porción, calorías, grasa saturada, sodio, azúcar añadida.",
+            },
+          ],
+        },
+      ],
+    },
+  },
+  {
+    id: "building-balanced-plate",
+    title: "Armando un plato balanceado",
+    description: "Aprende formas simples de preparar comidas balanceadas usando el método del plato.",
+    category: "Nutrición y dieta",
+    categoryId: "nutrition",
+    duration: "10 minutos",
+    level: "beginner",
+    lastReviewed: "2026-06-01",
+    sources: ["USDA MiPlato", "Guías alimentarias para estadounidenses"],
+    sidebarTips: [
+      "La mitad de tu plato = verduras y frutas.",
+      "Un cuarto = proteína magra. Un cuarto = granos integrales.",
+      "Come colores: diferentes plantas tienen diferentes nutrientes.",
+      "No tomes tus calorías: agua, té sin azúcar o café.",
+    ],
+    sidebarTitle: "Método del plato",
+    content: {
+      sections: [
+        {
+          title: "El método del plato",
+          content:
+            "Divide tu plato:\n\n| Sección                 | Porción       | Ejemplos                                          |\n| ----------------------- | ------------- | ------------------------------------------------- |\n| Verduras + Frutas       | **1/2 plato** | Ensalada, brócoli asado, bayas, pimientos         |\n| Proteína magra          | **1/4 plato** | Pechuga de pollo, pescado, tofu, frijoles, huevos |\n| Carbohidratos complejos | **1/4 plato** | Arroz integral, quinoa, pasta integral, camote    |\n\nAgrega: grasa saludable (aceite de oliva, aguacate, nueces), agua para beber.",
+        },
+        {
+          title: "Ejemplos de comidas balanceadas",
+          content:
+            "### Desayuno\n\n- **Avena** (1/4) con **bayas** (1/2) y **nueces** (proteína/grasa)\n- **Huevos revueltos** (1/4) con **espinacas salteadas y pimientos** (1/2) y **pan integral** (1/4)\n\n### Almuerzo\n\n- **Pechuga de pollo a la parrilla** (1/4) en una **ensalada grande** (1/2) con **quinoa** (1/4) y aderezo de aceite de oliva\n\n### Cena\n\n- **Salmón al horno** (1/4) con **brócoli asado** (1/2) y **arroz integral** (1/4)",
+        },
+        {
+          title: "Consejos para comer bien con presupuesto limitado",
+          content:
+            "- **Verduras congeladas** son tan nutritivas como frescas y a menudo más baratas\n- **Frijoles enlatados** — enjuágalos para reducir sodio en 40%\n- **Compra a granel** — arroz, avena, frijoles, lentejas\n- **Productos de temporada** — más baratos y más frescos",
+        },
+        {
+          title: "Alimentos a limitar",
+          content:
+            '- **Bebidas azucaradas** — refrescos, té dulce, jugos de fruta\n- **Alimentos ultraprocesados** — bocadillos empacados, comida rápida, embutidos\n- **No es una lista de "nunca"** — un enfoque balanceado significa menos frecuente, no nunca',
+        },
+        {
+          title: "Escucha a tu cuerpo",
+          content:
+            "- **Come cuando tengas hambre** — no esperes hasta estar famélico\n- **Deja de comer cuando estés cómodo** — no lleno\n- **Come lentamente** — toma 20 minutos para que tu cerebro registre saciedad",
+          callouts: [
+            {
+              type: "success",
+              content:
+                "Un plato balanceado no tiene que ser perfecto. Comienza con un cambio: agrega una porción extra de verduras a una comida al día.",
+            },
+          ],
         },
       ],
     },

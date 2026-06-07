@@ -94,7 +94,13 @@
   "categories": {
     "medication-safety": "Seguridad con medicamentos",
     "doctor-visits": "Consultas médicas",
-    "lab-results": "Resultados de laboratorio"
+    "lab-results": "Resultados de laboratorio",
+    "preventive-care": "Atención preventiva",
+    "chronic-conditions": "Condiciones crónicas",
+    "mental-health": "Salud mental",
+    "insurance-billing": "Seguros y facturación",
+    "emergency": "Emergencias y primeros auxilios",
+    "nutrition": "Nutrición y dieta"
   },
   "glossary": {
     "title": "Glosario de salud",
@@ -133,7 +139,8 @@
     "labsTip": "Los técnicos de laboratorio pueden explicarte el proceso.",
     "keepLearning": "Sigue aprendiendo",
     "lastReviewed": "Última revisión",
-    "sources": "Fuentes"
+    "sources": "Fuentes",
+    "takeQuiz": "Tomar cuestionario"
   },
   "paths": {
     "resumeJourney": "Retomar recorrido",
@@ -345,10 +352,51 @@
     "toolsTitle": "Herramientas",
     "toolsDescription": "Usa recursos prácticos para citas y decisiones de cuidado."
   },
+  "quiz": {
+    "description": "Pon a prueba tu conocimiento de {title} con {count} preguntas.",
+    "passRequirement": "Necesitas al menos {score}% para aprobar.",
+    "startQuiz": "Comenzar cuestionario",
+    "backToLesson": "Volver a la lección",
+    "questionXofY": "Pregunta {current} de {total}",
+    "answered": "{count} respondidas",
+    "previous": "Anterior",
+    "next": "Siguiente pregunta",
+    "checkAnswer": "Verificar respuesta",
+    "seeResults": "Ver resultados",
+    "correct": "¡Correcto!",
+    "incorrect": "Casi.",
+    "explanation": "Explicación",
+    "scoreLabel": "Obtuviste {score}% ({correct} de {total} correctas)",
+    "passed": "¡Aprobaste!",
+    "tryAgain": "Sigue estudiando e inténtalo de nuevo.",
+    "retake": "Repetir cuestionario"
+  },
+  "search": {
+    "openSearch": "Abrir búsqueda",
+    "searchDialog": "Buscar lecciones",
+    "placeholder": "Buscar lecciones…",
+    "close": "Cerrar búsqueda",
+    "noResults": "No se encontraron lecciones. Prueba con otro término."
+  },
+  "onboarding": {
+    "welcome": "Bienvenido a Health Made Clear",
+    "subtitle": "Tu guía para entender temas de salud en lenguaje sencillo.",
+    "step1Title": "Aprende a tu propio ritmo",
+    "step1Body": "Explora lecciones claras sobre medicamentos, visitas al médico, resultados de laboratorio y más.",
+    "step2Title": "Sigue rutas de aprendizaje",
+    "step2Body": "Guías estructuradas que te ayudan a construir conocimiento paso a paso, desde lo básico hasta temas avanzados.",
+    "step3Title": "Encuentra lo que necesitas",
+    "step3Body": "Usa la búsqueda para encontrar rápidamente el tema de salud que buscas.",
+    "getStarted": "Comenzar",
+    "close": "Cerrar"
+  },
   "errors": {
     "title": "Algo salió mal",
     "body": "No pudimos cargar esta página. Tu progreso en este dispositivo no cambió.",
     "retry": "Intentar de nuevo",
-    "home": "Ir al inicio"
+    "home": "Ir al inicio",
+    "notFoundTitle": "Página no encontrada",
+    "notFoundBody": "La página que buscas no existe o ha sido movida.",
+    "goHome": "Ir al inicio"
   }
 }
