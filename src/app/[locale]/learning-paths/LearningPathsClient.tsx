@@ -2,20 +2,32 @@
 
 import { Link } from "@/i18n/navigation";
 import { ArrowRight, Clock, ListChecks } from "lucide-react";
+import Callout from "@/components/Callout";
+import MarkdownRenderer from "@/components/mdx/MarkdownRenderer";
 import { getLessonsByPath, getPathProgress } from "@/lib/content";
 import { useAppState } from "@/components/AppProviders";
 import PageHeader from "@/components/PageHeader";
 import { formatLevel } from "@/lib/i18n";
-import { getLearningPaths, getLessons } from "@/lib/localizedContent";
+import type { GlossaryTerm } from "@/types/glossary";
+import type { LessonListItem } from "@/types/lesson";
+import type { LearningPath } from "@/types/learningPath";
 import { useTranslations } from "next-intl";
 
-export default function LearningPathsClient() {
+type LearningPathsClientProps = {
+  lessons: LessonListItem[];
+  learningPaths: LearningPath[];
+  glossaryTerms: GlossaryTerm[];
+};
+
+export default function LearningPathsClient({
+  lessons,
+  learningPaths,
+  glossaryTerms,
+}: LearningPathsClientProps) {
   const { completedLessons, locale, markPathStarted, startedPaths } = useAppState();
   const t = useTranslations("paths");
   const tLearn = useTranslations("learn");
   const tCommon = useTranslations("common");
-  const learningPaths = getLearningPaths(locale);
-  const lessons = getLessons(locale);
 
   return (
     <div className="py-12 md:py-16">
@@ -56,6 +68,17 @@ export default function LearningPathsClient() {
                     </div>
                     <h2 className="mb-3 text-headline-lg text-primary">{path.title}</h2>
                     <p className="mb-6 text-body-md text-on-surface-variant">{path.description}</p>
+                    {path.content?.sections.map((section) => (
+                      <div key={section.title} className="mb-6">
+                        <h3 className="mb-2 text-headline-md text-primary">{section.title}</h3>
+                        <MarkdownRenderer text={section.content} glossaryTerms={glossaryTerms} />
+                        {section.callouts?.map((callout, index) => (
+                          <Callout key={`${section.title}-${index}`} type={callout.type} className="mt-4">
+                            <MarkdownRenderer text={callout.content} glossaryTerms={glossaryTerms} />
+                          </Callout>
+                        ))}
+                      </div>
+                    ))}
                     <div className="mb-3 flex items-center justify-between text-sm font-semibold text-on-surface-variant">
                       <span>
                         {t("lesson")}{" "}

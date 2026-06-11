@@ -26,7 +26,7 @@ describe("reportClientError", () => {
 
   describe("development mode", () => {
     beforeEach(() => {
-      process.env.NODE_ENV = "development";
+      vi.stubEnv("NODE_ENV", "development");
     });
 
     it("logs normalized string errors to console", () => {
@@ -64,8 +64,8 @@ describe("reportClientError", () => {
     let originalWindow: any;
 
     beforeEach(() => {
-      process.env.NODE_ENV = "production";
-      process.env.NEXT_PUBLIC_SENTRY_DSN = "https://examplePublicKey@o0.ingest.sentry.io/0";
+      vi.stubEnv("NODE_ENV", "production");
+      vi.stubEnv("NEXT_PUBLIC_SENTRY_DSN", "https://examplePublicKey@o0.ingest.sentry.io/0");
       originalWindow = global.window;
     });
 

@@ -1,4 +1,5 @@
 import type { LessonSpec } from "./expansion-lessons-types";
+import { QUIZ_EXPLANATION_PATCHES } from "./quiz-explanation-patches";
 
 export const EXPANSION_LESSONS_PART2: LessonSpec[] = [
   {
@@ -94,6 +95,7 @@ El dolor es una señal, no solo una molestia. Tratar síntomas está bien a cort
     quiz: mkQuiz(
       "Pain Medications Safely Quiz",
       "Cuestionario: Analgésicos con seguridad",
+      "pain-medications-safely",
       [
         [
           "What organ is most at risk from too much acetaminophen?",
@@ -284,6 +286,7 @@ Los programas pueden cambiar o terminar. Revise elegibilidad cada año y cuando 
     quiz: mkQuiz(
       "Copay Assistance Quiz",
       "Cuestionario: Ayuda con copagos",
+      "understanding-copay-assistance",
       [
         [
           "What is a common goal of manufacturer copay cards?",
@@ -495,6 +498,7 @@ Vacunas como VPH reducen riesgo de varios cánceres. Detección y prevención va
     quiz: mkQuiz(
       "Cancer Screening Quiz",
       "Cuestionario: Detección de cáncer",
+      "cancer-screening-basics",
       [
         [
           "Main purpose of cancer screening?",
@@ -680,6 +684,7 @@ Si está en peligro inmediato, llame a emergencias o línea de crisis. Los conse
     quiz: mkQuiz(
       "Managing Stress Quiz",
       "Cuestionario: Manejando el estrés",
+      "managing-stress",
       [
         [
           "Chronic stress can affect which body systems?",
@@ -867,6 +872,7 @@ La cafeína en cantidades moderadas aún aporta líquidos para la mayoría, pero
     quiz: mkQuiz(
       "Hydration Quiz",
       "Cuestionario: Hidratación",
+      "hydration-and-health",
       [
         [
           "Mild dehydration may cause:",
@@ -1049,6 +1055,7 @@ La factura de urgencia puede ser costosa. Pregunte precios y qué requiere su se
     quiz: mkQuiz(
       "Urgent Care Quiz",
       "Cuestionario: Atención urgente",
+      "when-to-use-urgent-care",
       [
         [
           "Urgent care is best for:",
@@ -1246,6 +1253,7 @@ Valores críticos suelen provocar contacto directo del laboratorio o clínica. S
     quiz: mkQuiz(
       "Lab Report Quiz",
       "Cuestionario: Informe de laboratorio",
+      "reading-lab-report",
       [
         [
           "What does an H flag usually mean?",
@@ -1406,6 +1414,7 @@ No compre medicamentos con receta de vendedores en línea no verificados — los
     quiz: mkQuiz(
       "Generic vs Brand Quiz",
       "Cuestionario: Genéricos vs marca",
+      "generic-vs-brand-drugs",
       [
         [
           "Generics must have the same:",
@@ -1605,6 +1614,7 @@ Las mascarillas CPAP tienen muchos estilos. Un técnico del sueño puede ayudar 
     quiz: mkQuiz(
       "Sleep Apnea Quiz",
       "Cuestionario: Apnea del sueño",
+      "sleep-apnea-basics",
       [
         [
           "Obstructive sleep apnea is caused by:",
@@ -1715,25 +1725,25 @@ Las mascarillas CPAP tienen muchos estilos. Un técnico del sueño puede ayudar 
 
 type Q = [string, [string, string, string, string], "A" | "B" | "C" | "D"];
 
-function mkQuiz(enTitle: string, esTitle: string, en: Q[], es: Q[]): LessonSpec["quiz"] {
-  const mk = (items: Q[]) =>
-    items.map(([q, options, answer]) => ({
+function mkQuiz(enTitle: string, esTitle: string, lessonId: string, en: Q[], es: Q[]): LessonSpec["quiz"] {
+  const patches = QUIZ_EXPLANATION_PATCHES[lessonId];
+  if (!patches) {
+    throw new Error(`Missing quiz explanations for lesson: ${lessonId}`);
+  }
+  if (patches.en.length !== en.length || patches.es.length !== es.length) {
+    throw new Error(`Explanation count mismatch for lesson: ${lessonId}`);
+  }
+  const mk = (items: Q[], explanations: string[]) =>
+    items.map(([q, options, answer], idx) => ({
       q,
       options,
       answer,
-      explanation:
-        answer === "A"
-          ? options[0] + " — correct."
-          : answer === "B"
-            ? options[1] + " — correct."
-            : answer === "C"
-              ? options[2] + " — correct."
-              : options[3] + " — correct.",
+      explanation: explanations[idx],
     }));
   return {
     enTitle,
     esTitle,
-    enQuestions: mk(en) as LessonSpec["quiz"]["enQuestions"],
-    esQuestions: mk(es) as LessonSpec["quiz"]["esQuestions"],
+    enQuestions: mk(en, patches.en) as LessonSpec["quiz"]["enQuestions"],
+    esQuestions: mk(es, patches.es) as LessonSpec["quiz"]["esQuestions"],
   };
 }

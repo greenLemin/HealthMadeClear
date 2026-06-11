@@ -41,6 +41,7 @@ export default function Header() {
   const handleSkip = (event: React.MouseEvent<HTMLAnchorElement>) => {
     event.preventDefault();
     const main = document.getElementById("main-content");
+    main?.scrollIntoView();
     main?.focus();
   };
 

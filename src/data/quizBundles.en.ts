@@ -1818,7 +1818,8 @@ export const quizzes: Quiz[] = [
         question: "What organ is most at risk from too much acetaminophen?",
         options: ["Heart", "Liver", "Kidneys", "Lungs"],
         correctAnswer: "B",
-        explanation: "Liver — correct.",
+        explanation:
+          "Acetaminophen is processed by the liver. Taking more than the daily limit — especially from multiple products — can cause serious liver damage. The heart, kidneys, and lungs are not the primary organs at risk from acetaminophen overdose.",
       },
       {
         question: "Why check cold medicine labels for acetaminophen?",
@@ -1829,7 +1830,8 @@ export const quizzes: Quiz[] = [
           "Labels are optional",
         ],
         correctAnswer: "B",
-        explanation: "Multiple products can exceed daily limits — correct.",
+        explanation:
+          "Many cold, flu, and pain products contain acetaminophen under different brand names. Adding them together can push you past the safe daily limit without realizing it. Always read active ingredients on every label.",
       },
       {
         question: "When should you avoid ibuprofen without medical advice?",
@@ -1840,7 +1842,8 @@ export const quizzes: Quiz[] = [
           "When food is available",
         ],
         correctAnswer: "B",
-        explanation: "Known kidney disease or stomach ulcers — correct.",
+        explanation:
+          "NSAIDs like ibuprofen can worsen kidney function and irritate the stomach lining. People with kidney disease, stomach ulcers, or on blood thinners should only use them with medical guidance. A mild headache in someone without those conditions is different.",
       },
       {
         question: "What should you do for chest pain?",
@@ -1851,7 +1854,8 @@ export const quizzes: Quiz[] = [
           "Ignore it if you are young",
         ],
         correctAnswer: "B",
-        explanation: "Seek emergency care immediately — correct.",
+        explanation:
+          "Chest pain can signal a heart attack or other life-threatening condition. Pain medicine will not fix the underlying emergency. Call 911 or go to the emergency room immediately — do not wait to see if it passes.",
       },
       {
         question: "Why tell your pharmacist all medicines you take?",
@@ -1862,7 +1866,8 @@ export const quizzes: Quiz[] = [
           "Only for prescriptions from one doctor",
         ],
         correctAnswer: "A",
-        explanation: "To check interactions and duplications — correct.",
+        explanation:
+          "Pharmacists check for duplicate ingredients (like acetaminophen in multiple products) and dangerous drug interactions. This is especially important when you take prescriptions, OTC medicines, and supplements together.",
       },
     ],
   },
@@ -1881,7 +1886,8 @@ export const quizzes: Quiz[] = [
           "Eliminate need for prescriptions",
         ],
         correctAnswer: "B",
-        explanation: "Lower patient out-of-pocket cost for a specific drug — correct.",
+        explanation:
+          "Manufacturer copay cards reduce what you pay at the pharmacy for a specific brand drug. They do not replace insurance or eliminate the need for a valid prescription — they lower your out-of-pocket share for eligible patients.",
       },
       {
         question: "What should you do before stopping a medicine you cannot afford?",
@@ -1892,7 +1898,8 @@ export const quizzes: Quiz[] = [
           "Double the dose to make it last",
         ],
         correctAnswer: "B",
-        explanation: "Talk with your doctor about alternatives and assistance — correct.",
+        explanation:
+          "Stopping a needed medicine suddenly can be dangerous. Your doctor may know about generics, alternative doses, samples, or assistance programs. Always discuss affordability before changing or stopping treatment.",
       },
       {
         question: "Why be cautious with unsolicited copay help calls?",
@@ -1903,7 +1910,8 @@ export const quizzes: Quiz[] = [
           "Insurance forbids all assistance",
         ],
         correctAnswer: "B",
-        explanation: "Scams may ask for sensitive personal information — correct.",
+        explanation:
+          "Legitimate programs use official websites and clinic financial counselors. Scammers may ask for your Social Security number, bank details, or payment upfront. Never share sensitive information with unsolicited callers.",
       },
       {
         question: "Who can help navigate assistance at many hospitals?",
@@ -1914,7 +1922,8 @@ export const quizzes: Quiz[] = [
           "Only drug sales representatives",
         ],
         correctAnswer: "B",
-        explanation: "Financial counselor or social worker — correct.",
+        explanation:
+          "Hospital financial counselors and social workers know manufacturer programs, nonprofit grants, and local resources. They can help you apply without navigating complex rules alone — ask at registration or billing.",
       },
       {
         question: "Why re-check assistance eligibility yearly?",
@@ -1925,7 +1934,8 @@ export const quizzes: Quiz[] = [
           "Doctors handle this automatically",
         ],
         correctAnswer: "B",
-        explanation: "Insurance, income rules, and program funding can change — correct.",
+        explanation:
+          "Assistance programs depend on insurance type, income limits, and manufacturer funding. A change in your job, Medicare status, or plan design can end eligibility. Re-check each year and when your coverage changes.",
       },
     ],
   },
@@ -1944,13 +1954,15 @@ export const quizzes: Quiz[] = [
           "Guarantee no cancer ever",
         ],
         correctAnswer: "B",
-        explanation: "Find early signs before symptoms — correct.",
+        explanation:
+          "Screening tests look for early cancer or precancerous changes before you feel sick. They are not the same as diagnosing every symptom — they are preventive tools for people at recommended ages and risk levels.",
       },
       {
         question: "Typical starting age for colon screening in U.S. guidelines?",
         options: ["18", "45", "70", "Only if symptoms"],
         correctAnswer: "B",
-        explanation: "45 — correct.",
+        explanation:
+          "U.S. guidelines now recommend colorectal cancer screening starting at age 45 for average-risk adults. Earlier screening may be needed with family history or certain conditions. Age 18 or 70 alone are not the standard start ages.",
       },
       {
         question: "Why is family history important?",
@@ -1961,13 +1973,15 @@ export const quizzes: Quiz[] = [
           "Only matters for children",
         ],
         correctAnswer: "B",
-        explanation: "It can lead to earlier or more frequent screening — correct.",
+        explanation:
+          "A parent or sibling with certain cancers can raise your risk. Doctors may recommend starting mammograms, colonoscopy, or other tests earlier or repeating them more often. They cannot assume your history without you sharing it.",
       },
       {
         question: "What if a screening result is abnormal?",
         options: ["Ignore it", "Ask what it means and next steps", "Stop all future screening", "Self-treat"],
         correctAnswer: "B",
-        explanation: "Ask what it means and next steps — correct.",
+        explanation:
+          "An abnormal result does not always mean cancer, but it needs follow-up. Ask what the finding means, what test comes next, and how soon. Ignoring results or stopping all future screening is unsafe.",
       },
       {
         question: "Can screening miss cancer?",
@@ -1978,7 +1992,8 @@ export const quizzes: Quiz[] = [
           "Only for skin cancer",
         ],
         correctAnswer: "B",
-        explanation: "Yes — report new symptoms even after normal results — correct.",
+        explanation:
+          "No screening test catches every cancer. False negatives happen. If you develop new symptoms — bleeding, lumps, persistent pain — report them even if a recent screen was normal.",
       },
     ],
   },
@@ -1997,7 +2012,8 @@ export const quizzes: Quiz[] = [
           "Nothing measurable",
         ],
         correctAnswer: "B",
-        explanation: "Sleep, blood pressure, digestion, and more — correct.",
+        explanation:
+          "Long-term stress affects more than mood. It can disrupt sleep, raise blood pressure, upset digestion, and weaken immune response. These physical effects are measurable and worth addressing early.",
       },
       {
         question: "A helpful daily habit is:",
@@ -2008,7 +2024,8 @@ export const quizzes: Quiz[] = [
           "Isolating from everyone",
         ],
         correctAnswer: "B",
-        explanation: "A short walk or breathing break — correct.",
+        explanation:
+          "Brief movement and slow breathing activate the body's calming response without requiring special equipment. Constant news scrolling, sleep deprivation, and isolation tend to worsen stress over time.",
       },
       {
         question: "When should you seek professional help?",
@@ -2019,7 +2036,8 @@ export const quizzes: Quiz[] = [
           "Only for children",
         ],
         correctAnswer: "B",
-        explanation: "When symptoms persist and interfere with daily life — correct.",
+        explanation:
+          "Professional support is appropriate when worry, low mood, or panic lasts weeks and interferes with work, relationships, or self-care. Stress is not always minor — persistent symptoms deserve evaluation.",
       },
       {
         question: "What is a crisis resource?",
@@ -2030,7 +2048,8 @@ export const quizzes: Quiz[] = [
           "Stopping all medicine",
         ],
         correctAnswer: "B",
-        explanation: "24/7 crisis line or emergency services when in danger — correct.",
+        explanation:
+          "Crisis lines and emergency services exist for immediate danger, including thoughts of self-harm. They are not a last resort after hospitalization — they are for moments when safety is at risk right now.",
       },
       {
         question: "Small habits work because:",
@@ -2041,7 +2060,8 @@ export const quizzes: Quiz[] = [
           "They replace medical care",
         ],
         correctAnswer: "B",
-        explanation: "Repeatable actions build recovery over time — correct.",
+        explanation:
+          "Recovery builds through small actions repeated daily — a walk, a breathing pause, a bedtime routine. Perfection is not required, and habits do not replace medical or mental health treatment when needed.",
       },
     ],
   },
@@ -2060,7 +2080,8 @@ export const quizzes: Quiz[] = [
           "Lower heart rate always",
         ],
         correctAnswer: "B",
-        explanation: "Headache and fatigue — correct.",
+        explanation:
+          "Mild dehydration often shows up as headache, fatigue, dry mouth, or dark urine before severe illness develops. These symptoms can mimic other conditions, so consider fluid intake when they appear together.",
       },
       {
         question: "Who may need fluid limits instead of more water?",
@@ -2071,7 +2092,8 @@ export const quizzes: Quiz[] = [
           "Only children",
         ],
         correctAnswer: "B",
-        explanation: "Some people with heart or kidney disease — correct.",
+        explanation:
+          "People with heart failure, kidney disease, or certain medications may need fluid limits set by their doctor. Drinking extra water without guidance can be harmful for them — not everyone needs the same amount.",
       },
       {
         question: "A practical hydration check for many people is:",
@@ -2082,13 +2104,15 @@ export const quizzes: Quiz[] = [
           "Avoid all fluids at night",
         ],
         correctAnswer: "B",
-        explanation: "Pale yellow urine and drinking when thirsty — correct.",
+        explanation:
+          "Pale yellow urine and drinking when thirsty are practical signs of adequate hydration for most healthy adults. Clear urine all day or forcing large volumes without need are not better goals for everyone.",
       },
       {
         question: "Best default drink for daily hydration:",
         options: ["Sugary soda", "Water", "Energy drinks only", "Alcohol"],
         correctAnswer: "B",
-        explanation: "Water — correct.",
+        explanation:
+          "Water is the best default drink for daily hydration — no added sugar or calories. Sugary sodas and energy drinks add empty calories. Unsweetened options are fine, but water remains the baseline recommendation.",
       },
       {
         question: "Severe dehydration requires:",
@@ -2099,7 +2123,8 @@ export const quizzes: Quiz[] = [
           "Skipping all food forever",
         ],
         correctAnswer: "B",
-        explanation: "Urgent medical evaluation — correct.",
+        explanation:
+          "Severe dehydration — confusion, fainting, no urine for many hours, rapid heartbeat — needs urgent medical care. Home remedies alone are not enough when the body shows signs of significant fluid loss.",
       },
     ],
   },
@@ -2118,13 +2143,15 @@ export const quizzes: Quiz[] = [
           "Routine prescription refills only",
         ],
         correctAnswer: "B",
-        explanation: "Same-day non-life-threatening problems — correct.",
+        explanation:
+          "Urgent care centers handle same-day problems that are not life-threatening — sprains, minor cuts, fever without severe distress, urinary symptoms. They bridge the gap when your doctor's office is closed.",
       },
       {
         question: "Which belongs in the ER?",
         options: ["Mild sore throat", "Severe trouble breathing", "Small blister", "Routine vaccination"],
         correctAnswer: "B",
-        explanation: "Severe trouble breathing — correct.",
+        explanation:
+          "Severe trouble breathing, chest pain, stroke signs, heavy bleeding, and loss of consciousness need emergency care (911 or ER), not urgent care. Urgent care is not equipped for every emergency.",
       },
       {
         question: "What does FAST stand for in stroke warning?",
@@ -2135,7 +2162,8 @@ export const quizzes: Quiz[] = [
           "None of the above",
         ],
         correctAnswer: "A",
-        explanation: "Face, Arm, Speech, Time to call 911 — correct.",
+        explanation:
+          "FAST reminds you: Face drooping, Arm weakness, Speech difficulty, Time to call 911. Stroke treatment is time-sensitive — minutes matter. Do not drive yourself if symptoms are sudden and severe.",
       },
       {
         question: "Why follow up with primary care after urgent care?",
@@ -2146,7 +2174,8 @@ export const quizzes: Quiz[] = [
           "Only for children",
         ],
         correctAnswer: "B",
-        explanation: "To coordinate ongoing treatment and records — correct.",
+        explanation:
+          "Your primary care doctor coordinates long-term treatment and records. After urgent care, follow up so medications, referrals, and test results stay connected to your overall care plan.",
       },
       {
         question: "When unsure about severity:",
@@ -2157,7 +2186,8 @@ export const quizzes: Quiz[] = [
           "Skip all care",
         ],
         correctAnswer: "B",
-        explanation: "Consider emergency care or call 911 — correct.",
+        explanation:
+          "High fever with stiff neck, confusion, or rash; injury with bone visible; or symptoms rapidly worsening may need ER-level care. When unsure, call 911 — dispatchers can help you decide.",
       },
     ],
   },
@@ -2171,7 +2201,8 @@ export const quizzes: Quiz[] = [
         question: "What does an H flag usually mean?",
         options: ["Healthy", "High relative to reference range", "Hospital only", "Hormone test only"],
         correctAnswer: "B",
-        explanation: "High relative to reference range — correct.",
+        explanation:
+          "An H or L flag means your result is outside the lab's reference range — high or low compared to typical values. It is a signal to discuss with your doctor, not an automatic diagnosis.",
       },
       {
         question: "Reference ranges:",
@@ -2182,7 +2213,8 @@ export const quizzes: Quiz[] = [
           "Mean you definitely have disease if outside",
         ],
         correctAnswer: "B",
-        explanation: "Can vary by lab and patient factors — correct.",
+        explanation:
+          "Reference ranges vary by laboratory equipment, age, sex, and pregnancy status. A number slightly outside range may be normal for you. Your doctor interprets results in context, not from the flag alone.",
       },
       {
         question: "Why compare past results?",
@@ -2193,13 +2225,15 @@ export const quizzes: Quiz[] = [
           "Portals do this illegally",
         ],
         correctAnswer: "B",
-        explanation: "Trends help show if values are changing over time — correct.",
+        explanation:
+          "A single abnormal value matters less than the trend over time. Rising glucose or falling hemoglobin across multiple tests tells a clearer story than one isolated result.",
       },
       {
         question: "Slightly abnormal result — best first step?",
         options: ["Panic", "Discuss with your doctor in context", "Change dose yourself", "Ignore forever"],
         correctAnswer: "B",
-        explanation: "Discuss with your doctor in context — correct.",
+        explanation:
+          "Bring questions to your visit: what does this mean for me, do we repeat the test, could my medicines affect it? Self-treating based on a lab printout without medical context can be unsafe.",
       },
       {
         question: "Critical value on portal with no call — you should:",
@@ -2210,7 +2244,8 @@ export const quizzes: Quiz[] = [
           "Retest at home only",
         ],
         correctAnswer: "B",
-        explanation: "Contact your care team promptly — correct.",
+        explanation:
+          "Critical or panic values — very high potassium, severe anemia, dangerous glucose — often trigger a call from the lab or doctor. If you see critical language, contact your care team promptly.",
       },
     ],
   },
@@ -2224,7 +2259,8 @@ export const quizzes: Quiz[] = [
         question: "Generics must have the same:",
         options: ["Only color", "Active ingredient and strength", "Marketing name", "Price as brand"],
         correctAnswer: "B",
-        explanation: "Active ingredient and strength — correct.",
+        explanation:
+          "Generic drugs must contain the same active ingredient at the same strength as the brand version. Inactive fillers may differ, but the medicine that treats your condition is equivalent for most drugs.",
       },
       {
         question: "Why might insurance prefer generics?",
@@ -2235,7 +2271,8 @@ export const quizzes: Quiz[] = [
           "They are always brands",
         ],
         correctAnswer: "B",
-        explanation: "Lower cost with equivalent effectiveness for most drugs — correct.",
+        explanation:
+          "Generics cost less because manufacturers do not repeat expensive marketing and trials for the active compound. For most people they work the same — insurance often requires trying generic first.",
       },
       {
         question: "After switching to generic, you should:",
@@ -2246,7 +2283,8 @@ export const quizzes: Quiz[] = [
           "Never tell the pharmacist",
         ],
         correctAnswer: "B",
-        explanation: "Report new or worsening side effects to your care team — correct.",
+        explanation:
+          "If you switch to generic and notice new side effects or feel worse, tell your care team. Rarely, sensitivity to fillers matters. Do not silently stop — report changes so they can adjust.",
       },
       {
         question: "Counterfeit drugs are a risk when:",
@@ -2257,7 +2295,8 @@ export const quizzes: Quiz[] = [
           "Asking questions",
         ],
         correctAnswer: "B",
-        explanation: "Buying from unverified online sellers — correct.",
+        explanation:
+          "Unverified online pharmacies may sell counterfeit or improperly stored drugs. Stick to licensed pharmacies in your country. Low prices from unknown sellers are a red flag, not a bargain.",
       },
       {
         question: "Bioequivalent means:",
@@ -2268,7 +2307,8 @@ export const quizzes: Quiz[] = [
           "Illegal in the U.S.",
         ],
         correctAnswer: "B",
-        explanation: "Similar blood levels compared to brand within accepted range — correct.",
+        explanation:
+          "Bioequivalence means the generic delivers similar blood levels to the brand within FDA-accepted limits. That is why generics are approved — not because they are weaker versions of the same drug.",
       },
     ],
   },
@@ -2287,7 +2327,8 @@ export const quizzes: Quiz[] = [
           "Normal snoring always",
         ],
         correctAnswer: "B",
-        explanation: "Blocked airflow when throat muscles relax — correct.",
+        explanation:
+          "Obstructive sleep apnea happens when throat muscles relax during sleep and block airflow. The brain briefly wakes you to breathe again. It is not simply snoring — it involves repeated breathing pauses.",
       },
       {
         question: "A reason to seek evaluation:",
@@ -2298,7 +2339,8 @@ export const quizzes: Quiz[] = [
           "Reading before bed",
         ],
         correctAnswer: "A",
-        explanation: "Snoring plus daytime sleepiness — correct.",
+        explanation:
+          "Loud snoring plus daytime sleepiness, morning headaches, or a partner noticing breathing pauses are common warning signs. Snoring alone does not always mean apnea, but the combination warrants evaluation.",
       },
       {
         question: "CPAP works by:",
@@ -2309,7 +2351,8 @@ export const quizzes: Quiz[] = [
           "Stopping breathing on purpose",
         ],
         correctAnswer: "B",
-        explanation: "Delivering air pressure to keep the airway open — correct.",
+        explanation:
+          "CPAP delivers steady air pressure through a mask to keep the airway open during sleep. It is the most common effective treatment for moderate to severe obstructive sleep apnea — not a cure, but a nightly therapy.",
       },
       {
         question: "Untreated sleep apnea increases risk of:",
@@ -2320,7 +2363,8 @@ export const quizzes: Quiz[] = [
           "Lower weight always",
         ],
         correctAnswer: "B",
-        explanation: "High blood pressure and heart disease among others — correct.",
+        explanation:
+          "Untreated sleep apnea is linked to high blood pressure, heart disease, stroke risk, and poor glucose control. Treating it protects more than sleep quality — it supports cardiovascular and metabolic health.",
       },
       {
         question: "If CPAP is uncomfortable:",
@@ -2331,7 +2375,8 @@ export const quizzes: Quiz[] = [
           "Only use it once a month",
         ],
         correctAnswer: "B",
-        explanation: "Ask a sleep specialist about mask fit and alternatives — correct.",
+        explanation:
+          "Mask fit, humidity settings, and alternative devices (oral appliances, positional therapy) can improve comfort. A sleep specialist can adjust settings — stopping CPAP without guidance usually brings symptoms back.",
       },
     ],
   },

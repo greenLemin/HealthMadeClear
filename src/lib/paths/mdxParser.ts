@@ -1,12 +1,15 @@
 import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
+import { parseSections } from "@/lib/lessons/mdxParser";
 import type { PathId } from "@/types/content";
 import { PATH_IDS } from "@/types/content";
 import type { LearningPath } from "@/types/learningPath";
 
 function pathFromFile(filePath: string): LearningPath {
-  const { data } = matter(fs.readFileSync(filePath, "utf8"));
+  const { data, content } = matter(fs.readFileSync(filePath, "utf8"));
+  const trimmed = content.trim();
+  const sections = trimmed ? parseSections(trimmed) : [];
 
   return {
     id: data.id as PathId,
@@ -16,6 +19,7 @@ function pathFromFile(filePath: string): LearningPath {
     duration: String(data.duration),
     level: data.level as LearningPath["level"],
     icon: String(data.icon),
+    ...(sections.length > 0 ? { content: { sections } } : {}),
   };
 }
 

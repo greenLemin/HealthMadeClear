@@ -1,27 +1,27 @@
-import type { Lesson } from "@/types/lesson";
+import type { LessonListItem } from "@/types/lesson";
 import type { LearningPath } from "@/types/learningPath";
 
-export function getLessonsByPath(pathId: string, lessonItems: Lesson[], pathItems: LearningPath[]) {
+export function getLessonsByPath(pathId: string, lessonItems: LessonListItem[], pathItems: LearningPath[]) {
   const path = pathItems.find((item) => item.id === pathId);
 
   if (!path) {
     return [];
   }
 
-  const lessonMap = new Map<string, Lesson>();
+  const lessonMap = new Map<string, LessonListItem>();
   for (const lesson of lessonItems) {
     lessonMap.set(lesson.id, lesson);
   }
 
   return path.lessons
     .map((lessonId) => lessonMap.get(lessonId))
-    .filter((lesson): lesson is Lesson => Boolean(lesson));
+    .filter((lesson): lesson is LessonListItem => Boolean(lesson));
 }
 
 export function getPathProgress(
   pathId: string,
   completedLessonIds: string[],
-  lessonItems: Lesson[],
+  lessonItems: LessonListItem[],
   pathItems: LearningPath[]
 ) {
   const pathLessons = getLessonsByPath(pathId, lessonItems, pathItems);
@@ -39,7 +39,7 @@ export function getPathProgress(
 export function getStartedPathCount(
   completedLessonIds: string[],
   startedPathIds: string[],
-  lessonItems: Lesson[],
+  lessonItems: LessonListItem[],
   pathItems: LearningPath[]
 ) {
   const completedLessonIdsSet = new Set(completedLessonIds);
@@ -55,7 +55,7 @@ export function getStartedPathCount(
 
 export function getCompletedPathCount(
   completedLessonIds: string[],
-  lessonItems: Lesson[],
+  lessonItems: LessonListItem[],
   pathItems: LearningPath[]
 ) {
   const completedLessonIdsSet = new Set(completedLessonIds);

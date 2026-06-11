@@ -219,4 +219,453 @@ export const articles: Article[] = [
       ],
     },
   },
+  {
+    id: "understanding-your-eob",
+    title: "Entender su Explicación de Beneficios (EOB)",
+    description: "Cómo leer un EOB y compararlo con facturas del proveedor.",
+    category: "Insurance & Billing",
+    readingTime: "7 min",
+    lastReviewed: "2026-06-11",
+    reviewedBy: "Health Education Review Team",
+    sources: ["CDC", "NIH MedlinePlus"],
+    content: {
+      sections: [
+        {
+          title: "Qué es un EOB",
+          content:
+            "Una Explicación de Beneficios (EOB) **no es una factura**. Es un estado de su aseguradora que muestra lo facturado, lo pagado y lo que puede deber. Suele llegar antes o con la factura del proveedor.",
+        },
+        {
+          title: "Líneas clave",
+          content:
+            "- **Monto facturado** — lo que cobró el proveedor\n- **Monto permitido** — tarifa negociada que acepta su plan\n- **Pagó el plan** — lo que cubrió el seguro\n- **Responsabilidad del paciente** — deducible, copago, coseguro o cargos no cubiertos",
+        },
+        {
+          title: "Comparar EOB con facturas",
+          content:
+            "Compare fecha de servicio, proveedor y códigos. Si el total no coincide con la responsabilidad del paciente en el EOB, llame a facturación antes de pagar.",
+          callouts: [
+            {
+              type: "info",
+              content:
+                "Guarde EOBs al menos un año — puede necesitarlos para impuestos (HSA/FSA) o apelaciones.",
+            },
+          ],
+        },
+        {
+          title: "Confusiones comunes",
+          content:
+            '- **EOB duplicados** por una visita — una por línea de servicio es normal\n- **"Puede deber"** — verifique contra la factura real\n- **Fuera de red** — reglas de monto permitido y facturación balanceada difieren',
+        },
+        {
+          title: "Cuándo llamar al asegurador",
+          content:
+            "Pregunte si un reclamo fue rechazado, aplicado al deducible incorrecto o codificado mal. La oficina del médico puede reenviar con códigos corregidos.",
+        },
+      ],
+    },
+  },
+  {
+    id: "finding-in-network-providers",
+    title: "Encontrar proveedores en red",
+    description: "Use el directorio de su plan y evite facturas sorpresa.",
+    category: "Healthcare Navigation",
+    readingTime: "6 min",
+    lastReviewed: "2026-06-11",
+    reviewedBy: "Health Education Review Team",
+    sources: ["CDC", "NIH MedlinePlus"],
+    content: {
+      sections: [
+        {
+          title: "Por qué importa la red",
+          content:
+            "Los proveedores en red tienen contrato con su aseguradora a tarifas más bajas. Atención fuera de red puede costar mucho más o no cubrirse excepto en emergencias.",
+        },
+        {
+          title: "Pasos para encontrar atención",
+          content:
+            "1. Entre al sitio o app de su aseguradora\n2. Busque por especialidad, ubicación e idioma\n3. Confirme que el **médico específico** está en red — no solo la clínica\n4. Llame para verificar que aún aceptan su plan",
+        },
+        {
+          title: "Red del hospital vs del médico",
+          content:
+            "Hospitales y médicos negocian por separado. Un cirujano puede estar fuera de red aunque el hospital esté en red — pregunte antes de procedimientos programados.",
+          callouts: [
+            {
+              type: "warning",
+              content:
+                "Emergencias suelen cubrirse como en red por ley, pero seguimiento y ambulancia pueden no — verifique tras estabilización.",
+            },
+          ],
+        },
+        {
+          title: "Telesalud y urgencias",
+          content: "Verifique si visitas virtuales y clínicas minoristas están en red antes de ir.",
+        },
+        {
+          title: "Si debe ir fuera de red",
+          content:
+            "Pregunte precios en efectivo, planes de pago y si su médico puede referirlo a alternativa en red.",
+        },
+      ],
+    },
+  },
+  {
+    id: "preparing-for-blood-draw",
+    title: "Prepararse para una extracción de sangre",
+    description: "Reglas de ayuno, hidratación y qué esperar en el laboratorio.",
+    category: "Lab Results",
+    readingTime: "5 min",
+    lastReviewed: "2026-06-11",
+    reviewedBy: "Health Education Review Team",
+    sources: ["CDC", "NIH MedlinePlus"],
+    content: {
+      sections: [
+        {
+          title: "Antes de ir",
+          content:
+            "- Confirme requisitos de **ayuno** (a menudo 8–12 horas para glucosa y lípidos; agua suele estar bien)\n- Tome medicamentos matutinos recetados salvo indicación contraria\n- Use mangas que suban fácilmente\n- Lleve la orden o muestre la orden electrónica",
+        },
+        {
+          title: "En el laboratorio",
+          content:
+            "El flebotomista limpia el brazo, aplica torniquete e inserta aguja pequeña. La mayoría tarda minutos. Pueden llenarse varios tubos con una sola punción.",
+        },
+        {
+          title: "Después",
+          content:
+            "Presione gasa firmemente varios minutos para reducir moretones. Evite levantar peso con ese brazo el resto del día.",
+          callouts: [
+            {
+              type: "info",
+              content: "Moretones leves son comunes y no peligrosos. Aplique hielo si hay dolor.",
+            },
+          ],
+        },
+        {
+          title: "Plazo de resultados",
+          content:
+            "Muchas pruebas de rutina regresan en 1–3 días hábiles en el portal. Valores críticos pueden generar llamada antes.",
+        },
+        {
+          title: "Situaciones especiales",
+          content:
+            "Informe si se desmaya con agujas, toma anticoagulantes o tuvo mastectomía — pueden usar otro brazo o posición.",
+        },
+      ],
+    },
+  },
+  {
+    id: "second-opinion-basics",
+    title: "Cuándo y cómo pedir segunda opinión",
+    description: "Guía práctica para consultar a otro especialista.",
+    category: "Healthcare Navigation",
+    readingTime: "7 min",
+    lastReviewed: "2026-06-11",
+    reviewedBy: "Health Education Review Team",
+    sources: ["CDC", "NIH MedlinePlus"],
+    content: {
+      sections: [
+        {
+          title: "Por qué ayudan las segundas opiniones",
+          content:
+            "Confirman diagnósticos, comparan tratamientos u ofrecen tranquilidad antes de cirugía mayor o terapia prolongada. Buenos médicos las apoyan.",
+        },
+        {
+          title: "Cuándo considerarla",
+          content:
+            "- Diagnóstico grave o poco claro (cáncer, enfermedad rara)\n- Cirugía recomendada con riesgo significativo\n- Síntomas que no mejoran con tratamiento\n- Se siente apurado o no escuchado",
+        },
+        {
+          title: "Cómo solicitar registros",
+          content:
+            "Pida copias de imágenes, patología y notas — o autorice transferencia al segundo médico. Muchos sistemas comparten electrónicamente.",
+          callouts: [
+            {
+              type: "info",
+              content:
+                'No necesita dar razón negativa a su médico actual — "quiero confirmar el plan" basta.',
+            },
+          ],
+        },
+        {
+          title: "Cobertura del seguro",
+          content:
+            "Algunos planes exigen o pagan segundas opiniones en ciertos procedimientos. Llame a servicios al miembro antes de reservar.",
+        },
+        {
+          title: "Tras la segunda visita",
+          content:
+            "Compare recomendaciones por escrito. Si difieren, pida a ambos médicos discutir o programar llamada conjunta.",
+        },
+      ],
+    },
+  },
+  {
+    id: "telehealth-visit-tips",
+    title: "Consejos para visitas de telesalud",
+    description: "Prepárese para una cita por video o teléfono productiva.",
+    category: "Doctor Visits",
+    readingTime: "6 min",
+    lastReviewed: "2026-06-11",
+    reviewedBy: "Health Education Review Team",
+    sources: ["CDC", "NIH MedlinePlus"],
+    content: {
+      sections: [
+        {
+          title: "Antes de la visita",
+          content:
+            "- Pruebe cámara, micrófono e inicio de sesión 15 minutos antes\n- Siéntese en lugar tranquilo y bien iluminado\n- Tenga lista de medicamentos, temperaturas y fotos de erupciones listas\n- Sepa nombre y dirección de farmacia para recetas electrónicas",
+        },
+        {
+          title: "Durante la llamada",
+          content:
+            "Hable claro y muestre áreas afectadas a la cámara cuando pidan. Telesalud funciona bien para seguimientos, revisiones de medicamentos y muchas visitas de salud mental.",
+        },
+        {
+          title: "Limitaciones",
+          content:
+            "Emergencias, exámenes físicos y algunas pruebas aún requieren presencial. Pregunte qué no se puede hacer virtualmente.",
+          callouts: [
+            {
+              type: "warning",
+              content:
+                "Si empeoran síntomas durante video visita, pueden dirigirlo a urgencias — tenga plan de transporte.",
+            },
+          ],
+        },
+        {
+          title: "Privacidad",
+          content:
+            "Use habitación privada. Audífonos reducen eco y protegen a otros de escuchar su información.",
+        },
+        {
+          title: "Después",
+          content:
+            "Confirme siguientes pasos en el portal y programe laboratorios presenciales si los ordenaron.",
+        },
+      ],
+    },
+  },
+  {
+    id: "medication-adherence-strategies",
+    title: "Estrategias para adherencia a medicamentos",
+    description: "Herramientas y hábitos para tomar medicamentos según receta.",
+    category: "Medication Safety",
+    readingTime: "7 min",
+    lastReviewed: "2026-06-11",
+    reviewedBy: "Health Education Review Team",
+    sources: ["CDC", "NIH MedlinePlus"],
+    content: {
+      sections: [
+        {
+          title: "Por qué importa la adherencia",
+          content:
+            "Omitir dosis o suspender antes puede causar recaída, resistencia u hospitalización — especialmente en presión, diabetes e infecciones.",
+        },
+        {
+          title: "Herramientas prácticas",
+          content:
+            "- **Organizador de pastillas** — cajas semanales AM/PM\n- **Alarmas del teléfono** — etiquete con nombre del medicamento\n- **Resurtido automático** — reduce huecos\n- **Blísteres** — algunas farmacias preordenan por horario",
+        },
+        {
+          title: "Enlace a rutinas diarias",
+          content: "Asocie medicamentos con cepillado, comidas o dormir para anclar el hábito.",
+          callouts: [
+            {
+              type: "info",
+              content:
+                "Si costo o efectos secundarios bloquean adherencia, dígalo al clínico — hay alternativas.",
+            },
+          ],
+        },
+        {
+          title: "Viajes y días de enfermedad",
+          content:
+            "Lleve dosis extra en equipaje de mano. Pregunte reglas para insulina, presión o diuréticos en días de enfermedad.",
+        },
+        {
+          title: "Seguimiento",
+          content:
+            'Use registro simple o app para medicamentos "según necesidad" y no exceder límites diarios.',
+        },
+      ],
+    },
+  },
+  {
+    id: "when-to-call-your-doctor",
+    title: "Cuándo llamar al médico vs urgencias vs 911",
+    description: "Guía simple para síntomas no emergentes.",
+    category: "Emergency",
+    readingTime: "6 min",
+    lastReviewed: "2026-06-11",
+    reviewedBy: "Health Education Review Team",
+    sources: ["CDC", "NIH MedlinePlus"],
+    content: {
+      sections: [
+        {
+          title: "Llame 911 o vaya a emergencias",
+          content:
+            "- Dolor u opresión de pecho\n- Dificultad para respirar\n- Signos de ACV (FAST: cara, brazo, habla, tiempo)\n- Sangrado severo o inconsciencia\n- Pensamientos suicidas con plan",
+        },
+        {
+          title: "Atención urgente (mismo día)",
+          content:
+            "- Esguinces, cortes menores que necesitan puntos\n- Fiebre sin angustia severa en adultos sanos\n- Ardor al orinar si no puede contactar al médico\n- Brote leve de asma si inhalador no ayuda tras una hora",
+        },
+        {
+          title: "Llame al consultorio",
+          content:
+            "- Efectos secundarios de medicamentos\n- Empeoramiento de condición crónica\n- Preguntas sobre resultados\n- Referencias y citas preventivas",
+          callouts: [
+            {
+              type: "info",
+              content: "Muchas clínicas tienen línea de enfermería — describa síntomas y orientan timing.",
+            },
+          ],
+        },
+        {
+          title: "Si no está seguro",
+          content:
+            "Prefiera atención más segura. Está bien ir a emergencias; también llamar al 911 para orientación.",
+        },
+      ],
+    },
+  },
+  {
+    id: "patient-portal-basics",
+    title: "Conceptos básicos del portal del paciente",
+    description: "Acceda a resultados, mensajes y resurtidos en línea.",
+    category: "Healthcare Navigation",
+    readingTime: "6 min",
+    lastReviewed: "2026-06-11",
+    reviewedBy: "Health Education Review Team",
+    sources: ["CDC", "NIH MedlinePlus"],
+    content: {
+      sections: [
+        {
+          title: "Qué hacen los portales",
+          content:
+            "La mayoría de clínicas ofrecen sitios o apps seguros para:\n\n- Ver resultados de laboratorio e imágenes\n- Enviar mensajes al equipo\n- Solicitar resurtidos\n- Programar citas\n- Descargar resúmenes de visita",
+        },
+        {
+          title: "Primeros pasos",
+          content:
+            "Pida instrucciones en recepción. Puede necesitar verificación de correo y código de activación del paperwork de la visita.",
+        },
+        {
+          title: "Leer resultados temprano",
+          content:
+            "Los resultados pueden aparecer antes de que el médico los revise. Banderas anormales no siempre son urgentes — anote preguntas para seguimiento.",
+          callouts: [
+            {
+              type: "warning",
+              content:
+                "Los portales no son para emergencias. Llame 911 o vaya a emergencias ante peligro inmediato.",
+            },
+          ],
+        },
+        {
+          title: "Etiqueta de mensajes",
+          content:
+            "Incluya una pregunta clara, farmacia si pide resurtidos y espere 1–3 días hábiles de respuesta.",
+        },
+        {
+          title: "Privacidad y acceso",
+          content:
+            "Use contraseñas fuertes. Acceso de cuidadores puede requerir formularios de autorización separados.",
+        },
+      ],
+    },
+  },
+  {
+    id: "health-literacy-for-caregivers",
+    title: "Alfabetización en salud para cuidadores",
+    description: "Apoye el cuidado de un ser querido respetando su autonomía.",
+    category: "Healthcare Navigation",
+    readingTime: "7 min",
+    lastReviewed: "2026-06-11",
+    reviewedBy: "Health Education Review Team",
+    sources: ["CDC", "NIH MedlinePlus"],
+    content: {
+      sections: [
+        {
+          title: "Su rol",
+          content:
+            "Los cuidadores traducen instrucciones, rastrean citas y abogan — pero el paciente (o apoderado legal) decide salvo incapacidad.",
+        },
+        {
+          title: "Preparen citas juntos",
+          content:
+            "- Liste medicamentos y alergias actuales\n- Escriban tres preocupaciones principales con palabras del paciente\n- Tomen notas o pidan permiso para grabar",
+        },
+        {
+          title: "Acceso proxy",
+          content:
+            "Hospitales requieren autorización HIPAA para darle información médica. Complete formularios antes de emergencias cuando sea posible.",
+          callouts: [
+            {
+              type: "info",
+              content:
+                "Lleve documentos de poder notarial para salud en visitas importantes si es quien decide.",
+            },
+          ],
+        },
+        {
+          title: "Evite agotamiento",
+          content: "Comparta tareas, use programas de respiro y mantenga sus propias citas médicas.",
+        },
+        {
+          title: "Cuando hay conflicto de valores",
+          content:
+            "Enfóquese en lo que importa al paciente — movilidad, control del dolor, independencia — no solo lo médicamente agresivo.",
+        },
+      ],
+    },
+  },
+  {
+    id: "understanding-prior-authorization",
+    title: "Entender la autorización previa",
+    description: "Por qué los aseguradores exigen aprobación y cómo acelerar el proceso.",
+    category: "Insurance & Billing",
+    readingTime: "7 min",
+    lastReviewed: "2026-06-11",
+    reviewedBy: "Health Education Review Team",
+    sources: ["CDC", "NIH MedlinePlus"],
+    content: {
+      sections: [
+        {
+          title: "Qué es autorización previa",
+          content:
+            "Su asegurador puede exigir aprobación antes de pagar ciertos medicamentos, imágenes o procedimientos. El proveedor envía razones clínicas; el plan decide si cumple criterios.",
+        },
+        {
+          title: "Disparadores comunes",
+          content:
+            "- Medicamentos de marca costosos con genéricos\n- Imágenes avanzadas (RM, PET)\n- Cirugías electivas\n- Equipo médico durable",
+        },
+        {
+          title: "Plazos",
+          content:
+            "Decisiones pueden tardar días a dos semanas. Empiece pronto — pida que la oficina envíe el mismo día que ordenan el servicio.",
+          callouts: [
+            {
+              type: "warning",
+              content: "Iniciar tratamiento antes de aprobación puede dejarlo con costo total si rechazan.",
+            },
+          ],
+        },
+        {
+          title: "Si rechazan",
+          content:
+            "Puede apelar con documentación adicional. Pida carta de rechazo por escrito y código de razón.",
+        },
+        {
+          title: "Su rol",
+          content:
+            "Firme liberaciones pronto, entregue tarjeta de seguro en cada visita y haga seguimiento si no hay respuesta en el plazo indicado.",
+        },
+      ],
+    },
+  },
 ] as const;

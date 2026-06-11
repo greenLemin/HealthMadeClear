@@ -3,6 +3,7 @@ import path from "path";
 import matter from "gray-matter";
 import { GLOSSARY_IDS } from "../src/types/content";
 import { GLOSSARY_ENRICHMENT } from "./glossary-enrichment";
+import { GLOSSARY_CONTEXT } from "./glossary-context-sections";
 
 const CATEGORY_EN: Record<string, string> = {
   acute: "General",
@@ -114,19 +115,17 @@ const CATEGORY_ES: Record<string, string> = {
   "Lab Results": "Resultados de laboratorio",
 };
 
-function formatReference(definition: string, locale: "en" | "es"): string {
+function formatReference(definition: string, locale: "en" | "es", id: string): string {
   const headings =
     locale === "en"
       ? ["What It Is", "Why It Matters", "Talk With Your Care Team"]
       : ["Qué es", "Por qué importa", "Hable con su equipo de salud"];
-  const whyExtra =
-    locale === "en"
-      ? "Understanding this term helps you follow conversations with doctors, read labels and test results, and make informed decisions about your health."
-      : "Entender este término le ayuda a seguir conversaciones con médicos, leer etiquetas y resultados, y tomar decisiones informadas sobre su salud.";
-  const askExtra =
-    locale === "en"
-      ? "If you are unsure how this applies to you, write down your questions before appointments and ask for explanations in plain language."
-      : "Si no está seguro de cómo esto le aplica, anote sus preguntas antes de las citas y pida explicaciones en lenguaje sencillo.";
+  const context = GLOSSARY_CONTEXT[id];
+  if (!context) {
+    throw new Error(`Missing glossary context sections for ${id}`);
+  }
+  const whyExtra = locale === "en" ? context.whyMatters.en : context.whyMatters.es;
+  const askExtra = locale === "en" ? context.talkTeam.en : context.talkTeam.es;
   return `## ${headings[0]}\n\n${definition}\n\n## ${headings[1]}\n\n${whyExtra}\n\n## ${headings[2]}\n\n${askExtra}`;
 }
 
@@ -146,7 +145,7 @@ function writeGlossary(locale: "en" | "es", id: string) {
   const categoryEn = CATEGORY_EN[id];
   const category = locale === "en" ? categoryEn : CATEGORY_ES[categoryEn];
   const base = locale === "en" ? enrichment.en : enrichment.es;
-  const definition = formatReference(base, locale);
+  const definition = formatReference(base, locale, id);
   const relatedTerms = readExistingRelatedTerms(locale, id);
 
   const frontmatter: Record<string, unknown> = {

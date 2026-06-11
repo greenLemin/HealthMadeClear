@@ -102,6 +102,16 @@ export const ARTICLE_IDS = [
   "pharmacy-benefits-basics",
   "health-literacy-better-questions",
   "reliable-online-health-info",
+  "understanding-your-eob",
+  "finding-in-network-providers",
+  "preparing-for-blood-draw",
+  "second-opinion-basics",
+  "telehealth-visit-tips",
+  "medication-adherence-strategies",
+  "when-to-call-your-doctor",
+  "patient-portal-basics",
+  "health-literacy-for-caregivers",
+  "understanding-prior-authorization",
 ] as const;
 
 export type ArticleId = (typeof ARTICLE_IDS)[number];

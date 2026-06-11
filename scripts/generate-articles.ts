@@ -4,6 +4,7 @@
 import fs from "fs";
 import path from "path";
 import { ARTICLE_IDS } from "../src/types/content";
+import { EXPANSION_ARTICLES } from "./expansion-articles-data";
 
 type ArticleSpec = {
   id: (typeof ARTICLE_IDS)[number];
@@ -368,7 +369,7 @@ function writeArticle(locale: "en" | "es", spec: ArticleSpec) {
   fs.writeFileSync(path.join(dir, `${spec.id}.mdx`), `---\n${yaml}\n---\n\n${data.body}\n`, "utf8");
 }
 
-for (const spec of ARTICLES) {
+for (const spec of [...ARTICLES, ...EXPANSION_ARTICLES]) {
   writeArticle("en", spec);
   writeArticle("es", spec);
   console.log(`Wrote article ${spec.id}`);

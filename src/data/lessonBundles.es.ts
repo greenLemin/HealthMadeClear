@@ -13,6 +13,7 @@ export const lessons: Lesson[] = [
     duration: "15 minutos",
     level: "beginner",
     lastReviewed: "2026-06-01",
+    reviewedBy: "RN Health Education Team",
     sources: ["FDA - Cómo leer una etiqueta de receta", "CDC - Seguridad de medicamentos"],
     image: "/stitch/lesson_understanding_prescription_labels.png",
     sidebarTips: [
@@ -82,6 +83,7 @@ export const lessons: Lesson[] = [
     duration: "10 minutos",
     level: "beginner",
     lastReviewed: "2026-06-01",
+    reviewedBy: "RN Health Education Team",
     sources: ["CDC - Seguridad de medicamentos", "NIH MedlinePlus"],
     sidebarTips: [
       "Pregunte para qué es el medicamento.",
@@ -142,6 +144,7 @@ export const lessons: Lesson[] = [
     duration: "12 minutos",
     level: "beginner",
     lastReviewed: "2026-06-01",
+    reviewedBy: "RN Health Education Team",
     sources: ["FDA - Efectos secundarios de medicamentos", "CDC - Seguridad de medicamentos"],
     sidebarTips: [
       "Reporte síntomas nuevos pronto.",
@@ -208,6 +211,7 @@ export const lessons: Lesson[] = [
     duration: "10 minutos",
     level: "beginner",
     lastReviewed: "2026-06-01",
+    reviewedBy: "RN Health Education Team",
     sources: ["CDC - Consejos para visitas al médico", "Agency for Healthcare Research and Quality"],
     sidebarTips: [
       "Lleve su seguro e identificación con foto.",
@@ -274,6 +278,7 @@ export const lessons: Lesson[] = [
     duration: "10 minutos",
     level: "beginner",
     lastReviewed: "2026-06-01",
+    reviewedBy: "RN Health Education Team",
     sources: ["CDC - Consejos para visitas al médico", "Agency for Healthcare Research and Quality"],
     sidebarTips: [
       "Tome notas o pida grabar puntos clave.",
@@ -338,6 +343,7 @@ export const lessons: Lesson[] = [
     duration: "8 minutos",
     level: "beginner",
     lastReviewed: "2026-06-01",
+    reviewedBy: "RN Health Education Team",
     sources: ["CDC - Cuidado de seguimiento", "NIH MedlinePlus"],
     sidebarTips: [
       "Surta recetas pronto.",
@@ -404,6 +410,7 @@ export const lessons: Lesson[] = [
     duration: "15 minutos",
     level: "intermediate",
     lastReviewed: "2026-06-01",
+    reviewedBy: "RN Health Education Team",
     sources: ["NIH - Análisis de sangre", "CDC - Pruebas de laboratorio"],
     sidebarTips: [
       "Pregunta si necesitas estar en ayunas (sin comer ni beber).",
@@ -463,6 +470,7 @@ export const lessons: Lesson[] = [
     duration: "20 minutos",
     level: "intermediate",
     lastReviewed: "2026-06-01",
+    reviewedBy: "RN Health Education Team",
     sources: ["NIH - Pruebas de laboratorio", "CDC - Calidad de laboratorio"],
     sidebarTips: [
       "Pregunte si debe ayunar.",
@@ -539,6 +547,7 @@ export const lessons: Lesson[] = [
     duration: "10 minutos",
     level: "intermediate",
     lastReviewed: "2026-06-01",
+    reviewedBy: "RN Health Education Team",
     sources: ["CDC - Resultados de pruebas de laboratorio", "NIH MedlinePlus"],
     sidebarTips: [
       "Un valor anormal necesita contexto.",
@@ -611,6 +620,7 @@ export const lessons: Lesson[] = [
     duration: "10 minutos",
     level: "beginner",
     lastReviewed: "2026-06-01",
+    reviewedBy: "RN Health Education Team",
     sources: ["CDC - Atención preventiva", "USPSTF Recomendaciones"],
     sidebarTips: [
       "La mayoría de los seguros cubren la atención preventiva sin costo.",
@@ -677,6 +687,7 @@ export const lessons: Lesson[] = [
     duration: "12 minutos",
     level: "beginner",
     lastReviewed: "2026-06-01",
+    reviewedBy: "RN Health Education Team",
     sources: [
       "Recomendaciones de la USPSTF",
       "Guías de detección del CDC",
@@ -754,6 +765,7 @@ export const lessons: Lesson[] = [
     duration: "12 minutos",
     level: "beginner",
     lastReviewed: "2026-06-01",
+    reviewedBy: "RN Health Education Team",
     sources: ["CDC - Vacunas", "OMS Inmunización", "Coalición de Acción en Inmunización"],
     sidebarTips: [
       "No puedes contraer la enfermedad por la vacuna.",
@@ -826,6 +838,7 @@ export const lessons: Lesson[] = [
     duration: "15 minutos",
     level: "intermediate",
     lastReviewed: "2026-06-01",
+    reviewedBy: "RN Health Education Team",
     sources: ["Asociación Americana del Corazón", "CDC - Presión arterial alta"],
     sidebarTips: [
       "Mide tu presión en casa y lleva un registro.",
@@ -893,6 +906,7 @@ export const lessons: Lesson[] = [
     duration: "18 minutos",
     level: "intermediate",
     lastReviewed: "2026-06-01",
+    reviewedBy: "RN Health Education Team",
     sources: ["Asociación Americana de Diabetes", "CDC - Diabetes", "NIDDK"],
     sidebarTips: [
       "Revisa tu nivel de azúcar según las indicaciones y lleva un registro.",
@@ -977,6 +991,7 @@ export const lessons: Lesson[] = [
     duration: "14 minutos",
     level: "beginner",
     lastReviewed: "2026-06-01",
+    reviewedBy: "RN Health Education Team",
     sources: ["NHLBI - Asma", "AAAAI", "CDC - Asma"],
     sidebarTips: [
       "Siempre lleva tu inhalador de rescate.",
@@ -1061,6 +1076,7 @@ export const lessons: Lesson[] = [
     duration: "15 minutos",
     level: "intermediate",
     lastReviewed: "2026-06-01",
+    reviewedBy: "RN Health Education Team",
     sources: ["Asociación Americana del Corazón", "CDC - Enfermedades cardíacas", "NHLBI"],
     sidebarTips: [
       "Conoce tus números: presión arterial, colesterol, azúcar en sangre, peso.",
@@ -1132,6 +1148,7 @@ export const lessons: Lesson[] = [
     duration: "12 minutos",
     level: "beginner",
     lastReviewed: "2026-06-01",
+    reviewedBy: "RN Health Education Team",
     sources: ["NIMH - Depresión", "Asociación Americana de Psiquiatría", "CDC - Salud mental"],
     sidebarTips: [
       "La depresión es una condición médica, no un defecto de carácter.",
@@ -1210,6 +1227,7 @@ export const lessons: Lesson[] = [
     duration: "12 minutos",
     level: "beginner",
     lastReviewed: "2026-06-01",
+    reviewedBy: "RN Health Education Team",
     sources: ["NIMH - Trastornos de ansiedad", "ADAA", "Asociación Americana de Psicología"],
     sidebarTips: [
       "Respira: 4 segundos al inhalar, 6 al exhalar — activa la respuesta de relajación.",
@@ -1281,6 +1299,7 @@ export const lessons: Lesson[] = [
     duration: "10 minutos",
     level: "beginner",
     lastReviewed: "2026-06-01",
+    reviewedBy: "RN Health Education Team",
     sources: ["CDC - Sueño", "NHLBI - Privación de sueño", "Academia Americana de Medicina del Sueño"],
     sidebarTips: [
       "Mantén horarios consistentes para acostarte y levantarte — incluso los fines de semana.",
@@ -1360,6 +1379,7 @@ export const lessons: Lesson[] = [
     duration: "15 minutos",
     level: "intermediate",
     lastReviewed: "2026-06-01",
+    reviewedBy: "RN Health Education Team",
     sources: ["Healthcare.gov", "Kaiser Family Foundation", "CMS"],
     sidebarTips: [
       "Prima = pago mensual. Deducible = lo que pagas antes de que el seguro empiece a pagar.",
@@ -1433,6 +1453,7 @@ export const lessons: Lesson[] = [
     duration: "12 minutos",
     level: "beginner",
     lastReviewed: "2026-06-01",
+    reviewedBy: "RN Health Education Team",
     sources: [
       "CMS - Facturación médica",
       "Oficina de Protección Financiera del Consumidor",
@@ -1521,6 +1542,7 @@ export const lessons: Lesson[] = [
     duration: "10 minutos",
     level: "beginner",
     lastReviewed: "2026-06-01",
+    reviewedBy: "RN Health Education Team",
     sources: [
       "Colegio Americano de Médicos de Emergencia",
       "CDC - Preparación para emergencias",
@@ -1608,6 +1630,7 @@ export const lessons: Lesson[] = [
     duration: "8 minutos",
     level: "beginner",
     lastReviewed: "2026-06-01",
+    reviewedBy: "RN Health Education Team",
     sources: ["Cruz Roja Americana", "CDC - Kit de emergencia", "Mayo Clinic"],
     sidebarTips: [
       "Revisa tu botiquín cada 6 meses — reemplaza los artículos vencidos.",
@@ -1682,6 +1705,7 @@ export const lessons: Lesson[] = [
     duration: "10 minutos",
     level: "beginner",
     lastReviewed: "2026-06-01",
+    reviewedBy: "RN Health Education Team",
     sources: [
       "FDA - Etiqueta de Información Nutricional",
       "Guías alimentarias del USDA",
@@ -1774,6 +1798,7 @@ export const lessons: Lesson[] = [
     duration: "10 minutos",
     level: "beginner",
     lastReviewed: "2026-06-01",
+    reviewedBy: "RN Health Education Team",
     sources: [
       "USDA MiPlato",
       "Guías alimentarias para estadounidenses",
@@ -1860,6 +1885,7 @@ export const lessons: Lesson[] = [
     duration: "15 minutes",
     level: "beginner",
     lastReviewed: "2026-06-11",
+    reviewedBy: "RN Health Education Team",
     sources: ["NIH", "CDC", "MedlinePlus"],
     sidebarTips: [
       "Lleve epinefrina si se la recetaron.",
@@ -1909,6 +1935,28 @@ export const lessons: Lesson[] = [
             },
           ],
         },
+        {
+          title: "Plan de acción para anafilaxia",
+          content:
+            "Si está en riesgo de reacciones graves, elabore con su médico un plan escrito que incluya:\n\n1. **Reconocer síntomas** — opresión de garganta, sibilancias, urticaria generalizada, mareo\n2. **Usar epinefrina primero** — autoinyector en muslo externo; no espere solo antihistamínicos\n3. **Llamar al 911** — puede haber segunda reacción tras mejoría inicial\n4. **Ir a emergencias** — aunque se sienta mejor tras epinefrina",
+          callouts: [
+            {
+              type: "warning",
+              content:
+                "Lleve siempre dos autoinyectores si se los recetaron — una dosis puede no bastar y un dispositivo puede fallar.",
+            },
+          ],
+        },
+        {
+          title: "Leer etiquetas de alimentos (EE.UU.)",
+          content:
+            "Los nueve alérgenos principales deben declararse: leche, huevos, pescado, mariscos, nueces, cacahuates, trigo, soya y sésamo. “Puede contener” es voluntario — pregunte al fabricante si necesita evitación estricta.",
+        },
+        {
+          title: "Alergias en escuela y trabajo",
+          content:
+            "Comparta su plan con enfermería, maestros o RR.HH. Sepa dónde está la epinefrina y quién está capacitado. Para alergias alimentarias, hable de áreas seguras y riesgo de contaminación cruzada en cocinas compartidas.\n\n<!-- lesson-depth-added -->",
+        },
       ],
     },
   },
@@ -1921,6 +1969,7 @@ export const lessons: Lesson[] = [
     duration: "12 minutes",
     level: "beginner",
     lastReviewed: "2026-06-11",
+    reviewedBy: "RN Health Education Team",
     sources: ["NIH", "CDC", "MedlinePlus"],
     sidebarTips: [
       "No exceda la dosis diaria de la etiqueta.",
@@ -1965,6 +2014,28 @@ export const lessons: Lesson[] = [
             },
           ],
         },
+        {
+          title: "Tabla de interacciones",
+          content:
+            "| Si toma…                              | Antes de ibuprofeno o naproxeno, pregunte por… |\n| ------------------------------------- | ---------------------------------------------- |\n| Anticoagulantes (warfarina, apixaban) | Riesgo de sangrado — los AINE lo aumentan      |\n| Medicamentos para presión             | Los AINE pueden reducir eficacia               |\n| Esteroides (prednisona)               | Mayor riesgo de sangrado estomacal             |\n| Aspirina diaria (protección cardíaca) | Si otro AINE es seguro                         |\n\nEl acetaminofén no diluye la sangre, pero cuenta hacia el límite diario hepático de todas las fuentes.",
+        },
+        {
+          title: "Poblaciones especiales",
+          content:
+            "- **Adultos mayores** — riñones y estómago más vulnerables; use la dosis efectiva más baja por el menor tiempo\n- **Niños** — use dosis por peso en la etiqueta; nunca dé tabletas de adulto sin verificar\n- **Embarazo** — pregunte antes de cualquier analgésico; algunas opciones son más seguras según trimestre",
+          callouts: [
+            {
+              type: "warning",
+              content:
+                "Nunca dé aspirina a niños o adolescentes con enfermedad viral — se asocia con síndrome de Reye, condición grave aunque rara.",
+            },
+          ],
+        },
+        {
+          title: "Signos de sobredosis",
+          content:
+            "Demasiado acetaminofén puede causar náusea, vómito, confusión o piel amarillenta (ictericia) — a veces con retraso de 24–48 horas. Demasiado AINE puede causar dolor estomacal, heces negras o menos orina. Si sospecha sobredosis, llame a Control de Envenenamientos (1-800-222-1222 en EE.UU.) o busque emergencias de inmediato.\n\n<!-- lesson-depth-added -->",
+        },
       ],
     },
   },
@@ -1978,6 +2049,7 @@ export const lessons: Lesson[] = [
     duration: "12 minutes",
     level: "intermediate",
     lastReviewed: "2026-06-11",
+    reviewedBy: "RN Health Education Team",
     sources: ["NIH", "CDC", "MedlinePlus"],
     sidebarTips: [
       "Pregunte en farmacia por tarjetas de ayuda.",
@@ -2022,6 +2094,28 @@ export const lessons: Lesson[] = [
             },
           ],
         },
+        {
+          title: "Solicitud paso a paso",
+          content:
+            "1. **Tenga el diagnóstico registrado** — la mayoría de programas lo exigen\n2. **Reúna documentos** — declaración de impuestos, comprobante de pago, tarjeta de seguro, detalles de receta\n3. **Solicite por canales oficiales** — sitio del fabricante o consejero financiero de la clínica\n4. **Active la tarjeta** antes de surtir en farmacia — algunas requieren registro previo\n5. **Guarde confirmación** — IDs de programa, fechas de renovación y teléfonos de servicio",
+          callouts: [
+            {
+              type: "info",
+              content:
+                "Mantenga una carpeta (papel o digital) por cada programa. La renovación suele pedir comprobante de ingresos actualizado.",
+            },
+          ],
+        },
+        {
+          title: "Programas del fabricante vs sin fines de lucro",
+          content:
+            "| Tipo                                     | Ayuda típica                                               | Precaución                        |\n| ---------------------------------------- | ---------------------------------------------------------- | --------------------------------- |\n| Tarjeta de copago del fabricante         | Baja copago en farmacia por un medicamento de marca        | Puede no contar al deducible      |\n| Programa de asistencia al paciente (PAP) | Medicamento gratis o a bajo costo si califica por ingresos | La solicitud puede tardar semanas |\n| Beca de fundación                        | Ayuda con varios medicamentos para un diagnóstico          | Ciclos de fondos limitados        |",
+        },
+        {
+          title: "Si termina la ayuda",
+          content:
+            "Los programas pueden acabar cuando se agotan fondos o cambia el seguro. Antes de que expire su tarjeta:\n\n- Pregunte al médico por alternativas terapéuticas\n- Pida suministro de 90 días si está permitido mientras vuelve a solicitar\n- Revise NeedyMeds, PAN Foundation o programas estatales\n\nNunca compre en vendedores en línea sin licencia cuando un programa termina — el medicamento falsificado es un riesgo real.\n\n<!-- lesson-depth-added -->",
+        },
       ],
     },
   },
@@ -2035,6 +2129,7 @@ export const lessons: Lesson[] = [
     duration: "18 minutes",
     level: "intermediate",
     lastReviewed: "2026-06-11",
+    reviewedBy: "RN Health Education Team",
     sources: ["NIH", "CDC", "MedlinePlus"],
     sidebarTips: [
       "Traiga historial familiar de cáncer.",
@@ -2079,6 +2174,33 @@ export const lessons: Lesson[] = [
             },
           ],
         },
+        {
+          title: "Seguro y costos",
+          content:
+            "La mayoría de detecciones preventivas se cubren sin copago en planes ACA de EE.UU. en intervalos recomendados — pero las reglas varían. Pregunte:\n\n- ¿Esta detección se codifica como preventiva para mi edad y riesgo?\n- ¿Un resultado positivo llevará a pruebas diagnósticas con otro costo?\n- ¿Necesito referencia o centro en red?",
+          callouts: [
+            {
+              type: "info",
+              content:
+                "Traiga su tarjeta de seguro y pida confirmar facturación preventiva al programar cuando sea posible.",
+            },
+          ],
+        },
+        {
+          title: "Barreras y adaptaciones",
+          content:
+            "La detección no es igual para todos. Hable con su médico si tiene:\n\n- **Limitaciones de movilidad** — pregunte por pruebas de heces en lugar de colonoscopia cuando corresponda\n- **Ansiedad o historial de trauma** — pida más tiempo, sedación o acompañante\n- **Necesidad de idioma** — solicite intérprete con anticipación\n- **Falta de transporte** — algunos departamentos de salud ofrecen viajes",
+        },
+        {
+          title: "Comunicación familiar",
+          content:
+            "Si hay historial familiar fuerte, anime a familiares a compartir fechas de detección con sus médicos. No es responsable de sus decisiones, pero la conversación ayuda a entender el riesgo heredado.",
+        },
+        {
+          title: "Cuando las guías difieren",
+          content:
+            "Las sociedades médicas actualizan recomendaciones según evidencia. Su edad de inicio puede ser antes o después que la de un amigo. Confíe en decisión compartida con su clínico, no en tablas de redes sociales.\n\n<!-- lesson-depth-added -->",
+        },
       ],
     },
   },
@@ -2091,6 +2213,7 @@ export const lessons: Lesson[] = [
     duration: "15 minutes",
     level: "beginner",
     lastReviewed: "2026-06-11",
+    reviewedBy: "RN Health Education Team",
     sources: ["NIH", "CDC", "MedlinePlus"],
     sidebarTips: [
       "Pruebe 5 minutos de respiración lenta.",
@@ -2135,6 +2258,33 @@ export const lessons: Lesson[] = [
             },
           ],
         },
+        {
+          title: "Estrés laboral y de cuidador",
+          content:
+            "Presión en el trabajo, turnos y cuidar a un familiar enfermo son estresores crónicos comunes. Pasos prácticos:\n\n- **Micro-pausas** — caminatas o estiramientos de 2 minutos entre tareas\n- **Delegar** — una tarea menos por semana cuando sea posible\n- **Respiro** — pida ayuda a familia, amigos o programas comunitarios\n- **Programas de asistencia al empleado (EAP)** — a menudo consejería corta gratis por el trabajo",
+          callouts: [
+            {
+              type: "info",
+              content:
+                "El agotamiento del cuidador es real. Tomar un descanso no es egoísta — protege su capacidad de cuidar a largo plazo.",
+            },
+          ],
+        },
+        {
+          title: "Ciclo sueño y estrés",
+          content:
+            "Dormir mal sube hormonas de estrés; mucho estrés altera el sueño. Rompa el ciclo con:\n\n- Hora fija de despertar (incluso fines de semana)\n- Sin cafeína después de media tarde\n- Rutina de relajación sin pantallas 30–60 minutos antes de dormir",
+        },
+        {
+          title: "Plan personal",
+          content:
+            "Elija **dos** estrategias para esta semana — no diez. Ejemplo: cinco minutos de respiración lenta tras el almuerzo más caminata de 15 minutos tres días. Revise qué ayudó al final de la semana y ajuste.",
+        },
+        {
+          title: "Recursos de crisis (EE.UU.)",
+          content:
+            "- **988 Línea de crisis** — llame o envíe texto al 988\n- **Crisis Text Line** — texto HOME al 741741\n- **911** — peligro inmediato\n\nFuera de EE.UU., busque “línea de crisis” más su país.\n\n<!-- lesson-depth-added -->",
+        },
       ],
     },
   },
@@ -2147,6 +2297,7 @@ export const lessons: Lesson[] = [
     duration: "10 minutes",
     level: "beginner",
     lastReviewed: "2026-06-11",
+    reviewedBy: "RN Health Education Team",
     sources: ["NIH", "CDC", "MedlinePlus"],
     sidebarTips: [
       "Beba más con calor y ejercicio.",
@@ -2196,6 +2347,33 @@ export const lessons: Lesson[] = [
             },
           ],
         },
+        {
+          title: "Electrolitos y enfermedad",
+          content:
+            "Con vómito, diarrea o sudor intenso pierde sodio y potasio — no solo agua. En enfermedad leve:\n\n- Soluciones de rehidratación oral (comerciales o receta OMS) superan solo agua\n- Caldo puede ayudar si lo tolera\n- Evite bebidas deportivas azucaradas como único líquido — pueden empeorar diarrea",
+          callouts: [
+            {
+              type: "warning",
+              content:
+                "Bebés, adultos mayores y personas con enfermedad cardíaca o renal se deshidratan más rápido. Busque atención antes si no retienen líquidos.",
+            },
+          ],
+        },
+        {
+          title: "Ejercicio y calor",
+          content:
+            "Beba antes de sentir sed con calor o actividad intensa. Señales de pausa: mareo, calambres o dejar de sudar con calor (posible emergencia por calor).",
+        },
+        {
+          title: "Medicamentos que afectan líquidos",
+          content:
+            "Diuréticos (“pastillas de agua”), algunos antihipertensivos y litio requieren ingesta constante — no siempre extra. Siga instrucciones del prescriptor; no cambie ingesta drásticamente sin preguntar.",
+        },
+        {
+          title: "Mitos vs hechos",
+          content:
+            "| Mito                              | Hecho                                                       |\n| --------------------------------- | ----------------------------------------------------------- |\n| “8 vasos para todos”              | Las necesidades varían por tamaño, actividad, clima y salud |\n| “Orina clara siempre mejor”       | Orina muy clara puede indicar sobrehidratación              |\n| “El café deshidrata por completo” | Café moderado aún aporta líquidos                           |\n\n<!-- lesson-depth-added -->",
+        },
       ],
     },
   },
@@ -2208,6 +2386,7 @@ export const lessons: Lesson[] = [
     duration: "12 minutes",
     level: "beginner",
     lastReviewed: "2026-06-11",
+    reviewedBy: "RN Health Education Team",
     sources: ["NIH", "CDC", "MedlinePlus"],
     sidebarTips: [
       "Llame antes si no está seguro.",
@@ -2252,6 +2431,32 @@ export const lessons: Lesson[] = [
             },
           ],
         },
+        {
+          title: "Costos y facturación",
+          content:
+            "La atención urgente suele costar menos que emergencias pero más que consultorio. Puede deber:\n\n- Copago al registrarse\n- Cargos por laboratorios o rayos X en el sitio\n- Facturación balanceada si el centro está fuera de red\n\nTraiga tarjeta de seguro e identificación. Pregunte si pueden enviar registros a su médico de cabecera.",
+        },
+        {
+          title: "Telesalud vs urgencias vs emergencias",
+          content:
+            "| Opción           | Bueno para                                 | No para                                        |\n| ---------------- | ------------------------------------------ | ---------------------------------------------- |\n| Telesalud        | Sarpullido leve, resurtido, resfriado      | Dolor de pecho, dificultad respiratoria severa |\n| Atención urgente | Esguinces, puntos, síntomas de ITU, fiebre | ACV, trauma mayor, inconsciencia               |\n| ER / 911         | Emergencias mortales                       | Resurtidos de rutina                           |",
+          callouts: [
+            {
+              type: "info",
+              content: "Muchos seguros ofrecen línea de enfermería 24/7 — úsela cuando no sepa a dónde ir.",
+            },
+          ],
+        },
+        {
+          title: "Después de la visita",
+          content:
+            "- Recoja recetas el mismo día si es posible\n- Siga cuidado de heridas o restricciones de actividad\n- Programe seguimiento con PCP en una semana para problemas persistentes\n- Vaya a emergencias si empeora pese al tratamiento urgente",
+        },
+        {
+          title: "Prepare un kit rápido",
+          content:
+            "Tenga tarjeta de seguro, lista de medicamentos y contactos de emergencia en cartera o teléfono. Ahorra tiempo cuando hay estrés.\n\n<!-- lesson-depth-added -->",
+        },
       ],
     },
   },
@@ -2264,6 +2469,7 @@ export const lessons: Lesson[] = [
     duration: "15 minutes",
     level: "intermediate",
     lastReviewed: "2026-06-11",
+    reviewedBy: "RN Health Education Team",
     sources: ["NIH", "CDC", "MedlinePlus"],
     sidebarTips: [
       "H o L significa alto o bajo.",
@@ -2308,6 +2514,33 @@ export const lessons: Lesson[] = [
             },
           ],
         },
+        {
+          title: "Navegar el portal del paciente",
+          content:
+            "La mayoría de laboratorios publican resultados antes de que el médico los revise. Cuando vea un resultado nuevo:\n\n1. Lea nombre de prueba y fecha\n2. Note la bandera (H/L) si hay\n3. Anote preguntas — no entre en pánico por un número\n4. Espere mensaje o cita del clínico salvo que diga crítico",
+          callouts: [
+            {
+              type: "warning",
+              content:
+                "Valores “críticos” o de pánico requieren contacto pronto — no espere visita de rutina.",
+            },
+          ],
+        },
+        {
+          title: "Pruebas en ayunas vs no",
+          content:
+            "Glucosa y lípidos suelen requerir ayuno (8–12 horas, agua permitida). Tiroides y muchas otras no. Preparación incorrecta puede engañar — confirme al programar.",
+        },
+        {
+          title: "Seguir tendencias en casa",
+          content:
+            "Lleve un registro simple: fecha, prueba, resultado, unidades. Hoja, app o tabla sirven. Llévelo a visitas para ver patrones entre laboratorios distintos.",
+        },
+        {
+          title: "Preguntas comunes del paciente",
+          content:
+            "- “¿Este cambio es por mi medicamento nuevo?”\n- “¿Repetimos en 3 o 6 meses?”\n- “¿Necesito especialista por este resultado?”\n- “¿Qué síntomas debo vigilar?”\n<!-- lesson-depth-added -->",
+        },
       ],
     },
   },
@@ -2320,6 +2553,7 @@ export const lessons: Lesson[] = [
     duration: "10 minutes",
     level: "beginner",
     lastReviewed: "2026-06-11",
+    reviewedBy: "RN Health Education Team",
     sources: ["NIH", "CDC", "MedlinePlus"],
     sidebarTips: [
       "Se requiere el mismo ingrediente activo.",
@@ -2369,6 +2603,32 @@ export const lessons: Lesson[] = [
             },
           ],
         },
+        {
+          title: "Medicamentos de índice terapéutico estrecho",
+          content:
+            "La mayoría de genéricos funcionan igual que las marcas. Algunas clases requieren más monitoreo al cambiar — p. ej. ciertos anticonvulsivos, levotiroxina y warfarina. Su médico o farmacéutico puede recomendar un solo fabricante por consistencia.",
+          callouts: [
+            {
+              type: "info",
+              content: "Si la farmacia cambia proveedor genérico, pregunte si necesita laboratorios extra.",
+            },
+          ],
+        },
+        {
+          title: "Leyes de sustitución",
+          content:
+            "En EE.UU. las farmacias pueden sustituir por genéricos aprobados salvo que el prescriptor indique “dispensar como está escrito.” Puede pedir marca con razón documentada, pero el seguro puede cobrar más.",
+        },
+        {
+          title: "Leer la etiqueta surtida",
+          content:
+            "Verifique:\n\n- **Ingrediente activo** — debe coincidir con lo esperado\n- **Fabricante** — puede cambiar entre resurtidos\n- **Apariencia** — color o forma pueden variar; confirme con farmacéutico si duda",
+        },
+        {
+          title: "Reportar problemas",
+          content:
+            "Use FDA MedWatch para efectos inesperados tras un cambio. Su reporte ayuda a rastrear problemas de calidad entre fabricantes.\n\n<!-- lesson-depth-added -->",
+        },
       ],
     },
   },
@@ -2381,6 +2641,7 @@ export const lessons: Lesson[] = [
     duration: "15 minutes",
     level: "intermediate",
     lastReviewed: "2026-06-11",
+    reviewedBy: "RN Health Education Team",
     sources: ["NIH", "CDC", "MedlinePlus"],
     sidebarTips: [
       "Ronquidos más somnolencia diurna — pregunte al médico.",
@@ -2427,6 +2688,33 @@ export const lessons: Lesson[] = [
                 "Las mascarillas CPAP tienen muchos estilos. Un técnico del sueño puede ayudar a encontrar ajuste cómodo.",
             },
           ],
+        },
+        {
+          title: "Prueba en casa vs estudio en laboratorio",
+          content:
+            "| Prueba                         | Dónde                        | Mejor para                                  |\n| ------------------------------ | ---------------------------- | ------------------------------------------- |\n| Prueba casera de apnea         | Su cama, sensores portátiles | Muchos adultos con riesgo moderado-alto     |\n| Polisomnografía en laboratorio | Centro del sueño             | Casos complejos, otros trastornos del sueño |\n\nEl especialista elige según síntomas e historial.",
+        },
+        {
+          title: "Cambios de estilo de vida",
+          content:
+            "Incluso con CPAP, esto ayuda:\n\n- **Pérdida de peso** — incluso modesta puede reducir severidad en algunas personas\n- **Dormir de lado** — almohadas posicionales o técnicas para evitar boca arriba\n- **Evitar alcohol antes de dormir** — relaja músculos de la vía aérea\n- **Tratar congestión nasal** — alergias y desviación septal empeoran obstrucción",
+          callouts: [
+            {
+              type: "info",
+              content:
+                "CPAP y cambios de estilo van juntos — ninguno sustituye al otro con apnea moderada a severa.",
+            },
+          ],
+        },
+        {
+          title: "Impacto en pareja y familia",
+          content:
+            "Ronquidos fuertes y pausas observadas afectan a quien duerme junto. Inclúyalos en citas cuando sea posible — sus observaciones ayudan al diagnóstico.",
+        },
+        {
+          title: "Seguimiento esperado",
+          content:
+            "Espere visitas de ajuste de mascarilla, presión y descargas periódicas de datos de la máquina. El seguro a menudo exige prueba de uso para continuar cobertura.\n\n<!-- lesson-depth-added -->",
         },
       ],
     },

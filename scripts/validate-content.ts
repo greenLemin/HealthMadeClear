@@ -46,12 +46,23 @@ const enQuizzes = getAllQuizzesFromMdx("en");
 const esQuizzes = getAllQuizzesFromMdx("es");
 assertLocaleIdParity(enQuizzes, esQuizzes, "quizzes");
 
+const STUB_EXPLANATION = / — correct\.$/;
+
 for (const quiz of [...enQuizzes, ...esQuizzes]) {
   if (!quiz.title) {
     throw new Error(`Quiz ${quiz.id} is missing title`);
   }
   if (quiz.questions.length < 5) {
     throw new Error(`Quiz ${quiz.id} (${quiz.questions.length} questions) must have at least 5 questions`);
+  }
+  for (let index = 0; index < quiz.questions.length; index++) {
+    const question = quiz.questions[index];
+    if (!question.explanation || question.explanation.trim().length < 40) {
+      throw new Error(`Quiz ${quiz.id} question ${index + 1} has a missing or too-short explanation`);
+    }
+    if (STUB_EXPLANATION.test(question.explanation.trim())) {
+      throw new Error(`Quiz ${quiz.id} question ${index + 1} has a placeholder explanation`);
+    }
   }
 }
 

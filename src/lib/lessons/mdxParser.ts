@@ -22,7 +22,7 @@ function parseCallouts(block: string) {
   return { content: content.trim(), callouts: callouts.length ? callouts : undefined };
 }
 
-function parseSections(markdown: string): Lesson["content"]["sections"] {
+export function parseSections(markdown: string): Lesson["content"]["sections"] {
   const parts = markdown.split(/^## /m).filter(Boolean);
 
   return parts.map((part) => {

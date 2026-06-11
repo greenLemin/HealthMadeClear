@@ -1,5 +1,7 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { requireLocale } from "@/lib/locale";
+import { getAllLessons } from "@/lib/lessons/loadLessons";
+import { toLessonListItems } from "@/lib/lessonListItem";
 import LearnClient from "./LearnClient";
 
 type Props = { params: { locale: string } };
@@ -14,6 +16,8 @@ export async function generateMetadata({ params }: Props) {
 }
 
 export default function LearnPage({ params }: Props) {
-  setRequestLocale(requireLocale(params.locale));
-  return <LearnClient />;
+  const locale = requireLocale(params.locale);
+  setRequestLocale(locale);
+  const lessons = toLessonListItems(getAllLessons(locale));
+  return <LearnClient lessons={lessons} />;
 }

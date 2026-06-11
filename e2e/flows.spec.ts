@@ -79,3 +79,35 @@ test("spanish quiz loads questions and shows results", async ({ page }) => {
 
   await expect(quizMain.getByText(/aprobaste|inténtalo|puntuación|scored/i)).toBeVisible();
 });
+
+test("article detail page loads full content", async ({ page }) => {
+  await page.goto("/en/articles/understanding-your-eob");
+  await expect(page.getByRole("heading", { level: 1 })).toContainText(/explanation of benefits/i);
+  await expect(page.getByRole("heading", { level: 2 }).first()).toBeVisible();
+});
+
+test("english quiz shows substantive explanation after wrong answer", async ({ page }) => {
+  await page.goto("/en/learn/pain-medications-safely/quiz");
+  await page.getByRole("button", { name: /start quiz/i }).click();
+  const quizMain = page.getByRole("main");
+  await quizMain.locator('label[for^="quiz-q"]').first().click();
+  await quizMain.getByRole("button", { name: /check answer/i }).click();
+  await expect(quizMain.getByText(/acetaminophen|liver|processed/i)).toBeVisible();
+});
+
+test("visit planner persists after reload", async ({ page }) => {
+  await page.goto("/en/tools/visit-planner");
+  await page
+    .getByRole("button", { name: /continue/i })
+    .first()
+    .click();
+  await page.reload();
+  await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
+});
+
+test("home featured paths show progress bar when lesson completed", async ({ page }) => {
+  await page.goto("/en/learn/understanding-prescription-labels");
+  await page.getByRole("button", { name: /mark as complete/i }).click();
+  await page.goto("/en");
+  await expect(page.getByRole("progressbar").first()).toBeVisible();
+});

@@ -1841,7 +1841,8 @@ export const quizzes: Quiz[] = [
         question: "¿Qué órgano está más en riesgo con demasiado acetaminofén?",
         options: ["Corazón", "Hígado", "Riñones", "Pulmones"],
         correctAnswer: "B",
-        explanation: "Hígado — correct.",
+        explanation:
+          "El acetaminofén se procesa en el hígado. Superar el límite diario — especialmente con varios productos — puede causar daño hepático grave. El corazón, riñones y pulmones no son los órganos principales en riesgo por sobredosis de acetaminofén.",
       },
       {
         question: "¿Por qué revisar medicamentos para resfriado?",
@@ -1852,7 +1853,8 @@ export const quizzes: Quiz[] = [
           "Las etiquetas son opcionales",
         ],
         correctAnswer: "B",
-        explanation: "Varios productos pueden exceder límites diarios — correct.",
+        explanation:
+          "Muchos productos para resfriado, gripe y dolor contienen acetaminofén con distintos nombres. Combinarlos puede superar el límite diario seguro sin darse cuenta. Lea siempre los ingredientes activos en cada etiqueta.",
       },
       {
         question: "¿Cuándo evitar ibuprofeno sin consejo médico?",
@@ -1863,7 +1865,8 @@ export const quizzes: Quiz[] = [
           "Cuando hay comida disponible",
         ],
         correctAnswer: "B",
-        explanation: "Enfermedad renal conocida o úlcera estomacal — correct.",
+        explanation:
+          "Los AINE como el ibuprofeno pueden empeorar la función renal e irritar el estómago. Quienes tienen enfermedad renal, úlcera o toman anticoagulantes deben usarlos solo con orientación médica. Un dolor de cabeza leve sin esas condiciones es distinto.",
       },
       {
         question: "¿Qué hacer ante dolor de pecho?",
@@ -1874,7 +1877,8 @@ export const quizzes: Quiz[] = [
           "Ignorarlo si es joven",
         ],
         correctAnswer: "B",
-        explanation: "Buscar atención de emergencia de inmediato — correct.",
+        explanation:
+          "El dolor de pecho puede indicar infarto u otra emergencia. Los analgésicos no tratan la causa. Llame al 911 o vaya a emergencias de inmediato — no espere a ver si pasa.",
       },
       {
         question: "¿Por qué informar todos sus medicamentos al farmacéutico?",
@@ -1885,7 +1889,8 @@ export const quizzes: Quiz[] = [
           "Solo para recetas de un médico",
         ],
         correctAnswer: "A",
-        explanation: "Para revisar interacciones y duplicados — correct.",
+        explanation:
+          "Los farmacéuticos revisan ingredientes duplicados (como acetaminofén en varios productos) e interacciones peligrosas. Esto importa especialmente si toma recetas, medicamentos de venta libre y suplementos juntos.",
       },
     ],
   },
@@ -1904,7 +1909,8 @@ export const quizzes: Quiz[] = [
           "Eliminar recetas",
         ],
         correctAnswer: "B",
-        explanation: "Reducir el pago del paciente por un medicamento específico — correct.",
+        explanation:
+          "Las tarjetas de copago del fabricante reducen lo que paga en farmacia por un medicamento de marca específico. No reemplazan el seguro ni eliminan la necesidad de receta válida — bajan su parte de bolsillo para pacientes elegibles.",
       },
       {
         question: "¿Qué hacer antes de dejar un medicamento que no puede pagar?",
@@ -1915,7 +1921,8 @@ export const quizzes: Quiz[] = [
           "Duplicar la dosis",
         ],
         correctAnswer: "B",
-        explanation: "Hablar con el médico sobre alternativas y ayuda — correct.",
+        explanation:
+          "Suspender un medicamento necesario de repente puede ser peligroso. Su médico puede conocer genéricos, otras dosis, muestras o programas de ayuda. Siempre hable de costos antes de cambiar o dejar el tratamiento.",
       },
       {
         question: "¿Por qué desconfiar de llamadas no solicitadas?",
@@ -1926,7 +1933,8 @@ export const quizzes: Quiz[] = [
           "El seguro prohíbe toda ayuda",
         ],
         correctAnswer: "B",
-        explanation: "Estafas pueden pedir datos personales sensibles — correct.",
+        explanation:
+          "Los programas legítimos usan sitios oficiales y consejeros de la clínica. Estafadores pueden pedir número de Seguro Social, datos bancarios o pago por adelantado. No comparta información sensible con llamadas no solicitadas.",
       },
       {
         question: "¿Quién puede ayudar en muchos hospitales?",
@@ -1937,7 +1945,8 @@ export const quizzes: Quiz[] = [
           "Solo representantes de ventas",
         ],
         correctAnswer: "B",
-        explanation: "Consejero financiero o trabajador social — correct.",
+        explanation:
+          "Los consejeros financieros y trabajadores sociales conocen programas del fabricante, becas y recursos locales. Pueden ayudarle a solicitar sin navegar reglas complejas solo — pregunte en registro o facturación.",
       },
       {
         question: "¿Por qué revisar elegibilidad cada año?",
@@ -1948,7 +1957,8 @@ export const quizzes: Quiz[] = [
           "El médico lo hace solo",
         ],
         correctAnswer: "B",
-        explanation: "Seguro, reglas de ingresos y fondos pueden cambiar — correct.",
+        explanation:
+          "Los programas dependen del tipo de seguro, límites de ingresos y fondos del fabricante. Un cambio de empleo, estatus de Medicare o plan puede terminar la elegibilidad. Revise cada año y cuando cambie su cobertura.",
       },
     ],
   },
@@ -1967,13 +1977,15 @@ export const quizzes: Quiz[] = [
           "Garantizar que nunca habrá cáncer",
         ],
         correctAnswer: "B",
-        explanation: "Encontrar signos tempranos antes de síntomas — correct.",
+        explanation:
+          "Las pruebas de detección buscan cáncer temprano o cambios precancerosos antes de sentirse enfermo. No diagnostican cada síntoma — son herramientas preventivas para edades y niveles de riesgo recomendados.",
       },
       {
         question: "¿Edad típica de inicio para colon en guías de EE.UU.?",
         options: ["18", "45", "70", "Solo con síntomas"],
         correctAnswer: "B",
-        explanation: "45 — correct.",
+        explanation:
+          "Las guías de EE.UU. recomiendan detección de cáncer colorrectal desde los 45 años en adultos de riesgo promedio. Puede necesitarse antes con historial familiar. Los 18 o 70 solos no son edades estándar de inicio.",
       },
       {
         question: "¿Por qué importa el historial familiar?",
@@ -1984,7 +1996,8 @@ export const quizzes: Quiz[] = [
           "Solo en niños",
         ],
         correctAnswer: "B",
-        explanation: "Puede llevar a detección antes o más frecuente — correct.",
+        explanation:
+          "Un padre o hermano con ciertos cánceres puede aumentar su riesgo. Los médicos pueden recomendar mamografías o colonoscopia antes o con más frecuencia. No pueden asumir su historial sin que usted lo comparta.",
       },
       {
         question: "¿Qué hacer si el resultado es anormal?",
@@ -1995,7 +2008,8 @@ export const quizzes: Quiz[] = [
           "Autotratarse",
         ],
         correctAnswer: "B",
-        explanation: "Preguntar qué significa y siguientes pasos — correct.",
+        explanation:
+          "Un resultado anormal no siempre significa cáncer, pero requiere seguimiento. Pregunte qué significa, qué prueba sigue y cuándo. Ignorar resultados o dejar toda detección es inseguro.",
       },
       {
         question: "¿Puede la detección no ver cáncer?",
@@ -2006,7 +2020,8 @@ export const quizzes: Quiz[] = [
           "Solo cáncer de piel",
         ],
         correctAnswer: "B",
-        explanation: "Sí — reporte síntomas nuevos tras resultado normal — correct.",
+        explanation:
+          "Ninguna prueba detecta todo el cáncer. Hay falsos negativos. Si tiene síntomas nuevos — sangrado, bultos, dolor persistente — repórtelos aunque una prueba reciente fue normal.",
       },
     ],
   },
@@ -2020,7 +2035,8 @@ export const quizzes: Quiz[] = [
         question: "El estrés crónico puede afectar:",
         options: ["Solo el ánimo", "Sueño, presión, digestión y más", "Solo atletas", "Nada medible"],
         correctAnswer: "B",
-        explanation: "Sueño, presión, digestión y más — correct.",
+        explanation:
+          "El estrés prolongado afecta más que el ánimo. Puede alterar el sueño, subir la presión, afectar la digestión y debilitar la inmunidad. Estos efectos físicos son medibles y conviene abordarlos pronto.",
       },
       {
         question: "Un hábito diario útil es:",
@@ -2031,7 +2047,8 @@ export const quizzes: Quiz[] = [
           "Aislarse de todos",
         ],
         correctAnswer: "B",
-        explanation: "Caminata corta o pausa para respirar — correct.",
+        explanation:
+          "Movimiento breve y respiración lenta activan la respuesta calmante del cuerpo sin equipo especial. Revisar noticias sin parar, dormir poco y aislarse suelen empeorar el estrés con el tiempo.",
       },
       {
         question: "¿Cuándo buscar ayuda profesional?",
@@ -2042,7 +2059,8 @@ export const quizzes: Quiz[] = [
           "Solo niños",
         ],
         correctAnswer: "B",
-        explanation: "Cuando los síntomas persisten e interfieren con la vida diaria — correct.",
+        explanation:
+          "El apoyo profesional es apropiado cuando la preocupación, el ánimo bajo o el pánico duran semanas e interfieren con trabajo, relaciones o autocuidado. El estrés no siempre es leve — los síntomas persistentes merecen evaluación.",
       },
       {
         question: "¿Recurso de crisis?",
@@ -2053,7 +2071,8 @@ export const quizzes: Quiz[] = [
           "Suspender medicamentos",
         ],
         correctAnswer: "B",
-        explanation: "Línea 24/7 o emergencias si hay peligro — correct.",
+        explanation:
+          "Las líneas de crisis y emergencias existen para peligro inmediato, incluidos pensamientos de hacerse daño. No son último recurso tras hospitalización — son para cuando la seguridad está en riesgo ahora.",
       },
       {
         question: "Los hábitos pequeños funcionan porque:",
@@ -2064,7 +2083,8 @@ export const quizzes: Quiz[] = [
           "Reemplazan atención médica",
         ],
         correctAnswer: "B",
-        explanation: "Acciones repetibles construyen recuperación — correct.",
+        explanation:
+          "La recuperación se construye con acciones pequeñas repetidas — caminar, pausar para respirar, rutina de sueño. No se requiere perfección, y los hábitos no sustituyen tratamiento médico o de salud mental cuando hace falta.",
       },
     ],
   },
@@ -2083,7 +2103,8 @@ export const quizzes: Quiz[] = [
           "Siempre frecuencia cardíaca baja",
         ],
         correctAnswer: "B",
-        explanation: "Dolor de cabeza y fatiga — correct.",
+        explanation:
+          "La deshidratación leve suele manifestarse con dolor de cabeza, fatiga, boca seca u orina oscura antes de enfermedad grave. Pueden parecer otras condiciones; considere la ingesta de líquidos cuando aparecen juntos.",
       },
       {
         question: "¿Quién puede necesitar límites de líquidos?",
@@ -2094,7 +2115,8 @@ export const quizzes: Quiz[] = [
           "Solo niños",
         ],
         correctAnswer: "B",
-        explanation: "Algunas personas con enfermedad cardíaca o renal — correct.",
+        explanation:
+          "Quienes tienen insuficiencia cardíaca, enfermedad renal o ciertos medicamentos pueden necesitar límites de líquidos indicados por el médico. Beber de más sin orientación puede ser dañino — no todos necesitan la misma cantidad.",
       },
       {
         question: "Una guía práctica de hidratación es:",
@@ -2105,19 +2127,22 @@ export const quizzes: Quiz[] = [
           "Evitar todo líquido de noche",
         ],
         correctAnswer: "B",
-        explanation: "Orina amarillo pálido y beber con sed — correct.",
+        explanation:
+          "Orina amarillo pálido y beber con sed son señales prácticas de hidratación adecuada en la mayoría de adultos sanos. Orina siempre clara o forzar grandes volúmenes sin necesidad no son mejores metas para todos.",
       },
       {
         question: "Mejor bebida base para hidratación diaria:",
         options: ["Refresco azucarado", "Agua", "Solo bebidas energéticas", "Alcohol"],
         correctAnswer: "B",
-        explanation: "Agua — correct.",
+        explanation:
+          "El agua es la mejor opción diaria — sin azúcar ni calorías añadidas. Refrescos y bebidas energéticas aportan calorías vacías. Opciones sin azúcar están bien, pero el agua sigue siendo la base recomendada.",
       },
       {
         question: "La deshidratación grave requiere:",
         options: ["Ignorarla", "Evaluación médica urgente", "Solo café extra", "No comer nunca"],
         correctAnswer: "B",
-        explanation: "Evaluación médica urgente — correct.",
+        explanation:
+          "Deshidratación grave — confusión, desmayo, sin orinar muchas horas, pulso rápido — requiere atención médica urgente. Remedios caseros solos no bastan cuando hay signos de pérdida importante de líquidos.",
       },
     ],
   },
@@ -2136,7 +2161,8 @@ export const quizzes: Quiz[] = [
           "Solo resurtidos de rutina",
         ],
         correctAnswer: "B",
-        explanation: "Problemas el mismo día no mortales — correct.",
+        explanation:
+          "Las clínicas de atención urgente atienden problemas el mismo día que no son mortales — esguinces, cortes menores, fiebre sin angustia severa, síntomas urinarios. Cubren cuando el consultorio del médico está cerrado.",
       },
       {
         question: "¿Qué corresponde a emergencias?",
@@ -2147,7 +2173,8 @@ export const quizzes: Quiz[] = [
           "Vacuna de rutina",
         ],
         correctAnswer: "B",
-        explanation: "Dificultad respiratoria severa — correct.",
+        explanation:
+          "Dificultad respiratoria severa, dolor de pecho, signos de ACV, sangrado abundante y pérdida de conciencia requieren emergencias (911 o ER), no urgencias. La atención urgente no cubre toda emergencia.",
       },
       {
         question: "¿Qué significa FAST en advertencia de derrame?",
@@ -2158,7 +2185,8 @@ export const quizzes: Quiz[] = [
           "Ninguna",
         ],
         correctAnswer: "A",
-        explanation: "Cara, Brazo, Habla, Tiempo de llamar 911 — correct.",
+        explanation:
+          "FAST recuerda: Cara caída, Brazo débil, Habla alterada, Tiempo de llamar al 911. El tratamiento del ACV es urgente — los minutos importan. No maneje solo si los síntomas son súbitos y severos.",
       },
       {
         question: "¿Por qué seguimiento con atención primaria?",
@@ -2169,7 +2197,8 @@ export const quizzes: Quiz[] = [
           "Solo niños",
         ],
         correctAnswer: "B",
-        explanation: "Para coordinar tratamiento y registros — correct.",
+        explanation:
+          "Su médico de cabecera coordina tratamiento a largo plazo y registros. Tras atención urgente, haga seguimiento para que medicamentos, referencias y resultados sigan conectados a su plan de cuidado.",
       },
       {
         question: "Si no está seguro de la gravedad:",
@@ -2180,7 +2209,8 @@ export const quizzes: Quiz[] = [
           "No buscar atención",
         ],
         correctAnswer: "B",
-        explanation: "Considerar emergencias o llamar 911 — correct.",
+        explanation:
+          "Fiebre alta con rigidez de cuello, confusión o sarpullido; lesión con hueso visible; o empeoramiento rápido pueden requerir nivel de emergencias. Si duda, llame al 911 — los operadores pueden orientarle.",
       },
     ],
   },
@@ -2199,7 +2229,8 @@ export const quizzes: Quiz[] = [
           "Solo prueba hormonal",
         ],
         correctAnswer: "B",
-        explanation: "Alto respecto al rango de referencia — correct.",
+        explanation:
+          "La bandera H o L indica que su resultado está fuera del rango de referencia del laboratorio — alto o bajo respecto a valores típicos. Es señal para hablar con el médico, no un diagnóstico automático.",
       },
       {
         question: "Los rangos de referencia:",
@@ -2210,7 +2241,8 @@ export const quizzes: Quiz[] = [
           "Significan enfermedad segura si está fuera",
         ],
         correctAnswer: "B",
-        explanation: "Pueden variar por laboratorio y paciente — correct.",
+        explanation:
+          "Los rangos varían por equipo del laboratorio, edad, sexo y embarazo. Un número ligeramente fuera del rango puede ser normal para usted. El médico interpreta en contexto, no solo por la bandera.",
       },
       {
         question: "¿Por qué comparar resultados previos?",
@@ -2221,7 +2253,8 @@ export const quizzes: Quiz[] = [
           "Ilegal en portales",
         ],
         correctAnswer: "B",
-        explanation: "Las tendencias muestran cambios en el tiempo — correct.",
+        explanation:
+          "Un valor anormal aislado importa menos que la tendencia en el tiempo. Glucosa en alza o hemoglobina a la baja en varias pruebas cuentan más que un solo resultado.",
       },
       {
         question: "Resultado ligeramente anormal — mejor paso:",
@@ -2232,7 +2265,8 @@ export const quizzes: Quiz[] = [
           "Ignorar siempre",
         ],
         correctAnswer: "B",
-        explanation: "Hablar con el médico en contexto — correct.",
+        explanation:
+          "Lleve preguntas a la visita: qué significa para mí, ¿repetimos la prueba?, ¿mis medicamentos lo afectan? Autotratarse según un informe sin contexto médico puede ser inseguro.",
       },
       {
         question: "Valor crítico en portal sin llamada — debe:",
@@ -2243,7 +2277,8 @@ export const quizzes: Quiz[] = [
           "Solo prueba casera",
         ],
         correctAnswer: "B",
-        explanation: "Contactar al equipo pronto — correct.",
+        explanation:
+          "Valores críticos — potasio muy alto, anemia severa, glucosa peligrosa — suelen generar llamada del laboratorio o médico. Si ve lenguaje crítico, contacte a su equipo de salud pronto.",
       },
     ],
   },
@@ -2262,7 +2297,8 @@ export const quizzes: Quiz[] = [
           "Precio que la marca",
         ],
         correctAnswer: "B",
-        explanation: "Ingrediente activo y concentración — correct.",
+        explanation:
+          "Los genéricos deben contener el mismo ingrediente activo en la misma concentración que la marca. Los excipientes pueden variar, pero el medicamento que trata su condición es equivalente en la mayoría de los casos.",
       },
       {
         question: "¿Por qué el seguro prefiere genéricos?",
@@ -2273,7 +2309,8 @@ export const quizzes: Quiz[] = [
           "Siempre son marcas",
         ],
         correctAnswer: "B",
-        explanation: "Menor costo con eficacia equivalente en la mayoría — correct.",
+        explanation:
+          "Los genéricos cuestan menos porque no repiten marketing y estudios costosos del compuesto activo. En la mayoría funcionan igual — el seguro suele pedir probar genérico primero.",
       },
       {
         question: "Tras cambiar a genérico, debe:",
@@ -2284,7 +2321,8 @@ export const quizzes: Quiz[] = [
           "No decir al farmacéutico",
         ],
         correctAnswer: "B",
-        explanation: "Reportar efectos nuevos o peores al equipo de salud — correct.",
+        explanation:
+          "Si al cambiar a genérico nota efectos nuevos o se siente peor, informe al equipo de salud. Rara vez importa la sensibilidad a excipientes. No suspenda en silencio — reporte cambios para ajustar.",
       },
       {
         question: "Medicamentos falsificados son riesgo cuando:",
@@ -2295,7 +2333,8 @@ export const quizzes: Quiz[] = [
           "Hace preguntas",
         ],
         correctAnswer: "B",
-        explanation: "Compra en vendedores en línea no verificados — correct.",
+        explanation:
+          "Farmacias en línea no verificadas pueden vender falsificaciones o medicamentos mal almacenados. Use farmacias autorizadas en su país. Precios bajos de vendedores desconocidos son señal de alerta, no oferta.",
       },
       {
         question: "Bioequivalente significa:",
@@ -2306,7 +2345,8 @@ export const quizzes: Quiz[] = [
           "Ilegal en EE.UU.",
         ],
         correctAnswer: "B",
-        explanation: "Niveles en sangre similares a la marca en rango aceptado — correct.",
+        explanation:
+          "La bioequivalencia significa que el genérico alcanza niveles en sangre similares a la marca dentro de límites aceptados. Por eso se aprueban — no porque sean versiones más débiles.",
       },
     ],
   },
@@ -2325,7 +2365,8 @@ export const quizzes: Quiz[] = [
           "Ronquido normal siempre",
         ],
         correctAnswer: "B",
-        explanation: "Flujo de aire bloqueado al relajarse músculos de garganta — correct.",
+        explanation:
+          "La apnea obstructiva del sueño ocurre cuando los músculos de la garganta se relajan y bloquean el flujo de aire. El cerebro lo despierta brevemente para respirar. No es solo roncar — hay pausas repetidas de respiración.",
       },
       {
         question: "Razón para evaluación:",
@@ -2336,7 +2377,8 @@ export const quizzes: Quiz[] = [
           "Leer antes de dormir",
         ],
         correctAnswer: "A",
-        explanation: "Ronquidos más somnolencia diurna — correct.",
+        explanation:
+          "Ronquidos fuertes más somnolencia diurna, dolores de cabeza matutinos o que la pareja note pausas son señales comunes. Roncar solo no siempre es apnea, pero la combinación merece evaluación.",
       },
       {
         question: "CPAP funciona:",
@@ -2347,7 +2389,8 @@ export const quizzes: Quiz[] = [
           "Deteniendo respiración a propósito",
         ],
         correctAnswer: "B",
-        explanation: "Entregando presión de aire para mantener abierta la vía aérea — correct.",
+        explanation:
+          "CPAP entrega presión de aire constante por mascarilla para mantener abierta la vía aérea. Es el tratamiento efectivo más común para apnea obstructiva moderada a severa — no cura, pero es terapia nocturna.",
       },
       {
         question: "Apnea sin tratar aumenta riesgo de:",
@@ -2358,7 +2401,8 @@ export const quizzes: Quiz[] = [
           "Siempre bajar de peso",
         ],
         correctAnswer: "B",
-        explanation: "Presión alta y enfermedad cardíaca entre otros — correct.",
+        explanation:
+          "La apnea sin tratar se asocia con presión alta, enfermedad cardíaca, riesgo de ACV y control glucémico pobre. Tratarla protege más que el sueño — apoya salud cardiovascular y metabólica.",
       },
       {
         question: "Si CPAP incomoda:",
@@ -2369,7 +2413,8 @@ export const quizzes: Quiz[] = [
           "Usarlo una vez al mes",
         ],
         correctAnswer: "B",
-        explanation: "Preguntar al especialista del sueño sobre mascarilla y alternativas — correct.",
+        explanation:
+          "Ajuste de mascarilla, humedad y dispositivos alternativos (aparatos orales, terapia posicional) mejoran comodidad. Un especialista del sueño puede ajustar — dejar CPAP sin orientación suele devolver los síntomas.",
       },
     ],
   },

@@ -221,4 +221,450 @@ export const articles: Article[] = [
       ],
     },
   },
+  {
+    id: "understanding-your-eob",
+    title: "Understanding Your Explanation of Benefits (EOB)",
+    description: "How to read an EOB and match it to provider bills.",
+    category: "Insurance & Billing",
+    readingTime: "7 min",
+    lastReviewed: "2026-06-11",
+    reviewedBy: "Health Education Review Team",
+    sources: ["CDC", "NIH MedlinePlus"],
+    content: {
+      sections: [
+        {
+          title: "What an EOB Is",
+          content:
+            "An Explanation of Benefits (EOB) is **not a bill**. It is a statement from your insurer showing what was billed, what they paid, and what you may owe. You usually receive it before or with a provider statement.",
+        },
+        {
+          title: "Key Lines on an EOB",
+          content:
+            "- **Billed amount** — what the provider charged\n- **Allowed amount** — negotiated rate your plan accepts\n- **Plan paid** — what insurance covered\n- **Patient responsibility** — deductible, copay, coinsurance, or non-covered charges",
+        },
+        {
+          title: "Matching EOB to Bills",
+          content:
+            "Compare date of service, provider name, and procedure codes. If the bill total does not match the EOB patient responsibility, call billing before paying.",
+          callouts: [
+            {
+              type: "info",
+              content:
+                "Keep EOBs for at least one plan year — you may need them for taxes (HSA/FSA) or appeals.",
+            },
+          ],
+        },
+        {
+          title: "Common Confusion",
+          content:
+            '- **Duplicate EOBs** for one visit — one per service line is normal\n- **"You may owe"** — verify against the actual bill\n- **Out-of-network** — allowed amount and balance billing rules differ',
+        },
+        {
+          title: "When to Call Your Insurer",
+          content:
+            "Ask if a claim was denied, applied to the wrong deductible, or coded incorrectly. Your doctor's office can resubmit with corrected codes.",
+        },
+      ],
+    },
+  },
+  {
+    id: "finding-in-network-providers",
+    title: "Finding In-Network Providers",
+    description: "Use your plan directory and avoid surprise bills.",
+    category: "Healthcare Navigation",
+    readingTime: "6 min",
+    lastReviewed: "2026-06-11",
+    reviewedBy: "Health Education Review Team",
+    sources: ["CDC", "NIH MedlinePlus"],
+    content: {
+      sections: [
+        {
+          title: "Why Network Matters",
+          content:
+            "In-network providers contract with your insurer for lower rates. Out-of-network care can cost much more or may not be covered except in emergencies.",
+        },
+        {
+          title: "Steps to Find Care",
+          content:
+            "1. Log into your insurer's website or app\n2. Search by specialty, location, and language\n3. Confirm the **specific doctor** is in network — not just the clinic name\n4. Call the office to verify they still accept your plan",
+        },
+        {
+          title: "Hospital vs Doctor Network",
+          content:
+            "Hospitals and individual doctors negotiate separately. A surgeon may be out of network even at an in-network hospital — ask before scheduled procedures.",
+          callouts: [
+            {
+              type: "warning",
+              content:
+                "Emergency room care is often covered as in-network by law, but follow-up and ambulance rides may not be — verify after stabilization.",
+            },
+          ],
+        },
+        {
+          title: "Telehealth and Urgent Care",
+          content:
+            "Check whether virtual visits and retail clinics (minute clinics, urgent care chains) are in network before you go.",
+        },
+        {
+          title: "If You Must Go Out of Network",
+          content:
+            "Ask about cash prices, payment plans, and whether your doctor can refer you to an in-network alternative.",
+        },
+      ],
+    },
+  },
+  {
+    id: "preparing-for-blood-draw",
+    title: "Preparing for a Blood Draw",
+    description: "Fasting rules, hydration, and what to expect at the lab.",
+    category: "Lab Results",
+    readingTime: "5 min",
+    lastReviewed: "2026-06-11",
+    reviewedBy: "Health Education Review Team",
+    sources: ["CDC", "NIH MedlinePlus"],
+    content: {
+      sections: [
+        {
+          title: "Before You Go",
+          content:
+            "- Confirm **fasting** requirements (often 8–12 hours for glucose and lipids; water is usually OK)\n- Take prescribed morning medicines unless told otherwise\n- Wear sleeves that roll up easily\n- Bring your order form or show the lab your electronic order",
+        },
+        {
+          title: "At the Lab",
+          content:
+            "The phlebotomist cleans your arm, applies a tourniquet, and inserts a small needle. Most draws take a few minutes. Multiple tubes may be filled from one stick.",
+        },
+        {
+          title: "After the Draw",
+          content:
+            "Press gauze firmly for several minutes to reduce bruising. Avoid heavy lifting with that arm for the rest of the day.",
+          callouts: [
+            {
+              type: "info",
+              content: "Mild bruising is common and not dangerous. Apply a cold pack if sore.",
+            },
+          ],
+        },
+        {
+          title: "Results Timeline",
+          content:
+            "Many routine tests return in 1–3 business days on your patient portal. Critical values may trigger a phone call sooner.",
+        },
+        {
+          title: "Special Situations",
+          content:
+            "Tell staff if you faint with needles, take blood thinners, or have a mastectomy — they may use a different arm or position.",
+        },
+      ],
+    },
+  },
+  {
+    id: "second-opinion-basics",
+    title: "When and How to Get a Second Opinion",
+    description: "A practical guide to consulting another specialist.",
+    category: "Healthcare Navigation",
+    readingTime: "7 min",
+    lastReviewed: "2026-06-11",
+    reviewedBy: "Health Education Review Team",
+    sources: ["CDC", "NIH MedlinePlus"],
+    content: {
+      sections: [
+        {
+          title: "Why Second Opinions Help",
+          content:
+            "They confirm diagnoses, compare treatment options, or offer peace of mind before major surgery or long-term therapy. Good doctors support them.",
+        },
+        {
+          title: "When to Consider One",
+          content:
+            "- Serious or unclear diagnosis (cancer, rare disease)\n- Recommended surgery with significant risk\n- Symptoms not improving on treatment\n- You feel rushed or unheard",
+        },
+        {
+          title: "How to Request Records",
+          content:
+            "Ask your clinic for copies of imaging, pathology, and visit notes — or authorize transfer to the second physician. Many systems share via electronic health records.",
+          callouts: [
+            {
+              type: "info",
+              content:
+                'You do not need to tell your current doctor a negative reason — "I want to confirm the plan" is enough.',
+            },
+          ],
+        },
+        {
+          title: "Insurance Coverage",
+          content:
+            "Some plans require or pay for second opinions on certain procedures. Call member services before booking.",
+        },
+        {
+          title: "After the Second Visit",
+          content:
+            "Compare recommendations in writing. If plans differ, ask both doctors to discuss or schedule a three-way call.",
+        },
+      ],
+    },
+  },
+  {
+    id: "telehealth-visit-tips",
+    title: "Telehealth Visit Tips",
+    description: "Prepare for a productive video or phone appointment.",
+    category: "Doctor Visits",
+    readingTime: "6 min",
+    lastReviewed: "2026-06-11",
+    reviewedBy: "Health Education Review Team",
+    sources: ["CDC", "NIH MedlinePlus"],
+    content: {
+      sections: [
+        {
+          title: "Before the Visit",
+          content:
+            "- Test camera, microphone, and app login 15 minutes early\n- Sit in a quiet, well-lit space\n- Have medication list, thermometer readings, and photos of rashes ready\n- Know your pharmacy name and address for e-prescriptions",
+        },
+        {
+          title: "During the Call",
+          content:
+            "Speak clearly and show affected areas to the camera when asked. Telehealth works well for follow-ups, medication checks, and many mental health visits.",
+        },
+        {
+          title: "Limitations",
+          content:
+            "Emergencies, hands-on exams, and some diagnostic tests still need in-person care. Ask what cannot be done virtually.",
+          callouts: [
+            {
+              type: "warning",
+              content:
+                "If symptoms worsen during a video visit, the clinician may direct you to urgent care or ER — have transport plans ready.",
+            },
+          ],
+        },
+        {
+          title: "Privacy",
+          content:
+            "Use a private room. Headphones reduce echo and protect others from hearing your health information.",
+        },
+        {
+          title: "Afterward",
+          content: "Confirm next steps in the portal message center and schedule in-person labs if ordered.",
+        },
+      ],
+    },
+  },
+  {
+    id: "medication-adherence-strategies",
+    title: "Medication Adherence Strategies",
+    description: "Tools and habits to take medicines as prescribed.",
+    category: "Medication Safety",
+    readingTime: "7 min",
+    lastReviewed: "2026-06-11",
+    reviewedBy: "Health Education Review Team",
+    sources: ["CDC", "NIH MedlinePlus"],
+    content: {
+      sections: [
+        {
+          title: "Why Adherence Matters",
+          content:
+            "Skipping doses or stopping early can cause relapse, resistance, or hospitalization — especially for blood pressure, diabetes, and infection treatments.",
+        },
+        {
+          title: "Practical Tools",
+          content:
+            "- **Pill organizer** — weekly boxes with AM/PM slots\n- **Phone alarms** — label each with drug name\n- **Pharmacy auto-refill** — reduces gaps\n- **Blister packs** — some pharmacies pre-sort by dose time",
+        },
+        {
+          title: "Tie to Daily Routines",
+          content:
+            "Link medicines to brushing teeth, meals, or bedtime so the habit stacks on something you already do.",
+          callouts: [
+            {
+              type: "info",
+              content: "If cost or side effects block adherence, tell your clinician — alternatives exist.",
+            },
+          ],
+        },
+        {
+          title: "Travel and Sick Days",
+          content:
+            "Pack extra doses in carry-on luggage. Ask your doctor for sick-day rules for insulin, blood pressure, or diuretics.",
+        },
+        {
+          title: "Tracking",
+          content: 'Use a simple log or app for "as needed" medicines so you do not exceed daily limits.',
+        },
+      ],
+    },
+  },
+  {
+    id: "when-to-call-your-doctor",
+    title: "When to Call Your Doctor vs Urgent Care vs 911",
+    description: "A simple decision guide for non-emergency symptoms.",
+    category: "Emergency",
+    readingTime: "6 min",
+    lastReviewed: "2026-06-11",
+    reviewedBy: "Health Education Review Team",
+    sources: ["CDC", "NIH MedlinePlus"],
+    content: {
+      sections: [
+        {
+          title: "Call 911 or Go to ER",
+          content:
+            "- Chest pain or pressure\n- Trouble breathing\n- Stroke signs (FAST: face, arm, speech, time)\n- Severe bleeding or unconsciousness\n- Suicidal thoughts with a plan",
+        },
+        {
+          title: "Urgent Care (Same Day)",
+          content:
+            "- Sprains, minor cuts needing stitches\n- Fever without severe distress in otherwise healthy adults\n- Urinary burning if you cannot reach your doctor\n- Mild asthma flare with inhaler not helping after one hour",
+        },
+        {
+          title: "Call Your Doctor's Office",
+          content:
+            "- Medication side effects\n- Worsening chronic condition\n- Test result questions\n- Referrals and preventive scheduling",
+          callouts: [
+            {
+              type: "info",
+              content: "Many clinics offer nurse triage lines — describe symptoms and they advise timing.",
+            },
+          ],
+        },
+        {
+          title: "When Unsure",
+          content: "Err toward safer care. It is OK to go to ER; it is also OK to call 911 for guidance.",
+        },
+      ],
+    },
+  },
+  {
+    id: "patient-portal-basics",
+    title: "Patient Portal Basics",
+    description: "Access results, messages, and refills online.",
+    category: "Healthcare Navigation",
+    readingTime: "6 min",
+    lastReviewed: "2026-06-11",
+    reviewedBy: "Health Education Review Team",
+    sources: ["CDC", "NIH MedlinePlus"],
+    content: {
+      sections: [
+        {
+          title: "What Portals Do",
+          content:
+            "Most clinics offer secure websites or apps to:\n\n- View lab and imaging results\n- Message your care team\n- Request prescription refills\n- Schedule appointments\n- Download visit summaries",
+        },
+        {
+          title: "Getting Started",
+          content:
+            "Ask front desk for signup instructions. You may need email verification and a one-time activation code from your visit paperwork.",
+        },
+        {
+          title: "Reading Results Early",
+          content:
+            "Results may appear before your doctor reviews them. Abnormal flags are not always urgent — but note questions for your follow-up.",
+          callouts: [
+            {
+              type: "warning",
+              content: "Portals are not for emergencies. Call 911 or go to ER for immediate danger.",
+            },
+          ],
+        },
+        {
+          title: "Messaging Etiquette",
+          content:
+            "Include one clear question per message, your pharmacy if requesting refills, and allow 1–3 business days for replies.",
+        },
+        {
+          title: "Privacy and Access",
+          content:
+            "Use strong passwords. Proxy access for caregivers may require separate authorization forms.",
+        },
+      ],
+    },
+  },
+  {
+    id: "health-literacy-for-caregivers",
+    title: "Health Literacy for Caregivers",
+    description: "Support a loved one's care while respecting their autonomy.",
+    category: "Healthcare Navigation",
+    readingTime: "7 min",
+    lastReviewed: "2026-06-11",
+    reviewedBy: "Health Education Review Team",
+    sources: ["CDC", "NIH MedlinePlus"],
+    content: {
+      sections: [
+        {
+          title: "Your Role",
+          content:
+            "Caregivers translate instructions, track appointments, and advocate — but the patient (or legal proxy) makes final decisions unless incapacitated.",
+        },
+        {
+          title: "Prepare for Appointments Together",
+          content:
+            "- List current medicines and allergies\n- Write top three concerns in the patient's words\n- Take notes or ask permission to record",
+        },
+        {
+          title: "Proxy Access",
+          content:
+            "Hospitals require HIPAA authorization for you to receive medical information. Complete forms before emergencies when possible.",
+          callouts: [
+            {
+              type: "info",
+              content:
+                "Bring durable power of attorney for healthcare documents to major visits if you are the decision-maker.",
+            },
+          ],
+        },
+        {
+          title: "Avoid Burnout",
+          content: "Share duties with family, use respite programs, and keep your own medical appointments.",
+        },
+        {
+          title: "When Values Conflict",
+          content:
+            "Focus on what matters to the patient — mobility, pain control, independence — not only what seems medically aggressive.",
+        },
+      ],
+    },
+  },
+  {
+    id: "understanding-prior-authorization",
+    title: "Understanding Prior Authorization",
+    description: "Why insurers require approval and how to speed the process.",
+    category: "Insurance & Billing",
+    readingTime: "7 min",
+    lastReviewed: "2026-06-11",
+    reviewedBy: "Health Education Review Team",
+    sources: ["CDC", "NIH MedlinePlus"],
+    content: {
+      sections: [
+        {
+          title: "What Prior Auth Is",
+          content:
+            "Your insurer may require approval before paying for certain drugs, imaging, or procedures. The provider submits clinical reasons; the plan decides if criteria are met.",
+        },
+        {
+          title: "Common Triggers",
+          content:
+            "- Expensive brand drugs with generic alternatives\n- Advanced imaging (MRI, PET)\n- Elective surgeries\n- Durable medical equipment",
+        },
+        {
+          title: "Timeline",
+          content:
+            "Decisions can take days to two weeks. Start early — ask your doctor's office to submit the same day they order the service.",
+          callouts: [
+            {
+              type: "warning",
+              content: "Starting treatment before approval may leave you with full cost if denied.",
+            },
+          ],
+        },
+        {
+          title: "If Denied",
+          content:
+            "You can appeal with additional documentation. Ask for the denial letter in writing and the reason code.",
+        },
+        {
+          title: "Your Role",
+          content:
+            "Sign release forms promptly, provide insurance cards at every visit, and follow up if you have not heard back within the stated window.",
+        },
+      ],
+    },
+  },
 ] as const;

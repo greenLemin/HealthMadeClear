@@ -303,7 +303,7 @@ export const searchIndex: SearchEntry[] = [
     category: "Chronic Conditions",
     categoryId: "chronic-conditions",
     content:
-      "What Is an Allergy? An allergy is when your immune system overreacts to a substance that is usually harmless — such as pollen, peanuts, or penicillin. The body releases chemicals like histamine, which cause symptoms ranging from mild itching to life-threatening breathing problems. Common Triggers Allergies can be triggered by:\n\n- **Foods** — peanuts, tree nuts, milk, eggs, shellfish, wheat, soy\n- **Environmental** — pollen, dust mites, mold, pet dander\n- **Insect stings** — bees, wasps, fire ants\n- **Medicines** — antibiotics, aspirin, contrast dye\n- **Contact** — latex, nickel, fragrances Mild vs Severe Reactions Mild symptoms may include sneezing, itchy eyes, hives, or a runny nose. Severe reactions (anaphylaxis) can include trouble breathing, swelling of the face or throat, rapid heartbeat, dizziness, or vomiting. Anaphylaxis is a medical emergency — use epinephrine if prescribed and call 911. Testing and Diagnosis Doctors may use skin tests, blood tests (IgE), or supervised food challenges to identify allergies. Self-diagnosis can be dangerous — always work with a qualified provider before eliminating major food groups. Daily Management - Avoid known triggers when possible\n- Take antihistamines or other medicines as prescribed\n- Keep an action plan for school, work, or travel\n- Review allergies at every medical visit",
+      "What Is an Allergy? An allergy is when your immune system overreacts to a substance that is usually harmless — such as pollen, peanuts, or penicillin. The body releases chemicals like histamine, which cause symptoms ranging from mild itching to life-threatening breathing problems. Common Triggers Allergies can be triggered by:\n\n- **Foods** — peanuts, tree nuts, milk, eggs, shellfish, wheat, soy\n- **Environmental** — pollen, dust mites, mold, pet dander\n- **Insect stings** — bees, wasps, fire ants\n- **Medicines** — antibiotics, aspirin, contrast dye\n- **Contact** — latex, nickel, fragrances Mild vs Severe Reactions Mild symptoms may include sneezing, itchy eyes, hives, or a runny nose. Severe reactions (anaphylaxis) can include trouble breathing, swelling of the face or throat, rapid heartbeat, dizziness, or vomiting. Anaphylaxis is a medical emergency — use epinephrine if prescribed and call 911. Testing and Diagnosis Doctors may use skin tests, blood tests (IgE), or supervised food challenges to identify allergies. Self-diagnosis can be dangerous — always work with a qualified provider before eliminating major food groups. Daily Management - Avoid known triggers when possible\n- Take antihistamines or other medicines as prescribed\n- Keep an action plan for school, work, or travel\n- Review allergies at every medical visit Anaphylaxis Action Plan If you are at risk for severe reactions, work with your doctor on a written plan that includes:\n\n1. **Recognize symptoms** — throat tightness, wheezing, widespread hives, dizziness\n2. **Use epinephrine first** — auto-injector in outer thigh; do not wait for antihistamines alone\n3. **Call 911** — second reactions can occur after initial improvement\n4. **Go to ER** — even if you feel better after epinephrine Reading Food Labels (U.S.) The top nine allergens must be declared clearly: milk, eggs, fish, shellfish, tree nuts, peanuts, wheat, soy, and sesame. “May contain” statements are voluntary — ask manufacturers if you need strict avoidance. Allergies at School and Work Share your action plan with nurses, teachers, or HR. Know where epinephrine is stored and who is trained to use it. For food allergies, discuss safe eating areas and cross-contact risks in shared kitchens.\n\n<!-- lesson-depth-added -->",
     url: "/learn/understanding-allergies",
   },
   {
@@ -314,7 +314,7 @@ export const searchIndex: SearchEntry[] = [
     category: "Medication Safety",
     categoryId: "medication-safety",
     content:
-      "Two Common Pain Relievers Most households use **acetaminophen** (Tylenol) or **ibuprofen** (Advil, Motrin). They work differently:\n\n- **Acetaminophen** reduces pain and fever but is not an anti-inflammatory. Too much can damage the liver.\n- **Ibuprofen** (an NSAID) reduces pain, fever, and inflammation but can irritate the stomach and affect kidneys. Daily Limits Matter Always read labels — many cold and flu products also contain acetaminophen or ibuprofen. Combining products can push you over safe daily limits without realizing it. Alcohol and Other Medicines Avoid alcohol with acetaminophen — both stress the liver. NSAIDs like ibuprofen can interact with blood thinners, blood pressure medicines, and kidney disease. Tell your pharmacist everything you take. When Pain Needs Medical Care See a doctor promptly for:\n\n- Chest pain or trouble breathing\n- Severe headache with neck stiffness or confusion\n- Pain after injury with deformity or inability to bear weight\n- Pain lasting more than a few days without improvement",
+      "Two Common Pain Relievers Most households use **acetaminophen** (Tylenol) or **ibuprofen** (Advil, Motrin). They work differently:\n\n- **Acetaminophen** reduces pain and fever but is not an anti-inflammatory. Too much can damage the liver.\n- **Ibuprofen** (an NSAID) reduces pain, fever, and inflammation but can irritate the stomach and affect kidneys. Daily Limits Matter Always read labels — many cold and flu products also contain acetaminophen or ibuprofen. Combining products can push you over safe daily limits without realizing it. Alcohol and Other Medicines Avoid alcohol with acetaminophen — both stress the liver. NSAIDs like ibuprofen can interact with blood thinners, blood pressure medicines, and kidney disease. Tell your pharmacist everything you take. When Pain Needs Medical Care See a doctor promptly for:\n\n- Chest pain or trouble breathing\n- Severe headache with neck stiffness or confusion\n- Pain after injury with deformity or inability to bear weight\n- Pain lasting more than a few days without improvement Drug Interaction Table | If you take…                        | Before using ibuprofen or naproxen, ask about… |\n| ----------------------------------- | ---------------------------------------------- |\n| Blood thinners (warfarin, apixaban) | Bleeding risk — NSAIDs add risk                |\n| Blood pressure medicines            | NSAIDs may reduce effectiveness                |\n| Steroids (prednisone)               | Stomach bleeding risk increases                |\n| Daily aspirin (heart protection)    | Whether another NSAID is safe                  |\n\nAcetaminophen does not thin blood, but still counts toward your daily liver limit from all sources. Special Populations - **Older adults** — kidneys and stomach lining are more vulnerable; use lowest effective dose for shortest time\n- **Children** — use weight-based dosing on the label; never give adult-strength tablets without checking\n- **Pregnancy** — ask your clinician before any pain medicine; some options are safer in certain trimesters Overdose Warning Signs Too much acetaminophen may cause nausea, vomiting, confusion, or yellowing skin (jaundice) — sometimes delayed 24–48 hours. Too much NSAID may cause stomach pain, black stools, or decreased urination. If you suspect overdose, call Poison Control (1-800-222-1222 in the U.S.) or seek emergency care immediately.\n\n<!-- lesson-depth-added -->",
     url: "/learn/pain-medications-safely",
   },
   {
@@ -325,7 +325,7 @@ export const searchIndex: SearchEntry[] = [
     category: "Insurance & Billing",
     categoryId: "insurance-billing",
     content:
-      "Why Copay Assistance Exists Brand-name medicines can cost hundreds per month even with insurance. **Copay assistance** (copay cards, coupons, or foundation grants) helps eligible patients pay out-of-pocket costs. Programs may come from drug manufacturers, nonprofits, or state agencies. How Programs Work - **Copay cards** — reduce what you pay at the pharmacy for a specific drug\n- **Patient assistance programs** — may provide medicine free or at low cost if you meet income rules\n- **Foundation grants** — help people with specific diagnoses regardless of which drug they use\n\nInsurance rules vary: some plans do not allow copay cards to count toward your deductible. Steps to Explore Options 1. Ask your doctor if a generic or lower-cost alternative exists\n2. Tell the pharmacist you are comparing prices and assistance options\n3. Visit the drug manufacturer's patient support site\n4. Search reputable nonprofits (needymeds.org, PAN Foundation, etc.)\n5. Read eligibility rules carefully — income, insurance type, and diagnosis often matter If You Still Cannot Afford Medicine Talk to your doctor before stopping treatment. Clinics may have samples, different formulations, or referral to a social worker who knows local resources.",
+      "Why Copay Assistance Exists Brand-name medicines can cost hundreds per month even with insurance. **Copay assistance** (copay cards, coupons, or foundation grants) helps eligible patients pay out-of-pocket costs. Programs may come from drug manufacturers, nonprofits, or state agencies. How Programs Work - **Copay cards** — reduce what you pay at the pharmacy for a specific drug\n- **Patient assistance programs** — may provide medicine free or at low cost if you meet income rules\n- **Foundation grants** — help people with specific diagnoses regardless of which drug they use\n\nInsurance rules vary: some plans do not allow copay cards to count toward your deductible. Steps to Explore Options 1. Ask your doctor if a generic or lower-cost alternative exists\n2. Tell the pharmacist you are comparing prices and assistance options\n3. Visit the drug manufacturer's patient support site\n4. Search reputable nonprofits (needymeds.org, PAN Foundation, etc.)\n5. Read eligibility rules carefully — income, insurance type, and diagnosis often matter If You Still Cannot Afford Medicine Talk to your doctor before stopping treatment. Clinics may have samples, different formulations, or referral to a social worker who knows local resources. Step-by-Step Application 1. **Get a diagnosis on record** — most programs require a documented condition\n2. **Gather documents** — tax return, pay stub, insurance card, prescription details\n3. **Apply through official channels** — manufacturer website or clinic financial counselor\n4. **Activate the card** before filling at pharmacy — some require registration first\n5. **Save confirmation** — program IDs, renewal dates, and customer service numbers Manufacturer vs Nonprofit Programs | Type                             | Typical help                                    | Watch for                       |\n| -------------------------------- | ----------------------------------------------- | ------------------------------- |\n| Manufacturer copay card          | Lowers pharmacy copay for one brand drug        | May not count toward deductible |\n| Patient assistance program (PAP) | Free or low-cost drug if income qualifies       | Application can take weeks      |\n| Disease foundation grant         | Help across several medicines for one diagnosis | Limited funding cycles          | If Assistance Ends Programs can end when funding runs out or insurance type changes. Before your card expires:\n\n- Ask your doctor about therapeutic alternatives\n- Request a 90-day supply if allowed while you reapply\n- Revisit NeedyMeds, PAN Foundation, or state pharmaceutical assistance programs\n\nNever buy from unlicensed online sellers when a program lapses — counterfeit medicine is a real risk.\n\n<!-- lesson-depth-added -->",
     url: "/learn/understanding-copay-assistance",
   },
   {
@@ -336,7 +336,7 @@ export const searchIndex: SearchEntry[] = [
     category: "Preventive Care",
     categoryId: "preventive-care",
     content:
-      "What Screening Does Cancer screening looks for early signs of cancer **before symptoms appear**. Finding cancer early often means more treatment options and better outcomes. Screening is recommended based on age, sex, family history, and personal risk — not everyone needs every test at the same age. Common Adult Screenings | Screening                 | Who it is for (general guidelines)                       | Notes                                                |\n| ------------------------- | -------------------------------------------------------- | ---------------------------------------------------- |\n| Mammogram                 | Women at average risk, often starting 40–50              | Earlier if strong family history                     |\n| Colonoscopy or stool test | Adults 45+                                               | Colonoscopy every 10 years or stool tests more often |\n| Cervical (Pap/HPV)        | People with a cervix, 21–65                              | Interval depends on test type and results            |\n| Lung CT                   | Heavy smokers 50–80 who currently smoke or quit recently | Discuss risks and benefits                           |\n| Skin checks               | Anyone with many moles or history of melanoma            | Self-exams plus dermatology visits                   |\n\nGuidelines change — your doctor personalizes recommendations. Preparing for Screening - Update family history of cancer\n- List medicines and prior surgeries\n- For colonoscopy: follow bowel prep instructions exactly — poor prep hides problems\n- Arrange a ride if sedation is used After Results If results are abnormal, ask:\n\n- What does this mean specifically?\n- What is the next test or timeframe?\n- Should family members be screened earlier?",
+      "What Screening Does Cancer screening looks for early signs of cancer **before symptoms appear**. Finding cancer early often means more treatment options and better outcomes. Screening is recommended based on age, sex, family history, and personal risk — not everyone needs every test at the same age. Common Adult Screenings | Screening                 | Who it is for (general guidelines)                       | Notes                                                |\n| ------------------------- | -------------------------------------------------------- | ---------------------------------------------------- |\n| Mammogram                 | Women at average risk, often starting 40–50              | Earlier if strong family history                     |\n| Colonoscopy or stool test | Adults 45+                                               | Colonoscopy every 10 years or stool tests more often |\n| Cervical (Pap/HPV)        | People with a cervix, 21–65                              | Interval depends on test type and results            |\n| Lung CT                   | Heavy smokers 50–80 who currently smoke or quit recently | Discuss risks and benefits                           |\n| Skin checks               | Anyone with many moles or history of melanoma            | Self-exams plus dermatology visits                   |\n\nGuidelines change — your doctor personalizes recommendations. Preparing for Screening - Update family history of cancer\n- List medicines and prior surgeries\n- For colonoscopy: follow bowel prep instructions exactly — poor prep hides problems\n- Arrange a ride if sedation is used After Results If results are abnormal, ask:\n\n- What does this mean specifically?\n- What is the next test or timeframe?\n- Should family members be screened earlier? Insurance and Cost Questions Most preventive screenings are covered without copay under U.S. ACA plans when done at recommended intervals — but coverage rules vary. Ask:\n\n- Is this screening coded as preventive for my age and risk?\n- Will a positive screen lead to diagnostic tests with different cost sharing?\n- Do I need a referral or in-network facility? Barriers and Accommodations Screening is not one-size-fits-all. Talk with your doctor if you have:\n\n- **Mobility limits** — ask about stool-based colon tests instead of colonoscopy when appropriate\n- **Anxiety or trauma history** — request extra time, sedation options, or a support person\n- **Language needs** — request interpreter services in advance\n- **Transportation gaps** — some health departments offer ride programs Family Communication If you have a strong family history, encourage relatives to share screening dates with their doctors. You are not responsible for their choices, but open conversation helps everyone understand inherited risk. When Guidelines Differ Medical societies update recommendations as evidence changes. Your personal start age may be earlier or later than a friend’s. Trust a shared decision with your clinician over social media charts.\n\n<!-- lesson-depth-added -->",
     url: "/learn/cancer-screening-basics",
   },
   {
@@ -347,7 +347,7 @@ export const searchIndex: SearchEntry[] = [
     category: "Mental Health",
     categoryId: "mental-health",
     content:
-      "Stress Is Normal — Until It Is Not Stress is your body's response to challenges. Short-term stress can help you focus. Chronic stress — weeks or months of pressure without recovery — can affect sleep, mood, blood pressure, digestion, and immune function. Everyday Coping Strategies - **Breathing** — slow exhale longer than inhale for 2–5 minutes\n- **Movement** — walking, stretching, or any activity you enjoy\n- **Sleep routine** — consistent bedtime, limit screens before bed\n- **Boundaries** — say no to nonessential commitments when overloaded\n- **Connection** — talk with someone you trust When Stress Overlaps With Mental Health Seek professional help if you have:\n\n- Panic attacks or constant worry\n- Low mood most days for two weeks or more\n- Thoughts of harming yourself or others\n- Stress causing you to miss work, school, or self-care\n\nTherapy, support groups, and sometimes medicine can help. Crisis lines are available 24/7 in many countries. Health-Related Stress Medical bills, chronic illness, and caregiving are major stressors. Use clinic social workers, patient navigators, and trusted education sites — you do not have to solve everything alone.",
+      "Stress Is Normal — Until It Is Not Stress is your body's response to challenges. Short-term stress can help you focus. Chronic stress — weeks or months of pressure without recovery — can affect sleep, mood, blood pressure, digestion, and immune function. Everyday Coping Strategies - **Breathing** — slow exhale longer than inhale for 2–5 minutes\n- **Movement** — walking, stretching, or any activity you enjoy\n- **Sleep routine** — consistent bedtime, limit screens before bed\n- **Boundaries** — say no to nonessential commitments when overloaded\n- **Connection** — talk with someone you trust When Stress Overlaps With Mental Health Seek professional help if you have:\n\n- Panic attacks or constant worry\n- Low mood most days for two weeks or more\n- Thoughts of harming yourself or others\n- Stress causing you to miss work, school, or self-care\n\nTherapy, support groups, and sometimes medicine can help. Crisis lines are available 24/7 in many countries. Health-Related Stress Medical bills, chronic illness, and caregiving are major stressors. Use clinic social workers, patient navigators, and trusted education sites — you do not have to solve everything alone. Workplace and Caregiver Stress Job pressure, shift work, and caring for a sick family member are common chronic stressors. Practical steps:\n\n- **Micro-breaks** — 2-minute walks or stretches between tasks\n- **Delegate** — one task off your list per week when possible\n- **Respite care** — ask family, friends, or community programs for relief time\n- **Employee assistance programs (EAP)** — often free short-term counseling through work Sleep and Stress Cycle Poor sleep raises stress hormones; high stress disrupts sleep. Break the cycle by:\n\n- Fixed wake time (even on weekends)\n- No caffeine after mid-afternoon\n- Wind-down routine without screens 30–60 minutes before bed Building a Personal Plan Pick **two** strategies to try this week — not ten. Example: five minutes of slow breathing after lunch plus a 15-minute walk on three days. Review what helped at week’s end and adjust. Crisis Resources (U.S.) - **988 Suicide & Crisis Lifeline** — call or text 988\n- **Crisis Text Line** — text HOME to 741741\n- **911** — immediate danger\n\nOutside the U.S., search “crisis line” plus your country name.\n\n<!-- lesson-depth-added -->",
     url: "/learn/managing-stress",
   },
   {
@@ -358,7 +358,7 @@ export const searchIndex: SearchEntry[] = [
     category: "Nutrition",
     categoryId: "nutrition",
     content:
-      "Why Fluids Matter Water carries nutrients, removes waste, regulates temperature, and cushions joints. Even mild dehydration can cause headache, fatigue, dizziness, and constipation. How Much Do You Need? There is no single number for everyone. A common guide is about **8 cups (2 liters) of fluids daily** for many adults — more in heat, illness, pregnancy, or exercise. Foods like fruit and soup also count. Signs of Dehydration - Thirst, dry mouth\n- Dark yellow urine or urinating less often\n- Dizziness when standing\n- Confusion in older adults (seek care promptly) Who Needs Extra Caution People with heart failure or kidney disease may need **fluid limits**, not extra water. Follow your care team's instructions. Athletes and outdoor workers need electrolytes when sweating heavily for long periods. Better Choices Water is the best default. Unsweetened tea or milk work too. Limit sugary sodas and energy drinks — they add calories without lasting hydration benefits.",
+      "Why Fluids Matter Water carries nutrients, removes waste, regulates temperature, and cushions joints. Even mild dehydration can cause headache, fatigue, dizziness, and constipation. How Much Do You Need? There is no single number for everyone. A common guide is about **8 cups (2 liters) of fluids daily** for many adults — more in heat, illness, pregnancy, or exercise. Foods like fruit and soup also count. Signs of Dehydration - Thirst, dry mouth\n- Dark yellow urine or urinating less often\n- Dizziness when standing\n- Confusion in older adults (seek care promptly) Who Needs Extra Caution People with heart failure or kidney disease may need **fluid limits**, not extra water. Follow your care team's instructions. Athletes and outdoor workers need electrolytes when sweating heavily for long periods. Better Choices Water is the best default. Unsweetened tea or milk work too. Limit sugary sodas and energy drinks — they add calories without lasting hydration benefits. Electrolytes and Illness When you vomit, have diarrhea, or sweat heavily, you lose sodium and potassium — not just water. For mild illness:\n\n- Oral rehydration solutions (store-bought or WHO recipe) beat plain water alone\n- Broth can help if you tolerate it\n- Avoid sugary sports drinks as your only fluid — they may worsen diarrhea Exercise and Heat Drink before you feel thirsty during hot weather or intense activity. Signs you need a break: dizziness, muscle cramps, or stopping sweating in heat (possible heat emergency). Medicines That Affect Fluids Diuretics (“water pills”), some blood pressure drugs, and lithium require consistent fluid intake — but not always extra. Follow your prescriber’s instructions; do not dramatically change intake without asking. Myths vs Facts | Myth                               | Fact                                              |\n| ---------------------------------- | ------------------------------------------------- |\n| “8 glasses for everyone”           | Needs vary by size, activity, climate, and health |\n| “Clear urine always best”          | Very clear urine can mean overhydration           |\n| “Coffee dehydrates you completely” | Moderate coffee still contributes to fluid intake |\n\n<!-- lesson-depth-added -->",
     url: "/learn/hydration-and-health",
   },
   {
@@ -369,7 +369,7 @@ export const searchIndex: SearchEntry[] = [
     category: "Emergency",
     categoryId: "emergency",
     content:
-      "Three Levels of Care - **Primary care** — ongoing health, refills, preventive visits (often days to weeks wait)\n- **Urgent care** — same-day problems that are not life-threatening\n- **Emergency room (ER)** — severe or potentially life-threatening conditions\n\nChoosing the right setting saves time, money, and ER capacity for true emergencies. Good Reasons for Urgent Care - Sprains, minor cuts needing stitches\n- Fever without severe distress (in adults and older children per local guidance)\n- Urinary tract symptoms\n- Mild asthma flare responding to usual inhaler\n- Rash without breathing problems\n- Ear pain, sore throat when primary care is closed Go to the ER Instead Call 911 or go to the ER for chest pain, stroke signs (FAST: face droop, arm weakness, speech trouble), severe breathing difficulty, heavy bleeding, poisoning, suicidal thoughts with plan, or major trauma. Before You Go - Bring ID, insurance card, medication list\n- Know hours — some urgent cares close overnight\n- Ask if they can do needed tests (X-ray, strep test)\n- Plan follow-up with your primary doctor",
+      "Three Levels of Care - **Primary care** — ongoing health, refills, preventive visits (often days to weeks wait)\n- **Urgent care** — same-day problems that are not life-threatening\n- **Emergency room (ER)** — severe or potentially life-threatening conditions\n\nChoosing the right setting saves time, money, and ER capacity for true emergencies. Good Reasons for Urgent Care - Sprains, minor cuts needing stitches\n- Fever without severe distress (in adults and older children per local guidance)\n- Urinary tract symptoms\n- Mild asthma flare responding to usual inhaler\n- Rash without breathing problems\n- Ear pain, sore throat when primary care is closed Go to the ER Instead Call 911 or go to the ER for chest pain, stroke signs (FAST: face droop, arm weakness, speech trouble), severe breathing difficulty, heavy bleeding, poisoning, suicidal thoughts with plan, or major trauma. Before You Go - Bring ID, insurance card, medication list\n- Know hours — some urgent cares close overnight\n- Ask if they can do needed tests (X-ray, strep test)\n- Plan follow-up with your primary doctor Cost and Billing Expectations Urgent care usually costs less than an ER visit but more than a primary care office. You may owe:\n\n- A copay at check-in\n- Charges for labs or X-rays done on site\n- Balance billing if the center is out of network\n\nBring insurance card and photo ID. Ask whether they can send records to your primary doctor. Telehealth vs Urgent Care vs ER | Option      | Good for                                     | Not for                               |\n| ----------- | -------------------------------------------- | ------------------------------------- |\n| Telehealth  | Minor rash, medication refill, cold symptoms | Chest pain, severe breathing trouble  |\n| Urgent care | Sprains, stitches, UTI symptoms, fever       | Stroke, major trauma, unconsciousness |\n| ER / 911    | Life-threatening emergencies                 | Routine prescription refills          | After Your Visit - Pick up prescriptions the same day if possible\n- Follow wound care or activity instructions\n- Schedule PCP follow-up within a week for ongoing issues\n- Go to ER if symptoms worsen despite urgent care treatment Prepare a Go-Bag Keep insurance card, medication list, and emergency contacts in your wallet or phone. Saves time when stress is high.\n\n<!-- lesson-depth-added -->",
     url: "/learn/when-to-use-urgent-care",
   },
   {
@@ -380,7 +380,7 @@ export const searchIndex: SearchEntry[] = [
     category: "Lab Results",
     categoryId: "lab-results",
     content:
-      "Parts of a Lab Report Most reports list:\n\n- **Test name** — what was measured (glucose, hemoglobin, etc.)\n- **Result** — your number\n- **Units** — mg/dL, mmol/L, etc.\n- **Reference range** — typical values for that lab\n- **Flag** — H (high), L (low), or critical alerts Reference Ranges Are Not Diagnoses Being slightly outside the range does not always mean disease. Ranges differ by lab equipment, age, sex, and pregnancy. Your doctor interprets results in context — symptoms, medicines, and past values. Common Flags Explained - **High glucose** — may suggest diabetes risk; fasting status matters\n- **Low hemoglobin** — may suggest anemia; causes vary\n- **High cholesterol** — cardiovascular risk factor; lifestyle and genetics both play roles\n- **Abnormal liver enzymes** — many causes including medicines; repeat tests often needed Questions for Your Doctor - Is this result abnormal for me specifically?\n- Should we repeat the test?\n- Do any medicines or supplements affect it?\n- What is the plan if it stays high or low?",
+      "Parts of a Lab Report Most reports list:\n\n- **Test name** — what was measured (glucose, hemoglobin, etc.)\n- **Result** — your number\n- **Units** — mg/dL, mmol/L, etc.\n- **Reference range** — typical values for that lab\n- **Flag** — H (high), L (low), or critical alerts Reference Ranges Are Not Diagnoses Being slightly outside the range does not always mean disease. Ranges differ by lab equipment, age, sex, and pregnancy. Your doctor interprets results in context — symptoms, medicines, and past values. Common Flags Explained - **High glucose** — may suggest diabetes risk; fasting status matters\n- **Low hemoglobin** — may suggest anemia; causes vary\n- **High cholesterol** — cardiovascular risk factor; lifestyle and genetics both play roles\n- **Abnormal liver enzymes** — many causes including medicines; repeat tests often needed Questions for Your Doctor - Is this result abnormal for me specifically?\n- Should we repeat the test?\n- Do any medicines or supplements affect it?\n- What is the plan if it stays high or low? Navigating Your Patient Portal Most labs post results before your doctor reviews them. When you see a new result:\n\n1. Read the test name and date\n2. Note the flag (H/L) if present\n3. Write down questions — do not panic over one number\n4. Wait for your clinician’s message or appointment unless marked critical Fasting vs Non-Fasting Tests Glucose and lipid panels often need fasting (usually 8–12 hours, water OK). Thyroid tests and many others do not. Wrong prep can make results misleading — confirm instructions when scheduling. Tracking Trends at Home Keep a simple log: date, test name, result, units. Spreadsheets, paper, or health apps all work. Bring the log to visits so your doctor sees patterns across labs from different facilities. Common Patient Questions - “Is this change because of my new medicine?”\n- “Should we repeat in 3 months or 6?”\n- “Do I need a specialist for this result?”\n- “What symptoms should I watch for?”\n<!-- lesson-depth-added -->",
     url: "/learn/reading-lab-report",
   },
   {
@@ -391,7 +391,7 @@ export const searchIndex: SearchEntry[] = [
     category: "Medication Safety",
     categoryId: "medication-safety",
     content:
-      "What Makes a Drug Generic After a brand's patent expires, other companies can make **generic** versions with the same active ingredient, strength, dosage form, and route (pill, patch, etc.). Regulators require generics to meet the same quality standards. Are Generics the Same? For most people, yes — generics work the same as brands. Inactive ingredients (colors, fillers) may differ, which rarely causes allergies or tolerance issues. If you notice new side effects after a switch, tell your pharmacist and doctor. Why Generics Cost Less Brand companies invest in research and marketing. Generic makers skip those costs. Insurance often charges lower copays for generics. When Brands May Be Preferred In a few cases — narrow therapeutic index drugs like some seizure or thyroid medicines — your doctor may prefer a consistent manufacturer. Do not switch back and forth without guidance. At the Pharmacy - Ask if a generic is available\n- Confirm you received what was prescribed if you have concerns\n- Use one pharmacy when possible so records stay complete",
+      "What Makes a Drug Generic After a brand's patent expires, other companies can make **generic** versions with the same active ingredient, strength, dosage form, and route (pill, patch, etc.). Regulators require generics to meet the same quality standards. Are Generics the Same? For most people, yes — generics work the same as brands. Inactive ingredients (colors, fillers) may differ, which rarely causes allergies or tolerance issues. If you notice new side effects after a switch, tell your pharmacist and doctor. Why Generics Cost Less Brand companies invest in research and marketing. Generic makers skip those costs. Insurance often charges lower copays for generics. When Brands May Be Preferred In a few cases — narrow therapeutic index drugs like some seizure or thyroid medicines — your doctor may prefer a consistent manufacturer. Do not switch back and forth without guidance. At the Pharmacy - Ask if a generic is available\n- Confirm you received what was prescribed if you have concerns\n- Use one pharmacy when possible so records stay complete Narrow Therapeutic Index Drugs Most generics work as well as brands. A few drug classes need extra monitoring after switching — examples include some anti-seizure medicines, levothyroxine for thyroid, and warfarin. Your doctor or pharmacist may recommend staying on one manufacturer for consistency. State Substitution Laws U.S. pharmacies may automatically substitute FDA-approved generics unless your prescriber marks “dispense as written.” You can ask for the brand if you have a documented reason, but insurance may charge more. Reading Your Dispensed Label Check:\n\n- **Active ingredient** — should match what you expect\n- **Manufacturer name** — may change between refills\n- **Appearance** — color or shape may differ; confirm with pharmacist if unsure Reporting Problems Use FDA MedWatch to report unexpected side effects after a switch. Your report helps regulators track quality issues across manufacturers.\n\n<!-- lesson-depth-added -->",
     url: "/learn/generic-vs-brand-drugs",
   },
   {
@@ -402,7 +402,7 @@ export const searchIndex: SearchEntry[] = [
     category: "Chronic Conditions",
     categoryId: "chronic-conditions",
     content:
-      "What Is Sleep Apnea? Sleep apnea means breathing repeatedly pauses or becomes shallow during sleep. The most common type is **obstructive sleep apnea (OSA)** — throat muscles relax and block airflow. Each pause can last seconds and disrupt oxygen and sleep quality. Common Symptoms - Loud snoring with gasping or choking\n- Daytime sleepiness despite enough time in bed\n- Morning headaches\n- Trouble concentrating\n- Partner noticing breathing stops\n\nNot everyone who snores has apnea, but red flags deserve evaluation. Why It Matters Untreated OSA raises risk of high blood pressure, heart disease, stroke, diabetes, and motor vehicle accidents from drowsy driving. Diagnosis A **sleep study** (at home or in a lab) measures breathing, oxygen, and brain activity. Your doctor reviews the apnea-hypopnea index (AHI) to guide treatment. Treatment Overview - **CPAP** — machine delivers gentle air pressure to keep the airway open; gold standard for moderate-to-severe OSA\n- **Oral appliances** — for mild cases or CPAP intolerance\n- **Weight loss** — can improve mild OSA\n- **Surgery** — selected cases only",
+      "What Is Sleep Apnea? Sleep apnea means breathing repeatedly pauses or becomes shallow during sleep. The most common type is **obstructive sleep apnea (OSA)** — throat muscles relax and block airflow. Each pause can last seconds and disrupt oxygen and sleep quality. Common Symptoms - Loud snoring with gasping or choking\n- Daytime sleepiness despite enough time in bed\n- Morning headaches\n- Trouble concentrating\n- Partner noticing breathing stops\n\nNot everyone who snores has apnea, but red flags deserve evaluation. Why It Matters Untreated OSA raises risk of high blood pressure, heart disease, stroke, diabetes, and motor vehicle accidents from drowsy driving. Diagnosis A **sleep study** (at home or in a lab) measures breathing, oxygen, and brain activity. Your doctor reviews the apnea-hypopnea index (AHI) to guide treatment. Treatment Overview - **CPAP** — machine delivers gentle air pressure to keep the airway open; gold standard for moderate-to-severe OSA\n- **Oral appliances** — for mild cases or CPAP intolerance\n- **Weight loss** — can improve mild OSA\n- **Surgery** — selected cases only Home Sleep Test vs Lab Study | Test                   | Where                      | Best for                                                         |\n| ---------------------- | -------------------------- | ---------------------------------------------------------------- |\n| Home sleep apnea test  | Your bed, portable sensors | Many adults with suspected moderate-high risk                    |\n| In-lab polysomnography | Sleep center               | Complex cases, other sleep disorders, some heart/lung conditions |\n\nYour sleep specialist chooses based on symptoms and medical history. Lifestyle Changes That Help Even with CPAP, these support better sleep:\n\n- **Weight loss** — even modest loss can reduce apnea severity for some people\n- **Side sleeping** — sew a tennis ball in a back pocket or use positional pillows\n- **Avoid alcohol before bed** — relaxes airway muscles\n- **Treat nasal congestion** — allergies and deviated septum worsen obstruction Partner and Family Impact Loud snoring and witnessed pauses disturb bed partners. Include them in appointments when possible — their observations help diagnosis and they may need their own sleep strategies. Follow-Up Expectations Expect mask fitting visits, pressure adjustments, and periodic data downloads from your machine. Insurance often requires proof of usage to continue coverage.\n\n<!-- lesson-depth-added -->",
     url: "/learn/sleep-apnea-basics",
   },
   {
@@ -462,6 +462,116 @@ export const searchIndex: SearchEntry[] = [
     url: "/articles/reliable-online-health-info",
   },
   {
+    id: "understanding-your-eob",
+    type: "article",
+    title: "Understanding Your Explanation of Benefits (EOB)",
+    description: "How to read an EOB and match it to provider bills.",
+    category: "Insurance & Billing",
+    categoryId: "articles",
+    content:
+      'What an EOB Is An Explanation of Benefits (EOB) is **not a bill**. It is a statement from your insurer showing what was billed, what they paid, and what you may owe. You usually receive it before or with a provider statement. Key Lines on an EOB - **Billed amount** — what the provider charged\n- **Allowed amount** — negotiated rate your plan accepts\n- **Plan paid** — what insurance covered\n- **Patient responsibility** — deductible, copay, coinsurance, or non-covered charges Matching EOB to Bills Compare date of service, provider name, and procedure codes. If the bill total does not match the EOB patient responsibility, call billing before paying. Common Confusion - **Duplicate EOBs** for one visit — one per service line is normal\n- **"You may owe"** — verify against the actual bill\n- **Out-of-network** — allowed amount and balance billing rules differ When to Call Your Insurer Ask if a claim was denied, applied to the wrong deductible, or coded incorrectly. Your doctor\'s office can resubmit with corrected codes.',
+    url: "/articles/understanding-your-eob",
+  },
+  {
+    id: "finding-in-network-providers",
+    type: "article",
+    title: "Finding In-Network Providers",
+    description: "Use your plan directory and avoid surprise bills.",
+    category: "Healthcare Navigation",
+    categoryId: "articles",
+    content:
+      "Why Network Matters In-network providers contract with your insurer for lower rates. Out-of-network care can cost much more or may not be covered except in emergencies. Steps to Find Care 1. Log into your insurer's website or app\n2. Search by specialty, location, and language\n3. Confirm the **specific doctor** is in network — not just the clinic name\n4. Call the office to verify they still accept your plan Hospital vs Doctor Network Hospitals and individual doctors negotiate separately. A surgeon may be out of network even at an in-network hospital — ask before scheduled procedures. Telehealth and Urgent Care Check whether virtual visits and retail clinics (minute clinics, urgent care chains) are in network before you go. If You Must Go Out of Network Ask about cash prices, payment plans, and whether your doctor can refer you to an in-network alternative.",
+    url: "/articles/finding-in-network-providers",
+  },
+  {
+    id: "preparing-for-blood-draw",
+    type: "article",
+    title: "Preparing for a Blood Draw",
+    description: "Fasting rules, hydration, and what to expect at the lab.",
+    category: "Lab Results",
+    categoryId: "articles",
+    content:
+      "Before You Go - Confirm **fasting** requirements (often 8–12 hours for glucose and lipids; water is usually OK)\n- Take prescribed morning medicines unless told otherwise\n- Wear sleeves that roll up easily\n- Bring your order form or show the lab your electronic order At the Lab The phlebotomist cleans your arm, applies a tourniquet, and inserts a small needle. Most draws take a few minutes. Multiple tubes may be filled from one stick. After the Draw Press gauze firmly for several minutes to reduce bruising. Avoid heavy lifting with that arm for the rest of the day. Results Timeline Many routine tests return in 1–3 business days on your patient portal. Critical values may trigger a phone call sooner. Special Situations Tell staff if you faint with needles, take blood thinners, or have a mastectomy — they may use a different arm or position.",
+    url: "/articles/preparing-for-blood-draw",
+  },
+  {
+    id: "second-opinion-basics",
+    type: "article",
+    title: "When and How to Get a Second Opinion",
+    description: "A practical guide to consulting another specialist.",
+    category: "Healthcare Navigation",
+    categoryId: "articles",
+    content:
+      "Why Second Opinions Help They confirm diagnoses, compare treatment options, or offer peace of mind before major surgery or long-term therapy. Good doctors support them. When to Consider One - Serious or unclear diagnosis (cancer, rare disease)\n- Recommended surgery with significant risk\n- Symptoms not improving on treatment\n- You feel rushed or unheard How to Request Records Ask your clinic for copies of imaging, pathology, and visit notes — or authorize transfer to the second physician. Many systems share via electronic health records. Insurance Coverage Some plans require or pay for second opinions on certain procedures. Call member services before booking. After the Second Visit Compare recommendations in writing. If plans differ, ask both doctors to discuss or schedule a three-way call.",
+    url: "/articles/second-opinion-basics",
+  },
+  {
+    id: "telehealth-visit-tips",
+    type: "article",
+    title: "Telehealth Visit Tips",
+    description: "Prepare for a productive video or phone appointment.",
+    category: "Doctor Visits",
+    categoryId: "articles",
+    content:
+      "Before the Visit - Test camera, microphone, and app login 15 minutes early\n- Sit in a quiet, well-lit space\n- Have medication list, thermometer readings, and photos of rashes ready\n- Know your pharmacy name and address for e-prescriptions During the Call Speak clearly and show affected areas to the camera when asked. Telehealth works well for follow-ups, medication checks, and many mental health visits. Limitations Emergencies, hands-on exams, and some diagnostic tests still need in-person care. Ask what cannot be done virtually. Privacy Use a private room. Headphones reduce echo and protect others from hearing your health information. Afterward Confirm next steps in the portal message center and schedule in-person labs if ordered.",
+    url: "/articles/telehealth-visit-tips",
+  },
+  {
+    id: "medication-adherence-strategies",
+    type: "article",
+    title: "Medication Adherence Strategies",
+    description: "Tools and habits to take medicines as prescribed.",
+    category: "Medication Safety",
+    categoryId: "articles",
+    content:
+      'Why Adherence Matters Skipping doses or stopping early can cause relapse, resistance, or hospitalization — especially for blood pressure, diabetes, and infection treatments. Practical Tools - **Pill organizer** — weekly boxes with AM/PM slots\n- **Phone alarms** — label each with drug name\n- **Pharmacy auto-refill** — reduces gaps\n- **Blister packs** — some pharmacies pre-sort by dose time Tie to Daily Routines Link medicines to brushing teeth, meals, or bedtime so the habit stacks on something you already do. Travel and Sick Days Pack extra doses in carry-on luggage. Ask your doctor for sick-day rules for insulin, blood pressure, or diuretics. Tracking Use a simple log or app for "as needed" medicines so you do not exceed daily limits.',
+    url: "/articles/medication-adherence-strategies",
+  },
+  {
+    id: "when-to-call-your-doctor",
+    type: "article",
+    title: "When to Call Your Doctor vs Urgent Care vs 911",
+    description: "A simple decision guide for non-emergency symptoms.",
+    category: "Emergency",
+    categoryId: "articles",
+    content:
+      "Call 911 or Go to ER - Chest pain or pressure\n- Trouble breathing\n- Stroke signs (FAST: face, arm, speech, time)\n- Severe bleeding or unconsciousness\n- Suicidal thoughts with a plan Urgent Care (Same Day) - Sprains, minor cuts needing stitches\n- Fever without severe distress in otherwise healthy adults\n- Urinary burning if you cannot reach your doctor\n- Mild asthma flare with inhaler not helping after one hour Call Your Doctor's Office - Medication side effects\n- Worsening chronic condition\n- Test result questions\n- Referrals and preventive scheduling When Unsure Err toward safer care. It is OK to go to ER; it is also OK to call 911 for guidance.",
+    url: "/articles/when-to-call-your-doctor",
+  },
+  {
+    id: "patient-portal-basics",
+    type: "article",
+    title: "Patient Portal Basics",
+    description: "Access results, messages, and refills online.",
+    category: "Healthcare Navigation",
+    categoryId: "articles",
+    content:
+      "What Portals Do Most clinics offer secure websites or apps to:\n\n- View lab and imaging results\n- Message your care team\n- Request prescription refills\n- Schedule appointments\n- Download visit summaries Getting Started Ask front desk for signup instructions. You may need email verification and a one-time activation code from your visit paperwork. Reading Results Early Results may appear before your doctor reviews them. Abnormal flags are not always urgent — but note questions for your follow-up. Messaging Etiquette Include one clear question per message, your pharmacy if requesting refills, and allow 1–3 business days for replies. Privacy and Access Use strong passwords. Proxy access for caregivers may require separate authorization forms.",
+    url: "/articles/patient-portal-basics",
+  },
+  {
+    id: "health-literacy-for-caregivers",
+    type: "article",
+    title: "Health Literacy for Caregivers",
+    description: "Support a loved one's care while respecting their autonomy.",
+    category: "Healthcare Navigation",
+    categoryId: "articles",
+    content:
+      "Your Role Caregivers translate instructions, track appointments, and advocate — but the patient (or legal proxy) makes final decisions unless incapacitated. Prepare for Appointments Together - List current medicines and allergies\n- Write top three concerns in the patient's words\n- Take notes or ask permission to record Proxy Access Hospitals require HIPAA authorization for you to receive medical information. Complete forms before emergencies when possible. Avoid Burnout Share duties with family, use respite programs, and keep your own medical appointments. When Values Conflict Focus on what matters to the patient — mobility, pain control, independence — not only what seems medically aggressive.",
+    url: "/articles/health-literacy-for-caregivers",
+  },
+  {
+    id: "understanding-prior-authorization",
+    type: "article",
+    title: "Understanding Prior Authorization",
+    description: "Why insurers require approval and how to speed the process.",
+    category: "Insurance & Billing",
+    categoryId: "articles",
+    content:
+      "What Prior Auth Is Your insurer may require approval before paying for certain drugs, imaging, or procedures. The provider submits clinical reasons; the plan decides if criteria are met. Common Triggers - Expensive brand drugs with generic alternatives\n- Advanced imaging (MRI, PET)\n- Elective surgeries\n- Durable medical equipment Timeline Decisions can take days to two weeks. Start early — ask your doctor's office to submit the same day they order the service. If Denied You can appeal with additional documentation. Ask for the denial letter in writing and the reason code. Your Role Sign release forms promptly, provide insurance cards at every visit, and follow up if you have not heard back within the stated window.",
+    url: "/articles/understanding-prior-authorization",
+  },
+  {
     id: "blood-pressure",
     type: "glossary",
     title: "Blood Pressure",
@@ -470,7 +580,7 @@ export const searchIndex: SearchEntry[] = [
     category: "General",
     categoryId: "glossary",
     content:
-      "## What It Is\n\nBlood pressure is the force of blood pushing against artery walls as the heart pumps. It is recorded as two numbers: systolic (pressure when the heart beats) over diastolic (pressure between beats). Normal adult readings are often around 120/80 mmHg, but targets vary by age and health conditions.\n\n## Why It Matters\n\nUnderstanding this term helps you follow conversations with doctors, read labels and test results, and make informed decisions about your health.\n\n## Talk With Your Care Team\n\nIf you are unsure how this applies to you, write down your questions before appointments and ask for explanations in plain language.",
+      "## What It Is\n\nBlood pressure is the force of blood pushing against artery walls as the heart pumps. It is recorded as two numbers: systolic (pressure when the heart beats) over diastolic (pressure between beats). Normal adult readings are often around 120/80 mmHg, but targets vary by age and health conditions.\n\n## Why It Matters\n\nBlood pressure readings guide treatment for stroke and heart disease prevention. Home and clinic readings can differ — tracking both helps your doctor adjust medicines accurately.\n\n## Talk With Your Care Team\n\nAsk: What is my target blood pressure, and should I monitor at home? How do my readings compare at different times of day?",
     url: "/glossary/blood-pressure",
   },
   {
@@ -482,7 +592,7 @@ export const searchIndex: SearchEntry[] = [
     category: "Conditions",
     categoryId: "glossary",
     content:
-      '## What It Is\n\nHypertension is the medical term for high blood pressure — when blood pushes too hard against artery walls over time. It is often called a "silent killer" because it may cause no symptoms while damaging the heart, brain, kidneys, and eyes. Treatment includes lifestyle changes and often medication.\n\n## Why It Matters\n\nUnderstanding this term helps you follow conversations with doctors, read labels and test results, and make informed decisions about your health.\n\n## Talk With Your Care Team\n\nIf you are unsure how this applies to you, write down your questions before appointments and ask for explanations in plain language.',
+      '## What It Is\n\nHypertension is the medical term for high blood pressure — when blood pushes too hard against artery walls over time. It is often called a "silent killer" because it may cause no symptoms while damaging the heart, brain, kidneys, and eyes. Treatment includes lifestyle changes and often medication.\n\n## Why It Matters\n\nUntreated hypertension damages blood vessels silently for years. Home monitoring and medication adherence directly lower stroke, heart attack, and kidney failure risk.\n\n## Talk With Your Care Team\n\nAsk: What blood pressure goal should I work toward, and how often should I check at home? What side effects from my blood pressure medicine should I report?',
     url: "/glossary/hypertension",
   },
   {
@@ -494,7 +604,7 @@ export const searchIndex: SearchEntry[] = [
     category: "Conditions",
     categoryId: "glossary",
     content:
-      "## What It Is\n\nHypotension means abnormally low blood pressure. It can cause dizziness, fainting, or fatigue, especially when standing up quickly. Causes include dehydration, certain medicines, heart problems, or severe infection. Sudden severe low blood pressure needs urgent medical care.\n\n## Why It Matters\n\nUnderstanding this term helps you follow conversations with doctors, read labels and test results, and make informed decisions about your health.\n\n## Talk With Your Care Team\n\nIf you are unsure how this applies to you, write down your questions before appointments and ask for explanations in plain language.",
+      "## What It Is\n\nHypotension means abnormally low blood pressure. It can cause dizziness, fainting, or fatigue, especially when standing up quickly. Causes include dehydration, certain medicines, heart problems, or severe infection. Sudden severe low blood pressure needs urgent medical care.\n\n## Why It Matters\n\nLow blood pressure can cause falls, especially in older adults on multiple medicines. Distinguishing harmless low readings from dangerous drops prevents injury and guides medication adjustments.\n\n## Talk With Your Care Team\n\nAsk: Is my low blood pressure causing my dizziness, and should any medicines be changed? When should I sit or lie down, and what hydration goals do you recommend?",
     url: "/glossary/hypotension",
   },
   {
@@ -506,7 +616,7 @@ export const searchIndex: SearchEntry[] = [
     category: "General",
     categoryId: "glossary",
     content:
-      '## What It Is\n\nCholesterol is a waxy fat-like substance found in your blood. Your body needs some cholesterol to build cells, but too much LDL ("bad") cholesterol can build up in arteries and raise heart attack and stroke risk. HDL ("good") cholesterol helps remove excess cholesterol from the bloodstream.\n\n## Why It Matters\n\nUnderstanding this term helps you follow conversations with doctors, read labels and test results, and make informed decisions about your health.\n\n## Talk With Your Care Team\n\nIf you are unsure how this applies to you, write down your questions before appointments and ask for explanations in plain language.',
+      '## What It Is\n\nCholesterol is a waxy fat-like substance found in your blood. Your body needs some cholesterol to build cells, but too much LDL ("bad") cholesterol can build up in arteries and raise heart attack and stroke risk. HDL ("good") cholesterol helps remove excess cholesterol from the bloodstream.\n\n## Why It Matters\n\nCholesterol levels help estimate cardiovascular risk alongside blood pressure, smoking, and family history. Lifestyle and medicines target LDL and triglycerides to protect arteries over decades.\n\n## Talk With Your Care Team\n\nAsk: Which numbers on my lipid panel matter most for me? When should we repeat the test after starting diet changes or statins?',
     url: "/glossary/cholesterol",
   },
   {
@@ -518,7 +628,7 @@ export const searchIndex: SearchEntry[] = [
     category: "Lab Results",
     categoryId: "glossary",
     content:
-      '## What It Is\n\nLDL (low-density lipoprotein) is often called "bad" cholesterol because high levels can deposit cholesterol in artery walls, forming plaque. This narrows arteries and raises heart attack and stroke risk. Diet, exercise, and medicines called statins can lower LDL.\n\n## Why It Matters\n\nUnderstanding this term helps you follow conversations with doctors, read labels and test results, and make informed decisions about your health.\n\n## Talk With Your Care Team\n\nIf you are unsure how this applies to you, write down your questions before appointments and ask for explanations in plain language.',
+      '## What It Is\n\nLDL (low-density lipoprotein) is often called "bad" cholesterol because high levels can deposit cholesterol in artery walls, forming plaque. This narrows arteries and raises heart attack and stroke risk. Diet, exercise, and medicines called statins can lower LDL.\n\n## Why It Matters\n\nHigh LDL contributes to plaque buildup that narrows arteries. Lowering LDL with diet, exercise, and statins is one of the most proven ways to reduce heart attack and stroke risk.\n\n## Talk With Your Care Team\n\nAsk: What LDL level are we targeting, and how soon will we recheck labs? What side effects from statins should I watch for?',
     url: "/glossary/ldl",
   },
   {
@@ -530,7 +640,7 @@ export const searchIndex: SearchEntry[] = [
     category: "Lab Results",
     categoryId: "glossary",
     content:
-      '## What It Is\n\nHDL (high-density lipoprotein) is often called "good" cholesterol because it carries cholesterol away from arteries back to the liver. Higher HDL levels are generally associated with lower heart disease risk. Exercise, not smoking, and healthy fats can help raise HDL.\n\n## Why It Matters\n\nUnderstanding this term helps you follow conversations with doctors, read labels and test results, and make informed decisions about your health.\n\n## Talk With Your Care Team\n\nIf you are unsure how this applies to you, write down your questions before appointments and ask for explanations in plain language.',
+      '## What It Is\n\nHDL (high-density lipoprotein) is often called "good" cholesterol because it carries cholesterol away from arteries back to the liver. Higher HDL levels are generally associated with lower heart disease risk. Exercise, not smoking, and healthy fats can help raise HDL.\n\n## Why It Matters\n\nHDL helps remove cholesterol from arteries, but it is one piece of heart risk — not a standalone guarantee of protection. Very low HDL may prompt lifestyle changes even when LDL looks acceptable.\n\n## Talk With Your Care Team\n\nAsk: Is my HDL level a concern given my overall heart risk? What lifestyle changes could raise HDL, and when would medicine be considered?',
     url: "/glossary/hdl",
   },
   {
@@ -542,7 +652,7 @@ export const searchIndex: SearchEntry[] = [
     category: "Lab Results",
     categoryId: "glossary",
     content:
-      "## What It Is\n\nTriglycerides are a type of fat in the blood used for energy storage. High triglycerides — often linked to excess sugar, alcohol, or refined carbs — increase heart disease and pancreatitis risk. A lipid panel measures triglycerides along with cholesterol levels.\n\n## Why It Matters\n\nUnderstanding this term helps you follow conversations with doctors, read labels and test results, and make informed decisions about your health.\n\n## Talk With Your Care Team\n\nIf you are unsure how this applies to you, write down your questions before appointments and ask for explanations in plain language.",
+      "## What It Is\n\nTriglycerides are a type of fat in the blood used for energy storage. High triglycerides — often linked to excess sugar, alcohol, or refined carbs — increase heart disease and pancreatitis risk. A lipid panel measures triglycerides along with cholesterol levels.\n\n## Why It Matters\n\nHigh triglycerides often respond to cutting sugary drinks, alcohol, and refined carbs. Very high levels can cause pancreatitis — a painful emergency — so treatment urgency depends on the number.\n\n## Talk With Your Care Team\n\nAsk: How high are my triglycerides compared to my last test, and what diet changes matter most? Do I need medicine now or can we recheck after lifestyle changes?",
     url: "/glossary/triglycerides",
   },
   {
@@ -554,7 +664,7 @@ export const searchIndex: SearchEntry[] = [
     category: "Conditions",
     categoryId: "glossary",
     content:
-      "## What It Is\n\nDiabetes is a chronic disease that affects how your body turns food into energy. With diabetes, your body either does not make enough insulin or cannot use insulin properly, causing high blood sugar. Over time, high blood sugar can damage the heart, kidneys, nerves, and eyes if not managed.\n\n## Why It Matters\n\nUnderstanding this term helps you follow conversations with doctors, read labels and test results, and make informed decisions about your health.\n\n## Talk With Your Care Team\n\nIf you are unsure how this applies to you, write down your questions before appointments and ask for explanations in plain language.",
+      "## What It Is\n\nDiabetes is a chronic disease that affects how your body turns food into energy. With diabetes, your body either does not make enough insulin or cannot use insulin properly, causing high blood sugar. Over time, high blood sugar can damage the heart, kidneys, nerves, and eyes if not managed.\n\n## Why It Matters\n\nDiabetes affects daily food choices, activity, foot care, eye exams, and medication timing. Early and consistent management prevents complications that develop silently over years.\n\n## Talk With Your Care Team\n\nAsk: What A1C or blood sugar targets are right for me? How often should I see an eye doctor and foot specialist, and what new symptoms should I report right away?",
     url: "/glossary/diabetes",
   },
   {
@@ -566,7 +676,7 @@ export const searchIndex: SearchEntry[] = [
     category: "General",
     categoryId: "glossary",
     content:
-      "## What It Is\n\nBlood sugar (blood glucose) is the amount of sugar in your bloodstream. The body uses glucose for energy, and insulin helps move it into cells. High blood sugar over time can damage nerves, kidneys, eyes, and blood vessels — a hallmark of diabetes.\n\n## Why It Matters\n\nUnderstanding this term helps you follow conversations with doctors, read labels and test results, and make informed decisions about your health.\n\n## Talk With Your Care Team\n\nIf you are unsure how this applies to you, write down your questions before appointments and ask for explanations in plain language.",
+      "## What It Is\n\nBlood sugar (blood glucose) is the amount of sugar in your bloodstream. The body uses glucose for energy, and insulin helps move it into cells. High blood sugar over time can damage nerves, kidneys, eyes, and blood vessels — a hallmark of diabetes.\n\n## Why It Matters\n\nBlood sugar levels affect energy, mood, and long-term organ health. Recognizing high and low patterns helps you respond before emergencies and stick to your management plan.\n\n## Talk With Your Care Team\n\nAsk: What range should I aim for before meals and at bedtime? What symptoms mean I should check my sugar immediately or seek help?",
     url: "/glossary/blood-sugar",
   },
   {
@@ -578,7 +688,7 @@ export const searchIndex: SearchEntry[] = [
     category: "General",
     categoryId: "glossary",
     content:
-      "## What It Is\n\nGlucose is a simple sugar and the body's main source of energy from food. After you eat, glucose enters the bloodstream and insulin helps cells absorb it. Fasting glucose and A1C tests measure how well your body manages blood sugar over time.\n\n## Why It Matters\n\nUnderstanding this term helps you follow conversations with doctors, read labels and test results, and make informed decisions about your health.\n\n## Talk With Your Care Team\n\nIf you are unsure how this applies to you, write down your questions before appointments and ask for explanations in plain language.",
+      "## What It Is\n\nGlucose is a simple sugar and the body's main source of energy from food. After you eat, glucose enters the bloodstream and insulin helps cells absorb it. Fasting glucose and A1C tests measure how well your body manages blood sugar over time.\n\n## Why It Matters\n\nGlucose is the fuel your cells use and the number most diabetes tests track. Spikes after meals and fasting levels tell different stories — both matter for treatment decisions.\n\n## Talk With Your Care Team\n\nAsk: Should I check glucose at home, and how do fasting versus after-meal readings change my plan? What carbs or activities affect my levels most?",
     url: "/glossary/glucose",
   },
   {
@@ -590,7 +700,7 @@ export const searchIndex: SearchEntry[] = [
     category: "General",
     categoryId: "glossary",
     content:
-      "## What It Is\n\nInsulin is a hormone made by the pancreas that helps glucose enter cells for energy. In type 1 diabetes the body makes little or no insulin; in type 2 diabetes cells resist insulin's effects. People with diabetes may need insulin injections or other medicines to control blood sugar.\n\n## Why It Matters\n\nUnderstanding this term helps you follow conversations with doctors, read labels and test results, and make informed decisions about your health.\n\n## Talk With Your Care Team\n\nIf you are unsure how this applies to you, write down your questions before appointments and ask for explanations in plain language.",
+      "## What It Is\n\nInsulin is a hormone made by the pancreas that helps glucose enter cells for energy. In type 1 diabetes the body makes little or no insulin; in type 2 diabetes cells resist insulin's effects. People with diabetes may need insulin injections or other medicines to control blood sugar.\n\n## Why It Matters\n\nInsulin timing and dosing errors can cause dangerous highs and lows within hours. Understanding how your body uses insulin helps you coordinate meals, activity, and sick-day rules.\n\n## Talk With Your Care Team\n\nAsk: When should I take each insulin type relative to meals? What sick-day adjustments apply, and what blood sugar levels mean I need emergency help?",
     url: "/glossary/insulin",
   },
   {
@@ -602,7 +712,7 @@ export const searchIndex: SearchEntry[] = [
     category: "General",
     categoryId: "glossary",
     content:
-      "## What It Is\n\nChronic describes a condition that lasts a long time — usually three months or more. Examples include diabetes, hypertension, asthma, and heart disease. Chronic conditions often need ongoing treatment, lifestyle changes, and regular monitoring rather than a one-time cure.\n\n## Why It Matters\n\nUnderstanding this term helps you follow conversations with doctors, read labels and test results, and make informed decisions about your health.\n\n## Talk With Your Care Team\n\nIf you are unsure how this applies to you, write down your questions before appointments and ask for explanations in plain language.",
+      "## What It Is\n\nChronic describes a condition that lasts a long time — usually three months or more. Examples include diabetes, hypertension, asthma, and heart disease. Chronic conditions often need ongoing treatment, lifestyle changes, and regular monitoring rather than a one-time cure.\n\n## Why It Matters\n\nChronic conditions require ongoing self-management, not just one visit. Understanding the label helps you plan for monitoring, medication adherence, and realistic long-term goals.\n\n## Talk With Your Care Team\n\nAsk: What does living with this condition look like day to day, and what are my top three self-care priorities? Who do I contact between visits if symptoms change?",
     url: "/glossary/chronic",
   },
   {
@@ -614,7 +724,7 @@ export const searchIndex: SearchEntry[] = [
     category: "General",
     categoryId: "glossary",
     content:
-      "## What It Is\n\nAcute means sudden in onset and often short in duration. Acute illnesses or injuries develop quickly and may need prompt care — for example a broken bone, strep throat, or a panic attack. Acute is the opposite of chronic, which lasts months or years.\n\n## Why It Matters\n\nUnderstanding this term helps you follow conversations with doctors, read labels and test results, and make informed decisions about your health.\n\n## Talk With Your Care Team\n\nIf you are unsure how this applies to you, write down your questions before appointments and ask for explanations in plain language.",
+      "## What It Is\n\nAcute means sudden in onset and often short in duration. Acute illnesses or injuries develop quickly and may need prompt care — for example a broken bone, strep throat, or a panic attack. Acute is the opposite of chronic, which lasts months or years.\n\n## Why It Matters\n\nKnowing whether a problem is acute or chronic helps you set expectations for recovery time and urgency of follow-up. Acute symptoms that worsen quickly may need same-day care rather than waiting for a routine appointment.\n\n## Talk With Your Care Team\n\nAsk: Is this condition likely to resolve on its own, and what warning signs mean I should call sooner? How long should I wait before expecting improvement?",
     url: "/glossary/acute",
   },
   {
@@ -626,7 +736,7 @@ export const searchIndex: SearchEntry[] = [
     category: "General",
     categoryId: "glossary",
     content:
-      "## What It Is\n\nA symptom is something you feel or experience — pain, fatigue, nausea, anxiety — that you report to your doctor. Tracking when symptoms started, how often they occur, and what makes them better or worse helps your care team find causes and plan treatment.\n\n## Why It Matters\n\nUnderstanding this term helps you follow conversations with doctors, read labels and test results, and make informed decisions about your health.\n\n## Talk With Your Care Team\n\nIf you are unsure how this applies to you, write down your questions before appointments and ask for explanations in plain language.",
+      "## What It Is\n\nA symptom is something you feel or experience — pain, fatigue, nausea, anxiety — that you report to your doctor. Tracking when symptoms started, how often they occur, and what makes them better or worse helps your care team find causes and plan treatment.\n\n## Why It Matters\n\nClear symptom descriptions — onset, severity, triggers — often matter more than test results early in evaluation. A symptom diary speeds diagnosis and reduces repeat visits.\n\n## Talk With Your Care Team\n\nAsk: What details about my symptoms would help you most — timing, location, what makes it better or worse? Should I keep a log until our next visit?",
     url: "/glossary/symptom",
   },
   {
@@ -638,7 +748,7 @@ export const searchIndex: SearchEntry[] = [
     category: "General",
     categoryId: "glossary",
     content:
-      "## What It Is\n\nA sign is an objective finding that others can observe or measure — such as a fever, rash, or high blood pressure reading. Signs differ from symptoms, which are what the patient feels and reports. Doctors use both signs and symptoms to make diagnoses.\n\n## Why It Matters\n\nUnderstanding this term helps you follow conversations with doctors, read labels and test results, and make informed decisions about your health.\n\n## Talk With Your Care Team\n\nIf you are unsure how this applies to you, write down your questions before appointments and ask for explanations in plain language.",
+      "## What It Is\n\nA sign is an objective finding that others can observe or measure — such as a fever, rash, or high blood pressure reading. Signs differ from symptoms, which are what the patient feels and reports. Doctors use both signs and symptoms to make diagnoses.\n\n## Why It Matters\n\nSigns give objective evidence doctors measure — fever, blood pressure, lab flags. Knowing the difference from symptoms helps you describe both clearly at visits.\n\n## Talk With Your Care Team\n\nAsk: What signs will you monitor at follow-up, and can I track any of them at home? Which new signs should prompt a call before my next appointment?",
     url: "/glossary/sign",
   },
   {
@@ -650,7 +760,7 @@ export const searchIndex: SearchEntry[] = [
     category: "General",
     categoryId: "glossary",
     content:
-      "## What It Is\n\nA diagnosis is the identification of a disease or condition based on symptoms, exams, and test results. Receiving a diagnosis can feel overwhelming, but it is the starting point for treatment and planning. Always ask your doctor what the diagnosis means for your daily life and next steps.\n\n## Why It Matters\n\nUnderstanding this term helps you follow conversations with doctors, read labels and test results, and make informed decisions about your health.\n\n## Talk With Your Care Team\n\nIf you are unsure how this applies to you, write down your questions before appointments and ask for explanations in plain language.",
+      "## What It Is\n\nA diagnosis is the identification of a disease or condition based on symptoms, exams, and test results. Receiving a diagnosis can feel overwhelming, but it is the starting point for treatment and planning. Always ask your doctor what the diagnosis means for your daily life and next steps.\n\n## Why It Matters\n\nA diagnosis shapes treatment options, insurance coverage, and your emotional response. Clear understanding reduces fear and helps you advocate for second opinions when something does not feel right.\n\n## Talk With Your Care Team\n\nAsk: What evidence supports this diagnosis, and what else could it be? What are the next steps this week and this month?",
     url: "/glossary/diagnosis",
   },
   {
@@ -662,7 +772,7 @@ export const searchIndex: SearchEntry[] = [
     category: "General",
     categoryId: "glossary",
     content:
-      "## What It Is\n\nPrognosis is a doctor's best estimate of how a disease or condition is likely to progress over time — including chances of recovery, stability, or complications. Prognosis is not a guarantee; treatment, lifestyle, and new research can change outcomes. Always ask what factors affect your personal prognosis.\n\n## Why It Matters\n\nUnderstanding this term helps you follow conversations with doctors, read labels and test results, and make informed decisions about your health.\n\n## Talk With Your Care Team\n\nIf you are unsure how this applies to you, write down your questions before appointments and ask for explanations in plain language.",
+      "## What It Is\n\nPrognosis is a doctor's best estimate of how a disease or condition is likely to progress over time — including chances of recovery, stability, or complications. Prognosis is not a guarantee; treatment, lifestyle, and new research can change outcomes. Always ask what factors affect your personal prognosis.\n\n## Why It Matters\n\nPrognosis helps plan work, family, and treatment intensity — but numbers are averages, not destiny. New therapies and personal factors can shift outcomes after the first conversation.\n\n## Talk With Your Care Team\n\nAsk: What factors most affect my individual outlook? What would change the prognosis if I follow treatment versus if I do not?",
     url: "/glossary/prognosis",
   },
   {
@@ -674,7 +784,7 @@ export const searchIndex: SearchEntry[] = [
     category: "Medications",
     categoryId: "glossary",
     content:
-      "## What It Is\n\nA side effect is an unwanted reaction to a medicine — from mild (dry mouth) to severe (allergic reaction). Not everyone gets side effects, and many fade as the body adjusts. Report bothersome or serious side effects to your doctor; do not stop prescribed medicine without guidance.\n\n## Why It Matters\n\nUnderstanding this term helps you follow conversations with doctors, read labels and test results, and make informed decisions about your health.\n\n## Talk With Your Care Team\n\nIf you are unsure how this applies to you, write down your questions before appointments and ask for explanations in plain language.",
+      "## What It Is\n\nA side effect is an unwanted reaction to a medicine — from mild (dry mouth) to severe (allergic reaction). Not everyone gets side effects, and many fade as the body adjusts. Report bothersome or serious side effects to your doctor; do not stop prescribed medicine without guidance.\n\n## Why It Matters\n\nSome side effects fade with time; others signal allergy or organ stress. Reporting problems early lets your team adjust dose or switch medicines before serious harm occurs.\n\n## Talk With Your Care Team\n\nAsk: Which side effects are common and temporary versus reasons to stop the drug immediately? Should I report mild symptoms to you or the pharmacist first?",
     url: "/glossary/side-effect",
   },
   {
@@ -686,7 +796,7 @@ export const searchIndex: SearchEntry[] = [
     category: "Medications",
     categoryId: "glossary",
     content:
-      '## What It Is\n\nDosage is the amount of medicine prescribed and how often you take it — for example "one tablet twice daily." Taking the correct dose at the right time is essential for safety and effectiveness. Never change your dose without talking to your doctor or pharmacist.\n\n## Why It Matters\n\nUnderstanding this term helps you follow conversations with doctors, read labels and test results, and make informed decisions about your health.\n\n## Talk With Your Care Team\n\nIf you are unsure how this applies to you, write down your questions before appointments and ask for explanations in plain language.',
+      '## What It Is\n\nDosage is the amount of medicine prescribed and how often you take it — for example "one tablet twice daily." Taking the correct dose at the right time is essential for safety and effectiveness. Never change your dose without talking to your doctor or pharmacist.\n\n## Why It Matters\n\nWrong dose — too much, too little, or at the wrong time — is a leading cause of medication harm. Dosage instructions on the label are legal and medical orders, not suggestions.\n\n## Talk With Your Care Team\n\nAsk: What if I miss a dose or take one late? Can I split or crush this tablet, and should I take it with food or on an empty stomach?',
     url: "/glossary/dosage",
   },
   {
@@ -698,7 +808,7 @@ export const searchIndex: SearchEntry[] = [
     category: "Medications",
     categoryId: "glossary",
     content:
-      "## What It Is\n\nA generic drug contains the same active ingredient as a brand-name medicine and must meet the same FDA standards for safety and effectiveness. Generics often cost less because manufacturers do not repeat expensive marketing and development. They may look different but work the same way.\n\n## Why It Matters\n\nUnderstanding this term helps you follow conversations with doctors, read labels and test results, and make informed decisions about your health.\n\n## Talk With Your Care Team\n\nIf you are unsure how this applies to you, write down your questions before appointments and ask for explanations in plain language.",
+      "## What It Is\n\nA generic drug contains the same active ingredient as a brand-name medicine and must meet the same FDA standards for safety and effectiveness. Generics often cost less because manufacturers do not repeat expensive marketing and development. They may look different but work the same way.\n\n## Why It Matters\n\nGenerics save money and improve access for most people. Knowing they are FDA-equivalent helps you discuss switches confidently while watching for rare filler sensitivities.\n\n## Talk With Your Care Team\n\nAsk: Is a generic appropriate for this medicine, and will my insurance require it? What should I do if the new pill looks different or I feel different after a switch?",
     url: "/glossary/generic-drug",
   },
   {
@@ -710,7 +820,7 @@ export const searchIndex: SearchEntry[] = [
     category: "Medications",
     categoryId: "glossary",
     content:
-      "## What It Is\n\nA prescription is a written or electronic order from a licensed provider for a specific medicine, dose, and instructions. Only pharmacies can dispense prescription drugs. The label includes your name, drug name, how to take it, refills, and pharmacy contact information.\n\n## Why It Matters\n\nUnderstanding this term helps you follow conversations with doctors, read labels and test results, and make informed decisions about your health.\n\n## Talk With Your Care Team\n\nIf you are unsure how this applies to you, write down your questions before appointments and ask for explanations in plain language.",
+      "## What It Is\n\nA prescription is a written or electronic order from a licensed provider for a specific medicine, dose, and instructions. Only pharmacies can dispense prescription drugs. The label includes your name, drug name, how to take it, refills, and pharmacy contact information.\n\n## Why It Matters\n\nPrescriptions carry legal requirements for refills, controlled substances, and pharmacy transfers. Expired or shared prescriptions can be unsafe and may not be filled.\n\n## Talk With Your Care Team\n\nAsk: How many refills remain, and should I schedule a follow-up before they run out? Can this prescription be sent electronically to my preferred pharmacy?",
     url: "/glossary/prescription",
   },
   {
@@ -722,7 +832,7 @@ export const searchIndex: SearchEntry[] = [
     category: "Medications",
     categoryId: "glossary",
     content:
-      "## What It Is\n\nOver-the-counter (OTC) medicines can be bought without a prescription — examples include acetaminophen, ibuprofen, and allergy pills. They still have risks and drug interactions. Tell your doctor and pharmacist about all OTC products you use, including how often and at what dose.\n\n## Why It Matters\n\nUnderstanding this term helps you follow conversations with doctors, read labels and test results, and make informed decisions about your health.\n\n## Talk With Your Care Team\n\nIf you are unsure how this applies to you, write down your questions before appointments and ask for explanations in plain language.",
+      "## What It Is\n\nOver-the-counter (OTC) medicines can be bought without a prescription — examples include acetaminophen, ibuprofen, and allergy pills. They still have risks and drug interactions. Tell your doctor and pharmacist about all OTC products you use, including how often and at what dose.\n\n## Why It Matters\n\nOTC products are real medicines with overdose and interaction risks — especially acetaminophen hidden in cold formulas. They belong on your full medication list for every visit.\n\n## Talk With Your Care Team\n\nAsk: Is this OTC product safe with my prescriptions and health conditions? What is the maximum daily dose from all sources combined?",
     url: "/glossary/over-the-counter",
   },
   {
@@ -734,7 +844,7 @@ export const searchIndex: SearchEntry[] = [
     category: "Procedures",
     categoryId: "glossary",
     content:
-      "## What It Is\n\nA biopsy is a procedure where a small sample of tissue or cells is removed for laboratory examination. Doctors use biopsies to check for cancer, infection, or other diseases. Results usually take several days to weeks depending on the type of test.\n\n## Why It Matters\n\nUnderstanding this term helps you follow conversations with doctors, read labels and test results, and make informed decisions about your health.\n\n## Talk With Your Care Team\n\nIf you are unsure how this applies to you, write down your questions before appointments and ask for explanations in plain language.",
+      "## What It Is\n\nA biopsy is a procedure where a small sample of tissue or cells is removed for laboratory examination. Doctors use biopsies to check for cancer, infection, or other diseases. Results usually take several days to weeks depending on the type of test.\n\n## Why It Matters\n\nBiopsy results often determine cancer staging and treatment plans. Understanding the procedure reduces anxiety and helps you prepare for possible waiting periods and follow-up appointments.\n\n## Talk With Your Care Team\n\nAsk: How will I receive results, and who calls me if something urgent is found? What restrictions apply after the procedure (activity, bathing, medications)?",
     url: "/glossary/biopsy",
   },
   {
@@ -746,7 +856,7 @@ export const searchIndex: SearchEntry[] = [
     category: "Procedures",
     categoryId: "glossary",
     content:
-      "## What It Is\n\nA CT (computed tomography) scan uses X-rays and computer processing to create detailed cross-sectional images of the body. It can show bones, organs, and blood vessels. Doctors use CT scans to diagnose injuries, tumors, infections, and other internal problems.\n\n## Why It Matters\n\nUnderstanding this term helps you follow conversations with doctors, read labels and test results, and make informed decisions about your health.\n\n## Talk With Your Care Team\n\nIf you are unsure how this applies to you, write down your questions before appointments and ask for explanations in plain language.",
+      "## What It Is\n\nA CT (computed tomography) scan uses X-rays and computer processing to create detailed cross-sectional images of the body. It can show bones, organs, and blood vessels. Doctors use CT scans to diagnose injuries, tumors, infections, and other internal problems.\n\n## Why It Matters\n\nCT scans expose you to more radiation than a single X-ray. They provide fast, detailed images for emergencies and complex diagnoses — worth discussing when alternatives like ultrasound or MRI may suffice.\n\n## Talk With Your Care Team\n\nAsk: Why is CT the best test for my situation, and will I need contrast dye? How do I prepare, and when will someone explain the results?",
     url: "/glossary/ct-scan",
   },
   {
@@ -758,7 +868,7 @@ export const searchIndex: SearchEntry[] = [
     category: "Procedures",
     categoryId: "glossary",
     content:
-      "## What It Is\n\nMRI (magnetic resonance imaging) uses strong magnets and radio waves — not X-rays — to create detailed images of soft tissues like the brain, spine, joints, and organs. It is useful for detecting tumors, injuries, and neurological conditions. The scan can take 30–60 minutes and is painless.\n\n## Why It Matters\n\nUnderstanding this term helps you follow conversations with doctors, read labels and test results, and make informed decisions about your health.\n\n## Talk With Your Care Team\n\nIf you are unsure how this applies to you, write down your questions before appointments and ask for explanations in plain language.",
+      "## What It Is\n\nMRI (magnetic resonance imaging) uses strong magnets and radio waves — not X-rays — to create detailed images of soft tissues like the brain, spine, joints, and organs. It is useful for detecting tumors, injuries, and neurological conditions. The scan can take 30–60 minutes and is painless.\n\n## Why It Matters\n\nMRI provides detailed soft-tissue images without radiation but requires staying still in a enclosed space. Metal implants and claustrophobia may require special scheduling or alternative tests.\n\n## Talk With Your Care Team\n\nAsk: Do I need contrast for this MRI, and is my implant safe inside the scanner? What happens if I feel anxious during the test?",
     url: "/glossary/mri",
   },
   {
@@ -770,7 +880,7 @@ export const searchIndex: SearchEntry[] = [
     category: "Procedures",
     categoryId: "glossary",
     content:
-      "## What It Is\n\nUltrasound uses high-frequency sound waves to create images of structures inside the body, such as a developing fetus, gallbladder, heart, or blood vessels. It does not use radiation. Gel is applied to the skin and a probe sends and receives sound waves to build a live image.\n\n## Why It Matters\n\nUnderstanding this term helps you follow conversations with doctors, read labels and test results, and make informed decisions about your health.\n\n## Talk With Your Care Team\n\nIf you are unsure how this applies to you, write down your questions before appointments and ask for explanations in plain language.",
+      "## What It Is\n\nUltrasound uses high-frequency sound waves to create images of structures inside the body, such as a developing fetus, gallbladder, heart, or blood vessels. It does not use radiation. Gel is applied to the skin and a probe sends and receives sound waves to build a live image.\n\n## Why It Matters\n\nUltrasound is safe during pregnancy and for repeated monitoring because it uses sound, not radiation. Results depend on operator skill — some findings need follow-up CT or MRI for detail.\n\n## Talk With Your Care Team\n\nAsk: What will this ultrasound show, and might I need a full bladder or fasting beforehand? Who explains results — the technician or my doctor — and when?",
     url: "/glossary/ultrasound",
   },
   {
@@ -782,7 +892,7 @@ export const searchIndex: SearchEntry[] = [
     category: "General",
     categoryId: "glossary",
     content:
-      "## What It Is\n\nInflammation is the body's response to injury or infection — redness, swelling, heat, and pain. Acute inflammation helps healing. Chronic inflammation lasting months can contribute to heart disease, arthritis, and other conditions. Lifestyle and treatment can reduce harmful chronic inflammation.\n\n## Why It Matters\n\nUnderstanding this term helps you follow conversations with doctors, read labels and test results, and make informed decisions about your health.\n\n## Talk With Your Care Team\n\nIf you are unsure how this applies to you, write down your questions before appointments and ask for explanations in plain language.",
+      "## What It Is\n\nInflammation is the body's response to injury or infection — redness, swelling, heat, and pain. Acute inflammation helps healing. Chronic inflammation lasting months can contribute to heart disease, arthritis, and other conditions. Lifestyle and treatment can reduce harmful chronic inflammation.\n\n## Why It Matters\n\nShort-term inflammation heals injuries; chronic inflammation contributes to heart disease, diabetes complications, and joint damage. Treatment targets the underlying cause, not just pain.\n\n## Talk With Your Care Team\n\nAsk: Is my inflammation from an infection, autoimmune disease, or lifestyle factors? How will we know if treatment is working?",
     url: "/glossary/inflammation",
   },
   {
@@ -794,7 +904,7 @@ export const searchIndex: SearchEntry[] = [
     category: "General",
     categoryId: "glossary",
     content:
-      "## What It Is\n\nThe immune system is the body's defense network against germs, viruses, and abnormal cells. It includes white blood cells, antibodies, and organs like the spleen and lymph nodes. Vaccines train the immune system to recognize specific threats without causing full illness.\n\n## Why It Matters\n\nUnderstanding this term helps you follow conversations with doctors, read labels and test results, and make informed decisions about your health.\n\n## Talk With Your Care Team\n\nIf you are unsure how this applies to you, write down your questions before appointments and ask for explanations in plain language.",
+      "## What It Is\n\nThe immune system is the body's defense network against germs, viruses, and abnormal cells. It includes white blood cells, antibodies, and organs like the spleen and lymph nodes. Vaccines train the immune system to recognize specific threats without causing full illness.\n\n## Why It Matters\n\nImmune health affects how you respond to vaccines, infections, and some medicines that suppress immunity. Autoimmune conditions happen when the immune system attacks the body itself.\n\n## Talk With Your Care Team\n\nAsk: Am I considered immunocompromised, and do I need extra vaccines or precautions? What infections should I watch for on my current treatment?",
     url: "/glossary/immune-system",
   },
   {
@@ -806,7 +916,7 @@ export const searchIndex: SearchEntry[] = [
     category: "General",
     categoryId: "glossary",
     content:
-      '## What It Is\n\nMetabolism is the set of chemical processes that convert food into energy and building blocks for the body. Basal metabolic rate is energy used at rest. Age, muscle mass, activity, and hormones affect metabolism. A "slow metabolism" is rarely the sole cause of weight gain.\n\n## Why It Matters\n\nUnderstanding this term helps you follow conversations with doctors, read labels and test results, and make informed decisions about your health.\n\n## Talk With Your Care Team\n\nIf you are unsure how this applies to you, write down your questions before appointments and ask for explanations in plain language.',
+      '## What It Is\n\nMetabolism is the set of chemical processes that convert food into energy and building blocks for the body. Basal metabolic rate is energy used at rest. Age, muscle mass, activity, and hormones affect metabolism. A "slow metabolism" is rarely the sole cause of weight gain.\n\n## Why It Matters\n\nMetabolism affects weight, energy, and how medicines are processed. Thyroid disorders, muscle mass, and age shift metabolic rate — blaming metabolism alone often misses treatable causes.\n\n## Talk With Your Care Team\n\nAsk: Could a thyroid or hormone issue be affecting my weight or energy? What realistic changes could help beyond dieting alone?',
     url: "/glossary/metabolism",
   },
   {
@@ -818,7 +928,7 @@ export const searchIndex: SearchEntry[] = [
     category: "General",
     categoryId: "glossary",
     content:
-      "## What It Is\n\nA placebo is an inactive treatment — such as a sugar pill — used in research to compare against real medicine. Some people feel better on placebo due to the mind-body response (placebo effect). Placebos in clinical trials help prove whether a treatment works beyond expectation alone.\n\n## Why It Matters\n\nUnderstanding this term helps you follow conversations with doctors, read labels and test results, and make informed decisions about your health.\n\n## Talk With Your Care Team\n\nIf you are unsure how this applies to you, write down your questions before appointments and ask for explanations in plain language.",
+      "## What It Is\n\nA placebo is an inactive treatment — such as a sugar pill — used in research to compare against real medicine. Some people feel better on placebo due to the mind-body response (placebo effect). Placebos in clinical trials help prove whether a treatment works beyond expectation alone.\n\n## Why It Matters\n\nUnderstanding placebos helps you interpret health claims and clinical trial consent forms. Improvement on placebo shows how expectations and care rituals affect symptoms — but does not replace proven treatments for serious disease.\n\n## Talk With Your Care Team\n\nAsk: In this study or treatment, how do we know improvement is from the active drug and not expectation alone? What is the evidence this treatment works beyond placebo?",
     url: "/glossary/placebo",
   },
   {
@@ -830,7 +940,7 @@ export const searchIndex: SearchEntry[] = [
     category: "General",
     categoryId: "glossary",
     content:
-      "## What It Is\n\nA clinical trial is a research study that tests new treatments, drugs, or medical approaches in people. Trials follow strict safety rules and informed consent. Participants help advance medicine but may receive placebo or standard care depending on study design.\n\n## Why It Matters\n\nUnderstanding this term helps you follow conversations with doctors, read labels and test results, and make informed decisions about your health.\n\n## Talk With Your Care Team\n\nIf you are unsure how this applies to you, write down your questions before appointments and ask for explanations in plain language.",
+      "## What It Is\n\nA clinical trial is a research study that tests new treatments, drugs, or medical approaches in people. Trials follow strict safety rules and informed consent. Participants help advance medicine but may receive placebo or standard care depending on study design.\n\n## Why It Matters\n\nClinical trials advance treatment options but involve uncertainty and strict protocols. Knowing how trials work helps you decide whether participation fits your values and health needs.\n\n## Talk With Your Care Team\n\nAsk: What phase is this trial, and what are the known risks and benefits? Can I leave the trial at any time, and how does it affect my standard care?",
     url: "/glossary/clinical-trial",
   },
   {

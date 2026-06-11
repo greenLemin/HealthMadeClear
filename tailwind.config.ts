@@ -2,11 +2,7 @@ import type { Config } from "tailwindcss";
 import typography from "@tailwindcss/typography";
 
 const config: Config = {
-  content: [
-    "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
-  ],
+  content: ["./src/components/**/*.{js,ts,jsx,tsx,mdx}", "./src/app/**/*.{js,ts,jsx,tsx,mdx}"],
   theme: {
     extend: {
       colors: {
@@ -91,7 +87,9 @@ const config: Config = {
       boxShadow: {
         card: "0 1px 3px rgba(0, 67, 73, 0.04), 0 1px 2px rgba(0, 67, 73, 0.04)",
         "card-hover": "0 4px 6px rgba(0, 67, 73, 0.06), 0 2px 4px rgba(0, 67, 73, 0.04)",
+        "elevation-1": "0 2px 4px rgba(0, 67, 73, 0.04), 0 1px 2px rgba(0, 67, 73, 0.04)",
         "elevation-2": "0 8px 16px rgba(0, 67, 73, 0.08), 0 4px 8px rgba(0, 67, 73, 0.04)",
+        "elevation-3": "0 12px 24px rgba(0, 67, 73, 0.10), 0 6px 12px rgba(0, 67, 73, 0.06)",
       },
     },
   },

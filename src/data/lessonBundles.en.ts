@@ -13,6 +13,7 @@ export const lessons: Lesson[] = [
     duration: "15 minutes",
     level: "beginner",
     lastReviewed: "2026-06-01",
+    reviewedBy: "RN Health Education Team",
     sources: ["FDA - How to Read a Prescription Label", "CDC - Medication Safety Basics"],
     image: "/stitch/lesson_understanding_prescription_labels.png",
     imageAlt: "Illustration of a prescription medicine bottle label with dosage instructions",
@@ -92,6 +93,7 @@ export const lessons: Lesson[] = [
     duration: "10 minutes",
     level: "beginner",
     lastReviewed: "2026-06-01",
+    reviewedBy: "RN Health Education Team",
     sources: ["CDC - Medication Safety", "NIH MedlinePlus"],
     sidebarTips: [
       "Ask what the drug is for.",
@@ -151,6 +153,7 @@ export const lessons: Lesson[] = [
     duration: "12 minutes",
     level: "beginner",
     lastReviewed: "2026-06-01",
+    reviewedBy: "RN Health Education Team",
     sources: ["FDA - Medication Side Effects", "CDC - Drug Safety"],
     sidebarTips: [
       "Report new symptoms promptly.",
@@ -217,6 +220,7 @@ export const lessons: Lesson[] = [
     duration: "10 minutes",
     level: "beginner",
     lastReviewed: "2026-06-01",
+    reviewedBy: "RN Health Education Team",
     sources: ["CDC - Doctor Visit Tips", "Agency for Healthcare Research and Quality"],
     sidebarTips: [
       "Bring your insurance card and photo ID.",
@@ -282,6 +286,7 @@ export const lessons: Lesson[] = [
     duration: "10 minutes",
     level: "beginner",
     lastReviewed: "2026-06-01",
+    reviewedBy: "RN Health Education Team",
     sources: ["CDC - Doctor Visit Tips", "Agency for Healthcare Research and Quality"],
     sidebarTips: [
       "Take notes or ask to record key points.",
@@ -346,6 +351,7 @@ export const lessons: Lesson[] = [
     duration: "8 minutes",
     level: "beginner",
     lastReviewed: "2026-06-01",
+    reviewedBy: "RN Health Education Team",
     sources: ["CDC - Follow-up Care", "NIH MedlinePlus"],
     sidebarTips: [
       "Fill prescriptions promptly.",
@@ -412,6 +418,7 @@ export const lessons: Lesson[] = [
     duration: "15 minutes",
     level: "intermediate",
     lastReviewed: "2026-06-01",
+    reviewedBy: "RN Health Education Team",
     sources: ["NIH - Blood Tests", "CDC - Lab Tests"],
     sidebarTips: [
       "Ask if you need to fast (no eating or drinking).",
@@ -470,6 +477,7 @@ export const lessons: Lesson[] = [
     duration: "20 minutes",
     level: "intermediate",
     lastReviewed: "2026-06-01",
+    reviewedBy: "RN Health Education Team",
     sources: ["NIH - Lab Tests", "CDC - Laboratory Quality"],
     sidebarTips: [
       "Ask if fasting is required.",
@@ -546,6 +554,7 @@ export const lessons: Lesson[] = [
     duration: "10 minutes",
     level: "intermediate",
     lastReviewed: "2026-06-01",
+    reviewedBy: "RN Health Education Team",
     sources: ["CDC - Lab Test Results", "NIH MedlinePlus"],
     sidebarTips: [
       "One abnormal value needs context.",
@@ -617,6 +626,7 @@ export const lessons: Lesson[] = [
     duration: "10 minutes",
     level: "beginner",
     lastReviewed: "2026-06-01",
+    reviewedBy: "RN Health Education Team",
     sources: ["CDC - Preventive Care", "USPSTF Recommendations"],
     sidebarTips: [
       "Most insurance plans cover preventive care at no cost to you.",
@@ -694,6 +704,7 @@ export const lessons: Lesson[] = [
     duration: "12 minutes",
     level: "beginner",
     lastReviewed: "2026-06-01",
+    reviewedBy: "RN Health Education Team",
     sources: ["USPSTF Recommendations", "CDC Screening Guidelines", "American Cancer Society"],
     sidebarTips: [
       "Your personal schedule may differ based on family history and risk factors.",
@@ -766,6 +777,7 @@ export const lessons: Lesson[] = [
     duration: "12 minutes",
     level: "beginner",
     lastReviewed: "2026-06-01",
+    reviewedBy: "RN Health Education Team",
     sources: ["CDC - Vaccines", "WHO Immunization", "Immunization Action Coalition"],
     sidebarTips: [
       "You cannot get the disease from a vaccine.",
@@ -839,6 +851,7 @@ export const lessons: Lesson[] = [
     duration: "15 minutes",
     level: "intermediate",
     lastReviewed: "2026-06-01",
+    reviewedBy: "RN Health Education Team",
     sources: ["American Heart Association", "CDC - High Blood Pressure", "ACC/AHA Guidelines"],
     sidebarTips: [
       "Check your blood pressure at home and keep a log.",
@@ -924,6 +937,7 @@ export const lessons: Lesson[] = [
     duration: "18 minutes",
     level: "intermediate",
     lastReviewed: "2026-06-01",
+    reviewedBy: "RN Health Education Team",
     sources: ["American Diabetes Association", "CDC - Diabetes", "NIDDK"],
     sidebarTips: [
       "Check blood sugar as directed and keep a log.",
@@ -1008,6 +1022,7 @@ export const lessons: Lesson[] = [
     duration: "14 minutes",
     level: "beginner",
     lastReviewed: "2026-06-01",
+    reviewedBy: "RN Health Education Team",
     sources: ["NHLBI - Asthma", "AAAAI", "CDC - Asthma"],
     sidebarTips: [
       "Always carry your rescue inhaler.",
@@ -1091,6 +1106,7 @@ export const lessons: Lesson[] = [
     duration: "15 minutes",
     level: "intermediate",
     lastReviewed: "2026-06-01",
+    reviewedBy: "RN Health Education Team",
     sources: ["American Heart Association", "CDC - Heart Disease", "NHLBI"],
     sidebarTips: [
       "Know your numbers: BP, cholesterol, blood sugar, weight.",
@@ -1162,6 +1178,7 @@ export const lessons: Lesson[] = [
     duration: "12 minutes",
     level: "beginner",
     lastReviewed: "2026-06-01",
+    reviewedBy: "RN Health Education Team",
     sources: ["NIMH - Depression", "American Psychiatric Association", "CDC - Mental Health"],
     sidebarTips: [
       "Depression is a medical condition, not a character flaw.",
@@ -1239,6 +1256,7 @@ export const lessons: Lesson[] = [
     duration: "12 minutes",
     level: "beginner",
     lastReviewed: "2026-06-01",
+    reviewedBy: "RN Health Education Team",
     sources: ["NIMH - Anxiety Disorders", "ADAA", "American Psychological Association"],
     sidebarTips: [
       "Breathe: 4 counts in, 6 counts out — activates relaxation response.",
@@ -1310,6 +1328,7 @@ export const lessons: Lesson[] = [
     duration: "10 minutes",
     level: "beginner",
     lastReviewed: "2026-06-01",
+    reviewedBy: "RN Health Education Team",
     sources: ["CDC - Sleep", "NHLBI - Sleep Deprivation", "American Academy of Sleep Medicine"],
     sidebarTips: [
       "Keep consistent bed/wake times — even on weekends.",
@@ -1389,6 +1408,7 @@ export const lessons: Lesson[] = [
     duration: "15 minutes",
     level: "intermediate",
     lastReviewed: "2026-06-01",
+    reviewedBy: "RN Health Education Team",
     sources: ["Healthcare.gov", "Kaiser Family Foundation", "CMS"],
     sidebarTips: [
       "Premium = monthly payment. Deductible = what you pay before insurance starts paying.",
@@ -1462,6 +1482,7 @@ export const lessons: Lesson[] = [
     duration: "12 minutes",
     level: "beginner",
     lastReviewed: "2026-06-01",
+    reviewedBy: "RN Health Education Team",
     sources: ["CMS - Medical Billing", "Consumer Financial Protection Bureau", "Kaiser Family Foundation"],
     sidebarTips: [
       "Don't pay the first bill — wait for the Explanation of Benefits (EOB) from insurance.",
@@ -1544,6 +1565,7 @@ export const lessons: Lesson[] = [
     duration: "10 minutes",
     level: "beginner",
     lastReviewed: "2026-06-01",
+    reviewedBy: "RN Health Education Team",
     sources: ["American College of Emergency Physicians", "CDC - Emergency Preparedness", "Red Cross"],
     sidebarTips: [
       "When in doubt, call 911. It's better to be safe.",
@@ -1626,6 +1648,7 @@ export const lessons: Lesson[] = [
     duration: "8 minutes",
     level: "beginner",
     lastReviewed: "2026-06-01",
+    reviewedBy: "RN Health Education Team",
     sources: ["American Red Cross", "CDC - Emergency Kit", "Mayo Clinic"],
     sidebarTips: [
       "Check your kit every 6 months — replace expired items.",
@@ -1699,6 +1722,7 @@ export const lessons: Lesson[] = [
     duration: "10 minutes",
     level: "beginner",
     lastReviewed: "2026-06-01",
+    reviewedBy: "RN Health Education Team",
     sources: ["FDA - Nutrition Facts Label", "USDA Dietary Guidelines", "American Heart Association"],
     sidebarTips: [
       "Check serving size first — all numbers are per serving.",
@@ -1786,6 +1810,7 @@ export const lessons: Lesson[] = [
     duration: "10 minutes",
     level: "beginner",
     lastReviewed: "2026-06-01",
+    reviewedBy: "RN Health Education Team",
     sources: [
       "USDA MyPlate",
       "Dietary Guidelines for Americans",
@@ -1871,6 +1896,7 @@ export const lessons: Lesson[] = [
     duration: "15 minutes",
     level: "beginner",
     lastReviewed: "2026-06-11",
+    reviewedBy: "RN Health Education Team",
     sources: ["NIH", "CDC", "MedlinePlus"],
     sidebarTips: [
       "Carry epinephrine if prescribed.",
@@ -1920,6 +1946,28 @@ export const lessons: Lesson[] = [
             },
           ],
         },
+        {
+          title: "Anaphylaxis Action Plan",
+          content:
+            "If you are at risk for severe reactions, work with your doctor on a written plan that includes:\n\n1. **Recognize symptoms** — throat tightness, wheezing, widespread hives, dizziness\n2. **Use epinephrine first** — auto-injector in outer thigh; do not wait for antihistamines alone\n3. **Call 911** — second reactions can occur after initial improvement\n4. **Go to ER** — even if you feel better after epinephrine",
+          callouts: [
+            {
+              type: "warning",
+              content:
+                "Always carry two auto-injectors if prescribed — one dose may not be enough, and one device can malfunction.",
+            },
+          ],
+        },
+        {
+          title: "Reading Food Labels (U.S.)",
+          content:
+            "The top nine allergens must be declared clearly: milk, eggs, fish, shellfish, tree nuts, peanuts, wheat, soy, and sesame. “May contain” statements are voluntary — ask manufacturers if you need strict avoidance.",
+        },
+        {
+          title: "Allergies at School and Work",
+          content:
+            "Share your action plan with nurses, teachers, or HR. Know where epinephrine is stored and who is trained to use it. For food allergies, discuss safe eating areas and cross-contact risks in shared kitchens.\n\n<!-- lesson-depth-added -->",
+        },
       ],
     },
   },
@@ -1932,6 +1980,7 @@ export const lessons: Lesson[] = [
     duration: "12 minutes",
     level: "beginner",
     lastReviewed: "2026-06-11",
+    reviewedBy: "RN Health Education Team",
     sources: ["NIH", "CDC", "MedlinePlus"],
     sidebarTips: [
       "Never exceed daily dose on label.",
@@ -1976,6 +2025,28 @@ export const lessons: Lesson[] = [
             },
           ],
         },
+        {
+          title: "Drug Interaction Table",
+          content:
+            "| If you take…                        | Before using ibuprofen or naproxen, ask about… |\n| ----------------------------------- | ---------------------------------------------- |\n| Blood thinners (warfarin, apixaban) | Bleeding risk — NSAIDs add risk                |\n| Blood pressure medicines            | NSAIDs may reduce effectiveness                |\n| Steroids (prednisone)               | Stomach bleeding risk increases                |\n| Daily aspirin (heart protection)    | Whether another NSAID is safe                  |\n\nAcetaminophen does not thin blood, but still counts toward your daily liver limit from all sources.",
+        },
+        {
+          title: "Special Populations",
+          content:
+            "- **Older adults** — kidneys and stomach lining are more vulnerable; use lowest effective dose for shortest time\n- **Children** — use weight-based dosing on the label; never give adult-strength tablets without checking\n- **Pregnancy** — ask your clinician before any pain medicine; some options are safer in certain trimesters",
+          callouts: [
+            {
+              type: "warning",
+              content:
+                "Never give aspirin to children or teens with viral illness — it is linked to Reye syndrome, a rare but serious condition.",
+            },
+          ],
+        },
+        {
+          title: "Overdose Warning Signs",
+          content:
+            "Too much acetaminophen may cause nausea, vomiting, confusion, or yellowing skin (jaundice) — sometimes delayed 24–48 hours. Too much NSAID may cause stomach pain, black stools, or decreased urination. If you suspect overdose, call Poison Control (1-800-222-1222 in the U.S.) or seek emergency care immediately.\n\n<!-- lesson-depth-added -->",
+        },
       ],
     },
   },
@@ -1988,6 +2059,7 @@ export const lessons: Lesson[] = [
     duration: "12 minutes",
     level: "intermediate",
     lastReviewed: "2026-06-11",
+    reviewedBy: "RN Health Education Team",
     sources: ["NIH", "CDC", "MedlinePlus"],
     sidebarTips: [
       "Ask pharmacy about assistance cards.",
@@ -2032,6 +2104,28 @@ export const lessons: Lesson[] = [
             },
           ],
         },
+        {
+          title: "Step-by-Step Application",
+          content:
+            "1. **Get a diagnosis on record** — most programs require a documented condition\n2. **Gather documents** — tax return, pay stub, insurance card, prescription details\n3. **Apply through official channels** — manufacturer website or clinic financial counselor\n4. **Activate the card** before filling at pharmacy — some require registration first\n5. **Save confirmation** — program IDs, renewal dates, and customer service numbers",
+          callouts: [
+            {
+              type: "info",
+              content:
+                "Keep a folder (paper or digital) for each assistance program. Renewal often needs updated income proof.",
+            },
+          ],
+        },
+        {
+          title: "Manufacturer vs Nonprofit Programs",
+          content:
+            "| Type                             | Typical help                                    | Watch for                       |\n| -------------------------------- | ----------------------------------------------- | ------------------------------- |\n| Manufacturer copay card          | Lowers pharmacy copay for one brand drug        | May not count toward deductible |\n| Patient assistance program (PAP) | Free or low-cost drug if income qualifies       | Application can take weeks      |\n| Disease foundation grant         | Help across several medicines for one diagnosis | Limited funding cycles          |",
+        },
+        {
+          title: "If Assistance Ends",
+          content:
+            "Programs can end when funding runs out or insurance type changes. Before your card expires:\n\n- Ask your doctor about therapeutic alternatives\n- Request a 90-day supply if allowed while you reapply\n- Revisit NeedyMeds, PAN Foundation, or state pharmaceutical assistance programs\n\nNever buy from unlicensed online sellers when a program lapses — counterfeit medicine is a real risk.\n\n<!-- lesson-depth-added -->",
+        },
       ],
     },
   },
@@ -2044,6 +2138,7 @@ export const lessons: Lesson[] = [
     duration: "18 minutes",
     level: "intermediate",
     lastReviewed: "2026-06-11",
+    reviewedBy: "RN Health Education Team",
     sources: ["NIH", "CDC", "MedlinePlus"],
     sidebarTips: [
       "Bring family cancer history.",
@@ -2088,6 +2183,33 @@ export const lessons: Lesson[] = [
             },
           ],
         },
+        {
+          title: "Insurance and Cost Questions",
+          content:
+            "Most preventive screenings are covered without copay under U.S. ACA plans when done at recommended intervals — but coverage rules vary. Ask:\n\n- Is this screening coded as preventive for my age and risk?\n- Will a positive screen lead to diagnostic tests with different cost sharing?\n- Do I need a referral or in-network facility?",
+          callouts: [
+            {
+              type: "info",
+              content:
+                "Bring your insurance card and ask the scheduling desk to confirm preventive billing before the appointment when possible.",
+            },
+          ],
+        },
+        {
+          title: "Barriers and Accommodations",
+          content:
+            "Screening is not one-size-fits-all. Talk with your doctor if you have:\n\n- **Mobility limits** — ask about stool-based colon tests instead of colonoscopy when appropriate\n- **Anxiety or trauma history** — request extra time, sedation options, or a support person\n- **Language needs** — request interpreter services in advance\n- **Transportation gaps** — some health departments offer ride programs",
+        },
+        {
+          title: "Family Communication",
+          content:
+            "If you have a strong family history, encourage relatives to share screening dates with their doctors. You are not responsible for their choices, but open conversation helps everyone understand inherited risk.",
+        },
+        {
+          title: "When Guidelines Differ",
+          content:
+            "Medical societies update recommendations as evidence changes. Your personal start age may be earlier or later than a friend’s. Trust a shared decision with your clinician over social media charts.\n\n<!-- lesson-depth-added -->",
+        },
       ],
     },
   },
@@ -2100,6 +2222,7 @@ export const lessons: Lesson[] = [
     duration: "15 minutes",
     level: "beginner",
     lastReviewed: "2026-06-11",
+    reviewedBy: "RN Health Education Team",
     sources: ["NIH", "CDC", "MedlinePlus"],
     sidebarTips: [
       "Try 5 minutes of slow breathing.",
@@ -2144,6 +2267,33 @@ export const lessons: Lesson[] = [
             },
           ],
         },
+        {
+          title: "Workplace and Caregiver Stress",
+          content:
+            "Job pressure, shift work, and caring for a sick family member are common chronic stressors. Practical steps:\n\n- **Micro-breaks** — 2-minute walks or stretches between tasks\n- **Delegate** — one task off your list per week when possible\n- **Respite care** — ask family, friends, or community programs for relief time\n- **Employee assistance programs (EAP)** — often free short-term counseling through work",
+          callouts: [
+            {
+              type: "info",
+              content:
+                "Caregiver burnout is real. Taking a break is not selfish — it protects your ability to care long-term.",
+            },
+          ],
+        },
+        {
+          title: "Sleep and Stress Cycle",
+          content:
+            "Poor sleep raises stress hormones; high stress disrupts sleep. Break the cycle by:\n\n- Fixed wake time (even on weekends)\n- No caffeine after mid-afternoon\n- Wind-down routine without screens 30–60 minutes before bed",
+        },
+        {
+          title: "Building a Personal Plan",
+          content:
+            "Pick **two** strategies to try this week — not ten. Example: five minutes of slow breathing after lunch plus a 15-minute walk on three days. Review what helped at week’s end and adjust.",
+        },
+        {
+          title: "Crisis Resources (U.S.)",
+          content:
+            "- **988 Suicide & Crisis Lifeline** — call or text 988\n- **Crisis Text Line** — text HOME to 741741\n- **911** — immediate danger\n\nOutside the U.S., search “crisis line” plus your country name.\n\n<!-- lesson-depth-added -->",
+        },
       ],
     },
   },
@@ -2156,6 +2306,7 @@ export const lessons: Lesson[] = [
     duration: "10 minutes",
     level: "beginner",
     lastReviewed: "2026-06-11",
+    reviewedBy: "RN Health Education Team",
     sources: ["NIH", "CDC", "MedlinePlus"],
     sidebarTips: [
       "Drink more in heat and exercise.",
@@ -2205,6 +2356,33 @@ export const lessons: Lesson[] = [
             },
           ],
         },
+        {
+          title: "Electrolytes and Illness",
+          content:
+            "When you vomit, have diarrhea, or sweat heavily, you lose sodium and potassium — not just water. For mild illness:\n\n- Oral rehydration solutions (store-bought or WHO recipe) beat plain water alone\n- Broth can help if you tolerate it\n- Avoid sugary sports drinks as your only fluid — they may worsen diarrhea",
+          callouts: [
+            {
+              type: "warning",
+              content:
+                "Infants, older adults, and people with heart or kidney disease dehydrate faster. Seek care sooner if they cannot keep fluids down.",
+            },
+          ],
+        },
+        {
+          title: "Exercise and Heat",
+          content:
+            "Drink before you feel thirsty during hot weather or intense activity. Signs you need a break: dizziness, muscle cramps, or stopping sweating in heat (possible heat emergency).",
+        },
+        {
+          title: "Medicines That Affect Fluids",
+          content:
+            "Diuretics (“water pills”), some blood pressure drugs, and lithium require consistent fluid intake — but not always extra. Follow your prescriber’s instructions; do not dramatically change intake without asking.",
+        },
+        {
+          title: "Myths vs Facts",
+          content:
+            "| Myth                               | Fact                                              |\n| ---------------------------------- | ------------------------------------------------- |\n| “8 glasses for everyone”           | Needs vary by size, activity, climate, and health |\n| “Clear urine always best”          | Very clear urine can mean overhydration           |\n| “Coffee dehydrates you completely” | Moderate coffee still contributes to fluid intake |\n\n<!-- lesson-depth-added -->",
+        },
       ],
     },
   },
@@ -2217,6 +2395,7 @@ export const lessons: Lesson[] = [
     duration: "12 minutes",
     level: "beginner",
     lastReviewed: "2026-06-11",
+    reviewedBy: "RN Health Education Team",
     sources: ["NIH", "CDC", "MedlinePlus"],
     sidebarTips: [
       "Call ahead if unsure.",
@@ -2261,6 +2440,32 @@ export const lessons: Lesson[] = [
             },
           ],
         },
+        {
+          title: "Cost and Billing Expectations",
+          content:
+            "Urgent care usually costs less than an ER visit but more than a primary care office. You may owe:\n\n- A copay at check-in\n- Charges for labs or X-rays done on site\n- Balance billing if the center is out of network\n\nBring insurance card and photo ID. Ask whether they can send records to your primary doctor.",
+        },
+        {
+          title: "Telehealth vs Urgent Care vs ER",
+          content:
+            "| Option      | Good for                                     | Not for                               |\n| ----------- | -------------------------------------------- | ------------------------------------- |\n| Telehealth  | Minor rash, medication refill, cold symptoms | Chest pain, severe breathing trouble  |\n| Urgent care | Sprains, stitches, UTI symptoms, fever       | Stroke, major trauma, unconsciousness |\n| ER / 911    | Life-threatening emergencies                 | Routine prescription refills          |",
+          callouts: [
+            {
+              type: "info",
+              content: "Many insurers offer a nurse line 24/7 — use it when unsure where to go.",
+            },
+          ],
+        },
+        {
+          title: "After Your Visit",
+          content:
+            "- Pick up prescriptions the same day if possible\n- Follow wound care or activity instructions\n- Schedule PCP follow-up within a week for ongoing issues\n- Go to ER if symptoms worsen despite urgent care treatment",
+        },
+        {
+          title: "Prepare a Go-Bag",
+          content:
+            "Keep insurance card, medication list, and emergency contacts in your wallet or phone. Saves time when stress is high.\n\n<!-- lesson-depth-added -->",
+        },
       ],
     },
   },
@@ -2273,6 +2478,7 @@ export const lessons: Lesson[] = [
     duration: "15 minutes",
     level: "intermediate",
     lastReviewed: "2026-06-11",
+    reviewedBy: "RN Health Education Team",
     sources: ["NIH", "CDC", "MedlinePlus"],
     sidebarTips: [
       "H or L means high or low.",
@@ -2317,6 +2523,33 @@ export const lessons: Lesson[] = [
             },
           ],
         },
+        {
+          title: "Navigating Your Patient Portal",
+          content:
+            "Most labs post results before your doctor reviews them. When you see a new result:\n\n1. Read the test name and date\n2. Note the flag (H/L) if present\n3. Write down questions — do not panic over one number\n4. Wait for your clinician’s message or appointment unless marked critical",
+          callouts: [
+            {
+              type: "warning",
+              content:
+                "“Critical” or “panic” values require prompt contact — do not wait for a routine visit.",
+            },
+          ],
+        },
+        {
+          title: "Fasting vs Non-Fasting Tests",
+          content:
+            "Glucose and lipid panels often need fasting (usually 8–12 hours, water OK). Thyroid tests and many others do not. Wrong prep can make results misleading — confirm instructions when scheduling.",
+        },
+        {
+          title: "Tracking Trends at Home",
+          content:
+            "Keep a simple log: date, test name, result, units. Spreadsheets, paper, or health apps all work. Bring the log to visits so your doctor sees patterns across labs from different facilities.",
+        },
+        {
+          title: "Common Patient Questions",
+          content:
+            "- “Is this change because of my new medicine?”\n- “Should we repeat in 3 months or 6?”\n- “Do I need a specialist for this result?”\n- “What symptoms should I watch for?”\n<!-- lesson-depth-added -->",
+        },
       ],
     },
   },
@@ -2329,6 +2562,7 @@ export const lessons: Lesson[] = [
     duration: "10 minutes",
     level: "beginner",
     lastReviewed: "2026-06-11",
+    reviewedBy: "RN Health Education Team",
     sources: ["NIH", "CDC", "MedlinePlus"],
     sidebarTips: [
       "Same active ingredient required.",
@@ -2378,6 +2612,33 @@ export const lessons: Lesson[] = [
             },
           ],
         },
+        {
+          title: "Narrow Therapeutic Index Drugs",
+          content:
+            "Most generics work as well as brands. A few drug classes need extra monitoring after switching — examples include some anti-seizure medicines, levothyroxine for thyroid, and warfarin. Your doctor or pharmacist may recommend staying on one manufacturer for consistency.",
+          callouts: [
+            {
+              type: "info",
+              content:
+                "If your pharmacy switches generic suppliers, ask whether you need extra lab monitoring.",
+            },
+          ],
+        },
+        {
+          title: "State Substitution Laws",
+          content:
+            "U.S. pharmacies may automatically substitute FDA-approved generics unless your prescriber marks “dispense as written.” You can ask for the brand if you have a documented reason, but insurance may charge more.",
+        },
+        {
+          title: "Reading Your Dispensed Label",
+          content:
+            "Check:\n\n- **Active ingredient** — should match what you expect\n- **Manufacturer name** — may change between refills\n- **Appearance** — color or shape may differ; confirm with pharmacist if unsure",
+        },
+        {
+          title: "Reporting Problems",
+          content:
+            "Use FDA MedWatch to report unexpected side effects after a switch. Your report helps regulators track quality issues across manufacturers.\n\n<!-- lesson-depth-added -->",
+        },
       ],
     },
   },
@@ -2390,6 +2651,7 @@ export const lessons: Lesson[] = [
     duration: "15 minutes",
     level: "intermediate",
     lastReviewed: "2026-06-11",
+    reviewedBy: "RN Health Education Team",
     sources: ["NIH", "CDC", "MedlinePlus"],
     sidebarTips: [
       "Snoring plus daytime sleepiness — ask your doctor.",
@@ -2436,6 +2698,33 @@ export const lessons: Lesson[] = [
                 "CPAP masks come in many styles. A sleep technologist can help you find a comfortable fit — comfort improves nightly use.",
             },
           ],
+        },
+        {
+          title: "Home Sleep Test vs Lab Study",
+          content:
+            "| Test                   | Where                      | Best for                                                         |\n| ---------------------- | -------------------------- | ---------------------------------------------------------------- |\n| Home sleep apnea test  | Your bed, portable sensors | Many adults with suspected moderate-high risk                    |\n| In-lab polysomnography | Sleep center               | Complex cases, other sleep disorders, some heart/lung conditions |\n\nYour sleep specialist chooses based on symptoms and medical history.",
+        },
+        {
+          title: "Lifestyle Changes That Help",
+          content:
+            "Even with CPAP, these support better sleep:\n\n- **Weight loss** — even modest loss can reduce apnea severity for some people\n- **Side sleeping** — sew a tennis ball in a back pocket or use positional pillows\n- **Avoid alcohol before bed** — relaxes airway muscles\n- **Treat nasal congestion** — allergies and deviated septum worsen obstruction",
+          callouts: [
+            {
+              type: "info",
+              content:
+                "CPAP and lifestyle changes work together — neither replaces the other when apnea is moderate to severe.",
+            },
+          ],
+        },
+        {
+          title: "Partner and Family Impact",
+          content:
+            "Loud snoring and witnessed pauses disturb bed partners. Include them in appointments when possible — their observations help diagnosis and they may need their own sleep strategies.",
+        },
+        {
+          title: "Follow-Up Expectations",
+          content:
+            "Expect mask fitting visits, pressure adjustments, and periodic data downloads from your machine. Insurance often requires proof of usage to continue coverage.\n\n<!-- lesson-depth-added -->",
         },
       ],
     },

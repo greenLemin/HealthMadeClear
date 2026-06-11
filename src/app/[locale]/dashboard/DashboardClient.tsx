@@ -9,18 +9,22 @@ import LessonThumbnail from "@/components/LessonThumbnail";
 import PageHeader from "@/components/PageHeader";
 import { getCategoryLabel } from "@/lib/i18n";
 import { getCompletedPathCount, getPathProgress, getStartedPathCount } from "@/lib/content";
-import { getLearningPaths, getLessons } from "@/lib/localizedContent";
+import type { LessonListItem } from "@/types/lesson";
+import type { LearningPath } from "@/types/learningPath";
 import { buildProgressExport, downloadProgressExport, parseProgressImport } from "@/lib/progressExport";
 
-export default function DashboardClient() {
+type DashboardClientProps = {
+  lessons: LessonListItem[];
+  learningPaths: LearningPath[];
+};
+
+export default function DashboardClient({ lessons, learningPaths }: DashboardClientProps) {
   const { completedLessons, locale, recentLessons, startedPaths, quizScores, importProgress } = useAppState();
   const t = useTranslations("dashboard");
   const tCommon = useTranslations("common");
   const tPaths = useTranslations("paths");
   const importInputRef = useRef<HTMLInputElement>(null);
   const [importStatus, setImportStatus] = useState<"success" | "error" | null>(null);
-  const lessons = getLessons(locale);
-  const learningPaths = getLearningPaths(locale);
 
   const pathsWithProgress = useMemo(
     () =>

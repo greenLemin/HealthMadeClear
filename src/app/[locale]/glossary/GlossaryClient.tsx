@@ -6,18 +6,23 @@ import { Search } from "lucide-react";
 import { useAppState } from "@/components/AppProviders";
 import PageHeader from "@/components/PageHeader";
 import { normalizeGlossaryLetter } from "@/lib/i18n";
-import { getGlossaryLabel, getGlossaryTerms, getLessonById } from "@/lib/localizedContent";
+import { getGlossaryLabelFromBundle } from "@/lib/glossary/loadGlossary";
+import { getLessonById } from "@/lib/localizedContent";
+import type { GlossaryTerm } from "@/types/glossary";
 import { useTranslations } from "next-intl";
 
 const alphabet = ["All", ..."ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("")];
 
-export default function GlossaryClient() {
+type GlossaryClientProps = {
+  terms: GlossaryTerm[];
+};
+
+export default function GlossaryClient({ terms: glossaryTerms }: GlossaryClientProps) {
   const [query, setQuery] = useState("");
   const [activeLetter, setActiveLetter] = useState("All");
   const { locale } = useAppState();
   const t = useTranslations("glossary");
   const tCommon = useTranslations("common");
-  const glossaryTerms = getGlossaryTerms(locale);
   const allLabel = tCommon("all");
   const showAlphabet = locale === "en";
 
@@ -71,6 +76,7 @@ export default function GlossaryClient() {
                 key={letter}
                 type="button"
                 onClick={() => setActiveLetter(letter)}
+                aria-pressed={activeLetter === letter}
                 className={
                   activeLetter === letter
                     ? "flex h-10 min-w-10 items-center justify-center rounded-lg bg-primary px-3 text-sm font-semibold text-on-primary"
@@ -136,7 +142,7 @@ export default function GlossaryClient() {
                           href={`/glossary/${related}`}
                           className="rounded-full bg-surface-container px-3 py-1 text-xs font-semibold text-primary hover:bg-secondary-container"
                         >
-                          {getGlossaryLabel(related, locale)}
+                          {getGlossaryLabelFromBundle(related, locale)}
                         </Link>
                       ))}
                     </div>

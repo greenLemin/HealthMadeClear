@@ -208,7 +208,14 @@ export default function QuizClient({ quiz, lessonTitle, lessonId }: Props) {
             <span>{t("questionXofY", { current: current + 1, total })}</span>
             <span>{t("answered", { count: answered })}</span>
           </div>
-          <div className="progress-bar">
+          <div
+            className="progress-bar"
+            role="progressbar"
+            aria-valuenow={percent}
+            aria-valuemin={0}
+            aria-valuemax={100}
+            aria-label={t("questionXofY", { current: current + 1, total })}
+          >
             <div className="progress-fill" style={{ width: `${percent}%` }} />
           </div>
         </div>

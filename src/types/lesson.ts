@@ -1,5 +1,10 @@
 import type { LessonCategoryId, LessonId } from "@/types/content";
 
+export type LessonListItem = Pick<
+  Lesson,
+  "id" | "title" | "description" | "category" | "categoryId" | "duration" | "level" | "image" | "imageAlt"
+>;
+
 export interface Lesson {
   id: LessonId;
   title: string;

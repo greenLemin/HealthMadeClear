@@ -1,5 +1,8 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { requireLocale } from "@/lib/locale";
+import { getAllLessons } from "@/lib/lessons/loadLessons";
+import { getAllLearningPaths } from "@/lib/paths/loadPaths";
+import { toLessonListItems } from "@/lib/lessonListItem";
 import { getSiteUrl } from "@/lib/site";
 import HomeClient from "./HomeClient";
 
@@ -30,6 +33,9 @@ export async function generateMetadata({ params }: Props) {
 }
 
 export default function Home({ params }: Props) {
-  setRequestLocale(requireLocale(params.locale));
-  return <HomeClient />;
+  const locale = requireLocale(params.locale);
+  setRequestLocale(locale);
+  const lessons = toLessonListItems(getAllLessons(locale));
+  const learningPaths = getAllLearningPaths(locale);
+  return <HomeClient lessons={lessons} learningPaths={learningPaths} />;
 }

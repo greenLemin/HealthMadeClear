@@ -86,6 +86,31 @@
     --color-on-error-container: #ffbfb9;
     --color-outline: #8a9496;
     --color-outline-variant: #4f5a5c;
+    --color-surface-tint: #8fd1d9;
+    --color-secondary: #a5d0be;
+    --color-on-secondary: #002117;
+    --color-secondary-container: #3e6658;
+    --color-on-secondary-container: #c0ecda;
+    --color-tertiary: #fcb889;
+    --color-on-tertiary: #301400;
+    --color-tertiary-container: #784722;
+    --color-on-tertiary-container: #ffdcc6;
+    --color-inverse-surface: #e0e3e5;
+    --color-inverse-on-surface: #2d3133;
+    --color-inverse-primary: #004349;
+    --color-primary-fixed: #abeef6;
+    --color-primary-fixed-dim: #8fd1d9;
+    --color-on-primary-fixed: #002023;
+    --color-on-primary-fixed-variant: #004f55;
+    --color-secondary-fixed: #c0ecda;
+    --color-secondary-fixed-dim: #a5d0be;
+    --color-on-secondary-fixed: #002117;
+    --color-on-secondary-fixed-variant: #264e41;
+    --color-tertiary-fixed: #ffdcc6;
+    --color-tertiary-fixed-dim: #fcb889;
+    --color-on-tertiary-fixed: #301400;
+    --color-on-tertiary-fixed-variant: #693b17;
+    --color-surface-variant: #282d30;
     --hero-gradient:
       radial-gradient(circle at top left, rgba(13, 92, 99, 0.5), transparent 32%),
       linear-gradient(180deg, rgba(25, 28, 30, 0.99), rgba(25, 28, 30, 0.96));

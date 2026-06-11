@@ -1,8 +1,9 @@
 import { getTranslations } from "next-intl/server";
 import JsonLd from "@/components/JsonLd";
-import { getGlossaryTerms } from "@/lib/localizedContent";
+import { getAllGlossaryTerms } from "@/lib/glossary/loadGlossary";
 import { requireLocale } from "@/lib/locale";
 import { getSiteUrl } from "@/lib/site";
+import type { GlossaryTerm } from "@/types/glossary";
 import GlossaryClient from "./GlossaryClient";
 
 export async function generateMetadata({ params }: { params: { locale: string } }) {
@@ -17,7 +18,7 @@ type Props = { params: { locale: string } };
 
 export default function GlossaryPage({ params }: Props) {
   const locale = requireLocale(params.locale);
-  const terms = getGlossaryTerms(locale);
+  const terms = getAllGlossaryTerms(locale);
   const base = getSiteUrl();
 
   return (
@@ -36,7 +37,7 @@ export default function GlossaryPage({ params }: Props) {
           })),
         }}
       />
-      <GlossaryClient />
+      <GlossaryClient terms={terms} />
     </>
   );
 }

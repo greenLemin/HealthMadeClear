@@ -36,7 +36,6 @@
   },
   "dependencies": {
     "@sentry/browser": "^9.15.0",
-    "@swc/helpers": "^0.5.23",
     "gray-matter": "^4.0.3",
     "lucide-react": "^0.400.0",
     "markdown-it": "^14.2.0",

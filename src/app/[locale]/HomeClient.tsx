@@ -7,15 +7,21 @@ import Callout from "@/components/Callout";
 import MedicalDisclaimer from "@/components/MedicalDisclaimer";
 import { useAppState } from "@/components/AppProviders";
 import { formatLevel } from "@/lib/i18n";
-import { getLearningPaths } from "@/lib/localizedContent";
+import { getPathProgress } from "@/lib/content";
+import type { LessonListItem } from "@/types/lesson";
+import type { LearningPath } from "@/types/learningPath";
 import { useTranslations } from "next-intl";
 
-export default function HomeClient() {
-  const { locale } = useAppState();
+type HomeClientProps = {
+  lessons: LessonListItem[];
+  learningPaths: LearningPath[];
+};
+
+export default function HomeClient({ lessons, learningPaths }: HomeClientProps) {
+  const { completedLessons, locale } = useAppState();
   const t = useTranslations("home");
   const tCommon = useTranslations("common");
   const tDisclaimer = useTranslations("disclaimer");
-  const learningPaths = getLearningPaths(locale);
 
   return (
     <div>
@@ -50,28 +56,52 @@ export default function HomeClient() {
               </Link>
             </div>
             <div className="grid gap-6 md:grid-cols-2">
-              {learningPaths.slice(0, 2).map((path) => (
-                <Link
-                  key={path.id}
-                  href={`/learning-paths#${path.id}`}
-                  className="group hover-lift card-hover rounded-lg border border-outline-variant bg-surface p-6 shadow-elevation-1"
-                >
-                  <div className="mb-3 inline-flex rounded-full bg-surface-container px-3 py-1 text-xs font-semibold uppercase tracking-[0.08em] text-on-surface-variant">
-                    {formatLevel(path.level, locale)}
-                  </div>
-                  <div className="mb-3 text-4xl" aria-hidden="true">
-                    {path.icon}
-                  </div>
-                  <h3 className="mb-3 text-headline-md text-primary">{path.title}</h3>
-                  <p className="mb-5 text-body-md text-on-surface-variant">{path.description}</p>
-                  <div className="flex items-center justify-between text-sm text-on-surface-variant">
-                    <span>
-                      {path.lessons.length} {tCommon("modules")}
-                    </span>
-                    <span>{path.duration}</span>
-                  </div>
-                </Link>
-              ))}
+              {learningPaths.slice(0, 2).map((path) => {
+                const progress = getPathProgress(path.id, completedLessons, lessons, learningPaths);
+                return (
+                  <Link
+                    key={path.id}
+                    href={`/learning-paths#${path.id}`}
+                    className="group hover-lift card-hover rounded-lg border border-outline-variant bg-surface p-6 shadow-elevation-1"
+                  >
+                    <div className="mb-3 inline-flex rounded-full bg-surface-container px-3 py-1 text-xs font-semibold uppercase tracking-[0.08em] text-on-surface-variant">
+                      {formatLevel(path.level, locale)}
+                    </div>
+                    <div className="mb-3 text-4xl" aria-hidden="true">
+                      {path.icon}
+                    </div>
+                    <h3 className="mb-3 text-headline-md text-primary">{path.title}</h3>
+                    <p className="mb-4 text-body-md text-on-surface-variant">{path.description}</p>
+                    {progress.totalCount > 0 ? (
+                      <div className="mb-4">
+                        <div className="mb-2 flex items-center justify-between text-sm text-on-surface-variant">
+                          <span>
+                            {progress.completedCount} {tCommon("of")} {progress.totalCount}{" "}
+                            {tCommon("modules")}
+                          </span>
+                          <span>{progress.percentage}%</span>
+                        </div>
+                        <div
+                          className="progress-bar h-3"
+                          role="progressbar"
+                          aria-valuenow={progress.percentage}
+                          aria-valuemin={0}
+                          aria-valuemax={100}
+                          aria-label={`${path.title} progress`}
+                        >
+                          <div className="progress-fill" style={{ width: `${progress.percentage}%` }} />
+                        </div>
+                      </div>
+                    ) : null}
+                    <div className="flex items-center justify-between text-sm text-on-surface-variant">
+                      <span>
+                        {path.lessons.length} {tCommon("modules")}
+                      </span>
+                      <span>{path.duration}</span>
+                    </div>
+                  </Link>
+                );
+              })}
             </div>
           </section>
 
