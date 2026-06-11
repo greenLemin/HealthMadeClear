@@ -30,6 +30,7 @@ export default function Header() {
   const navItems = [
     { href: "/", label: t("home"), icon: <Home size={18} /> },
     { href: "/learn", label: t("learn"), icon: <BookOpen size={18} /> },
+    { href: "/articles", label: t("articles"), icon: <BookOpen size={18} /> },
     { href: "/learning-paths", label: t("paths"), icon: <Route size={18} /> },
     { href: "/tools", label: t("tools"), icon: <Wrench size={18} /> },
     { href: "/dashboard", label: t("dashboard"), icon: <LayoutDashboard size={18} /> },
@@ -110,10 +111,9 @@ export default function Header() {
             aria-label={t("mobileNavigation")}
             className="border-t border-outline-variant py-4 lg:hidden"
           >
-            <div className="mb-4 md:hidden">
-              <div className="mb-3">
-                <LanguageToggle />
-              </div>
+            <div className="mb-4 space-y-3 md:hidden">
+              <SearchDialog />
+              <LanguageToggle />
               <AccessibilityControls />
             </div>
             <nav className="grid gap-2" aria-label={t("mobileNavigation")}>

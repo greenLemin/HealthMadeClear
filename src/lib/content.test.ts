@@ -6,7 +6,7 @@ import { getCompletedPathCount, getLessonsByPath, getPathProgress, getStartedPat
 describe("content helpers", () => {
   it("returns lessons for a valid path", () => {
     const pathLessons = getLessonsByPath("safer-medicine-use", lessons, learningPaths);
-    expect(pathLessons.length).toBe(3);
+    expect(pathLessons.length).toBe(5);
     expect(pathLessons[0]?.id).toBe("understanding-prescription-labels");
   });
 
@@ -22,8 +22,8 @@ describe("content helpers", () => {
       learningPaths
     );
     expect(progress.completedCount).toBe(1);
-    expect(progress.totalCount).toBe(3);
-    expect(progress.percentage).toBe(33);
+    expect(progress.totalCount).toBe(5);
+    expect(progress.percentage).toBe(20);
   });
 
   it("returns zero progress for unknown path", () => {
@@ -43,7 +43,13 @@ describe("content helpers", () => {
     expect(partial).toBe(0);
 
     const full = getCompletedPathCount(
-      ["understanding-prescription-labels", "asking-about-medications", "managing-side-effects"],
+      [
+        "understanding-prescription-labels",
+        "asking-about-medications",
+        "managing-side-effects",
+        "generic-vs-brand-drugs",
+        "pain-medications-safely",
+      ],
       lessons,
       learningPaths
     );

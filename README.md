@@ -4,7 +4,7 @@ Free, accessible health education in plain language. Learn about medications, do
 
 ## Requirements
 
-- Node.js 18+
+- Node.js 20+
 - npm 9+
 
 ## Setup

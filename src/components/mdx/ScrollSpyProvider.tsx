@@ -75,3 +75,8 @@ export function useScrollSpyContext() {
   }
   return context;
 }
+
+/** Safe outside lesson ScrollSpyProvider (articles, glossary term pages). */
+export function useOptionalScrollSpyContext() {
+  return useContext(ScrollSpyContext);
+}

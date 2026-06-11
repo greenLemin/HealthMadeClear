@@ -1,7 +1,7 @@
 "use client";
 
-import Image from "next/image";
 import { ArrowLeft } from "lucide-react";
+import LessonThumbnail from "@/components/LessonThumbnail";
 import { Link } from "@/i18n/navigation";
 import LessonActionsClient from "@/components/lesson/LessonActionsClient";
 import LessonRelatedClient from "@/components/lesson/LessonRelatedClient";
@@ -63,7 +63,6 @@ export default function LessonPageClient({
   const { locale } = useAppState();
   const t = useTranslations("learn");
   const lessonId = lesson.id as LessonId;
-  const heroImage = lesson.image ?? null;
   const sidebar = useSidebarContent(lesson, t);
 
   return (
@@ -93,22 +92,16 @@ export default function LessonPageClient({
               <p className="mb-8 max-w-3xl text-body-lg text-on-surface-variant">{lesson.description}</p>
               <LessonActionsClient lessonId={lessonId} />
 
-              {heroImage ? (
-                <div className="mb-8 overflow-hidden rounded-lg border border-outline-variant">
-                  <Image
-                    src={heroImage}
-                    alt={lesson.title}
-                    width={800}
-                    height={450}
-                    className="h-auto w-full object-cover"
-                    priority
-                  />
-                </div>
-              ) : (
-                <div className="mb-8 rounded-lg border border-outline-variant bg-surface-container-low p-6">
-                  <div className="min-h-48 rounded-lg bg-gradient-to-br from-primary-container to-primary-fixed" />
-                </div>
-              )}
+              <div className="mb-8 overflow-hidden rounded-lg border border-outline-variant">
+                <LessonThumbnail
+                  image={lesson.image}
+                  imageAlt={lesson.imageAlt}
+                  categoryId={lesson.categoryId}
+                  title={lesson.title}
+                  className="min-h-48 w-full"
+                  priority
+                />
+              </div>
 
               <div className="space-y-8">
                 {lesson.content.sections.map((section, index) => (

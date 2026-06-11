@@ -1,9 +1,10 @@
 "use client";
 
-import { useState, useCallback, useMemo } from "react";
+import { useState, useCallback, useMemo, useEffect, useRef } from "react";
 import { Link } from "@/i18n/navigation";
 import { ArrowLeft, Check, X, RefreshCw } from "lucide-react";
 import { useTranslations } from "next-intl";
+import { useAppState } from "@/components/AppProviders";
 import type { Quiz } from "@/types/quiz";
 
 type QuizState = "start" | "active" | "completed";
@@ -16,7 +17,9 @@ type Props = {
 
 export default function QuizClient({ quiz, lessonTitle, lessonId }: Props) {
   const t = useTranslations("quiz");
+  const { markLessonComplete, recordQuizScore } = useAppState();
   const [state, setState] = useState<QuizState>("start");
+  const recordedRef = useRef(false);
   const [current, setCurrent] = useState(0);
   const [answers, setAnswers] = useState<Record<number, string>>({});
   const [showResult, setShowResult] = useState(false);
@@ -50,11 +53,42 @@ export default function QuizClient({ quiz, lessonTitle, lessonId }: Props) {
     setCurrent(0);
     setAnswers({});
     setShowResult(false);
+    recordedRef.current = false;
   }, []);
+
+  useEffect(() => {
+    if (state !== "completed" || recordedRef.current || total === 0) return;
+    recordedRef.current = true;
+    recordQuizScore(lessonId, score, passed);
+    if (passed) markLessonComplete(lessonId);
+  }, [state, score, passed, lessonId, total, recordQuizScore, markLessonComplete]);
+
+  if (total === 0) {
+    return (
+      <div className="py-12 md:py-16">
+        <div className="mx-auto max-w-2xl px-4 md:px-6">
+          <Link
+            href={`/learn/${lessonId}`}
+            className="no-print mb-6 inline-flex items-center gap-2 text-sm font-semibold text-primary"
+          >
+            <ArrowLeft size={18} />
+            {t("backToLesson")}
+          </Link>
+          <div className="card">
+            <h1 className="mb-3 text-headline-lg text-primary">{quiz.title}</h1>
+            <p className="mb-6 text-body-md text-on-surface-variant">{t("noQuestions")}</p>
+            <Link href={`/learn/${lessonId}`} className="btn-primary inline-flex">
+              {t("backToLesson")}
+            </Link>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   if (state === "start") {
     return (
-      <main className="py-12 md:py-16">
+      <div className="py-12 md:py-16">
         <div className="mx-auto max-w-2xl px-4 md:px-6">
           <Link
             href={`/learn/${lessonId}`}
@@ -71,18 +105,18 @@ export default function QuizClient({ quiz, lessonTitle, lessonId }: Props) {
             <p className="mb-6 text-sm text-on-surface-variant">
               {t("passRequirement", { score: quiz.passScore })}
             </p>
-            <button onClick={() => setState("active")} className="btn-primary">
+            <button type="button" onClick={() => setState("active")} className="btn-primary">
               {t("startQuiz")}
             </button>
           </div>
         </div>
-      </main>
+      </div>
     );
   }
 
   if (state === "completed") {
     return (
-      <main className="py-12 md:py-16">
+      <div className="py-12 md:py-16">
         <div className="mx-auto max-w-2xl px-4 md:px-6">
           <div className="card text-center">
             <div className="mx-auto mb-4 flex h-20 w-20 items-center justify-center rounded-full bg-surface-container">
@@ -159,7 +193,7 @@ export default function QuizClient({ quiz, lessonTitle, lessonId }: Props) {
             })}
           </div>
         </div>
-      </main>
+      </div>
     );
   }
 
@@ -167,7 +201,7 @@ export default function QuizClient({ quiz, lessonTitle, lessonId }: Props) {
   const selected = answers[current];
 
   return (
-    <main className="py-12 md:py-16">
+    <div className="py-12 md:py-16">
       <div className="mx-auto max-w-2xl px-4 md:px-6">
         <div className="mb-6">
           <div className="mb-2 flex items-center justify-between text-sm text-on-surface-variant">
@@ -180,35 +214,48 @@ export default function QuizClient({ quiz, lessonTitle, lessonId }: Props) {
         </div>
 
         <div className="card mb-6">
-          <h2 className="mb-4 text-headline-md text-primary">{question.question}</h2>
-          <div className="space-y-3">
-            {question.options.map((opt, oi) => {
-              const letter = String.fromCharCode(65 + oi);
-              const isSelected = selected === letter;
-              return (
-                <button
-                  key={oi}
-                  onClick={() => handleAnswer(current, letter)}
-                  className={`w-full rounded border px-4 py-3 text-left text-body-md flex items-center gap-3 transition-colors ${
-                    isSelected
-                      ? "border-primary bg-primary-container text-on-primary-container"
-                      : "border-outline-variant text-on-surface hover:bg-surface-container"
-                  }`}
-                >
-                  <span
-                    className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-sm font-bold ${
+          <fieldset>
+            <legend className="mb-4 text-headline-md text-primary">{question.question}</legend>
+            <div className="space-y-3" role="radiogroup" aria-label={question.question}>
+              {question.options.map((opt, oi) => {
+                const letter = String.fromCharCode(65 + oi);
+                const isSelected = selected === letter;
+                const optionId = `quiz-q${current}-opt-${letter}`;
+                return (
+                  <label
+                    key={oi}
+                    htmlFor={optionId}
+                    className={`flex w-full cursor-pointer items-center gap-3 rounded border px-4 py-3 text-left text-body-md transition-colors ${
                       isSelected
-                        ? "bg-primary text-on-primary"
-                        : "bg-surface-container text-on-surface-variant"
+                        ? "border-primary bg-primary-container text-on-primary-container"
+                        : "border-outline-variant text-on-surface hover:bg-surface-container"
                     }`}
                   >
-                    {letter}
-                  </span>
-                  <span>{opt}</span>
-                </button>
-              );
-            })}
-          </div>
+                    <input
+                      id={optionId}
+                      type="radio"
+                      name={`quiz-question-${current}`}
+                      value={letter}
+                      checked={isSelected}
+                      onChange={() => handleAnswer(current, letter)}
+                      className="sr-only"
+                    />
+                    <span
+                      className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-sm font-bold ${
+                        isSelected
+                          ? "bg-primary text-on-primary"
+                          : "bg-surface-container text-on-surface-variant"
+                      }`}
+                      aria-hidden
+                    >
+                      {letter}
+                    </span>
+                    <span>{opt}</span>
+                  </label>
+                );
+              })}
+            </div>
+          </fieldset>
         </div>
 
         {selected && showResult && (
@@ -253,6 +300,6 @@ export default function QuizClient({ quiz, lessonTitle, lessonId }: Props) {
           )}
         </div>
       </div>
-    </main>
+    </div>
   );
 }

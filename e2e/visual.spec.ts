@@ -1,12 +1,10 @@
-import { expect, test } from "@playwright/test";
+import { expect, test } from "./setup";
 
-// Visual snapshot tests require a Linux baseline (CI runs on Ubuntu). The
-// committed darwin snapshots do not match Linux-rendered output because
-// font metrics, anti-aliasing, and DPR differ between platforms. To
-// re-enable in CI: run `npx playwright test e2e/visual.spec.ts
-// --update-snapshots` on a Linux runner, commit the linux baseline, then
-// remove the skip.
-test.skip(!!process.env.CI, "Visual baseline only matches local platform");
+// CI uses Linux baselines (home-en-*-chromium-linux.png). Local macOS runs use darwin snapshots.
+test.skip(
+  !process.env.CI && process.platform === "darwin",
+  "Local macOS uses darwin snapshots; run visual tests in CI or update darwin baselines locally"
+);
 
 test("home visual baseline light", async ({ page }) => {
   await page.goto("/en");

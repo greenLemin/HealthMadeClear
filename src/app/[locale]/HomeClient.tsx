@@ -18,13 +18,13 @@ export default function HomeClient() {
   const learningPaths = getLearningPaths(locale);
 
   return (
-    <main>
+    <div>
       <Hero />
       <SectionNav />
 
       <section className="pb-12">
         <div className="max-w-container mx-auto px-4 md:px-6">
-          <div className="mb-12 rounded-[28px] border border-outline-variant bg-surface p-6 shadow-[0_18px_40px_rgba(15,23,42,0.06)] md:p-8">
+          <div className="mb-12 rounded-lg border border-outline-variant bg-surface p-6 shadow-elevation-2 md:p-8">
             <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
               <div>
                 <div className="mb-2 inline-flex rounded-full bg-secondary-container px-4 py-2 text-sm font-semibold text-primary">
@@ -54,7 +54,7 @@ export default function HomeClient() {
                 <Link
                   key={path.id}
                   href={`/learning-paths#${path.id}`}
-                  className="group hover-lift rounded-[24px] border border-outline-variant bg-surface p-6 shadow-[0_14px_30px_rgba(15,23,42,0.05)] hover:shadow-[0_20px_42px_rgba(15,23,42,0.08)]"
+                  className="group hover-lift card-hover rounded-lg border border-outline-variant bg-surface p-6 shadow-elevation-1"
                 >
                   <div className="mb-3 inline-flex rounded-full bg-surface-container px-3 py-1 text-xs font-semibold uppercase tracking-[0.08em] text-on-surface-variant">
                     {formatLevel(path.level, locale)}
@@ -82,6 +82,6 @@ export default function HomeClient() {
           <MedicalDisclaimer variant="emergency" />
         </div>
       </section>
-    </main>
+    </div>
   );
 }

@@ -120,7 +120,7 @@ export default function VisitPlannerClient() {
   };
 
   return (
-    <main className="py-12 md:py-16">
+    <div className="py-12 md:py-16">
       <div className="max-w-container mx-auto px-4 md:px-6">
         <PageHeader title={t("plannerTitle")} description={t("plannerDescription")} />
 
@@ -353,6 +353,6 @@ export default function VisitPlannerClient() {
           <MedicalDisclaimer />
         </div>
       </div>
-    </main>
+    </div>
   );
 }

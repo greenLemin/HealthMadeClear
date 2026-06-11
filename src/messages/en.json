@@ -2,6 +2,7 @@
   "nav": {
     "home": "Home",
     "learn": "Learn",
+    "articles": "Articles",
     "paths": "Paths",
     "tools": "Tools",
     "dashboard": "Dashboard",
@@ -68,6 +69,7 @@
     "useTool": "Use tool",
     "print": "Print",
     "readLesson": "Read lesson",
+    "read": "read",
     "back": "Back",
     "searchLessons": "Search lessons",
     "searchTerms": "Search terms",
@@ -106,7 +108,8 @@
     "title": "Health Glossary",
     "description": "Clear, everyday definitions for medical terms so you can understand your health journey without the confusion.",
     "backToGlossary": "Back to glossary",
-    "viewTerm": "View full definition"
+    "viewTerm": "View full definition",
+    "seenIn": "Seen in"
   },
   "learn": {
     "title": "What would you like to learn today?",
@@ -158,6 +161,9 @@
     "progressLabel": "path progress"
   },
   "dashboard": {
+    "greetingMorning": "Good morning",
+    "greetingAfternoon": "Good afternoon",
+    "greetingEvening": "Good evening",
     "title": "Your learning dashboard",
     "description": "Track your progress, pick up where you left off, and build confidence one lesson at a time.",
     "completedLessons": "Completed lessons",
@@ -195,6 +201,10 @@
     "featuredPathsBody": "Curated journeys to help you understand specific health topics.",
     "viewAllPaths": "View all paths"
   },
+  "meta": {
+    "siteTitle": "Health Made Clear - Understand Your Health",
+    "siteDescription": "Free, accessible health education for everyone. Learn about health topics in plain language."
+  },
   "hero": {
     "badge": "Clear, human-centered health education",
     "title": "Understand Your Health, One Clear Step at a Time",
@@ -209,7 +219,8 @@
     "guidedPaths": "Guided learning paths",
     "printableTools": "Printable tools",
     "glossaryDefs": "Glossary definitions",
-    "progressTracking": "Progress tracking"
+    "progressTracking": "Progress tracking",
+    "imageAlt": "Healthcare professional consulting with a patient in a calm clinical setting"
   },
   "about": {
     "title": "Our mission is clarity.",
@@ -331,8 +342,20 @@
     "urgentCareBody": "Walk-in clinics for problems that need same-day attention but are not life-threatening.",
     "emergency": "Emergency room",
     "emergencyBody": "Severe chest pain, trouble breathing, stroke signs, heavy bleeding, or other life-threatening symptoms.",
-    "emergencyShort": "Call 911 if you have a life-threatening emergency.",
-    "careOptionsHeading": "Care Options"
+    "emergencyBadge24": "Open 24/7",
+    "homeCareChecklist": "Mild cold symptoms|Low fever|Minor cuts or scrapes|Muscle aches from exercise",
+    "primaryCareChecklist": "Annual checkups|Ongoing conditions|New symptoms lasting several days|Prescription refills",
+    "urgentCareChecklist": "Sprains or minor fractures|Stitches for small cuts|Moderate fever|Urinary tract infection symptoms",
+    "emergencyChecklist": "Chest pain or pressure|Trouble breathing|Stroke signs (FAST)|Severe bleeding or head injury",
+    "scenariosHeading": "Common scenarios",
+    "scenarioSoreThroatTitle": "Sore throat for 2 days",
+    "scenarioSoreThroatBody": "No trouble breathing, can drink fluids, mild fever — start with home care or call primary care if not improving.",
+    "scenarioSoreThroatLevel": "Primary care if worsening",
+    "scenarioChestPainTitle": "Chest pain with shortness of breath",
+    "scenarioChestPainBody": "Sudden chest pressure, pain spreading to arm or jaw, or trouble breathing — call 911 immediately.",
+    "scenarioChestPainLevel": "Emergency — call 911",
+    "whenInDoubtTitle": "When in doubt",
+    "whenInDoubtBody": "If you are unsure how serious symptoms are, call your doctor's nurse line or go to urgent care. For life-threatening symptoms, call 911."
   },
   "sectionNav": {
     "learn": "Learn",
@@ -369,14 +392,28 @@
     "scoreLabel": "You scored {score}% ({correct} of {total} correct)",
     "passed": "You passed!",
     "tryAgain": "Keep studying and try again.",
-    "retake": "Retake quiz"
+    "retake": "Retake quiz",
+    "noQuestions": "This quiz has no questions yet. Please try again later or return to the lesson."
+  },
+  "articles": {
+    "title": "Health Articles",
+    "description": "Short reads on navigating healthcare, preventive care, and understanding medical information.",
+    "searchArticles": "Search articles…",
+    "noResults": "No articles match your search.",
+    "backToArticles": "Back to articles",
+    "lastReviewed": "Reviewed {date}"
   },
   "search": {
     "openSearch": "Open search",
-    "searchDialog": "Search lessons",
-    "placeholder": "Search lessons…",
+    "searchDialog": "Search site",
+    "placeholder": "Search lessons, articles, glossary…",
     "close": "Close search",
-    "noResults": "No lessons found. Try a different search term."
+    "noResults": "No results found. Try a different search term.",
+    "typeLesson": "Lesson",
+    "typeArticle": "Article",
+    "typeGlossary": "Glossary",
+    "typePath": "Learning path",
+    "typeTool": "Tool"
   },
   "onboarding": {
     "welcome": "Welcome to Health Made Clear",

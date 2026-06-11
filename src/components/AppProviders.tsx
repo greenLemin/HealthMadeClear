@@ -14,7 +14,8 @@ import {
   type TextSize,
   type ThemeMode,
 } from "@/lib/preferences";
-import type { ExportedProgress } from "@/lib/progressExport";
+import type { ExportedProgress, QuizScore } from "@/lib/progressExport";
+import { readStoredQuizScores } from "@/lib/progressExport";
 
 export type { TextSize, ThemeMode };
 
@@ -26,6 +27,7 @@ type AppContextValue = {
   completedLessons: string[];
   recentLessons: string[];
   startedPaths: string[];
+  quizScores: QuizScore[];
   setLocale: (locale: Locale) => void;
   setTheme: (theme: ThemeMode) => void;
   setTextSize: (size: TextSize) => void;
@@ -33,6 +35,8 @@ type AppContextValue = {
   toggleLessonComplete: (lessonId: string) => void;
   markLessonViewed: (lessonId: string) => void;
   markPathStarted: (pathId: string) => void;
+  markLessonComplete: (lessonId: string) => void;
+  recordQuizScore: (lessonId: string, score: number, passed: boolean) => void;
   importProgress: (data: ExportedProgress) => void;
 };
 
@@ -52,6 +56,7 @@ export default function AppProviders({
   const [completedLessons, setCompletedLessons] = useState<string[]>([]);
   const [recentLessons, setRecentLessons] = useState<string[]>([]);
   const [startedPaths, setStartedPaths] = useState<string[]>([]);
+  const [quizScores, setQuizScores] = useState<QuizScore[]>([]);
   const [hydrated, setHydrated] = useState(false);
 
   useEffect(() => {
@@ -62,6 +67,7 @@ export default function AppProviders({
     setCompletedLessons(readStoredStringArray(STORAGE_KEYS.completedLessons));
     setRecentLessons(readStoredStringArray(STORAGE_KEYS.recentLessons));
     setStartedPaths(readStoredStringArray(STORAGE_KEYS.startedPaths));
+    setQuizScores(readStoredQuizScores());
     setHydrated(true);
   }, [initialLocale]);
 
@@ -83,7 +89,8 @@ export default function AppProviders({
     window.localStorage.setItem(STORAGE_KEYS.completedLessons, JSON.stringify(completedLessons));
     window.localStorage.setItem(STORAGE_KEYS.recentLessons, JSON.stringify(recentLessons));
     window.localStorage.setItem(STORAGE_KEYS.startedPaths, JSON.stringify(startedPaths));
-  }, [hydrated, completedLessons, recentLessons, startedPaths]);
+    window.localStorage.setItem(STORAGE_KEYS.quizScores, JSON.stringify(quizScores));
+  }, [hydrated, completedLessons, recentLessons, startedPaths, quizScores]);
 
   const setLocale = useCallback((value: Locale) => setLocaleState(value), []);
   const setTheme = useCallback((value: ThemeMode) => setThemeState(value), []);
@@ -104,10 +111,28 @@ export default function AppProviders({
     setStartedPaths((current) => (current.includes(pathId) ? current : [...current, pathId]));
   }, []);
 
+  const markLessonComplete = useCallback((lessonId: string) => {
+    setCompletedLessons((current) => (current.includes(lessonId) ? current : [...current, lessonId]));
+  }, []);
+
+  const recordQuizScore = useCallback((lessonId: string, score: number, passed: boolean) => {
+    const entry: QuizScore = {
+      lessonId,
+      score,
+      passed,
+      completedAt: new Date().toISOString(),
+    };
+    setQuizScores((current) => {
+      const without = current.filter((item) => item.lessonId !== lessonId);
+      return [...without, entry];
+    });
+  }, []);
+
   const importProgress = useCallback((data: ExportedProgress) => {
     setCompletedLessons(data.completedLessons);
     setRecentLessons(data.recentLessons);
     setStartedPaths(data.startedPaths);
+    setQuizScores(data.quizScores);
   }, []);
 
   const value = useMemo<AppContextValue>(
@@ -119,6 +144,7 @@ export default function AppProviders({
       completedLessons,
       recentLessons,
       startedPaths,
+      quizScores,
       setLocale,
       setTheme,
       setTextSize,
@@ -126,10 +152,12 @@ export default function AppProviders({
       toggleLessonComplete,
       markLessonViewed,
       markPathStarted,
+      markLessonComplete,
+      recordQuizScore,
       importProgress,
     }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [locale, theme, textSize, simpleMode, completedLessons, recentLessons, startedPaths]
+    [locale, theme, textSize, simpleMode, completedLessons, recentLessons, startedPaths, quizScores]
   );
 
   return (

@@ -7,7 +7,7 @@ export default function LocaleNotFound() {
   const t = useTranslations("errors");
 
   return (
-    <main className="py-16">
+    <div className="py-16">
       <div className="mx-auto max-w-container px-4 md:px-6">
         <div className="card max-w-xl">
           <h1 className="mb-3 text-headline-lg text-primary">{t("notFoundTitle")}</h1>
@@ -17,6 +17,6 @@ export default function LocaleNotFound() {
           </Link>
         </div>
       </div>
-    </main>
+    </div>
   );
 }

@@ -9,229 +9,260 @@ export const terms: GlossaryTerm[] = [
     term: "Blood Pressure",
     category: "General",
     definition:
-      "The force of blood pushing against the walls of your arteries. It's measured with two numbers: systolic (when the heart beats) over diastolic (when the heart rests). Normal blood pressure is usually around 120/80.",
+      "## What It Is\n\nBlood pressure is the force of blood pushing against artery walls as the heart pumps. It is recorded as two numbers: systolic (pressure when the heart beats) over diastolic (pressure between beats). Normal adult readings are often around 120/80 mmHg, but targets vary by age and health conditions.\n\n## Why It Matters\n\nUnderstanding this term helps you follow conversations with doctors, read labels and test results, and make informed decisions about your health.\n\n## Talk With Your Care Team\n\nIf you are unsure how this applies to you, write down your questions before appointments and ask for explanations in plain language.",
     relatedTerms: ["hypertension", "hypotension"],
+    relatedLessons: ["living-with-hypertension", "blood-basics"],
   },
   {
     id: "hypertension",
     term: "Hypertension",
     category: "Conditions",
     definition:
-      "High blood pressure. This means the force of blood against your artery walls is consistently too high. It can damage your blood vessels and increase your risk of heart disease and stroke.",
+      '## What It Is\n\nHypertension is the medical term for high blood pressure — when blood pushes too hard against artery walls over time. It is often called a "silent killer" because it may cause no symptoms while damaging the heart, brain, kidneys, and eyes. Treatment includes lifestyle changes and often medication.\n\n## Why It Matters\n\nUnderstanding this term helps you follow conversations with doctors, read labels and test results, and make informed decisions about your health.\n\n## Talk With Your Care Team\n\nIf you are unsure how this applies to you, write down your questions before appointments and ask for explanations in plain language.',
     relatedTerms: ["blood-pressure"],
+    relatedLessons: ["living-with-hypertension", "blood-basics"],
   },
   {
     id: "hypotension",
     term: "Hypotension",
     category: "Conditions",
     definition:
-      "Low blood pressure. This can cause dizziness, fainting, and fatigue. While often less serious than high blood pressure, it still needs medical attention if it causes symptoms.",
+      "## What It Is\n\nHypotension means abnormally low blood pressure. It can cause dizziness, fainting, or fatigue, especially when standing up quickly. Causes include dehydration, certain medicines, heart problems, or severe infection. Sudden severe low blood pressure needs urgent medical care.\n\n## Why It Matters\n\nUnderstanding this term helps you follow conversations with doctors, read labels and test results, and make informed decisions about your health.\n\n## Talk With Your Care Team\n\nIf you are unsure how this applies to you, write down your questions before appointments and ask for explanations in plain language.",
     relatedTerms: ["blood-pressure"],
+    relatedLessons: ["when-to-call-911", "blood-basics"],
   },
   {
     id: "cholesterol",
     term: "Cholesterol",
     category: "General",
     definition:
-      "A waxy, fat-like substance found in all cells of your body. Your body needs some cholesterol to work properly, but too much can build up in your arteries and cause heart disease.",
+      '## What It Is\n\nCholesterol is a waxy fat-like substance found in your blood. Your body needs some cholesterol to build cells, but too much LDL ("bad") cholesterol can build up in arteries and raise heart attack and stroke risk. HDL ("good") cholesterol helps remove excess cholesterol from the bloodstream.\n\n## Why It Matters\n\nUnderstanding this term helps you follow conversations with doctors, read labels and test results, and make informed decisions about your health.\n\n## Talk With Your Care Team\n\nIf you are unsure how this applies to you, write down your questions before appointments and ask for explanations in plain language.',
     relatedTerms: ["ldl", "hdl", "triglycerides"],
+    relatedLessons: ["common-tests", "introduction-to-heart-disease"],
   },
   {
     id: "ldl",
     term: "LDL Cholesterol",
     category: "Lab Results",
     definition:
-      'Low-density lipoprotein, often called "bad" cholesterol. It can build up in your arteries and form plaque, which can narrow your arteries and increase your risk of heart disease.',
+      '## What It Is\n\nLDL (low-density lipoprotein) is often called "bad" cholesterol because high levels can deposit cholesterol in artery walls, forming plaque. This narrows arteries and raises heart attack and stroke risk. Diet, exercise, and medicines called statins can lower LDL.\n\n## Why It Matters\n\nUnderstanding this term helps you follow conversations with doctors, read labels and test results, and make informed decisions about your health.\n\n## Talk With Your Care Team\n\nIf you are unsure how this applies to you, write down your questions before appointments and ask for explanations in plain language.',
     relatedTerms: ["cholesterol", "hdl"],
+    relatedLessons: ["common-tests", "reading-nutrition-labels"],
   },
   {
     id: "hdl",
     term: "HDL Cholesterol",
     category: "Lab Results",
     definition:
-      'High-density lipoprotein, often called "good" cholesterol. It helps remove LDL cholesterol from your arteries and carries it back to your liver to be processed. Higher HDL levels are generally better.',
+      '## What It Is\n\nHDL (high-density lipoprotein) is often called "good" cholesterol because it carries cholesterol away from arteries back to the liver. Higher HDL levels are generally associated with lower heart disease risk. Exercise, not smoking, and healthy fats can help raise HDL.\n\n## Why It Matters\n\nUnderstanding this term helps you follow conversations with doctors, read labels and test results, and make informed decisions about your health.\n\n## Talk With Your Care Team\n\nIf you are unsure how this applies to you, write down your questions before appointments and ask for explanations in plain language.',
     relatedTerms: ["cholesterol", "ldl"],
+    relatedLessons: ["common-tests", "reading-nutrition-labels"],
   },
   {
     id: "triglycerides",
     term: "Triglycerides",
     category: "Lab Results",
     definition:
-      "A type of fat in your blood that your body uses for energy. High levels can increase your risk of heart disease, especially when combined with high LDL or low HDL cholesterol.",
+      "## What It Is\n\nTriglycerides are a type of fat in the blood used for energy storage. High triglycerides — often linked to excess sugar, alcohol, or refined carbs — increase heart disease and pancreatitis risk. A lipid panel measures triglycerides along with cholesterol levels.\n\n## Why It Matters\n\nUnderstanding this term helps you follow conversations with doctors, read labels and test results, and make informed decisions about your health.\n\n## Talk With Your Care Team\n\nIf you are unsure how this applies to you, write down your questions before appointments and ask for explanations in plain language.",
     relatedTerms: ["cholesterol"],
+    relatedLessons: ["common-tests", "reading-nutrition-labels"],
   },
   {
     id: "diabetes",
     term: "Diabetes",
     category: "Conditions",
     definition:
-      "A chronic disease that affects how your body turns food into energy. With diabetes, your body either doesn't make enough insulin or can't use insulin properly, causing high blood sugar levels.",
+      "## What It Is\n\nDiabetes is a chronic disease that affects how your body turns food into energy. With diabetes, your body either does not make enough insulin or cannot use insulin properly, causing high blood sugar. Over time, high blood sugar can damage the heart, kidneys, nerves, and eyes if not managed.\n\n## Why It Matters\n\nUnderstanding this term helps you follow conversations with doctors, read labels and test results, and make informed decisions about your health.\n\n## Talk With Your Care Team\n\nIf you are unsure how this applies to you, write down your questions before appointments and ask for explanations in plain language.",
     relatedTerms: ["blood-sugar", "insulin", "glucose"],
+    relatedLessons: ["understanding-type2-diabetes", "common-tests"],
   },
   {
     id: "blood-sugar",
     term: "Blood Sugar",
     category: "General",
     definition:
-      "Also called blood glucose, this is the main sugar found in your blood. It comes from the food you eat and is your body's main source of energy. Insulin helps move blood sugar into your cells.",
+      "## What It Is\n\nBlood sugar (blood glucose) is the amount of sugar in your bloodstream. The body uses glucose for energy, and insulin helps move it into cells. High blood sugar over time can damage nerves, kidneys, eyes, and blood vessels — a hallmark of diabetes.\n\n## Why It Matters\n\nUnderstanding this term helps you follow conversations with doctors, read labels and test results, and make informed decisions about your health.\n\n## Talk With Your Care Team\n\nIf you are unsure how this applies to you, write down your questions before appointments and ask for explanations in plain language.",
     relatedTerms: ["diabetes", "glucose", "insulin"],
+    relatedLessons: ["understanding-type2-diabetes", "common-tests"],
   },
   {
     id: "glucose",
     term: "Glucose",
     category: "General",
     definition:
-      "A simple sugar that is the body's main source of energy. It's also known as blood sugar when it's in your bloodstream. Your body gets glucose from the carbohydrates you eat.",
+      "## What It Is\n\nGlucose is a simple sugar and the body's main source of energy from food. After you eat, glucose enters the bloodstream and insulin helps cells absorb it. Fasting glucose and A1C tests measure how well your body manages blood sugar over time.\n\n## Why It Matters\n\nUnderstanding this term helps you follow conversations with doctors, read labels and test results, and make informed decisions about your health.\n\n## Talk With Your Care Team\n\nIf you are unsure how this applies to you, write down your questions before appointments and ask for explanations in plain language.",
     relatedTerms: ["blood-sugar", "diabetes"],
+    relatedLessons: ["understanding-type2-diabetes", "blood-basics"],
   },
   {
     id: "insulin",
     term: "Insulin",
     category: "General",
     definition:
-      "A hormone made by your pancreas that helps your body use glucose for energy. It acts like a key that lets sugar into your cells. In diabetes, the body either doesn't make enough insulin or can't use it properly.",
+      "## What It Is\n\nInsulin is a hormone made by the pancreas that helps glucose enter cells for energy. In type 1 diabetes the body makes little or no insulin; in type 2 diabetes cells resist insulin's effects. People with diabetes may need insulin injections or other medicines to control blood sugar.\n\n## Why It Matters\n\nUnderstanding this term helps you follow conversations with doctors, read labels and test results, and make informed decisions about your health.\n\n## Talk With Your Care Team\n\nIf you are unsure how this applies to you, write down your questions before appointments and ask for explanations in plain language.",
     relatedTerms: ["diabetes", "blood-sugar"],
+    relatedLessons: ["understanding-type2-diabetes", "blood-basics"],
   },
   {
     id: "chronic",
     term: "Chronic",
     category: "General",
     definition:
-      "A health condition that lasts for a long time, often for the rest of a person's life. Chronic conditions usually can't be cured but can be managed with treatment and lifestyle changes.",
+      "## What It Is\n\nChronic describes a condition that lasts a long time — usually three months or more. Examples include diabetes, hypertension, asthma, and heart disease. Chronic conditions often need ongoing treatment, lifestyle changes, and regular monitoring rather than a one-time cure.\n\n## Why It Matters\n\nUnderstanding this term helps you follow conversations with doctors, read labels and test results, and make informed decisions about your health.\n\n## Talk With Your Care Team\n\nIf you are unsure how this applies to you, write down your questions before appointments and ask for explanations in plain language.",
+    relatedLessons: ["living-with-hypertension", "asthma-basics", "introduction-to-heart-disease"],
   },
   {
     id: "acute",
     term: "Acute",
     category: "General",
     definition:
-      "A health condition that comes on suddenly and usually lasts for a short time. Acute conditions often need immediate treatment but can be cured or resolve on their own.",
+      "## What It Is\n\nAcute means sudden in onset and often short in duration. Acute illnesses or injuries develop quickly and may need prompt care — for example a broken bone, strep throat, or a panic attack. Acute is the opposite of chronic, which lasts months or years.\n\n## Why It Matters\n\nUnderstanding this term helps you follow conversations with doctors, read labels and test results, and make informed decisions about your health.\n\n## Talk With Your Care Team\n\nIf you are unsure how this applies to you, write down your questions before appointments and ask for explanations in plain language.",
+    relatedLessons: ["when-to-call-911", "building-first-aid-kit"],
   },
   {
     id: "symptom",
     term: "Symptom",
     category: "General",
     definition:
-      "A physical or mental problem that a person experiences that may indicate a disease or condition. Symptoms are what you feel and report to your doctor, like pain, fatigue, or nausea.",
+      "## What It Is\n\nA symptom is something you feel or experience — pain, fatigue, nausea, anxiety — that you report to your doctor. Tracking when symptoms started, how often they occur, and what makes them better or worse helps your care team find causes and plan treatment.\n\n## Why It Matters\n\nUnderstanding this term helps you follow conversations with doctors, read labels and test results, and make informed decisions about your health.\n\n## Talk With Your Care Team\n\nIf you are unsure how this applies to you, write down your questions before appointments and ask for explanations in plain language.",
     relatedTerms: ["sign"],
+    relatedLessons: ["before-your-visit", "during-your-visit"],
   },
   {
     id: "sign",
     term: "Sign",
     category: "General",
     definition:
-      "Something a doctor can observe or measure during an examination, like fever, rash, or high blood pressure. Signs are different from symptoms, which are what you feel.",
+      "## What It Is\n\nA sign is an objective finding that others can observe or measure — such as a fever, rash, or high blood pressure reading. Signs differ from symptoms, which are what the patient feels and reports. Doctors use both signs and symptoms to make diagnoses.\n\n## Why It Matters\n\nUnderstanding this term helps you follow conversations with doctors, read labels and test results, and make informed decisions about your health.\n\n## Talk With Your Care Team\n\nIf you are unsure how this applies to you, write down your questions before appointments and ask for explanations in plain language.",
     relatedTerms: ["symptom"],
+    relatedLessons: ["blood-basics", "when-to-worry"],
   },
   {
     id: "diagnosis",
     term: "Diagnosis",
     category: "General",
     definition:
-      "The process of identifying a disease or condition based on a person's symptoms, medical history, and test results. It's also the name given to the identified condition.",
+      "## What It Is\n\nA diagnosis is the identification of a disease or condition based on symptoms, exams, and test results. Receiving a diagnosis can feel overwhelming, but it is the starting point for treatment and planning. Always ask your doctor what the diagnosis means for your daily life and next steps.\n\n## Why It Matters\n\nUnderstanding this term helps you follow conversations with doctors, read labels and test results, and make informed decisions about your health.\n\n## Talk With Your Care Team\n\nIf you are unsure how this applies to you, write down your questions before appointments and ask for explanations in plain language.",
+    relatedLessons: ["introduction-to-heart-disease", "understanding-type2-diabetes"],
   },
   {
     id: "prognosis",
     term: "Prognosis",
     category: "General",
     definition:
-      "The likely course or outcome of a disease or condition. A prognosis tells you what to expect in the future, such as whether a condition will improve, stay the same, or get worse.",
+      "## What It Is\n\nPrognosis is a doctor's best estimate of how a disease or condition is likely to progress over time — including chances of recovery, stability, or complications. Prognosis is not a guarantee; treatment, lifestyle, and new research can change outcomes. Always ask what factors affect your personal prognosis.\n\n## Why It Matters\n\nUnderstanding this term helps you follow conversations with doctors, read labels and test results, and make informed decisions about your health.\n\n## Talk With Your Care Team\n\nIf you are unsure how this applies to you, write down your questions before appointments and ask for explanations in plain language.",
+    relatedLessons: ["understanding-depression", "introduction-to-heart-disease"],
   },
   {
     id: "side-effect",
     term: "Side Effect",
     category: "Medications",
     definition:
-      "An unwanted effect that happens when you take a medication. Side effects can range from mild (like dry mouth) to severe (like allergic reactions). Not everyone experiences side effects.",
+      "## What It Is\n\nA side effect is an unwanted reaction to a medicine — from mild (dry mouth) to severe (allergic reaction). Not everyone gets side effects, and many fade as the body adjusts. Report bothersome or serious side effects to your doctor; do not stop prescribed medicine without guidance.\n\n## Why It Matters\n\nUnderstanding this term helps you follow conversations with doctors, read labels and test results, and make informed decisions about your health.\n\n## Talk With Your Care Team\n\nIf you are unsure how this applies to you, write down your questions before appointments and ask for explanations in plain language.",
+    relatedLessons: ["managing-side-effects", "asking-about-medications"],
   },
   {
     id: "dosage",
     term: "Dosage",
     category: "Medications",
     definition:
-      "The amount of medication you should take and how often you should take it. Dosage is carefully determined by your doctor based on your age, weight, medical condition, and other factors.",
+      '## What It Is\n\nDosage is the amount of medicine prescribed and how often you take it — for example "one tablet twice daily." Taking the correct dose at the right time is essential for safety and effectiveness. Never change your dose without talking to your doctor or pharmacist.\n\n## Why It Matters\n\nUnderstanding this term helps you follow conversations with doctors, read labels and test results, and make informed decisions about your health.\n\n## Talk With Your Care Team\n\nIf you are unsure how this applies to you, write down your questions before appointments and ask for explanations in plain language.',
+    relatedLessons: ["understanding-prescription-labels", "asking-about-medications"],
   },
   {
     id: "generic-drug",
     term: "Generic Drug",
     category: "Medications",
     definition:
-      "A medication that has the same active ingredients as a brand-name drug but usually costs less. Generic drugs are just as safe and effective as brand-name drugs and must meet the same quality standards.",
+      "## What It Is\n\nA generic drug contains the same active ingredient as a brand-name medicine and must meet the same FDA standards for safety and effectiveness. Generics often cost less because manufacturers do not repeat expensive marketing and development. They may look different but work the same way.\n\n## Why It Matters\n\nUnderstanding this term helps you follow conversations with doctors, read labels and test results, and make informed decisions about your health.\n\n## Talk With Your Care Team\n\nIf you are unsure how this applies to you, write down your questions before appointments and ask for explanations in plain language.",
+    relatedLessons: ["understanding-prescription-labels", "asking-about-medications"],
   },
   {
     id: "prescription",
     term: "Prescription",
     category: "Medications",
     definition:
-      "A written order from a doctor for a medication or treatment. Prescription medications can only be obtained from a pharmacy with a doctor's authorization.",
+      "## What It Is\n\nA prescription is a written or electronic order from a licensed provider for a specific medicine, dose, and instructions. Only pharmacies can dispense prescription drugs. The label includes your name, drug name, how to take it, refills, and pharmacy contact information.\n\n## Why It Matters\n\nUnderstanding this term helps you follow conversations with doctors, read labels and test results, and make informed decisions about your health.\n\n## Talk With Your Care Team\n\nIf you are unsure how this applies to you, write down your questions before appointments and ask for explanations in plain language.",
+    relatedLessons: ["understanding-prescription-labels", "asking-about-medications"],
   },
   {
     id: "over-the-counter",
     term: "Over-the-Counter (OTC)",
     category: "Medications",
     definition:
-      "Medications you can buy without a prescription from a doctor. These include common medicines like pain relievers, cold medicines, and allergy medications. Even though they don't require a prescription, they can still have side effects and interactions.",
+      "## What It Is\n\nOver-the-counter (OTC) medicines can be bought without a prescription — examples include acetaminophen, ibuprofen, and allergy pills. They still have risks and drug interactions. Tell your doctor and pharmacist about all OTC products you use, including how often and at what dose.\n\n## Why It Matters\n\nUnderstanding this term helps you follow conversations with doctors, read labels and test results, and make informed decisions about your health.\n\n## Talk With Your Care Team\n\nIf you are unsure how this applies to you, write down your questions before appointments and ask for explanations in plain language.",
+    relatedLessons: ["asking-about-medications", "understanding-prescription-labels"],
   },
   {
     id: "biopsy",
     term: "Biopsy",
     category: "Procedures",
     definition:
-      "A medical procedure where a small sample of tissue is removed from your body for examination under a microscope. Biopsies are often used to diagnose cancer or other diseases.",
+      "## What It Is\n\nA biopsy is a procedure where a small sample of tissue or cells is removed for laboratory examination. Doctors use biopsies to check for cancer, infection, or other diseases. Results usually take several days to weeks depending on the type of test.\n\n## Why It Matters\n\nUnderstanding this term helps you follow conversations with doctors, read labels and test results, and make informed decisions about your health.\n\n## Talk With Your Care Team\n\nIf you are unsure how this applies to you, write down your questions before appointments and ask for explanations in plain language.",
+    relatedLessons: ["common-tests", "blood-basics"],
   },
   {
     id: "ct-scan",
     term: "CT Scan",
     category: "Procedures",
     definition:
-      "Computed Tomography scan. A special X-ray test that uses a computer to create detailed pictures of your body. It can help diagnose many conditions, including cancer, heart disease, and injuries.",
+      "## What It Is\n\nA CT (computed tomography) scan uses X-rays and computer processing to create detailed cross-sectional images of the body. It can show bones, organs, and blood vessels. Doctors use CT scans to diagnose injuries, tumors, infections, and other internal problems.\n\n## Why It Matters\n\nUnderstanding this term helps you follow conversations with doctors, read labels and test results, and make informed decisions about your health.\n\n## Talk With Your Care Team\n\nIf you are unsure how this applies to you, write down your questions before appointments and ask for explanations in plain language.",
+    relatedLessons: ["common-tests", "blood-basics"],
   },
   {
     id: "mri",
     term: "MRI",
     category: "Procedures",
     definition:
-      "Magnetic Resonance Imaging. A test that uses powerful magnets and radio waves to create detailed pictures of your body. It's especially useful for looking at soft tissues like the brain, muscles, and joints.",
+      "## What It Is\n\nMRI (magnetic resonance imaging) uses strong magnets and radio waves — not X-rays — to create detailed images of soft tissues like the brain, spine, joints, and organs. It is useful for detecting tumors, injuries, and neurological conditions. The scan can take 30–60 minutes and is painless.\n\n## Why It Matters\n\nUnderstanding this term helps you follow conversations with doctors, read labels and test results, and make informed decisions about your health.\n\n## Talk With Your Care Team\n\nIf you are unsure how this applies to you, write down your questions before appointments and ask for explanations in plain language.",
+    relatedLessons: ["common-tests", "blood-basics"],
   },
   {
     id: "ultrasound",
     term: "Ultrasound",
     category: "Procedures",
     definition:
-      "A test that uses sound waves to create pictures of the inside of your body. It's commonly used during pregnancy but can also examine organs like the heart, liver, and kidneys.",
+      "## What It Is\n\nUltrasound uses high-frequency sound waves to create images of structures inside the body, such as a developing fetus, gallbladder, heart, or blood vessels. It does not use radiation. Gel is applied to the skin and a probe sends and receives sound waves to build a live image.\n\n## Why It Matters\n\nUnderstanding this term helps you follow conversations with doctors, read labels and test results, and make informed decisions about your health.\n\n## Talk With Your Care Team\n\nIf you are unsure how this applies to you, write down your questions before appointments and ask for explanations in plain language.",
+    relatedLessons: ["common-tests", "common-adult-screenings"],
   },
   {
     id: "inflammation",
     term: "Inflammation",
     category: "General",
     definition:
-      "Your body's response to injury or infection. It causes redness, swelling, heat, and pain. Short-term inflammation helps your body heal, but long-term (chronic) inflammation can damage your body.",
+      "## What It Is\n\nInflammation is the body's response to injury or infection — redness, swelling, heat, and pain. Acute inflammation helps healing. Chronic inflammation lasting months can contribute to heart disease, arthritis, and other conditions. Lifestyle and treatment can reduce harmful chronic inflammation.\n\n## Why It Matters\n\nUnderstanding this term helps you follow conversations with doctors, read labels and test results, and make informed decisions about your health.\n\n## Talk With Your Care Team\n\nIf you are unsure how this applies to you, write down your questions before appointments and ask for explanations in plain language.",
+    relatedLessons: ["introduction-to-heart-disease", "asthma-basics"],
   },
   {
     id: "immune-system",
     term: "Immune System",
     category: "General",
     definition:
-      "Your body's defense system against infections and diseases. It includes white blood cells, antibodies, and other organs and tissues that work together to protect you from germs and harmful substances.",
+      "## What It Is\n\nThe immune system is the body's defense network against germs, viruses, and abnormal cells. It includes white blood cells, antibodies, and organs like the spleen and lymph nodes. Vaccines train the immune system to recognize specific threats without causing full illness.\n\n## Why It Matters\n\nUnderstanding this term helps you follow conversations with doctors, read labels and test results, and make informed decisions about your health.\n\n## Talk With Your Care Team\n\nIf you are unsure how this applies to you, write down your questions before appointments and ask for explanations in plain language.",
+    relatedLessons: ["understanding-vaccines", "asthma-basics"],
   },
   {
     id: "metabolism",
     term: "Metabolism",
     category: "General",
     definition:
-      "The chemical processes in your body that convert food and drink into energy. It includes all the reactions that keep your body functioning, like breathing, digesting food, and repairing cells.",
+      '## What It Is\n\nMetabolism is the set of chemical processes that convert food into energy and building blocks for the body. Basal metabolic rate is energy used at rest. Age, muscle mass, activity, and hormones affect metabolism. A "slow metabolism" is rarely the sole cause of weight gain.\n\n## Why It Matters\n\nUnderstanding this term helps you follow conversations with doctors, read labels and test results, and make informed decisions about your health.\n\n## Talk With Your Care Team\n\nIf you are unsure how this applies to you, write down your questions before appointments and ask for explanations in plain language.',
+    relatedLessons: ["reading-nutrition-labels", "building-balanced-plate"],
   },
   {
     id: "placebo",
     term: "Placebo",
-    category: "Research",
+    category: "General",
     definition:
-      "A substance with no active ingredients, used in medical studies as a control. In clinical trials, some people get the real treatment while others get a placebo to compare the effects.",
+      "## What It Is\n\nA placebo is an inactive treatment — such as a sugar pill — used in research to compare against real medicine. Some people feel better on placebo due to the mind-body response (placebo effect). Placebos in clinical trials help prove whether a treatment works beyond expectation alone.\n\n## Why It Matters\n\nUnderstanding this term helps you follow conversations with doctors, read labels and test results, and make informed decisions about your health.\n\n## Talk With Your Care Team\n\nIf you are unsure how this applies to you, write down your questions before appointments and ask for explanations in plain language.",
+    relatedLessons: ["understanding-vaccines", "asking-about-medications"],
   },
   {
     id: "clinical-trial",
     term: "Clinical Trial",
-    category: "Research",
+    category: "General",
     definition:
-      "A research study that tests new medical treatments, drugs, or devices in people. Clinical trials help determine if new treatments are safe and effective before they're made available to the public.",
+      "## What It Is\n\nA clinical trial is a research study that tests new treatments, drugs, or medical approaches in people. Trials follow strict safety rules and informed consent. Participants help advance medicine but may receive placebo or standard care depending on study design.\n\n## Why It Matters\n\nUnderstanding this term helps you follow conversations with doctors, read labels and test results, and make informed decisions about your health.\n\n## Talk With Your Care Team\n\nIf you are unsure how this applies to you, write down your questions before appointments and ask for explanations in plain language.",
+    relatedLessons: ["understanding-vaccines", "common-adult-screenings"],
   },
 ] as const;

@@ -19,7 +19,7 @@ export default function LocaleError({
   }, [error]);
 
   return (
-    <main className="py-16">
+    <div className="py-16">
       <div className="max-w-container mx-auto px-4 md:px-6">
         <div className="card max-w-xl">
           <h1 className="mb-3 text-headline-lg text-primary">{t("title")}</h1>
@@ -34,6 +34,6 @@ export default function LocaleError({
           </div>
         </div>
       </div>
-    </main>
+    </div>
   );
 }

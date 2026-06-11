@@ -18,7 +18,7 @@ export default function LearningPathsClient() {
   const lessons = getLessons(locale);
 
   return (
-    <main className="py-12 md:py-16">
+    <div className="py-12 md:py-16">
       <div className="max-w-container mx-auto px-4 md:px-6">
         <PageHeader badge={t("pageBadge")} title={t("pageTitle")} description={tLearn("description")} />
 
@@ -120,6 +120,6 @@ export default function LearningPathsClient() {
           })}
         </div>
       </div>
-    </main>
+    </div>
   );
 }

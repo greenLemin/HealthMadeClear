@@ -28,10 +28,10 @@ export default function Hero() {
             </div>
           </div>
 
-          <div className="overflow-hidden rounded-[28px] border border-outline-variant bg-surface/85 shadow-[0_20px_40px_rgba(15,23,42,0.08)] backdrop-blur-sm">
+          <div className="overflow-hidden rounded-lg border border-outline-variant bg-surface/85 shadow-elevation-2 backdrop-blur-sm">
             <Image
               src="/stitch/home.png"
-              alt=""
+              alt={t("imageAlt")}
               width={600}
               height={400}
               className="h-auto w-full object-cover"

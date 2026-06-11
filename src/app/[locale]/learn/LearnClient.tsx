@@ -4,6 +4,7 @@ import { useMemo, useState } from "react";
 import { Link } from "@/i18n/navigation";
 import { Clock, Search } from "lucide-react";
 import { useAppState } from "@/components/AppProviders";
+import LessonThumbnail from "@/components/LessonThumbnail";
 import PageHeader from "@/components/PageHeader";
 import { formatLevel, getCategoryLabel } from "@/lib/i18n";
 import { getLessons } from "@/lib/localizedContent";
@@ -47,7 +48,7 @@ export default function LearnClient() {
   const libraryLessons = filteredLessons.length <= 2 ? [] : filteredLessons.slice(2);
 
   return (
-    <main className="py-12 md:py-16">
+    <div className="py-12 md:py-16">
       <div className="max-w-container mx-auto px-4 md:px-6">
         <PageHeader centered title={t("title")} description={t("description")}>
           <label className="relative mt-6 block text-left">
@@ -101,12 +102,12 @@ export default function LearnClient() {
                   onClick={() => markLessonViewed(lesson.id)}
                 >
                   <div className="grid h-full md:grid-cols-[0.9fr_1.1fr]">
-                    <div
-                      className={
-                        index === 0
-                          ? "min-h-56 bg-gradient-to-br from-primary-container to-secondary-container"
-                          : "min-h-56 bg-gradient-to-br from-secondary-container to-primary-fixed"
-                      }
+                    <LessonThumbnail
+                      image={lesson.image}
+                      categoryId={lesson.categoryId}
+                      title={lesson.title}
+                      className="min-h-56"
+                      priority={index === 0}
                     />
                     <div className="p-6">
                       <div className="mb-3 inline-flex rounded-full bg-secondary-container px-3 py-1 text-xs font-semibold text-primary">
@@ -180,6 +181,6 @@ export default function LearnClient() {
           </div>
         ) : null}
       </div>
-    </main>
+    </div>
   );
 }

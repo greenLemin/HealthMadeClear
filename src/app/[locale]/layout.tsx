@@ -3,7 +3,7 @@ import type { ReactNode } from "react";
 import { notFound } from "next/navigation";
 import Script from "next/script";
 import { NextIntlClientProvider, hasLocale } from "next-intl";
-import { getMessages, setRequestLocale } from "next-intl/server";
+import { getMessages, getTranslations, setRequestLocale } from "next-intl/server";
 import { atkinson } from "@/app/fonts";
 import AppProviders from "@/components/AppProviders";
 import Footer from "@/components/Footer";
@@ -24,15 +24,15 @@ export function generateStaticParams() {
 
 export async function generateMetadata({ params }: { params: { locale: string } }): Promise<Metadata> {
   const locale = requireLocale(params.locale);
+  const t = await getTranslations({ locale, namespace: "meta" });
 
   return {
     metadataBase: new URL(siteUrl),
     title: {
-      default: "Health Made Clear - Understand Your Health",
+      default: t("siteTitle"),
       template: "%s | Health Made Clear",
     },
-    description:
-      "Free, accessible health education for everyone. Learn about health topics in plain language.",
+    description: t("siteDescription"),
     alternates: {
       canonical: `${siteUrl}/${locale}`,
       languages: {

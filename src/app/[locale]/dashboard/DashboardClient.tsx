@@ -5,19 +5,15 @@ import { Link } from "@/i18n/navigation";
 import { BookOpen, CheckCircle2, Clock, TrendingUp } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useAppState } from "@/components/AppProviders";
+import LessonThumbnail from "@/components/LessonThumbnail";
 import PageHeader from "@/components/PageHeader";
 import { getCategoryLabel } from "@/lib/i18n";
 import { getCompletedPathCount, getPathProgress, getStartedPathCount } from "@/lib/content";
 import { getLearningPaths, getLessons } from "@/lib/localizedContent";
-import {
-  applyProgressImport,
-  buildProgressExport,
-  downloadProgressExport,
-  parseProgressImport,
-} from "@/lib/progressExport";
+import { buildProgressExport, downloadProgressExport, parseProgressImport } from "@/lib/progressExport";
 
 export default function DashboardClient() {
-  const { completedLessons, locale, recentLessons, startedPaths } = useAppState();
+  const { completedLessons, locale, recentLessons, startedPaths, quizScores, importProgress } = useAppState();
   const t = useTranslations("dashboard");
   const tCommon = useTranslations("common");
   const tPaths = useTranslations("paths");
@@ -62,9 +58,17 @@ export default function DashboardClient() {
       ) ?? lessons.find((lesson) => activePath.path.lessons.includes(lesson.id)))
     : undefined;
 
+  const greetingKey = (() => {
+    const hour = new Date().getHours();
+    if (hour < 12) return "greetingMorning" as const;
+    if (hour < 17) return "greetingAfternoon" as const;
+    return "greetingEvening" as const;
+  })();
+
   return (
-    <main className="py-12 md:py-16">
+    <div className="py-12 md:py-16">
       <div className="max-w-container mx-auto px-4 md:px-6">
+        <p className="mb-2 text-label-md text-primary">{t(greetingKey)}</p>
         <PageHeader title={t("title")} description={t("description")} />
 
         <div className="no-print mb-8 flex flex-wrap gap-3">
@@ -72,7 +76,9 @@ export default function DashboardClient() {
             type="button"
             className="btn-secondary"
             onClick={() =>
-              downloadProgressExport(buildProgressExport(completedLessons, recentLessons, startedPaths))
+              downloadProgressExport(
+                buildProgressExport(completedLessons, recentLessons, startedPaths, quizScores)
+              )
             }
           >
             {t("exportProgress")}
@@ -95,9 +101,9 @@ export default function DashboardClient() {
                 setTimeout(() => setImportStatus(null), 5000);
                 return;
               }
-              applyProgressImport(data);
+              importProgress(data);
               setImportStatus("success");
-              setTimeout(() => window.location.reload(), 1000);
+              setTimeout(() => setImportStatus(null), 5000);
             }}
           />
           {importStatus && (
@@ -177,7 +183,20 @@ export default function DashboardClient() {
         <div className="mb-12 grid gap-6 lg:grid-cols-[1.2fr_0.8fr]">
           <section className="overflow-hidden rounded-xl border border-outline-variant bg-surface shadow-card">
             <div className="grid gap-0 md:grid-cols-[0.8fr_1.2fr]">
-              <div className="min-h-72 bg-gradient-to-br from-primary-container to-primary-fixed" />
+              {nextLesson ? (
+                <LessonThumbnail
+                  image={nextLesson.image}
+                  categoryId={nextLesson.categoryId}
+                  title={nextLesson.title}
+                  className="min-h-72 h-full"
+                />
+              ) : (
+                <LessonThumbnail
+                  categoryId="doctor-visits"
+                  title={t("startFirstLesson")}
+                  className="min-h-72 h-full"
+                />
+              )}
               <div className="p-6 md:p-8">
                 <div className="mb-3 inline-flex rounded-full bg-surface-container px-4 py-2 text-sm font-semibold text-primary">
                   {activePath ? t("upNext") : t("readyWhenYouAre")}
@@ -288,6 +307,6 @@ export default function DashboardClient() {
           </section>
         </div>
       </div>
-    </main>
+    </div>
   );
 }

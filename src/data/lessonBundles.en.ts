@@ -15,6 +15,7 @@ export const lessons: Lesson[] = [
     lastReviewed: "2026-06-01",
     sources: ["FDA - How to Read a Prescription Label", "CDC - Medication Safety Basics"],
     image: "/stitch/lesson_understanding_prescription_labels.png",
+    imageAlt: "Illustration of a prescription medicine bottle label with dosage instructions",
     sidebarTips: [
       "Check the name.",
       "Read how many to take.",
@@ -69,6 +70,16 @@ export const lessons: Lesson[] = [
             },
           ],
         },
+        {
+          title: "Refills and Pharmacy Information",
+          content:
+            "The label also shows how many refills remain and the prescriber's name. When refills run out, contact your clinic — do not skip doses while waiting. The pharmacy phone number on the label is the fastest way to clarify label instructions.",
+        },
+        {
+          title: "Storing Medicine at Home",
+          content:
+            "Keep medicines in their original containers so labels stay readable. Store away from heat, moisture, and direct sunlight unless the label says refrigeration is required. Keep medicines out of reach of children and pets, and dispose of expired drugs through a pharmacy take-back program when possible.",
+        },
       ],
     },
   },
@@ -82,26 +93,49 @@ export const lessons: Lesson[] = [
     level: "beginner",
     lastReviewed: "2026-06-01",
     sources: ["CDC - Medication Safety", "NIH MedlinePlus"],
+    sidebarTips: [
+      "Ask what the drug is for.",
+      "Confirm dose and timing.",
+      "Ask about food and alcohol limits.",
+      "List all other medicines you take.",
+    ],
+    sidebarTitle: "Med questions",
     content: {
       sections: [
         {
           title: "Why Ask Questions?",
           content:
-            "Asking questions about your medications helps you understand what you're taking and why. It can prevent mistakes, side effects, and dangerous drug interactions. You have the right to know everything about your medicines.",
+            "Asking questions about your medications helps you understand what you're taking and why. It can prevent mistakes, side effects, and dangerous drug interactions. You have the right to know everything about your medicines — and pharmacists are trained to answer medication questions even after you leave the doctor's office.\n\nStudies show that many people don't take medicines as prescribed because they don't understand instructions or fear side effects. Questions reduce those barriers.",
         },
         {
-          title: "Essential Questions to Ask",
+          title: "Essential Questions for Your Doctor",
           content:
-            "When your doctor prescribes a new medication, ask these questions:\n\n1. What is the name of the medicine?\n2. What is it supposed to do?\n3. How and when should I take it?\n4. How long will I need to take it?\n5. What side effects should I watch for?\n6. Are there any foods or drinks I should avoid?\n7. What should I do if I miss a dose?",
+            "When your doctor prescribes a new medication, ask:\n\n1. **What is the name of the medicine?** (brand and generic)\n2. **What is it supposed to do?** How will I know it's working?\n3. **How and when should I take it?** With food? At bedtime?\n4. **How long will I need to take it?** Days, months, or ongoing?\n5. **What side effects should I watch for?** Which ones need a call to you?\n6. **Are there foods, drinks, or activities I should avoid?**\n7. **What should I do if I miss a dose?**\n8. **Will this interact with my other medicines or supplements?**\n9. **Is there a less expensive generic version?**\n10. **How should I store this medicine?**\n\nWrite answers on your medication list or in your phone.",
+        },
+        {
+          title: "Questions for Your Pharmacist",
+          content:
+            "Pharmacists are medication experts. When you pick up a prescription, ask:\n\n- Can you review all my medicines for interactions?\n- What should I do if I experience side effects?\n- Does this need to be taken with food?\n- Can I crush or split this pill if swallowing is hard?\n- What is the best way to remember doses?\n\nBring your full medication list every time — including vitamins and herbal products.",
         },
         {
           title: "About Drug Interactions",
           content:
-            "Drug interactions happen when two or more medicines react with each other. Always tell your doctor and pharmacist about:\n\n- All prescription medicines you take\n- Over-the-counter medicines (like aspirin or cold medicine)\n- Vitamins and supplements\n- Herbal remedies\n- Any allergies you have",
+            "Drug interactions happen when two or more substances affect each other. They can make a drug stronger, weaker, or cause new side effects. Always tell your doctor and pharmacist about:\n\n- All prescription medicines\n- Over-the-counter medicines (aspirin, ibuprofen, cold medicine)\n- Vitamins and supplements\n- Herbal remedies (St. John's wort, ginseng, etc.)\n- Recreational substances\n- Any drug allergies or past bad reactions\n\nEven common combinations — like blood thinners plus aspirin — can be risky without medical guidance.",
+        },
+        {
+          title: "Keep an Updated Medication List",
+          content:
+            "Your list should include:\n\n- Drug name (brand and generic)\n- Dose and how often you take it\n- Who prescribed it and why\n- Pharmacy phone number\n\nUpdate the list whenever something changes. Share it at every medical visit, urgent care trip, and hospital stay.",
           callouts: [
             {
               type: "warning",
-              content: "Keep a list of all your medicines and show it to every doctor you visit.",
+              content:
+                'Keep a list of all your medicines and show it to every doctor you visit. "I take a little white pill" is not enough — names and doses matter.',
+            },
+            {
+              type: "info",
+              content:
+                "Pill organizers, phone alarms, and pharmacy refill reminders help you stay on schedule. Ask your pharmacist which tools fit your routine.",
             },
           ],
         },
@@ -118,26 +152,56 @@ export const lessons: Lesson[] = [
     level: "beginner",
     lastReviewed: "2026-06-01",
     sources: ["FDA - Medication Side Effects", "CDC - Drug Safety"],
+    sidebarTips: [
+      "Report new symptoms promptly.",
+      "Do not stop medicine without advice.",
+      "Ask what side effects are urgent.",
+      "Keep a symptom diary if needed.",
+    ],
+    sidebarTitle: "Side effects",
     content: {
       sections: [
         {
           title: "What Are Side Effects?",
           content:
-            "Side effects are unwanted reactions to a medication. They can range from mild (like a dry mouth) to severe (like an allergic reaction). Not everyone will experience side effects, and they may go away as your body gets used to the medicine.",
+            "Side effects are unwanted reactions to a medication. They can range from mild (dry mouth) to severe (allergic reaction). Not everyone experiences side effects, and many fade as your body adjusts — especially during the first one to two weeks.\n\nSide effects are different from the medicine not working. If symptoms don't improve after the expected time, tell your doctor.",
         },
         {
           title: "Common Mild Side Effects",
           content:
-            "These side effects are usually not serious and may go away on their own:\n\n- Nausea or upset stomach\n- Drowsiness or dizziness\n- Dry mouth\n- Headache\n- Mild rash or itching\n\nIf these bother you, talk to your doctor or pharmacist. They may have suggestions to help.",
+            "These are usually not emergencies and may improve on their own or with simple strategies:\n\n- Nausea or upset stomach — try taking with food unless told otherwise\n- Drowsiness or dizziness — avoid driving until you know how you react\n- Dry mouth — sip water, use sugar-free gum\n- Headache — rest, hydrate; call if severe or persistent\n- Mild rash or itching — monitor; report if spreading\n- Constipation or diarrhea — diet changes may help; ask pharmacist\n\nIf mild effects bother your daily life, don't stop the medicine on your own. Call your doctor or pharmacist first. They may adjust the dose, change timing, or switch to another drug.",
+        },
+        {
+          title: "Strategies That Help",
+          content:
+            '- Take medicine exactly as prescribed — timing matters\n- Don\'t skip doses to "avoid" side effects\n- Keep a symptom log (what you felt, when, severity)\n- Ask whether side effects are temporary\n- Never combine medicines without checking interactions',
         },
         {
           title: "When to Call Your Doctor",
           content:
-            "Call your doctor right away if you experience:\n\n- Trouble breathing or swallowing\n- Severe rash or hives\n- Swelling of the face, lips, or tongue\n- Severe dizziness or fainting\n- Chest pain or rapid heartbeat\n- Severe stomach pain or vomiting\n- Yellowing of the skin or eyes\n- Unusual bleeding or bruising",
+            "Call your doctor promptly (same day) if you have:\n\n- Side effects that interfere with eating, sleeping, or working\n- Persistent vomiting or diarrhea\n- Confusion or unusual mood changes\n- Muscle pain with dark urine (possible muscle injury from some statins)\n- Worsening rash that doesn't fade",
+        },
+        {
+          title: "When to Seek Emergency Care",
+          content:
+            "Call 911 or go to the emergency room if you experience:\n\n- Trouble breathing or swallowing\n- Severe rash, hives, or swelling of face, lips, or tongue\n- Severe dizziness, fainting, or chest pain\n- Rapid or irregular heartbeat\n- Severe stomach pain or vomiting blood\n- Yellowing of skin or eyes\n- Sudden weakness on one side, slurred speech, or confusion (stroke signs)\n- Unusual bleeding or bruising",
           callouts: [
             {
               type: "warning",
-              content: "If you think you're having a serious reaction, call 911 or go to the emergency room.",
+              content:
+                "If you think you're having a serious allergic reaction or other emergency, call 911. Do not wait to see if it passes.",
+            },
+          ],
+        },
+        {
+          title: "Stopping Medicine Safely",
+          content:
+            "Never stop a prescription suddenly unless your doctor says so. Some medicines (steroids, certain heart drugs, antidepressants) need gradual tapering to avoid withdrawal or rebound illness.",
+          callouts: [
+            {
+              type: "info",
+              content:
+                "Report side effects to the FDA MedWatch program (fda.gov/safety/medwatch). Your report helps identify safety issues for everyone.",
             },
           ],
         },
@@ -154,26 +218,55 @@ export const lessons: Lesson[] = [
     level: "beginner",
     lastReviewed: "2026-06-01",
     sources: ["CDC - Doctor Visit Tips", "Agency for Healthcare Research and Quality"],
+    sidebarTips: [
+      "Bring your insurance card and photo ID.",
+      "List all medications, vitamins, and supplements.",
+      "Write your top three questions for the doctor.",
+      "Note when each symptom started.",
+    ],
+    sidebarTitle: "Visit prep",
     content: {
       sections: [
         {
+          title: "Why Preparation Matters",
+          content:
+            "Doctor visits are often short — sometimes only 15 to 20 minutes. Good preparation helps you use that time well. When you arrive organized, your doctor can focus on your health instead of gathering basic information. Preparation also reduces anxiety because you know what to expect.",
+        },
+        {
           title: "Gather Your Information",
           content:
-            "Before your appointment, collect these important items:\n\n- Your insurance card and ID\n- A list of all your current medications\n- Your medical history, if you're seeing a new doctor\n- Previous test results or medical records\n- A list of your symptoms and when they started\n- Any questions you want to ask",
+            "Before your appointment, collect these important items:\n\n- Your insurance card and photo ID\n- A list of all current medications (name, dose, how often you take it)\n- Vitamins, supplements, and over-the-counter medicines\n- Your medical history, if you're seeing a new doctor\n- Previous test results or medical records\n- A list of your symptoms and when they started\n- Names and phone numbers of other doctors you see\n- Any questions you want to ask\n\nIf you use a patient portal, log in before your visit. Download recent lab results or visit summaries so you can refer to them during the appointment.",
         },
         {
           title: "Write Down Your Symptoms",
           content:
-            "Be specific about your symptoms. For each symptom, note:\n\n- When it started\n- How often it happens\n- What makes it better or worse\n- How severe it is (on a scale of 1-10)\n- Any other symptoms that happen at the same time",
+            'Be specific about your symptoms. Vague descriptions like "I don\'t feel right" make it harder for your doctor to help. For each symptom, note:\n\n- When it started (date or "about two weeks ago")\n- How often it happens (daily, weekly, only at night)\n- What makes it better or worse (food, activity, rest)\n- How severe it is on a scale of 1–10\n- Any other symptoms that happen at the same time\n\nExample: "Headache — started March 3, happens 3–4 times per week, worse in the morning, severity 6/10, sometimes with nausea."',
         },
         {
           title: "Prepare Your Questions",
           content:
-            "Write down your questions before your visit. Put the most important ones first. Good questions include:\n\n- What could be causing my symptoms?\n- What tests do I need?\n- What are my treatment options?\n- What should I do if I get worse?\n- When should I follow up with you?",
+            "Write down your questions before your visit. Put the most important ones first in case time runs short. Good questions include:\n\n- What could be causing my symptoms?\n- What tests do I need, and what will they show?\n- What are my treatment options, including pros and cons?\n- What should I do if my symptoms get worse?\n- When should I follow up with you?\n- Are there lifestyle changes that could help?\n- What warning signs mean I should call or go to the ER?\n\nBring a friend or family member if you want support taking notes or asking questions.",
+        },
+        {
+          title: "Know Your Visit Type",
+          content:
+            "Different visits need different preparation:\n\n- **Annual checkup:** List health goals, family history updates, and screening questions.\n- **New symptom:** Focus on symptom timeline and what you've already tried.\n- **Follow-up:** Bring your health journal and note whether treatments helped.\n- **Specialist:** Bring referral paperwork and records from your primary doctor.",
           callouts: [
             {
               type: "info",
-              content: "Bring a notepad and pen to write down what your doctor says.",
+              content:
+                "Bring a notepad and pen (or use your phone) to write down what your doctor says. You can also ask for a printed after-visit summary from the front desk or patient portal.",
+            },
+          ],
+        },
+        {
+          title: "The Day Before",
+          content:
+            "- Confirm the appointment time and location.\n- Check if you need to fast or stop certain medicines before tests.\n- Lay out clothes that make exams easy (sleeves that roll up, comfortable shoes).\n- Get a good night's sleep so you can think clearly.",
+          callouts: [
+            {
+              type: "success",
+              content: "Preparation is a skill. Each visit gets easier as you learn what works for you.",
             },
           ],
         },
@@ -190,26 +283,54 @@ export const lessons: Lesson[] = [
     level: "beginner",
     lastReviewed: "2026-06-01",
     sources: ["CDC - Doctor Visit Tips", "Agency for Healthcare Research and Quality"],
+    sidebarTips: [
+      "Take notes or ask to record key points.",
+      "Repeat instructions back to confirm.",
+      "Ask about test results timeline.",
+      "Request written summary before leaving.",
+    ],
+    sidebarTitle: "During visit",
     content: {
       sections: [
         {
+          title: "Start With Your Main Concern",
+          content:
+            'When the doctor asks "What brings you in today?" lead with your most important concern. Use the symptom notes you prepared. A clear opening saves time and helps the doctor prioritize.\n\nExample: "I\'ve had chest tightness when I climb stairs for about two weeks. It\'s new for me and I\'m worried."',
+        },
+        {
           title: "Be Honest and Complete",
           content:
-            "Tell your doctor everything about your health, even if it feels embarrassing. Your doctor needs the full picture to help you. Don't leave anything out, including:\n\n- All medications you take (including supplements)\n- Your lifestyle habits (smoking, alcohol, exercise)\n- Any changes in your health\n- Your concerns and fears",
+            "Tell your doctor everything about your health, even if it feels embarrassing. Your doctor needs the full picture to help you. Don't leave anything out, including:\n\n- All medications you take (including supplements and herbal products)\n- How closely you follow your medication schedule\n- Alcohol, tobacco, or substance use\n- Your diet, sleep, and exercise habits\n- Mental health concerns (stress, anxiety, mood changes)\n- Any changes in your health since your last visit\n- Your concerns and fears\n\nDoctors hear sensitive topics every day. Honesty leads to better care.",
         },
         {
           title: "Ask for Clarification",
           content:
-            'If your doctor uses medical terms you don\'t understand, ask them to explain in plain language. You can say:\n\n- "Can you explain that in simpler terms?"\n- "What does that word mean?"\n- "Can you write that down for me?"\n- "Can you give me an example?"',
+            'Medical language can be confusing. If your doctor uses terms you don\'t understand, ask them to explain in plain language. You can say:\n\n- "Can you explain that in simpler terms?"\n- "What does that word mean?"\n- "Can you write that down for me?"\n- "Can you give me an example?"\n- "What would that look like in my daily life?"\n\nThere are no bad questions. Understanding your care plan helps you follow it correctly.',
         },
         {
           title: "Take Notes",
           content:
-            "Write down important information during your visit, including:\n\n- Your diagnosis (what's wrong)\n- Your treatment plan\n- Medication instructions\n- When to follow up\n- Any warning signs to watch for",
+            "Write down important information during your visit, including:\n\n- Your diagnosis (what's wrong, in words you understand)\n- Your treatment plan and why it was chosen\n- Medication names, doses, and timing\n- Tests ordered and when results will be ready\n- When to schedule follow-up appointments\n- Warning signs that mean you should call or seek emergency care\n\nIf writing is hard during the visit, ask to record a voice memo or request a written summary.",
+        },
+        {
+          title: "Understand Your Next Steps",
+          content:
+            'Before you leave, make sure you know:\n\n- What you should do today (pick up prescriptions, schedule tests)\n- What you should do this week (start a new medicine, rest, change diet)\n- Who to call with questions (nurse line, pharmacy, specialist)\n- How to access test results (patient portal, phone call)\n\nRepeat back the plan in your own words: "So I\'ll start the antibiotic tonight, finish the full course, and call if I get a rash — is that right?"',
+        },
+        {
+          title: "Advocate for Yourself",
+          content:
+            "You have the right to:\n\n- Ask for a second opinion\n- Request a different treatment if side effects are severe\n- Bring a trusted person into the exam room\n- Ask for an interpreter if English is not your first language",
           callouts: [
             {
               type: "success",
-              content: "It's okay to ask your doctor to slow down or repeat something you missed.",
+              content:
+                "It's okay to ask your doctor to slow down or repeat something you missed. Good care is a partnership.",
+            },
+            {
+              type: "warning",
+              content:
+                'If you feel unsafe, dismissed, or confused about urgent symptoms, speak up. Say: "I\'m still worried about this. Can we talk about what else could be causing it?"',
             },
           ],
         },
@@ -226,27 +347,56 @@ export const lessons: Lesson[] = [
     level: "beginner",
     lastReviewed: "2026-06-01",
     sources: ["CDC - Follow-up Care", "NIH MedlinePlus"],
+    sidebarTips: [
+      "Fill prescriptions promptly.",
+      "Schedule follow-up before you forget.",
+      "Call if symptoms worsen.",
+      "Update your medication list at home.",
+    ],
+    sidebarTitle: "After visit",
     content: {
       sections: [
         {
           title: "Review Your Instructions",
           content:
-            "As soon as you get home, review what your doctor told you. Make sure you understand:\n\n- What medicines to take and when\n- Any lifestyle changes you need to make\n- When to schedule follow-up appointments\n- What to do if your symptoms get worse",
+            "As soon as you get home, review what your doctor told you while it's still fresh. Make sure you understand:\n\n- What medicines to take, how much, and at what times\n- Whether to take medicine with food or on an empty stomach\n- Any lifestyle changes (diet, exercise, rest, work limits)\n- When to schedule follow-up appointments or tests\n- What to do if your symptoms get worse\n- How long you should expect before feeling improvement\n\nIf anything is unclear, call the clinic's nurse line the same day. Don't guess about medications.",
         },
         {
           title: "Fill Your Prescriptions",
           content:
-            "If your doctor prescribed medication:\n\n- Go to your pharmacy right away\n- Show the pharmacist your insurance card\n- Ask the pharmacist any questions about your medicine\n- Read the label carefully before taking any medication",
+            "If your doctor prescribed medication:\n\n- Go to your pharmacy promptly so treatment isn't delayed\n- Show the pharmacist your insurance card\n- Ask the pharmacist to review how to take the medicine\n- Confirm whether this drug interacts with your other medicines\n- Read the label carefully before taking any dose\n- Store medicine as directed (some need refrigeration)\n\nUse one pharmacy when possible so they have a complete record of your prescriptions.",
+        },
+        {
+          title: "Schedule Follow-Up Care",
+          content:
+            "Don't wait until you feel sick again to book your next visit. Schedule:\n\n- Follow-up appointments your doctor recommended\n- Lab work or imaging before your next visit\n- Specialist referrals (call within a few days)\n- Screening tests you're due for (mammogram, colonoscopy, etc.)\n\nPut reminders on your calendar and set phone alerts for medication times.",
         },
         {
           title: "Track Your Progress",
           content:
-            "Keep a health journal to track:\n\n- Your symptoms and how they change\n- Side effects from medications\n- Questions that come up between visits\n- Any improvements or worsening of your condition",
+            "Keep a simple health journal — paper or phone app — to track:\n\n- Symptoms and how they change day to day\n- Side effects from new medications\n- Blood pressure, blood sugar, or weight if your doctor asked you to monitor\n- Questions that come up between visits\n- Improvements or worsening of your condition\n\nBring your journal to your next appointment. Patterns help your doctor adjust treatment.",
+        },
+        {
+          title: "Handle Test Results",
+          content:
+            "If tests were ordered:\n\n- Ask when and how you'll get results (portal, phone, mail)\n- Check your patient portal if you have one\n- Don't panic over numbers you don't understand — wait for your doctor's explanation\n- Call if you haven't heard back by the promised date",
           callouts: [
             {
               type: "info",
               content:
                 "Bring your health journal to your next appointment to help your doctor understand your progress.",
+            },
+          ],
+        },
+        {
+          title: "Know When to Call Back",
+          content:
+            "Contact your doctor's office if you:\n\n- Have side effects that bother you or worry you\n- Can't afford a prescribed medicine (alternatives may exist)\n- Symptoms worsen instead of improve\n- Miss a dose and aren't sure what to do\n- Need a refill before your next visit",
+          callouts: [
+            {
+              type: "warning",
+              content:
+                "Call 911 or go to the emergency room for chest pain, trouble breathing, severe allergic reactions, sudden weakness, or other emergency symptoms — don't wait for a callback.",
             },
           ],
         },
@@ -274,22 +424,37 @@ export const lessons: Lesson[] = [
         {
           title: "Why Blood Tests?",
           content:
-            "Blood tests help doctors understand what's happening inside your body. They can show:\n\n- How well your organs are working\n- If you have certain diseases or conditions\n- How well medications are working\n- If your immune system is fighting an infection",
+            "Blood tests help doctors see what's happening inside your body without surgery. A small sample can reveal:\n\n- How well organs like kidneys and liver are working\n- Signs of infection, inflammation, or anemia\n- Diabetes or prediabetes\n- Cholesterol and heart disease risk\n- Thyroid, hormone, and vitamin levels\n- How well medications are working\n- Whether treatment is improving a condition\n\nBlood tests are often part of routine checkups, pre-surgery screening, or monitoring chronic illness.",
+        },
+        {
+          title: "What's in Your Blood?",
+          content:
+            "Blood has four main components:\n\n- **Red blood cells** — carry oxygen using hemoglobin\n- **White blood cells** — fight infection\n- **Platelets** — help blood clot\n- **Plasma** — liquid that carries cells, nutrients, and waste\n\nDifferent tests measure different parts. Your doctor orders tests based on your symptoms and health history.",
         },
         {
           title: "Common Blood Tests",
           content:
-            "Some of the most common blood tests include:\n\n- Complete Blood Count (CBC) - measures different parts of your blood\n- Basic Metabolic Panel - checks kidney function, electrolytes, and blood sugar\n- Lipid Panel - measures cholesterol and triglycerides\n- Glucose Test - checks blood sugar levels for diabetes\n- Thyroid Panel - checks how well your thyroid is working",
+            "Some of the most common panels include:\n\n- **Complete Blood Count (CBC)** — red cells, white cells, platelets, hemoglobin, hematocrit\n- **Basic Metabolic Panel (BMP)** — kidney function (creatinine), electrolytes, blood sugar\n- **Comprehensive Metabolic Panel (CMP)** — BMP plus liver enzymes\n- **Lipid Panel** — total cholesterol, LDL, HDL, triglycerides\n- **Hemoglobin A1C** — average blood sugar over 2–3 months\n- **Thyroid panel** — TSH and sometimes T4/T3\n\nYou don't need every test at every visit. More isn't always better — targeted testing is the goal.",
+        },
+        {
+          title: "Before Your Blood Draw",
+          content:
+            "Ask your clinic:\n\n- Do I need to fast? (Often 8–12 hours for glucose and lipids)\n- Can I take my regular medicines?\n- Should I drink water beforehand? (Usually yes — it makes veins easier to find)\n\nDuring the draw, tell the phlebotomist if you've fainted before or have needle anxiety.",
         },
         {
           title: "Understanding Reference Ranges",
           content:
-            "Blood test results show your numbers compared to a \"reference range\" - the range that's considered normal for most people. Your result might be:\n\n- Within the normal range\n- Above the normal range (high)\n- Below the normal range (low)\n\nBeing slightly outside the range isn't always a problem. Your doctor will look at the whole picture.",
+            "Results compare your numbers to a **reference range** — values typical for most healthy people in that lab. Your result may be:\n\n- **Within range** — often normal, but context matters\n- **High** — above the upper limit\n- **Low** — below the lower limit\n\nBeing slightly outside the range isn't always a problem. Pregnancy, medicines, dehydration, and recent illness can shift numbers. Your doctor interprets results with your full history — not in isolation.",
           callouts: [
             {
               type: "info",
               content:
-                "Reference ranges can vary by lab, age, and sex. Always ask your doctor to explain your results.",
+                "Reference ranges vary by lab, age, sex, and equipment. Always ask your doctor to explain what your numbers mean for you.",
+            },
+            {
+              type: "success",
+              content:
+                "Request a copy of your results through your patient portal. Tracking trends over time is often more useful than a single number.",
             },
           ],
         },
@@ -306,28 +471,68 @@ export const lessons: Lesson[] = [
     level: "intermediate",
     lastReviewed: "2026-06-01",
     sources: ["NIH - Lab Tests", "CDC - Laboratory Quality"],
+    sidebarTips: [
+      "Ask if fasting is required.",
+      "Drink water unless told not to.",
+      "Bring prior results if you have them.",
+      "Write down what each test measures.",
+    ],
+    sidebarTitle: "Lab prep",
     content: {
       sections: [
         {
-          title: "Complete Blood Count (CBC)",
+          title: "How to Read This Lesson",
           content:
-            "A CBC measures several parts of your blood:\n\n- Red blood cells - carry oxygen throughout your body\n- White blood cells - fight infection\n- Platelets - help your blood clot\n- Hemoglobin - the protein that carries oxygen in red blood cells\n- Hematocrit - the percentage of blood that's red blood cells",
+            "Lab results can feel overwhelming. This lesson explains common tests in plain language. **Only your doctor can diagnose you** — use this as background for better conversations, not self-diagnosis.",
         },
         {
-          title: "Cholesterol Test",
+          title: "Complete Blood Count (CBC)",
           content:
-            "Cholesterol tests measure different types of fats in your blood:\n\n- Total cholesterol - all cholesterol in your blood\n- LDL (bad) cholesterol - can build up in arteries\n- HDL (good) cholesterol - helps remove LDL from arteries\n- Triglycerides - a type of fat that stores energy",
+            "A CBC measures several parts of your blood:\n\n- **Red blood cells (RBC)** — carry oxygen; low counts may cause fatigue (anemia)\n- **White blood cells (WBC)** — fight infection; high may suggest infection or inflammation\n- **Platelets** — help clotting; low increases bleeding risk\n- **Hemoglobin** — oxygen-carrying protein in red cells\n- **Hematocrit** — percentage of blood volume that is red cells\n\nDoctors use CBC to screen for anemia, infection, and some blood disorders.",
+        },
+        {
+          title: "Cholesterol and Lipid Panel",
+          content:
+            'Cholesterol tests measure fats in your blood:\n\n- **Total cholesterol** — sum of cholesterol types\n- **LDL ("bad") cholesterol** — can build up in artery walls\n- **HDL ("good") cholesterol** — helps remove LDL\n- **Triglycerides** — stored energy from food; high levels raise heart risk\n\n\n\nTarget levels depend on your age, diabetes status, and overall heart risk. Ask your doctor what targets apply to you.',
           callouts: [
             {
               type: "warning",
-              content: "High LDL and low HDL can increase your risk of heart disease.",
+              content:
+                "High LDL and low HDL increase heart disease and stroke risk over time. Lifestyle and sometimes medicine can improve these numbers.",
             },
           ],
         },
         {
           title: "Blood Sugar Tests",
           content:
-            "Blood sugar tests check for diabetes or prediabetes:\n\n- Fasting glucose - blood sugar after not eating\n- A1C - average blood sugar over the past 2-3 months\n- Glucose tolerance - how your body handles sugar after eating",
+            "Blood sugar tests screen for diabetes and prediabetes:\n\n- **Fasting glucose** — blood sugar after not eating 8+ hours\n- **Hemoglobin A1C** — average blood sugar over 2–3 months; no fasting needed\n- **Oral glucose tolerance test** — how your body handles sugar after a sweet drink\n\nPrediabetes often has no symptoms. Early detection allows lifestyle changes that may prevent diabetes.",
+        },
+        {
+          title: "Kidney Function (BMP/CMP)",
+          content:
+            "**Creatinine** and **BUN** (blood urea nitrogen) reflect how well kidneys filter waste. High levels may indicate kidney stress from dehydration, medicines, or chronic kidney disease.\n\n**Electrolytes** (sodium, potassium, chloride) balance fluids and nerves. Abnormal levels need medical attention — especially potassium.",
+        },
+        {
+          title: "Liver Enzymes",
+          content:
+            "**ALT** and **AST** rise when liver cells are injured. Causes range from fatty liver disease and alcohol use to medicines and viral hepatitis. Mild elevations are common; your doctor looks at the pattern and your symptoms.",
+        },
+        {
+          title: "Thyroid Tests",
+          content:
+            "**TSH** (thyroid-stimulating hormone) is the main screening test. Abnormal TSH may lead to testing of **T4** and **T3**. Thyroid problems can affect energy, weight, mood, and heart rate.",
+        },
+        {
+          title: "Questions to Ask About Your Results",
+          content:
+            "- Is this result normal for me?\n- Should we repeat the test?\n- Do I need treatment or lifestyle changes?\n- How does this connect to my symptoms or medicines?",
+          callouts: [
+            {
+              type: "info",
+              content:
+                "Save your lab reports. Comparing this year's cholesterol to last year's often matters more than a single number in isolation.",
+            },
+          ],
         },
       ],
     },
@@ -342,29 +547,63 @@ export const lessons: Lesson[] = [
     level: "intermediate",
     lastReviewed: "2026-06-01",
     sources: ["CDC - Lab Test Results", "NIH MedlinePlus"],
+    sidebarTips: [
+      "One abnormal value needs context.",
+      "Ask if you should repeat the test.",
+      "Trends matter more than one number.",
+      "Call for critical results if no one contacts you.",
+    ],
+    sidebarTitle: "Result flags",
     content: {
       sections: [
         {
+          title: "Don't Panic — Get Context",
+          content:
+            'Online lab portals often flag results in red before your doctor reviews them. A flagged result means "outside reference range" — not always "dangerous." Wait for your doctor\'s explanation unless you have urgent symptoms.\n\nLearn which situations need fast action and which can wait for a scheduled follow-up.',
+        },
+        {
           title: "Results That Need Quick Action",
           content:
-            "Call your doctor right away if your results show:\n\n- Very low or very high blood sugar\n- Signs of infection (very high white blood cell count)\n- Kidney problems (very high creatinine)\n- Liver problems (very high liver enzymes)\n- Severe anemia (very low hemoglobin)",
+            'Contact your doctor the same day (or seek emergency care if very ill) if results show:\n\n- **Very high or very low blood sugar** — especially with confusion, vomiting, or extreme thirst\n- **Critically high potassium** — can affect heart rhythm; may feel like weakness or palpitations\n- **Severe anemia** — very low hemoglobin with shortness of breath, chest pain, or fainting\n- **Signs of serious infection** — very high white blood cell count with fever and feeling severely ill\n- **Acute kidney injury** — sharply rising creatinine with little urine output or swelling\n- **Severe liver enzyme elevation** — with yellow skin/eyes, severe abdominal pain, or confusion\n\nYour lab report may mark critical values as "panic" or "critical" — those require prompt medical contact.',
           callouts: [
             {
               type: "warning",
               content:
-                "If you can't reach your doctor and feel very sick, go to urgent care or the emergency room.",
+                "If you can't reach your doctor and feel very sick (trouble breathing, chest pain, confusion, severe weakness), go to urgent care or the emergency room.",
             },
           ],
         },
         {
-          title: "Results to Monitor",
+          title: "Results to Monitor (Usually Not Emergencies)",
           content:
-            "Some abnormal results need attention but aren't emergencies:\n\n- Slightly high cholesterol\n- Mildly elevated blood sugar\n- Slightly low or high thyroid levels\n- Mild anemia\n\nYour doctor may want to retest in a few weeks or make lifestyle changes.",
+            "These often need follow-up but rarely same-day emergency care:\n\n- Mildly high cholesterol\n- Prediabetes range A1C or glucose\n- Slightly low or high thyroid levels\n- Mild anemia without severe symptoms\n- Borderline vitamin D or B12 levels\n- Small changes from your previous results\n\nYour doctor may recommend retesting in weeks or months, lifestyle changes, or starting treatment.",
+        },
+        {
+          title: "When Symptoms Matter More Than Numbers",
+          content:
+            'A "normal" lab value doesn\'t rule out illness if you feel unwell. Conversely, mild lab abnormalities in a healthy person may need only watching. Always report:\n\n- New or worsening symptoms\n- Medication changes\n- Recent illness, surgery, or dehydration\n- Pregnancy or major life stress',
+        },
+        {
+          title: "Red Flags on the Lab Report",
+          content:
+            "Look for notes like:\n\n- **Critical / panic value** — call your doctor immediately\n- **Hemolyzed sample** — test may need repeating\n- **Insufficient sample** — redraw may be needed\n\nIf the lab says the sample was inadequate, results may not be reliable.",
         },
         {
           title: "Questions to Ask Your Doctor",
           content:
-            "When discussing abnormal results, ask:\n\n- How serious is this result?\n- What could be causing it?\n- Do I need more tests?\n- What treatment do I need?\n- How will we monitor this?\n- What changes should I make?",
+            "When discussing abnormal results, ask:\n\n- How serious is this result for me personally?\n- What could be causing it?\n- Do I need more tests before deciding treatment?\n- What treatment options do I have?\n- How will we monitor this over time?\n- What lifestyle changes should I make now?\n- What symptoms should prompt me to call sooner?",
+          callouts: [
+            {
+              type: "info",
+              content:
+                "Bring prior lab results to appointments. A single high glucose matters less than a rising trend over three visits.",
+            },
+            {
+              type: "success",
+              content:
+                "Understanding urgency helps you respond calmly and appropriately — neither ignoring real problems nor losing sleep over minor variations.",
+            },
+          ],
         },
       ],
     },
@@ -430,6 +669,18 @@ export const lessons: Lesson[] = [
           title: "Talk to Your Doctor",
           content:
             "Ask your doctor:\n\n- What screenings do I need for my age?\n- Am I up to date on vaccines?\n- What lifestyle changes would help me most?\n- When should I come back?",
+        },
+        {
+          title: "Overcoming Common Barriers",
+          content:
+            "Many people skip preventive care because of cost worries, fear of bad news, lack of time, or transportation. If cost is a concern, ask your clinic about financial assistance and confirm which services are covered at no charge under your plan. If anxiety holds you back, bring a trusted friend and write questions ahead of time. Telehealth visits may cover some preventive discussions when an in-person exam is not required.",
+          callouts: [
+            {
+              type: "info",
+              content:
+                "Preventive care is an investment. One caught early — high blood pressure, prediabetes, or a precancerous polyp — can prevent a medical crisis years later.",
+            },
+          ],
         },
       ],
     },
@@ -1607,6 +1858,584 @@ export const lessons: Lesson[] = [
           title: "Listen to Your Body",
           content:
             "- **Eat when hungry** — don't wait until ravenous (you'll overeat)\n- **Stop when comfortable** — not stuffed\n- **Eat slowly** — it takes 20 minutes for your brain to register fullness\n- **Don't eat distracted** — TV, phone, computer make you eat more",
+        },
+      ],
+    },
+  },
+  {
+    id: "understanding-allergies",
+    title: "Understanding Allergies",
+    description: "Learn what allergies are, common triggers, and when to seek emergency care.",
+    category: "Chronic Conditions",
+    categoryId: "chronic-conditions",
+    duration: "15 minutes",
+    level: "beginner",
+    lastReviewed: "2026-06-11",
+    sources: ["NIH", "CDC", "MedlinePlus"],
+    sidebarTips: [
+      "Carry epinephrine if prescribed.",
+      "Read food labels carefully.",
+      "Tell every provider about allergies.",
+      "Know signs of anaphylaxis.",
+    ],
+    sidebarTitle: "Allergy safety",
+    content: {
+      sections: [
+        {
+          title: "What Is an Allergy?",
+          content:
+            "An allergy is when your immune system overreacts to a substance that is usually harmless — such as pollen, peanuts, or penicillin. The body releases chemicals like histamine, which cause symptoms ranging from mild itching to life-threatening breathing problems.",
+        },
+        {
+          title: "Common Triggers",
+          content:
+            "Allergies can be triggered by:\n\n- **Foods** — peanuts, tree nuts, milk, eggs, shellfish, wheat, soy\n- **Environmental** — pollen, dust mites, mold, pet dander\n- **Insect stings** — bees, wasps, fire ants\n- **Medicines** — antibiotics, aspirin, contrast dye\n- **Contact** — latex, nickel, fragrances",
+        },
+        {
+          title: "Mild vs Severe Reactions",
+          content:
+            "Mild symptoms may include sneezing, itchy eyes, hives, or a runny nose. Severe reactions (anaphylaxis) can include trouble breathing, swelling of the face or throat, rapid heartbeat, dizziness, or vomiting. Anaphylaxis is a medical emergency — use epinephrine if prescribed and call 911.",
+          callouts: [
+            {
+              type: "warning",
+              content:
+                "If you have had a severe allergic reaction before, wear a medical alert bracelet and carry emergency medicine as directed.",
+            },
+          ],
+        },
+        {
+          title: "Testing and Diagnosis",
+          content:
+            "Doctors may use skin tests, blood tests (IgE), or supervised food challenges to identify allergies. Self-diagnosis can be dangerous — always work with a qualified provider before eliminating major food groups.",
+        },
+        {
+          title: "Daily Management",
+          content:
+            "- Avoid known triggers when possible\n- Take antihistamines or other medicines as prescribed\n- Keep an action plan for school, work, or travel\n- Review allergies at every medical visit",
+          callouts: [
+            {
+              type: "info",
+              content:
+                "Allergies can develop at any age. A reaction you had in the past does not predict how severe the next one will be — always take symptoms seriously.",
+            },
+          ],
+        },
+      ],
+    },
+  },
+  {
+    id: "pain-medications-safely",
+    title: "Pain Medications Safely",
+    description: "Understand acetaminophen and ibuprofen limits, interactions, and when to get help.",
+    category: "Medication Safety",
+    categoryId: "medication-safety",
+    duration: "12 minutes",
+    level: "beginner",
+    lastReviewed: "2026-06-11",
+    sources: ["NIH", "CDC", "MedlinePlus"],
+    sidebarTips: [
+      "Never exceed daily dose on label.",
+      "Do not mix similar products.",
+      "Ask before using with blood thinners.",
+      "Seek help for severe or lasting pain.",
+    ],
+    sidebarTitle: "Pain med safety",
+    content: {
+      sections: [
+        {
+          title: "Two Common Pain Relievers",
+          content:
+            "Most households use **acetaminophen** (Tylenol) or **ibuprofen** (Advil, Motrin). They work differently:\n\n- **Acetaminophen** reduces pain and fever but is not an anti-inflammatory. Too much can damage the liver.\n- **Ibuprofen** (an NSAID) reduces pain, fever, and inflammation but can irritate the stomach and affect kidneys.",
+        },
+        {
+          title: "Daily Limits Matter",
+          content:
+            "Always read labels — many cold and flu products also contain acetaminophen or ibuprofen. Combining products can push you over safe daily limits without realizing it.",
+          callouts: [
+            {
+              type: "warning",
+              content:
+                "Adults should not exceed 4,000 mg of acetaminophen per day from all sources unless a doctor directs otherwise. People with liver disease need lower limits.",
+            },
+          ],
+        },
+        {
+          title: "Alcohol and Other Medicines",
+          content:
+            "Avoid alcohol with acetaminophen — both stress the liver. NSAIDs like ibuprofen can interact with blood thinners, blood pressure medicines, and kidney disease. Tell your pharmacist everything you take.",
+        },
+        {
+          title: "When Pain Needs Medical Care",
+          content:
+            "See a doctor promptly for:\n\n- Chest pain or trouble breathing\n- Severe headache with neck stiffness or confusion\n- Pain after injury with deformity or inability to bear weight\n- Pain lasting more than a few days without improvement",
+          callouts: [
+            {
+              type: "info",
+              content:
+                "Pain is a signal, not just a nuisance. Treating symptoms is fine short-term, but persistent pain deserves evaluation for the underlying cause.",
+            },
+          ],
+        },
+      ],
+    },
+  },
+  {
+    id: "understanding-copay-assistance",
+    title: "Understanding Copay Assistance Programs",
+    description: "Learn how manufacturer and nonprofit programs can lower prescription costs.",
+    category: "Insurance & Billing",
+    categoryId: "insurance-billing",
+    duration: "12 minutes",
+    level: "intermediate",
+    lastReviewed: "2026-06-11",
+    sources: ["NIH", "CDC", "MedlinePlus"],
+    sidebarTips: [
+      "Ask pharmacy about assistance cards.",
+      "Check manufacturer websites.",
+      "Compare with insurance copay first.",
+      "Beware of scams asking for SSN upfront.",
+    ],
+    sidebarTitle: "Cost help",
+    content: {
+      sections: [
+        {
+          title: "Why Copay Assistance Exists",
+          content:
+            "Brand-name medicines can cost hundreds per month even with insurance. **Copay assistance** (copay cards, coupons, or foundation grants) helps eligible patients pay out-of-pocket costs. Programs may come from drug manufacturers, nonprofits, or state agencies.",
+        },
+        {
+          title: "How Programs Work",
+          content:
+            "- **Copay cards** — reduce what you pay at the pharmacy for a specific drug\n- **Patient assistance programs** — may provide medicine free or at low cost if you meet income rules\n- **Foundation grants** — help people with specific diagnoses regardless of which drug they use\n\nInsurance rules vary: some plans do not allow copay cards to count toward your deductible.",
+        },
+        {
+          title: "Steps to Explore Options",
+          content:
+            "1. Ask your doctor if a generic or lower-cost alternative exists\n2. Tell the pharmacist you are comparing prices and assistance options\n3. Visit the drug manufacturer's patient support site\n4. Search reputable nonprofits (needymeds.org, PAN Foundation, etc.)\n5. Read eligibility rules carefully — income, insurance type, and diagnosis often matter",
+          callouts: [
+            {
+              type: "warning",
+              content:
+                "Never share your Social Security number or bank details with unsolicited callers promising copay help. Use official program websites or ask your clinic's financial counselor.",
+            },
+          ],
+        },
+        {
+          title: "If You Still Cannot Afford Medicine",
+          content:
+            "Talk to your doctor before stopping treatment. Clinics may have samples, different formulations, or referral to a social worker who knows local resources.",
+          callouts: [
+            {
+              type: "info",
+              content:
+                "Assistance programs can change or end. Re-check eligibility each year and when your insurance changes.",
+            },
+          ],
+        },
+      ],
+    },
+  },
+  {
+    id: "cancer-screening-basics",
+    title: "Cancer Screening Basics",
+    description: "Overview of common adult cancer screenings and how to talk with your doctor about timing.",
+    category: "Preventive Care",
+    categoryId: "preventive-care",
+    duration: "18 minutes",
+    level: "intermediate",
+    lastReviewed: "2026-06-11",
+    sources: ["NIH", "CDC", "MedlinePlus"],
+    sidebarTips: [
+      "Bring family cancer history.",
+      "Ask start age for your risk.",
+      "Know prep for colon tests.",
+      "Follow up on abnormal results.",
+    ],
+    sidebarTitle: "Screening tips",
+    content: {
+      sections: [
+        {
+          title: "What Screening Does",
+          content:
+            "Cancer screening looks for early signs of cancer **before symptoms appear**. Finding cancer early often means more treatment options and better outcomes. Screening is recommended based on age, sex, family history, and personal risk — not everyone needs every test at the same age.",
+        },
+        {
+          title: "Common Adult Screenings",
+          content:
+            "| Screening                 | Who it is for (general guidelines)                       | Notes                                                |\n| ------------------------- | -------------------------------------------------------- | ---------------------------------------------------- |\n| Mammogram                 | Women at average risk, often starting 40–50              | Earlier if strong family history                     |\n| Colonoscopy or stool test | Adults 45+                                               | Colonoscopy every 10 years or stool tests more often |\n| Cervical (Pap/HPV)        | People with a cervix, 21–65                              | Interval depends on test type and results            |\n| Lung CT                   | Heavy smokers 50–80 who currently smoke or quit recently | Discuss risks and benefits                           |\n| Skin checks               | Anyone with many moles or history of melanoma            | Self-exams plus dermatology visits                   |\n\nGuidelines change — your doctor personalizes recommendations.",
+        },
+        {
+          title: "Preparing for Screening",
+          content:
+            "- Update family history of cancer\n- List medicines and prior surgeries\n- For colonoscopy: follow bowel prep instructions exactly — poor prep hides problems\n- Arrange a ride if sedation is used",
+          callouts: [
+            {
+              type: "warning",
+              content:
+                "Screening is not perfect. False positives may need more tests. False negatives are possible. Report new symptoms even if a recent screen was normal.",
+            },
+          ],
+        },
+        {
+          title: "After Results",
+          content:
+            "If results are abnormal, ask:\n\n- What does this mean specifically?\n- What is the next test or timeframe?\n- Should family members be screened earlier?",
+          callouts: [
+            {
+              type: "info",
+              content:
+                "Vaccines like HPV reduce risk of several cancers. Screening and prevention work together.",
+            },
+          ],
+        },
+      ],
+    },
+  },
+  {
+    id: "managing-stress",
+    title: "Managing Stress",
+    description: "Practical ways to reduce daily stress and know when to seek professional support.",
+    category: "Mental Health",
+    categoryId: "mental-health",
+    duration: "15 minutes",
+    level: "beginner",
+    lastReviewed: "2026-06-11",
+    sources: ["NIH", "CDC", "MedlinePlus"],
+    sidebarTips: [
+      "Try 5 minutes of slow breathing.",
+      "Move your body most days.",
+      "Limit news and social media.",
+      "Reach out if stress feels unmanageable.",
+    ],
+    sidebarTitle: "Stress relief",
+    content: {
+      sections: [
+        {
+          title: "Stress Is Normal — Until It Is Not",
+          content:
+            "Stress is your body's response to challenges. Short-term stress can help you focus. Chronic stress — weeks or months of pressure without recovery — can affect sleep, mood, blood pressure, digestion, and immune function.",
+        },
+        {
+          title: "Everyday Coping Strategies",
+          content:
+            "- **Breathing** — slow exhale longer than inhale for 2–5 minutes\n- **Movement** — walking, stretching, or any activity you enjoy\n- **Sleep routine** — consistent bedtime, limit screens before bed\n- **Boundaries** — say no to nonessential commitments when overloaded\n- **Connection** — talk with someone you trust",
+          callouts: [
+            {
+              type: "info",
+              content:
+                "You do not need a perfect meditation practice. Small, repeatable habits matter more than occasional long sessions.",
+            },
+          ],
+        },
+        {
+          title: "When Stress Overlaps With Mental Health",
+          content:
+            "Seek professional help if you have:\n\n- Panic attacks or constant worry\n- Low mood most days for two weeks or more\n- Thoughts of harming yourself or others\n- Stress causing you to miss work, school, or self-care\n\nTherapy, support groups, and sometimes medicine can help. Crisis lines are available 24/7 in many countries.",
+        },
+        {
+          title: "Health-Related Stress",
+          content:
+            "Medical bills, chronic illness, and caregiving are major stressors. Use clinic social workers, patient navigators, and trusted education sites — you do not have to solve everything alone.",
+          callouts: [
+            {
+              type: "warning",
+              content:
+                "If you are in immediate danger, call emergency services or a crisis line. Stress management tips are not a substitute for emergency mental health care.",
+            },
+          ],
+        },
+      ],
+    },
+  },
+  {
+    id: "hydration-and-health",
+    title: "Hydration and Health",
+    description: "How much water you need, signs of dehydration, and special situations.",
+    category: "Nutrition",
+    categoryId: "nutrition",
+    duration: "10 minutes",
+    level: "beginner",
+    lastReviewed: "2026-06-11",
+    sources: ["NIH", "CDC", "MedlinePlus"],
+    sidebarTips: [
+      "Drink more in heat and exercise.",
+      "Urine pale yellow is a rough guide.",
+      "Limit sugary drinks.",
+      "Ask your doctor if you have heart or kidney disease.",
+    ],
+    sidebarTitle: "Hydration tips",
+    content: {
+      sections: [
+        {
+          title: "Why Fluids Matter",
+          content:
+            "Water carries nutrients, removes waste, regulates temperature, and cushions joints. Even mild dehydration can cause headache, fatigue, dizziness, and constipation.",
+        },
+        {
+          title: "How Much Do You Need?",
+          content:
+            "There is no single number for everyone. A common guide is about **8 cups (2 liters) of fluids daily** for many adults — more in heat, illness, pregnancy, or exercise. Foods like fruit and soup also count.",
+        },
+        {
+          title: "Signs of Dehydration",
+          content:
+            "- Thirst, dry mouth\n- Dark yellow urine or urinating less often\n- Dizziness when standing\n- Confusion in older adults (seek care promptly)",
+          callouts: [
+            {
+              type: "warning",
+              content:
+                "Severe dehydration — confusion, fainting, no urine for many hours — needs urgent medical care.",
+            },
+          ],
+        },
+        {
+          title: "Who Needs Extra Caution",
+          content:
+            "People with heart failure or kidney disease may need **fluid limits**, not extra water. Follow your care team's instructions. Athletes and outdoor workers need electrolytes when sweating heavily for long periods.",
+        },
+        {
+          title: "Better Choices",
+          content:
+            "Water is the best default. Unsweetened tea or milk work too. Limit sugary sodas and energy drinks — they add calories without lasting hydration benefits.",
+          callouts: [
+            {
+              type: "info",
+              content:
+                "Caffeine in moderate amounts still contributes to fluid intake for most people, but it is not a substitute for water during heavy exercise.",
+            },
+          ],
+        },
+      ],
+    },
+  },
+  {
+    id: "when-to-use-urgent-care",
+    title: "When to Use Urgent Care",
+    description: "How urgent care fits between your doctor's office and the emergency room.",
+    category: "Emergency",
+    categoryId: "emergency",
+    duration: "12 minutes",
+    level: "beginner",
+    lastReviewed: "2026-06-11",
+    sources: ["NIH", "CDC", "MedlinePlus"],
+    sidebarTips: [
+      "Call ahead if unsure.",
+      "Bring ID and medication list.",
+      "ER for chest pain or stroke signs.",
+      "Follow up with your PCP after.",
+    ],
+    sidebarTitle: "Urgent care",
+    content: {
+      sections: [
+        {
+          title: "Three Levels of Care",
+          content:
+            "- **Primary care** — ongoing health, refills, preventive visits (often days to weeks wait)\n- **Urgent care** — same-day problems that are not life-threatening\n- **Emergency room (ER)** — severe or potentially life-threatening conditions\n\nChoosing the right setting saves time, money, and ER capacity for true emergencies.",
+        },
+        {
+          title: "Good Reasons for Urgent Care",
+          content:
+            "- Sprains, minor cuts needing stitches\n- Fever without severe distress (in adults and older children per local guidance)\n- Urinary tract symptoms\n- Mild asthma flare responding to usual inhaler\n- Rash without breathing problems\n- Ear pain, sore throat when primary care is closed",
+        },
+        {
+          title: "Go to the ER Instead",
+          content:
+            "Call 911 or go to the ER for chest pain, stroke signs (FAST: face droop, arm weakness, speech trouble), severe breathing difficulty, heavy bleeding, poisoning, suicidal thoughts with plan, or major trauma.",
+          callouts: [
+            {
+              type: "warning",
+              content:
+                "When in doubt about severity, err on the side of emergency care. Urgent care cannot handle every complication.",
+            },
+          ],
+        },
+        {
+          title: "Before You Go",
+          content:
+            "- Bring ID, insurance card, medication list\n- Know hours — some urgent cares close overnight\n- Ask if they can do needed tests (X-ray, strep test)\n- Plan follow-up with your primary doctor",
+          callouts: [
+            {
+              type: "info",
+              content:
+                "Urgent care bills may still be costly. Ask about self-pay prices and what your insurance requires (copay, in-network).",
+            },
+          ],
+        },
+      ],
+    },
+  },
+  {
+    id: "reading-lab-report",
+    title: "Reading Your Lab Report",
+    description: "Decode flags, reference ranges, and units on common lab printouts.",
+    category: "Lab Results",
+    categoryId: "lab-results",
+    duration: "15 minutes",
+    level: "intermediate",
+    lastReviewed: "2026-06-11",
+    sources: ["NIH", "CDC", "MedlinePlus"],
+    sidebarTips: [
+      "H or L means high or low.",
+      "Ranges vary by lab.",
+      "Trends matter more than one number.",
+      "Ask what abnormal means for you.",
+    ],
+    sidebarTitle: "Lab report tips",
+    content: {
+      sections: [
+        {
+          title: "Parts of a Lab Report",
+          content:
+            "Most reports list:\n\n- **Test name** — what was measured (glucose, hemoglobin, etc.)\n- **Result** — your number\n- **Units** — mg/dL, mmol/L, etc.\n- **Reference range** — typical values for that lab\n- **Flag** — H (high), L (low), or critical alerts",
+        },
+        {
+          title: "Reference Ranges Are Not Diagnoses",
+          content:
+            "Being slightly outside the range does not always mean disease. Ranges differ by lab equipment, age, sex, and pregnancy. Your doctor interprets results in context — symptoms, medicines, and past values.",
+        },
+        {
+          title: "Common Flags Explained",
+          content:
+            "- **High glucose** — may suggest diabetes risk; fasting status matters\n- **Low hemoglobin** — may suggest anemia; causes vary\n- **High cholesterol** — cardiovascular risk factor; lifestyle and genetics both play roles\n- **Abnormal liver enzymes** — many causes including medicines; repeat tests often needed",
+          callouts: [
+            {
+              type: "info",
+              content:
+                "Compare new results to your own past results when possible. A trend — rising A1C over years — can be more important than a single borderline value.",
+            },
+          ],
+        },
+        {
+          title: "Questions for Your Doctor",
+          content:
+            "- Is this result abnormal for me specifically?\n- Should we repeat the test?\n- Do any medicines or supplements affect it?\n- What is the plan if it stays high or low?",
+          callouts: [
+            {
+              type: "warning",
+              content:
+                'Critical or panic values usually trigger direct contact from the lab or clinic. If you see "critical" on a portal and no one called, contact your care team promptly.',
+            },
+          ],
+        },
+      ],
+    },
+  },
+  {
+    id: "generic-vs-brand-drugs",
+    title: "Generic vs Brand-Name Drugs",
+    description: "How generics compare to brands on safety, effectiveness, and cost.",
+    category: "Medication Safety",
+    categoryId: "medication-safety",
+    duration: "10 minutes",
+    level: "beginner",
+    lastReviewed: "2026-06-11",
+    sources: ["NIH", "CDC", "MedlinePlus"],
+    sidebarTips: [
+      "Same active ingredient required.",
+      "Appearance may differ.",
+      "Ask pharmacist about substitutions.",
+      "Report new side effects after switches.",
+    ],
+    sidebarTitle: "Generic facts",
+    content: {
+      sections: [
+        {
+          title: "What Makes a Drug Generic",
+          content:
+            "After a brand's patent expires, other companies can make **generic** versions with the same active ingredient, strength, dosage form, and route (pill, patch, etc.). Regulators require generics to meet the same quality standards.",
+        },
+        {
+          title: "Are Generics the Same?",
+          content:
+            "For most people, yes — generics work the same as brands. Inactive ingredients (colors, fillers) may differ, which rarely causes allergies or tolerance issues. If you notice new side effects after a switch, tell your pharmacist and doctor.",
+        },
+        {
+          title: "Why Generics Cost Less",
+          content:
+            "Brand companies invest in research and marketing. Generic makers skip those costs. Insurance often charges lower copays for generics.",
+        },
+        {
+          title: "When Brands May Be Preferred",
+          content:
+            "In a few cases — narrow therapeutic index drugs like some seizure or thyroid medicines — your doctor may prefer a consistent manufacturer. Do not switch back and forth without guidance.",
+          callouts: [
+            {
+              type: "info",
+              content:
+                '"Bioequivalent" means the generic delivers the active drug to the bloodstream within an acceptable range compared to the brand.',
+            },
+          ],
+        },
+        {
+          title: "At the Pharmacy",
+          content:
+            "- Ask if a generic is available\n- Confirm you received what was prescribed if you have concerns\n- Use one pharmacy when possible so records stay complete",
+          callouts: [
+            {
+              type: "warning",
+              content:
+                "Do not buy prescription medicines from unverified online sellers — counterfeit drugs are a real risk.",
+            },
+          ],
+        },
+      ],
+    },
+  },
+  {
+    id: "sleep-apnea-basics",
+    title: "Sleep Apnea Basics",
+    description: "Recognize symptoms, understand testing, and overview of CPAP and lifestyle steps.",
+    category: "Chronic Conditions",
+    categoryId: "chronic-conditions",
+    duration: "15 minutes",
+    level: "intermediate",
+    lastReviewed: "2026-06-11",
+    sources: ["NIH", "CDC", "MedlinePlus"],
+    sidebarTips: [
+      "Snoring plus daytime sleepiness — ask your doctor.",
+      "CPAP only works if you use it nightly.",
+      "Weight loss may help mild cases.",
+      "Do not drive drowsy.",
+    ],
+    sidebarTitle: "Sleep tips",
+    content: {
+      sections: [
+        {
+          title: "What Is Sleep Apnea?",
+          content:
+            "Sleep apnea means breathing repeatedly pauses or becomes shallow during sleep. The most common type is **obstructive sleep apnea (OSA)** — throat muscles relax and block airflow. Each pause can last seconds and disrupt oxygen and sleep quality.",
+        },
+        {
+          title: "Common Symptoms",
+          content:
+            "- Loud snoring with gasping or choking\n- Daytime sleepiness despite enough time in bed\n- Morning headaches\n- Trouble concentrating\n- Partner noticing breathing stops\n\nNot everyone who snores has apnea, but red flags deserve evaluation.",
+        },
+        {
+          title: "Why It Matters",
+          content:
+            "Untreated OSA raises risk of high blood pressure, heart disease, stroke, diabetes, and motor vehicle accidents from drowsy driving.",
+        },
+        {
+          title: "Diagnosis",
+          content:
+            "A **sleep study** (at home or in a lab) measures breathing, oxygen, and brain activity. Your doctor reviews the apnea-hypopnea index (AHI) to guide treatment.",
+        },
+        {
+          title: "Treatment Overview",
+          content:
+            "- **CPAP** — machine delivers gentle air pressure to keep the airway open; gold standard for moderate-to-severe OSA\n- **Oral appliances** — for mild cases or CPAP intolerance\n- **Weight loss** — can improve mild OSA\n- **Surgery** — selected cases only",
+          callouts: [
+            {
+              type: "warning",
+              content:
+                "Never stop CPAP without talking to your sleep doctor. Drowsy driving is dangerous — seek help before symptoms cause accidents.",
+            },
+            {
+              type: "info",
+              content:
+                "CPAP masks come in many styles. A sleep technologist can help you find a comfortable fit — comfort improves nightly use.",
+            },
+          ],
         },
       ],
     },

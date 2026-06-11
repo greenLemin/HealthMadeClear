@@ -4,7 +4,7 @@ import { useState, useRef, useEffect, useCallback } from "react";
 import { Link } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
 import { createPortal } from "react-dom";
-import { useScrollSpyContext } from "./ScrollSpyProvider";
+import { useOptionalScrollSpyContext } from "./ScrollSpyProvider";
 
 /** The minimal shape of a glossary term needed to render the popover. */
 export interface GlossaryTermSummary {
@@ -86,16 +86,15 @@ export default function InlineGlossaryTerm({ term, displayText, instanceId }: In
   const t = useTranslations("glossary");
   const containerRef = useRef<HTMLSpanElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
-  const { registerTerm, unregisterTerm, activeTermIds } = useScrollSpyContext();
+  const scrollSpy = useOptionalScrollSpyContext();
 
-  const isActive = instanceId && activeTermIds.has(instanceId);
+  const isActive = instanceId && scrollSpy?.activeTermIds.has(instanceId);
 
   useEffect(() => {
-    if (instanceId) {
-      registerTerm(instanceId, buttonRef.current);
-      return () => unregisterTerm(instanceId);
-    }
-  }, [instanceId, registerTerm, unregisterTerm]);
+    if (!instanceId || !scrollSpy) return;
+    scrollSpy.registerTerm(instanceId, buttonRef.current);
+    return () => scrollSpy.unregisterTerm(instanceId);
+  }, [instanceId, scrollSpy]);
 
   const close = useCallback(() => {
     setIsOpen(false);

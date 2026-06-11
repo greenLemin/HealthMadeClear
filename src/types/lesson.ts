@@ -9,7 +9,9 @@ export interface Lesson {
   duration: string;
   level: "beginner" | "intermediate" | "advanced";
   lastReviewed?: string;
+  reviewedBy?: string;
   sources?: string[];
+  imageAlt?: string;
   image?: string;
   sidebarTips?: string[];
   sidebarTitle?: string;

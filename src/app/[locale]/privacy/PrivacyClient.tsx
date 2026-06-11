@@ -7,7 +7,7 @@ export default function PrivacyClient() {
   const t = useTranslations("privacy");
 
   return (
-    <main className="py-12 md:py-16">
+    <div className="py-12 md:py-16">
       <div className="max-w-container mx-auto px-4 md:px-6">
         <PageHeader title={t("title")} description={t("description")} />
 
@@ -26,6 +26,6 @@ export default function PrivacyClient() {
           </section>
         </div>
       </div>
-    </main>
+    </div>
   );
 }

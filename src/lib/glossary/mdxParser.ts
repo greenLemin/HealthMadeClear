@@ -1,7 +1,7 @@
 import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
-import type { GlossaryId } from "@/types/content";
+import type { GlossaryId, LessonId } from "@/types/content";
 import { GLOSSARY_IDS } from "@/types/content";
 import type { GlossaryTerm } from "@/types/glossary";
 
@@ -9,6 +9,7 @@ function termFromFile(filePath: string): GlossaryTerm {
   const raw = fs.readFileSync(filePath, "utf8");
   const { data, content } = matter(raw);
   const related = data.relatedTerms;
+  const lessons = data.relatedLessons;
 
   return {
     id: String(data.id),
@@ -16,6 +17,8 @@ function termFromFile(filePath: string): GlossaryTerm {
     category: String(data.category),
     definition: content.trim(),
     relatedTerms: Array.isArray(related) && related.length > 0 ? related.map(String) : undefined,
+    relatedLessons:
+      Array.isArray(lessons) && lessons.length > 0 ? (lessons.map(String) as LessonId[]) : undefined,
   };
 }
 

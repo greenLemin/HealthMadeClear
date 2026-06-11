@@ -7,22 +7,7 @@ import { useAppState } from "@/components/AppProviders";
 import { useDismissibleOverlay } from "@/hooks/useDismissibleOverlay";
 import { useFocusTrap } from "@/hooks/useFocusTrap";
 import { useTranslations } from "next-intl";
-import { searchIndex as searchIndexEn } from "@/data/searchIndex.en";
-import { searchIndex as searchIndexEs } from "@/data/searchIndex.es";
-
-type SearchEntry = {
-  id: string;
-  title: string;
-  description: string;
-  category: string;
-  categoryId: string;
-  content: string;
-  url: string;
-};
-
-function getSearchEntries(locale: "en" | "es"): SearchEntry[] {
-  return locale === "es" ? searchIndexEs : searchIndexEn;
-}
+import type { SearchEntry } from "@/data/searchIndex.en";
 
 function highlightMatches(text: string, query: string) {
   if (!query) return text;
@@ -30,7 +15,7 @@ function highlightMatches(text: string, query: string) {
   const parts = text.split(regex);
   return parts.map((part, i) =>
     regex.test(part) ? (
-      <mark key={i} className="rounded bg-primary-container text-on-primary-container px-0.5">
+      <mark key={i} className="rounded bg-primary-container px-0.5 text-on-primary-container">
         {part}
       </mark>
     ) : (
@@ -44,9 +29,20 @@ export default function SearchDialog() {
   const { locale } = useAppState();
   const [isOpen, setIsOpen] = useState(false);
   const [query, setQuery] = useState("");
+  const [entries, setEntries] = useState<SearchEntry[]>([]);
   const inputRef = useRef<HTMLInputElement>(null);
   const dialogRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    let active = true;
+    import(`@/data/searchIndex.${locale}.ts`).then((mod) => {
+      if (active) setEntries(mod.searchIndex);
+    });
+    return () => {
+      active = false;
+    };
+  }, [locale]);
 
   const close = useCallback(() => {
     setIsOpen(false);
@@ -61,10 +57,25 @@ export default function SearchDialog() {
     triggerRef,
   });
 
-  const entries = useMemo(() => getSearchEntries(locale), [locale]);
+  const typeLabel = (type: SearchEntry["type"]) => {
+    switch (type) {
+      case "lesson":
+        return t("typeLesson");
+      case "article":
+        return t("typeArticle");
+      case "glossary":
+        return t("typeGlossary");
+      case "path":
+        return t("typePath");
+      case "tool":
+        return t("typeTool");
+      default:
+        return type;
+    }
+  };
 
   const results = useMemo(() => {
-    if (!query.trim()) return entries.slice(0, 5);
+    if (!query.trim()) return entries.slice(0, 6);
     const q = query.toLowerCase();
     return entries
       .filter(
@@ -74,7 +85,7 @@ export default function SearchDialog() {
           e.content.toLowerCase().includes(q) ||
           e.category.toLowerCase().includes(q)
       )
-      .slice(0, 10);
+      .slice(0, 12);
   }, [query, entries]);
 
   useEffect(() => {
@@ -119,7 +130,7 @@ export default function SearchDialog() {
             className="relative z-10 w-full max-w-xl rounded-xl border border-outline-variant bg-surface shadow-elevation-3"
           >
             <div className="flex items-center gap-3 border-b border-outline-variant px-4 py-3">
-              <Search size={20} className="text-on-surface-variant shrink-0" />
+              <Search size={20} className="shrink-0 text-on-surface-variant" />
               <input
                 ref={inputRef}
                 type="search"
@@ -144,7 +155,7 @@ export default function SearchDialog() {
               ) : (
                 <ul className="space-y-1">
                   {results.map((entry) => (
-                    <li key={entry.id}>
+                    <li key={`${entry.type}-${entry.id}`}>
                       <Link
                         href={entry.url}
                         onClick={close}
@@ -158,7 +169,10 @@ export default function SearchDialog() {
                           <div className="mt-0.5 truncate text-sm text-on-surface-variant">
                             {highlightMatches(entry.description, query)}
                           </div>
-                          <div className="mt-1">
+                          <div className="mt-1 flex flex-wrap gap-1">
+                            <span className="inline-block rounded-full bg-primary-container px-2 py-0.5 text-xs text-on-primary-container">
+                              {typeLabel(entry.type)}
+                            </span>
                             <span className="inline-block rounded-full bg-surface-container px-2 py-0.5 text-xs text-on-surface-variant">
                               {highlightMatches(entry.category, query)}
                             </span>

@@ -4,22 +4,7 @@ import { useMemo } from "react";
 import MarkdownIt from "markdown-it";
 import InlineGlossaryTerm from "./InlineGlossaryTerm";
 import type { GlossaryTerm } from "@/types/glossary";
-
-interface Token {
-  type: string;
-  tag?: string;
-  attrs?: [string, string][];
-  children?: Token[];
-  content?: string;
-  markup?: string;
-  info?: string;
-  meta?: Record<string, unknown>;
-  block?: boolean;
-  hidden?: boolean;
-  level?: number;
-  map?: [number, number] | null;
-  nesting?: number;
-}
+import type MarkdownItToken from "markdown-it/lib/token.mjs";
 
 const md = new MarkdownIt({
   html: false,
@@ -33,7 +18,80 @@ interface MarkdownRendererProps {
   glossaryTerms: GlossaryTerm[];
 }
 
-function renderTokens(tokens: any[], glossaryTerms: GlossaryTerm[], index: number = 0): React.ReactNode[] {
+function renderInlineChildren(
+  children: MarkdownItToken[],
+  glossaryTerms: GlossaryTerm[],
+  keyPrefix: string
+): React.ReactNode[] {
+  const nodes: React.ReactNode[] = [];
+  let index = 0;
+
+  while (index < children.length) {
+    const child = children[index];
+
+    if (child.type === "text" && child.content) {
+      nodes.push(
+        <GlossaryHighlighter
+          key={`${keyPrefix}-text-${index}`}
+          text={child.content}
+          glossaryTerms={glossaryTerms}
+        />
+      );
+      index++;
+      continue;
+    }
+
+    if (child.type === "strong_open") {
+      const inner: React.ReactNode[] = [];
+      index++;
+      while (index < children.length && children[index].type !== "strong_close") {
+        if (children[index].type === "text" && children[index].content) {
+          inner.push(
+            <GlossaryHighlighter
+              key={`${keyPrefix}-strong-${index}`}
+              text={children[index].content ?? ""}
+              glossaryTerms={glossaryTerms}
+            />
+          );
+        }
+        index++;
+      }
+      nodes.push(<strong key={`${keyPrefix}-strong-wrap-${index}`}>{inner}</strong>);
+      index++;
+      continue;
+    }
+
+    if (child.type === "em_open") {
+      const inner: React.ReactNode[] = [];
+      index++;
+      while (index < children.length && children[index].type !== "em_close") {
+        if (children[index].type === "text" && children[index].content) {
+          inner.push(
+            <GlossaryHighlighter
+              key={`${keyPrefix}-em-${index}`}
+              text={children[index].content ?? ""}
+              glossaryTerms={glossaryTerms}
+            />
+          );
+        }
+        index++;
+      }
+      nodes.push(<em key={`${keyPrefix}-em-wrap-${index}`}>{inner}</em>);
+      index++;
+      continue;
+    }
+
+    index++;
+  }
+
+  return nodes;
+}
+
+function renderTokens(
+  tokens: MarkdownItToken[],
+  glossaryTerms: GlossaryTerm[],
+  index: number = 0
+): React.ReactNode[] {
   const result: React.ReactNode[] = [];
   let i = index;
 
@@ -42,19 +100,7 @@ function renderTokens(tokens: any[], glossaryTerms: GlossaryTerm[], index: numbe
 
     if (token.type === "inline") {
       if (token.children) {
-        for (const child of token.children) {
-          if (child.type === "text" && child.content) {
-            result.push(
-              <GlossaryHighlighter
-                key={`${i}-${child.content.slice(0, 20)}`}
-                text={child.content}
-                glossaryTerms={glossaryTerms}
-              />
-            );
-          } else if (child.type === "strong_open" || child.type === "em_open") {
-            // Handle nested inline elements - for simplicity, skip nested formatting for now
-          }
-        }
+        result.push(...renderInlineChildren(token.children, glossaryTerms, `inline-${i}`));
       }
     } else if (token.type === "paragraph_open") {
       const children: React.ReactNode[] = [];
@@ -120,7 +166,7 @@ function renderTokens(tokens: any[], glossaryTerms: GlossaryTerm[], index: numbe
       }
       result.push(<ol key={`ol-${i}`}>{items}</ol>);
     } else if (token.type === "heading_open") {
-      const level = parseInt(token.tag.slice(1), 10) || 2;
+      const level = parseInt(token.tag?.slice(1) ?? "2", 10) || 2;
       const headingChildren: React.ReactNode[] = [];
       i++;
       while (i < tokens.length && tokens[i].type !== "heading_close") {
@@ -152,8 +198,6 @@ function renderTokens(tokens: any[], glossaryTerms: GlossaryTerm[], index: numbe
           {linkChildren}
         </a>
       );
-    } else if (token.type === "strong_open" || token.type === "em_open") {
-      // Inline formatting - handled by inline token children
     }
 
     i++;

@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { routing } from "@/i18n/routing";
+import { articles } from "@/data/articles";
 import { lessons } from "@/data/lessons";
 import { glossaryBundles } from "@/data/glossaryBundles";
 import { getSiteUrl } from "@/lib/site";
@@ -7,6 +8,7 @@ import { getSiteUrl } from "@/lib/site";
 const staticPaths = [
   "",
   "/learn",
+  "/articles",
   "/learning-paths",
   "/tools",
   "/tools/visit-planner",
@@ -18,6 +20,12 @@ const staticPaths = [
   "/privacy",
   "/accessibility",
 ];
+
+function parseReviewDate(value?: string): Date {
+  if (!value) return new Date();
+  const parsed = new Date(value);
+  return Number.isNaN(parsed.getTime()) ? new Date() : parsed;
+}
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const base = getSiteUrl();
@@ -36,14 +44,44 @@ export default function sitemap(): MetadataRoute.Sitemap {
   );
 
   const localizedLessons = routing.locales.flatMap((locale) =>
-    lessons.map((lesson) => ({
-      url: `${base}/${locale}/learn/${lesson.id}`,
-      lastModified: now,
+    lessons.flatMap((lesson) => {
+      const reviewed = parseReviewDate(lesson.lastReviewed);
+      return [
+        {
+          url: `${base}/${locale}/learn/${lesson.id}`,
+          lastModified: reviewed,
+          changeFrequency: "monthly" as const,
+          priority: 0.7,
+          alternates: {
+            languages: Object.fromEntries(
+              routing.locales.map((alt) => [alt, `${base}/${alt}/learn/${lesson.id}`])
+            ),
+          },
+        },
+        {
+          url: `${base}/${locale}/learn/${lesson.id}/quiz`,
+          lastModified: reviewed,
+          changeFrequency: "monthly" as const,
+          priority: 0.65,
+          alternates: {
+            languages: Object.fromEntries(
+              routing.locales.map((alt) => [alt, `${base}/${alt}/learn/${lesson.id}/quiz`])
+            ),
+          },
+        },
+      ];
+    })
+  );
+
+  const localizedArticles = routing.locales.flatMap((locale) =>
+    articles.map((article) => ({
+      url: `${base}/${locale}/articles/${article.id}`,
+      lastModified: parseReviewDate(article.lastReviewed),
       changeFrequency: "monthly" as const,
-      priority: 0.7,
+      priority: 0.68,
       alternates: {
         languages: Object.fromEntries(
-          routing.locales.map((alt) => [alt, `${base}/${alt}/learn/${lesson.id}`])
+          routing.locales.map((alt) => [alt, `${base}/${alt}/articles/${article.id}`])
         ),
       },
     }))
@@ -63,5 +101,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     }))
   );
 
-  return [...localizedStatic, ...localizedLessons, ...localizedGlossaryTerms];
+  return [...localizedStatic, ...localizedLessons, ...localizedArticles, ...localizedGlossaryTerms];
 }

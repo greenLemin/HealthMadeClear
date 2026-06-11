@@ -6,7 +6,7 @@ import { Search } from "lucide-react";
 import { useAppState } from "@/components/AppProviders";
 import PageHeader from "@/components/PageHeader";
 import { normalizeGlossaryLetter } from "@/lib/i18n";
-import { getGlossaryLabel, getGlossaryTerms } from "@/lib/localizedContent";
+import { getGlossaryLabel, getGlossaryTerms, getLessonById } from "@/lib/localizedContent";
 import { useTranslations } from "next-intl";
 
 const alphabet = ["All", ..."ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("")];
@@ -45,7 +45,7 @@ export default function GlossaryClient() {
   }, [activeLetter, glossaryTerms, query]);
 
   return (
-    <main className="py-12 md:py-16">
+    <div className="py-12 md:py-16">
       <div className="max-w-container mx-auto px-4 md:px-6">
         <PageHeader title={t("title")} description={t("description")} />
 
@@ -99,6 +99,28 @@ export default function GlossaryClient() {
               </h2>
               <p className="mb-5 text-body-md text-on-surface-variant">{term.definition}</p>
               <div className="border-t border-outline-variant pt-4">
+                {term.relatedLessons?.length ? (
+                  <div className="mb-4">
+                    <div className="mb-2 text-xs font-semibold uppercase tracking-wide text-on-surface-variant">
+                      {t("seenIn")}
+                    </div>
+                    <div className="flex flex-col gap-1">
+                      {term.relatedLessons.map((lessonId) => {
+                        const lesson = getLessonById(lessonId, locale);
+                        if (!lesson) return null;
+                        return (
+                          <Link
+                            key={lessonId}
+                            href={`/learn/${lessonId}`}
+                            className="text-sm font-semibold text-primary hover:underline"
+                          >
+                            {lesson.title}
+                          </Link>
+                        );
+                      })}
+                    </div>
+                  </div>
+                ) : null}
                 <div className="mb-2 text-sm font-semibold text-primary">
                   {tCommon("category")}: {term.category}
                 </div>
@@ -141,6 +163,6 @@ export default function GlossaryClient() {
           </div>
         ) : null}
       </div>
-    </main>
+    </div>
   );
 }

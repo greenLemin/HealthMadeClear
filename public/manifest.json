@@ -4,8 +4,8 @@
   "description": "Free, accessible health education in plain language.",
   "start_url": "/en",
   "display": "standalone",
-  "background_color": "#F8FAFC",
-  "theme_color": "#0B4F6C",
+  "background_color": "#f8f9fb",
+  "theme_color": "#004349",
   "icons": [
     {
       "src": "/favicon.svg",

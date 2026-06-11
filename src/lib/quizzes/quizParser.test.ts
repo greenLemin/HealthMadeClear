@@ -106,6 +106,29 @@ explanation: Basic addition.
     expect(questions[0].question).toContain("result of 2+2?");
   });
 
+  it("parses Spanish Pregunta headings", () => {
+    const markdown = `
+## Pregunta 1
+
+¿Cuál es 2+2?
+
+A) 3
+B) 4
+C) 5
+D) 6
+
+answer: B
+explanation: 2+2 es 4.
+`;
+
+    const questions = parseQuestions(markdown);
+
+    expect(questions).toHaveLength(1);
+    expect(questions[0].question).toBe("¿Cuál es 2+2?");
+    expect(questions[0].correctAnswer).toBe("B");
+    expect(questions[0].explanation).toBe("2+2 es 4.");
+  });
+
   it("handles lowercase answer letters", () => {
     const markdown = `
 ## Question 1

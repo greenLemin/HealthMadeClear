@@ -18,6 +18,7 @@ export const STORAGE_KEYS = {
   completedLessons: "hmc-completed-lessons",
   recentLessons: "hmc-recent-lessons",
   startedPaths: "hmc-started-paths",
+  quizScores: "hmc-quiz-scores",
   checklist: "hmc-checklist",
   visitPlanner: "hmc-visit-planner",
 } as const;

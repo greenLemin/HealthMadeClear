@@ -17,4 +17,9 @@ describe("glossary mdxParser", () => {
     const term = getGlossaryTermFromMdx("blood-pressure", "en");
     expect(term?.relatedTerms).toContain("hypertension");
   });
+
+  it("loads related lesson links", () => {
+    const term = getGlossaryTermFromMdx("diabetes", "en");
+    expect(term?.relatedLessons).toContain("understanding-type2-diabetes");
+  });
 });

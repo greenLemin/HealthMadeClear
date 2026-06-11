@@ -1,4 +1,4 @@
-import { expect, test } from "@playwright/test";
+import { expect, test } from "./setup";
 
 test("lesson detail and mark complete", async ({ page }) => {
   await page.goto("/en/learn/understanding-prescription-labels");
@@ -39,4 +39,43 @@ test("glossary term page loads", async ({ page }) => {
 test("progress export button exists on dashboard", async ({ page }) => {
   await page.goto("/en/dashboard");
   await expect(page.getByRole("button", { name: /export progress/i })).toBeVisible();
+});
+
+test("search navigates to lesson", async ({ page }) => {
+  await page.goto("/en");
+  await page.getByRole("button", { name: /open search/i }).click();
+  const dialog = page.getByRole("dialog", { name: /search/i });
+  await dialog.getByPlaceholder(/search lessons/i).fill("blood");
+  await dialog.getByRole("link", { name: /blood test basics/i }).click();
+  await expect(page).toHaveURL(/\/en\/learn\/blood-basics/);
+});
+
+test("single main landmark on home", async ({ page }) => {
+  await page.goto("/en");
+  await expect(page.locator("main")).toHaveCount(1);
+});
+
+test("articles index loads", async ({ page }) => {
+  await page.goto("/en/articles");
+  await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
+});
+
+test("spanish quiz loads questions and shows results", async ({ page }) => {
+  await page.goto("/es/learn/before-your-visit/quiz");
+  await expect(page.getByRole("heading", { level: 1 })).toContainText(/cuestionario/i);
+  await page.getByRole("button", { name: /comenzar cuestionario/i }).click();
+  const quizMain = page.getByRole("main");
+  await expect(quizMain.getByRole("radiogroup").first()).toBeVisible();
+
+  for (let i = 0; i < 5; i++) {
+    await quizMain.locator('label[for^="quiz-q"]').first().click();
+    const checkButton = quizMain.getByRole("button", { name: /verificar respuesta/i });
+    if (await checkButton.isVisible()) {
+      await checkButton.click();
+    }
+    const nextButton = quizMain.getByRole("button", { name: /siguiente pregunta|ver resultados/i });
+    await nextButton.click();
+  }
+
+  await expect(quizMain.getByText(/aprobaste|inténtalo|puntuación|scored/i)).toBeVisible();
 });

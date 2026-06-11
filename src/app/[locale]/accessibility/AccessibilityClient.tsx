@@ -8,7 +8,7 @@ export default function AccessibilityClient() {
   const tNav = useTranslations("nav");
 
   return (
-    <main className="py-12 md:py-16">
+    <div className="py-12 md:py-16">
       <div className="max-w-container mx-auto px-4 md:px-6">
         <PageHeader title={t("pageTitle")} description={t("pageDescription")} />
 
@@ -36,6 +36,6 @@ export default function AccessibilityClient() {
           </section>
         </div>
       </div>
-    </main>
+    </div>
   );
 }

@@ -9,174 +9,2368 @@ export const quizzes: Quiz[] = [
     title: "Cuestionario: Entendiendo las etiquetas de recetas",
     lessonId: "understanding-prescription-labels",
     passScore: 70,
-    questions: [],
+    questions: [
+      {
+        question: '¿Qué significa "Rx" en una etiqueta de receta?',
+        options: [
+          "Rayos X de remedio",
+          "Receta (del latín _recipere_)",
+          "Extracto requerido",
+          "Dosis repetida",
+        ],
+        correctAnswer: "B",
+        explanation:
+          '"Rx" proviene de la palabra latina _recipere_, que significa "tomar". Es la abreviatura estándar para una receta médica.',
+      },
+      {
+        question: "¿Qué parte de la etiqueta de receta le indica cada cuánto debe tomar su medicamento?",
+        options: [
+          "Nombre del paciente",
+          "Nombre de la farmacia",
+          "Instrucciones de dosificación",
+          "Número de resurtidos",
+        ],
+        correctAnswer: "C",
+        explanation:
+          "Las instrucciones de dosificación (o indicaciones) le indican cuánto tomar, cada cuánto y por qué vía. Los detalles del paciente y la farmacia son identificadores, y el número de resurtidos muestra las autorizaciones restantes.",
+      },
+      {
+        question: '¿Qué significa "NDC" en una etiqueta de receta?',
+        options: [
+          "Código Nacional de Medicamentos",
+          "Nuevo Cálculo de Dosificación",
+          "Clasificación de Medicamentos Nombrados",
+          "Compuesto que no causa sueño",
+        ],
+        correctAnswer: "A",
+        explanation:
+          "El NDC es un identificador único para el medicamento, que incluye el fabricante, el producto y el tamaño del envase. Ayuda a prevenir errores de dispensación.",
+      },
+      {
+        question:
+          'Si su etiqueta dice "Tomar 1 tableta por vía oral dos veces al día", ¿cuándo debe tomarla?',
+        options: [
+          "Cada 2 horas",
+          "Una vez por la mañana y una vez por la noche",
+          "Solo cuando aparezcan los síntomas",
+          "Exactamente cada 12 horas",
+        ],
+        correctAnswer: "B",
+        explanation:
+          '"Dos veces al día" generalmente significa por la mañana y por la noche, con aproximadamente 10 a 12 horas de diferencia. Tomarlo con las comidas puede ayudarle a recordar.',
+      },
+      {
+        question:
+          "¿Qué debe hacer si el nombre del medicamento en la etiqueta no coincide con lo que su médico le dijo?",
+        options: [
+          "Tomarlo de todas formas",
+          "Llamar a su farmacéutico antes de tomarlo",
+          "Buscarlo en internet",
+          "Esperar hasta su próxima cita",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "Siempre verifique con su farmacéutico si el nombre del medicamento se ve diferente a lo que esperaba. El nombre genérico puede diferir del nombre de marca, pero es más seguro confirmar.",
+      },
+      {
+        question: "¿Por qué es importante la fecha de vencimiento en una etiqueta de receta?",
+        options: [
+          "Es opcional",
+          "El medicamento puede ser menos efectivo o inseguro después de esta fecha",
+          "Indica cuándo debe resurtir",
+          "Muestra cuándo la farmacia abrió el frasco",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "Los medicamentos vencidos pueden perder potencia o degradarse en compuestos dañinos. Siempre revise la fecha de vencimiento y deseche adecuadamente los medicamentos caducados.",
+      },
+      {
+        question: "¿Qué indican las etiquetas de advertencia en un frasco de receta?",
+        options: [
+          "El costo del medicamento",
+          "Precauciones especiales como somnolencia o evitar el alcohol",
+          "La dirección del fabricante",
+          "Cómo resurtir",
+        ],
+        correctAnswer: "B",
+        explanation:
+          'Las etiquetas de advertencia resaltan precauciones de seguridad específicas como "puede causar somnolencia", "evite el alcohol" o "tomar con alimentos". Siempre léalas antes de comenzar un nuevo medicamento.',
+      },
+      {
+        question: "¿Qué información NO se encuentra típicamente en una etiqueta de receta?",
+        options: [
+          "Nombre del médico que recetó",
+          "Número de teléfono de la farmacia",
+          "Costo del medicamento",
+          "Información de resurtido",
+        ],
+        correctAnswer: "C",
+        explanation:
+          "Las etiquetas de receta incluyen el nombre del paciente, nombre del médico, datos de la farmacia, nombre del medicamento, dosis, instrucciones e información de resurtido, pero no el costo. La farmacia puede proporcionar el precio por separado.",
+      },
+      {
+        question: 'Si su etiqueta dice "Puede causar somnolencia", ¿qué debe evitar?',
+        options: [
+          "Beber agua",
+          "Conducir u operar maquinaria pesada",
+          "Comer alimentos",
+          "Tomar otros medicamentos",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "Las advertencias de somnolencia significan que el medicamento puede afectar su estado de alerta. Evite conducir u operar maquinaria pesada hasta que sepa cómo le afecta el medicamento.",
+      },
+      {
+        question: "¿Qué le indica el número de resurtido en una etiqueta?",
+        options: [
+          "Cuántas veces puede resurtir la receta",
+          "Cuándo vence el medicamento",
+          "La política de resurtido de la farmacia",
+          "El número DEA del médico",
+        ],
+        correctAnswer: "A",
+        explanation:
+          'El número de resurtidos muestra cuántas veces adicionales puede obtener la misma receta sin ver a su médico. "Resurtidos: 0" significa que necesita una nueva receta.',
+      },
+    ],
   },
   {
     id: "asking-about-medications",
     title: "Cuestionario: Cómo preguntar sobre medicamentos",
     lessonId: "asking-about-medications",
     passScore: 70,
-    questions: [],
+    questions: [
+      {
+        question:
+          "¿Cuál es la razón más importante para informar a su médico sobre todos los medicamentos que está tomando?",
+        options: [
+          "Para que el médico pueda recetar más del mismo medicamento",
+          "Para evitar interacciones peligrosas entre medicamentos",
+          "Para ahorrar dinero en su factura de farmacia",
+          "Para que el médico pueda contactar a su farmacéutico",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "Informar a su médico sobre cada medicamento que toma, incluidos los de venta libre y los suplementos, ayuda a prevenir interacciones dañinas. Algunos medicamentos pueden anularse entre sí o combinarse para causar efectos secundarios graves.",
+      },
+      {
+        question: "¿Qué debería preguntarle a su médico antes de comenzar un nuevo medicamento?",
+        options: [
+          "De qué color es la pastilla",
+          "Si hay medicamentos similares más baratos en otros países",
+          "Para qué sirve el medicamento, cómo tomarlo y qué efectos secundarios esperar",
+          "Cuánto peso perderá al tomarlo",
+        ],
+        correctAnswer: "C",
+        explanation:
+          "Antes de comenzar cualquier medicamento nuevo, debe entender su propósito, la dosis y el horario correctos, los posibles efectos secundarios y cualquier restricción de alimentos o actividades. Esto le ayuda a tomar el medicamento de forma segura y eficaz.",
+      },
+      {
+        question: '¿Qué significa el término "genérico" cuando se refiere a un medicamento?',
+        options: [
+          "Un medicamento que es menos eficaz que el de marca",
+          "Un medicamento que no requiere receta médica",
+          "Una copia de un medicamento de marca que tiene los mismos ingredientes activos",
+          "Un medicamento que solo está disponible en forma líquida",
+        ],
+        correctAnswer: "C",
+        explanation:
+          "Los medicamentos genéricos contienen los mismos ingredientes activos que los de marca y deben cumplir con los mismos estándares de seguridad y eficacia de la FDA. Por lo general, son mucho más baratos que las versiones de marca.",
+      },
+      {
+        question: "Si olvida tomar una dosis de su medicamento, ¿cuál es el enfoque más seguro?",
+        options: [
+          "Tomar una dosis doble en la próxima hora programada",
+          "Saltarse la dosis olvidada y no tomarla nunca más",
+          "Revisar la etiqueta del medicamento o preguntar a su farmacéutico qué hacer",
+          "Triturar la pastilla y mezclarla con comida",
+        ],
+        correctAnswer: "C",
+        explanation:
+          "Las instrucciones para dosis olvidadas varían según el medicamento. Algunos deben tomarse tan pronto como lo recuerde, mientras que otros deben omitirse si está cerca de la siguiente dosis. Siempre revise la etiqueta o pregunte a su farmacéutico para estar seguro.",
+      },
+      {
+        question: "¿Por qué es importante llevar siempre consigo una lista actualizada de sus medicamentos?",
+        options: [
+          "Para mostrársela a su compañía de seguros",
+          "Los servicios de emergencia necesitan saber qué medicamentos toma",
+          "Para demostrar que sigue las órdenes de su médico",
+          "Para comparar precios en diferentes farmacias",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "En una emergencia, los paramédicos y los médicos de urgencias necesitan saber exactamente qué medicamentos está tomando para tomar decisiones de tratamiento seguras. Una lista actualizada puede prevenir errores peligrosos.",
+      },
+    ],
   },
   {
     id: "managing-side-effects",
     title: "Cuestionario: Manejo de efectos secundarios",
     lessonId: "managing-side-effects",
     passScore: 70,
-    questions: [],
+    questions: [
+      {
+        question: "¿Qué debe hacer primero si experimenta un efecto secundario de un medicamento?",
+        options: [
+          "Dejar de tomar el medicamento inmediatamente",
+          "Contactar a su médico o farmacéutico para hablar del síntoma",
+          "Duplicar su dosis para que el efecto secundario desaparezca más rápido",
+          "Esperar un mes para ver si empeora",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "Siempre contacte a su médico o farmacéutico cuando note un efecto secundario. Ellos pueden determinar si es normal, ajustar su dosis o cambiarlo a otro medicamento. Suspender un medicamento repentinamente puede ser peligroso.",
+      },
+      {
+        question: "¿Cuál de los siguientes es un efecto secundario común de muchos medicamentos?",
+        options: [
+          "Mejora de la visión",
+          "Aumento de estatura",
+          "Náuseas o malestar estomacal",
+          "Memoria mejorada",
+        ],
+        correctAnswer: "C",
+        explanation:
+          "Las náuseas y el malestar digestivo se encuentran entre los efectos secundarios más comunes de muchos medicamentos. Tomar el medicamento con alimentos o a una hora específica del día a menudo puede ayudar a reducir estos síntomas.",
+      },
+      {
+        question: "¿Cuál es la diferencia entre un efecto secundario y una reacción alérgica?",
+        options: [
+          "No hay diferencia, son lo mismo",
+          "Un efecto secundario es esperado y a menudo leve; una reacción alérgica involucra al sistema inmunitario y puede ser grave",
+          "Una reacción alérgica solo ocurre con medicamentos genéricos",
+          "Los efectos secundarios solo ocurren con medicamentos líquidos",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "Los efectos secundarios son reacciones posibles conocidas que suelen ser leves y pueden desaparecer a medida que su cuerpo se adapta. Las reacciones alérgicas involucran al sistema inmunitario y pueden causar urticaria, hinchazón o dificultad para respirar, lo que requiere atención médica inmediata.",
+      },
+      {
+        question:
+          "¿Qué puede ayudar a reducir los efectos secundarios de los medicamentos como mareos o somnolencia?",
+        options: [
+          "Tomar el medicamento con jugo de toronja",
+          "Tomar el medicamento al acostarse si su médico lo aprueba",
+          "Masticar el medicamento en lugar de tragarlo",
+          "Beber alcohol para contrarrestar el mareo",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "Tomar ciertos medicamentos al acostarse puede ayudar a controlar efectos secundarios como mareos o somnolencia. Siempre pregunte a su médico o farmacéutico sobre el mejor momento para tomar su medicamento y si los alimentos o un horario específico pueden ayudar.",
+      },
+      {
+        question:
+          "Si está tomando múltiples medicamentos y nota nuevos síntomas, ¿qué podría estar sucediendo?",
+        options: [
+          "Los síntomas definitivamente no están relacionados con sus medicamentos",
+          "Podría estar experimentando una interacción entre medicamentos",
+          "Debe tomar vitaminas extra para solucionar los síntomas",
+          "Su cuerpo está creando inmunidad a los medicamentos",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "Los síntomas nuevos al tomar múltiples medicamentos podrían indicar una interacción farmacológica. Ciertas combinaciones pueden cambiar la forma en que los medicamentos actúan en su cuerpo. Siempre reporte síntomas nuevos a su médico, especialmente al comenzar un nuevo medicamento.",
+      },
+    ],
   },
   {
     id: "before-your-visit",
     title: "Cuestionario: Antes de su visita",
     lessonId: "before-your-visit",
     passScore: 70,
-    questions: [],
+    questions: [
+      {
+        question: "¿Cuál es la cosa más importante que debe llevar a la cita con su médico?",
+        options: [
+          "Un bocadillo y una botella de agua",
+          "Su identificación, tarjeta de seguro y una lista de sus medicamentos actuales",
+          "Un amigo que pueda llevarlo a casa",
+          "Su libro favorito para leer en la sala de espera",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "Llevar su identificación y tarjeta de seguro es esencial para registrarse. Una lista actualizada de medicamentos que incluya dosis y frecuencias ayuda a su médico a tomar decisiones seguras e informadas sobre su atención.",
+      },
+      {
+        question: "¿Por qué debería escribir sus preguntas antes de una visita al médico?",
+        options: [
+          "Para impresionar a su médico con lo preparado que está",
+          "Para no olvidar inquietudes importantes durante la cita",
+          "Porque el recepcionista recoge sus preguntas al registrarse",
+          "Para que el médico no tenga que hablar con usted",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "Las visitas al médico suelen ser cortas y pueden ser abrumadoras. Escribir sus preguntas con anticipación asegura que cubra todo lo que le importa, incluso si se siente nervioso o apurado durante la cita.",
+      },
+      {
+        question: "¿Qué debe hacer si tiene síntomas nuevos pero su cita es dentro de semanas?",
+        options: [
+          "Esperar hasta la cita y mencionarlos entonces",
+          "Llamar al consultorio de su médico para preguntar si debe venir antes",
+          "Ir a la sala de emergencias por cualquier síntoma nuevo",
+          "Intentar tratar los síntomas por su cuenta sin consejo médico",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "Si aparecen síntomas nuevos antes de su cita programada, llame al consultorio de su médico. Ellos pueden indicarle si necesita ser visto antes, hablar con una enfermera o si es seguro esperar. Algunos síntomas requieren atención inmediata.",
+      },
+      {
+        question: "¿Con cuánta anticipación debe llegar para una cita médica típica?",
+        options: [
+          "2 a 3 horas antes",
+          "Exactamente a la hora de la cita, no antes",
+          "10 a 15 minutos antes para completar el papeleo",
+          "Cuando quiera, siempre que llegue antes de que cierre la oficina",
+        ],
+        correctAnswer: "C",
+        explanation:
+          "Llegar 10 a 15 minutos antes le da tiempo para registrarse, actualizar su información de seguro y completar los formularios necesarios. Esto ayuda a que la cita comience a tiempo y reduce el estrés.",
+      },
+      {
+        question: '¿Qué es un "resumen de la visita" y por qué es importante?',
+        options: [
+          "Un resumen de lo que vio en la televisión en la sala de espera",
+          "Un documento que su médico le entrega y que explica la visita, los nuevos medicamentos y los pasos de seguimiento",
+          "Una factura de la cita",
+          "Un resumen que su amigo escribe sobre sus síntomas",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "Un resumen de la visita es un documento que describe lo que se discutió durante su cita, incluidos diagnósticos, cambios de medicación e instrucciones de seguimiento. Revisarlo ayuda a asegurarse de que entiende y recuerda su plan de cuidado.",
+      },
+    ],
   },
   {
     id: "during-your-visit",
     title: "Cuestionario: Durante su visita",
     lessonId: "during-your-visit",
     passScore: 70,
-    questions: [],
+    questions: [
+      {
+        question: "¿Qué debe hacer si no entiende algo que su médico dice durante la cita?",
+        options: [
+          "Asentir y estar de acuerdo para no parecer difícil",
+          "Pedirle al médico que lo explique en términos más simples",
+          "Buscarlo en su teléfono después de la cita",
+          "Asumir que no es importante",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "Es su derecho entender su salud. Los médicos usan términos médicos que pueden ser confusos. Pedir una aclaración le ayuda a tomar decisiones informadas sobre su cuidado. Un buen médico estará encantado de explicar.",
+      },
+      {
+        question:
+          "¿Por qué es importante ser honesto con su médico sobre sus hábitos como fumar, beber o su dieta?",
+        options: [
+          "Para que el médico pueda juzgar sus elecciones de estilo de vida",
+          "Porque estos hábitos afectan su salud y sus opciones de tratamiento",
+          "Para que la información pueda ser compartida con su empleador",
+          "No es importante; puede mantener esto en privado",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "Su estilo de vida afecta directamente sus riesgos de salud y la eficacia de los tratamientos. Los médicos necesitan información precisa para brindar la mejor atención. Están sujetos a leyes de privacidad y están ahí para ayudar, no para juzgar.",
+      },
+      {
+        question: '¿Qué es una visita de "telemedicina"?',
+        options: [
+          "Una visita donde habla con su médico a través de una llamada telefónica o videollamada",
+          "Una visita donde un robot lo examina",
+          "Una visita donde envía correos electrónicos a su médico",
+          "Una visita que ocurre por teléfono solo para emergencias",
+        ],
+        correctAnswer: "A",
+        explanation:
+          "La telemedicina utiliza tecnología para conectarlo con su médico de forma remota por teléfono o video. Es conveniente para seguimientos, discutir resultados de pruebas y manejar condiciones crónicas cuando no se necesita un examen en persona.",
+      },
+      {
+        question:
+          "Si ve a un estudiante de medicina o a un enfermero especializado durante su visita, ¿qué debe hacer?",
+        options: [
+          "Negarse a hablar con cualquiera que no sea el médico principal",
+          "Pedir un descuento porque está viendo a un aprendiz",
+          "Tratarlos con respeto y responder sus preguntas con honestidad",
+          "Irse de la cita inmediatamente",
+        ],
+        correctAnswer: "C",
+        explanation:
+          "Los estudiantes de medicina y los enfermeros especializados son profesionales capacitados que trabajan como parte de su equipo de atención. A menudo pasan más tiempo con los pacientes y se comunican bien. Siempre puede pedir hablar con el médico tratante si lo prefiere.",
+      },
+      {
+        question: "¿Qué debe hacer antes de salir de la cita con su médico?",
+        options: [
+          "Pedir una copia de sus registros médicos para llevar a casa",
+          "Asegurarse de entender los próximos pasos: medicamentos, visitas de seguimiento y pruebas necesarias",
+          "Solicitar una segunda opinión de todos los médicos en la oficina",
+          "Pedirle al recepcionista que le llame un taxi",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "Antes de irse, confirme su comprensión del plan de tratamiento, incluyendo nuevas recetas, pruebas recomendadas y cuándo programar un seguimiento. Esto evita confusiones y le ayuda a cumplir con su cuidado.",
+      },
+    ],
   },
   {
     id: "after-your-visit",
     title: "Cuestionario: Después de su visita",
     lessonId: "after-your-visit",
     passScore: 70,
-    questions: [],
+    questions: [
+      {
+        question: "Después de una visita al médico, ¿cuándo debe surtir una nueva receta?",
+        options: [
+          "Solo cuando se le acaben sus medicamentos actuales",
+          "Tan pronto como sea posible, idealmente el mismo día",
+          "Cuando se acuerde, incluso si es meses después",
+          "Solo si la farmacia ofrece un descuento",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "Surtir su receta de inmediato asegura que no la olvide y comience su tratamiento a tiempo. También permite que el farmacéutico verifique interacciones farmacológicas y responda cualquier pregunta que pueda tener.",
+      },
+      {
+        question:
+          "¿Qué debe hacer si tiene preguntas sobre el resumen de su visita o las instrucciones de alta?",
+        options: [
+          "Ignorarlas y esperar lo mejor",
+          "Llamar al consultorio de su médico para aclarar antes de la próxima cita",
+          "Esperar hasta su próxima visita y preguntar entonces",
+          "Pedirle a un amigo que interprete los términos médicos",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "Si algo en el resumen de su visita no está claro, llame al consultorio de su médico poco después de la visita. Obtener una aclaración rápidamente le ayuda a seguir su plan de cuidado correctamente y evitar errores con medicamentos o pasos de seguimiento.",
+      },
+      {
+        question:
+          "¿Por qué es importante programar su próxima cita de seguimiento antes de salir del consultorio?",
+        options: [
+          "Le ahorra una llamada telefónica después y asegura que obtenga una cita en un buen horario",
+          "El consultorio cobra menos si programa con anticipación",
+          "No es importante; puede llamar cuando quiera",
+          "El médico solo lo verá si programa antes de irse",
+        ],
+        correctAnswer: "A",
+        explanation:
+          "Programar su seguimiento antes de irse le garantiza un horario de cita conveniente y reduce la probabilidad de que olvide reservar una después. Mantener las citas de seguimiento es clave para manejar su salud.",
+      },
+      {
+        question:
+          "¿Qué debe hacer con los documentos médicos como órdenes de laboratorio o formularios de referencia después de su visita?",
+        options: [
+          "Tirarlos a la basura ya que todo es electrónico ahora",
+          "Guardarlos en una carpeta o archivo donde pueda encontrarlos fácilmente",
+          "Enviarlos por correo de vuelta al consultorio de su médico",
+          "Pegarlos en el refrigerador como recordatorio",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "Guarde los documentos médicos importantes, las órdenes de laboratorio y los formularios de referencia en una carpeta o archivo designado. Tenerlos organizados y accesibles asegura que pueda realizar las pruebas y las citas con especialistas sin demora.",
+      },
+      {
+        question: "Si su médico ordenó análisis de laboratorio, ¿cuándo debe esperar recibir los resultados?",
+        options: [
+          "El laboratorio lo llama el mismo día",
+          "Los médicos generalmente contactan a los pacientes dentro de unos días a una semana con los resultados",
+          "Nunca recibe noticias a menos que algo esté mal",
+          "Los resultados se envían por correo a su domicilio en un mes",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "La mayoría de los consultorios médicos contactan a los pacientes con los resultados de laboratorio dentro de unos días a una semana. Si no ha recibido noticias después de una semana, llame al consultorio. Que no haya noticias no siempre es una buena noticia, por lo que es mejor hacer un seguimiento.",
+      },
+    ],
   },
   {
     id: "blood-basics",
     title: "Cuestionario: Conceptos básicos de la sangre",
     lessonId: "blood-basics",
     passScore: 70,
-    questions: [],
+    questions: [
+      {
+        question: "¿Cuáles son los componentes principales de la sangre?",
+        options: [
+          "Agua, sal y azúcar",
+          "Glóbulos rojos, glóbulos blancos, plaquetas y plasma",
+          "Oxígeno, dióxido de carbono y nitrógeno",
+          "Vitaminas, minerales y proteínas",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "La sangre está compuesta por cuatro componentes principales. Los glóbulos rojos transportan oxígeno, los glóbulos blancos combaten infecciones, las plaquetas ayudan con la coagulación y el plasma es el líquido que los transporta a todos. Cada uno juega un papel vital para mantenerlo saludable.",
+      },
+      {
+        question: "¿Cuál es la función principal de los glóbulos rojos?",
+        options: [
+          "Combatir infecciones",
+          "Transportar oxígeno desde los pulmones al resto del cuerpo",
+          "Ayudar a que la sangre coagule después de una lesión",
+          "Digerir los alimentos en el estómago",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "Los glóbulos rojos contienen hemoglobina, una proteína que recoge oxígeno en sus pulmones y lo entrega a los tejidos de todo su cuerpo. Los recuentos bajos de glóbulos rojos pueden causar fatiga y debilidad, una condición llamada anemia.",
+      },
+      {
+        question: "¿Qué hacen los glóbulos blancos?",
+        options: [
+          "Ayudan a respirar",
+          "Transportan nutrientes a sus órganos",
+          "Combaten infecciones y protegen contra enfermedades",
+          "Controlan la temperatura de su cuerpo",
+        ],
+        correctAnswer: "C",
+        explanation:
+          "Los glóbulos blancos son parte de su sistema inmunológico. Identifican y atacan gérmenes como bacterias y virus. Un recuento alto de glóbulos blancos puede indicar que su cuerpo está combatiendo una infección.",
+      },
+      {
+        question: "¿Cuál es el papel de las plaquetas en la sangre?",
+        options: [
+          "Transportar oxígeno al cerebro",
+          "Combatir virus",
+          "Ayudar a que la sangre coagule para detener el sangrado",
+          "Transportar hormonas",
+        ],
+        correctAnswer: "C",
+        explanation:
+          "Las plaquetas son pequeños fragmentos celulares que se agrupan en el sitio de una lesión para formar un tapón y detener el sangrado. Sin suficientes plaquetas, incluso los cortes pequeños pueden sangrar excesivamente.",
+      },
+      {
+        question: "¿Qué es el plasma?",
+        options: [
+          "La parte sólida de la sangre",
+          "La parte líquida de la sangre que transporta células, nutrientes y desechos",
+          "Un tipo de glóbulo blanco",
+          "Una proteína que ayuda con la digestión",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "El plasma es la porción líquida de la sangre, que constituye aproximadamente el 55 por ciento del volumen sanguíneo total. Transporta células sanguíneas, nutrientes, hormonas y productos de desecho por todo el cuerpo. El plasma es principalmente agua pero contiene proteínas y electrolitos importantes.",
+      },
+    ],
   },
   {
     id: "common-tests",
     title: "Cuestionario: Pruebas comunes",
     lessonId: "common-tests",
     passScore: 70,
-    questions: [],
+    questions: [
+      {
+        question: "¿Para qué se utiliza un conteo sanguíneo completo o prueba CBC?",
+        options: [
+          "Para medir qué tan rápido puede correr",
+          "Para verificar su salud general y detectar trastornos como anemia o infección",
+          "Para ver si sus huesos están rotos",
+          "Para probar su vista",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "Un CBC mide glóbulos rojos, glóbulos blancos, hemoglobina y plaquetas. Es una prueba de detección común que puede ayudar a detectar anemia, infección, inflamación y otros trastornos sanguíneos.",
+      },
+      {
+        question: "¿Qué mide una lectura de presión arterial?",
+        options: [
+          "La velocidad del flujo sanguíneo a través de sus venas",
+          "La fuerza de la sangre contra las paredes de sus arterias cuando su corazón late y descansa",
+          "La cantidad de azúcar en su sangre",
+          "Cuánto oxígeno hay en sus pulmones",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "La presión arterial tiene dos números: sistólica (presión cuando el corazón late) y diastólica (presión cuando el corazón descansa entre latidos). La presión arterial alta con el tiempo puede dañar su corazón y arterias.",
+      },
+      {
+        question: "¿Cómo se conoce también una prueba de colesterol?",
+        options: [
+          "Una prueba de esfuerzo",
+          "Un panel lipídico o perfil lipídico",
+          "Una prueba de tolerancia a la glucosa",
+          "Un panel tiroideo",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "Un panel lipídico mide el colesterol total, LDL (colesterol malo), HDL (colesterol bueno) y triglicéridos. Ayuda a evaluar su riesgo de enfermedad cardíaca y accidente cerebrovascular.",
+      },
+      {
+        question: "¿Cuál es el propósito de un análisis de orina?",
+        options: [
+          "Probar cuánta agua bebe",
+          "Detectar problemas renales, infecciones del tracto urinario y otras condiciones de salud",
+          "Medir su capacidad pulmonar",
+          "Verificar sus reflejos",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "Un análisis de orina examina el color, la concentración y el contenido de su orina. Puede detectar enfermedad renal, infecciones del tracto urinario, diabetes y otras condiciones. Es una prueba simple y no invasiva.",
+      },
+      {
+        question: "¿Para qué se utiliza una prueba de glucosa en sangre en ayunas?",
+        options: [
+          "Para medir su azúcar en sangre después de comer una comida grande",
+          "Para detectar diabetes y prediabetes después de no haber comido durante al menos 8 horas",
+          "Para analizar sus niveles de hierro",
+          "Para verificar su función renal",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "Una prueba de glucosa en sangre en ayunas mide su azúcar en sangre después de un ayuno nocturno. Los niveles normales suelen estar por debajo de 100 mg/dL. Los niveles más altos pueden indicar prediabetes o diabetes y requieren pruebas de seguimiento.",
+      },
+    ],
   },
   {
     id: "when-to-worry",
     title: "Cuestionario: Cuándo preocuparse",
     lessonId: "when-to-worry",
     passScore: 70,
-    questions: [],
+    questions: [
+      {
+        question: "¿Cuál de los siguientes síntomas requiere atención de emergencia inmediata?",
+        options: [
+          "Un dolor de cabeza leve después de un largo día",
+          "Dificultad para respirar o falta de aire que no desaparece",
+          "Un pequeño corte de papel en el dedo",
+          "Congestión nasal por alergias estacionales",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "La dificultad para respirar es una emergencia médica que requiere atención inmediata. Llame al 911 o vaya a la sala de emergencias si tiene dificultad para respirar, dolor en el pecho o confusión repentina. No espere a ver si mejora por sí solo.",
+      },
+      {
+        question: "¿Qué debe hacer si tiene fiebre de 103 grados Fahrenheit o más?",
+        options: [
+          "Tomar una ducha fría inmediatamente",
+          "Esperar una semana para ver si baja",
+          "Llamar a su médico o buscar atención médica",
+          "Cubrirse con mantas pesadas",
+        ],
+        correctAnswer: "C",
+        explanation:
+          "Una fiebre de 103 grados Fahrenheit o más en adultos requiere atención médica. Las fiebres altas pueden indicar infecciones graves. Contacte a su médico o busque atención médica, especialmente si la fiebre va acompañada de otros síntomas como rigidez en el cuello o confusión.",
+      },
+      {
+        question:
+          "¿Qué es una señal de que el dolor en el pecho podría ser grave y requerir atención de emergencia?",
+        options: [
+          "El dolor desaparece cuando cambia de posición",
+          "El dolor es agudo y dura solo un segundo",
+          "El dolor va acompañado de dificultad para respirar, náuseas o dolor que se extiende al brazo o la mandíbula",
+          "El dolor ocurre solo cuando respira profundamente",
+        ],
+        correctAnswer: "C",
+        explanation:
+          "El dolor en el pecho acompañado de dificultad para respirar, náuseas, mareos o dolor que se extiende al brazo, la espalda o la mandíbula podría ser un ataque cardíaco. Llame al 911 inmediatamente. No se conduzca al hospital.",
+      },
+      {
+        question: "¿Cuál de los siguientes síntomas repentinos podría indicar un derrame cerebral?",
+        options: [
+          "Un calambre muscular leve en la pierna",
+          "Entumecimiento o debilidad en un lado de la cara o del cuerpo, confusión o dificultad para hablar",
+          "Un dolor de cabeza que desaparece después de beber agua",
+          "Visión borrosa que se aclara después de parpadear",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "Use el acrónimo RÁPIDO para reconocer un derrame cerebral: Rostro caído, Alteración del equilibrio, Pérdida de fuerza en un brazo, Dificultad en el habla, Oportunidad de llamar al 911. El entumecimiento repentino, la confusión, la dificultad para hablar o los cambios en la visión requieren atención de emergencia inmediata.",
+      },
+      {
+        question:
+          "Si se corta y el sangrado no se detiene después de 10 minutos de presión directa, ¿qué debe hacer?",
+        options: [
+          "Seguir aplicando presión y buscar ayuda médica",
+          "Verter alcohol isopropílico en la herida",
+          "Esperar otra hora para ver si se detiene",
+          "Quitar el vendaje y dejar que la herida se seque al aire",
+        ],
+        correctAnswer: "A",
+        explanation:
+          "Si el sangrado no se detiene después de 10 a 15 minutos de presión directa constante, busque atención médica. Es posible que necesite puntos u otro tratamiento para cerrar la herida y evitar la pérdida excesiva de sangre.",
+      },
+    ],
   },
   {
     id: "why-preventive-care-matters",
     title: "Cuestionario: Por qué es importante la atención preventiva",
     lessonId: "why-preventive-care-matters",
     passScore: 70,
-    questions: [],
+    questions: [
+      {
+        question: "¿Qué es la atención preventiva?",
+        options: [
+          "Tratamiento que recibe después de enfermarse",
+          "Atención médica enfocada en prevenir enfermedades o detectarlas temprano antes de que se vuelvan graves",
+          "Atención de emergencia para condiciones que amenazan la vida",
+          "Medicina alternativa que reemplaza las visitas regulares al médico",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "La atención preventiva incluye chequeos, vacunas y pruebas de detección que ayudan a prevenir enfermedades o detectarlas temprano cuando es más fácil tratarlas. La atención preventiva regular puede ayudarle a vivir una vida más larga y saludable.",
+      },
+      {
+        question: "¿Por qué son importantes los chequeos regulares incluso si se siente saludable?",
+        options: [
+          "No son importantes si se siente bien",
+          "Algunos problemas de salud no tienen síntomas en etapas tempranas y solo pueden detectarse mediante pruebas de detección",
+          "Solo son necesarios para personas mayores de 65 años",
+          "Son principalmente para obtener muestras gratis del médico",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "Muchas condiciones graves como la presión arterial alta, el colesterol alto y algunos cánceres no tienen síntomas tempranos. Los chequeos y pruebas de detección regulares pueden detectar estos problemas temprano, cuando el tratamiento es más efectivo.",
+      },
+      {
+        question:
+          "Según la Ley de Cuidado de Salud Asequible (ACA), ¿qué servicios preventivos están típicamente cubiertos sin costo?",
+        options: [
+          "Solo visitas a la sala de emergencias",
+          "Muchos servicios preventivos como vacunas y pruebas de detección de cáncer están cubiertos sin copago",
+          "Ningún servicio está cubierto sin costo",
+          "Solo medicamentos recetados",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "La Ley de Cuidado de Salud Asequible requiere que la mayoría de los planes de seguro cubran servicios preventivos recomendados como chequeos anuales, vacunas y pruebas de detección de cáncer sin cobrar un copago o deducible. Esto facilita que las personas obtengan atención preventiva.",
+      },
+      {
+        question:
+          "¿Con qué frecuencia deberían la mayoría de los adultos hacerse un examen físico de rutina?",
+        options: [
+          "Cada 10 años",
+          "Solo cuando están enfermos",
+          "Una vez al año o según lo recomendado por su médico",
+          "Nunca, si se sienten saludables",
+        ],
+        correctAnswer: "C",
+        explanation:
+          "La mayoría de los adultos deberían hacerse un examen físico anual. Su médico puede recomendar un programa diferente según su edad, condiciones de salud y factores de riesgo. Las visitas regulares ayudan a rastrear cambios en su salud con el tiempo.",
+      },
+      {
+        question: "¿Qué es una prueba de detección?",
+        options: [
+          "Una prueba que diagnostica una enfermedad de la que ya tiene síntomas",
+          "Una prueba que busca enfermedades en personas que aún no tienen síntomas",
+          "Una prueba que determina su tipo de sangre",
+          "Una prueba que mide su nivel de condición física",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "Las pruebas de detección se realizan a personas sin síntomas para detectar problemas de salud potenciales temprano. Los ejemplos incluyen mamografías para el cáncer de mama, colonoscopías para el cáncer de colon y controles de presión arterial para la hipertensión.",
+      },
+    ],
   },
   {
     id: "common-adult-screenings",
     title: "Cuestionario: Pruebas de detección comunes para adultos",
     lessonId: "common-adult-screenings",
     passScore: 70,
-    questions: [],
+    questions: [
+      {
+        question:
+          "¿A qué edad deberían la mayoría de las mujeres comenzar a hacerse mamografías para detectar cáncer de mama?",
+        options: [
+          "30 años",
+          "40 años o según lo recomendado por su médico según los factores de riesgo",
+          "60 años",
+          "21 años",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "La mayoría de las guías recomiendan que las mujeres comiencen las mamografías regulares a los 40 años. Las mujeres con antecedentes familiares de cáncer de mama pueden necesitar comenzar antes. Las mamografías pueden detectar el cáncer de mama años antes de que se pueda palpar un bulto.",
+      },
+      {
+        question: "¿Para qué se utiliza una colonoscopía como prueba de detección?",
+        options: [
+          "Úlceras estomacales",
+          "Cáncer de colon y pólipos precancerosos",
+          "Cálculos renales",
+          "Alergias alimentarias",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "Una colonoscopía permite a los médicos examinar todo el colon en busca de crecimientos anormales llamados pólipos. La extirpación de estos pólipos puede prevenir el desarrollo del cáncer de colon. La detección generalmente comienza a los 45 años para adultos de riesgo promedio.",
+      },
+      {
+        question: "¿Para qué sirve la prueba de Papanicolaou (Pap)?",
+        options: [
+          "Cáncer de ovario",
+          "Cáncer cervicouterino y cambios precancerosos en el cuello uterino",
+          "Infecciones del tracto urinario",
+          "Problemas de tiroides",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "Una prueba de Pap recolecta células del cuello uterino para buscar cambios anormales que podrían conducir al cáncer cervicouterino. La detección regular ha reducido drásticamente las tasas de cáncer cervicouterino. Las mujeres generalmente comienzan la detección a los 21 años.",
+      },
+      {
+        question: "¿Para qué se utiliza la prueba de PSA?",
+        options: [
+          "Detección de cáncer de próstata en hombres",
+          "Evaluación de la función pulmonar",
+          "Diagnóstico de diabetes",
+          "Verificación de la salud del hígado",
+        ],
+        correctAnswer: "A",
+        explanation:
+          "La prueba de sangre PSA mide el antígeno prostático específico, una proteína producida por la glándula prostática. Los niveles altos pueden indicar cáncer de próstata, aunque otras condiciones también pueden elevar el PSA. Los hombres deben discutir la detección con su médico a partir de los 50 años.",
+      },
+      {
+        question: "¿Por qué son importantes las pruebas regulares de presión arterial a medida que envejece?",
+        options: [
+          "La presión arterial solo importa si tiene síntomas",
+          "La presión arterial alta a menudo no tiene síntomas pero puede causar daños graves al corazón y las arterias",
+          "Las pruebas de presión arterial solo son necesarias para atletas",
+          "Su presión arterial se mantiene igual durante toda su vida",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "La presión arterial alta se llama el asesino silencioso porque generalmente no tiene síntomas. Con el tiempo, daña los vasos sanguíneos y aumenta el riesgo de ataque cardíaco, derrame cerebral y enfermedad renal. La detección regular es la única forma de conocer sus niveles.",
+      },
+    ],
   },
   {
     id: "understanding-vaccines",
     title: "Cuestionario: Entendiendo las vacunas",
     lessonId: "understanding-vaccines",
     passScore: 70,
-    questions: [],
+    questions: [
+      {
+        question: "¿Cómo funcionan las vacunas para protegerlo de enfermedades?",
+        options: [
+          "Curan enfermedades después de que se enferma",
+          "Entrenan a su sistema inmunológico para reconocer y combatir gérmenes específicos",
+          "Crean una barrera en su piel que bloquea los gérmenes",
+          "Reemplazan el sistema inmunológico natural de su cuerpo",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "Las vacunas contienen partes debilitadas o inactivadas de un germen. Su sistema inmunológico aprende a reconocer el germen y produce anticuerpos contra él. Si luego se expone al germen real, su cuerpo puede combatirlo rápidamente.",
+      },
+      {
+        question: "¿Qué es la inmunidad colectiva?",
+        options: [
+          "Un tipo de vacuna que se administra a animales de granja",
+          "Cuando la mayoría de una población está vacunada, lo que dificulta la propagación de enfermedades",
+          "Inmunidad que se transmite de padres a hijos",
+          "Inmunidad natural por enfermarse",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "La inmunidad colectiva ocurre cuando un alto porcentaje de una comunidad está vacunado, creando una barrera que retrasa o detiene la propagación de enfermedades. Esto protege a las personas que no pueden vacunarse, como aquellas con sistemas inmunológicos debilitados o alergias.",
+      },
+      {
+        question: "¿Por qué a veces se necesitan dosis de refuerzo?",
+        options: [
+          "Las vacunas caducan como los alimentos",
+          "La inmunidad de algunas vacunas puede disminuir con el tiempo, y los refuerzos fortalecen la protección",
+          "Los refuerzos son opcionales y no brindan protección adicional",
+          "Los refuerzos son solo para niños, nunca para adultos",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "Para algunas vacunas, la inmunidad disminuye con el tiempo. Una dosis de refuerzo le recuerda a su sistema inmunológico que produzca más anticuerpos, manteniéndolo protegido. Los ejemplos incluyen el refuerzo del tétanos cada 10 años y los refuerzos de COVID-19.",
+      },
+      {
+        question:
+          "¿Cuál de las siguientes afirmaciones es cierta sobre los efectos secundarios de las vacunas?",
+        options: [
+          "Las vacunas causan la enfermedad que pretenden prevenir en la mayoría de las personas",
+          "La mayoría de los efectos secundarios son leves y de corta duración, como dolor en el lugar de la inyección o fiebre baja",
+          "Las vacunas no tienen ningún efecto secundario",
+          "Los efectos secundarios siempre son graves y peligrosos",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "Los efectos secundarios comunes de las vacunas incluyen dolor, enrojecimiento en el lugar de la inyección y fiebre leve. Estos son signos normales de que su sistema inmunológico está respondiendo. Los efectos secundarios graves son extremadamente raros en comparación con los riesgos de las enfermedades que las vacunas previenen.",
+      },
+      {
+        question: "¿Qué vacuna se recomienda anualmente para la mayoría de las personas?",
+        options: [
+          "La vacuna contra el tétanos",
+          "La vacuna contra la gripe (influenza)",
+          "La vacuna contra la hepatitis B",
+          "La vacuna contra la polio",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "La vacuna contra la gripe se recomienda cada año porque los virus de la gripe cambian con el tiempo. La vacuna de cada año se actualiza para coincidir con las cepas que se espera que sean más comunes. La vacunación anual le brinda la mejor protección contra la temporada de gripe actual.",
+      },
+    ],
   },
   {
     id: "living-with-hypertension",
     title: "Cuestionario: Viviendo con hipertensión",
     lessonId: "living-with-hypertension",
     passScore: 70,
-    questions: [],
+    questions: [
+      {
+        question: "¿Qué es la hipertensión?",
+        options: [
+          "Presión arterial baja que causa mareos",
+          "Presión arterial crónicamente alta que ejerce presión sobre el corazón y los vasos sanguíneos",
+          "Una condición donde la presión arterial sube y baja rápidamente",
+          "Un aumento temporal de la presión arterial durante el ejercicio",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "La hipertensión significa que su presión arterial se mantiene más alta de lo normal con el tiempo. Esta tensión constante daña las arterias y aumenta el riesgo de ataque cardíaco, derrame cerebral y enfermedad renal. A menudo se le llama el asesino silencioso porque no tiene síntomas.",
+      },
+      {
+        question: "¿Qué cambio en el estilo de vida puede ayudar a reducir la presión arterial?",
+        options: [
+          "Comer más alimentos salados",
+          "Reducir la ingesta de sodio, comer una dieta equilibrada y hacer ejercicio regularmente",
+          "Beber más cafeína",
+          "Dormir menos de 5 horas por noche",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "Reducir la sal, comer más frutas y verduras, mantener un peso saludable, actividad física regular, limitar el alcohol y manejar el estrés pueden ayudar a reducir la presión arterial. Incluso cambios pequeños pueden marcar una diferencia significativa.",
+      },
+      {
+        question: "¿Qué es una lectura normal de presión arterial?",
+        options: ["140 sobre 90 o más", "130 sobre 80 o más", "Por debajo de 120 sobre 80", "150 sobre 100"],
+        correctAnswer: "C",
+        explanation:
+          "Una lectura normal de presión arterial es inferior a 120 sistólica y inferior a 80 diastólica. Las lecturas de 130 sobre 80 o más se consideran elevadas o hipertensión en etapa 1 y deben discutirse con su médico.",
+      },
+      {
+        question: "¿Por qué a menudo se necesitan medicamentos para controlar la hipertensión?",
+        options: [
+          "Los cambios en el estilo de vida nunca funcionan para reducir la presión arterial",
+          "Algunas personas necesitan medicamentos porque los cambios en el estilo de vida por sí solos no son suficientes para controlar su presión arterial",
+          "Los medicamentos curan la hipertensión permanentemente",
+          "Solo se necesitan medicamentos para personas mayores de 80 años",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "Si bien los cambios en el estilo de vida son importantes, muchas personas con hipertensión también necesitan medicamentos para alcanzar un nivel seguro de presión arterial. Los medicamentos funcionan de diferentes maneras para relajar los vasos sanguíneos o reducir el volumen de líquidos. Nunca deje de tomar su medicamento para la presión arterial sin hablar con su médico.",
+      },
+      {
+        question: "¿Qué debe hacer si olvida una dosis de su medicamento para la presión arterial?",
+        options: [
+          "Tomar dos dosis juntas cuando lo recuerde",
+          "Saltarse la dosis y no preocuparse por ello",
+          "Seguir las instrucciones en la etiqueta de su receta o preguntar a su farmacéutico",
+          "Dejar de tomar todos los medicamentos hasta que vea a su médico",
+        ],
+        correctAnswer: "C",
+        explanation:
+          "Si olvida una dosis, revise la etiqueta de su receta o llame a su farmacéutico. Algunos medicamentos deben tomarse tan pronto como lo recuerde, mientras que otros deben omitirse si está cerca de la siguiente dosis. Nunca duplique la dosis a menos que se lo indiquen.",
+      },
+    ],
   },
   {
     id: "understanding-type2-diabetes",
     title: "Cuestionario: Entendiendo la diabetes tipo 2",
     lessonId: "understanding-type2-diabetes",
     passScore: 70,
-    questions: [],
+    questions: [
+      {
+        question: "¿Qué sucede en el cuerpo de una persona con diabetes tipo 2?",
+        options: [
+          "El cuerpo produce demasiada insulina",
+          "El cuerpo se vuelve resistente a la insulina o no produce suficiente insulina para controlar el azúcar en sangre",
+          "El cuerpo no puede digerir los carbohidratos en absoluto",
+          "El cuerpo deja de producir glóbulos rojos",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "En la diabetes tipo 2, sus células se vuelven resistentes a la insulina, una hormona que ayuda a que el azúcar entre en sus células para obtener energía. Con el tiempo, el páncreas no puede producir suficiente insulina para mantener los niveles de azúcar en sangre normales. Esto lleva a un nivel alto de azúcar en sangre.",
+      },
+      {
+        question: "¿Cuál es un síntoma común del nivel alto de azúcar en sangre no controlado?",
+        options: [
+          "Aumento de peso y frecuencia cardíaca lenta",
+          "Micción frecuente, sed excesiva y pérdida de peso inexplicable",
+          "Mejora de la visión y la audición",
+          "Disminución del apetito y dificultad para dormir",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "Cuando el azúcar en sangre está alto, sus riñones trabajan más para eliminar el exceso de azúcar a través de la orina. Esto causa micción frecuente y sed. Otros síntomas incluyen fatiga, visión borrosa y cortes que cicatrizan lentamente. Estos síntomas se desarrollan gradualmente en la diabetes tipo 2.",
+      },
+      {
+        question: "¿Cómo puede la dieta ayudar a controlar la diabetes tipo 2?",
+        options: [
+          "Comiendo solo una comida al día",
+          "Evitando todos los carbohidratos por completo",
+          "Comiendo comidas equilibradas con porciones controladas, limitando el azúcar y los carbohidratos refinados",
+          "Bebiendo solo jugo de fruta",
+        ],
+        correctAnswer: "C",
+        explanation:
+          "Una dieta apta para la diabetes se enfoca en el control de porciones, alimentos ricos en fibra, proteínas magras y grasas saludables. Monitorear la ingesta de carbohidratos ayuda a mantener estable el azúcar en sangre. Un dietista registrado puede ayudar a crear un plan de comidas personalizado.",
+      },
+      {
+        question: "¿Qué es la prueba A1C?",
+        options: [
+          "Una prueba diaria de azúcar en sangre que se hace con un pinchazo en el dedo",
+          "Un análisis de sangre que mide los niveles promedio de azúcar en sangre durante los últimos 2 a 3 meses",
+          "Una prueba de función renal",
+          "Una prueba de orina para detectar cetonas",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "La prueba A1C proporciona un promedio de sus niveles de azúcar en sangre durante los últimos 2 a 3 meses. Muestra qué tan bien se está controlando su diabetes. La mayoría de las personas con diabetes deben hacerse una prueba A1C al menos dos veces al año.",
+      },
+      {
+        question: "¿Qué práctica de cuidado de los pies es importante para las personas con diabetes?",
+        options: [
+          "Caminar descalzo para fortalecer los pies",
+          "Revisar los pies diariamente en busca de cortes, ampollas o llagas",
+          "Remojar los pies en agua caliente todas las noches",
+          "Aplicar hielo en los pies antes de acostarse",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "La diabetes puede reducir el flujo sanguíneo y la sensibilidad en los pies, lo que dificulta sentir lesiones. Los cortes pequeños pueden infectarse y llevar a complicaciones graves. Los chequeos diarios de los pies ayudan a detectar problemas temprano antes de que se vuelvan graves.",
+      },
+    ],
   },
   {
     id: "asthma-basics",
     title: "Cuestionario: Conceptos básicos del asma",
     lessonId: "asthma-basics",
     passScore: 70,
-    questions: [],
+    questions: [
+      {
+        question: "¿Qué es el asma?",
+        options: [
+          "Una condición donde los pulmones se llenan de líquido",
+          "Una condición crónica donde las vías respiratorias se inflaman y estrechan, dificultando la respiración",
+          "Una infección temporal de la garganta",
+          "Un tipo de reacción alérgica a los alimentos",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "El asma es una condición pulmonar crónica. Las vías respiratorias se hinchan, producen moco adicional y los músculos alrededor de ellas se tensan. Esto estrecha las vías respiratorias y causa sibilancias, tos, opresión en el pecho y dificultad para respirar.",
+      },
+      {
+        question: "¿Cuál es un desencadenante común de los síntomas del asma?",
+        options: [
+          "Beber agua fría",
+          "Ejercicio, alergias, aire frío o infecciones respiratorias",
+          "Comer demasiada proteína",
+          "Exposición a la luz solar",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "Los desencadenantes del asma varían según la persona, pero comúnmente incluyen polen, ácaros del polvo, caspa de mascotas, moho, aire frío, ejercicio, humo y resfriados o gripe. Identificar y evitar sus desencadenantes personales es una parte clave del manejo del asma.",
+      },
+      {
+        question: "¿Cuál es la diferencia entre un inhalador de rescate y un inhalador de control?",
+        options: [
+          "No hay diferencia",
+          "Los inhaladores de rescate se usan a diario; los inhaladores de control se usan solo en emergencias",
+          "Los inhaladores de rescate proporcionan alivio rápido durante un ataque de asma; los inhaladores de control reducen la inflamación de las vías respiratorias con el tiempo",
+          "Los inhaladores de control son solo para niños",
+        ],
+        correctAnswer: "C",
+        explanation:
+          "Los inhaladores de rescate contienen medicación de acción rápida que relaja los músculos de las vías respiratorias durante un ataque, proporcionando alivio rápido. Los inhaladores de control contienen medicación antiinflamatoria que se toma a diario para prevenir síntomas. Ambos juegan un papel importante en el manejo del asma.",
+      },
+      {
+        question: "¿Qué debe hacer si su inhalador de rescate no alivia los síntomas del asma?",
+        options: [
+          "Esperar otra hora e intentar de nuevo",
+          "Tomar una ducha caliente para abrir las vías respiratorias",
+          "Buscar ayuda médica de emergencia inmediatamente",
+          "Beber una gran cantidad de agua",
+        ],
+        correctAnswer: "C",
+        explanation:
+          "Si su inhalador de rescate no funciona o los síntomas empeoran, busque atención de emergencia de inmediato. Los ataques de asma graves pueden poner en peligro la vida. Los signos de un ataque grave incluyen jadeo, incapacidad para hablar en oraciones completas y labios o uñas azules.",
+      },
+      {
+        question: "¿Se puede curar el asma?",
+        options: [
+          "Sí, con la medicación adecuada",
+          "No, el asma es una condición crónica que se puede controlar pero no curar",
+          "Sí, pero solo con cirugía",
+          "Sí, desaparece por sí sola después de la infancia",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "El asma es una condición crónica sin cura, pero se puede controlar eficazmente. Con el tratamiento adecuado, un plan de acción para el asma y evitando los desencadenantes, la mayoría de las personas con asma pueden llevar vidas activas y plenas sin síntomas frecuentes.",
+      },
+    ],
   },
   {
     id: "introduction-to-heart-disease",
     title: "Cuestionario: Introducción a las enfermedades cardíacas",
     lessonId: "introduction-to-heart-disease",
     passScore: 70,
-    questions: [],
+    questions: [
+      {
+        question: "¿Qué es la enfermedad cardíaca?",
+        options: [
+          "Cualquier condición que afecta el cerebro",
+          "Un grupo de condiciones que afectan el corazón y los vasos sanguíneos, incluida la enfermedad de las arterias coronarias",
+          "Una infección del músculo cardíaco",
+          "Una condición temporal que solo afecta a adultos mayores",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "La enfermedad cardíaca es un término general para condiciones que afectan el corazón y los vasos sanguíneos. El tipo más común es la enfermedad de las arterias coronarias, donde se acumula placa en las arterias que suministran sangre al corazón. La enfermedad cardíaca es la principal causa de muerte en los Estados Unidos.",
+      },
+      {
+        question: "¿Qué es un ataque cardíaco?",
+        options: [
+          "Cuando el corazón deja de latir por completo",
+          "Cuando se bloquea el flujo sanguíneo a una parte del músculo cardíaco, generalmente por un coágulo de sangre",
+          "Cuando el corazón late demasiado rápido temporalmente",
+          "Cuando los pulmones dejan de funcionar",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "Un ataque cardíaco ocurre cuando el flujo sanguíneo al corazón se reduce o bloquea gravemente, generalmente por un coágulo en una arteria estrechada. Sin oxígeno, el músculo cardíaco comienza a morir. El tratamiento rápido es crítico para minimizar el daño.",
+      },
+      {
+        question: "¿Cuál de los siguientes es un factor de riesgo importante para la enfermedad cardíaca?",
+        options: [
+          "Dormir lo suficiente",
+          "Presión arterial alta, colesterol alto y fumar",
+          "Comer una dieta equilibrada",
+          "Actividad física regular",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "Los factores de riesgo principales para la enfermedad cardíaca incluyen presión arterial alta, colesterol alto, fumar, diabetes, obesidad y antecedentes familiares de enfermedad cardíaca. Muchos de estos se pueden controlar mediante cambios en el estilo de vida y medicamentos.",
+      },
+      {
+        question: "¿Qué hábito de estilo de vida puede reducir su riesgo de enfermedad cardíaca?",
+        options: [
+          "Fumar cigarrillos con moderación",
+          "Comer una dieta rica en frutas, verduras, granos integrales y proteínas magras",
+          "Beber grandes cantidades de alcohol todos los días",
+          "Estar sentado la mayor parte del día sin actividad física",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "Una dieta saludable para el corazón incluye muchas frutas, verduras, granos integrales, proteínas magras y grasas saludables, mientras limita las grasas saturadas, grasas trans, sodio y azúcares añadidos. Combinado con ejercicio regular y no fumar, esto puede reducir significativamente el riesgo de enfermedad cardíaca.",
+      },
+      {
+        question: "¿Qué significa RCP y cuál es su propósito?",
+        options: [
+          "Regulación Cardíaca Pulmonar; regula el ritmo cardíaco",
+          "Reanimación Cardiopulmonar; mantiene la sangre y el oxígeno fluyendo durante un paro cardíaco",
+          "Recuperación Cardio-Pulmonar; ayuda después de un ataque cardíaco",
+          "Rutina Cardíaca Preventiva; previene enfermedades cardíacas",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "La RCP combina compresiones torácicas y respiraciones de rescate para mantener la sangre y el oxígeno fluyendo al cerebro y los órganos cuando el corazón de una persona se ha detenido. La RCP por parte de un espectador puede duplicar o triplicar la probabilidad de supervivencia de una víctima de paro cardíaco.",
+      },
+    ],
   },
   {
     id: "understanding-depression",
     title: "Cuestionario: Entendiendo la depresión",
     lessonId: "understanding-depression",
     passScore: 70,
-    questions: [],
+    questions: [
+      {
+        question: "¿Qué es la depresión?",
+        options: [
+          "Lo mismo que sentirse triste por unas horas después de un mal día",
+          "Un trastorno del estado de ánimo común pero grave que afecta cómo se siente, piensa y maneja las actividades diarias",
+          "Una señal de debilidad personal",
+          "Una enfermedad que solo afecta a adultos mayores",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "La depresión es una condición médica, no un defecto de carácter ni tristeza temporal. Implica sentimientos persistentes de tristeza, pérdida de interés en actividades y cambios en el sueño, el apetito y la energía. Afecta a personas de todas las edades y orígenes.",
+      },
+      {
+        question: "¿Cuál de los siguientes es un síntoma común de la depresión?",
+        options: [
+          "Sentirse inusualmente feliz y enérgico durante semanas",
+          "Tristeza persistente, pérdida de interés en pasatiempos y cambios en el sueño o el apetito",
+          "Mejora repentina de la memoria y la concentración",
+          "Mayor deseo de socializar con otros",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "Los síntomas comunes de la depresión incluyen tristeza o vacío persistente, pérdida de interés en actividades que antes disfrutaba, cambios significativos en el peso o el apetito, problemas para dormir o dormir demasiado, poca energía, dificultad para concentrarse y pensamientos de muerte o suicidio.",
+      },
+      {
+        question: "¿Cómo se trata típicamente la depresión?",
+        options: [
+          "La depresión no necesita tratamiento; desaparece por sí sola",
+          "Mediante terapia, medicación o una combinación de ambas",
+          "Solo tomando suplementos herbales",
+          "Haciendo ejercicio durante 12 horas al día",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "La depresión es altamente tratable. Los enfoques más efectivos incluyen psicoterapia o terapia de conversación, medicamentos antidepresivos, o ambos. Los cambios en el estilo de vida como el ejercicio regular y el apoyo social también ayudan. Lo que funciona mejor varía de persona a persona.",
+      },
+      {
+        question: "Si alguien dice que está pensando en suicidarse, ¿qué debe hacer?",
+        options: [
+          "Ignorarlo porque las personas que hablan de suicidio rara vez lo hacen",
+          "Tomarlo en serio, quedarse con ellos y ayudarles a contactar una línea de crisis o servicios de emergencia",
+          "Decirles que piensen en otra cosa",
+          "Esperar a ver si lo mencionan de nuevo",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "Cualquier mención de suicidio debe tomarse en serio. Quédese con la persona y llame o envíe un mensaje de texto al 988 (Línea de Prevención del Suicidio y Crisis) o al 911. No los deje solos. Hablar sobre el suicidio no aumenta el riesgo; proporciona una oportunidad para ayudar.",
+      },
+      {
+        question: "¿Puede la depresión afectar la salud física?",
+        options: [
+          "No, la depresión está solo en la mente",
+          "Sí, la depresión puede causar síntomas físicos como dolores de cabeza, problemas digestivos y dolor crónico",
+          "No, la salud mental y la salud física están completamente separadas",
+          "Sí, pero solo en personas mayores de 60 años",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "La depresión afecta tanto la mente como el cuerpo. Puede causar fatiga, dolores de cabeza, dolor de espalda, problemas digestivos y empeorar condiciones crónicas como enfermedades cardíacas o diabetes. Tratar la depresión a menudo mejora tanto la salud mental como la física.",
+      },
+    ],
   },
   {
     id: "anxiety-and-panic",
     title: "Cuestionario: Ansiedad y pánico",
     lessonId: "anxiety-and-panic",
     passScore: 70,
-    questions: [],
+    questions: [
+      {
+        question: "¿Cuál es la diferencia entre la ansiedad normal y un trastorno de ansiedad?",
+        options: [
+          "No hay diferencia",
+          "La ansiedad normal es temporal y proporcional a una situación; un trastorno de ansiedad implica una preocupación excesiva y persistente que interfiere con la vida diaria",
+          "Los trastornos de ansiedad son causados por una mala crianza",
+          "La ansiedad normal solo ocurre por la noche",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "Todos se sienten ansiosos a veces. La ansiedad normal es una respuesta natural al estrés y desaparece cuando la situación pasa. Un trastorno de ansiedad implica una preocupación intensa y excesiva que dura meses y dificulta trabajar, dormir o socializar.",
+      },
+      {
+        question: "¿Qué es un ataque de pánico?",
+        options: [
+          "Una oleada repentina e intensa de miedo que desencadena reacciones físicas graves incluso cuando no hay peligro real",
+          "Un sentimiento leve de nerviosismo antes de un examen",
+          "Un estado crónico de preocupación que dura todo el día",
+          "Un tipo de reacción alérgica",
+        ],
+        correctAnswer: "A",
+        explanation:
+          "Los ataques de pánico aparecen repentinamente y pueden incluir corazón acelerado, dolor en el pecho, sudoración, temblores, dificultad para respirar y una sensación de pérdida de control. Muchas personas confunden los ataques de pánico con ataques cardíacos. Por lo general, alcanzan su punto máximo en 10 minutos.",
+      },
+      {
+        question: "¿Cuál de los siguientes es un síntoma común del trastorno de ansiedad generalizada?",
+        options: [
+          "Sentirse perfectamente tranquilo en todas las situaciones",
+          "Preocupación excesiva por cosas cotidianas como el trabajo, la salud o la familia que es difícil de controlar",
+          "Incapacidad total para sentir miedo",
+          "Brotes repentinos de risa incontrolable",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "Las personas con trastorno de ansiedad generalizada se preocupan excesivamente por una variedad de preocupaciones cotidianas. La preocupación es desproporcionada a la situación, difícil de controlar y a menudo va acompañada de inquietud, fatiga, tensión muscular y problemas para dormir.",
+      },
+      {
+        question: "¿Qué técnica de respiración puede ayudar durante un momento de ansiedad aguda?",
+        options: [
+          "Contener la respiración el mayor tiempo posible",
+          "Respirar rápida y superficialmente",
+          "Respiración lenta y profunda inhalando durante 4 segundos, sosteniendo durante 4 y exhalando durante 4",
+          "Respirar solo por la boca rápidamente",
+        ],
+        correctAnswer: "C",
+        explanation:
+          "La respiración lenta y profunda activa el sistema nervioso parasimpático, que ayuda a calmar la respuesta al estrés del cuerpo. La respiración cuadrada (inhalar durante 4, sostener durante 4, exhalar durante 4) es una técnica simple que puede reducir los síntomas de ansiedad en el momento.",
+      },
+      {
+        question: "¿La ansiedad es tratable?",
+        options: [
+          "No, la ansiedad es una condena de por vida",
+          "Sí, los trastornos de ansiedad son altamente tratables con terapia, medicación o ambas",
+          "Sí, pero solo con medicamentos que tienen efectos secundarios graves",
+          "No, la ansiedad solo se puede controlar con alcohol",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "Los trastornos de ansiedad son muy tratables. La terapia cognitivo-conductual es particularmente efectiva. Muchas personas también se benefician de la medicación. Con el tratamiento adecuado, la mayoría de las personas con trastornos de ansiedad pueden controlar sus síntomas y vivir vidas plenas y productivas.",
+      },
+    ],
   },
   {
     id: "sleep-and-health",
     title: "Cuestionario: Sueño y salud",
     lessonId: "sleep-and-health",
     passScore: 70,
-    questions: [],
+    questions: [
+      {
+        question: "¿Cuántas horas de sueño necesita la mayoría de los adultos por noche?",
+        options: ["4 a 5 horas", "7 a 9 horas", "10 a 12 horas", "5 a 6 horas"],
+        correctAnswer: "B",
+        explanation:
+          "La mayoría de los adultos necesitan de 7 a 9 horas de sueño de calidad por noche para una salud óptima. El sueño constante ayuda a que su cuerpo se repare, apoya la función cerebral y fortalece su sistema inmunológico. Dormir muy poco con el tiempo aumenta los riesgos para la salud.",
+      },
+      {
+        question: "¿Qué es la higiene del sueño?",
+        options: [
+          "Lavar las sábanas todas las noches",
+          "Hábitos y prácticas que promueven un sueño bueno y constante",
+          "Una dieta especial para personas que no pueden dormir",
+          "Usar medicamentos para dormir más rápido",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "La higiene del sueño se refiere a hábitos saludables como mantener un horario constante para acostarse, evitar pantallas antes de dormir, limitar la cafeína por la noche y crear un ambiente fresco, oscuro y silencioso para dormir. Una buena higiene del sueño le ayuda a conciliar el sueño y permanecer dormido.",
+      },
+      {
+        question: "¿Cómo afecta la falta crónica de sueño a su salud?",
+        options: [
+          "No tiene ningún efecto en la salud",
+          "Aumenta el riesgo de obesidad, enfermedades cardíacas, diabetes y debilitamiento del sistema inmunológico",
+          "Solo afecta su estado de ánimo, no su salud física",
+          "Mejora la memoria y la concentración",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "La privación crónica del sueño está relacionada con problemas de salud graves como obesidad, enfermedades cardíacas, presión arterial alta, diabetes y depresión. También debilita el sistema inmunológico, haciéndolo más propenso a enfermarse.",
+      },
+      {
+        question: "¿Qué es la apnea del sueño?",
+        options: [
+          "Una condición en la que no puede conciliar el sueño por la noche",
+          "Un trastorno en el que la respiración se detiene y comienza repetidamente durante el sueño",
+          "Una condición en la que duerme demasiado",
+          "Una fase temporal de insomnio",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "La apnea del sueño causa pausas repetidas en la respiración durante el sueño, lo que reduce los niveles de oxígeno y altera la calidad del sueño. Los signos comunes incluyen ronquidos fuertes, jadeo durante el sueño y fatiga diurna. Puede aumentar el riesgo de problemas cardíacos si no se trata.",
+      },
+      {
+        question: "¿Qué debe evitar antes de acostarse para mejorar el sueño?",
+        options: [
+          "Leer un libro",
+          "Usar teléfonos, tabletas o computadoras porque la luz azul puede interferir con las señales de sueño de su cuerpo",
+          "Beber té de hierbas",
+          "Tomar un baño tibio",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "La luz azul de las pantallas suprime la melatonina, la hormona que indica a su cuerpo que duerma. Evitar las pantallas durante al menos 30 a 60 minutos antes de acostarse, junto con limitar la cafeína y las comidas pesadas, le ayuda a conciliar el sueño más fácilmente.",
+      },
+    ],
   },
   {
     id: "understanding-health-insurance",
     title: "Cuestionario: Entendiendo el seguro de salud",
     lessonId: "understanding-health-insurance",
     passScore: 70,
-    questions: [],
+    questions: [
+      {
+        question: "¿Qué es una prima de seguro de salud?",
+        options: [
+          "La cantidad que paga cuando visita al médico",
+          "El pago mensual que realiza para mantener su seguro activo",
+          "El descuento que obtiene por usar proveedores dentro de la red",
+          "La cantidad total que su empleador paga por su atención médica",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "Una prima es la cantidad que paga cada mes para tener cobertura de seguro de salud. Paga esto ya sea que use o no servicios médicos. Las primas varían según el tipo de plan, el nivel de cobertura y su edad o ubicación.",
+      },
+      {
+        question: "¿Qué es un deducible en el seguro de salud?",
+        options: [
+          "La cantidad que paga cada vez que surte una receta",
+          "La cantidad que debe pagar de su bolsillo antes de que su seguro comience a cubrir los servicios",
+          "El pago mensual para mantener su seguro",
+          "La cantidad máxima que su seguro pagará en un año",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "Un deducible es la cantidad que paga por servicios de atención médica cubiertos antes de que su plan de seguro comience a pagar. Por ejemplo, si su deducible es de 1,000 dólares, usted paga los primeros 1,000 dólares de los servicios cubiertos. Algunos servicios preventivos están cubiertos antes de cumplir con el deducible.",
+      },
+      {
+        question: '¿Qué significa "dentro de la red"?',
+        options: [
+          "Médicos y hospitales que tienen un contrato con su plan de seguro para brindar atención a tarifas más bajas",
+          "Cualquier médico u hospital que elija visitar",
+          "Una red especial de médicos que solo tratan emergencias",
+          "Médicos en línea a los que solo puede ver a través de una computadora",
+        ],
+        correctAnswer: "A",
+        explanation:
+          "Los proveedores dentro de la red han acordado aceptar las tarifas negociadas de su plan de seguro. Usar proveedores dentro de la red generalmente le cuesta mucho menos que ir fuera de la red. Siempre verifique si su médico está dentro de la red antes de programar para evitar facturas sorpresa.",
+      },
+      {
+        question: "¿Qué es un copago?",
+        options: [
+          "Una cantidad fija que paga por un servicio específico, como 20 dólares por una visita al médico",
+          "El costo total de su tratamiento médico",
+          "Un descuento que recibe por pagar su prima anticipadamente",
+          "La cantidad que su seguro paga al hospital",
+        ],
+        correctAnswer: "A",
+        explanation:
+          "Un copago es una cantidad fija en dólares que paga en el momento del servicio, como 20 dólares por una visita de atención primaria o 10 dólares por una receta. Los copagos son separados de los deducibles y generalmente no cuentan para el deducible.",
+      },
+      {
+        question: "¿Qué es un máximo de desembolso personal?",
+        options: [
+          "La cantidad que puede ahorrar usando seguro",
+          "Lo máximo que tendrá que pagar por servicios cubiertos en un año del plan",
+          "La cantidad que debe si cancela su seguro",
+          "La cantidad máxima que su seguro paga por un solo procedimiento",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "El máximo de desembolso personal es lo máximo que pagará por servicios de atención médica cubiertos en un año. Una vez que alcanza este límite, su seguro paga el 100 por ciento de los servicios cubiertos por el resto del año del plan. Esto lo protege de costos médicos catastróficos.",
+      },
+    ],
   },
   {
     id: "reading-medical-bills",
     title: "Cuestionario: Cómo leer facturas médicas",
     lessonId: "reading-medical-bills",
     passScore: 70,
-    questions: [],
+    questions: [
+      {
+        question: "¿Qué debe verificar primero cuando recibe una factura médica?",
+        options: [
+          "Si la factura está impresa en papel membretado oficial",
+          "Si su información personal, las fechas del servicio y los servicios listados son correctos",
+          "Si la factura tiene una marca de agua",
+          "Si el sobre está sellado correctamente",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "Siempre verifique su nombre, las fechas en que recibió atención y los procedimientos listados. Los errores en la facturación son comunes. Una fecha incorrecta, un código de procedimiento equivocado o información de paciente mezclada puede llevar a que le cobren por servicios que no recibió.",
+      },
+      {
+        question: "¿Qué es una Explicación de Beneficios (EOB)?",
+        options: [
+          "Una factura que muestra cuánto debe",
+          "Un resumen de su compañía de seguros que muestra qué servicios se facturaron, qué se cubrió y qué puede deber",
+          "Una carta que explica por qué su seguro fue denegado",
+          "Un formulario que completa para solicitar seguro",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "Una EOB no es una factura. Es un estado de cuenta de su seguro que explica cómo se procesó un reclamo. Muestra el monto facturado, el descuento del seguro, lo que pagó el seguro y su responsabilidad restante. Compárelo con la factura del proveedor para verificar errores.",
+      },
+      {
+        question: '¿Qué representa un "código CPT" en una factura médica?',
+        options: [
+          "La condición o diagnóstico del paciente",
+          "Un código estándar que describe el procedimiento médico o servicio que se proporcionó",
+          "El número de licencia del médico",
+          "El número de habitación del hospital",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "Los códigos CPT son números estandarizados asignados a cada procedimiento y servicio médico, como un 99213 para una visita al consultorio. Estos códigos determinan cuánto le cobran y si su seguro cubrirá el servicio. Los errores en la codificación pueden llevar a cargos incorrectos.",
+      },
+      {
+        question: "Si no puede pagar una factura médica, ¿qué debe hacer?",
+        options: [
+          "Ignorarla y esperar que desaparezca",
+          "Contactar a la oficina de facturación para preguntar sobre planes de pago o asistencia financiera",
+          "Pagar solo la mitad y asumir que es suficiente",
+          "Disputar toda la factura sin ninguna razón",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "La mayoría de los hospitales y proveedores médicos ofrecen planes de pago o programas de atención benéfica para pacientes que no pueden pagar su factura completa. Contacte a la oficina de facturación y pregunte sobre las opciones. Ignorar la factura puede llevar a acciones de cobro y dañar su crédito.",
+      },
+      {
+        question: "¿Cuál es una razón común por la que las facturas médicas contienen errores?",
+        options: [
+          "Los hospitales cobran intencionalmente de más a todos los pacientes",
+          "La facturación es compleja y errores como cargos duplicados, códigos incorrectos o información de seguro equivocada son comunes",
+          "Los médicos no saben cuánto cuestan los servicios",
+          "Las compañías de seguros se niegan a compartir información",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "La facturación médica es complicada y propensa a errores. Los errores comunes incluyen cargos duplicados por el mismo servicio, sobrecodificación (facturar por un servicio más costoso del que se proporcionó) e información de seguro incorrecta. Revisar las facturas cuidadosamente puede ahorrarle dinero.",
+      },
+    ],
   },
   {
     id: "when-to-call-911",
     title: "Cuestionario: Cuándo llamar al 911",
     lessonId: "when-to-call-911",
     passScore: 70,
-    questions: [],
+    questions: [
+      {
+        question: "¿Cuál de las siguientes es una razón para llamar al 911?",
+        options: [
+          "Tiene un resfriado leve y quiere ver a un médico",
+          "Alguien está inconsciente, no respira o tiene dolor en el pecho",
+          "Necesita un viaje a la farmacia",
+          "Su servicio de internet no funciona",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "Llame al 911 para cualquier emergencia que ponga en peligro la vida: dificultad para respirar, dolor en el pecho, signos de derrame cerebral, sangrado severo, asfixia, inconsciencia o alguien que deja de respirar. En caso de duda, llame. Los despachadores pueden guiarlo sobre qué hacer mientras llega la ayuda.",
+      },
+      {
+        question: "¿Qué debe hacer primero cuando llama al 911?",
+        options: [
+          "Colgar y llamar a su médico en su lugar",
+          "Mantenerse lo más tranquilo posible e indicar claramente al despachador su ubicación y lo que está sucediendo",
+          "Comenzar a realizar primeros auxilios antes de llamar",
+          "Buscar la dirección del hospital más cercano",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "Mantenga la calma y proporcione al despachador su ubicación exacta y una descripción clara de la emergencia. Responda sus preguntas. Están capacitados para ayudarlo y le darán instrucciones. No cuelgue hasta que el despachador se lo indique.",
+      },
+      {
+        question: "Si alguien se está atragantando pero está tosiendo con fuerza, ¿qué debe hacer?",
+        options: [
+          "Realizar la maniobra de Heimlich inmediatamente",
+          "Animarlo a que siga tosiendo y quedarse con él",
+          "Llamar al 911 de inmediato",
+          "Darle agua para beber",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "Si una persona que se atraganta está tosiendo con fuerza, su vía respiratoria está parcialmente bloqueada y es posible que pueda despejarla por sí sola. Quédese con ella y anímela a seguir tosiendo. Solo realice compresiones abdominales si no puede toser, hablar o respirar.",
+      },
+      {
+        question: "¿Cuándo NO debe llamar al 911?",
+        options: [
+          "Cuando alguien tiene una reacción alérgica grave",
+          "Cuando tiene un corte menor que puede tratar con una venda en casa",
+          "Cuando presencia un accidente automovilístico con lesiones",
+          "Cuando alguien está teniendo un derrame cerebral",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "El 911 es para emergencias que amenazan la vida, las extremidades o la propiedad. Las lesiones menores que se pueden tratar en casa, las preguntas médicas de rutina o las necesidades de transporte no urgentes deben manejarse a través de su médico de atención primaria o centro de atención de urgencia.",
+      },
+      {
+        question: "¿Qué información debe tener lista cuando llame al 911?",
+        options: [
+          "El color favorito del paciente",
+          "Su ubicación exacta, qué sucedió, cuántas personas están heridas y la condición del paciente",
+          "El número de seguro social del paciente",
+          "El tipo de sangre del paciente",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "El despachador necesita saber dónde enviar ayuda, qué tipo de emergencia es y cuántas personas están involucradas. Conocer la condición del paciente (consciente, respirando, sangrando) ayuda a los despachadores a enviar los recursos correctos y darle instrucciones.",
+      },
+    ],
   },
   {
     id: "building-first-aid-kit",
     title: "Cuestionario: Cómo armar un botiquín de primeros auxilios",
     lessonId: "building-first-aid-kit",
     passScore: 70,
-    questions: [],
+    questions: [
+      {
+        question:
+          "¿Cuál de los siguientes es un elemento esencial para un botiquín básico de primeros auxilios?",
+        options: [
+          "Un kit de costura",
+          "Vendas adhesivas en tamaños variados",
+          "Una botella de refresco",
+          "Una revista",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "Las vendas adhesivas son uno de los elementos más básicos y esenciales de primeros auxilios. Un botiquín bien surtido debe incluir varios tamaños para cortes, raspaduras y ampollas. Protegen las heridas de la suciedad y las bacterias mientras cicatrizan.",
+      },
+      {
+        question:
+          "¿Cuál es el propósito de incluir toallitas antisépticas en un botiquín de primeros auxilios?",
+        options: [
+          "Limpiarse las manos antes de comer",
+          "Limpiar la piel alrededor de una herida para prevenir infecciones",
+          "Limpiar líquidos derramados",
+          "Quitarse el maquillaje",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "Las toallitas antisépticas matan los gérmenes en la piel alrededor de una herida, reduciendo el riesgo de infección. Limpie la herida suavemente antes de aplicar una venda. No use alcohol directamente dentro de heridas profundas, ya que puede dañar el tejido.",
+      },
+      {
+        question:
+          "¿Por qué debería incluir una mascarilla o escudo facial de RCP en su botiquín de primeros auxilios?",
+        options: [
+          "Para protegerse del sol",
+          "Para realizar respiraciones de rescate de forma segura sin contacto directo boca a boca",
+          "Para cubrirse la cara durante el clima frío",
+          "Para filtrar el polvo del aire",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "Una mascarilla o escudo facial de RCP crea una barrera al realizar respiraciones de rescate, reduciendo el riesgo de transmisión de enfermedades. Es un artículo pequeño y económico que hace que los espectadores estén más dispuestos a realizar RCP en una emergencia.",
+      },
+      {
+        question: "¿Con qué frecuencia debe revisar y reabastecer su botiquín de primeros auxilios?",
+        options: [
+          "Una vez cada 10 años",
+          "Cada pocos meses para reemplazar artículos caducados y reabastecer suministros usados",
+          "Nunca, una vez que está surtido dura para siempre",
+          "Solo después de usarlo para una emergencia mayor",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "Revise su botiquín de primeros auxilios cada pocos meses. Reemplace los medicamentos caducados, reabastezca las vendas y toallitas usadas, y asegúrese de que las baterías de la linterna funcionen. Un botiquín desactualizado o con suministros faltantes no es útil en una emergencia.",
+      },
+      {
+        question: "¿Cuál es el mejor lugar para guardar un botiquín de primeros auxilios en su hogar?",
+        options: [
+          "En una caja fuerte que solo los adultos puedan abrir",
+          "En un lugar de fácil acceso que todos en el hogar conozcan",
+          "En el garaje detrás de cajas",
+          "En un gabinete alto que requiera un banco para alcanzar",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "Su botiquín de primeros auxilios debe ser fácil de alcanzar en una emergencia. Colóquelo en un lugar central y accesible y asegúrese de que todos los miembros del hogar sepan dónde está. Evite cerrarlo con llave, ya que los segundos importan durante una lesión.",
+      },
+    ],
   },
   {
     id: "reading-nutrition-labels",
     title: "Cuestionario: Cómo leer las etiquetas nutricionales",
     lessonId: "reading-nutrition-labels",
     passScore: 70,
-    questions: [],
+    questions: [
+      {
+        question: "¿Qué es lo primero que debe mirar en una etiqueta de información nutricional?",
+        options: [
+          "El nombre de la marca",
+          "El tamaño de la porción y el número de porciones por envase",
+          "La fecha de vencimiento",
+          "La lista de ingredientes en letra pequeña",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "El tamaño de la porción es la base de la etiqueta nutricional. Toda la información en la etiqueta se basa en una porción. Si come dos porciones, debe duplicar todos los números. Muchos paquetes que parecen porciones individuales en realidad contienen múltiples porciones.",
+      },
+      {
+        question: '¿Qué le indica el "% Valor Diario" en una etiqueta nutricional?',
+        options: [
+          "El número exacto de calorías que debe comer cada día",
+          "Cuánto contribuye un nutriente en una porción a una dieta diaria basada en una dieta de 2,000 calorías",
+          "El porcentaje de la comida que es grasa",
+          "La cantidad de azúcar que debe comer por día",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "El Porcentaje de Valor Diario muestra cuánto contribuye un nutriente en una porción a una dieta diaria total. Un VD del 5 por ciento o menos es bajo, y del 20 por ciento o más es alto. Úselo para comparar rápidamente alimentos y ver si son altos o bajos en nutrientes específicos.",
+      },
+      {
+        question: "¿Cuál de los siguientes nutrientes debe tratar de limitar según la etiqueta nutricional?",
+        options: ["Fibra dietética", "Vitamina D", "Grasa saturada, sodio y azúcares añadidos", "Potasio"],
+        correctAnswer: "C",
+        explanation:
+          "Los expertos en salud recomiendan limitar la grasa saturada, el sodio y los azúcares añadidos porque están relacionados con enfermedades cardíacas, presión arterial alta y otros problemas de salud. Busque porcentajes bajos de VD para estos nutrientes. La fibra, las vitaminas y los minerales son beneficiosos.",
+      },
+      {
+        question: '¿Cuál es la diferencia entre "azúcares totales" y "azúcares añadidos" en una etiqueta?',
+        options: [
+          "Son lo mismo",
+          "Azúcares totales incluye azúcares naturales y añadidos; azúcares añadidos muestra cuánto azúcar se agregó durante el procesamiento",
+          "Azúcares añadidos solo incluye edulcorantes artificiales",
+          "Azúcares totales no incluye el azúcar de la fruta",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "Azúcares totales incluye tanto los azúcares naturales presentes en alimentos como frutas y lácteos como cualquier azúcar agregada durante el procesamiento. Azúcares añadidos muestra específicamente cuánto azúcar se agregó. La Asociación Americana del Corazón recomienda limitar los azúcares añadidos.",
+      },
+      {
+        question: "¿Por qué es importante la lista de ingredientes en un paquete de alimentos?",
+        options: [
+          "Muestra el nombre de la marca",
+          "Los ingredientes se enumeran en orden descendente por peso, por lo que los primeros ingredientes constituyen la mayor parte del alimento",
+          "Indica cuándo se fabricó el alimento",
+          "Enumera el precio por ingrediente",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "Los ingredientes se enumeran de mayor a menor por peso. Si el azúcar o un tipo de aceite aparece primero, el producto está compuesto principalmente de ese ingrediente. Esto le ayuda a identificar fuentes ocultas de azúcar, grasas no saludables y aditivos artificiales.",
+      },
+    ],
   },
   {
     id: "building-balanced-plate",
     title: "Cuestionario: Cómo crear un plato equilibrado",
     lessonId: "building-balanced-plate",
     passScore: 70,
-    questions: [],
+    questions: [
+      {
+        question: "Según el modelo MiPlato, ¿qué porciones de su plato deben llenarse con frutas y verduras?",
+        options: [
+          "Un cuarto",
+          "Aproximadamente la mitad del plato",
+          "El plato entero",
+          "Una pequeña esquina del plato",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "El modelo MiPlato recomienda llenar la mitad de su plato con frutas y verduras. Estos alimentos son ricos en vitaminas, minerales y fibra, y bajos en calorías. Comer una variedad de productos coloridos asegura que obtenga una gama de nutrientes.",
+      },
+      {
+        question: "¿Qué tipo de granos deben constituir al menos la mitad de los granos que consume?",
+        options: [
+          "Granos refinados blancos como pan blanco y arroz blanco",
+          "Granos integrales como trigo integral, arroz integral, avena y quinua",
+          "Solo granos enriquecidos",
+          "Postres a base de granos como galletas y pasteles",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "Los granos integrales contienen el grano entero, proporcionando más fibra, proteína, vitaminas y minerales que los granos refinados. La fibra ayuda con la digestión, lo mantiene satisfecho por más tiempo y puede reducir el colesterol y los niveles de azúcar en sangre.",
+      },
+      {
+        question: "¿Cuál es una fuente saludable de proteína para incluir en su plato?",
+        options: [
+          "Pollo frito y tocino",
+          "Carne magra, aves, pescado, frijoles, huevos, nueces y tofu",
+          "Embutidos procesados",
+          "Alimentos fritos en aceite",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "Las fuentes saludables de proteína incluyen carnes magras, pescado, aves, huevos, frijoles, lentejas, tofu, nueces y semillas. Estas proporcionan aminoácidos esenciales sin exceso de grasa saturada. Trate de incluir una variedad de fuentes de proteína durante la semana.",
+      },
+      {
+        question: "¿Qué tipo de grasa se considera saludable para el corazón?",
+        options: [
+          "Grasas saturadas que se encuentran en la mantequilla y la carne roja",
+          "Grasas trans que se encuentran en muchos bocadillos procesados",
+          "Grasas insaturadas que se encuentran en el aceite de oliva, aguacates, nueces y pescado",
+          "Todas las grasas son igualmente saludables",
+        ],
+        correctAnswer: "C",
+        explanation:
+          "Las grasas insaturadas, incluidas las monoinsaturadas y poliinsaturadas, pueden ayudar a mejorar los niveles de colesterol y reducir el riesgo de enfermedades cardíacas. Las fuentes incluyen aceite de oliva, aguacates, nueces, semillas y pescados grasos como el salmón. Limite las saturadas y evite las grasas trans.",
+      },
+      {
+        question: "¿Qué debería beber con una comida equilibrada para la opción más saludable?",
+        options: [
+          "Refresco azucarado o té endulzado",
+          "Agua o bebidas sin endulzar",
+          "Bebidas energéticas",
+          "Ponche de frutas con azúcar añadido",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "El agua es la opción más saludable para acompañar cualquier comida. Hidrata sin añadir calorías ni azúcar. Las bebidas azucaradas son una fuente importante de azúcar añadido y calorías vacías. El té sin endulzar o la leche también son buenas opciones.",
+      },
+    ],
+  },
+  {
+    id: "understanding-allergies",
+    title: "Cuestionario: Entendiendo las alergias",
+    lessonId: "understanding-allergies",
+    passScore: 70,
+    questions: [
+      {
+        question: "¿Qué es la anafilaxia?",
+        options: [
+          "Una alergia estacional leve",
+          "Una reacción alérgica grave potencialmente mortal",
+          "Un tipo de intolerancia alimentaria",
+          "Una erupción que siempre desaparece sola",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "La anafilaxia es una reacción alérgica grave que puede afectar la respiración y la presión arterial y requiere tratamiento de emergencia.",
+      },
+      {
+        question: "¿Qué debe hacer primero si tiene epinefrina y signos de anafilaxia?",
+        options: [
+          "Esperar a ver si mejoran los síntomas",
+          "Usar epinefrina según indicación y llamar al 911",
+          "Tomar solo un antihistamínico",
+          "Manejar usted mismo hasta urgencias",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "La epinefrina es el tratamiento de primera línea para anafilaxia. Llame al 911 porque puede haber una segunda ola de síntomas.",
+      },
+      {
+        question: "¿Por qué informar alergias a cada médico y farmacéutico?",
+        options: [
+          "Solo es necesario para alergias alimentarias",
+          "Para evitar medicamentos o productos que puedan desencadenar una reacción",
+          "Las farmacias ya tienen esta información automáticamente",
+          "Solo se necesita en niños",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "Las alergias a medicamentos y látex son comunes. Los proveedores necesitan su historial completo para recetar con seguridad.",
+      },
+      {
+        question: "¿Cuál es un ejemplo de desencadenante ambiental?",
+        options: ["Penicilina", "Polen", "Mariscos", "Solo guantes de látex"],
+        correctAnswer: "B",
+        explanation:
+          "El polen es un alérgeno ambiental común. Medicamentos, alimentos y látex son otras categorías.",
+      },
+      {
+        question: "¿Por qué es arriesgado autodiagnosticar alergias alimentarias?",
+        options: [
+          "Todas las alergias alimentarias son leves",
+          "Eliminar alimentos sin pruebas puede causar carencias nutricionales y omitir otras condiciones",
+          "Los médicos no pueden hacer pruebas de alergia alimentaria",
+          "Las etiquetas listan todos los alérgenos en todos los países",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "La evaluación profesional confirma alergias reales y dietas seguras. La restricción innecesaria puede dañar la nutrición.",
+      },
+    ],
+  },
+  {
+    id: "pain-medications-safely",
+    title: "Cuestionario: Analgésicos con seguridad",
+    lessonId: "pain-medications-safely",
+    passScore: 70,
+    questions: [
+      {
+        question: "¿Qué órgano está más en riesgo con demasiado acetaminofén?",
+        options: ["Corazón", "Hígado", "Riñones", "Pulmones"],
+        correctAnswer: "B",
+        explanation: "Hígado — correct.",
+      },
+      {
+        question: "¿Por qué revisar medicamentos para resfriado?",
+        options: [
+          "Siempre es seguro combinar",
+          "Varios productos pueden exceder límites diarios",
+          "Solo importa en niños",
+          "Las etiquetas son opcionales",
+        ],
+        correctAnswer: "B",
+        explanation: "Varios productos pueden exceder límites diarios — correct.",
+      },
+      {
+        question: "¿Cuándo evitar ibuprofeno sin consejo médico?",
+        options: [
+          "Dolor de cabeza leve",
+          "Enfermedad renal conocida o úlcera estomacal",
+          "Después de ejercicio",
+          "Cuando hay comida disponible",
+        ],
+        correctAnswer: "B",
+        explanation: "Enfermedad renal conocida o úlcera estomacal — correct.",
+      },
+      {
+        question: "¿Qué hacer ante dolor de pecho?",
+        options: [
+          "Tomar más analgésico y esperar",
+          "Buscar atención de emergencia de inmediato",
+          "Solo usar hielo",
+          "Ignorarlo si es joven",
+        ],
+        correctAnswer: "B",
+        explanation: "Buscar atención de emergencia de inmediato — correct.",
+      },
+      {
+        question: "¿Por qué informar todos sus medicamentos al farmacéutico?",
+        options: [
+          "Para revisar interacciones y duplicados",
+          "Para vender más productos",
+          "No es necesario con OTC",
+          "Solo para recetas de un médico",
+        ],
+        correctAnswer: "A",
+        explanation: "Para revisar interacciones y duplicados — correct.",
+      },
+    ],
+  },
+  {
+    id: "understanding-copay-assistance",
+    title: "Cuestionario: Ayuda con copagos",
+    lessonId: "understanding-copay-assistance",
+    passScore: 70,
+    questions: [
+      {
+        question: "¿Objetivo común de tarjetas de copago del fabricante?",
+        options: [
+          "Reemplazar el seguro",
+          "Reducir el pago del paciente por un medicamento específico",
+          "Subir precios",
+          "Eliminar recetas",
+        ],
+        correctAnswer: "B",
+        explanation: "Reducir el pago del paciente por un medicamento específico — correct.",
+      },
+      {
+        question: "¿Qué hacer antes de dejar un medicamento que no puede pagar?",
+        options: [
+          "Suspender de inmediato",
+          "Hablar con el médico sobre alternativas y ayuda",
+          "Comprar solo en sitios desconocidos",
+          "Duplicar la dosis",
+        ],
+        correctAnswer: "B",
+        explanation: "Hablar con el médico sobre alternativas y ayuda — correct.",
+      },
+      {
+        question: "¿Por qué desconfiar de llamadas no solicitadas?",
+        options: [
+          "Siempre son legítimas",
+          "Estafas pueden pedir datos personales sensibles",
+          "Farmacias nunca ofrecen programas reales",
+          "El seguro prohíbe toda ayuda",
+        ],
+        correctAnswer: "B",
+        explanation: "Estafas pueden pedir datos personales sensibles — correct.",
+      },
+      {
+        question: "¿Quién puede ayudar en muchos hospitales?",
+        options: [
+          "Solo facturación tras el alta",
+          "Consejero financiero o trabajador social",
+          "Nadie",
+          "Solo representantes de ventas",
+        ],
+        correctAnswer: "B",
+        explanation: "Consejero financiero o trabajador social — correct.",
+      },
+      {
+        question: "¿Por qué revisar elegibilidad cada año?",
+        options: [
+          "Los programas nunca cambian",
+          "Seguro, reglas de ingresos y fondos pueden cambiar",
+          "Dura para siempre",
+          "El médico lo hace solo",
+        ],
+        correctAnswer: "B",
+        explanation: "Seguro, reglas de ingresos y fondos pueden cambiar — correct.",
+      },
+    ],
+  },
+  {
+    id: "cancer-screening-basics",
+    title: "Cuestionario: Detección de cáncer",
+    lessonId: "cancer-screening-basics",
+    passScore: 70,
+    questions: [
+      {
+        question: "¿Propósito principal de la detección?",
+        options: [
+          "Diagnosticar cada síntoma",
+          "Encontrar signos tempranos antes de síntomas",
+          "Reemplazar tratamiento",
+          "Garantizar que nunca habrá cáncer",
+        ],
+        correctAnswer: "B",
+        explanation: "Encontrar signos tempranos antes de síntomas — correct.",
+      },
+      {
+        question: "¿Edad típica de inicio para colon en guías de EE.UU.?",
+        options: ["18", "45", "70", "Solo con síntomas"],
+        correctAnswer: "B",
+        explanation: "45 — correct.",
+      },
+      {
+        question: "¿Por qué importa el historial familiar?",
+        options: [
+          "Nunca cambia recomendaciones",
+          "Puede llevar a detección antes o más frecuente",
+          "El médico ya lo sabe",
+          "Solo en niños",
+        ],
+        correctAnswer: "B",
+        explanation: "Puede llevar a detección antes o más frecuente — correct.",
+      },
+      {
+        question: "¿Qué hacer si el resultado es anormal?",
+        options: [
+          "Ignorarlo",
+          "Preguntar qué significa y siguientes pasos",
+          "Dejar toda detección",
+          "Autotratarse",
+        ],
+        correctAnswer: "B",
+        explanation: "Preguntar qué significa y siguientes pasos — correct.",
+      },
+      {
+        question: "¿Puede la detección no ver cáncer?",
+        options: [
+          "No — 100% exacta",
+          "Sí — reporte síntomas nuevos tras resultado normal",
+          "Solo en jóvenes",
+          "Solo cáncer de piel",
+        ],
+        correctAnswer: "B",
+        explanation: "Sí — reporte síntomas nuevos tras resultado normal — correct.",
+      },
+    ],
+  },
+  {
+    id: "managing-stress",
+    title: "Cuestionario: Manejando el estrés",
+    lessonId: "managing-stress",
+    passScore: 70,
+    questions: [
+      {
+        question: "El estrés crónico puede afectar:",
+        options: ["Solo el ánimo", "Sueño, presión, digestión y más", "Solo atletas", "Nada medible"],
+        correctAnswer: "B",
+        explanation: "Sueño, presión, digestión y más — correct.",
+      },
+      {
+        question: "Un hábito diario útil es:",
+        options: [
+          "Revisar noticias sin parar",
+          "Caminata corta o pausa para respirar",
+          "Saltar sueño",
+          "Aislarse de todos",
+        ],
+        correctAnswer: "B",
+        explanation: "Caminata corta o pausa para respirar — correct.",
+      },
+      {
+        question: "¿Cuándo buscar ayuda profesional?",
+        options: [
+          "Nunca",
+          "Cuando los síntomas persisten e interfieren con la vida diaria",
+          "Solo tras hospitalización",
+          "Solo niños",
+        ],
+        correctAnswer: "B",
+        explanation: "Cuando los síntomas persisten e interfieren con la vida diaria — correct.",
+      },
+      {
+        question: "¿Recurso de crisis?",
+        options: [
+          "Ignorar síntomas",
+          "Línea 24/7 o emergencias si hay peligro",
+          "Solo redes sociales",
+          "Suspender medicamentos",
+        ],
+        correctAnswer: "B",
+        explanation: "Línea 24/7 o emergencias si hay peligro — correct.",
+      },
+      {
+        question: "Los hábitos pequeños funcionan porque:",
+        options: [
+          "Deben ser perfectos",
+          "Acciones repetibles construyen recuperación",
+          "El estrés no vuelve",
+          "Reemplazan atención médica",
+        ],
+        correctAnswer: "B",
+        explanation: "Acciones repetibles construyen recuperación — correct.",
+      },
+    ],
+  },
+  {
+    id: "hydration-and-health",
+    title: "Cuestionario: Hidratación",
+    lessonId: "hydration-and-health",
+    passScore: 70,
+    questions: [
+      {
+        question: "La deshidratación leve puede causar:",
+        options: [
+          "Solo hambre",
+          "Dolor de cabeza y fatiga",
+          "Mejor rendimiento deportivo",
+          "Siempre frecuencia cardíaca baja",
+        ],
+        correctAnswer: "B",
+        explanation: "Dolor de cabeza y fatiga — correct.",
+      },
+      {
+        question: "¿Quién puede necesitar límites de líquidos?",
+        options: [
+          "Solo atletas jóvenes",
+          "Algunas personas con enfermedad cardíaca o renal",
+          "Todos mayores de 65",
+          "Solo niños",
+        ],
+        correctAnswer: "B",
+        explanation: "Algunas personas con enfermedad cardíaca o renal — correct.",
+      },
+      {
+        question: "Una guía práctica de hidratación es:",
+        options: [
+          "Nunca orinar",
+          "Orina amarillo pálido y beber con sed",
+          "Solo beber en comidas",
+          "Evitar todo líquido de noche",
+        ],
+        correctAnswer: "B",
+        explanation: "Orina amarillo pálido y beber con sed — correct.",
+      },
+      {
+        question: "Mejor bebida base para hidratación diaria:",
+        options: ["Refresco azucarado", "Agua", "Solo bebidas energéticas", "Alcohol"],
+        correctAnswer: "B",
+        explanation: "Agua — correct.",
+      },
+      {
+        question: "La deshidratación grave requiere:",
+        options: ["Ignorarla", "Evaluación médica urgente", "Solo café extra", "No comer nunca"],
+        correctAnswer: "B",
+        explanation: "Evaluación médica urgente — correct.",
+      },
+    ],
+  },
+  {
+    id: "when-to-use-urgent-care",
+    title: "Cuestionario: Atención urgente",
+    lessonId: "when-to-use-urgent-care",
+    passScore: 70,
+    questions: [
+      {
+        question: "La atención urgente es mejor para:",
+        options: [
+          "Dolor de pecho y derrame",
+          "Problemas el mismo día no mortales",
+          "Exámenes físicos anuales",
+          "Solo resurtidos de rutina",
+        ],
+        correctAnswer: "B",
+        explanation: "Problemas el mismo día no mortales — correct.",
+      },
+      {
+        question: "¿Qué corresponde a emergencias?",
+        options: [
+          "Dolor de garganta leve",
+          "Dificultad respiratoria severa",
+          "Ampolla pequeña",
+          "Vacuna de rutina",
+        ],
+        correctAnswer: "B",
+        explanation: "Dificultad respiratoria severa — correct.",
+      },
+      {
+        question: "¿Qué significa FAST en advertencia de derrame?",
+        options: [
+          "Cara, Brazo, Habla, Tiempo de llamar 911",
+          "Comida, Actividad, Sueño, Temperatura",
+          "Fiebre, Asma, Estrés, Cansancio",
+          "Ninguna",
+        ],
+        correctAnswer: "A",
+        explanation: "Cara, Brazo, Habla, Tiempo de llamar 911 — correct.",
+      },
+      {
+        question: "¿Por qué seguimiento con atención primaria?",
+        options: [
+          "No es necesario",
+          "Para coordinar tratamiento y registros",
+          "La urgencia reemplaza al médico",
+          "Solo niños",
+        ],
+        correctAnswer: "B",
+        explanation: "Para coordinar tratamiento y registros — correct.",
+      },
+      {
+        question: "Si no está seguro de la gravedad:",
+        options: [
+          "Esperar días",
+          "Considerar emergencias o llamar 911",
+          "Solo foros en línea",
+          "No buscar atención",
+        ],
+        correctAnswer: "B",
+        explanation: "Considerar emergencias o llamar 911 — correct.",
+      },
+    ],
+  },
+  {
+    id: "reading-lab-report",
+    title: "Cuestionario: Informe de laboratorio",
+    lessonId: "reading-lab-report",
+    passScore: 70,
+    questions: [
+      {
+        question: "¿Qué suele significar bandera H?",
+        options: [
+          "Saludable",
+          "Alto respecto al rango de referencia",
+          "Solo hospital",
+          "Solo prueba hormonal",
+        ],
+        correctAnswer: "B",
+        explanation: "Alto respecto al rango de referencia — correct.",
+      },
+      {
+        question: "Los rangos de referencia:",
+        options: [
+          "Son idénticos en todo el mundo",
+          "Pueden variar por laboratorio y paciente",
+          "Reemplazan consejo médico",
+          "Significan enfermedad segura si está fuera",
+        ],
+        correctAnswer: "B",
+        explanation: "Pueden variar por laboratorio y paciente — correct.",
+      },
+      {
+        question: "¿Por qué comparar resultados previos?",
+        options: [
+          "Nunca útil",
+          "Las tendencias muestran cambios en el tiempo",
+          "Solo niños",
+          "Ilegal en portales",
+        ],
+        correctAnswer: "B",
+        explanation: "Las tendencias muestran cambios en el tiempo — correct.",
+      },
+      {
+        question: "Resultado ligeramente anormal — mejor paso:",
+        options: [
+          "Entrar en pánico",
+          "Hablar con el médico en contexto",
+          "Cambiar dosis solo",
+          "Ignorar siempre",
+        ],
+        correctAnswer: "B",
+        explanation: "Hablar con el médico en contexto — correct.",
+      },
+      {
+        question: "Valor crítico en portal sin llamada — debe:",
+        options: [
+          "Esperar un mes",
+          "Contactar al equipo pronto",
+          "Solo publicar en línea",
+          "Solo prueba casera",
+        ],
+        correctAnswer: "B",
+        explanation: "Contactar al equipo pronto — correct.",
+      },
+    ],
+  },
+  {
+    id: "generic-vs-brand-drugs",
+    title: "Cuestionario: Genéricos vs marca",
+    lessonId: "generic-vs-brand-drugs",
+    passScore: 70,
+    questions: [
+      {
+        question: "Los genéricos deben tener el mismo:",
+        options: [
+          "Solo color",
+          "Ingrediente activo y concentración",
+          "Nombre comercial",
+          "Precio que la marca",
+        ],
+        correctAnswer: "B",
+        explanation: "Ingrediente activo y concentración — correct.",
+      },
+      {
+        question: "¿Por qué el seguro prefiere genéricos?",
+        options: [
+          "Menos regulados",
+          "Menor costo con eficacia equivalente en la mayoría",
+          "Nunca funcionan",
+          "Siempre son marcas",
+        ],
+        correctAnswer: "B",
+        explanation: "Menor costo con eficacia equivalente en la mayoría — correct.",
+      },
+      {
+        question: "Tras cambiar a genérico, debe:",
+        options: [
+          "Dejar seguimiento",
+          "Reportar efectos nuevos o peores al equipo de salud",
+          "Duplicar dosis",
+          "No decir al farmacéutico",
+        ],
+        correctAnswer: "B",
+        explanation: "Reportar efectos nuevos o peores al equipo de salud — correct.",
+      },
+      {
+        question: "Medicamentos falsificados son riesgo cuando:",
+        options: [
+          "Usa farmacias con licencia",
+          "Compra en vendedores en línea no verificados",
+          "Lee etiquetas",
+          "Hace preguntas",
+        ],
+        correctAnswer: "B",
+        explanation: "Compra en vendedores en línea no verificados — correct.",
+      },
+      {
+        question: "Bioequivalente significa:",
+        options: [
+          "Sin fármaco activo",
+          "Niveles en sangre similares a la marca en rango aceptado",
+          "Solo vitaminas",
+          "Ilegal en EE.UU.",
+        ],
+        correctAnswer: "B",
+        explanation: "Niveles en sangre similares a la marca en rango aceptado — correct.",
+      },
+    ],
+  },
+  {
+    id: "sleep-apnea-basics",
+    title: "Cuestionario: Apnea del sueño",
+    lessonId: "sleep-apnea-basics",
+    passScore: 70,
+    questions: [
+      {
+        question: "La apnea obstructiva se debe a:",
+        options: [
+          "Soñar demasiado",
+          "Flujo de aire bloqueado al relajarse músculos de garganta",
+          "Solo demasiada cafeína",
+          "Ronquido normal siempre",
+        ],
+        correctAnswer: "B",
+        explanation: "Flujo de aire bloqueado al relajarse músculos de garganta — correct.",
+      },
+      {
+        question: "Razón para evaluación:",
+        options: [
+          "Ronquidos más somnolencia diurna",
+          "Una noche de mal sueño",
+          "Bostezo ocasional",
+          "Leer antes de dormir",
+        ],
+        correctAnswer: "A",
+        explanation: "Ronquidos más somnolencia diurna — correct.",
+      },
+      {
+        question: "CPAP funciona:",
+        options: [
+          "Cirugía de garganta",
+          "Entregando presión de aire para mantener abierta la vía aérea",
+          "Reemplazando ejercicio",
+          "Deteniendo respiración a propósito",
+        ],
+        correctAnswer: "B",
+        explanation: "Entregando presión de aire para mantener abierta la vía aérea — correct.",
+      },
+      {
+        question: "Apnea sin tratar aumenta riesgo de:",
+        options: [
+          "Solo piel seca",
+          "Presión alta y enfermedad cardíaca entre otros",
+          "Mejor manejo",
+          "Siempre bajar de peso",
+        ],
+        correctAnswer: "B",
+        explanation: "Presión alta y enfermedad cardíaca entre otros — correct.",
+      },
+      {
+        question: "Si CPAP incomoda:",
+        options: [
+          "Dejarlo sin decir nada",
+          "Preguntar al especialista del sueño sobre mascarilla y alternativas",
+          "Manejar somnoliento",
+          "Usarlo una vez al mes",
+        ],
+        correctAnswer: "B",
+        explanation: "Preguntar al especialista del sueño sobre mascarilla y alternativas — correct.",
+      },
+    ],
   },
 ] as const;

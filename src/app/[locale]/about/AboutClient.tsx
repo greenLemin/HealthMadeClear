@@ -16,7 +16,7 @@ export default function AboutClient() {
   ];
 
   return (
-    <main className="py-12 md:py-16">
+    <div className="py-12 md:py-16">
       <div className="max-w-container mx-auto px-4 md:px-6">
         <PageHeader centered title={t("title")} description={t("description")} />
 
@@ -74,6 +74,6 @@ export default function AboutClient() {
           </p>
         </section>
       </div>
-    </main>
+    </div>
   );
 }

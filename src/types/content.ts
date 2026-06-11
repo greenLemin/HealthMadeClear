@@ -24,6 +24,16 @@ export const LESSON_IDS = [
   "building-first-aid-kit",
   "reading-nutrition-labels",
   "building-balanced-plate",
+  "understanding-allergies",
+  "pain-medications-safely",
+  "understanding-copay-assistance",
+  "cancer-screening-basics",
+  "managing-stress",
+  "hydration-and-health",
+  "when-to-use-urgent-care",
+  "reading-lab-report",
+  "generic-vs-brand-drugs",
+  "sleep-apnea-basics",
 ] as const;
 
 export type LessonId = (typeof LESSON_IDS)[number];
@@ -85,6 +95,16 @@ export type LessonCategoryId =
   | "insurance-billing"
   | "emergency"
   | "nutrition";
+
+export const ARTICLE_IDS = [
+  "choosing-primary-care-doctor",
+  "annual-physical-what-to-expect",
+  "pharmacy-benefits-basics",
+  "health-literacy-better-questions",
+  "reliable-online-health-info",
+] as const;
+
+export type ArticleId = (typeof ARTICLE_IDS)[number];
 
 export const LESSON_CATEGORY_IDS: LessonCategoryId[] = [
   "medication-safety",

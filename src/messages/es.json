@@ -2,6 +2,7 @@
   "nav": {
     "home": "Inicio",
     "learn": "Aprender",
+    "articles": "Artículos",
     "paths": "Rutas",
     "tools": "Herramientas",
     "dashboard": "Panel",
@@ -68,6 +69,7 @@
     "useTool": "Usar herramienta",
     "print": "Imprimir",
     "readLesson": "Leer lección",
+    "read": "lectura",
     "back": "Atrás",
     "searchLessons": "Buscar lecciones",
     "searchTerms": "Buscar términos",
@@ -106,7 +108,8 @@
     "title": "Glosario de salud",
     "description": "Definiciones claras y cotidianas de términos médicos para que entiendas tu salud sin tanta confusión.",
     "backToGlossary": "Volver al glosario",
-    "viewTerm": "Ver definición completa"
+    "viewTerm": "Ver definición completa",
+    "seenIn": "Visto en"
   },
   "learn": {
     "title": "¿Qué te gustaría aprender hoy?",
@@ -158,6 +161,9 @@
     "progressLabel": "progreso de la ruta"
   },
   "dashboard": {
+    "greetingMorning": "Buenos días",
+    "greetingAfternoon": "Buenas tardes",
+    "greetingEvening": "Buenas noches",
     "title": "Tu panel de aprendizaje",
     "description": "Sigue tu progreso, retoma donde te quedaste y gana confianza una lección a la vez.",
     "completedLessons": "Lecciones completadas",
@@ -195,6 +201,10 @@
     "featuredPathsBody": "Recorridos seleccionados para ayudarte a entender temas de salud específicos.",
     "viewAllPaths": "Ver todas"
   },
+  "meta": {
+    "siteTitle": "Health Made Clear - Entiende tu salud",
+    "siteDescription": "Educación en salud gratuita y accesible para todos. Aprende temas de salud en lenguaje sencillo."
+  },
   "hero": {
     "badge": "Educación de salud clara y humana",
     "title": "Entiende tu salud, paso a paso y con claridad",
@@ -209,7 +219,8 @@
     "guidedPaths": "Rutas guiadas",
     "printableTools": "Herramientas imprimibles",
     "glossaryDefs": "Glosario de términos",
-    "progressTracking": "Seguimiento de progreso"
+    "progressTracking": "Seguimiento de progreso",
+    "imageAlt": "Profesional de salud consultando con un paciente en un entorno clínico tranquilo"
   },
   "about": {
     "title": "Nuestra misión es la claridad.",
@@ -331,8 +342,20 @@
     "urgentCareBody": "Clínicas sin cita para problemas que requieren atención el mismo día pero no son mortales.",
     "emergency": "Sala de emergencias",
     "emergencyBody": "Dolor fuerte en el pecho, dificultad para respirar, signos de derrame cerebral, sangrado abundante u otros síntomas graves.",
-    "emergencyShort": "Llama al 911 si tienes una emergencia que ponga en peligro tu vida.",
-    "careOptionsHeading": "Opciones de Atención"
+    "emergencyBadge24": "Abierto 24/7",
+    "homeCareChecklist": "Resfriado leve|Fiebre baja|Cortes o raspaduras menores|Dolores musculares por ejercicio",
+    "primaryCareChecklist": "Chequeos anuales|Condiciones crónicas|Síntomas nuevos de varios días|Resurtido de recetas",
+    "urgentCareChecklist": "Esguinces o fracturas menores|Puntos en cortes pequeños|Fiebre moderada|Síntomas de infección urinaria",
+    "emergencyChecklist": "Dolor o presión en el pecho|Dificultad para respirar|Signos de derrame (FAST)|Sangrado severo o lesión en la cabeza",
+    "scenariosHeading": "Escenarios comunes",
+    "scenarioSoreThroatTitle": "Dolor de garganta por 2 días",
+    "scenarioSoreThroatBody": "Sin dificultad para respirar, puede tomar líquidos, fiebre leve — empiece con cuidado en casa o llame a su médico si empeora.",
+    "scenarioSoreThroatLevel": "Atención primaria si empeora",
+    "scenarioChestPainTitle": "Dolor en el pecho con falta de aire",
+    "scenarioChestPainBody": "Presión repentina en el pecho, dolor que se extiende al brazo o mandíbula, o dificultad para respirar — llame al 911 de inmediato.",
+    "scenarioChestPainLevel": "Emergencia — llame al 911",
+    "whenInDoubtTitle": "Cuando tenga dudas",
+    "whenInDoubtBody": "Si no está seguro de qué tan graves son los síntomas, llame a la línea de enfermería de su médico o vaya a atención urgente. Para síntomas que pongan en peligro la vida, llame al 911."
   },
   "sectionNav": {
     "learn": "Aprender",
@@ -369,14 +392,28 @@
     "scoreLabel": "Obtuviste {score}% ({correct} de {total} correctas)",
     "passed": "¡Aprobaste!",
     "tryAgain": "Sigue estudiando e inténtalo de nuevo.",
-    "retake": "Repetir cuestionario"
+    "retake": "Repetir cuestionario",
+    "noQuestions": "Este cuestionario aún no tiene preguntas. Vuelve más tarde o regresa a la lección."
+  },
+  "articles": {
+    "title": "Artículos de salud",
+    "description": "Lecturas breves sobre navegar el sistema de salud, atención preventiva e información médica.",
+    "searchArticles": "Buscar artículos…",
+    "noResults": "Ningún artículo coincide con tu búsqueda.",
+    "backToArticles": "Volver a artículos",
+    "lastReviewed": "Revisado {date}"
   },
   "search": {
     "openSearch": "Abrir búsqueda",
-    "searchDialog": "Buscar lecciones",
-    "placeholder": "Buscar lecciones…",
+    "searchDialog": "Buscar en el sitio",
+    "placeholder": "Buscar lecciones, artículos, glosario…",
     "close": "Cerrar búsqueda",
-    "noResults": "No se encontraron lecciones. Prueba con otro término."
+    "noResults": "No se encontraron resultados. Prueba con otro término.",
+    "typeLesson": "Lección",
+    "typeArticle": "Artículo",
+    "typeGlossary": "Glosario",
+    "typePath": "Ruta de aprendizaje",
+    "typeTool": "Herramienta"
   },
   "onboarding": {
     "welcome": "Bienvenido a Health Made Clear",

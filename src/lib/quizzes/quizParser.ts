@@ -6,6 +6,7 @@ import type { LessonId } from "@/types/content";
 import { LESSON_IDS } from "@/types/content";
 
 const OPTION_REGEX = /^([A-D])\)\s(.+)$/m;
+const QUESTION_HEADING_REGEX = /^(Question|Pregunta)\s+\d+/i;
 
 export function parseQuestions(markdown: string): QuizQuestion[] {
   const parts = markdown.split(/^## /m).filter(Boolean);
@@ -14,7 +15,7 @@ export function parseQuestions(markdown: string): QuizQuestion[] {
   for (const part of parts) {
     const newline = part.indexOf("\n");
     const heading = newline === -1 ? part.trim() : part.slice(0, newline).trim();
-    if (!heading.startsWith("Question")) continue;
+    if (!QUESTION_HEADING_REGEX.test(heading)) continue;
 
     const body = newline === -1 ? "" : part.slice(newline + 1).trim();
     const lines = body

@@ -1,4 +1,6 @@
 import { notFound } from "next/navigation";
+import { routing } from "@/i18n/routing";
+import { lessons } from "@/data/lessons";
 import { getLessonById } from "@/lib/localizedContent";
 import { getQuizByLessonId } from "@/lib/localizedQuiz";
 import { requireLocale } from "@/lib/locale";
@@ -7,6 +9,10 @@ import JsonLd from "@/components/JsonLd";
 import QuizClient from "./QuizClient";
 
 type Props = { params: { locale: string; slug: string } };
+
+export function generateStaticParams() {
+  return routing.locales.flatMap((locale) => lessons.map((lesson) => ({ locale, slug: lesson.id })));
+}
 
 export function generateMetadata({ params }: Props) {
   const locale = requireLocale(params.locale);

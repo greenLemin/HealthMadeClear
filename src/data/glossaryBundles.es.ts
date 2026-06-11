@@ -9,215 +9,260 @@ export const terms: GlossaryTerm[] = [
     term: "Presión arterial",
     category: "General",
     definition:
-      "La fuerza con la que la sangre empuja las paredes de tus arterias. Se mide con dos números: sistólica sobre diastólica.",
+      "## Qué es\n\nLa presión arterial es la fuerza con la que la sangre empuja las paredes de las arterias cuando el corazón bombea. Se registra con dos números: sistólica (presión al latir) sobre diastólica (presión entre latidos). En adultos, lecturas normales suelen rondar 120/80 mmHg, pero las metas varían según edad y condiciones de salud.\n\n## Por qué importa\n\nEntender este término le ayuda a seguir conversaciones con médicos, leer etiquetas y resultados, y tomar decisiones informadas sobre su salud.\n\n## Hable con su equipo de salud\n\nSi no está seguro de cómo esto le aplica, anote sus preguntas antes de las citas y pida explicaciones en lenguaje sencillo.",
     relatedTerms: ["hypertension", "hypotension"],
+    relatedLessons: ["living-with-hypertension", "blood-basics"],
   },
   {
     id: "hypertension",
     term: "Hipertensión",
     category: "Condiciones",
     definition:
-      "Presión arterial alta. Puede dañar los vasos sanguíneos y aumentar el riesgo de enfermedad cardíaca y derrame cerebral.",
+      '## Qué es\n\nLa hipertensión es el término médico para presión arterial alta — cuando la sangre empuja con demasiada fuerza las paredes arteriales con el tiempo. A menudo se llama "asesino silencioso" porque puede no dar síntomas mientras daña corazón, cerebro, riñones y ojos. El tratamiento incluye cambios de estilo de vida y a menudo medicamentos.\n\n## Por qué importa\n\nEntender este término le ayuda a seguir conversaciones con médicos, leer etiquetas y resultados, y tomar decisiones informadas sobre su salud.\n\n## Hable con su equipo de salud\n\nSi no está seguro de cómo esto le aplica, anote sus preguntas antes de las citas y pida explicaciones en lenguaje sencillo.',
     relatedTerms: ["blood-pressure"],
+    relatedLessons: ["living-with-hypertension", "blood-basics"],
   },
   {
     id: "hypotension",
     term: "Hipotensión",
     category: "Condiciones",
     definition:
-      "Presión arterial baja. Puede causar mareo, desmayo o cansancio y debe evaluarse si produce síntomas.",
+      "## Qué es\n\nLa hipotensión significa presión arterial anormalmente baja. Puede causar mareos, desmayos o fatiga, especialmente al levantarse rápido. Las causas incluyen deshidratación, ciertos medicamentos, problemas cardíacos o infección grave. La hipotensión severa repentina requiere atención médica urgente.\n\n## Por qué importa\n\nEntender este término le ayuda a seguir conversaciones con médicos, leer etiquetas y resultados, y tomar decisiones informadas sobre su salud.\n\n## Hable con su equipo de salud\n\nSi no está seguro de cómo esto le aplica, anote sus preguntas antes de las citas y pida explicaciones en lenguaje sencillo.",
     relatedTerms: ["blood-pressure"],
+    relatedLessons: ["when-to-call-911", "blood-basics"],
   },
   {
     id: "cholesterol",
     term: "Colesterol",
     category: "General",
     definition:
-      "Sustancia cerosa similar a la grasa que existe en las células del cuerpo. Demasiado colesterol puede acumularse en las arterias.",
+      '## Qué es\n\nEl colesterol es una sustancia cerosa similar a la grasa en la sangre. El cuerpo necesita algo de colesterol para formar células, pero demasiado LDL ("malo") puede acumularse en las arterias y aumentar el riesgo de infarto o derrame. El HDL ("bueno") ayuda a eliminar el exceso de colesterol de la sangre.\n\n## Por qué importa\n\nEntender este término le ayuda a seguir conversaciones con médicos, leer etiquetas y resultados, y tomar decisiones informadas sobre su salud.\n\n## Hable con su equipo de salud\n\nSi no está seguro de cómo esto le aplica, anote sus preguntas antes de las citas y pida explicaciones en lenguaje sencillo.',
     relatedTerms: ["ldl", "hdl", "triglycerides"],
+    relatedLessons: ["common-tests", "introduction-to-heart-disease"],
   },
   {
     id: "ldl",
     term: "Colesterol LDL",
     category: "Resultados de laboratorio",
     definition:
-      "Lipoproteína de baja densidad, conocida como colesterol malo. Puede acumularse en las arterias.",
+      '## Qué es\n\nEl LDL (lipoproteína de baja densidad) se llama a menudo colesterol "malo" porque niveles altos depositan colesterol en las paredes arteriales, formando placa. Esto estrecha arterias y aumenta riesgo de infarto y derrame. Dieta, ejercicio y medicamentos como estatinas pueden bajar el LDL.\n\n## Por qué importa\n\nEntender este término le ayuda a seguir conversaciones con médicos, leer etiquetas y resultados, y tomar decisiones informadas sobre su salud.\n\n## Hable con su equipo de salud\n\nSi no está seguro de cómo esto le aplica, anote sus preguntas antes de las citas y pida explicaciones en lenguaje sencillo.',
     relatedTerms: ["cholesterol", "hdl"],
+    relatedLessons: ["common-tests", "reading-nutrition-labels"],
   },
   {
     id: "hdl",
     term: "Colesterol HDL",
     category: "Resultados de laboratorio",
     definition:
-      "Lipoproteína de alta densidad, conocida como colesterol bueno. Ayuda a eliminar LDL de las arterias.",
+      '## Qué es\n\nEl HDL (lipoproteína de alta densidad) se llama a menudo colesterol "bueno" porque transporta el colesterol desde las arterias al hígado. Niveles más altos de HDL suelen asociarse con menor riesgo cardíaco. El ejercicio, no fumar y grasas saludables pueden ayudar a subir el HDL.\n\n## Por qué importa\n\nEntender este término le ayuda a seguir conversaciones con médicos, leer etiquetas y resultados, y tomar decisiones informadas sobre su salud.\n\n## Hable con su equipo de salud\n\nSi no está seguro de cómo esto le aplica, anote sus preguntas antes de las citas y pida explicaciones en lenguaje sencillo.',
     relatedTerms: ["cholesterol", "ldl"],
+    relatedLessons: ["common-tests", "reading-nutrition-labels"],
   },
   {
     id: "triglycerides",
     term: "Triglicéridos",
     category: "Resultados de laboratorio",
     definition:
-      "Tipo de grasa en la sangre que el cuerpo usa para obtener energía. Niveles altos aumentan el riesgo cardiovascular.",
+      "## Qué es\n\nLos triglicéridos son un tipo de grasa en sangre usada como reserva de energía. Triglicéridos altos — a menudo por exceso de azúcar, alcohol o carbohidratos refinados — aumentan riesgo cardíaco y de pancreatitis. Un perfil lipídico mide triglicéridos junto con colesterol.\n\n## Por qué importa\n\nEntender este término le ayuda a seguir conversaciones con médicos, leer etiquetas y resultados, y tomar decisiones informadas sobre su salud.\n\n## Hable con su equipo de salud\n\nSi no está seguro de cómo esto le aplica, anote sus preguntas antes de las citas y pida explicaciones en lenguaje sencillo.",
     relatedTerms: ["cholesterol"],
+    relatedLessons: ["common-tests", "reading-nutrition-labels"],
   },
   {
     id: "diabetes",
     term: "Diabetes",
     category: "Condiciones",
     definition:
-      "Enfermedad crónica que afecta cómo el cuerpo convierte los alimentos en energía. Puede causar niveles altos de azúcar en sangre.",
+      "## Qué es\n\nLa diabetes es una enfermedad crónica que afecta cómo el cuerpo convierte los alimentos en energía. Con diabetes, el cuerpo no produce suficiente insulina o no puede usarla bien, lo que causa azúcar alta en sangre. Con el tiempo, el azúcar alta puede dañar corazón, riñones, nervios y ojos si no se controla.\n\n## Por qué importa\n\nEntender este término le ayuda a seguir conversaciones con médicos, leer etiquetas y resultados, y tomar decisiones informadas sobre su salud.\n\n## Hable con su equipo de salud\n\nSi no está seguro de cómo esto le aplica, anote sus preguntas antes de las citas y pida explicaciones en lenguaje sencillo.",
     relatedTerms: ["blood-sugar", "insulin", "glucose"],
+    relatedLessons: ["understanding-type2-diabetes", "common-tests"],
   },
   {
     id: "blood-sugar",
     term: "Azúcar en sangre",
     category: "General",
     definition:
-      "También llamada glucosa en sangre. Es la principal fuente de energía del cuerpo y está controlada por la insulina.",
+      "## Qué es\n\nEl azúcar en sangre (glucosa) es la cantidad de azúcar en el torrente sanguíneo. El cuerpo usa la glucosa como energía, y la insulina ayuda a que entre en las células. El azúcar alta con el tiempo puede dañar nervios, riñones, ojos y vasos sanguíneos — característica de la diabetes.\n\n## Por qué importa\n\nEntender este término le ayuda a seguir conversaciones con médicos, leer etiquetas y resultados, y tomar decisiones informadas sobre su salud.\n\n## Hable con su equipo de salud\n\nSi no está seguro de cómo esto le aplica, anote sus preguntas antes de las citas y pida explicaciones en lenguaje sencillo.",
     relatedTerms: ["diabetes", "glucose", "insulin"],
+    relatedLessons: ["understanding-type2-diabetes", "common-tests"],
   },
   {
     id: "glucose",
     term: "Glucosa",
     category: "General",
-    definition: "Azúcar simple que sirve como fuente principal de energía para el cuerpo.",
+    definition:
+      "## Qué es\n\nLa glucosa es un azúcar simple y la principal fuente de energía del cuerpo a partir de los alimentos. Después de comer, la glucosa entra en la sangre y la insulina ayuda a las células a absorberla. La glucosa en ayunas y la A1C miden cómo el cuerpo controla el azúcar con el tiempo.\n\n## Por qué importa\n\nEntender este término le ayuda a seguir conversaciones con médicos, leer etiquetas y resultados, y tomar decisiones informadas sobre su salud.\n\n## Hable con su equipo de salud\n\nSi no está seguro de cómo esto le aplica, anote sus preguntas antes de las citas y pida explicaciones en lenguaje sencillo.",
     relatedTerms: ["blood-sugar", "diabetes"],
+    relatedLessons: ["understanding-type2-diabetes", "blood-basics"],
   },
   {
     id: "insulin",
     term: "Insulina",
     category: "General",
     definition:
-      "Hormona producida por el páncreas que ayuda a que la glucosa entre a las células para usarse como energía.",
+      "## Qué es\n\nLa insulina es una hormona del páncreas que ayuda a que la glucosa entre en las células como energía. En diabetes tipo 1 el cuerpo produce poca o ninguna insulina; en tipo 2 las células resisten sus efectos. Las personas con diabetes pueden necesitar insulina inyectable u otros medicamentos para controlar el azúcar.\n\n## Por qué importa\n\nEntender este término le ayuda a seguir conversaciones con médicos, leer etiquetas y resultados, y tomar decisiones informadas sobre su salud.\n\n## Hable con su equipo de salud\n\nSi no está seguro de cómo esto le aplica, anote sus preguntas antes de las citas y pida explicaciones en lenguaje sencillo.",
     relatedTerms: ["diabetes", "blood-sugar"],
+    relatedLessons: ["understanding-type2-diabetes", "blood-basics"],
   },
   {
     id: "chronic",
     term: "Crónico",
     category: "General",
-    definition: "Condición de salud que dura mucho tiempo y a menudo requiere manejo continuo.",
+    definition:
+      "## Qué es\n\nCrónico describe una condición que dura mucho tiempo — por lo general tres meses o más. Ejemplos: diabetes, hipertensión, asma y enfermedad cardíaca. Las condiciones crónicas suelen requerir tratamiento continuo, cambios de estilo de vida y monitoreo regular en lugar de una cura única.\n\n## Por qué importa\n\nEntender este término le ayuda a seguir conversaciones con médicos, leer etiquetas y resultados, y tomar decisiones informadas sobre su salud.\n\n## Hable con su equipo de salud\n\nSi no está seguro de cómo esto le aplica, anote sus preguntas antes de las citas y pida explicaciones en lenguaje sencillo.",
+    relatedLessons: ["living-with-hypertension", "asthma-basics", "introduction-to-heart-disease"],
   },
   {
     id: "acute",
     term: "Agudo",
     category: "General",
-    definition: "Condición de salud que aparece de repente y suele durar poco tiempo.",
+    definition:
+      "## Qué es\n\nAgudo significa de inicio repentino y a menudo de corta duración. Las enfermedades o lesiones agudas se desarrollan rápido y pueden requerir atención pronta — por ejemplo una fractura, faringitis estreptocócica o un ataque de pánico. Agudo es lo opuesto a crónico, que dura meses o años.\n\n## Por qué importa\n\nEntender este término le ayuda a seguir conversaciones con médicos, leer etiquetas y resultados, y tomar decisiones informadas sobre su salud.\n\n## Hable con su equipo de salud\n\nSi no está seguro de cómo esto le aplica, anote sus preguntas antes de las citas y pida explicaciones en lenguaje sencillo.",
+    relatedLessons: ["when-to-call-911", "building-first-aid-kit"],
   },
   {
     id: "symptom",
     term: "Síntoma",
     category: "General",
     definition:
-      "Problema físico o mental que siente una persona y que puede indicar una enfermedad o condición.",
+      "## Qué es\n\nUn síntoma es algo que usted siente o experimenta — dolor, fatiga, náuseas, ansiedad — que reporta al médico. Anotar cuándo empezaron, con qué frecuencia ocurren y qué los mejora o empeora ayuda al equipo de salud a encontrar causas y planear tratamiento.\n\n## Por qué importa\n\nEntender este término le ayuda a seguir conversaciones con médicos, leer etiquetas y resultados, y tomar decisiones informadas sobre su salud.\n\n## Hable con su equipo de salud\n\nSi no está seguro de cómo esto le aplica, anote sus preguntas antes de las citas y pida explicaciones en lenguaje sencillo.",
     relatedTerms: ["sign"],
+    relatedLessons: ["before-your-visit", "during-your-visit"],
   },
   {
     id: "sign",
     term: "Signo",
     category: "General",
     definition:
-      "Algo que un profesional de salud puede observar o medir durante un examen, como fiebre o presión alta.",
+      "## Qué es\n\nUn signo es un hallazgo objetivo que otros pueden observar o medir — como fiebre, erupción o presión arterial alta. Los signos difieren de los síntomas, que son lo que el paciente siente y reporta. Los médicos usan signos y síntomas para diagnosticar.\n\n## Por qué importa\n\nEntender este término le ayuda a seguir conversaciones con médicos, leer etiquetas y resultados, y tomar decisiones informadas sobre su salud.\n\n## Hable con su equipo de salud\n\nSi no está seguro de cómo esto le aplica, anote sus preguntas antes de las citas y pida explicaciones en lenguaje sencillo.",
     relatedTerms: ["symptom"],
+    relatedLessons: ["blood-basics", "when-to-worry"],
   },
   {
     id: "diagnosis",
     term: "Diagnóstico",
     category: "General",
     definition:
-      "Proceso de identificar una enfermedad o condición a partir de síntomas, historia clínica y resultados de pruebas.",
+      "## Qué es\n\nUn diagnóstico es la identificación de una enfermedad o condición según síntomas, exámenes y resultados de pruebas. Recibir un diagnóstico puede ser abrumador, pero es el punto de partida para tratamiento y planificación. Pregunte siempre a su médico qué significa el diagnóstico para su vida diaria y los siguientes pasos.\n\n## Por qué importa\n\nEntender este término le ayuda a seguir conversaciones con médicos, leer etiquetas y resultados, y tomar decisiones informadas sobre su salud.\n\n## Hable con su equipo de salud\n\nSi no está seguro de cómo esto le aplica, anote sus preguntas antes de las citas y pida explicaciones en lenguaje sencillo.",
+    relatedLessons: ["introduction-to-heart-disease", "understanding-type2-diabetes"],
   },
   {
     id: "prognosis",
     term: "Pronóstico",
     category: "General",
-    definition: "La evolución o resultado probable de una enfermedad o condición con el tiempo.",
+    definition:
+      "## Qué es\n\nEl pronóstico es la mejor estimación del médico sobre cómo probablemente evolucionará una enfermedad — incluyendo recuperación, estabilidad o complicaciones. El pronóstico no es una garantía; tratamiento, estilo de vida e investigación pueden cambiar resultados. Pregunte qué factores afectan su pronóstico personal.\n\n## Por qué importa\n\nEntender este término le ayuda a seguir conversaciones con médicos, leer etiquetas y resultados, y tomar decisiones informadas sobre su salud.\n\n## Hable con su equipo de salud\n\nSi no está seguro de cómo esto le aplica, anote sus preguntas antes de las citas y pida explicaciones en lenguaje sencillo.",
+    relatedLessons: ["understanding-depression", "introduction-to-heart-disease"],
   },
   {
     id: "side-effect",
     term: "Efecto secundario",
     category: "Medicamentos",
-    definition: "Efecto no deseado que puede aparecer al tomar un medicamento.",
+    definition:
+      "## Qué es\n\nUn efecto secundario es una reacción no deseada a un medicamento — de leve (boca seca) a grave (reacción alérgica). No todos los tienen, y muchos desaparecen al adaptarse el cuerpo. Reporte efectos molestos o graves a su médico; no suspenda medicamentos recetados sin orientación.\n\n## Por qué importa\n\nEntender este término le ayuda a seguir conversaciones con médicos, leer etiquetas y resultados, y tomar decisiones informadas sobre su salud.\n\n## Hable con su equipo de salud\n\nSi no está seguro de cómo esto le aplica, anote sus preguntas antes de las citas y pida explicaciones en lenguaje sencillo.",
+    relatedLessons: ["managing-side-effects", "asking-about-medications"],
   },
   {
     id: "dosage",
     term: "Dosis",
     category: "Medicamentos",
-    definition: "Cantidad de medicamento que debes tomar y con qué frecuencia.",
+    definition:
+      '## Qué es\n\nLa dosis es la cantidad de medicamento recetada y con qué frecuencia debe tomarla — por ejemplo "una tableta dos veces al día". Tomar la dosis correcta a la hora indicada es esencial para seguridad y eficacia. Nunca cambie la dosis sin hablar con su médico o farmacéutico.\n\n## Por qué importa\n\nEntender este término le ayuda a seguir conversaciones con médicos, leer etiquetas y resultados, y tomar decisiones informadas sobre su salud.\n\n## Hable con su equipo de salud\n\nSi no está seguro de cómo esto le aplica, anote sus preguntas antes de las citas y pida explicaciones en lenguaje sencillo.',
+    relatedLessons: ["understanding-prescription-labels", "asking-about-medications"],
   },
   {
     id: "generic-drug",
     term: "Medicamento genérico",
     category: "Medicamentos",
-    definition: "Medicamento con los mismos ingredientes activos que uno de marca, usualmente a menor costo.",
+    definition:
+      "## Qué es\n\nUn medicamento genérico contiene el mismo ingrediente activo que una marca y debe cumplir los mismos estándares de seguridad y eficacia. Los genéricos suelen costar menos porque no repiten costos de marketing y desarrollo. Pueden verse distintos pero actúan igual.\n\n## Por qué importa\n\nEntender este término le ayuda a seguir conversaciones con médicos, leer etiquetas y resultados, y tomar decisiones informadas sobre su salud.\n\n## Hable con su equipo de salud\n\nSi no está seguro de cómo esto le aplica, anote sus preguntas antes de las citas y pida explicaciones en lenguaje sencillo.",
+    relatedLessons: ["understanding-prescription-labels", "asking-about-medications"],
   },
   {
     id: "prescription",
     term: "Receta médica",
     category: "Medicamentos",
-    definition: "Orden escrita de un médico para recibir un medicamento o tratamiento.",
+    definition:
+      "## Qué es\n\nUna receta es una orden escrita o electrónica de un profesional autorizado para un medicamento, dosis e instrucciones específicas. Solo las farmacias dispensan medicamentos con receta. La etiqueta incluye su nombre, medicamento, cómo tomarlo, resurtidos y contacto de la farmacia.\n\n## Por qué importa\n\nEntender este término le ayuda a seguir conversaciones con médicos, leer etiquetas y resultados, y tomar decisiones informadas sobre su salud.\n\n## Hable con su equipo de salud\n\nSi no está seguro de cómo esto le aplica, anote sus preguntas antes de las citas y pida explicaciones en lenguaje sencillo.",
+    relatedLessons: ["understanding-prescription-labels", "asking-about-medications"],
   },
   {
     id: "over-the-counter",
     term: "De venta libre (OTC)",
     category: "Medicamentos",
     definition:
-      "Medicamentos que puedes comprar sin receta, aunque aún pueden tener riesgos e interacciones.",
+      "## Qué es\n\nLos medicamentos de venta libre (OTC) se compran sin receta — por ejemplo acetaminofén, ibuprofeno y antialérgicos. Aun así tienen riesgos e interacciones. Informe a su médico y farmacéutico sobre todos los productos OTC que usa, con frecuencia y dosis.\n\n## Por qué importa\n\nEntender este término le ayuda a seguir conversaciones con médicos, leer etiquetas y resultados, y tomar decisiones informadas sobre su salud.\n\n## Hable con su equipo de salud\n\nSi no está seguro de cómo esto le aplica, anote sus preguntas antes de las citas y pida explicaciones en lenguaje sencillo.",
+    relatedLessons: ["asking-about-medications", "understanding-prescription-labels"],
   },
   {
     id: "biopsy",
     term: "Biopsia",
     category: "Procedimientos",
-    definition: "Procedimiento en el que se extrae una pequeña muestra de tejido para examinarla.",
+    definition:
+      "## Qué es\n\nUna biopsia es un procedimiento en el que se extrae una pequeña muestra de tejido o células para examen en laboratorio. Los médicos usan biopsias para detectar cáncer, infección u otras enfermedades. Los resultados suelen tardar varios días o semanas según el tipo de prueba.\n\n## Por qué importa\n\nEntender este término le ayuda a seguir conversaciones con médicos, leer etiquetas y resultados, y tomar decisiones informadas sobre su salud.\n\n## Hable con su equipo de salud\n\nSi no está seguro de cómo esto le aplica, anote sus preguntas antes de las citas y pida explicaciones en lenguaje sencillo.",
+    relatedLessons: ["common-tests", "blood-basics"],
   },
   {
     id: "ct-scan",
-    term: "Tomografía computarizada",
+    term: "Tomografía computarizada (TC)",
     category: "Procedimientos",
     definition:
-      "Prueba de imagen que usa rayos X y una computadora para crear imágenes detalladas del cuerpo.",
+      "## Qué es\n\nUna tomografía computarizada (TC) usa rayos X y procesamiento por computadora para crear imágenes detalladas en cortes del cuerpo. Puede mostrar huesos, órganos y vasos sanguíneos. Los médicos usan TC para diagnosticar lesiones, tumores, infecciones y otros problemas internos.\n\n## Por qué importa\n\nEntender este término le ayuda a seguir conversaciones con médicos, leer etiquetas y resultados, y tomar decisiones informadas sobre su salud.\n\n## Hable con su equipo de salud\n\nSi no está seguro de cómo esto le aplica, anote sus preguntas antes de las citas y pida explicaciones en lenguaje sencillo.",
+    relatedLessons: ["common-tests", "blood-basics"],
   },
   {
     id: "mri",
-    term: "Resonancia magnética",
+    term: "Resonancia magnética (RM)",
     category: "Procedimientos",
-    definition: "Prueba que usa imanes y ondas de radio para crear imágenes detalladas del cuerpo.",
+    definition:
+      "## Qué es\n\nLa resonancia magnética (RM) usa imanes potentes y ondas de radio — no rayos X — para crear imágenes detalladas de tejidos blandos como cerebro, columna, articulaciones y órganos. Es útil para detectar tumores, lesiones y condiciones neurológicas. El estudio puede durar 30–60 minutos y es indoloro.\n\n## Por qué importa\n\nEntender este término le ayuda a seguir conversaciones con médicos, leer etiquetas y resultados, y tomar decisiones informadas sobre su salud.\n\n## Hable con su equipo de salud\n\nSi no está seguro de cómo esto le aplica, anote sus preguntas antes de las citas y pida explicaciones en lenguaje sencillo.",
+    relatedLessons: ["common-tests", "blood-basics"],
   },
   {
     id: "ultrasound",
     term: "Ultrasonido",
     category: "Procedimientos",
-    definition: "Prueba que usa ondas sonoras para crear imágenes del interior del cuerpo.",
+    definition:
+      "## Qué es\n\nEl ultrasonido usa ondas sonoras de alta frecuencia para crear imágenes de estructuras internas, como un feto en desarrollo, vesícula, corazón o vasos sanguíneos. No usa radiación. Se aplica gel en la piel y una sonda envía y recibe ondas para formar una imagen en vivo.\n\n## Por qué importa\n\nEntender este término le ayuda a seguir conversaciones con médicos, leer etiquetas y resultados, y tomar decisiones informadas sobre su salud.\n\n## Hable con su equipo de salud\n\nSi no está seguro de cómo esto le aplica, anote sus preguntas antes de las citas y pida explicaciones en lenguaje sencillo.",
+    relatedLessons: ["common-tests", "common-adult-screenings"],
   },
   {
     id: "inflammation",
     term: "Inflamación",
     category: "General",
     definition:
-      "Respuesta del cuerpo a una lesión o infección que puede causar enrojecimiento, hinchazón, calor o dolor.",
+      "## Qué es\n\nLa inflamación es la respuesta del cuerpo a lesión o infección — enrojecimiento, hinchazón, calor y dolor. La inflamación aguda ayuda a sanar. La inflamación crónica de meses puede contribuir a enfermedad cardíaca, artritis y otras condiciones. El estilo de vida y el tratamiento pueden reducir la inflamación crónica dañina.\n\n## Por qué importa\n\nEntender este término le ayuda a seguir conversaciones con médicos, leer etiquetas y resultados, y tomar decisiones informadas sobre su salud.\n\n## Hable con su equipo de salud\n\nSi no está seguro de cómo esto le aplica, anote sus preguntas antes de las citas y pida explicaciones en lenguaje sencillo.",
+    relatedLessons: ["introduction-to-heart-disease", "asthma-basics"],
   },
   {
     id: "immune-system",
-    term: "Sistema inmunitario",
+    term: "Sistema inmunológico",
     category: "General",
-    definition: "Sistema de defensa del cuerpo contra infecciones y enfermedades.",
+    definition:
+      "## Qué es\n\nEl sistema inmunológico es la red de defensa del cuerpo contra gérmenes, virus y células anormales. Incluye glóbulos blancos, anticuerpos y órganos como el bazo y ganglios linfáticos. Las vacunas entrenan al sistema inmune para reconocer amenazas específicas sin causar la enfermedad completa.\n\n## Por qué importa\n\nEntender este término le ayuda a seguir conversaciones con médicos, leer etiquetas y resultados, y tomar decisiones informadas sobre su salud.\n\n## Hable con su equipo de salud\n\nSi no está seguro de cómo esto le aplica, anote sus preguntas antes de las citas y pida explicaciones en lenguaje sencillo.",
+    relatedLessons: ["understanding-vaccines", "asthma-basics"],
   },
   {
     id: "metabolism",
     term: "Metabolismo",
     category: "General",
-    definition: "Procesos químicos del cuerpo que convierten alimentos y bebidas en energía.",
+    definition:
+      '## Qué es\n\nEl metabolismo es el conjunto de procesos químicos que convierten alimentos en energía y materiales para el cuerpo. La tasa metabólica basal es la energía en reposo. Edad, masa muscular, actividad y hormonas afectan el metabolismo. Un "metabolismo lento" rara vez es la única causa de aumento de peso.\n\n## Por qué importa\n\nEntender este término le ayuda a seguir conversaciones con médicos, leer etiquetas y resultados, y tomar decisiones informadas sobre su salud.\n\n## Hable con su equipo de salud\n\nSi no está seguro de cómo esto le aplica, anote sus preguntas antes de las citas y pida explicaciones en lenguaje sencillo.',
+    relatedLessons: ["reading-nutrition-labels", "building-balanced-plate"],
   },
   {
     id: "placebo",
     term: "Placebo",
-    category: "Investigación",
-    definition: "Sustancia sin ingredientes activos que se usa como comparación en estudios médicos.",
+    category: "General",
+    definition:
+      "## Qué es\n\nUn placebo es un tratamiento inactivo — como una pastilla de azúcar — usado en investigación para comparar con medicina real. Algunas personas mejoran con placebo por la respuesta mente-cuerpo (efecto placebo). En ensayos clínicos, los placebos ayudan a demostrar si un tratamiento funciona más allá de las expectativas.\n\n## Por qué importa\n\nEntender este término le ayuda a seguir conversaciones con médicos, leer etiquetas y resultados, y tomar decisiones informadas sobre su salud.\n\n## Hable con su equipo de salud\n\nSi no está seguro de cómo esto le aplica, anote sus preguntas antes de las citas y pida explicaciones en lenguaje sencillo.",
+    relatedLessons: ["understanding-vaccines", "asking-about-medications"],
   },
   {
     id: "clinical-trial",
     term: "Ensayo clínico",
-    category: "Investigación",
+    category: "General",
     definition:
-      "Estudio de investigación que prueba tratamientos, medicamentos o dispositivos médicos en personas.",
+      "## Qué es\n\nUn ensayo clínico es un estudio de investigación que prueba nuevos tratamientos, medicamentos o enfoques médicos en personas. Los ensayos siguen reglas estrictas de seguridad y consentimiento informado. Los participantes ayudan a avanzar la medicina pero pueden recibir placebo o atención estándar según el diseño del estudio.\n\n## Por qué importa\n\nEntender este término le ayuda a seguir conversaciones con médicos, leer etiquetas y resultados, y tomar decisiones informadas sobre su salud.\n\n## Hable con su equipo de salud\n\nSi no está seguro de cómo esto le aplica, anote sus preguntas antes de las citas y pida explicaciones en lenguaje sencillo.",
+    relatedLessons: ["understanding-vaccines", "common-adult-screenings"],
   },
 ] as const;
