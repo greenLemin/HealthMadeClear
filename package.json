@@ -48,7 +48,7 @@
   },
   "devDependencies": {
     "@netlify/plugin-nextjs": "^5.15.11",
-    "@next/bundle-analyzer": "^14.2.35",
+    "@next/bundle-analyzer": "^16.2.9",
     "@playwright/test": "^1.60.0",
     "@swc/helpers": "0.5.23",
     "@tailwindcss/typography": "^0.5.19",
