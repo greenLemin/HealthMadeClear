@@ -40,8 +40,17 @@ const withBundleAnalyzer = require("@next/bundle-analyzer")({
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  compiler: {
+    removeConsole: process.env.NODE_ENV === "production",
+  },
   images: {
     formats: ["image/avif", "image/webp"],
+    minimumCacheTTL: 86400,
+    // NOTE: If using external images (e.g. Supabase Storage for avatars),
+    // define remotePatterns here to allow optimization (e.g. hostname: "*.supabase.co").
+  },
+  experimental: {
+    optimizePackageImports: ["lucide-react"],
   },
   async headers() {
     return [

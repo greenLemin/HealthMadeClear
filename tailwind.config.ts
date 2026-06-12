@@ -2,6 +2,7 @@ import type { Config } from "tailwindcss";
 import typography from "@tailwindcss/typography";
 
 const config: Config = {
+  darkMode: ["class", '[data-theme="dark"]'],
   content: ["./src/components/**/*.{js,ts,jsx,tsx,mdx}", "./src/app/**/*.{js,ts,jsx,tsx,mdx}"],
   theme: {
     extend: {
@@ -56,6 +57,7 @@ const config: Config = {
       },
       fontFamily: {
         hyperlegible: ["var(--font-atkinson)", "sans-serif"],
+        sans: ["var(--font-atkinson)", "Atkinson Hyperlegible", "system-ui", "sans-serif"],
       },
       fontSize: {
         "headline-xl": ["40px", { lineHeight: "1.2", letterSpacing: "-0.01em", fontWeight: "700" }],
@@ -65,6 +67,7 @@ const config: Config = {
         "body-md": ["18px", { lineHeight: "1.6", fontWeight: "400" }],
         "label-lg": ["18px", { lineHeight: "1.4", fontWeight: "600" }],
         "label-md": ["16px", { lineHeight: "1.4", fontWeight: "600", letterSpacing: "0.02em" }],
+        "label-sm": ["12px", { lineHeight: "1.4", fontWeight: "600" }],
         "headline-lg-mobile": ["28px", { lineHeight: "1.25", fontWeight: "700" }],
       },
       borderRadius: {

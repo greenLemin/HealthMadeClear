@@ -1,18 +1,36 @@
+import Skeleton from "@/components/ui/Skeleton";
+import StatCardSkeleton from "@/components/dashboard/skeletons/StatCardSkeleton";
+import ActivityFeedSkeleton from "@/components/dashboard/skeletons/ActivityFeedSkeleton";
+
 export default function DashboardLoading() {
   return (
-    <div className="py-12 md:py-16">
-      <div className="mx-auto max-w-container px-4 md:px-6">
-        <div className="mb-8 h-8 w-56 animate-pulse rounded-lg bg-surface-container" />
-        <div className="mb-12 grid gap-6 md:grid-cols-3">
-          {[1, 2, 3].map((i) => (
-            <div key={i} className="h-32 animate-pulse rounded-lg bg-surface-container" />
-          ))}
+    <div className="space-y-10">
+      <section>
+        <Skeleton variant="text" width="180px" />
+        <Skeleton variant="heading" width="320px" />
+      </section>
+
+      <section className="grid grid-cols-2 gap-4 md:grid-cols-4">
+        {Array.from({ length: 4 }).map((_, i) => (
+          <StatCardSkeleton key={i} />
+        ))}
+      </section>
+
+      <section>
+        <Skeleton variant="heading" width="200px" />
+        <div className="mt-4 rounded-2xl border border-outline-variant bg-surface-container-lowest p-6 shadow-card">
+          <Skeleton variant="text" width="120px" />
+          <Skeleton variant="heading" width="60%" />
+          <div className="mt-4">
+            <Skeleton variant="text" />
+          </div>
         </div>
-        <div className="grid gap-6 lg:grid-cols-2">
-          <div className="h-72 animate-pulse rounded-lg bg-surface-container" />
-          <div className="h-72 animate-pulse rounded-lg bg-surface-container" />
-        </div>
-      </div>
+      </section>
+
+      <section>
+        <Skeleton variant="heading" width="200px" />
+        <ActivityFeedSkeleton />
+      </section>
     </div>
   );
 }

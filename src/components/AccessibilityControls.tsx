@@ -61,7 +61,7 @@ export default function AccessibilityControls() {
       <button
         ref={triggerRef}
         type="button"
-        className="flex min-h-11 items-center gap-2 rounded-full border border-outline-variant bg-surface px-4 py-2 text-sm font-semibold text-primary"
+        className="flex min-h-11 items-center gap-2 rounded-full border border-outline-variant bg-surface px-4 py-2 text-label-md font-semibold text-primary"
         onClick={() => setIsOpen((current) => !current)}
         aria-expanded={isOpen}
         aria-haspopup="dialog"
@@ -99,8 +99,8 @@ export default function AccessibilityControls() {
                   onKeyDown={(event) => handleArrowSelection(event, TEXT_SIZES, textSize, setTextSize)}
                   className={
                     textSize === value
-                      ? "rounded-lg bg-primary px-3 py-3 text-sm font-semibold text-on-primary"
-                      : "rounded-lg border border-outline-variant bg-surface-container-low px-3 py-3 text-sm font-semibold text-on-surface"
+                      ? "rounded-lg bg-primary px-3 py-3 text-label-md font-semibold text-on-primary"
+                      : "rounded-lg border border-outline-variant bg-surface-container-low px-3 py-3 text-label-md font-semibold text-on-surface"
                   }
                 >
                   {value === "standard" ? "A" : value === "large" ? "A+" : "A++"}
@@ -120,8 +120,8 @@ export default function AccessibilityControls() {
                 onKeyDown={(event) => handleArrowSelection(event, THEMES, theme, setTheme)}
                 className={
                   theme === "light"
-                    ? "flex items-center justify-center gap-2 rounded-lg bg-primary px-3 py-3 text-sm font-semibold text-on-primary"
-                    : "flex items-center justify-center gap-2 rounded-lg border border-outline-variant bg-surface-container-low px-3 py-3 text-sm font-semibold text-on-surface"
+                    ? "flex items-center justify-center gap-2 rounded-lg bg-primary px-3 py-3 text-label-md font-semibold text-on-primary"
+                    : "flex items-center justify-center gap-2 rounded-lg border border-outline-variant bg-surface-container-low px-3 py-3 text-label-md font-semibold text-on-surface"
                 }
               >
                 <Sun size={16} aria-hidden="true" />
@@ -135,8 +135,8 @@ export default function AccessibilityControls() {
                 onKeyDown={(event) => handleArrowSelection(event, THEMES, theme, setTheme)}
                 className={
                   theme === "dark"
-                    ? "flex items-center justify-center gap-2 rounded-lg bg-primary px-3 py-3 text-sm font-semibold text-on-primary"
-                    : "flex items-center justify-center gap-2 rounded-lg border border-outline-variant bg-surface-container-low px-3 py-3 text-sm font-semibold text-on-surface"
+                    ? "flex items-center justify-center gap-2 rounded-lg bg-primary px-3 py-3 text-label-md font-semibold text-on-primary"
+                    : "flex items-center justify-center gap-2 rounded-lg border border-outline-variant bg-surface-container-low px-3 py-3 text-label-md font-semibold text-on-surface"
                 }
               >
                 <Moon size={16} aria-hidden="true" />
@@ -148,7 +148,7 @@ export default function AccessibilityControls() {
           <div className="flex items-center justify-between rounded-lg bg-surface-container-low px-4 py-4">
             <div id="simple-mode-label">
               <div className="text-label-md text-on-surface">{t("simpleMode")}</div>
-              <div className="text-sm text-on-surface-variant">{t("simpleModeDescription")}</div>
+              <div className="text-label-md text-on-surface-variant">{t("simpleModeDescription")}</div>
             </div>
             <button
               type="button"
@@ -157,8 +157,8 @@ export default function AccessibilityControls() {
               onClick={() => setSimpleMode(!simpleMode)}
               className={
                 simpleMode
-                  ? "rounded-full bg-primary px-4 py-2 text-sm font-semibold text-on-primary"
-                  : "rounded-full border border-outline-variant px-4 py-2 text-sm font-semibold text-on-surface"
+                  ? "rounded-full bg-primary px-4 py-2 text-label-md font-semibold text-on-primary"
+                  : "rounded-full border border-outline-variant px-4 py-2 text-label-md font-semibold text-on-surface"
               }
             >
               {simpleMode ? t("on") : t("off")}

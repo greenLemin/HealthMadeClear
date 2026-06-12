@@ -79,8 +79,8 @@ export default function GlossaryClient({ terms: glossaryTerms }: GlossaryClientP
                 aria-pressed={activeLetter === letter}
                 className={
                   activeLetter === letter
-                    ? "flex h-10 min-w-10 items-center justify-center rounded-lg bg-primary px-3 text-sm font-semibold text-on-primary"
-                    : "flex h-10 min-w-10 items-center justify-center rounded-lg bg-surface-container px-3 text-sm font-semibold text-on-surface-variant"
+                    ? "flex h-10 min-w-10 items-center justify-center rounded-lg bg-primary px-3 text-label-md font-semibold text-on-primary"
+                    : "flex h-10 min-w-10 items-center justify-center rounded-lg bg-surface-container px-3 text-label-md font-semibold text-on-surface-variant"
                 }
               >
                 {letter === "All" ? allLabel : letter}
@@ -89,7 +89,11 @@ export default function GlossaryClient({ terms: glossaryTerms }: GlossaryClientP
           </div>
         ) : null}
 
-        <div id="glossary-results-count" className="mb-4 text-sm text-on-surface-variant" aria-live="polite">
+        <div
+          id="glossary-results-count"
+          className="mb-4 text-label-md text-on-surface-variant"
+          aria-live="polite"
+        >
           {filteredTerms.length > 0
             ? `${filteredTerms.length} ${tCommon("termsFound")}`
             : tCommon("noTermsFound")}
@@ -107,7 +111,7 @@ export default function GlossaryClient({ terms: glossaryTerms }: GlossaryClientP
               <div className="border-t border-outline-variant pt-4">
                 {term.relatedLessons?.length ? (
                   <div className="mb-4">
-                    <div className="mb-2 text-xs font-semibold uppercase tracking-wide text-on-surface-variant">
+                    <div className="mb-2 text-label-md font-semibold uppercase tracking-wide text-on-surface-variant">
                       {t("seenIn")}
                     </div>
                     <div className="flex flex-col gap-1">
@@ -118,7 +122,7 @@ export default function GlossaryClient({ terms: glossaryTerms }: GlossaryClientP
                           <Link
                             key={lessonId}
                             href={`/learn/${lessonId}`}
-                            className="text-sm font-semibold text-primary hover:underline"
+                            className="text-label-md font-semibold text-primary hover:underline"
                           >
                             {lesson.title}
                           </Link>
@@ -127,12 +131,12 @@ export default function GlossaryClient({ terms: glossaryTerms }: GlossaryClientP
                     </div>
                   </div>
                 ) : null}
-                <div className="mb-2 text-sm font-semibold text-primary">
+                <div className="mb-2 text-label-md font-semibold text-primary">
                   {tCommon("category")}: {term.category}
                 </div>
                 {term.relatedTerms?.length ? (
                   <div>
-                    <div className="mb-2 text-xs font-semibold uppercase tracking-wide text-on-surface-variant">
+                    <div className="mb-2 text-label-md font-semibold uppercase tracking-wide text-on-surface-variant">
                       {tCommon("relatedTerms")}
                     </div>
                     <div className="flex flex-wrap gap-2">
@@ -140,7 +144,7 @@ export default function GlossaryClient({ terms: glossaryTerms }: GlossaryClientP
                         <Link
                           key={related}
                           href={`/glossary/${related}`}
-                          className="rounded-full bg-surface-container px-3 py-1 text-xs font-semibold text-primary hover:bg-secondary-container"
+                          className="rounded-full bg-surface-container px-3 py-1 text-label-md font-semibold text-primary hover:bg-secondary-container"
                         >
                           {getGlossaryLabelFromBundle(related, locale)}
                         </Link>

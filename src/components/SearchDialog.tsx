@@ -109,12 +109,12 @@ export default function SearchDialog() {
       <button
         ref={triggerRef}
         onClick={() => setIsOpen(true)}
-        className="flex min-h-11 items-center gap-3 rounded-lg border border-outline-variant bg-surface-container-lowest px-3 py-2 text-sm text-on-surface-variant transition-colors hover:bg-surface-container hover:text-on-surface md:w-56"
+        className="flex min-h-11 items-center gap-3 rounded-lg border border-outline-variant bg-surface-container-lowest px-3 py-2 text-label-md text-on-surface-variant transition-colors hover:bg-surface-container hover:text-on-surface md:w-56"
         aria-label={t("openSearch")}
       >
         <Search size={16} />
         <span className="hidden md:inline">{t("placeholder")}</span>
-        <kbd className="ml-auto hidden rounded border border-outline-variant bg-surface px-1.5 py-0.5 text-xs tracking-wider text-on-surface-variant md:inline">
+        <kbd className="ml-auto hidden rounded border border-outline-variant bg-surface px-1.5 py-0.5 text-label-md tracking-wider text-on-surface-variant md:inline">
           ⌘K
         </kbd>
       </button>
@@ -137,6 +137,7 @@ export default function SearchDialog() {
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder={t("placeholder")}
+                aria-label={t("placeholder")}
                 className="flex-1 border-0 bg-transparent text-body-md text-on-surface outline-none placeholder:text-on-surface-variant"
                 autoComplete="off"
               />
@@ -166,14 +167,14 @@ export default function SearchDialog() {
                           <div className="text-body-md font-semibold text-on-surface">
                             {highlightMatches(entry.title, query)}
                           </div>
-                          <div className="mt-0.5 truncate text-sm text-on-surface-variant">
+                          <div className="mt-0.5 truncate text-label-md text-on-surface-variant">
                             {highlightMatches(entry.description, query)}
                           </div>
                           <div className="mt-1 flex flex-wrap gap-1">
-                            <span className="inline-block rounded-full bg-primary-container px-2 py-0.5 text-xs text-on-primary-container">
+                            <span className="inline-block rounded-full bg-primary-container px-2 py-0.5 text-label-md text-on-primary-container">
                               {typeLabel(entry.type)}
                             </span>
-                            <span className="inline-block rounded-full bg-surface-container px-2 py-0.5 text-xs text-on-surface-variant">
+                            <span className="inline-block rounded-full bg-surface-container px-2 py-0.5 text-label-md text-on-surface-variant">
                               {highlightMatches(entry.category, query)}
                             </span>
                           </div>

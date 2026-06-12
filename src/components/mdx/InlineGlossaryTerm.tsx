@@ -68,10 +68,12 @@ function Popover({
       }}
     >
       <span className="mb-1 block text-label-md font-bold text-primary">{term.term}</span>
-      <span className="mb-3 block text-sm leading-relaxed text-on-surface-variant">{term.definition}</span>
+      <span className="mb-3 block text-label-md leading-relaxed text-on-surface-variant">
+        {term.definition}
+      </span>
       <Link
         href={`/glossary/${term.id}`}
-        className="inline-flex text-xs font-semibold text-primary hover:underline"
+        className="inline-flex text-label-md font-semibold text-primary hover:underline"
         onClick={onClose}
       >
         {t("viewTerm")} &rarr;

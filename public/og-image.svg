@@ -1,6 +1,36 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="Health Made Clear">
-  <rect width="1200" height="630" fill="#0B4F6C"/>
-  <rect x="80" y="80" width="1040" height="470" rx="32" fill="#F8FAFC"/>
-  <text x="120" y="280" font-family="system-ui, sans-serif" font-size="64" font-weight="700" fill="#0B4F6C">Health Made Clear</text>
-  <text x="120" y="360" font-family="system-ui, sans-serif" font-size="36" fill="#334155">Understand your health in plain language</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="Health Made Clear — Health Education for Everyone">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&amp;display=swap');
+      .title { font-family: 'Atkinson Hyperlegible', system-ui, sans-serif; font-weight: 700; fill: #FFFFFF; }
+      .tagline { font-family: 'Atkinson Hyperlegible', system-ui, sans-serif; font-weight: 400; fill: rgba(255,255,255,0.85); }
+      .wordmark { font-family: 'Atkinson Hyperlegible', system-ui, sans-serif; font-weight: 700; fill: rgba(255,255,255,0.9); }
+    </style>
+  </defs>
+  <!-- Deep Teal background -->
+  <rect width="1200" height="630" fill="#004349"/>
+  <!-- Decorative subtle grid pattern -->
+  <g opacity="0.04">
+    <line x1="0" y1="0" x2="1200" y2="0" stroke="#FFFFFF" stroke-width="1"/>
+    <line x1="0" y1="90" x2="1200" y2="90" stroke="#FFFFFF" stroke-width="1"/>
+    <line x1="0" y1="180" x2="1200" y2="180" stroke="#FFFFFF" stroke-width="1"/>
+    <line x1="0" y1="270" x2="1200" y2="270" stroke="#FFFFFF" stroke-width="1"/>
+    <line x1="0" y1="360" x2="1200" y2="360" stroke="#FFFFFF" stroke-width="1"/>
+    <line x1="0" y1="450" x2="1200" y2="450" stroke="#FFFFFF" stroke-width="1"/>
+    <line x1="0" y1="540" x2="1200" y2="540" stroke="#FFFFFF" stroke-width="1"/>
+    <line x1="0" y1="630" x2="1200" y2="630" stroke="#FFFFFF" stroke-width="1"/>
+  </g>
+  <!-- Decorative accent circle -->
+  <circle cx="1050" cy="100" r="200" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="40"/>
+  <circle cx="1100" cy="550" r="140" fill="none" stroke="rgba(255,255,255,0.02)" stroke-width="30"/>
+  <!-- Logo mark -->
+  <rect x="80" y="72" width="60" height="60" rx="16" fill="rgba(255,255,255,0.12)"/>
+  <text x="110" y="114" font-size="32" text-anchor="middle" class="title">H</text>
+  <!-- Wordmark -->
+  <text x="160" y="114" font-size="36" class="wordmark">Health Made Clear</text>
+  <!-- Title -->
+  <text x="80" y="340" font-size="72" class="title">Health Education</text>
+  <text x="80" y="430" font-size="72" class="title">for Everyone</text>
+  <!-- Tagline -->
+  <text x="80" y="510" font-size="28" class="tagline">Free, plain-language health education — no jargon required.</text>
 </svg>

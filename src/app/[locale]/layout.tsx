@@ -6,8 +6,10 @@ import { NextIntlClientProvider, hasLocale } from "next-intl";
 import { getMessages, getTranslations, setRequestLocale } from "next-intl/server";
 import { atkinson } from "@/app/fonts";
 import AppProviders from "@/components/AppProviders";
+import AuthProvider from "@/components/providers/AuthProvider";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
+import NetworkStatusBanner from "@/components/ui/NetworkStatusBanner";
 import ScrollToTop from "@/components/ScrollToTop";
 import { routing } from "@/i18n/routing";
 import type { Locale } from "@/lib/i18n";
@@ -33,6 +35,17 @@ export async function generateMetadata({ params }: { params: { locale: string } 
       template: "%s | Health Made Clear",
     },
     description: t("siteDescription"),
+    keywords: [
+      "health education",
+      "patient education",
+      "health literacy",
+      "medications explained",
+      "understand your health",
+      "medical terms explained",
+      "plain language health",
+    ],
+    authors: [{ name: "Health Made Clear" }],
+    creator: "Health Made Clear",
     alternates: {
       canonical: `${siteUrl}/${locale}`,
       languages: {
@@ -46,15 +59,20 @@ export async function generateMetadata({ params }: { params: { locale: string } 
       locale: locale === "es" ? "es_ES" : "en_US",
       url: `${siteUrl}/${locale}`,
       siteName: "Health Made Clear",
-      title: "Health Made Clear",
-      description: "Free, accessible health education in plain language.",
-      images: [{ url: "/og-image.svg", width: 1200, height: 630, alt: "Health Made Clear" }],
+      title: t("siteTitle"),
+      description: t("siteDescription"),
+      images: [{ url: "/og-default.png", width: 1200, height: 630, alt: "Health Made Clear" }],
     },
     twitter: {
       card: "summary_large_image",
-      title: "Health Made Clear",
-      description: "Free, accessible health education in plain language.",
-      images: ["/og-image.svg"],
+      title: t("siteTitle"),
+      description: t("siteDescription"),
+      images: ["/og-default.png"],
+    },
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: { index: true, follow: true, "max-image-preview": "large" },
     },
     icons: {
       icon: "/favicon.svg",
@@ -90,14 +108,17 @@ export default async function LocaleLayout({
       <body className="min-h-screen bg-surface font-hyperlegible">
         <NextIntlClientProvider locale={locale} messages={messages}>
           <AppProviders locale={locale}>
-            <div className="min-h-screen bg-surface text-on-surface">
-              <Header />
-              <main id="main-content" tabIndex={-1}>
-                {children}
-              </main>
-              <ScrollToTop />
-              <Footer />
-            </div>
+            <AuthProvider>
+              <NetworkStatusBanner />
+              <div className="min-h-screen bg-surface text-on-surface">
+                <Header />
+                <main id="main-content" tabIndex={-1}>
+                  {children}
+                </main>
+                <ScrollToTop />
+                <Footer />
+              </div>
+            </AuthProvider>
           </AppProviders>
         </NextIntlClientProvider>
       </body>

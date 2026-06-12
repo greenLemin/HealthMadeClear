@@ -1,3 +1,4 @@
+import dynamic from "next/dynamic";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import { lessons } from "@/data/lessons";
@@ -6,7 +7,12 @@ import { getQuizByLessonId } from "@/lib/localizedQuiz";
 import { requireLocale } from "@/lib/locale";
 import { getSiteUrl } from "@/lib/site";
 import JsonLd from "@/components/JsonLd";
-import QuizClient from "./QuizClient";
+import Skeleton from "@/components/ui/Skeleton";
+
+const QuizClient = dynamic(() => import("./QuizClient"), {
+  loading: () => <Skeleton variant="card" height="400px" />,
+  ssr: false,
+});
 
 type Props = { params: { locale: string; slug: string } };
 

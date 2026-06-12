@@ -1,11 +1,13 @@
 "use client";
 
-import { ArrowLeft } from "lucide-react";
+import { useCallback } from "react";
+import { ArrowLeft, Link2, Share2 } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import MedicalDisclaimer from "@/components/MedicalDisclaimer";
 import MarkdownRenderer from "@/components/mdx/MarkdownRenderer";
 import Callout from "@/components/Callout";
 import { useAppState } from "@/components/AppProviders";
+import { useToast } from "@/components/ui/ToastProvider";
 import { getGlossaryTerms } from "@/lib/localizedContent";
 import { useTranslations } from "next-intl";
 import type { Article } from "@/types/article";
@@ -13,19 +15,41 @@ import type { Article } from "@/types/article";
 export default function ArticlePageClient({ article }: { article: Article }) {
   const { locale } = useAppState();
   const t = useTranslations("articles");
+  const tCommon = useTranslations("common");
   const glossaryTerms = getGlossaryTerms(locale);
+  const { showToast } = useToast();
+  const url = typeof window !== "undefined" ? window.location.href : "";
+
+  const handleCopyLink = useCallback(async () => {
+    try {
+      await navigator.clipboard.writeText(url);
+      showToast("success", "Link copied to clipboard");
+    } catch {
+      showToast("error", "Could not copy link");
+    }
+  }, [url, showToast]);
+
+  const handleShareTwitter = useCallback(() => {
+    const text = encodeURIComponent(`${article.title} — Health Made Clear`);
+    const shareUrl = encodeURIComponent(url);
+    window.open(
+      `https://twitter.com/intent/tweet?text=${text}&url=${shareUrl}`,
+      "_blank",
+      "noopener,noreferrer"
+    );
+  }, [article.title, url]);
 
   return (
     <div className="py-12 md:py-16">
       <div className="max-w-container mx-auto px-4 md:px-6">
         <Link
           href="/articles"
-          className="no-print mb-6 inline-flex items-center gap-2 text-sm font-semibold text-primary"
+          className="no-print mb-6 inline-flex items-center gap-2 text-label-md font-semibold text-primary"
         >
           <ArrowLeft size={18} />
           {t("backToArticles")}
         </Link>
-        <div className="mb-4 flex flex-wrap gap-3 text-sm text-on-surface-variant">
+        <div className="mb-4 flex flex-wrap gap-3 text-label-md text-on-surface-variant">
           <span className="rounded-full bg-surface-container px-3 py-1">{article.category}</span>
           <span className="rounded-full bg-surface-container px-3 py-1">{article.readingTime}</span>
           {article.lastReviewed ? (
@@ -50,6 +74,28 @@ export default function ArticlePageClient({ article }: { article: Article }) {
             </section>
           ))}
         </article>
+
+        <div className="no-print mt-8 flex items-center gap-4 border-t border-outline-variant pt-8">
+          <span className="text-label-md font-semibold text-on-surface-variant">{t("share")}:</span>
+          <button
+            type="button"
+            onClick={handleCopyLink}
+            className="inline-flex items-center gap-2 rounded-lg border border-outline-variant bg-surface px-4 py-2 text-label-md text-on-surface transition-colors hover:bg-surface-container"
+            aria-label="Copy link to clipboard"
+          >
+            <Link2 size={16} />
+            {tCommon("copyLink")}
+          </button>
+          <button
+            type="button"
+            onClick={handleShareTwitter}
+            className="inline-flex items-center gap-2 rounded-lg border border-outline-variant bg-surface px-4 py-2 text-label-md text-on-surface transition-colors hover:bg-surface-container"
+            aria-label="Share on X"
+          >
+            <Share2 size={16} />
+            {t("shareOnX")}
+          </button>
+        </div>
 
         <div className="mt-10">
           <MedicalDisclaimer />

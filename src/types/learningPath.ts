@@ -8,6 +8,10 @@ export interface LearningPath {
   duration: string;
   level: "beginner" | "intermediate" | "advanced";
   icon: string;
+  category?: string;
+  estimatedHours?: number;
+  learningObjectives?: string[];
+  coverImageAlt?: string;
   content?: {
     sections: {
       title: string;

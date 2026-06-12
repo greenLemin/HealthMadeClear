@@ -15,7 +15,7 @@ export function loadLessonsForLocale(locale: Locale): Promise<LessonListItem[]> 
   return locale === "es"
     ? import("@/data/lessonBundles.es").then((mod) =>
         mod.lessons.map(
-          ({ id, title, description, category, categoryId, duration, level, image, imageAlt }) => ({
+          ({
             id,
             title,
             description,
@@ -25,12 +25,26 @@ export function loadLessonsForLocale(locale: Locale): Promise<LessonListItem[]> 
             level,
             image,
             imageAlt,
+            estimatedMinutes,
+            wordCount,
+          }) => ({
+            id,
+            title,
+            description,
+            category,
+            categoryId,
+            duration,
+            level,
+            image,
+            imageAlt,
+            estimatedMinutes,
+            wordCount,
           })
         )
       )
     : import("@/data/lessonBundles.en").then((mod) =>
         mod.lessons.map(
-          ({ id, title, description, category, categoryId, duration, level, image, imageAlt }) => ({
+          ({
             id,
             title,
             description,
@@ -40,6 +54,20 @@ export function loadLessonsForLocale(locale: Locale): Promise<LessonListItem[]> 
             level,
             image,
             imageAlt,
+            estimatedMinutes,
+            wordCount,
+          }) => ({
+            id,
+            title,
+            description,
+            category,
+            categoryId,
+            duration,
+            level,
+            image,
+            imageAlt,
+            estimatedMinutes,
+            wordCount,
           })
         )
       );

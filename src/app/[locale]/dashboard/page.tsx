@@ -1,23 +1,53 @@
 import { getTranslations } from "next-intl/server";
 import { requireLocale } from "@/lib/locale";
-import { getAllLessons } from "@/lib/lessons/loadLessons";
-import { getAllLearningPaths } from "@/lib/paths/loadPaths";
-import { toLessonListItems } from "@/lib/lessonListItem";
+import { requireAuth } from "@/lib/auth/requireAuth";
+import { createClient } from "@/lib/supabase/server";
+import {
+  getUserProgressSummary,
+  getUserLearningPaths,
+  getRecentActivity,
+  getUserAchievements,
+  getRecommendedNextLesson,
+} from "@/lib/dashboard";
 import DashboardClient from "./DashboardClient";
+
+export const dynamic = "force-dynamic";
 
 export async function generateMetadata({ params }: { params: { locale: string } }) {
   const t = await getTranslations({ locale: params.locale, namespace: "dashboard" });
   return {
     title: t("title"),
     description: t("description"),
+    robots: { index: false },
   };
 }
 
 type Props = { params: { locale: string } };
 
-export default function Dashboard({ params }: Props) {
+export default async function Dashboard({ params }: Props) {
   const locale = requireLocale(params.locale);
-  const lessons = toLessonListItems(getAllLessons(locale));
-  const learningPaths = getAllLearningPaths(locale);
-  return <DashboardClient lessons={lessons} learningPaths={learningPaths} />;
+  const user = await requireAuth(locale, "/dashboard");
+  const supabase = await createClient();
+
+  const [summary, learningPaths, recentActivity, achievements, recommendedNext] = await Promise.all([
+    getUserProgressSummary(supabase, user.id, locale),
+    getUserLearningPaths(supabase, user.id, locale),
+    getRecentActivity(supabase, user.id, locale),
+    getUserAchievements(supabase, user.id),
+    getRecommendedNextLesson(supabase, user.id, locale),
+  ]);
+
+  const displayName = user.user_metadata?.display_name ?? user.email?.split("@")[0] ?? "User";
+
+  return (
+    <DashboardClient
+      summary={summary}
+      learningPaths={learningPaths}
+      recentActivity={recentActivity}
+      achievements={achievements}
+      recommendedNext={recommendedNext}
+      displayName={displayName}
+      locale={locale}
+    />
+  );
 }

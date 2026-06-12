@@ -46,24 +46,24 @@ export default function LearningPathsClient({
               <section
                 key={path.id}
                 id={path.id}
-                className="scroll-mt-24 rounded-[28px] border border-outline-variant bg-surface p-6 shadow-[0_18px_36px_rgba(15,23,42,0.06)]"
+                className="scroll-mt-24 rounded-xl border border-outline-variant bg-surface p-6 shadow-elevation-2"
               >
                 <div className="mb-5 flex flex-wrap items-center gap-3">
-                  <div className="inline-flex rounded-full bg-primary px-4 py-2 text-sm font-semibold text-on-primary">
+                  <div className="inline-flex rounded-full bg-primary px-4 py-2 text-label-md font-semibold text-on-primary">
                     {isStarted ? t("resumeJourney") : t("goodPlaceToStart")}
                   </div>
-                  <div className="inline-flex items-center gap-2 text-sm text-on-surface-variant">
+                  <div className="inline-flex items-center gap-2 text-label-md text-on-surface-variant">
                     <Clock size={16} />
                     {path.duration}
                   </div>
-                  <div className="inline-flex rounded-full bg-surface-container px-3 py-1 text-xs font-semibold uppercase tracking-[0.08em] text-on-surface-variant">
+                  <div className="inline-flex rounded-full bg-surface-container px-3 py-1 text-label-md font-semibold uppercase tracking-[0.08em] text-on-surface-variant">
                     {formatLevel(path.level, locale)}
                   </div>
                 </div>
 
                 <div className="grid gap-6 lg:grid-cols-[1.2fr_0.8fr] lg:items-start">
                   <div>
-                    <div className="mb-3 text-4xl" aria-hidden="true">
+                    <div className="mb-3 text-headline-xl" aria-hidden="true">
                       {path.icon}
                     </div>
                     <h2 className="mb-3 text-headline-lg text-primary">{path.title}</h2>
@@ -79,7 +79,7 @@ export default function LearningPathsClient({
                         ))}
                       </div>
                     ))}
-                    <div className="mb-3 flex items-center justify-between text-sm font-semibold text-on-surface-variant">
+                    <div className="mb-3 flex items-center justify-between text-label-md font-semibold text-on-surface-variant">
                       <span>
                         {t("lesson")}{" "}
                         {Math.min(progress.completedCount + 1, Math.max(progress.totalCount, 1))}{" "}
@@ -100,7 +100,9 @@ export default function LearningPathsClient({
                       <div className="progress-fill" style={{ width: `${progress.percentage}%` }} />
                     </div>
                     <div className="rounded-lg border border-outline-variant bg-surface-container-low p-4">
-                      <div className="mb-1 text-sm font-semibold text-on-surface-variant">{t("upNext")}</div>
+                      <div className="mb-1 text-label-md font-semibold text-on-surface-variant">
+                        {t("upNext")}
+                      </div>
                       <div className="text-label-lg text-primary">{nextLesson?.title}</div>
                     </div>
                   </div>
@@ -120,9 +122,9 @@ export default function LearningPathsClient({
                         >
                           <div>
                             <div className="text-label-md text-on-surface">{lesson.title}</div>
-                            <div className="text-sm text-on-surface-variant">{lesson.duration}</div>
+                            <div className="text-label-md text-on-surface-variant">{lesson.duration}</div>
                           </div>
-                          <div className="text-sm font-semibold text-primary">
+                          <div className="text-label-md font-semibold text-primary">
                             {completedLessons.includes(lesson.id) ? t("done") : t("ready")}
                           </div>
                         </Link>

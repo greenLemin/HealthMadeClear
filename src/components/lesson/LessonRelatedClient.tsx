@@ -30,7 +30,7 @@ export default function LessonRelatedClient({
           <Link key={item.id} href={`/learn/${item.id}`} className="card-hover">
             <h3 className="mb-3 text-headline-md text-primary">{item.title}</h3>
             <p className="mb-4 text-body-md text-on-surface-variant">{item.description}</p>
-            <span className="text-sm font-semibold text-primary">{tCommon("readLesson")}</span>
+            <span className="text-label-md font-semibold text-primary">{tCommon("readLesson")}</span>
           </Link>
         ))}
       </div>

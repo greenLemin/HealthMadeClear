@@ -1,0 +1,33 @@
+"use client";
+
+import AchievementCard from "@/components/dashboard/AchievementCard";
+import type { AchievementItem } from "@/components/dashboard/AchievementCard";
+
+type AchievementsClientProps = {
+  achievements: AchievementItem[];
+  earnedCount: number;
+  totalCount: number;
+};
+
+export default function AchievementsClient({
+  achievements,
+  earnedCount,
+  totalCount,
+}: AchievementsClientProps) {
+  return (
+    <div className="space-y-8">
+      <div>
+        <h1 className="text-headline-lg text-primary">Achievements</h1>
+        <p className="mt-1 text-body-md text-on-surface-variant">
+          {earnedCount} of {totalCount} earned
+        </p>
+      </div>
+
+      <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
+        {achievements.map((achievement) => (
+          <AchievementCard key={achievement.id} achievement={achievement} />
+        ))}
+      </div>
+    </div>
+  );
+}

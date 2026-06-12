@@ -34,7 +34,7 @@ export default function LanguageToggle() {
       role="radiogroup"
       aria-label={t("language")}
     >
-      <div className="hidden items-center gap-2 pl-2 text-xs font-semibold uppercase tracking-[0.08em] text-on-surface-variant sm:flex">
+      <div className="hidden items-center gap-2 pl-2 text-label-md font-semibold uppercase tracking-[0.08em] text-on-surface-variant sm:flex">
         <Languages size={14} aria-hidden="true" />
         {t("language")}
       </div>
@@ -48,8 +48,8 @@ export default function LanguageToggle() {
         onKeyDown={(event) => handleKeyDown(event, "en")}
         className={
           locale === "en"
-            ? "rounded-full bg-primary px-3 py-2 text-xs font-semibold uppercase tracking-[0.08em] text-on-primary"
-            : "rounded-full px-3 py-2 text-xs font-semibold uppercase tracking-[0.08em] text-on-surface-variant"
+            ? "rounded-full bg-primary px-3 py-2 text-label-md font-semibold uppercase tracking-[0.08em] text-on-primary"
+            : "rounded-full px-3 py-2 text-label-md font-semibold uppercase tracking-[0.08em] text-on-surface-variant"
         }
       >
         EN
@@ -64,8 +64,8 @@ export default function LanguageToggle() {
         onKeyDown={(event) => handleKeyDown(event, "es")}
         className={
           locale === "es"
-            ? "rounded-full bg-primary px-3 py-2 text-xs font-semibold uppercase tracking-[0.08em] text-on-primary"
-            : "rounded-full px-3 py-2 text-xs font-semibold uppercase tracking-[0.08em] text-on-surface-variant"
+            ? "rounded-full bg-primary px-3 py-2 text-label-md font-semibold uppercase tracking-[0.08em] text-on-primary"
+            : "rounded-full px-3 py-2 text-label-md font-semibold uppercase tracking-[0.08em] text-on-surface-variant"
         }
       >
         ES

@@ -136,10 +136,10 @@ export default function VisitPlannerClient() {
               }
               onClick={() => setStep(value)}
             >
-              <div className="text-sm font-semibold">
+              <div className="text-label-md font-semibold">
                 {t("step")} {value}
               </div>
-              <div className="text-sm">
+              <div className="text-label-md">
                 {value === 1 ? t("visitType") : value === 2 ? t("questions") : t("review")}
               </div>
             </button>
@@ -225,6 +225,9 @@ export default function VisitPlannerClient() {
                     placeholder={t("customQuestionPlaceholder", {
                       defaultValue: "Type your custom question here...",
                     })}
+                    aria-label={t("customQuestionPlaceholder", {
+                      defaultValue: "Type your custom question here...",
+                    })}
                     value={customInput}
                     onChange={(e) => setCustomInput(e.target.value)}
                     onKeyDown={(e) => {
@@ -253,7 +256,7 @@ export default function VisitPlannerClient() {
                         <span className="text-body-md text-on-surface">{cq.text}</span>
                         <button
                           type="button"
-                          className="text-error hover:text-red-700 font-semibold text-sm"
+                          className="text-error hover:text-red-700 font-semibold text-label-md"
                           onClick={() => removeCustomQuestion(cq.id)}
                         >
                           {t("remove", { defaultValue: "Remove" })}
@@ -304,7 +307,9 @@ export default function VisitPlannerClient() {
             <div>
               <h2 className="mb-6 text-headline-md text-primary">{t("yourVisitPlan")}</h2>
               <div className="mb-6 rounded-lg bg-surface-container-low p-5">
-                <div className="mb-2 text-sm font-semibold text-on-surface-variant">{t("visitType")}</div>
+                <div className="mb-2 text-label-md font-semibold text-on-surface-variant">
+                  {t("visitType")}
+                </div>
                 <div className="text-label-lg text-primary">{visitTypes[visitType].label}</div>
               </div>
               <div className="mb-6 rounded-lg border border-outline-variant bg-surface p-5">

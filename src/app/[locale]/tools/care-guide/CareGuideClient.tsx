@@ -8,7 +8,7 @@ import { useTranslations } from "next-intl";
 function ChecklistItems({ items }: { items: string }) {
   const list = items.split("|");
   return (
-    <ul className="mt-4 space-y-2 text-sm text-on-surface-variant">
+    <ul className="mt-4 space-y-2 text-label-md text-on-surface-variant">
       {list.map((item) => (
         <li key={item} className="flex gap-2">
           <span className="text-primary" aria-hidden>
@@ -74,7 +74,7 @@ export default function CareGuideClient() {
 
   return (
     <div className="pb-16">
-      <div className="no-print bg-error px-4 py-3 text-center text-sm font-semibold text-on-error">
+      <div className="no-print bg-error px-4 py-3 text-center text-label-md font-semibold text-on-error">
         {tDisclaimer("emergencyTitle")}: {t("emergencyShort")}
       </div>
       <div className="max-w-container mx-auto px-4 py-12 md:px-6">
@@ -90,7 +90,7 @@ export default function CareGuideClient() {
                   <div className="mb-3 flex items-start justify-between gap-2">
                     <Icon size={24} className="text-primary" aria-hidden />
                     {option.badge ? (
-                      <span className="rounded-full bg-error px-2 py-1 text-xs font-semibold text-on-error">
+                      <span className="rounded-full bg-error px-2 py-1 text-label-md font-semibold text-on-error">
                         {option.badge}
                       </span>
                     ) : null}
@@ -112,7 +112,7 @@ export default function CareGuideClient() {
                 key={scenario.title}
                 className={`card ${scenario.urgent ? "border-error bg-error-container/30" : ""}`}
               >
-                <div className="mb-2 inline-flex rounded-full bg-surface-container px-3 py-1 text-xs font-semibold text-primary">
+                <div className="mb-2 inline-flex rounded-full bg-surface-container px-3 py-1 text-label-md font-semibold text-primary">
                   {scenario.level}
                 </div>
                 <h3 className="mb-3 text-headline-md text-primary">{scenario.title}</h3>

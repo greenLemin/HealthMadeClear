@@ -2,7 +2,17 @@ import type { LessonCategoryId, LessonId } from "@/types/content";
 
 export type LessonListItem = Pick<
   Lesson,
-  "id" | "title" | "description" | "category" | "categoryId" | "duration" | "level" | "image" | "imageAlt"
+  | "id"
+  | "title"
+  | "description"
+  | "category"
+  | "categoryId"
+  | "duration"
+  | "level"
+  | "image"
+  | "imageAlt"
+  | "estimatedMinutes"
+  | "wordCount"
 >;
 
 export interface Lesson {
@@ -20,6 +30,14 @@ export interface Lesson {
   image?: string;
   sidebarTips?: string[];
   sidebarTitle?: string;
+  keyTakeaways?: string[];
+  estimatedMinutes?: number;
+  wordCount?: number;
+  publishedAt?: string;
+  updatedAt?: string;
+  relatedLessonIds?: string[];
+  quizId?: string;
+  learningPathIds?: string[];
   content: {
     sections: {
       title: string;

@@ -1,316 +1,419 @@
 "use client";
 
-import { useMemo, useRef, useState } from "react";
 import { Link } from "@/i18n/navigation";
-import { BookOpen, CheckCircle2, Clock, TrendingUp } from "lucide-react";
-import { useTranslations } from "next-intl";
-import { useAppState } from "@/components/AppProviders";
-import LessonThumbnail from "@/components/LessonThumbnail";
-import PageHeader from "@/components/PageHeader";
-import { getCategoryLabel } from "@/lib/i18n";
-import { getCompletedPathCount, getPathProgress, getStartedPathCount } from "@/lib/content";
-import type { LessonListItem } from "@/types/lesson";
+import {
+  BookOpen,
+  CheckCircle2,
+  Flame,
+  Clock,
+  TrendingUp,
+  ArrowRight,
+  Sparkles,
+  ListChecks,
+} from "lucide-react";
+import Card from "@/components/ui/Card";
+import Button from "@/components/ui/Button";
+import ProgressBar from "@/components/ui/ProgressBar";
+import EmptyState from "@/components/ui/EmptyState";
+import { formatRelativeDate } from "@/lib/i18n";
 import type { LearningPath } from "@/types/learningPath";
-import { buildProgressExport, downloadProgressExport, parseProgressImport } from "@/lib/progressExport";
 
-type DashboardClientProps = {
-  lessons: LessonListItem[];
-  learningPaths: LearningPath[];
+type Summary = {
+  totalLessonsCompleted: number;
+  totalLessonsAvailable: number;
+  totalQuizzesPassed: number;
+  totalQuizzesAttempted: number;
+  averageQuizScore: number;
+  totalTimeSpentMinutes: number;
+  currentStreak: number;
+  longestStreak: number;
 };
 
-export default function DashboardClient({ lessons, learningPaths }: DashboardClientProps) {
-  const { completedLessons, locale, recentLessons, startedPaths, quizScores, importProgress } = useAppState();
-  const t = useTranslations("dashboard");
-  const tCommon = useTranslations("common");
-  const tPaths = useTranslations("paths");
-  const importInputRef = useRef<HTMLInputElement>(null);
-  const [importStatus, setImportStatus] = useState<"success" | "error" | null>(null);
+type LearningPathEntry = {
+  path: LearningPath;
+  completedLessonIds: string[];
+  nextLesson: { id: string; title: string; duration: string } | null;
+  progressPercentage: number;
+  isComplete: boolean;
+};
 
-  const pathsWithProgress = useMemo(
-    () =>
-      learningPaths.map((path) => ({
-        path,
-        progress: getPathProgress(path.id, completedLessons, lessons, learningPaths),
-      })),
-    [learningPaths, completedLessons, lessons]
-  );
+type ActivityItem = {
+  type: "lesson" | "quiz";
+  lessonId?: string;
+  quizId?: string;
+  title: string;
+  completedAt: string;
+  score?: number;
+  passed?: boolean;
+};
 
-  const totalLessons = lessons.length;
-  const completedCount = completedLessons.length;
-  const startedPathCount = getStartedPathCount(completedLessons, startedPaths, lessons, learningPaths);
-  const completedPathCount = getCompletedPathCount(completedLessons, lessons, learningPaths);
-  const progressPercentage = totalLessons > 0 ? Math.round((completedCount / totalLessons) * 100) : 0;
+type AchievementItem = {
+  id: string;
+  title: string;
+  description: string;
+  icon: string;
+  earned: boolean;
+  earnedAt: string | null;
+};
 
-  const lessonsMap = new Map<string, (typeof lessons)[number]>(lessons.map((lesson) => [lesson.id, lesson]));
-  const recentLessonItems: (typeof lessons)[number][] = [];
-  for (const lessonId of recentLessons) {
-    const lesson = lessonsMap.get(lessonId);
-    if (lesson) {
-      recentLessonItems.push(lesson);
-      if (recentLessonItems.length === 3) break;
-    }
-  }
+type RecommendedLesson = {
+  id: string;
+  title: string;
+  description: string;
+  duration: string;
+  level: string;
+  pathTitle?: string;
+};
 
-  const activePath =
-    pathsWithProgress.find(
-      ({ progress }) => progress.completedCount > 0 && progress.completedCount < progress.totalCount
-    ) ?? pathsWithProgress.find(({ progress }) => progress.totalCount > 0);
+type DashboardClientProps = {
+  summary: Summary;
+  learningPaths: LearningPathEntry[];
+  recentActivity: ActivityItem[];
+  achievements: AchievementItem[];
+  recommendedNext: RecommendedLesson | null;
+  displayName: string;
+  locale: string;
+};
 
-  const nextLesson = activePath
-    ? (lessons.find(
-        (lesson) => activePath.path.lessons.includes(lesson.id) && !completedLessons.includes(lesson.id)
-      ) ?? lessons.find((lesson) => activePath.path.lessons.includes(lesson.id)))
-    : undefined;
+function formatTime(minutes: number): string {
+  if (minutes < 60) return `${minutes} min`;
+  const hrs = Math.floor(minutes / 60);
+  const mins = minutes % 60;
+  return mins > 0 ? `${hrs}h ${mins}m` : `${hrs}h`;
+}
 
-  const greetingKey = (() => {
-    const hour = new Date().getHours();
-    if (hour < 12) return "greetingMorning" as const;
-    if (hour < 17) return "greetingAfternoon" as const;
-    return "greetingEvening" as const;
-  })();
+function getGreeting(): string {
+  const hour = new Date().getHours();
+  if (hour < 12) return "Good morning";
+  if (hour < 17) return "Good afternoon";
+  return "Good evening";
+}
+
+export default function DashboardClient({
+  summary,
+  learningPaths,
+  recentActivity,
+  achievements,
+  recommendedNext,
+  displayName,
+}: DashboardClientProps) {
+  const isFirstVisit = summary.totalLessonsCompleted === 0;
+  const passRate =
+    summary.totalQuizzesAttempted > 0
+      ? Math.round((summary.totalQuizzesPassed / summary.totalQuizzesAttempted) * 100)
+      : 0;
+  const earnedAchievements = achievements.filter((a) => a.earned);
+  const activePaths = learningPaths.filter((lp) => !lp.isComplete && lp.completedLessonIds.length > 0);
+  const inProgressPaths = learningPaths.filter((lp) => lp.completedLessonIds.length > 0);
 
   return (
-    <div className="py-12 md:py-16">
-      <div className="max-w-container mx-auto px-4 md:px-6">
-        <p className="mb-2 text-label-md text-primary">{t(greetingKey)}</p>
-        <PageHeader title={t("title")} description={t("description")} />
+    <div className="space-y-10">
+      {/* Welcome Header */}
+      <section>
+        <p className="mb-1 text-label-md text-primary">{getGreeting()}</p>
+        <h1 className="text-headline-lg text-primary">
+          {isFirstVisit ? "Welcome to HealthMadeClear!" : `Welcome back, ${displayName}!`}
+        </h1>
+        {summary.currentStreak > 1 ? (
+          <div className="mt-3 inline-flex items-center gap-2 rounded-full bg-secondary-container/60 px-4 py-2 text-label-md font-semibold text-secondary">
+            <Flame size={18} />
+            You&apos;re on a {summary.currentStreak}-day streak. Keep it up!
+          </div>
+        ) : null}
+        {isFirstVisit ? (
+          <p className="mt-3 text-body-md text-on-surface-variant">
+            Let&apos;s get started on your health learning journey.
+          </p>
+        ) : null}
+      </section>
 
-        <div className="no-print mb-8 flex flex-wrap gap-3">
-          <button
-            type="button"
-            className="btn-secondary"
-            onClick={() =>
-              downloadProgressExport(
-                buildProgressExport(completedLessons, recentLessons, startedPaths, quizScores)
-              )
-            }
-          >
-            {t("exportProgress")}
-          </button>
-          <button type="button" className="btn-secondary" onClick={() => importInputRef.current?.click()}>
-            {t("importProgress")}
-          </button>
-          <input
-            ref={importInputRef}
-            type="file"
-            accept="application/json"
-            className="sr-only"
-            onChange={async (event) => {
-              const file = event.target.files?.[0];
-              if (!file) return;
-              const text = await file.text();
-              const data = parseProgressImport(text);
-              if (!data) {
-                setImportStatus("error");
-                setTimeout(() => setImportStatus(null), 5000);
-                return;
-              }
-              importProgress(data);
-              setImportStatus("success");
-              setTimeout(() => setImportStatus(null), 5000);
-            }}
-          />
-          {importStatus && (
-            <p
-              role="status"
-              aria-live="polite"
-              className={`rounded-full px-4 py-2 text-sm font-semibold ${
-                importStatus === "success"
-                  ? "bg-secondary-container text-on-secondary-container"
-                  : "bg-error-container text-on-error-container"
-              }`}
-            >
-              {importStatus === "success" ? t("importSuccess") : t("importError")}
-            </p>
-          )}
-        </div>
+      {/* Quick Stats Row */}
+      <section className="grid grid-cols-2 gap-4 md:grid-cols-4">
+        <Card padding="sm">
+          <div className="flex items-center gap-3">
+            <div className="rounded-lg bg-primary-fixed p-2.5 text-primary">
+              <BookOpen size={20} />
+            </div>
+            <div>
+              <p className="text-headline-md text-primary">{summary.totalLessonsCompleted}</p>
+              <p className="text-label-sm text-on-surface-variant">
+                of {summary.totalLessonsAvailable} lessons
+              </p>
+            </div>
+          </div>
+        </Card>
+        <Card padding="sm">
+          <div className="flex items-center gap-3">
+            <div className="rounded-lg bg-secondary-container/60 p-2.5 text-secondary">
+              <CheckCircle2 size={20} />
+            </div>
+            <div>
+              <p className="text-headline-md text-primary">{summary.totalQuizzesPassed}</p>
+              <p className="text-label-sm text-on-surface-variant">
+                {summary.totalQuizzesAttempted > 0 ? `${passRate}% pass rate` : "No quizzes yet"}
+              </p>
+            </div>
+          </div>
+        </Card>
+        <Card padding="sm">
+          <div className="flex items-center gap-3">
+            <div className="rounded-lg bg-tertiary-container/30 p-2.5 text-tertiary">
+              <Flame size={20} />
+            </div>
+            <div>
+              <p className="text-headline-md text-primary">{summary.currentStreak} days</p>
+              <p className="text-label-sm text-on-surface-variant">Current streak</p>
+            </div>
+          </div>
+        </Card>
+        <Card padding="sm">
+          <div className="flex items-center gap-3">
+            <div className="rounded-lg bg-surface-container p-2.5 text-primary">
+              <Clock size={20} />
+            </div>
+            <div>
+              <p className="text-headline-md text-primary">{formatTime(summary.totalTimeSpentMinutes)}</p>
+              <p className="text-label-sm text-on-surface-variant">Time spent</p>
+            </div>
+          </div>
+        </Card>
+      </section>
 
-        <div className="mb-12 grid gap-6 md:grid-cols-3">
-          <div className="card">
-            <div className="mb-4 flex items-center gap-3">
-              <div className="rounded-lg bg-primary-fixed p-3 text-primary">
-                <BookOpen size={22} />
-              </div>
+      {/* Continue Learning */}
+      <section>
+        <h2 className="mb-4 text-headline-md text-primary">Continue Learning</h2>
+        {isFirstVisit && recommendedNext ? (
+          <Card padding="md" className="border-secondary/30 bg-secondary-container/20">
+            <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
               <div>
-                <div className="text-label-md text-on-surface-variant">{t("completedLessons")}</div>
-                <div className="text-headline-lg text-primary">
-                  {completedCount} / {totalLessons}
+                <p className="mb-1 text-label-sm font-semibold text-secondary">Recommended for you</p>
+                <h3 className="text-headline-md text-primary">{recommendedNext.title}</h3>
+                <p className="mt-1 text-body-md text-on-surface-variant">{recommendedNext.description}</p>
+                <div className="mt-2 flex items-center gap-3 text-label-sm text-on-surface-variant">
+                  <span>{recommendedNext.duration}</span>
+                  {recommendedNext.pathTitle ? <span>Part of {recommendedNext.pathTitle}</span> : null}
                 </div>
               </div>
-            </div>
-            <div
-              className="progress-bar mb-3 h-3"
-              role="progressbar"
-              aria-valuenow={progressPercentage}
-              aria-valuemin={0}
-              aria-valuemax={100}
-              aria-label={t("overallProgress")}
-            >
-              <div className="progress-fill" style={{ width: `${progressPercentage}%` }} />
-            </div>
-            <div className="text-sm text-on-surface-variant">
-              {progressPercentage}% {t("ofLibrary")}
-            </div>
-          </div>
-
-          <div className="card">
-            <div className="mb-4 flex items-center gap-3">
-              <div className="rounded-lg bg-secondary-container p-3 text-primary">
-                <TrendingUp size={22} />
-              </div>
-              <div>
-                <div className="text-label-md text-on-surface-variant">{t("pathsInProgress")}</div>
-                <div className="text-headline-lg text-primary">{startedPathCount}</div>
+              <div className="shrink-0">
+                <Link href={`/learn/${recommendedNext.id}`}>
+                  <Button size="lg" icon={<Sparkles size={20} />}>
+                    Begin Your Journey
+                  </Button>
+                </Link>
               </div>
             </div>
-            <div className="text-body-md text-on-surface-variant">
-              {startedPathCount === 0 ? t("noPathsProgress") : t("keepGoing")}
-            </div>
-          </div>
-
-          <div className="card">
-            <div className="mb-4 flex items-center gap-3">
-              <div className="rounded-lg bg-surface-container p-3 text-primary">
-                <CheckCircle2 size={22} />
-              </div>
-              <div>
-                <div className="text-label-md text-on-surface-variant">{t("pathsCompleted")}</div>
-                <div className="text-headline-lg text-primary">{completedPathCount}</div>
-              </div>
-            </div>
-            <div className="text-body-md text-on-surface-variant">
-              {completedPathCount === 0 ? t("noPathsCompleted") : t("pathsCompletedMsg")}
-            </div>
-          </div>
-        </div>
-
-        <div className="mb-12 grid gap-6 lg:grid-cols-[1.2fr_0.8fr]">
-          <section className="overflow-hidden rounded-xl border border-outline-variant bg-surface shadow-card">
-            <div className="grid gap-0 md:grid-cols-[0.8fr_1.2fr]">
-              {nextLesson ? (
-                <LessonThumbnail
-                  image={nextLesson.image}
-                  categoryId={nextLesson.categoryId}
-                  title={nextLesson.title}
-                  className="min-h-72 h-full"
-                />
-              ) : (
-                <LessonThumbnail
-                  categoryId="doctor-visits"
-                  title={t("startFirstLesson")}
-                  className="min-h-72 h-full"
-                />
-              )}
-              <div className="p-6 md:p-8">
-                <div className="mb-3 inline-flex rounded-full bg-surface-container px-4 py-2 text-sm font-semibold text-primary">
-                  {activePath ? t("upNext") : t("readyWhenYouAre")}
+          </Card>
+        ) : activePaths.length > 0 ? (
+          (() => {
+            const active = activePaths[0];
+            return (
+              <Card padding="md" className="border-primary/20">
+                <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+                  <div className="min-w-0 flex-1">
+                    <p className="mb-1 text-label-sm font-semibold text-primary">{active.path.title}</p>
+                    <h3 className="text-headline-md text-primary">
+                      {active.nextLesson?.title ?? "All lessons complete!"}
+                    </h3>
+                    <div className="mt-3 max-w-md">
+                      <ProgressBar
+                        value={active.progressPercentage}
+                        label={`Lesson ${active.completedLessonIds.length + 1} of ${active.path.lessons.length}`}
+                        showPercentage
+                        size="sm"
+                      />
+                    </div>
+                  </div>
+                  {active.nextLesson ? (
+                    <div className="shrink-0">
+                      <Link href={`/learn/${active.nextLesson.id}`}>
+                        <Button size="lg" icon={<ArrowRight size={20} />}>
+                          Continue
+                        </Button>
+                      </Link>
+                    </div>
+                  ) : null}
                 </div>
-                <h2 className="mb-3 text-headline-lg text-primary">
-                  {nextLesson ? nextLesson.title : t("startFirstLesson")}
-                </h2>
-                <p className="mb-6 text-body-md text-on-surface-variant">
-                  {nextLesson ? nextLesson.description : t("browseIntroLessons")}
+              </Card>
+            );
+          })()
+        ) : (
+          <Card padding="md">
+            <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+              <div>
+                <h3 className="text-headline-md text-primary">All caught up!</h3>
+                <p className="mt-1 text-body-md text-on-surface-variant">
+                  You&apos;ve completed all available lessons. Check back for new content.
                 </p>
-                <div className="flex flex-wrap items-center gap-4">
-                  <Link
-                    href={nextLesson ? `/learn/${nextLesson.id}` : "/learning-paths"}
-                    className="btn-primary inline-flex items-center justify-center"
-                  >
-                    {nextLesson ? t("resumeLesson") : t("explorePaths")}
-                  </Link>
-                  {nextLesson ? (
-                    <span className="text-sm text-on-surface-variant">{nextLesson.duration}</span>
+              </div>
+              <Link href="/learning-paths">
+                <Button variant="secondary" icon={<BookOpen size={20} />}>
+                  Browse learning paths
+                </Button>
+              </Link>
+            </div>
+          </Card>
+        )}
+      </section>
+
+      {/* My Learning Paths */}
+      <section>
+        <div className="mb-4 flex items-end justify-between gap-4">
+          <h2 className="text-headline-md text-primary">My Learning Paths</h2>
+          <Link
+            href="/learning-paths"
+            className="text-label-md font-semibold text-primary underline-offset-2 hover:underline"
+          >
+            Browse All Paths &rarr;
+          </Link>
+        </div>
+        {inProgressPaths.length > 0 ? (
+          <div className="grid gap-4 md:grid-cols-2">
+            {inProgressPaths.slice(0, 4).map((entry) => (
+              <div
+                key={entry.path.id}
+                className="rounded-2xl border border-outline-variant bg-surface-container-lowest p-6 shadow-card md:p-8"
+              >
+                <div className="mb-4 flex flex-wrap items-center gap-3">
+                  {entry.path.icon ? (
+                    <span className="text-headline-lg" aria-hidden="true">
+                      {entry.path.icon}
+                    </span>
+                  ) : null}
+                  <span className="rounded-full bg-surface-container px-3 py-1 text-label-md font-semibold text-on-surface-variant">
+                    {entry.path.level}
+                  </span>
+                  <span className="inline-flex items-center gap-1.5 text-label-md text-on-surface-variant">
+                    <Clock size={14} aria-hidden="true" />
+                    {entry.path.duration}
+                  </span>
+                </div>
+                <h3 className="mb-2 text-headline-lg text-primary">{entry.path.title}</h3>
+                <p className="mb-4 text-body-md text-on-surface-variant">{entry.path.description}</p>
+                <div className="mb-4 flex items-center gap-2 text-label-md text-on-surface-variant">
+                  <ListChecks size={16} aria-hidden="true" />
+                  <span>{entry.path.lessons.length} modules</span>
+                </div>
+                <div className="mb-5">
+                  <ProgressBar
+                    value={entry.progressPercentage}
+                    label={`${entry.completedLessonIds.length} of ${entry.path.lessons.length} complete`}
+                    showPercentage
+                    size="sm"
+                  />
+                </div>
+                <div className="flex items-center justify-between gap-4">
+                  {entry.isComplete ? (
+                    <span className="inline-flex items-center gap-1.5 text-label-md font-semibold text-secondary">
+                      Completed ✓
+                    </span>
+                  ) : entry.nextLesson ? (
+                    <Link
+                      href={`/learn/${entry.nextLesson.id}`}
+                      className="btn-primary inline-flex items-center gap-2 text-label-lg"
+                    >
+                      Continue
+                    </Link>
                   ) : null}
                 </div>
               </div>
-            </div>
-          </section>
+            ))}
+          </div>
+        ) : (
+          <EmptyState
+            icon={<BookOpen size={32} />}
+            title="No learning paths started yet"
+            description="Start a guided learning path to track your progress through a topic."
+            action={{
+              label: "Explore Learning Paths",
+              onClick: () => {},
+              href: "/learning-paths",
+            }}
+          />
+        )}
+      </section>
 
-          <section className="card">
-            <h2 className="mb-5 text-headline-md text-primary">{t("overview")}</h2>
-            <div className="space-y-5">
-              {pathsWithProgress.slice(0, 3).map(({ path, progress }) => {
-                return (
-                  <div key={path.id}>
-                    <div className="mb-2 flex items-center justify-between gap-3">
-                      <span className="text-body-md text-on-surface">{path.title}</span>
-                      <span className="text-sm font-semibold text-primary">{progress.percentage}%</span>
-                    </div>
-                    <div
-                      className="progress-bar mb-2"
-                      role="progressbar"
-                      aria-valuenow={progress.percentage}
-                      aria-valuemin={0}
-                      aria-valuemax={100}
-                      aria-label={`${path.title} ${tPaths("progressLabel")}`}
-                    >
-                      <div className="progress-fill" style={{ width: `${progress.percentage}%` }} />
-                    </div>
-                    <div className="text-sm text-on-surface-variant">
-                      {progress.completedCount} {tCommon("of")} {progress.totalCount} {t("modulesCompleted")}
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          </section>
-        </div>
+      {/* Recent Activity */}
+      <section>
+        <h2 className="mb-4 text-headline-md text-primary">Recent Activity</h2>
+        {recentActivity.length > 0 ? (
+          <div className="space-y-3">
+            {recentActivity.map((item, i) => (
+              <div
+                key={`${item.type}-${item.lessonId ?? item.quizId}-${i}`}
+                className="flex items-start gap-3 rounded-xl border border-outline-variant bg-surface-container-lowest p-4"
+              >
+                <div
+                  className={`mt-0.5 rounded-full p-1.5 ${
+                    item.type === "lesson"
+                      ? "bg-primary-fixed text-primary"
+                      : "bg-secondary-container/60 text-secondary"
+                  }`}
+                >
+                  {item.type === "lesson" ? <BookOpen size={16} /> : <CheckCircle2 size={16} />}
+                </div>
+                <div className="min-w-0 flex-1">
+                  <p className="text-label-md text-on-surface">{item.title}</p>
+                  <p className="text-label-sm text-on-surface-variant">
+                    {item.type === "quiz" && item.score !== undefined
+                      ? `${item.score}% - ${item.passed ? "Passed" : "Not passed"}`
+                      : null}
+                    <span className="ml-2">{formatRelativeDate(item.completedAt)}</span>
+                  </p>
+                </div>
+                {item.lessonId ? (
+                  <Link
+                    href={`/learn/${item.lessonId}`}
+                    className="shrink-0 text-label-sm font-semibold text-primary underline-offset-2 hover:underline"
+                  >
+                    View
+                  </Link>
+                ) : null}
+              </div>
+            ))}
+          </div>
+        ) : (
+          <EmptyState
+            icon={<TrendingUp size={32} />}
+            title="No activity yet"
+            description="Complete your first lesson to get started"
+            action={{
+              label: "Start your first lesson",
+              onClick: () => {},
+              href: recommendedNext ? `/learn/${recommendedNext.id}` : "/learn",
+            }}
+          />
+        )}
+      </section>
 
-        <div className="grid gap-6 lg:grid-cols-[0.9fr_1.1fr]">
-          <section className="card">
-            <h2 className="mb-6 text-headline-md text-primary">{t("recentMilestones")}</h2>
-            <div className="space-y-4">
-              {completedCount === 0 ? (
-                <div className="text-body-md text-on-surface-variant">{t("noRecentMilestones")}</div>
-              ) : (
-                completedLessons.slice(0, 3).map((lessonId) => {
-                  const lesson = lessons.find((item) => item.id === lessonId);
-                  if (!lesson) return null;
-                  return (
-                    <div
-                      key={lesson.id}
-                      className="flex items-start gap-3 rounded-lg bg-surface-container-low p-4"
-                    >
-                      <div className="mt-1 rounded-full bg-secondary-container p-1 text-primary">
-                        <CheckCircle2 size={16} />
-                      </div>
-                      <div>
-                        <div className="text-label-md text-on-surface">
-                          {tCommon("completed")}: {lesson.title}
-                        </div>
-                        <div className="text-sm text-on-surface-variant">
-                          {getCategoryLabel(lesson.categoryId, locale)}
-                        </div>
-                      </div>
-                    </div>
-                  );
-                })
-              )}
-            </div>
-          </section>
-
-          <section>
-            <div className="mb-6 flex items-end justify-between gap-4">
-              <h2 className="text-headline-md text-primary">{t("recentlyViewed")}</h2>
-              <Link href="/learn" className="text-sm font-semibold text-primary">
-                {t("seeAll")}
-              </Link>
-            </div>
-            <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-              {(recentLessonItems.length > 0 ? recentLessonItems : lessons.slice(0, 3)).map((lesson) => (
-                <Link key={lesson.id} href={`/learn/${lesson.id}`} className="card-hover">
-                  <h3 className="mb-2 text-label-lg text-primary">{lesson.title}</h3>
-                  <p className="mb-4 text-sm text-on-surface-variant">{lesson.description}</p>
-                  <div className="flex items-center gap-2 text-sm text-on-surface-variant">
-                    <Clock size={14} />
-                    {lesson.duration}
-                  </div>
-                </Link>
-              ))}
-            </div>
-          </section>
-        </div>
-      </div>
+      {/* Recently Earned Achievements */}
+      {earnedAchievements.length > 0 ? (
+        <section>
+          <div className="mb-4 flex items-end justify-between gap-4">
+            <h2 className="text-headline-md text-primary">Recently Earned</h2>
+            <Link
+              href="/dashboard/achievements"
+              className="text-label-md font-semibold text-primary underline-offset-2 hover:underline"
+            >
+              View all achievements &rarr;
+            </Link>
+          </div>
+          <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4">
+            {earnedAchievements.slice(0, 4).map((achievement) => (
+              <Card key={achievement.id} padding="sm" className="border-secondary/30 text-center">
+                <span className="text-headline-lg" aria-hidden="true">
+                  {achievement.icon}
+                </span>
+                <p className="mt-2 text-label-sm font-semibold text-on-surface">{achievement.title}</p>
+                {achievement.earnedAt ? (
+                  <p className="mt-1 text-label-sm text-on-surface-variant">
+                    {formatRelativeDate(achievement.earnedAt)}
+                  </p>
+                ) : null}
+              </Card>
+            ))}
+          </div>
+        </section>
+      ) : null}
     </div>
   );
 }

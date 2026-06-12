@@ -14,11 +14,12 @@ const staticPaths = [
   "/tools/visit-planner",
   "/tools/visit-checklist",
   "/tools/care-guide",
-  "/dashboard",
   "/glossary",
   "/about",
   "/privacy",
+  "/terms",
   "/accessibility",
+  "/contact",
 ];
 
 function parseReviewDate(value?: string): Date {

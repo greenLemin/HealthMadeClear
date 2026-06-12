@@ -72,7 +72,7 @@ export default function OnboardingDialog() {
             </div>
             <div>
               <p className="font-semibold text-on-surface">{t("step1Title")}</p>
-              <p className="text-sm text-on-surface-variant">{t("step1Body")}</p>
+              <p className="text-label-md text-on-surface-variant">{t("step1Body")}</p>
             </div>
           </div>
           <div className="flex items-start gap-4">
@@ -81,7 +81,7 @@ export default function OnboardingDialog() {
             </div>
             <div>
               <p className="font-semibold text-on-surface">{t("step2Title")}</p>
-              <p className="text-sm text-on-surface-variant">{t("step2Body")}</p>
+              <p className="text-label-md text-on-surface-variant">{t("step2Body")}</p>
             </div>
           </div>
           <div className="flex items-start gap-4">
@@ -90,7 +90,7 @@ export default function OnboardingDialog() {
             </div>
             <div>
               <p className="font-semibold text-on-surface">{t("step3Title")}</p>
-              <p className="text-sm text-on-surface-variant">{t("step3Body")}</p>
+              <p className="text-label-md text-on-surface-variant">{t("step3Body")}</p>
             </div>
           </div>
         </div>

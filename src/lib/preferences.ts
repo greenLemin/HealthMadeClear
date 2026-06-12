@@ -50,9 +50,12 @@ export function readStoredLocale(): Locale {
 export function readStoredTheme(): ThemeMode {
   const fromCookie = getCookieValue(PREFERENCE_COOKIES.theme);
   if (fromCookie === "dark") return "dark";
+  if (fromCookie === "light") return "light";
   if (typeof window !== "undefined") {
     const fromStorage = window.localStorage.getItem(STORAGE_KEYS.theme);
     if (fromStorage === "dark") return "dark";
+    if (fromStorage === "light") return "light";
+    if (window.matchMedia("(prefers-color-scheme: dark)").matches) return "dark";
   }
   return "light";
 }
@@ -112,13 +115,16 @@ export function applyDocumentPreferences(
   document.documentElement.dataset.theme = theme;
   document.documentElement.dataset.textSize = textSize;
   document.documentElement.dataset.simpleMode = simpleMode ? "true" : "false";
+  document.documentElement.classList.toggle("dark", theme === "dark");
 }
 
 export const PREFERENCE_BOOTSTRAP_SCRIPT = `
 (function(){
   var c=document.cookie.split(';').reduce(function(a,s){var p=s.trim().split('=');if(p[0])a[p[0]]=decodeURIComponent(p[1]||'');return a},{});
   var locale=c['hmc-locale']==='es'?'es':'en';
-  var theme=c['hmc-theme']==='dark'?'dark':'light';
+  var theme=c['hmc-theme'];
+  if(!theme)theme=window.matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light';
+  if(theme!=='dark')theme='light';
   var textSize=c['hmc-text-size']||'standard';
   if(textSize!=='large'&&textSize!=='largest')textSize='standard';
   var simpleMode=c['hmc-simple-mode']==='true';
@@ -128,5 +134,6 @@ export const PREFERENCE_BOOTSTRAP_SCRIPT = `
   el.dataset.theme=theme;
   el.dataset.textSize=textSize;
   el.dataset.simpleMode=simpleMode?'true':'false';
+  if(theme==='dark')el.classList.add('dark');
 })();
 `.trim();

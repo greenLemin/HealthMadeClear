@@ -3,6 +3,38 @@
 @tailwind utilities;
 
 @layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    text-wrap: balance;
+  }
+
+  p,
+  li {
+    text-wrap: pretty;
+  }
+
+  ::selection {
+    background-color: rgba(192, 236, 218, 0.4);
+    color: inherit;
+  }
+
+  :focus-visible {
+    outline: 2px solid #004349;
+    outline-offset: 2px;
+  }
+
   :root {
     --color-background: #f8f9fb;
     --color-on-background: #191c1e;
@@ -60,7 +92,8 @@
     --foreground: var(--color-on-surface);
   }
 
-  :root[data-theme="dark"] {
+  :root[data-theme="dark"],
+  .dark {
     --color-background: #191c1e;
     --color-on-background: #eff1f3;
     --color-surface: #191c1e;
@@ -124,6 +157,10 @@
     @apply bg-surface text-on-surface font-hyperlegible antialiased;
     background-color: var(--background);
     color: var(--foreground);
+    font-size: 18px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
   :root,
@@ -135,6 +172,15 @@
   }
 
   @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+
     :root,
     :root * {
       transition: none !important;

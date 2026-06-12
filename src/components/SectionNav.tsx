@@ -42,7 +42,7 @@ export default function SectionNav() {
     <section className="py-16 md:py-20">
       <div className="max-w-container mx-auto px-4 md:px-6">
         <div className="mb-12 text-center">
-          <div className="mb-3 inline-flex rounded-full bg-surface-container px-4 py-2 text-sm font-semibold text-on-surface-variant">
+          <div className="mb-3 inline-flex rounded-full bg-surface-container px-4 py-2 text-label-md font-semibold text-on-surface-variant">
             {t("exploreByGoal")}
           </div>
           <h2 className="text-headline-lg text-primary">{t("findRightResource")}</h2>
@@ -52,14 +52,14 @@ export default function SectionNav() {
             <Link
               key={section.href}
               href={section.href}
-              className="group hover-lift rounded-[24px] border border-outline-variant bg-surface p-6 shadow-[0_14px_30px_rgba(15,23,42,0.05)] hover:shadow-[0_18px_36px_rgba(15,23,42,0.08)]"
+              className="group hover-lift rounded-2xl border border-outline-variant bg-surface p-6 shadow-card hover:shadow-card-hover"
             >
               <div className="flex items-start gap-4">
                 <div className={`rounded-2xl p-4 ${section.color}`}>{section.icon}</div>
                 <div className="flex-1">
                   <h3 className="mb-2 text-headline-md text-primary">{section.title}</h3>
                   <p className="mb-4 text-body-md text-on-surface-variant">{section.description}</p>
-                  <div className="inline-flex items-center gap-2 text-sm font-semibold text-primary">
+                  <div className="inline-flex items-center gap-2 text-label-md font-semibold text-primary">
                     {t("explore")}
                     <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
                   </div>

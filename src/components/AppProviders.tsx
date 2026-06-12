@@ -3,6 +3,7 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from "react";
 import type { Locale } from "@/lib/i18n";
 import OnboardingDialog from "@/components/OnboardingDialog";
+import ToastProvider from "@/components/ui/ToastProvider";
 import {
   STORAGE_KEYS,
   applyDocumentPreferences,
@@ -162,8 +163,10 @@ export default function AppProviders({
 
   return (
     <AppContext.Provider value={value}>
-      {children}
-      <OnboardingDialog />
+      <ToastProvider>
+        {children}
+        <OnboardingDialog />
+      </ToastProvider>
     </AppContext.Provider>
   );
 }

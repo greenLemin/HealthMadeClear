@@ -19,13 +19,13 @@ export default function GlossaryTermClient({ term }: { term: GlossaryTerm }) {
       <div className="max-w-container mx-auto px-4 md:px-6">
         <Link
           href="/glossary"
-          className="mb-6 inline-flex items-center gap-2 text-sm font-semibold text-primary"
+          className="mb-6 inline-flex items-center gap-2 text-label-md font-semibold text-primary"
         >
           <ArrowLeft size={18} />
           {t("backToGlossary")}
         </Link>
         <h1 className="mb-4 text-headline-xl text-primary">{term.term}</h1>
-        <p className="mb-6 text-sm text-on-surface-variant">{term.category}</p>
+        <p className="mb-6 text-label-md text-on-surface-variant">{term.category}</p>
         <div className="card prose-hmc mb-6 text-body-md text-on-surface-variant">
           <MarkdownRenderer text={term.definition} glossaryTerms={glossaryTerms} />
         </div>
@@ -54,7 +54,7 @@ export default function GlossaryTermClient({ term }: { term: GlossaryTerm }) {
 
         {term.relatedTerms?.length ? (
           <div className="card">
-            <div className="mb-3 text-xs font-semibold uppercase tracking-wide text-on-surface-variant">
+            <div className="mb-3 text-label-md font-semibold uppercase tracking-wide text-on-surface-variant">
               {tCommon("relatedTerms")}
             </div>
             <div className="flex flex-wrap gap-2">
@@ -62,7 +62,7 @@ export default function GlossaryTermClient({ term }: { term: GlossaryTerm }) {
                 <Link
                   key={related}
                   href={`/glossary/${related}`}
-                  className="rounded-full bg-surface-container px-3 py-1 text-sm font-semibold text-primary hover:bg-secondary-container"
+                  className="rounded-full bg-surface-container px-3 py-1 text-label-md font-semibold text-primary hover:bg-secondary-container"
                 >
                   {getGlossaryLabel(related, locale)}
                 </Link>

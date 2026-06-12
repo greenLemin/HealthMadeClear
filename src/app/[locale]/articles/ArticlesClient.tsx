@@ -48,12 +48,12 @@ export default function ArticlesClient() {
         <div className="grid gap-6 md:grid-cols-2">
           {filtered.map((article) => (
             <Link key={article.id} href={`/articles/${article.id}`} className="card-hover card block">
-              <div className="mb-2 text-xs font-semibold uppercase tracking-wide text-primary">
+              <div className="mb-2 text-label-md font-semibold uppercase tracking-wide text-primary">
                 {article.category}
               </div>
               <h2 className="mb-2 text-headline-md text-primary">{article.title}</h2>
               <p className="mb-4 text-body-md text-on-surface-variant">{article.description}</p>
-              <div className="flex items-center gap-2 text-sm text-on-surface-variant">
+              <div className="flex items-center gap-2 text-label-md text-on-surface-variant">
                 <Clock size={16} aria-hidden />
                 {article.readingTime} {tCommon("read")}
               </div>

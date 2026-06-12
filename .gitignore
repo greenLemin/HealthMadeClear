@@ -12,3 +12,6 @@ test-results/
 playwright-report/
 blob-report/
 tsconfig.tsbuildinfo
+
+# Design artifacts (Figma exports — not needed at runtime)
+stitch_health_made_clear_ux_design/

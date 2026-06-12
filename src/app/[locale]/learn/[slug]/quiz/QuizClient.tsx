@@ -2,10 +2,14 @@
 
 import { useState, useCallback, useMemo, useEffect, useRef } from "react";
 import { Link } from "@/i18n/navigation";
-import { ArrowLeft, Check, X, RefreshCw } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useAppState } from "@/components/AppProviders";
+import { useProgress } from "@/hooks/useProgress";
+import QuizQuestionComponent from "@/components/quiz/QuizQuestion";
+import QuizResults from "@/components/quiz/QuizResults";
 import type { Quiz } from "@/types/quiz";
+import { useRouter } from "@/i18n/navigation";
 
 type QuizState = "start" | "active" | "completed";
 
@@ -15,28 +19,96 @@ type Props = {
   lessonId: string;
 };
 
+function Confetti() {
+  const particleCount = 30;
+  const particles = useMemo(
+    () =>
+      Array.from({ length: particleCount }, (_, i) => ({
+        id: i,
+        left: `${Math.random() * 100}%`,
+        delay: `${Math.random() * 0.5}s`,
+        duration: `${0.5 + Math.random() * 1}s`,
+        color: ["#14b8a6", "#0d9488", "#0f766e", "#115e59", "#134e4a"][Math.floor(Math.random() * 5)],
+        size: 4 + Math.random() * 8,
+      })),
+    []
+  );
+
+  return (
+    <div className="pointer-events-none fixed inset-0 z-50 overflow-hidden" aria-hidden="true">
+      {particles.map((p) => (
+        <div
+          key={p.id}
+          className="absolute animate-fall rounded-full"
+          style={{
+            left: p.left,
+            top: "-10px",
+            width: p.size,
+            height: p.size,
+            backgroundColor: p.color,
+            animationDelay: p.delay,
+            animationDuration: p.duration,
+            animationName: "confetti-fall",
+          }}
+        />
+      ))}
+      <style>{`
+        @keyframes confetti-fall {
+          0% { transform: translateY(-10px) rotate(0deg); opacity: 1; }
+          100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+        }
+        .animate-fall {
+          animation: confetti-fall 1s ease-out forwards;
+        }
+        @media (prefers-reduced-motion) {
+          .animate-fall { animation: none !important; display: none; }
+        }
+      `}</style>
+    </div>
+  );
+}
+
+const LETTER_TO_IDX: Record<string, number> = { A: 0, B: 1, C: 2, D: 3 };
+const IDX_TO_LETTER = ["A", "B", "C", "D"];
+
 export default function QuizClient({ quiz, lessonTitle, lessonId }: Props) {
   const t = useTranslations("quiz");
-  const { markLessonComplete, recordQuizScore } = useAppState();
+  const { locale } = useAppState();
+  const router = useRouter();
+  const { saveQuizAttempt, getQuizBestScore, isLessonComplete } = useProgress();
   const [state, setState] = useState<QuizState>("start");
   const recordedRef = useRef(false);
   const [current, setCurrent] = useState(0);
-  const [answers, setAnswers] = useState<Record<number, string>>({});
+  const [answers, setAnswers] = useState<Record<number, number>>({});
   const [showResult, setShowResult] = useState(false);
+  const [showConfetti, setShowConfetti] = useState(false);
+  const [showExitWarning, setShowExitWarning] = useState(false);
 
   const total = quiz.questions.length;
   const answered = useMemo(() => Object.keys(answers).length, [answers]);
 
   const correctCount = useMemo(
-    () => quiz.questions.filter((q, i) => answers[i] === q.correctAnswer).length,
+    () =>
+      quiz.questions.filter((q, i) => {
+        const selectedLetter = answers[i];
+        if (selectedLetter === undefined) return false;
+        const correctIdx = q.correctAnswer ? LETTER_TO_IDX[q.correctAnswer] : (q.correctIndex ?? -1);
+        return selectedLetter === correctIdx;
+      }).length,
     [answers, quiz.questions]
   );
+
   const score = total > 0 ? Math.round((correctCount / total) * 100) : 0;
   const passed = score >= quiz.passScore;
   const percent = total > 0 ? Math.round((answered / total) * 100) : 0;
 
-  const handleAnswer = useCallback((questionIndex: number, letter: string) => {
-    setAnswers((prev) => ({ ...prev, [questionIndex]: letter }));
+  const handleAnswer = useCallback((questionIndex: number, optionIndex: number) => {
+    setAnswers((prev) => ({ ...prev, [questionIndex]: optionIndex }));
+    setShowResult(false);
+  }, []);
+
+  const handleCheckAnswer = useCallback(() => {
+    setShowResult(true);
   }, []);
 
   const handleNext = useCallback(() => {
@@ -45,23 +117,50 @@ export default function QuizClient({ quiz, lessonTitle, lessonId }: Props) {
       setShowResult(false);
     } else {
       setState("completed");
+      if (passed) {
+        setShowConfetti(true);
+        setTimeout(() => setShowConfetti(false), 2000);
+      }
     }
-  }, [current, total]);
+  }, [current, total, passed]);
+
+  const handlePrevious = useCallback(() => {
+    if (current > 0) {
+      setCurrent((c) => c - 1);
+      setShowResult(false);
+    }
+  }, [current]);
 
   const handleReset = useCallback(() => {
     setState("start");
     setCurrent(0);
     setAnswers({});
     setShowResult(false);
+    setShowConfetti(false);
     recordedRef.current = false;
   }, []);
 
+  const handleContinue = useCallback(() => {
+    router.push(`/learn/${lessonId}`);
+  }, [router, lessonId]);
+
+  // Navigation away warning
+  useEffect(() => {
+    if (state !== "active") return;
+    const handler = (e: BeforeUnloadEvent) => {
+      e.preventDefault();
+    };
+    window.addEventListener("beforeunload", handler);
+    return () => window.removeEventListener("beforeunload", handler);
+  }, [state]);
+
+  // Save quiz attempt on completion
   useEffect(() => {
     if (state !== "completed" || recordedRef.current || total === 0) return;
     recordedRef.current = true;
-    recordQuizScore(lessonId, score, passed);
-    if (passed) markLessonComplete(lessonId);
-  }, [state, score, passed, lessonId, total, recordQuizScore, markLessonComplete]);
+    const answerArray = quiz.questions.map((_, i) => answers[i] ?? -1);
+    saveQuizAttempt(quiz.id, lessonId, score, total, answerArray);
+  }, [state, score, total, lessonId, quiz.id, quiz.questions, answers, saveQuizAttempt]);
 
   if (total === 0) {
     return (
@@ -69,7 +168,7 @@ export default function QuizClient({ quiz, lessonTitle, lessonId }: Props) {
         <div className="mx-auto max-w-2xl px-4 md:px-6">
           <Link
             href={`/learn/${lessonId}`}
-            className="no-print mb-6 inline-flex items-center gap-2 text-sm font-semibold text-primary"
+            className="no-print mb-6 inline-flex items-center gap-2 text-label-md font-semibold text-primary"
           >
             <ArrowLeft size={18} />
             {t("backToLesson")}
@@ -87,12 +186,13 @@ export default function QuizClient({ quiz, lessonTitle, lessonId }: Props) {
   }
 
   if (state === "start") {
+    const bestScore = getQuizBestScore(quiz.id);
     return (
       <div className="py-12 md:py-16">
         <div className="mx-auto max-w-2xl px-4 md:px-6">
           <Link
             href={`/learn/${lessonId}`}
-            className="no-print mb-6 inline-flex items-center gap-2 text-sm font-semibold text-primary"
+            className="no-print mb-6 inline-flex items-center gap-2 text-label-md font-semibold text-primary"
           >
             <ArrowLeft size={18} />
             {t("backToLesson")}
@@ -102,11 +202,14 @@ export default function QuizClient({ quiz, lessonTitle, lessonId }: Props) {
             <p className="mb-4 text-body-md text-on-surface-variant">
               {t("description", { count: total, title: lessonTitle })}
             </p>
-            <p className="mb-6 text-sm text-on-surface-variant">
+            <p className="mb-6 text-label-md text-on-surface-variant">
               {t("passRequirement", { score: quiz.passScore })}
             </p>
+            {bestScore !== null ? (
+              <p className="mb-4 text-label-md font-semibold text-secondary">Your best score: {bestScore}%</p>
+            ) : null}
             <button type="button" onClick={() => setState("active")} className="btn-primary">
-              {t("startQuiz")}
+              {bestScore !== null ? t("retake") : t("startQuiz")}
             </button>
           </div>
         </div>
@@ -116,197 +219,122 @@ export default function QuizClient({ quiz, lessonTitle, lessonId }: Props) {
 
   if (state === "completed") {
     return (
-      <div className="py-12 md:py-16">
-        <div className="mx-auto max-w-2xl px-4 md:px-6">
-          <div className="card text-center">
-            <div className="mx-auto mb-4 flex h-20 w-20 items-center justify-center rounded-full bg-surface-container">
-              {passed ? <Check size={40} className="text-primary" /> : <X size={40} className="text-error" />}
-            </div>
-            <h1 className="mb-2 text-headline-lg text-primary">{passed ? t("passed") : t("tryAgain")}</h1>
-            <p className="mb-2 text-body-lg text-on-surface-variant">
-              {t("scoreLabel", { score, correct: correctCount, total })}
-            </p>
-            {!passed && (
-              <p className="mb-6 text-sm text-on-surface-variant">
-                {t("passRequirement", { score: quiz.passScore })}
-              </p>
-            )}
-            {passed ? (
-              <Link href={`/learn/${lessonId}`} className="btn-primary">
-                {t("backToLesson")}
-              </Link>
-            ) : (
-              <button onClick={handleReset} className="btn-primary inline-flex items-center gap-2">
-                <RefreshCw size={18} />
-                {t("retake")}
-              </button>
-            )}
-          </div>
-
-          <div className="mt-8 space-y-6">
-            {quiz.questions.map((q, i) => {
-              const userAnswer = answers[i];
-              const isCorrect = userAnswer === q.correctAnswer;
-              return (
-                <div key={i} className="card">
-                  <div className="mb-2 flex items-center gap-2">
-                    <span className="flex h-7 w-7 items-center justify-center rounded-full bg-surface-container text-sm font-bold text-on-surface">
-                      {i + 1}
-                    </span>
-                    {userAnswer ? (
-                      isCorrect ? (
-                        <Check size={18} className="text-primary" />
-                      ) : (
-                        <X size={18} className="text-error" />
-                      )
-                    ) : null}
-                  </div>
-                  <p className="mb-3 font-semibold text-on-surface">{q.question}</p>
-                  <div className="mb-3 space-y-2">
-                    {q.options.map((opt, oi) => {
-                      const letter = String.fromCharCode(65 + oi);
-                      const isSelected = userAnswer === letter;
-                      const isCorrectOption = letter === q.correctAnswer;
-                      let className = "rounded border px-3 py-2 text-sm flex items-center gap-2 ";
-                      if (isCorrectOption) {
-                        className += "border-primary bg-primary-container text-on-primary-container";
-                      } else if (isSelected && !isCorrectOption) {
-                        className += "border-error bg-error-container text-on-error-container";
-                      } else {
-                        className += "border-outline-variant text-on-surface";
-                      }
-                      return (
-                        <div key={oi} className={className}>
-                          <span className="font-bold">{letter}.</span>
-                          <span>{opt}</span>
-                        </div>
-                      );
-                    })}
-                  </div>
-                  {q.explanation && (
-                    <div className="rounded bg-surface-container-low px-3 py-2 text-sm text-on-surface-variant">
-                      <span className="font-semibold text-primary">{t("explanation")}:</span> {q.explanation}
-                    </div>
-                  )}
-                </div>
-              );
-            })}
+      <>
+        {showConfetti && <Confetti />}
+        <div className="py-12 md:py-16">
+          <div className="mx-auto max-w-2xl px-4 md:px-6">
+            <QuizResults
+              quiz={quiz}
+              answers={quiz.questions.map((_, i) => answers[i] ?? -1)}
+              score={score}
+              passed={passed}
+              onRetake={handleReset}
+              onContinue={handleContinue}
+            />
           </div>
         </div>
-      </div>
+      </>
     );
   }
 
   const question = quiz.questions[current];
-  const selected = answers[current];
+  const selectedIdx = answers[current] ?? -1;
+  const selectedLetter = selectedIdx >= 0 ? IDX_TO_LETTER[selectedIdx] : undefined;
+  const isCorrect = selectedLetter !== undefined ? selectedLetter === question.correctAnswer : null;
 
   return (
-    <div className="py-12 md:py-16">
-      <div className="mx-auto max-w-2xl px-4 md:px-6">
-        <div className="mb-6">
-          <div className="mb-2 flex items-center justify-between text-sm text-on-surface-variant">
-            <span>{t("questionXofY", { current: current + 1, total })}</span>
-            <span>{t("answered", { count: answered })}</span>
-          </div>
-          <div
-            className="progress-bar"
-            role="progressbar"
-            aria-valuenow={percent}
-            aria-valuemin={0}
-            aria-valuemax={100}
-            aria-label={t("questionXofY", { current: current + 1, total })}
-          >
-            <div className="progress-fill" style={{ width: `${percent}%` }} />
-          </div>
-        </div>
-
-        <div className="card mb-6">
-          <fieldset>
-            <legend className="mb-4 text-headline-md text-primary">{question.question}</legend>
-            <div className="space-y-3" role="radiogroup" aria-label={question.question}>
-              {question.options.map((opt, oi) => {
-                const letter = String.fromCharCode(65 + oi);
-                const isSelected = selected === letter;
-                const optionId = `quiz-q${current}-opt-${letter}`;
-                return (
-                  <label
-                    key={oi}
-                    htmlFor={optionId}
-                    className={`flex w-full cursor-pointer items-center gap-3 rounded border px-4 py-3 text-left text-body-md transition-colors ${
-                      isSelected
-                        ? "border-primary bg-primary-container text-on-primary-container"
-                        : "border-outline-variant text-on-surface hover:bg-surface-container"
-                    }`}
-                  >
-                    <input
-                      id={optionId}
-                      type="radio"
-                      name={`quiz-question-${current}`}
-                      value={letter}
-                      checked={isSelected}
-                      onChange={() => handleAnswer(current, letter)}
-                      className="sr-only"
-                    />
-                    <span
-                      className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-sm font-bold ${
-                        isSelected
-                          ? "bg-primary text-on-primary"
-                          : "bg-surface-container text-on-surface-variant"
-                      }`}
-                      aria-hidden
-                    >
-                      {letter}
-                    </span>
-                    <span>{opt}</span>
-                  </label>
-                );
-              })}
-            </div>
-          </fieldset>
-        </div>
-
-        {selected && showResult && (
-          <div
-            className={`mb-6 rounded-lg border p-4 ${
-              selected === question.correctAnswer
-                ? "border-primary bg-primary-container text-on-primary-container"
-                : "border-error bg-error-container text-on-error-container"
-            }`}
-          >
-            <p className="mb-1 font-semibold">
-              {selected === question.correctAnswer ? t("correct") : t("incorrect")}
+    <>
+      {/* Exit warning dialog */}
+      {showExitWarning ? (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4">
+          <div className="max-w-sm rounded-2xl bg-surface p-6 shadow-elevation-3">
+            <h2 className="mb-3 text-headline-md text-primary">Leave quiz?</h2>
+            <p className="mb-6 text-body-md text-on-surface-variant">
+              Your progress will be lost if you leave this page.
             </p>
-            {question.explanation && <p className="text-sm">{question.explanation}</p>}
+            <div className="flex gap-3">
+              <button
+                type="button"
+                onClick={() => setShowExitWarning(false)}
+                className="btn-secondary flex-1"
+              >
+                Stay
+              </button>
+              <Link href={`/learn/${lessonId}`} className="btn-primary flex-1 text-center">
+                Leave
+              </Link>
+            </div>
           </div>
-        )}
+        </div>
+      ) : null}
 
-        <div className="flex items-center justify-between">
-          <button
-            onClick={() => {
-              if (current > 0) {
-                setCurrent((c) => c - 1);
-                setShowResult(false);
-              }
-            }}
-            disabled={current === 0}
-            className="btn-secondary disabled:opacity-30"
-          >
-            {t("previous")}
-          </button>
+      <div className="py-12 md:py-16">
+        <div className="mx-auto max-w-2xl px-4 md:px-6">
+          <div className="mb-6">
+            <div className="mb-2 flex items-center justify-between text-label-md text-on-surface-variant">
+              <span>{t("questionXofY", { current: current + 1, total })}</span>
+              <span>{t("answered", { count: answered })}</span>
+            </div>
+            <div
+              className="progress-bar"
+              role="progressbar"
+              aria-valuenow={percent}
+              aria-valuemin={0}
+              aria-valuemax={100}
+              aria-label={t("questionXofY", { current: current + 1, total })}
+            >
+              <div className="progress-fill" style={{ width: `${percent}%` }} />
+            </div>
+          </div>
 
-          {selected && !showResult && (
-            <button onClick={() => setShowResult(true)} className="btn-primary">
-              {t("checkAnswer")}
+          <div className="card mb-6">
+            <QuizQuestionComponent
+              question={question}
+              selectedIndex={selectedIdx >= 0 ? selectedIdx : null}
+              onSelect={(idx) => handleAnswer(current, idx)}
+            />
+          </div>
+
+          {/* Per-question feedback */}
+          {selectedIdx >= 0 && showResult && isCorrect !== null ? (
+            <div
+              role="alert"
+              className={`mb-6 rounded-lg border p-4 ${
+                isCorrect
+                  ? "border-secondary bg-secondary-container/30 text-on-secondary-container"
+                  : "border-tertiary bg-tertiary-container/20 text-tertiary"
+              }`}
+            >
+              <p className="mb-1 font-semibold">{isCorrect ? "Correct!" : "Not quite."}</p>
+              {question.explanation && <p className="text-label-md">{question.explanation}</p>}
+            </div>
+          ) : null}
+
+          <div className="flex items-center justify-between">
+            <button
+              onClick={handlePrevious}
+              disabled={current === 0}
+              className="btn-secondary disabled:opacity-30"
+            >
+              {t("previous")}
             </button>
-          )}
 
-          {selected && showResult && (
-            <button onClick={handleNext} className="btn-primary">
-              {current < total - 1 ? t("next") : t("seeResults")}
-            </button>
-          )}
+            <div className="flex gap-3">
+              {selectedIdx >= 0 && !showResult ? (
+                <button onClick={handleCheckAnswer} className="btn-primary">
+                  {t("checkAnswer")}
+                </button>
+              ) : null}
+
+              {selectedIdx >= 0 && showResult ? (
+                <button onClick={handleNext} className="btn-primary">
+                  {current < total - 1 ? t("next") : t("seeResults")}
+                </button>
+              ) : null}
+            </div>
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }

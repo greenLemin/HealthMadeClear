@@ -20,6 +20,7 @@ export function generateMetadata({ params }: Props) {
   if (!article) return { title: "Article not found" };
   const base = getSiteUrl();
   const path = `/articles/${article.id}`;
+  const ogTitle = encodeURIComponent(article.title);
   return {
     title: article.title,
     description: article.description,
@@ -31,7 +32,25 @@ export function generateMetadata({ params }: Props) {
         "x-default": `${base}/en${path}`,
       },
     },
-    openGraph: { title: article.title, description: article.description, url: `${base}/${locale}${path}` },
+    openGraph: {
+      title: article.title,
+      description: article.description,
+      url: `${base}/${locale}${path}`,
+      images: [
+        {
+          url: `${base}/api/og?title=${ogTitle}&category=Articles`,
+          width: 1200,
+          height: 630,
+          alt: article.title,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: article.title,
+      description: article.description,
+      images: [`${base}/api/og?title=${ogTitle}&category=Articles`],
+    },
   };
 }
 

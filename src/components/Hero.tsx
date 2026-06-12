@@ -13,7 +13,7 @@ export default function Hero() {
       <div className="max-w-container relative mx-auto px-4 md:px-6">
         <div className="grid items-center gap-10 lg:grid-cols-[1.1fr_0.9fr]">
           <div className="max-w-3xl">
-            <div className="mb-5 inline-flex rounded-full border border-outline-variant bg-surface/80 px-4 py-2 text-sm font-semibold text-primary shadow-sm">
+            <div className="mb-4 inline-flex rounded-full border border-outline-variant bg-surface/80 px-4 py-2 text-label-md font-semibold text-primary shadow-sm">
               {t("badge")}
             </div>
             <h1 className="mb-6 text-headline-xl text-primary">{t("title")}</h1>
@@ -43,14 +43,14 @@ export default function Hero() {
                   🩺
                 </div>
                 <div className="text-label-md text-primary">{t("preparedVisits")}</div>
-                <p className="mt-2 text-sm text-on-surface-variant">{t("preparedVisitsBody")}</p>
+                <p className="mt-2 text-label-md text-on-surface-variant">{t("preparedVisitsBody")}</p>
               </div>
               <div className="rounded-2xl bg-primary-fixed/70 p-5">
                 <div className="mb-2 text-2xl" aria-hidden="true">
                   📘
                 </div>
                 <div className="text-label-md text-primary">{t("clearLessons")}</div>
-                <p className="mt-2 text-sm text-on-surface-variant">{t("clearLessonsBody")}</p>
+                <p className="mt-2 text-label-md text-on-surface-variant">{t("clearLessonsBody")}</p>
               </div>
             </div>
           </div>

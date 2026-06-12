@@ -48,7 +48,7 @@ export default function AboutClient() {
         </div>
 
         <section className="rounded-2xl bg-surface-container-low p-8 text-center">
-          <div className="mb-4 inline-flex rounded-full bg-primary-fixed px-4 py-2 text-sm font-semibold text-primary">
+          <div className="mb-4 inline-flex rounded-full bg-primary-fixed px-4 py-2 text-label-md font-semibold text-primary">
             {t("joinBadge")}
           </div>
           <h2 className="mb-4 text-headline-lg text-primary">{t("joinTitle")}</h2>

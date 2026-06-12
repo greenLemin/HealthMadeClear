@@ -1,0 +1,141 @@
+import type { SupabaseClient } from "@supabase/supabase-js";
+import { createNotification } from "@/lib/notifications";
+
+export const ACHIEVEMENTS = {
+  "first-lesson": {
+    id: "first-lesson",
+    title: "First Step",
+    description: "Completed your first lesson",
+    icon: "🌱",
+  },
+  "first-quiz-pass": {
+    id: "first-quiz-pass",
+    title: "Quiz Champion",
+    description: "Passed your first quiz",
+    icon: "✅",
+  },
+  "first-path-complete": {
+    id: "first-path-complete",
+    title: "Path Finder",
+    description: "Completed your first learning path",
+    icon: "🗺️",
+  },
+  "five-lessons": {
+    id: "five-lessons",
+    title: "Dedicated Learner",
+    description: "Completed 5 lessons",
+    icon: "📚",
+  },
+  "perfect-quiz": {
+    id: "perfect-quiz",
+    title: "Perfect Score",
+    description: "Got 100% on a quiz",
+    icon: "⭐",
+  },
+  "three-day-streak": {
+    id: "three-day-streak",
+    title: "On a Roll",
+    description: "3-day learning streak",
+    icon: "🔥",
+  },
+  "seven-day-streak": {
+    id: "seven-day-streak",
+    title: "Week Warrior",
+    description: "7-day learning streak",
+    icon: "⚡",
+  },
+  "ten-lessons": {
+    id: "ten-lessons",
+    title: "Knowledge Seeker",
+    description: "Completed 10 lessons",
+    icon: "🎓",
+  },
+  "all-beginner": {
+    id: "all-beginner",
+    title: "Solid Foundation",
+    description: "Completed all beginner lessons",
+    icon: "🏗️",
+  },
+  "glossary-reader": {
+    id: "glossary-reader",
+    title: "Word Wizard",
+    description: "Looked up 10 glossary terms",
+    icon: "📖",
+  },
+} as const;
+
+export type AchievementId = keyof typeof ACHIEVEMENTS;
+
+export type AchievementContext = {
+  totalLessonsCompleted: number;
+  quizPassed?: boolean;
+  quizScore?: number;
+  quizMaxScore?: number;
+  pathCompleted?: boolean;
+  currentStreak?: number;
+  totalBeginnerLessonsCompleted?: number;
+  totalBeginnerLessonsAvailable?: number;
+  glossaryTermsLookedUp?: number;
+};
+
+export async function checkAndAwardAchievements(
+  supabase: SupabaseClient,
+  userId: string,
+  context: AchievementContext
+): Promise<string[]> {
+  const { data: existing } = await supabase
+    .from("achievements")
+    .select("achievement_id")
+    .eq("user_id", userId);
+
+  const earned = new Set((existing ?? []).map((a) => a.achievement_id));
+  const newlyEarned: string[] = [];
+
+  const checks: Array<{ id: string; condition: boolean }> = [
+    { id: "first-lesson", condition: context.totalLessonsCompleted >= 1 },
+    { id: "five-lessons", condition: context.totalLessonsCompleted >= 5 },
+    { id: "ten-lessons", condition: context.totalLessonsCompleted >= 10 },
+    { id: "first-quiz-pass", condition: context.quizPassed === true },
+    {
+      id: "perfect-quiz",
+      condition:
+        context.quizMaxScore !== undefined &&
+        context.quizScore !== undefined &&
+        context.quizScore === context.quizMaxScore,
+    },
+    { id: "first-path-complete", condition: context.pathCompleted === true },
+    { id: "three-day-streak", condition: (context.currentStreak ?? 0) >= 3 },
+    { id: "seven-day-streak", condition: (context.currentStreak ?? 0) >= 7 },
+    {
+      id: "all-beginner",
+      condition:
+        context.totalBeginnerLessonsAvailable !== undefined &&
+        context.totalBeginnerLessonsCompleted !== undefined &&
+        context.totalBeginnerLessonsAvailable > 0 &&
+        context.totalBeginnerLessonsCompleted >= context.totalBeginnerLessonsAvailable,
+    },
+    { id: "glossary-reader", condition: (context.glossaryTermsLookedUp ?? 0) >= 10 },
+  ];
+
+  for (const check of checks) {
+    if (check.condition && !earned.has(check.id)) {
+      const { error } = await supabase.from("achievements").insert({
+        user_id: userId,
+        achievement_id: check.id,
+      });
+      if (!error) {
+        newlyEarned.push(check.id);
+        const achievement = ACHIEVEMENTS[check.id as AchievementId];
+        if (achievement) {
+          await createNotification(supabase, userId, {
+            type: "achievement",
+            title: `Achievement Unlocked: ${achievement.title}`,
+            body: achievement.description,
+          });
+        }
+      }
+    }
+  }
+
+  return newlyEarned;
+}

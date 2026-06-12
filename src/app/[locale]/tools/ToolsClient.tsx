@@ -82,7 +82,7 @@ export default function ToolsClient() {
                   {tool.description}
                 </p>
                 <span
-                  className={`inline-flex min-h-[48px] items-center rounded-full border px-5 text-sm font-semibold ${
+                  className={`inline-flex min-h-[48px] items-center rounded-full border px-5 text-label-md font-semibold ${
                     isDark ? "border-on-primary text-on-primary" : "border-primary text-primary"
                   }`}
                 >
