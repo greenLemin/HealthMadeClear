@@ -92,7 +92,7 @@ test("english quiz shows substantive explanation after wrong answer", async ({ p
   const quizMain = page.getByRole("main");
   await quizMain.locator('label[for^="quiz-q"]').first().click();
   await quizMain.getByRole("button", { name: /check answer/i }).click();
-  await expect(quizMain.getByText(/acetaminophen|liver|processed/i)).toBeVisible();
+  await expect(quizMain.getByText(/Acetaminophen is processed by the liver/i)).toBeVisible();
 });
 
 test("visit planner persists after reload", async ({ page }) => {
