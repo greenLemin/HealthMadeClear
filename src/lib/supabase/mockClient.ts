@@ -69,11 +69,19 @@ function getMockDb(cookieStore?: any): MockDb {
     json = match ? decodeURIComponent(match[1]) : null;
   }
 
-  if (!json) return DEFAULT_DB;
+  const cloneDefault = () => ({
+    lessons: [],
+    quizzes: [],
+    streak: { current_streak: 1, longest_streak: 1 },
+    achievements: [],
+    profile: { display_name: "Guest Student", created_at: new Date().toISOString() },
+  });
+
+  if (!json) return cloneDefault();
   try {
     return parseFirstJsonObject(json);
   } catch {
-    return DEFAULT_DB;
+    return cloneDefault();
   }
 }
 
