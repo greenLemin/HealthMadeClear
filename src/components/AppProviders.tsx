@@ -51,24 +51,35 @@ export default function AppProviders({
   locale: Locale;
 }) {
   const [locale, setLocaleState] = useState<Locale>(initialLocale);
-  const [theme, setThemeState] = useState<ThemeMode>(() => readStoredTheme());
-  const [textSize, setTextSizeState] = useState<TextSize>(() => readStoredTextSize());
-  const [simpleMode, setSimpleModeState] = useState(() => readStoredSimpleMode());
-  const [completedLessons, setCompletedLessons] = useState<string[]>(() =>
-    readStoredStringArray(STORAGE_KEYS.completedLessons)
-  );
-  const [recentLessons, setRecentLessons] = useState<string[]>(() =>
-    readStoredStringArray(STORAGE_KEYS.recentLessons)
-  );
-  const [startedPaths, setStartedPaths] = useState<string[]>(() =>
-    readStoredStringArray(STORAGE_KEYS.startedPaths)
-  );
-  const [quizScores, setQuizScores] = useState<QuizScore[]>(() => readStoredQuizScores());
+  const [theme, setThemeState] = useState<ThemeMode>("light");
+  const [textSize, setTextSizeState] = useState<TextSize>("standard");
+  const [simpleMode, setSimpleModeState] = useState(false);
+  const [completedLessons, setCompletedLessons] = useState<string[]>([]);
+  const [recentLessons, setRecentLessons] = useState<string[]>([]);
+  const [startedPaths, setStartedPaths] = useState<string[]>([]);
+  const [quizScores, setQuizScores] = useState<QuizScore[]>([]);
   const [hydrated, setHydrated] = useState(false);
 
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setLocaleState(initialLocale);
+
+    // Load stored preferences after mount to prevent hydration mismatches
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setThemeState(readStoredTheme());
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setTextSizeState(readStoredTextSize());
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setSimpleModeState(readStoredSimpleMode());
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setCompletedLessons(readStoredStringArray(STORAGE_KEYS.completedLessons));
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setRecentLessons(readStoredStringArray(STORAGE_KEYS.recentLessons));
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setStartedPaths(readStoredStringArray(STORAGE_KEYS.startedPaths));
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setQuizScores(readStoredQuizScores());
+
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setHydrated(true);
   }, [initialLocale]);

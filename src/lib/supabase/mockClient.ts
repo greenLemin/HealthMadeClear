@@ -21,6 +21,45 @@ const DEFAULT_DB: MockDb = {
   profile: { display_name: "Guest Student", created_at: new Date().toISOString() },
 };
 
+function parseFirstJsonObject(str: string): any {
+  try {
+    return JSON.parse(str);
+  } catch (err) {
+    let depth = 0;
+    let inString = false;
+    let escape = false;
+    for (let i = 0; i < str.length; i++) {
+      const char = str[i];
+      if (escape) {
+        escape = false;
+        continue;
+      }
+      if (char === "\\") {
+        escape = true;
+        continue;
+      }
+      if (char === '"') {
+        inString = !inString;
+        continue;
+      }
+      if (!inString) {
+        if (char === "{") {
+          depth++;
+        } else if (char === "}") {
+          depth--;
+          if (depth === 0) {
+            const candidate = str.substring(0, i + 1);
+            try {
+              return JSON.parse(candidate);
+            } catch {}
+          }
+        }
+      }
+    }
+    throw err;
+  }
+}
+
 function getMockDb(cookieStore?: any): MockDb {
   let json: string | null = null;
   if (cookieStore) {
@@ -32,7 +71,7 @@ function getMockDb(cookieStore?: any): MockDb {
 
   if (!json) return DEFAULT_DB;
   try {
-    return JSON.parse(json);
+    return parseFirstJsonObject(json);
   } catch {
     return DEFAULT_DB;
   }
