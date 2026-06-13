@@ -1,4 +1,5 @@
-const createNextIntlPlugin = require("next-intl/plugin");
+import createNextIntlPlugin from "next-intl/plugin";
+import withBundleAnalyzer from "@next/bundle-analyzer";
 
 const withNextIntl = createNextIntlPlugin("./src/i18n/request.ts");
 
@@ -33,21 +34,16 @@ const securityHeaders = [
   },
 ];
 
-const withBundleAnalyzer = require("@next/bundle-analyzer")({
+const bundleAnalyzer = withBundleAnalyzer({
   enabled: process.env.ANALYZE === "true",
 });
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  compiler: {
-    removeConsole: process.env.NODE_ENV === "production",
-  },
   images: {
     formats: ["image/avif", "image/webp"],
     minimumCacheTTL: 86400,
-    // NOTE: If using external images (e.g. Supabase Storage for avatars),
-    // define remotePatterns here to allow optimization (e.g. hostname: "*.supabase.co").
   },
   experimental: {
     optimizePackageImports: ["lucide-react"],
@@ -62,4 +58,4 @@ const nextConfig = {
   },
 };
 
-module.exports = withBundleAnalyzer(withNextIntl(nextConfig));
+export default bundleAnalyzer(withNextIntl(nextConfig));
