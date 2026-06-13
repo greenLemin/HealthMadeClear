@@ -102,7 +102,9 @@ export default function SettingsClient({
                 {(displayName || tDash("defaultUser")).charAt(0).toUpperCase()}
               </div>
               <div>
-                <p className="text-label-md font-semibold text-on-surface">{displayName || tDash("defaultUser")}</p>
+                <p className="text-label-md font-semibold text-on-surface">
+                  {displayName || tDash("defaultUser")}
+                </p>
                 <p className="text-label-sm text-on-surface-variant">{email}</p>
               </div>
             </div>

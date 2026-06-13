@@ -409,7 +409,11 @@ export async function getCompletedLessonsPaginated(
   const from = (page - 1) * pageSize;
   const to = from + pageSize - 1;
 
-  const { data: progressData, count, error: progressError } = await supabase
+  const {
+    data: progressData,
+    count,
+    error: progressError,
+  } = await supabase
     .from("lesson_progress")
     .select("lesson_id, completed_at", { count: "exact" })
     .eq("user_id", userId)

@@ -426,7 +426,9 @@ export default function DashboardClient({
                     {item.type === "quiz" && item.score !== undefined
                       ? `${item.score}% - ${item.passed ? "Passed" : "Not passed"}`
                       : null}
-                    <span className="ml-2">{formatRelativeDate(item.completedAt, locale as "en" | "es")}</span>
+                    <span className="ml-2">
+                      {formatRelativeDate(item.completedAt, locale as "en" | "es")}
+                    </span>
                   </p>
                 </div>
                 {item.lessonId ? (

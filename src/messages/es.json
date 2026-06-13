@@ -337,14 +337,23 @@
     "items": {
       "first-lesson": { "title": "Primer Paso", "description": "Completaste tu primera lección" },
       "first-quiz-pass": { "title": "Campeón del Examen", "description": "Aprobaste tu primer examen" },
-      "first-path-complete": { "title": "Explorador", "description": "Completaste tu primera ruta de aprendizaje" },
+      "first-path-complete": {
+        "title": "Explorador",
+        "description": "Completaste tu primera ruta de aprendizaje"
+      },
       "five-lessons": { "title": "Aprendiz Dedicado", "description": "Completaste 5 lecciones" },
       "perfect-quiz": { "title": "Puntaje Perfecto", "description": "Obtuviste 100% en un examen" },
       "three-day-streak": { "title": "En Racha", "description": "Racha de aprendizaje de 3 días" },
       "seven-day-streak": { "title": "Guerrero Semanal", "description": "Racha de aprendizaje de 7 días" },
       "ten-lessons": { "title": "Buscador de Conocimiento", "description": "Completaste 10 lecciones" },
-      "all-beginner": { "title": "Base Sólida", "description": "Completaste todas las lecciones para principiantes" },
-      "glossary-reader": { "title": "Mago de Palabras", "description": "Consultaste 10 términos del glosario" }
+      "all-beginner": {
+        "title": "Base Sólida",
+        "description": "Completaste todas las lecciones para principiantes"
+      },
+      "glossary-reader": {
+        "title": "Mago de Palabras",
+        "description": "Consultaste 10 términos del glosario"
+      }
     }
   },
   "notifications": {
