@@ -72,7 +72,7 @@ export default async function ProgressPage({ params }: Props) {
     .eq("user_id", user.id)
     .eq("completed", true);
 
-  const completedSet = new Set((lessonProgressData ?? []).map((p) => p.lesson_id));
+  const completedSet = new Set((lessonProgressData ?? []).map((p: any) => p.lesson_id));
   for (const lesson of allLessons) {
     if (completedSet.has(lesson.id) && categoryProgress[lesson.categoryId]) {
       categoryProgress[lesson.categoryId].completed += 1;

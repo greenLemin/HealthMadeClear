@@ -39,7 +39,12 @@ export interface ProgressActions {
 
 export function useProgress(): ProgressState & ProgressActions {
   const { user, loading: authLoading } = useAuth();
-  const { completedLessons, quizScores } = useAppState();
+  const {
+    completedLessons,
+    quizScores,
+    markLessonComplete: appStateMarkLessonComplete,
+    recordQuizScore,
+  } = useAppState();
   const { showToast } = useToast();
   const supabase = useMemo(() => createClient(), []);
   const [isLoading, setIsLoading] = useState(true);
@@ -90,7 +95,7 @@ export function useProgress(): ProgressState & ProgressActions {
       ]);
 
       if (lessonResult.data) {
-        setSupabaseCompletedLessonIds(lessonResult.data.map((r) => r.lesson_id));
+        setSupabaseCompletedLessonIds(lessonResult.data.map((r: any) => r.lesson_id));
       }
       if (quizResult.data) {
         const attempts: Record<string, { score: number; maxScore: number; passed: boolean }> = {};
@@ -173,9 +178,10 @@ export function useProgress(): ProgressState & ProgressActions {
         }
       } else {
         guestMarkLessonComplete(lessonId);
+        appStateMarkLessonComplete(lessonId);
       }
     },
-    [user, supabase, showToast, supabaseCompletedLessonIds]
+    [user, supabase, showToast, supabaseCompletedLessonIds, appStateMarkLessonComplete]
   );
 
   const saveQuizAttempt = useCallback(
@@ -223,9 +229,10 @@ export function useProgress(): ProgressState & ProgressActions {
         }
       } else {
         guestSaveQuizAttempt(quizId, score, maxScore);
+        recordQuizScore(lessonId, score, passed);
       }
     },
-    [user, supabase, showToast, supabaseCompletedLessonIds]
+    [user, supabase, showToast, recordQuizScore, supabaseCompletedLessonIds]
   );
 
   const isLessonComplete = useCallback(

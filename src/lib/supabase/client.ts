@@ -16,6 +16,11 @@ function getSupabaseAnonKey(): string {
   }
 }
 
+import { getMockSupabaseClient } from "./mockClient";
+
 export function createClient() {
+  if (getSupabaseUrl() === "https://placeholder.supabase.co") {
+    return getMockSupabaseClient();
+  }
   return createBrowserClient(getSupabaseUrl(), getSupabaseAnonKey());
 }

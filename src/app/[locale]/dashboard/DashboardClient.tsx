@@ -1,5 +1,6 @@
 "use client";
 
+import { useRef } from "react";
 import { Link } from "@/i18n/navigation";
 import {
   BookOpen,
@@ -10,7 +11,18 @@ import {
   ArrowRight,
   Sparkles,
   ListChecks,
+  FileUp,
+  FileDown,
 } from "lucide-react";
+import { useTranslations } from "next-intl";
+import { useAppState } from "@/components/AppProviders";
+import { useToast } from "@/components/ui/ToastProvider";
+import {
+  buildProgressExport,
+  downloadProgressExport,
+  parseProgressImport,
+  applyProgressImport,
+} from "@/lib/progressExport";
 import Card from "@/components/ui/Card";
 import Button from "@/components/ui/Button";
 import ProgressBar from "@/components/ui/ProgressBar";
@@ -97,6 +109,47 @@ export default function DashboardClient({
   recommendedNext,
   displayName,
 }: DashboardClientProps) {
+  const t = useTranslations("dashboard");
+  const { showToast } = useToast();
+  const { completedLessons, recentLessons, startedPaths, quizScores, importProgress } = useAppState();
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const handleExport = () => {
+    try {
+      const data = buildProgressExport(completedLessons, recentLessons, startedPaths, quizScores);
+      downloadProgressExport(data);
+      showToast("success", "Progress exported successfully");
+    } catch (err) {
+      showToast("error", "Failed to export progress");
+    }
+  };
+
+  const handleImport = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      const result = event.target?.result;
+      if (typeof result !== "string") return;
+
+      const parsed = parseProgressImport(result);
+      if (!parsed) {
+        showToast("error", t("importError"));
+        return;
+      }
+
+      importProgress(parsed);
+      applyProgressImport(parsed);
+      showToast("success", t("importSuccess"));
+      setTimeout(() => window.location.reload(), 1000);
+    };
+    reader.readAsText(file);
+  };
+
+  const triggerFileInput = () => {
+    fileInputRef.current?.click();
+  };
   const isFirstVisit = summary.totalLessonsCompleted === 0;
   const passRate =
     summary.totalQuizzesAttempted > 0
@@ -109,25 +162,42 @@ export default function DashboardClient({
   return (
     <div className="space-y-10">
       {/* Welcome Header */}
-      <section>
-        <p className="mb-1 text-label-md text-primary">{getGreeting()}</p>
-        <h1 className="text-headline-lg text-primary">
-          {isFirstVisit ? "Welcome to HealthMadeClear!" : `Welcome back, ${displayName}!`}
-        </h1>
-        {summary.currentStreak > 1 ? (
-          <div className="mt-3 inline-flex items-center gap-2 rounded-full bg-secondary-container/60 px-4 py-2 text-label-md font-semibold text-secondary">
-            <Flame size={18} />
-            You&apos;re on a {summary.currentStreak}-day streak. Keep it up!
-          </div>
-        ) : null}
-        {isFirstVisit ? (
-          <p className="mt-3 text-body-md text-on-surface-variant">
-            Let&apos;s get started on your health learning journey.
-          </p>
-        ) : null}
+      <section className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
+        <div>
+          <p className="mb-1 text-label-md text-primary">{getGreeting()}</p>
+          <h1 className="text-headline-lg text-primary">
+            {isFirstVisit ? "Welcome to HealthMadeClear!" : `Welcome back, ${displayName}!`}
+          </h1>
+          {summary.currentStreak > 1 ? (
+            <div className="mt-3 inline-flex items-center gap-2 rounded-full bg-secondary-container/60 px-4 py-2 text-label-md font-semibold text-secondary">
+              <Flame size={18} />
+              You&apos;re on a {summary.currentStreak}-day streak. Keep it up!
+            </div>
+          ) : null}
+          {isFirstVisit ? (
+            <p className="mt-3 text-body-md text-on-surface-variant">
+              Let&apos;s get started on your health learning journey.
+            </p>
+          ) : null}
+        </div>
+        <div className="no-print flex flex-wrap gap-3">
+          <Button variant="secondary" size="sm" onClick={handleExport} icon={<FileDown size={18} />}>
+            {t("exportProgress")}
+          </Button>
+          <Button variant="secondary" size="sm" onClick={triggerFileInput} icon={<FileUp size={18} />}>
+            {t("importProgress")}
+          </Button>
+          <input
+            ref={fileInputRef}
+            type="file"
+            accept=".json"
+            onChange={handleImport}
+            className="hidden"
+            aria-label={t("importProgress")}
+          />
+        </div>
       </section>
 
-      {/* Quick Stats Row */}
       <section className="grid grid-cols-2 gap-4 md:grid-cols-4">
         <Card padding="sm">
           <div className="flex items-center gap-3">
@@ -135,10 +205,10 @@ export default function DashboardClient({
               <BookOpen size={20} />
             </div>
             <div>
-              <p className="text-headline-md text-primary">{summary.totalLessonsCompleted}</p>
-              <p className="text-label-sm text-on-surface-variant">
-                of {summary.totalLessonsAvailable} lessons
+              <p className="text-headline-md text-primary">
+                {summary.totalLessonsCompleted} / {summary.totalLessonsAvailable}
               </p>
+              <p className="text-label-sm text-on-surface-variant">lessons completed</p>
             </div>
           </div>
         </Card>

@@ -43,8 +43,23 @@ export default function VisitPlannerClient() {
     [t]
   );
 
-  const [saved] = useState((): PlannerState | null => {
-    return readStoredJson(STORAGE_KEYS.visitPlanner, (value): PlannerState | null => {
+  const [step, setStep] = useState(1);
+  const [visitType, setVisitType] = useState<VisitTypeKey>("new-symptom");
+  const [selectedQuestions, setSelectedQuestions] = useState<string[]>([]);
+  const [customQuestions, setCustomQuestions] = useState<CustomQuestion[]>([]);
+  const [customInput, setCustomInput] = useState("");
+  const [notes, setNotes] = useState("");
+  const [hydrated, setHydrated] = useState(false);
+
+  useEffect(() => {
+    if (!hydrated && selectedQuestions.length === 0) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setSelectedQuestions(visitTypes[visitType].questions.slice(0, 2));
+    }
+  }, [visitType, visitTypes, hydrated, selectedQuestions]);
+
+  useEffect(() => {
+    const saved = readStoredJson(STORAGE_KEYS.visitPlanner, (value): PlannerState | null => {
       if (!value || typeof value !== "object") return null;
       const parsed = value as Partial<PlannerState>;
       if (!VISIT_TYPE_KEYS.includes(parsed.visitType as VisitTypeKey)) return null;
@@ -67,19 +82,25 @@ export default function VisitPlannerClient() {
         step: typeof parsed.step === "number" && parsed.step >= 1 && parsed.step <= 3 ? parsed.step : 1,
       };
     });
-  });
-  const [step, setStep] = useState(() => saved?.step ?? 1);
-  const [visitType, setVisitType] = useState<VisitTypeKey>(() => saved?.visitType ?? "new-symptom");
-  const [selectedQuestions, setSelectedQuestions] = useState<string[]>(
-    () => saved?.selectedQuestions ?? visitTypes["new-symptom"].questions.slice(0, 2)
-  );
-  const [customQuestions, setCustomQuestions] = useState<CustomQuestion[]>(
-    () => saved?.customQuestions ?? []
-  );
-  const [customInput, setCustomInput] = useState("");
-  const [notes, setNotes] = useState(() => saved?.notes ?? "");
+
+    if (saved) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setStep(saved.step);
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setVisitType(saved.visitType);
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setSelectedQuestions(saved.selectedQuestions);
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setCustomQuestions(saved.customQuestions ?? []);
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setNotes(saved.notes);
+    }
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setHydrated(true);
+  }, []);
 
   useEffect(() => {
+    if (!hydrated) return;
     const state: PlannerState = {
       visitType,
       selectedQuestions,
@@ -88,14 +109,15 @@ export default function VisitPlannerClient() {
       step,
     };
     writeStoredJson(STORAGE_KEYS.visitPlanner, state);
-  }, [visitType, selectedQuestions, customQuestions, notes, step]);
+  }, [visitType, selectedQuestions, customQuestions, notes, step, hydrated]);
 
   const questions = visitTypes[visitType].questions;
 
   useEffect(() => {
+    if (!hydrated) return;
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setSelectedQuestions(visitTypes[visitType].questions.slice(0, 2));
-  }, [visitType, visitTypes]);
+  }, [visitType, visitTypes, hydrated]);
 
   const addCustomQuestion = () => {
     const trimmed = customInput.trim();

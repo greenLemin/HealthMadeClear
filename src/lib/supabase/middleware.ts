@@ -20,6 +20,10 @@ function getSupabaseAnonKey(): string {
 export async function updateSession(request: NextRequest, response?: NextResponse) {
   let supabaseResponse = response || NextResponse.next({ request });
 
+  if (getSupabaseUrl() === "https://placeholder.supabase.co") {
+    return supabaseResponse;
+  }
+
   const supabase = createServerClient(getSupabaseUrl(), getSupabaseAnonKey(), {
     cookies: {
       getAll() {

@@ -18,7 +18,7 @@ export default function QuizQuestion({
   const questionId = `quiz-question-${question.id || question.question.slice(0, 20)}`;
 
   return (
-    <fieldset>
+    <fieldset role="radiogroup" aria-labelledby={`${questionId}-label`}>
       <legend id={`${questionId}-label`} className="mb-6 text-headline-md text-primary">
         {question.question}
       </legend>

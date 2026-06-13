@@ -31,7 +31,7 @@ export default function ResetPasswordPage() {
 
     supabase.auth
       .exchangeCodeForSession(code)
-      .then(({ error: exchangeError }) => {
+      .then(({ error: exchangeError }: any) => {
         if (exchangeError) {
           setError(t("errorGeneric"));
         }

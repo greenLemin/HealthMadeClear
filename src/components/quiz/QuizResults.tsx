@@ -2,6 +2,7 @@
 
 import { useMemo } from "react";
 import { CheckCircle2, XCircle, ArrowRight, RefreshCw } from "lucide-react";
+import { useTranslations } from "next-intl";
 import type { Quiz } from "@/types/quiz";
 
 interface QuizResultsProps {
@@ -23,6 +24,8 @@ export default function QuizResults({
   onRetake,
   onContinue,
 }: QuizResultsProps) {
+  const t = useTranslations("quiz");
+  const tCommon = useTranslations("common");
   const maxScore = quiz.questions.length;
   const correctCount = useMemo(
     () =>
@@ -62,25 +65,23 @@ export default function QuizResults({
           <span className="absolute text-headline-lg font-bold text-on-surface">{Math.round(score)}%</span>
         </div>
         <p className="mb-2 text-body-lg text-on-surface-variant">
-          {correctCount} of {maxScore} correct
+          {t("scoreLabel", { score: Math.round(score), correct: correctCount, total: maxScore })}
         </p>
         {passed ? (
-          <p className="mb-6 text-headline-md text-secondary">Great job!</p>
+          <p className="mb-6 text-headline-md text-secondary">{t("passed")}</p>
         ) : (
-          <p className="mb-6 text-body-md text-on-surface-variant">
-            Good try! Review the lesson and try again.
-          </p>
+          <p className="mb-6 text-body-md text-on-surface-variant">{t("tryAgain")}</p>
         )}
         <div className="flex flex-wrap items-center justify-center gap-4">
           {passed ? (
             <button type="button" onClick={onContinue} className="btn-primary inline-flex items-center gap-2">
-              Continue
+              {tCommon("continue")}
               <ArrowRight size={18} />
             </button>
           ) : null}
           <button type="button" onClick={onRetake} className="btn-secondary inline-flex items-center gap-2">
             <RefreshCw size={18} />
-            Retake Quiz
+            {t("retake")}
           </button>
         </div>
       </div>
@@ -131,7 +132,7 @@ export default function QuizResults({
                 })}
               </div>
               <div className="rounded-xl bg-surface-container-low px-4 py-3 text-label-md text-on-surface-variant">
-                <span className="font-semibold text-primary">Explanation: </span>
+                <span className="font-semibold text-primary">{t("explanation")}: </span>
                 {q.explanation}
               </div>
             </div>

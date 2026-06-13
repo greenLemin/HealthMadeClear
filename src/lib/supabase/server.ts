@@ -17,7 +17,13 @@ function getSupabaseAnonKey(): string {
   }
 }
 
+import { getMockSupabaseClient } from "./mockClient";
+
 export async function createClient() {
+  if (getSupabaseUrl() === "https://placeholder.supabase.co") {
+    const cookieStore = await cookies();
+    return getMockSupabaseClient(cookieStore);
+  }
   const cookieStore = await cookies();
   return createServerClient(getSupabaseUrl(), getSupabaseAnonKey(), {
     cookies: {

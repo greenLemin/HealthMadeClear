@@ -68,7 +68,7 @@ test("spanish quiz loads questions and shows results", async ({ page }) => {
   await expect(quizMain.getByRole("radiogroup").first()).toBeVisible();
 
   for (let i = 0; i < 5; i++) {
-    await quizMain.locator('label[for^="quiz-q"]').first().click();
+    await quizMain.getByRole("radio").first().click();
     const checkButton = quizMain.getByRole("button", { name: /verificar respuesta/i });
     if (await checkButton.isVisible()) {
       await checkButton.click();
@@ -90,7 +90,7 @@ test("english quiz shows substantive explanation after wrong answer", async ({ p
   await page.goto("/en/learn/pain-medications-safely/quiz");
   await page.getByRole("button", { name: /start quiz/i }).click();
   const quizMain = page.getByRole("main");
-  await quizMain.locator('label[for^="quiz-q"]').first().click();
+  await quizMain.getByRole("radio").first().click();
   await quizMain.getByRole("button", { name: /check answer/i }).click();
   await expect(quizMain.getByText(/Acetaminophen is processed by the liver/i)).toBeVisible();
 });
