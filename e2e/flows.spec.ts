@@ -1,4 +1,4 @@
-import { expect, test } from "./setup";
+import { expect, test, waitForAppReady } from "./setup";
 
 test("lesson detail and mark complete", async ({ page }) => {
   await page.goto("/en/learn/understanding-prescription-labels");
@@ -19,6 +19,7 @@ test("visit checklist persists after reload", async ({ page }) => {
 
 test("dark mode toggle updates document dataset", async ({ page }) => {
   await page.goto("/en");
+  await waitForAppReady(page);
   await page.getByRole("button", { name: /display/i }).click();
   await page.getByRole("radio", { name: /dark/i }).click();
   await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
@@ -26,6 +27,7 @@ test("dark mode toggle updates document dataset", async ({ page }) => {
 
 test("simple mode toggle", async ({ page }) => {
   await page.goto("/en");
+  await waitForAppReady(page);
   await page.getByRole("button", { name: /display/i }).click();
   await page.getByRole("button", { name: /simple mode.*off/i }).click();
   await expect(page.locator("html")).toHaveAttribute("data-simple-mode", "true");
@@ -43,6 +45,7 @@ test("progress export button exists on dashboard", async ({ page }) => {
 
 test("search navigates to lesson", async ({ page }) => {
   await page.goto("/en");
+  await waitForAppReady(page);
   await page.getByRole("button", { name: /open search/i }).click();
   const dialog = page.getByRole("dialog", { name: /search/i });
   await dialog.getByPlaceholder(/search lessons/i).fill("blood");

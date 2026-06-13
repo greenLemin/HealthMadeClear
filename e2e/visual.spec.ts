@@ -1,9 +1,11 @@
 import { expect, test } from "./setup";
 
-// CI uses Linux baselines (home-en-*-chromium-linux.png). Local macOS runs use darwin snapshots.
+// Full-page visual baselines are OS-specific. Run locally on Linux (or Docker) to refresh:
+//   docker run --rm -v "$PWD":/work -w /work -e CI=true mcr.microsoft.com/playwright:v1.60.0-noble \
+//     bash -c "npm ci && npx playwright test e2e/visual.spec.ts --update-snapshots"
 test.skip(
   !process.env.CI && process.platform === "darwin",
-  "Local macOS uses darwin snapshots; run visual tests in CI or update darwin baselines locally"
+  "Local macOS uses darwin snapshots; run visual tests in Linux/Docker to refresh baselines"
 );
 
 test("home visual baseline light", async ({ page }) => {

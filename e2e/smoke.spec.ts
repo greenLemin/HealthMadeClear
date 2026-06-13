@@ -1,4 +1,4 @@
-import { expect, test } from "./setup";
+import { expect, test, waitForAppReady } from "./setup";
 
 test("home loads and navigates to learn library", async ({ page }) => {
   await page.goto("/en");
@@ -9,6 +9,7 @@ test("home loads and navigates to learn library", async ({ page }) => {
 
 test("language preference persists in localStorage and URL", async ({ page }) => {
   await page.goto("/en");
+  await waitForAppReady(page);
   await page.getByRole("radio", { name: /spanish/i }).click();
   await expect(page).toHaveURL(/\/es(\/|$)/);
   await page.reload();
