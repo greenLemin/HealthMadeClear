@@ -54,8 +54,14 @@ export function clearGuestProgress() {
   keys.forEach((k) => storage.removeItem(k));
 }
 
-export async function migrateGuestProgressToSupabase(supabase: SupabaseClient, userId: string) {
+export type GuestMigrationResult = { ok: boolean; errors: string[] };
+
+export async function migrateGuestProgressToSupabase(
+  supabase: SupabaseClient,
+  userId: string
+): Promise<GuestMigrationResult> {
   const progress = getGuestProgress();
+  const errors: string[] = [];
 
   if (progress.completedLessons.length > 0) {
     const lessonRows = progress.completedLessons.map((lessonId) => ({
@@ -71,6 +77,7 @@ export async function migrateGuestProgressToSupabase(supabase: SupabaseClient, u
 
     if (lessonError) {
       console.error("Failed to migrate lesson progress:", lessonError);
+      errors.push(lessonError.message);
     }
   }
 
@@ -87,8 +94,13 @@ export async function migrateGuestProgressToSupabase(supabase: SupabaseClient, u
 
     if (quizError) {
       console.error("Failed to migrate quiz attempts:", quizError);
+      errors.push(quizError.message);
     }
   }
 
-  clearGuestProgress();
+  if (errors.length === 0) {
+    clearGuestProgress();
+  }
+
+  return { ok: errors.length === 0, errors };
 }

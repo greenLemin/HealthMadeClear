@@ -58,8 +58,8 @@ export function useProgress(): ProgressState & ProgressActions {
     if (user && !migrated) {
       const guest = getGuestProgress();
       if (guest.completedLessons.length > 0 || guest.quizAttempts.length > 0) {
-        migrateGuestProgressToSupabase(supabase, user.id).then(() => {
-          setMigrated(true);
+        migrateGuestProgressToSupabase(supabase, user.id).then((result) => {
+          if (result.ok) setMigrated(true);
           setIsLoading(false);
         });
       } else {

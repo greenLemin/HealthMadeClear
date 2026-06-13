@@ -4,13 +4,15 @@ import dynamic from "next/dynamic";
 import { useState } from "react";
 import { useRouter } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
-import { User, Mail, Shield, Trash2, Palette, Globe, LogOut } from "lucide-react";
+import { User, Mail, Shield, Trash2, Palette, Globe } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 import Card from "@/components/ui/Card";
 import Button from "@/components/ui/Button";
 import Input from "@/components/ui/Input";
 import { useToast } from "@/components/ui/ToastProvider";
 import { useAuth } from "@/hooks/useAuth";
+import { useAppState } from "@/components/AppProviders";
+import type { ThemeMode } from "@/lib/preferences";
 
 const Modal = dynamic(() => import("@/components/ui/Modal"), { ssr: false });
 
@@ -25,7 +27,6 @@ type SettingsClientProps = {
 export default function SettingsClient({
   displayName: initialDisplayName,
   email,
-  memberSince,
   locale,
   userId,
 }: SettingsClientProps) {
@@ -33,6 +34,9 @@ export default function SettingsClient({
   const supabase = createClient();
   const { showToast } = useToast();
   const { signOut } = useAuth();
+  const { theme, setTheme } = useAppState();
+  const t = useTranslations("settings");
+  const tDash = useTranslations("dashboard");
 
   const [displayName, setDisplayName] = useState(initialDisplayName);
   const [saving, setSaving] = useState(false);
@@ -46,9 +50,9 @@ export default function SettingsClient({
     const { error } = await supabase.from("profiles").update({ display_name: displayName }).eq("id", userId);
 
     if (error) {
-      showToast("error", "Failed to update profile");
+      showToast("error", t("profileUpdateFailed"));
     } else {
-      showToast("success", "Profile updated successfully");
+      showToast("success", t("profileUpdated"));
     }
     setSaving(false);
   }
@@ -59,7 +63,7 @@ export default function SettingsClient({
     });
 
     if (error) {
-      showToast("error", "Failed to send reset email");
+      showToast("error", t("resetLinkFailed"));
     } else {
       setPasswordSent(true);
     }
@@ -72,69 +76,68 @@ export default function SettingsClient({
     const { error: deleteError } = await supabase.rpc("delete_user");
 
     if (deleteError) {
-      showToast("error", "Failed to delete account");
+      showToast("error", t("deleteFailed"));
       setDeleting(false);
       return;
     }
 
     await signOut();
-    showToast("info", "Your account has been deleted");
+    showToast("info", t("accountDeleted"));
     router.push("/");
   }
 
+  const themeOptions: Array<{ value: ThemeMode; label: string }> = [
+    { value: "light", label: t("themeLight") },
+    { value: "dark", label: t("themeDark") },
+  ];
+
   return (
     <div className="space-y-10">
-      {/* Section 1: Profile */}
       <section>
-        <h2 className="mb-4 text-headline-md text-primary">Profile</h2>
+        <h2 className="mb-4 text-headline-md text-primary">{t("profileSection")}</h2>
         <Card padding="md">
           <div className="space-y-6">
             <div className="flex items-center gap-4">
               <div className="flex h-16 w-16 items-center justify-center rounded-full bg-primary text-headline-md font-bold text-on-primary">
-                {(displayName || "U").charAt(0).toUpperCase()}
+                {(displayName || tDash("defaultUser")).charAt(0).toUpperCase()}
               </div>
               <div>
-                <p className="text-label-md font-semibold text-on-surface">{displayName || "User"}</p>
+                <p className="text-label-md font-semibold text-on-surface">{displayName || tDash("defaultUser")}</p>
                 <p className="text-label-sm text-on-surface-variant">{email}</p>
               </div>
             </div>
             <Input
-              label="Display name"
+              label={t("displayNameLabel")}
               value={displayName}
               onChange={(e) => setDisplayName(e.target.value)}
               icon={<User size={18} />}
             />
             <div className="text-label-sm text-on-surface-variant">
               <Mail size={14} className="mr-1 inline" />
-              {email} (read-only)
+              {t("emailReadOnly", { email })}
             </div>
             <Button onClick={handleSaveProfile} loading={saving}>
-              Update Profile
+              {t("updateProfile")}
             </Button>
           </div>
         </Card>
       </section>
 
-      {/* Section 2: Account */}
       <section>
-        <h2 className="mb-4 text-headline-md text-primary">Account</h2>
+        <h2 className="mb-4 text-headline-md text-primary">{t("accountSection")}</h2>
         <Card padding="md">
           <div className="space-y-6">
             <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
               <div>
-                <p className="text-label-md font-semibold text-on-surface">Change Password</p>
-                <p className="text-label-sm text-on-surface-variant">
-                  A reset link will be sent to your email
-                </p>
+                <p className="text-label-md font-semibold text-on-surface">{t("changePassword")}</p>
+                <p className="text-label-sm text-on-surface-variant">{t("changePasswordDesc")}</p>
               </div>
               <div>
                 {passwordSent ? (
-                  <p className="text-label-md font-medium text-secondary">
-                    A password reset link has been sent to {email}
-                  </p>
+                  <p className="text-label-md font-medium text-secondary">{t("resetLinkSent", { email })}</p>
                 ) : (
                   <Button variant="secondary" onClick={handleChangePassword}>
-                    Send Reset Link
+                    {t("sendResetLink")}
                   </Button>
                 )}
               </div>
@@ -142,48 +145,42 @@ export default function SettingsClient({
             <hr className="border-outline-variant" />
             <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
               <div>
-                <p className="text-label-md font-semibold text-error">Delete Account</p>
-                <p className="text-label-sm text-on-surface-variant">
-                  Permanently delete your account and all progress
-                </p>
+                <p className="text-label-md font-semibold text-error">{t("deleteAccount")}</p>
+                <p className="text-label-sm text-on-surface-variant">{t("deleteAccountDesc")}</p>
               </div>
               <Button variant="danger" icon={<Trash2 size={18} />} onClick={() => setShowDeleteModal(true)}>
-                Delete Account
+                {t("deleteAccount")}
               </Button>
             </div>
           </div>
         </Card>
       </section>
 
-      {/* Section 3: Preferences */}
       <section>
-        <h2 className="mb-4 text-headline-md text-primary">Preferences</h2>
+        <h2 className="mb-4 text-headline-md text-primary">{t("preferencesSection")}</h2>
         <Card padding="md">
           <div className="space-y-6">
             <div>
-              <p className="mb-3 text-label-md font-semibold text-on-surface">Theme</p>
+              <p className="mb-3 text-label-md font-semibold text-on-surface">{t("themeLabel")}</p>
               <div className="flex flex-wrap gap-3">
-                {(["light", "dark", "system"] as const).map((theme) => (
+                {themeOptions.map((opt) => (
                   <Button
-                    key={theme}
-                    variant="secondary"
+                    key={opt.value}
+                    variant={theme === opt.value ? "primary" : "secondary"}
                     size="sm"
                     icon={<Palette size={16} />}
-                    onClick={() => {
-                      document.documentElement.setAttribute("data-theme", theme === "system" ? "" : theme);
-                      localStorage.setItem("hmc-theme", theme);
-                    }}
+                    onClick={() => setTheme(opt.value)}
                   >
-                    {theme.charAt(0).toUpperCase() + theme.slice(1)}
+                    {opt.label}
                   </Button>
                 ))}
               </div>
             </div>
             <hr className="border-outline-variant" />
             <div>
-              <p className="mb-3 text-label-md font-semibold text-on-surface">Language</p>
+              <p className="mb-3 text-label-md font-semibold text-on-surface">{t("languageLabel")}</p>
               <div className="flex flex-wrap gap-3">
-                {["en", "es"].map((lang) => (
+                {(["en", "es"] as const).map((lang) => (
                   <Button
                     key={lang}
                     variant={locale === lang ? "primary" : "secondary"}
@@ -194,7 +191,7 @@ export default function SettingsClient({
                       window.location.href = path;
                     }}
                   >
-                    {lang === "en" ? "English" : "Español"}
+                    {lang === "en" ? t("english") : t("spanish")}
                   </Button>
                 ))}
               </div>
@@ -203,50 +200,44 @@ export default function SettingsClient({
         </Card>
       </section>
 
-      {/* Section 4: Privacy */}
       <section>
-        <h2 className="mb-4 text-headline-md text-primary">Privacy</h2>
+        <h2 className="mb-4 text-headline-md text-primary">{t("privacySection")}</h2>
         <Card padding="md">
           <div className="space-y-4">
+            <p className="text-label-sm text-on-surface-variant">{t("privacySummary")}</p>
             <p className="text-label-sm text-on-surface-variant">
-              We store your lesson progress, quiz scores, and achievements. We do not sell your data.
-            </p>
-            <p className="text-label-sm text-on-surface-variant">
-              To request a copy of your data, contact us at privacy@healthmadeclear.com
+              {t("dataExportNote", { email: t("privacyEmail") })}
             </p>
             <a
               href={`/${locale}/privacy`}
               className="inline-flex items-center gap-1 text-label-md font-semibold text-primary underline-offset-2 hover:underline"
             >
               <Shield size={16} />
-              Read our Privacy Policy
+              {t("readPrivacyPolicy")}
             </a>
           </div>
         </Card>
       </section>
 
-      {/* Delete Account Modal */}
       <Modal
         isOpen={showDeleteModal}
         onClose={() => {
           setShowDeleteModal(false);
           setDeleteConfirm("");
         }}
-        title="Delete Account"
+        title={t("deleteAccount")}
         size="sm"
       >
         <div className="space-y-4">
           <div className="rounded-xl bg-error-container p-4 text-label-md text-on-error-container">
-            This will permanently delete your account and all your progress. This cannot be undone.
+            {t("deleteModalWarning")}
           </div>
-          <p className="text-label-sm text-on-surface-variant">
-            Type <strong>DELETE</strong> to confirm:
-          </p>
+          <p className="text-label-sm text-on-surface-variant">{t("deleteModalConfirm")}</p>
           <Input
-            label="Confirmation"
+            label={tDash("confirmationLabel")}
             value={deleteConfirm}
             onChange={(e) => setDeleteConfirm(e.target.value)}
-            placeholder="Type DELETE"
+            placeholder={t("deleteModalPlaceholder")}
           />
           <div className="flex gap-3">
             <Button
@@ -256,7 +247,7 @@ export default function SettingsClient({
               loading={deleting}
               fullWidth
             >
-              Permanently Delete My Account
+              {t("deleteButton")}
             </Button>
             <Button
               variant="ghost"
@@ -266,7 +257,7 @@ export default function SettingsClient({
               }}
               fullWidth
             >
-              Cancel
+              {tDash("cancel")}
             </Button>
           </div>
         </div>

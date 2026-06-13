@@ -15,7 +15,12 @@ const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { name, email, subject, message } = body;
+    const { name, email, subject, message, website } = body;
+
+    // Honeypot — bots fill hidden fields
+    if (website) {
+      return NextResponse.json({ success: true });
+    }
 
     // Required field presence check
     if (!name || !email || !message) {
@@ -48,10 +53,14 @@ export async function POST(request: Request) {
 
     // Use anon key — the contact_submissions INSERT policy uses WITH CHECK (true),
     // so the anon role can insert without needing the service role.
-    const supabase = createClient(
-      process.env.NEXT_PUBLIC_SUPABASE_URL!,
-      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-    );
+    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+    const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+    if (!supabaseUrl || !supabaseKey) {
+      console.error("[Contact] Supabase env vars not configured");
+      return NextResponse.json({ error: "Service unavailable" }, { status: 503 });
+    }
+
+    const supabase = createClient(supabaseUrl, supabaseKey);
 
     const { error } = await supabase.from("contact_submissions").insert({
       name: name.trim(),

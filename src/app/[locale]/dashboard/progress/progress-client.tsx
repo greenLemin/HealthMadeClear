@@ -1,12 +1,12 @@
 "use client";
 
-import { useState } from "react";
 import { Link } from "@/i18n/navigation";
+import { useTranslations } from "next-intl";
 import { Clock, BookOpen, CheckCircle2, Flame, TrendingUp, ArrowLeft, ArrowRight } from "lucide-react";
 import Card from "@/components/ui/Card";
 import Button from "@/components/ui/Button";
 import ProgressBar from "@/components/ui/ProgressBar";
-import { formatRelativeDate } from "@/lib/i18n";
+import { formatRelativeDate, formatMemberSince, type Locale } from "@/lib/i18n";
 
 type Summary = {
   totalLessonsCompleted: number;
@@ -58,7 +58,7 @@ type ProgressClientProps = {
   activeDays: string[];
   categoryProgress: CategoryProgress[];
   memberSince: string;
-  locale: string;
+  locale: Locale;
 };
 
 function formatTime(minutes: number): string {
@@ -68,10 +68,10 @@ function formatTime(minutes: number): string {
   return mins > 0 ? `${hrs}h ${mins}m` : `${hrs}h`;
 }
 
-function MemberSince({ date }: { date: string }) {
+function MemberSince({ date, locale }: { date: string; locale: Locale }) {
+  const t = useTranslations("progress");
   if (!date) return null;
-  const d = new Date(date);
-  return <span>Member since {d.toLocaleDateString("en-US", { month: "long", year: "numeric" })}</span>;
+  return <span>{t("memberSince", { date: formatMemberSince(date, locale) })}</span>;
 }
 
 export default function ProgressClient({
@@ -81,8 +81,10 @@ export default function ProgressClient({
   activeDays,
   categoryProgress,
   memberSince,
+  locale,
 }: ProgressClientProps) {
-  const [page, setPage] = useState(1);
+  const t = useTranslations("progress");
+  const page = completedLessons.page;
   const overallPct =
     summary.totalLessonsAvailable > 0
       ? Math.round((summary.totalLessonsCompleted / summary.totalLessonsAvailable) * 100)
@@ -103,7 +105,7 @@ export default function ProgressClient({
     <div className="space-y-10">
       {/* Section 1: Overall Progress */}
       <section>
-        <h2 className="mb-6 text-headline-md text-primary">Overall Progress</h2>
+        <h2 className="mb-6 text-headline-md text-primary">{t("overallProgress")}</h2>
         <div className="grid gap-6 md:grid-cols-[1fr_2fr]">
           <div className="flex flex-col items-center justify-center rounded-2xl border border-outline-variant bg-surface-container-lowest p-8 shadow-card">
             <div className="relative mb-4 flex h-36 w-36 items-center justify-center">
@@ -150,7 +152,7 @@ export default function ProgressClient({
                 <CheckCircle2 size={20} className="text-primary" />
                 <div>
                   <p className="text-label-sm text-on-surface-variant">
-                    <MemberSince date={memberSince} />
+                    <MemberSince date={memberSince} locale={locale} />
                   </p>
                   <p className="text-headline-md text-primary">{summary.totalLessonsCompleted} lessons</p>
                 </div>
@@ -288,7 +290,7 @@ export default function ProgressClient({
                         {lesson.category || lesson.categoryId}
                       </td>
                       <td className="px-6 py-4 text-label-md text-on-surface-variant">
-                        {formatRelativeDate(lesson.completedAt)}
+                        {formatRelativeDate(lesson.completedAt, locale)}
                       </td>
                       <td className="px-6 py-4 text-label-md text-on-surface-variant">
                         {lesson.quizScore !== null ? `${lesson.quizScore}%` : "-"}
@@ -318,27 +320,31 @@ export default function ProgressClient({
             {/* Pagination */}
             {completedLessons.totalPages > 1 ? (
               <div className="mt-4 flex items-center justify-center gap-4">
-                <Button
-                  variant="secondary"
-                  size="sm"
-                  disabled={page <= 1}
-                  onClick={() => setPage((p) => Math.max(1, p - 1))}
-                  icon={<ArrowLeft size={16} />}
-                >
-                  Previous
-                </Button>
+                {page > 1 ? (
+                  <Link href={`?page=${page - 1}`}>
+                    <Button variant="secondary" size="sm" icon={<ArrowLeft size={16} />}>
+                      {t("previous")}
+                    </Button>
+                  </Link>
+                ) : (
+                  <Button variant="secondary" size="sm" disabled icon={<ArrowLeft size={16} />}>
+                    {t("previous")}
+                  </Button>
+                )}
                 <span className="text-label-md text-on-surface-variant">
-                  Page {page} of {completedLessons.totalPages}
+                  {t("pageXofY", { page, total: completedLessons.totalPages })}
                 </span>
-                <Button
-                  variant="secondary"
-                  size="sm"
-                  disabled={page >= completedLessons.totalPages}
-                  onClick={() => setPage((p) => p + 1)}
-                  icon={<ArrowRight size={16} />}
-                >
-                  Next
-                </Button>
+                {page < completedLessons.totalPages ? (
+                  <Link href={`?page=${page + 1}`}>
+                    <Button variant="secondary" size="sm" icon={<ArrowRight size={16} />}>
+                      {t("next")}
+                    </Button>
+                  </Link>
+                ) : (
+                  <Button variant="secondary" size="sm" disabled icon={<ArrowRight size={16} />}>
+                    {t("next")}
+                  </Button>
+                )}
               </div>
             ) : null}
           </>

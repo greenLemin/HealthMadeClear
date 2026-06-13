@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import AchievementCard from "@/components/dashboard/AchievementCard";
 import type { AchievementItem } from "@/components/dashboard/AchievementCard";
 
@@ -14,12 +15,14 @@ export default function AchievementsClient({
   earnedCount,
   totalCount,
 }: AchievementsClientProps) {
+  const t = useTranslations("achievements");
+
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="text-headline-lg text-primary">Achievements</h1>
+        <h1 className="text-headline-lg text-primary">{t("title")}</h1>
         <p className="mt-1 text-body-md text-on-surface-variant">
-          {earnedCount} of {totalCount} earned
+          {t("earnedSummary", { count: earnedCount, total: totalCount })}
         </p>
       </div>
 

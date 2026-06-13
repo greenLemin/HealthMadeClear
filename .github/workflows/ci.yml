@@ -11,11 +11,13 @@ jobs:
     runs-on: ubuntu-latest
     env:
       NEXT_PUBLIC_SITE_URL: https://healthmadeclear.org
+      NEXT_PUBLIC_SUPABASE_URL: https://ci-build.supabase.co
+      NEXT_PUBLIC_SUPABASE_ANON_KEY: ci_build_anon_key_placeholder
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: "24"
+          node-version: "20"
           cache: npm
       - run: npm ci
       - run: npm run content:bundle
@@ -23,8 +25,7 @@ jobs:
       - run: git diff --exit-code
       - run: npm run format:check
       - run: npm audit --audit-level=high
-        continue-on-error: true
-      - run: npx eslint .
+      - run: npm run lint
       - run: npm run typecheck
       - run: npm run test:coverage
       - run: npm run build

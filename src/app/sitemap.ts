@@ -2,6 +2,7 @@ import type { MetadataRoute } from "next";
 import { routing } from "@/i18n/routing";
 import { articles } from "@/data/articles";
 import { lessons } from "@/data/lessons";
+import { paths } from "@/data/paths";
 import { glossaryBundles } from "@/data/glossaryBundles";
 import { getSiteUrl } from "@/lib/site";
 
@@ -102,5 +103,25 @@ export default function sitemap(): MetadataRoute.Sitemap {
     }))
   );
 
-  return [...localizedStatic, ...localizedLessons, ...localizedArticles, ...localizedGlossaryTerms];
+  const localizedPaths = routing.locales.flatMap((locale) =>
+    paths.map((path) => ({
+      url: `${base}/${locale}/learning-paths/${path.id}`,
+      lastModified: now,
+      changeFrequency: "monthly" as const,
+      priority: 0.75,
+      alternates: {
+        languages: Object.fromEntries(
+          routing.locales.map((alt) => [alt, `${base}/${alt}/learning-paths/${path.id}`])
+        ),
+      },
+    }))
+  );
+
+  return [
+    ...localizedStatic,
+    ...localizedLessons,
+    ...localizedArticles,
+    ...localizedGlossaryTerms,
+    ...localizedPaths,
+  ];
 }

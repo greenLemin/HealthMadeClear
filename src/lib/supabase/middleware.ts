@@ -1,26 +1,11 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
-
-function getSupabaseUrl(): string {
-  try {
-    return process.env.NEXT_PUBLIC_SUPABASE_URL || "https://placeholder.supabase.co";
-  } catch {
-    return "https://placeholder.supabase.co";
-  }
-}
-
-function getSupabaseAnonKey(): string {
-  try {
-    return process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || "placeholder_anon_key";
-  } catch {
-    return "placeholder_anon_key";
-  }
-}
+import { getSupabaseAnonKey, getSupabaseUrl, isSupabaseConfigured } from "./env";
 
 export async function updateSession(request: NextRequest, response?: NextResponse) {
   let supabaseResponse = response || NextResponse.next({ request });
 
-  if (getSupabaseUrl() === "https://placeholder.supabase.co") {
+  if (!isSupabaseConfigured()) {
     return supabaseResponse;
   }
 
@@ -39,6 +24,19 @@ export async function updateSession(request: NextRequest, response?: NextRespons
     },
   });
 
-  await supabase.auth.getUser();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  const pathname = request.nextUrl.pathname;
+  const isDashboardRoute = /^\/(en|es)\/dashboard(\/|$)/.test(pathname);
+
+  if (isDashboardRoute && !user) {
+    const locale = pathname.split("/")[1] ?? "en";
+    const loginUrl = new URL(`/${locale}/auth/login`, request.url);
+    loginUrl.searchParams.set("redirect", pathname);
+    return NextResponse.redirect(loginUrl);
+  }
+
   return supabaseResponse;
 }

@@ -1,5 +1,6 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { createNotification } from "@/lib/notifications";
+import { getMessages, type Locale } from "@/lib/i18n";
 
 export const ACHIEVEMENTS = {
   "first-lesson": {
@@ -65,6 +66,16 @@ export const ACHIEVEMENTS = {
 } as const;
 
 export type AchievementId = keyof typeof ACHIEVEMENTS;
+
+export function getLocalizedAchievement(id: AchievementId, locale: Locale) {
+  const items = getMessages(locale).achievements.items as Record<
+    string,
+    { title: string; description: string }
+  >;
+  const localized = items[id];
+  if (localized) return { ...ACHIEVEMENTS[id], ...localized };
+  return ACHIEVEMENTS[id];
+}
 
 export type AchievementContext = {
   totalLessonsCompleted: number;

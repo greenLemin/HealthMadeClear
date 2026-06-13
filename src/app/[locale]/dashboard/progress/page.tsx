@@ -16,14 +16,18 @@ export const dynamic = "force-dynamic";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: "dashboard" });
-  return { title: "My Progress | Dashboard", robots: { index: false } };
+  const t = await getTranslations({ locale, namespace: "progress" });
+  return { title: t("title"), robots: { index: false } };
 }
 
-type Props = { params: Promise<{ locale: string }> };
+type Props = {
+  params: Promise<{ locale: string }>;
+  searchParams: Promise<{ page?: string }>;
+};
 
-export default async function ProgressPage({ params }: Props) {
+export default async function ProgressPage({ params, searchParams }: Props) {
   const { locale: localeStr } = await params;
+  const page = Math.max(1, parseInt((await searchParams).page ?? "1", 10) || 1);
   const locale = requireLocale(localeStr);
   const user = await requireAuth(locale, "/dashboard/progress");
   const supabase = await createClient();
@@ -31,7 +35,7 @@ export default async function ProgressPage({ params }: Props) {
   const [summary, quizPerformance, completedPage1, activeDays, profile, allLessons] = await Promise.all([
     getUserProgressSummary(supabase, user.id, locale),
     getQuizPerformanceByCategory(supabase, user.id, locale),
-    getCompletedLessonsPaginated(supabase, user.id, locale, 1, 10),
+    getCompletedLessonsPaginated(supabase, user.id, locale, page, 10),
     getDailyLogForRange(supabase, user.id, 30),
     getUserProfile(supabase, user.id),
     Promise.resolve(getAllLessons(locale)),
@@ -72,7 +76,7 @@ export default async function ProgressPage({ params }: Props) {
     .eq("user_id", user.id)
     .eq("completed", true);
 
-  const completedSet = new Set((lessonProgressData ?? []).map((p: any) => p.lesson_id));
+  const completedSet = new Set((lessonProgressData ?? []).map((p: { lesson_id: string }) => p.lesson_id));
   for (const lesson of allLessons) {
     if (completedSet.has(lesson.id) && categoryProgress[lesson.categoryId]) {
       categoryProgress[lesson.categoryId].completed += 1;

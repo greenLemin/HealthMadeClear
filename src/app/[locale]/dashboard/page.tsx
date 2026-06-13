@@ -35,7 +35,7 @@ export default async function Dashboard({ params }: Props) {
     getUserProgressSummary(supabase, user.id, locale),
     getUserLearningPaths(supabase, user.id, locale),
     getRecentActivity(supabase, user.id, locale),
-    getUserAchievements(supabase, user.id),
+    getUserAchievements(supabase, user.id, locale),
     getRecommendedNextLesson(supabase, user.id, locale),
   ]);
 

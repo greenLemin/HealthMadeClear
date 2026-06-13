@@ -20,7 +20,7 @@ export default async function AchievementsPage({ params }: Props) {
   const user = await requireAuth(locale, "/dashboard/achievements");
   const supabase = await createClient();
 
-  const achievements = await getUserAchievements(supabase, user.id);
+  const achievements = await getUserAchievements(supabase, user.id, locale as "en" | "es");
   const earnedCount = achievements.filter((a) => a.earned).length;
 
   return (

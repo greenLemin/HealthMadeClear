@@ -88,6 +88,12 @@
     "lessonsFound": "lecciones encontradas",
     "noTermsFound": "No se encontraron términos",
     "noLessonsFound": "No se encontraron lecciones",
+    "relativeJustNow": "ahora mismo",
+    "relativeMinutes": "hace {count} min",
+    "relativeHours": "hace {count} h",
+    "relativeYesterday": "ayer",
+    "relativeDays": "hace {count} días",
+    "relativeWeeks": "hace {count} semanas",
     "showAllTerms": "Mostrar todos los términos",
     "showAllLessons": "Mostrar todas las lecciones",
     "recommended": "Recomendado para ti",
@@ -241,7 +247,19 @@
     "lessonXofY": "Lección {current} de {total}",
     "allLessonsComplete": "¡Todas las lecciones completadas!",
     "goToLesson": "Ir a la lección",
-    "viewDetails": "Ver"
+    "viewDetails": "Ver",
+    "navOverview": "Resumen",
+    "navProgress": "Mi Progreso",
+    "navAchievements": "Logros",
+    "navSettings": "Configuración",
+    "navAria": "Navegación del panel",
+    "defaultUser": "Usuario",
+    "streakDays": "Racha de {count} días",
+    "exportSuccess": "Progreso exportado correctamente",
+    "exportError": "Error al exportar el progreso",
+    "daysUnit": "días",
+    "cancel": "Cancelar",
+    "confirmationLabel": "Confirmación"
   },
   "settings": {
     "title": "Configuración",
@@ -274,7 +292,10 @@
     "privacySection": "Privacidad",
     "privacySummary": "Almacenamos tu progreso de lecciones, puntajes de exámenes y logros. No vendemos tus datos.",
     "dataExportNote": "Para solicitar una copia de tus datos, contáctanos en {email}",
-    "readPrivacyPolicy": "Leer Política de Privacidad"
+    "readPrivacyPolicy": "Leer Política de Privacidad",
+    "privacyEmail": "privacy@healthmadeclear.com",
+    "english": "English",
+    "spanish": "Español"
   },
   "progress": {
     "title": "Mi Progreso",
@@ -311,7 +332,26 @@
     "title": "Logros",
     "earnedSummary": "{count} de {total} ganados",
     "keepLearning": "Sigue aprendiendo para desbloquear",
-    "earnedDate": "{date}"
+    "earnedDate": "{date}",
+    "unlocked": "Logro desbloqueado: {title}",
+    "items": {
+      "first-lesson": { "title": "Primer Paso", "description": "Completaste tu primera lección" },
+      "first-quiz-pass": { "title": "Campeón del Examen", "description": "Aprobaste tu primer examen" },
+      "first-path-complete": { "title": "Explorador", "description": "Completaste tu primera ruta de aprendizaje" },
+      "five-lessons": { "title": "Aprendiz Dedicado", "description": "Completaste 5 lecciones" },
+      "perfect-quiz": { "title": "Puntaje Perfecto", "description": "Obtuviste 100% en un examen" },
+      "three-day-streak": { "title": "En Racha", "description": "Racha de aprendizaje de 3 días" },
+      "seven-day-streak": { "title": "Guerrero Semanal", "description": "Racha de aprendizaje de 7 días" },
+      "ten-lessons": { "title": "Buscador de Conocimiento", "description": "Completaste 10 lecciones" },
+      "all-beginner": { "title": "Base Sólida", "description": "Completaste todas las lecciones para principiantes" },
+      "glossary-reader": { "title": "Mago de Palabras", "description": "Consultaste 10 términos del glosario" }
+    }
+  },
+  "notifications": {
+    "title": "Notificaciones",
+    "markAllRead": "Marcar todo como leído",
+    "empty": "¡Estás al día!",
+    "ariaLabel": "Notificaciones{count, plural, =0 {} other {, # sin leer}}"
   },
   "home": {
     "introBadge": "¿Nuevo en la terminología de salud?",

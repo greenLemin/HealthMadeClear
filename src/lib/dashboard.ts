@@ -1,12 +1,17 @@
+import type { PostgrestError } from "@supabase/supabase-js";
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { getAllLessons } from "@/lib/lessons/loadLessons";
 import { getAllLearningPaths } from "@/lib/paths/loadPaths";
 import { getAllQuizzes } from "@/lib/localizedQuiz";
-import { ACHIEVEMENTS } from "@/lib/achievements";
+import { ACHIEVEMENTS, getLocalizedAchievement } from "@/lib/achievements";
 import type { AchievementId } from "@/lib/achievements";
 import type { LearningPath } from "@/types/learningPath";
 import type { LessonId, LessonCategoryId } from "@/types/content";
 import type { Locale } from "@/lib/i18n";
+
+function logQueryError(context: string, error: PostgrestError | null): void {
+  if (error) console.error(`[dashboard:${context}]`, error.message);
+}
 
 export async function getUserProgressSummary(
   supabase: SupabaseClient,
@@ -34,6 +39,10 @@ export async function getUserProgressSummary(
     supabase.from("quiz_attempts").select("score, max_score, passed").eq("user_id", userId),
     supabase.from("streaks").select("current_streak, longest_streak").eq("user_id", userId).single(),
   ]);
+
+  logQueryError("getUserProgressSummary:lessons", lessonResult.error);
+  logQueryError("getUserProgressSummary:quizzes", quizResult.error);
+  logQueryError("getUserProgressSummary:streak", streakResult.error);
 
   const completedLessons = lessonResult.data ?? [];
   const quizAttempts = quizResult.data ?? [];
@@ -73,11 +82,13 @@ export async function getUserLearningPaths(
   const allPaths = getAllLearningPaths(locale);
   const allLessons = getAllLessons(locale);
 
-  const { data: progressData } = await supabase
+  const { data: progressData, error: progressError } = await supabase
     .from("lesson_progress")
     .select("lesson_id")
     .eq("user_id", userId)
     .eq("completed", true);
+
+  logQueryError("getUserLearningPaths", progressError);
 
   const completedSet = new Set((progressData ?? []).map((p) => p.lesson_id));
   const lessonMap = new Map(allLessons.map((l) => [l.id, l]));
@@ -141,6 +152,9 @@ export async function getRecentActivity(
       .limit(5),
   ]);
 
+  logQueryError("getRecentActivity:lessons", lessonResult.error);
+  logQueryError("getRecentActivity:quizzes", quizResult.error);
+
   const activity: Array<{
     type: "lesson" | "quiz";
     lessonId?: string;
@@ -182,7 +196,8 @@ export async function getRecentActivity(
 
 export async function getUserAchievements(
   supabase: SupabaseClient,
-  userId: string
+  userId: string,
+  locale: Locale = "en"
 ): Promise<
   Array<{
     id: string;
@@ -193,21 +208,26 @@ export async function getUserAchievements(
     earnedAt: string | null;
   }>
 > {
-  const { data: earnedData } = await supabase
+  const { data: earnedData, error: earnedError } = await supabase
     .from("achievements")
     .select("achievement_id, earned_at")
     .eq("user_id", userId);
 
+  logQueryError("getUserAchievements", earnedError);
+
   const earnedMap = new Map((earnedData ?? []).map((a) => [a.achievement_id, a.earned_at]));
 
-  return Object.values(ACHIEVEMENTS).map((achievement) => ({
-    id: achievement.id,
-    title: achievement.title,
-    description: achievement.description,
-    icon: achievement.icon,
-    earned: earnedMap.has(achievement.id),
-    earnedAt: earnedMap.get(achievement.id) ?? null,
-  }));
+  return Object.values(ACHIEVEMENTS).map((achievement) => {
+    const localized = getLocalizedAchievement(achievement.id, locale);
+    return {
+      id: achievement.id,
+      title: localized.title,
+      description: localized.description,
+      icon: achievement.icon,
+      earned: earnedMap.has(achievement.id),
+      earnedAt: earnedMap.get(achievement.id) ?? null,
+    };
+  });
 }
 
 export async function getRecommendedNextLesson(
@@ -225,11 +245,13 @@ export async function getRecommendedNextLesson(
   const allPaths = getAllLearningPaths(locale);
   const allLessons = getAllLessons(locale);
 
-  const { data: progressData } = await supabase
+  const { data: progressData, error: progressError } = await supabase
     .from("lesson_progress")
     .select("lesson_id")
     .eq("user_id", userId)
     .eq("completed", true);
+
+  logQueryError("getRecommendedNextLesson", progressError);
 
   const completedSet = new Set((progressData ?? []).map((p) => p.lesson_id));
 
@@ -293,10 +315,12 @@ export async function getQuizPerformanceByCategory(
   const lessonCategoryMap = new Map<string, string>(allLessons.map((l) => [l.id, l.categoryId]));
   const categoryLabelMap = new Map<string, string>(allLessons.map((l) => [l.categoryId, l.category]));
 
-  const { data: quizData } = await supabase
+  const { data: quizData, error: quizError } = await supabase
     .from("quiz_attempts")
     .select("quiz_id, score, max_score, passed")
     .eq("user_id", userId);
+
+  logQueryError("getQuizPerformanceByCategory", quizError);
 
   const categoryStats = new Map<
     string,
@@ -333,9 +357,10 @@ export async function getQuizPerformanceByCategory(
 
 export async function updateDailyLog(supabase: SupabaseClient, userId: string): Promise<void> {
   const today = new Date().toISOString().split("T")[0];
-  await supabase
+  const { error } = await supabase
     .from("daily_log")
     .upsert({ user_id: userId, activity_date: today }, { onConflict: "user_id,activity_date" });
+  logQueryError("updateDailyLog", error);
 }
 
 export async function getDailyLogForRange(
@@ -347,12 +372,14 @@ export async function getDailyLogForRange(
   startDate.setDate(startDate.getDate() - daysBack);
   const startStr = startDate.toISOString().split("T")[0];
 
-  const { data } = await supabase
+  const { data, error } = await supabase
     .from("daily_log")
     .select("activity_date")
     .eq("user_id", userId)
     .gte("activity_date", startStr)
     .order("activity_date", { ascending: false });
+
+  logQueryError("getDailyLogForRange", error);
 
   return (data ?? []).map((d) => d.activity_date);
 }
@@ -382,23 +409,32 @@ export async function getCompletedLessonsPaginated(
   const from = (page - 1) * pageSize;
   const to = from + pageSize - 1;
 
-  const [{ data: progressData, count }, quizData] = await Promise.all([
-    supabase
-      .from("lesson_progress")
-      .select("*", { count: "exact" })
-      .eq("user_id", userId)
-      .eq("completed", true)
-      .order("completed_at", { ascending: false })
-      .range(from, to),
-    supabase
+  const { data: progressData, count, error: progressError } = await supabase
+    .from("lesson_progress")
+    .select("lesson_id, completed_at", { count: "exact" })
+    .eq("user_id", userId)
+    .eq("completed", true)
+    .order("completed_at", { ascending: false })
+    .range(from, to);
+
+  logQueryError("getCompletedLessonsPaginated:progress", progressError);
+
+  const pageLessonIds = (progressData ?? []).map((p) => p.lesson_id);
+  const pageQuizIds = pageLessonIds.map((id) => `${id}-quiz`);
+
+  let quizAttempts: Array<{ quiz_id: string; score: number; max_score: number }> = [];
+  if (pageQuizIds.length > 0) {
+    const { data: quizData, error: quizError } = await supabase
       .from("quiz_attempts")
-      .select("quiz_id, score, max_score, attempted_at")
+      .select("quiz_id, score, max_score")
       .eq("user_id", userId)
-      .order("attempted_at", { ascending: false }),
-  ]);
+      .in("quiz_id", pageQuizIds);
+    logQueryError("getCompletedLessonsPaginated:quizzes", quizError);
+    quizAttempts = quizData ?? [];
+  }
 
   const bestQuizScores = new Map<string, number>();
-  for (const attempt of quizData.data ?? []) {
+  for (const attempt of quizAttempts) {
     const existing = bestQuizScores.get(attempt.quiz_id) ?? 0;
     const pct = attempt.max_score > 0 ? Math.round((attempt.score / attempt.max_score) * 100) : 0;
     if (pct > existing) {
@@ -435,15 +471,18 @@ export async function getUserProfile(
   email: string;
   createdAt: string;
 } | null> {
-  const { data: profile } = await supabase
+  const { data: profile, error: profileError } = await supabase
     .from("profiles")
     .select("display_name, created_at")
     .eq("id", userId)
     .single();
 
+  logQueryError("getUserProfile", profileError);
+
   if (!profile) return null;
 
-  const { data: userData } = await supabase.auth.getUser();
+  const { data: userData, error: authError } = await supabase.auth.getUser();
+  if (authError) console.error("[dashboard:getUserProfile:auth]", authError.message);
   const email = userData?.user?.email ?? "";
 
   return {

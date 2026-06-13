@@ -25,9 +25,9 @@ export default async function DashboardLayout({ children, params }: Props) {
   return (
     <div className="mx-auto flex max-w-[1340px] px-4 md:px-6">
       <DashboardSidebar displayName={displayName} email={email} streak={streak} />
-      <main id="main-content" className="min-h-[calc(100vh-5rem)] flex-1 py-8 pb-24 md:pb-8">
+      <div className="min-h-[calc(100vh-5rem)] flex-1 py-8 pb-24 md:pb-8">
         <div className="mx-auto max-w-[1100px]">{children}</div>
-      </main>
+      </div>
     </div>
   );
 }

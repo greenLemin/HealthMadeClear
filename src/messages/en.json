@@ -88,6 +88,12 @@
     "lessonsFound": "lessons found",
     "noTermsFound": "No terms found",
     "noLessonsFound": "No lessons found",
+    "relativeJustNow": "just now",
+    "relativeMinutes": "{count} min ago",
+    "relativeHours": "{count}h ago",
+    "relativeYesterday": "yesterday",
+    "relativeDays": "{count} days ago",
+    "relativeWeeks": "{count} weeks ago",
     "showAllTerms": "Show all terms",
     "showAllLessons": "Show all lessons",
     "recommended": "Recommended for you",
@@ -241,7 +247,19 @@
     "lessonXofY": "Lesson {current} of {total}",
     "allLessonsComplete": "All lessons complete!",
     "goToLesson": "Go to lesson",
-    "viewDetails": "View"
+    "viewDetails": "View",
+    "navOverview": "Overview",
+    "navProgress": "My Progress",
+    "navAchievements": "Achievements",
+    "navSettings": "Settings",
+    "navAria": "Dashboard navigation",
+    "defaultUser": "User",
+    "streakDays": "{count}-day streak",
+    "exportSuccess": "Progress exported successfully",
+    "exportError": "Failed to export progress",
+    "daysUnit": "days",
+    "cancel": "Cancel",
+    "confirmationLabel": "Confirmation"
   },
   "settings": {
     "title": "Settings",
@@ -274,7 +292,10 @@
     "privacySection": "Privacy",
     "privacySummary": "We store your lesson progress, quiz scores, and achievements. We do not sell your data.",
     "dataExportNote": "To request a copy of your data, contact us at {email}",
-    "readPrivacyPolicy": "Read our Privacy Policy"
+    "readPrivacyPolicy": "Read our Privacy Policy",
+    "privacyEmail": "privacy@healthmadeclear.com",
+    "english": "English",
+    "spanish": "Español"
   },
   "progress": {
     "title": "My Progress",
@@ -311,7 +332,26 @@
     "title": "Achievements",
     "earnedSummary": "{count} of {total} earned",
     "keepLearning": "Keep learning to unlock",
-    "earnedDate": "{date}"
+    "earnedDate": "{date}",
+    "unlocked": "Achievement unlocked: {title}",
+    "items": {
+      "first-lesson": { "title": "First Step", "description": "Completed your first lesson" },
+      "first-quiz-pass": { "title": "Quiz Champion", "description": "Passed your first quiz" },
+      "first-path-complete": { "title": "Path Finder", "description": "Completed your first learning path" },
+      "five-lessons": { "title": "Dedicated Learner", "description": "Completed 5 lessons" },
+      "perfect-quiz": { "title": "Perfect Score", "description": "Got 100% on a quiz" },
+      "three-day-streak": { "title": "On a Roll", "description": "3-day learning streak" },
+      "seven-day-streak": { "title": "Week Warrior", "description": "7-day learning streak" },
+      "ten-lessons": { "title": "Knowledge Seeker", "description": "Completed 10 lessons" },
+      "all-beginner": { "title": "Solid Foundation", "description": "Completed all beginner lessons" },
+      "glossary-reader": { "title": "Word Wizard", "description": "Looked up 10 glossary terms" }
+    }
+  },
+  "notifications": {
+    "title": "Notifications",
+    "markAllRead": "Mark all read",
+    "empty": "You're all caught up!",
+    "ariaLabel": "Notifications{count, plural, =0 {} other {, # unread}}"
   },
   "home": {
     "introBadge": "New to health terminology?",

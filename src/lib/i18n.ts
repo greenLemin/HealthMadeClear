@@ -28,7 +28,7 @@ export function normalizeGlossaryLetter(term: string): string {
   return first.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 }
 
-export function formatRelativeDate(dateStr: string): string {
+export function formatRelativeDate(dateStr: string, locale: Locale = "en"): string {
   if (!dateStr) return "";
   const date = new Date(dateStr);
   const now = new Date();
@@ -36,12 +36,19 @@ export function formatRelativeDate(dateStr: string): string {
   const diffMins = Math.floor(diffMs / 60000);
   const diffHours = Math.floor(diffMs / 3600000);
   const diffDays = Math.floor(diffMs / 86400000);
+  const copy = getMessages(locale).common;
 
-  if (diffMins < 1) return "just now";
-  if (diffMins < 60) return `${diffMins} min ago`;
-  if (diffHours < 24) return `${diffHours}h ago`;
-  if (diffDays === 1) return "yesterday";
-  if (diffDays < 7) return `${diffDays} days ago`;
-  if (diffDays < 30) return `${Math.floor(diffDays / 7)} weeks ago`;
-  return date.toLocaleDateString();
+  if (diffMins < 1) return copy.relativeJustNow;
+  if (diffMins < 60) return copy.relativeMinutes.replace("{count}", String(diffMins));
+  if (diffHours < 24) return copy.relativeHours.replace("{count}", String(diffHours));
+  if (diffDays === 1) return copy.relativeYesterday;
+  if (diffDays < 7) return copy.relativeDays.replace("{count}", String(diffDays));
+  if (diffDays < 30) return copy.relativeWeeks.replace("{count}", String(Math.floor(diffDays / 7)));
+  return date.toLocaleDateString(locale === "es" ? "es-ES" : "en-US");
+}
+
+export function formatMemberSince(dateStr: string, locale: Locale): string {
+  if (!dateStr) return "";
+  const d = new Date(dateStr);
+  return d.toLocaleDateString(locale === "es" ? "es-ES" : "en-US", { month: "long", year: "numeric" });
 }

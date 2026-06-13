@@ -94,11 +94,11 @@ function formatTime(minutes: number): string {
   return mins > 0 ? `${hrs}h ${mins}m` : `${hrs}h`;
 }
 
-function getGreeting(): string {
+function getGreeting(t: (key: string) => string): string {
   const hour = new Date().getHours();
-  if (hour < 12) return "Good morning";
-  if (hour < 17) return "Good afternoon";
-  return "Good evening";
+  if (hour < 12) return t("greetingMorning");
+  if (hour < 17) return t("greetingAfternoon");
+  return t("greetingEvening");
 }
 
 export default function DashboardClient({
@@ -108,6 +108,7 @@ export default function DashboardClient({
   achievements,
   recommendedNext,
   displayName,
+  locale,
 }: DashboardClientProps) {
   const t = useTranslations("dashboard");
   const { showToast } = useToast();
@@ -118,9 +119,9 @@ export default function DashboardClient({
     try {
       const data = buildProgressExport(completedLessons, recentLessons, startedPaths, quizScores);
       downloadProgressExport(data);
-      showToast("success", "Progress exported successfully");
+      showToast("success", t("exportSuccess"));
     } catch (err) {
-      showToast("error", "Failed to export progress");
+      showToast("error", t("exportError"));
     }
   };
 
@@ -164,20 +165,18 @@ export default function DashboardClient({
       {/* Welcome Header */}
       <section className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
         <div>
-          <p className="mb-1 text-label-md text-primary">{getGreeting()}</p>
+          <p className="mb-1 text-label-md text-primary">{getGreeting(t)}</p>
           <h1 className="text-headline-lg text-primary">
-            {isFirstVisit ? "Welcome to HealthMadeClear!" : `Welcome back, ${displayName}!`}
+            {isFirstVisit ? t("welcomeFirstVisit") : t("welcomeBack", { name: displayName })}
           </h1>
           {summary.currentStreak > 1 ? (
             <div className="mt-3 inline-flex items-center gap-2 rounded-full bg-secondary-container/60 px-4 py-2 text-label-md font-semibold text-secondary">
               <Flame size={18} />
-              You&apos;re on a {summary.currentStreak}-day streak. Keep it up!
+              {t("streakCallout", { count: summary.currentStreak })}
             </div>
           ) : null}
           {isFirstVisit ? (
-            <p className="mt-3 text-body-md text-on-surface-variant">
-              Let&apos;s get started on your health learning journey.
-            </p>
+            <p className="mt-3 text-body-md text-on-surface-variant">{t("startJourney")}</p>
           ) : null}
         </div>
         <div className="no-print flex flex-wrap gap-3">
@@ -427,7 +426,7 @@ export default function DashboardClient({
                     {item.type === "quiz" && item.score !== undefined
                       ? `${item.score}% - ${item.passed ? "Passed" : "Not passed"}`
                       : null}
-                    <span className="ml-2">{formatRelativeDate(item.completedAt)}</span>
+                    <span className="ml-2">{formatRelativeDate(item.completedAt, locale as "en" | "es")}</span>
                   </p>
                 </div>
                 {item.lessonId ? (
@@ -476,7 +475,7 @@ export default function DashboardClient({
                 <p className="mt-2 text-label-sm font-semibold text-on-surface">{achievement.title}</p>
                 {achievement.earnedAt ? (
                   <p className="mt-1 text-label-sm text-on-surface-variant">
-                    {formatRelativeDate(achievement.earnedAt)}
+                    {formatRelativeDate(achievement.earnedAt, locale as "en" | "es")}
                   </p>
                 ) : null}
               </Card>
