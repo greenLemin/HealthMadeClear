@@ -7,4 +7,7 @@ export default [
       "@typescript-eslint/no-require-imports": "off",
     },
   },
+  {
+    ignores: ["e2e/**"],
+  },
 ];
