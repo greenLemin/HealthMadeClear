@@ -7,10 +7,10 @@ import { getSiteUrl } from "@/lib/site";
 import JsonLd from "@/components/JsonLd";
 import HomeClient from "./HomeClient";
 
-type Props = { params: { locale: string } };
+type Props = { params: Promise<{ locale: string }> };
 
 export async function generateMetadata({ params }: Props) {
-  const locale = requireLocale(params.locale);
+  const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "hero" });
   const base = getSiteUrl();
 
@@ -33,8 +33,9 @@ export async function generateMetadata({ params }: Props) {
   };
 }
 
-export default function Home({ params }: Props) {
-  const locale = requireLocale(params.locale);
+export default async function Home({ params }: Props) {
+  const { locale: localeStr } = await params;
+  const locale = requireLocale(localeStr);
   setRequestLocale(locale);
   const lessons = toLessonListItems(getAllLessons(locale));
   const learningPaths = getAllLearningPaths(locale);

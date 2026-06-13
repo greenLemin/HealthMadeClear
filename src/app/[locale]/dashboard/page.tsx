@@ -13,8 +13,9 @@ import DashboardClient from "./DashboardClient";
 
 export const dynamic = "force-dynamic";
 
-export async function generateMetadata({ params }: { params: { locale: string } }) {
-  const t = await getTranslations({ locale: params.locale, namespace: "dashboard" });
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "dashboard" });
   return {
     title: t("title"),
     description: t("description"),
@@ -22,10 +23,11 @@ export async function generateMetadata({ params }: { params: { locale: string } 
   };
 }
 
-type Props = { params: { locale: string } };
+type Props = { params: Promise<{ locale: string }> };
 
 export default async function Dashboard({ params }: Props) {
-  const locale = requireLocale(params.locale);
+  const { locale: localeStr } = await params;
+  const locale = requireLocale(localeStr);
   const user = await requireAuth(locale, "/dashboard");
   const supabase = await createClient();
 

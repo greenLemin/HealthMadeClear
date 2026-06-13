@@ -6,18 +6,20 @@ import { getAllGlossaryTerms } from "@/lib/glossary/loadGlossary";
 import { toLessonListItems } from "@/lib/lessonListItem";
 import LearningPathsClient from "./LearningPathsClient";
 
-export async function generateMetadata({ params }: { params: { locale: string } }) {
-  const t = await getTranslations({ locale: params.locale, namespace: "paths" });
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "paths" });
   return {
     title: t("pageTitle"),
     description: t("pageTitle"),
   };
 }
 
-type Props = { params: { locale: string } };
+type Props = { params: Promise<{ locale: string }> };
 
-export default function LearningPathsPage({ params }: Props) {
-  const locale = requireLocale(params.locale);
+export default async function LearningPathsPage({ params }: Props) {
+  const { locale: localeStr } = await params;
+  const locale = requireLocale(localeStr);
   const lessons = toLessonListItems(getAllLessons(locale));
   const learningPaths = getAllLearningPaths(locale);
   const glossaryTerms = getAllGlossaryTerms(locale);

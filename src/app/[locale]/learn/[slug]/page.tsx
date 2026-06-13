@@ -8,15 +8,15 @@ import JsonLd from "@/components/JsonLd";
 import { getSiteUrl } from "@/lib/site";
 import LessonPageClient from "./LessonPageClient";
 
-type Props = { params: { locale: string; slug: string } };
+type Props = { params: Promise<{ locale: string; slug: string }> };
 
 export function generateStaticParams() {
   return routing.locales.flatMap((locale) => lessons.map((lesson) => ({ locale, slug: lesson.id })));
 }
 
-export function generateMetadata({ params }: Props) {
-  const locale = requireLocale(params.locale);
-  const lesson = getLessonById(params.slug, locale);
+export async function generateMetadata({ params }: Props) {
+  const { locale, slug } = await params;
+  const lesson = getLessonById(slug, requireLocale(locale));
   if (!lesson) return { title: "Lesson not found" };
 
   const base = getSiteUrl();
@@ -58,17 +58,18 @@ export function generateMetadata({ params }: Props) {
   };
 }
 
-export default function LessonDetailPage({ params }: Props) {
-  const locale = requireLocale(params.locale);
-  const lesson = getLessonById(params.slug, locale);
+export default async function LessonDetailPage({ params }: Props) {
+  const { locale, slug } = await params;
+  const l = requireLocale(locale);
+  const lesson = getLessonById(slug, l);
   if (!lesson) {
     notFound();
   }
 
   const base = getSiteUrl();
   const url = `${base}/${locale}/learn/${lesson.id}`;
-  const glossaryTerms = getGlossaryTerms(locale);
-  const learningPaths = getAllLearningPaths(locale);
+  const glossaryTerms = getGlossaryTerms(l);
+  const learningPaths = getAllLearningPaths(l);
 
   return (
     <>

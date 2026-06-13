@@ -24,7 +24,7 @@ jobs:
       - run: npm run format:check
       - run: npm audit --audit-level=high
         continue-on-error: true
-      - run: npm run lint
+      - run: npx eslint .
       - run: npm run typecheck
       - run: npm run test:coverage
       - run: npm run build

@@ -6,18 +6,20 @@ import { getSiteUrl } from "@/lib/site";
 import type { GlossaryTerm } from "@/types/glossary";
 import GlossaryClient from "./GlossaryClient";
 
-export async function generateMetadata({ params }: { params: { locale: string } }) {
-  const t = await getTranslations({ locale: params.locale, namespace: "glossary" });
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "glossary" });
   return {
     title: t("title"),
     description: t("description"),
   };
 }
 
-type Props = { params: { locale: string } };
+type Props = { params: Promise<{ locale: string }> };
 
-export default function GlossaryPage({ params }: Props) {
-  const locale = requireLocale(params.locale);
+export default async function GlossaryPage({ params }: Props) {
+  const { locale: localeStr } = await params;
+  const locale = requireLocale(localeStr);
   const terms = getAllGlossaryTerms(locale);
   const base = getSiteUrl();
 

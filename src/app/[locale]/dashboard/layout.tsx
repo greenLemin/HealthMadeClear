@@ -5,11 +5,11 @@ import DashboardSidebar from "@/components/dashboard/DashboardSidebar";
 
 type Props = {
   children: React.ReactNode;
-  params: { locale: string };
+  params: Promise<{ locale: string }>;
 };
 
 export default async function DashboardLayout({ children, params }: Props) {
-  const locale = requireLocale(params.locale);
+  const { locale } = await params;
   const user = await requireAuth(locale, "/dashboard");
   const supabase = await createClient();
 

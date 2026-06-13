@@ -7,15 +7,16 @@ import AchievementsClient from "./achievements-client";
 
 export const dynamic = "force-dynamic";
 
-export async function generateMetadata({ params }: { params: { locale: string } }) {
-  const t = await getTranslations({ locale: params.locale, namespace: "achievements" });
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "achievements" });
   return { title: t("title"), robots: { index: false } };
 }
 
-type Props = { params: { locale: string } };
+type Props = { params: Promise<{ locale: string }> };
 
 export default async function AchievementsPage({ params }: Props) {
-  const locale = requireLocale(params.locale);
+  const { locale } = await params;
   const user = await requireAuth(locale, "/dashboard/achievements");
   const supabase = await createClient();
 

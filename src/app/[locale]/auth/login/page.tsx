@@ -4,7 +4,7 @@ import { requireLocale } from "@/lib/locale";
 import LoginForm from "./LoginForm";
 import type { Metadata } from "next";
 
-type Props = { params: { locale: string } };
+type Props = { params: Promise<{ locale: string }> };
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
@@ -16,7 +16,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function LoginPage({ params }: Props) {
-  const locale = requireLocale(params.locale);
+  const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations({ locale, namespace: "auth" });
 

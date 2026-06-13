@@ -1,4 +1,3 @@
-import dynamic from "next/dynamic";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import { lessons } from "@/data/lessons";
@@ -7,22 +6,17 @@ import { getQuizByLessonId } from "@/lib/localizedQuiz";
 import { requireLocale } from "@/lib/locale";
 import { getSiteUrl } from "@/lib/site";
 import JsonLd from "@/components/JsonLd";
-import Skeleton from "@/components/ui/Skeleton";
+import QuizClientWrapper from "./QuizClientWrapper";
 
-const QuizClient = dynamic(() => import("./QuizClient"), {
-  loading: () => <Skeleton variant="card" height="400px" />,
-  ssr: false,
-});
-
-type Props = { params: { locale: string; slug: string } };
+type Props = { params: Promise<{ locale: string; slug: string }> };
 
 export function generateStaticParams() {
   return routing.locales.flatMap((locale) => lessons.map((lesson) => ({ locale, slug: lesson.id })));
 }
 
-export function generateMetadata({ params }: Props) {
-  const locale = requireLocale(params.locale);
-  const lesson = getLessonById(params.slug, locale);
+export async function generateMetadata({ params }: Props) {
+  const { locale, slug } = await params;
+  const lesson = getLessonById(slug, requireLocale(locale));
   if (!lesson) return { title: "Quiz not found" };
   return {
     title: `${lesson.title} — Quiz`,
@@ -30,12 +24,12 @@ export function generateMetadata({ params }: Props) {
   };
 }
 
-export default function QuizPage({ params }: Props) {
-  const locale = requireLocale(params.locale);
-  const lesson = getLessonById(params.slug, locale);
+export default async function QuizPage({ params }: Props) {
+  const { locale, slug } = await params;
+  const lesson = getLessonById(slug, requireLocale(locale));
   if (!lesson) notFound();
 
-  const quiz = getQuizByLessonId(params.slug, locale);
+  const quiz = getQuizByLessonId(slug, requireLocale(locale));
   if (!quiz) notFound();
 
   const base = getSiteUrl();
@@ -55,7 +49,7 @@ export default function QuizPage({ params }: Props) {
           educationalLevel: lesson.level,
         }}
       />
-      <QuizClient quiz={quiz} lessonTitle={lesson.title} lessonId={lesson.id} />
+      <QuizClientWrapper quiz={quiz} lessonTitle={lesson.title} lessonId={lesson.id} />
     </>
   );
 }

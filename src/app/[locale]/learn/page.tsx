@@ -4,10 +4,10 @@ import { getAllLessons } from "@/lib/lessons/loadLessons";
 import { toLessonListItems } from "@/lib/lessonListItem";
 import LearnClient from "./LearnClient";
 
-type Props = { params: { locale: string } };
+type Props = { params: Promise<{ locale: string }> };
 
 export async function generateMetadata({ params }: Props) {
-  const locale = requireLocale(params.locale);
+  const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "learn" });
   return {
     title: t("title"),
@@ -15,8 +15,9 @@ export async function generateMetadata({ params }: Props) {
   };
 }
 
-export default function LearnPage({ params }: Props) {
-  const locale = requireLocale(params.locale);
+export default async function LearnPage({ params }: Props) {
+  const { locale: localeStr } = await params;
+  const locale = requireLocale(localeStr);
   setRequestLocale(locale);
   const lessons = toLessonListItems(getAllLessons(locale));
   return <LearnClient lessons={lessons} />;

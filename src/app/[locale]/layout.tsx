@@ -24,8 +24,12 @@ export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
 }
 
-export async function generateMetadata({ params }: { params: { locale: string } }): Promise<Metadata> {
-  const locale = requireLocale(params.locale);
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "meta" });
 
   return {
@@ -86,13 +90,12 @@ export default async function LocaleLayout({
   params,
 }: Readonly<{
   children: ReactNode;
-  params: { locale: string };
+  params: Promise<{ locale: string }>;
 }>) {
-  if (!hasLocale(routing.locales, params.locale)) {
+  const { locale } = await params;
+  if (!hasLocale(routing.locales, locale)) {
     notFound();
   }
-
-  const locale = requireLocale(params.locale);
   setRequestLocale(locale);
   const messages = await getMessages();
 

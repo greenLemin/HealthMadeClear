@@ -6,16 +6,16 @@ import { requireLocale } from "@/lib/locale";
 import { getSiteUrl } from "@/lib/site";
 import GlossaryTermClient from "./GlossaryTermClient";
 
-type Props = { params: { locale: string; term: string } };
+type Props = { params: Promise<{ locale: string; term: string }> };
 
 export function generateStaticParams() {
   const enTerms = getGlossaryTerms("en");
   return routing.locales.flatMap((locale) => enTerms.map((term) => ({ locale, term: term.id })));
 }
 
-export function generateMetadata({ params }: Props) {
-  const locale = requireLocale(params.locale);
-  const term = getGlossaryTerms(locale).find((item) => item.id === params.term);
+export async function generateMetadata({ params }: Props) {
+  const { locale, term: termId } = await params;
+  const term = getGlossaryTerms(requireLocale(locale)).find((item) => item.id === termId);
   if (!term) return { title: "Term not found" };
 
   const base = getSiteUrl();
@@ -35,9 +35,9 @@ export function generateMetadata({ params }: Props) {
   };
 }
 
-export default function GlossaryTermPage({ params }: Props) {
-  const locale = requireLocale(params.locale);
-  const term = getGlossaryTerms(locale).find((item) => item.id === params.term);
+export default async function GlossaryTermPage({ params }: Props) {
+  const { locale, term: termId } = await params;
+  const term = getGlossaryTerms(requireLocale(locale)).find((item) => item.id === termId);
   if (!term) notFound();
 
   const base = getSiteUrl();

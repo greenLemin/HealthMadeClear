@@ -8,15 +8,15 @@ import JsonLd from "@/components/JsonLd";
 import { getSiteUrl } from "@/lib/site";
 import ArticlePageClient from "./ArticlePageClient";
 
-type Props = { params: { locale: string; slug: string } };
+type Props = { params: Promise<{ locale: string; slug: string }> };
 
 export function generateStaticParams() {
   return routing.locales.flatMap((locale) => articles.map((article) => ({ locale, slug: article.id })));
 }
 
-export function generateMetadata({ params }: Props) {
-  const locale = requireLocale(params.locale);
-  const article = getArticleById(params.slug, locale);
+export async function generateMetadata({ params }: Props) {
+  const { locale, slug } = await params;
+  const article = getArticleById(slug, requireLocale(locale));
   if (!article) return { title: "Article not found" };
   const base = getSiteUrl();
   const path = `/articles/${article.id}`;
@@ -54,10 +54,11 @@ export function generateMetadata({ params }: Props) {
   };
 }
 
-export default function ArticleDetailPage({ params }: Props) {
-  const locale = requireLocale(params.locale);
-  setRequestLocale(locale);
-  const article = getArticleById(params.slug, locale);
+export default async function ArticleDetailPage({ params }: Props) {
+  const { locale, slug } = await params;
+  const l = requireLocale(locale);
+  setRequestLocale(l);
+  const article = getArticleById(slug, l);
   if (!article) notFound();
 
   const url = `${getSiteUrl()}/${locale}/articles/${article.id}`;

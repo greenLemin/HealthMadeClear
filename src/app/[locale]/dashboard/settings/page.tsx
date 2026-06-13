@@ -7,15 +7,16 @@ import SettingsClient from "./settings-client";
 
 export const dynamic = "force-dynamic";
 
-export async function generateMetadata({ params }: { params: { locale: string } }) {
-  const t = await getTranslations({ locale: params.locale, namespace: "settings" });
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "settings" });
   return { title: t("title"), robots: { index: false } };
 }
 
-type Props = { params: { locale: string } };
+type Props = { params: Promise<{ locale: string }> };
 
 export default async function SettingsPage({ params }: Props) {
-  const locale = requireLocale(params.locale);
+  const { locale } = await params;
   const user = await requireAuth(locale, "/dashboard/settings");
   const supabase = await createClient();
 

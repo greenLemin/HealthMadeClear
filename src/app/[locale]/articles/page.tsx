@@ -3,10 +3,10 @@ import { requireLocale } from "@/lib/locale";
 import { getSiteUrl } from "@/lib/site";
 import ArticlesClient from "./ArticlesClient";
 
-type Props = { params: { locale: string } };
+type Props = { params: Promise<{ locale: string }> };
 
 export async function generateMetadata({ params }: Props) {
-  const locale = requireLocale(params.locale);
+  const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "articles" });
   const base = getSiteUrl();
   return {
@@ -19,7 +19,8 @@ export async function generateMetadata({ params }: Props) {
   };
 }
 
-export default function ArticlesPage({ params }: Props) {
-  setRequestLocale(requireLocale(params.locale));
+export default async function ArticlesPage({ params }: Props) {
+  const { locale } = await params;
+  setRequestLocale(locale);
   return <ArticlesClient />;
 }

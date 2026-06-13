@@ -14,15 +14,17 @@ import ProgressClient from "./progress-client";
 
 export const dynamic = "force-dynamic";
 
-export async function generateMetadata({ params }: { params: { locale: string } }) {
-  const t = await getTranslations({ locale: params.locale, namespace: "dashboard" });
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "dashboard" });
   return { title: "My Progress | Dashboard", robots: { index: false } };
 }
 
-type Props = { params: { locale: string } };
+type Props = { params: Promise<{ locale: string }> };
 
 export default async function ProgressPage({ params }: Props) {
-  const locale = requireLocale(params.locale);
+  const { locale: localeStr } = await params;
+  const locale = requireLocale(localeStr);
   const user = await requireAuth(locale, "/dashboard/progress");
   const supabase = await createClient();
 
