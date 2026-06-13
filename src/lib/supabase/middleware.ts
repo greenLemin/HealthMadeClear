@@ -1,11 +1,11 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
-import { getSupabaseAnonKey, getSupabaseUrl, isSupabaseConfigured } from "./env";
+import { getSupabaseAnonKey, getSupabaseUrl, isSupabaseConfigured, shouldUseMockClient } from "./env";
 
 export async function updateSession(request: NextRequest, response?: NextResponse) {
   let supabaseResponse = response || NextResponse.next({ request });
 
-  if (!isSupabaseConfigured()) {
+  if (!isSupabaseConfigured() || shouldUseMockClient()) {
     return supabaseResponse;
   }
 

@@ -11,8 +11,6 @@ jobs:
     runs-on: ubuntu-latest
     env:
       NEXT_PUBLIC_SITE_URL: https://healthmadeclear.org
-      NEXT_PUBLIC_SUPABASE_URL: https://ci-build.supabase.co
-      NEXT_PUBLIC_SUPABASE_ANON_KEY: ci_build_anon_key_placeholder
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -28,6 +26,10 @@ jobs:
       - run: npm run lint
       - run: npm run typecheck
       - run: npm run test:coverage
+      # Supabase env scoped to build only — Playwright dev server must use mock auth for e2e
       - run: npm run build
+        env:
+          NEXT_PUBLIC_SUPABASE_URL: https://ci-build.supabase.co
+          NEXT_PUBLIC_SUPABASE_ANON_KEY: ci_build_anon_key_placeholder
       - run: npx playwright install chromium --with-deps
       - run: npm run test:e2e

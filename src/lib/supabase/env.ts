@@ -1,5 +1,6 @@
 const PLACEHOLDER_URL = "https://placeholder.supabase.co";
 const PLACEHOLDER_KEY = "placeholder_anon_key";
+const CI_PLACEHOLDER_URL = "https://ci-build.supabase.co";
 
 export function getSupabaseUrl(): string {
   return process.env.NEXT_PUBLIC_SUPABASE_URL || PLACEHOLDER_URL;
@@ -15,7 +16,13 @@ export function isSupabaseConfigured(): boolean {
   return url !== PLACEHOLDER_URL && key !== PLACEHOLDER_KEY && url.length > 0 && key.length > 0;
 }
 
-/** Mock client only in local development without Supabase credentials. */
+/** CI build uses placeholder credentials — not a real Supabase project. */
+export function isCiPlaceholderSupabase(): boolean {
+  return process.env.CI === "true" && getSupabaseUrl() === CI_PLACEHOLDER_URL;
+}
+
+/** Mock client in local dev without real Supabase, or with CI placeholder credentials. */
 export function shouldUseMockClient(): boolean {
-  return process.env.NODE_ENV === "development" && !isSupabaseConfigured();
+  if (process.env.NODE_ENV !== "development") return false;
+  return !isSupabaseConfigured() || isCiPlaceholderSupabase();
 }
