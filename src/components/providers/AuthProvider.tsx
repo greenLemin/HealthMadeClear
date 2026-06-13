@@ -1,8 +1,8 @@
 "use client";
 
-import { createContext, useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { createContext, useCallback, useEffect, useMemo, useState } from "react";
 import type { Session, User } from "@supabase/supabase-js";
-import type { SupabaseClient } from "@supabase/supabase-js";
+import { createClient } from "@/lib/supabase/client";
 import { useRouter } from "@/i18n/navigation";
 
 type AuthContextValue = {
@@ -18,23 +18,10 @@ export default function AuthProvider({ children }: { children: React.ReactNode }
   const [user, setUser] = useState<User | null>(null);
   const [session, setSession] = useState<Session | null>(null);
   const [loading, setLoading] = useState(true);
-  const [hydrated, setHydrated] = useState(false);
   const router = useRouter();
-  const supabaseRef = useRef<SupabaseClient | null>(null);
+  const supabase = createClient();
 
   useEffect(() => {
-    const initSupabase = async () => {
-      const { createClient } = await import("@/lib/supabase/client");
-      supabaseRef.current = createClient();
-      setHydrated(true);
-    };
-    initSupabase();
-  }, []);
-
-  useEffect(() => {
-    if (!hydrated || !supabaseRef.current) return;
-    const supabase = supabaseRef.current;
-
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange((_event, currentSession) => {
@@ -50,13 +37,12 @@ export default function AuthProvider({ children }: { children: React.ReactNode }
     });
 
     return () => subscription.unsubscribe();
-  }, [hydrated]);
+  }, [supabase]);
 
   const signOut = useCallback(async () => {
-    if (!supabaseRef.current) return;
-    await supabaseRef.current.auth.signOut();
+    await supabase.auth.signOut();
     router.push("/");
-  }, [router]);
+  }, [supabase, router]);
 
   const value = useMemo<AuthContextValue>(
     () => ({ user, session, loading, signOut }),
