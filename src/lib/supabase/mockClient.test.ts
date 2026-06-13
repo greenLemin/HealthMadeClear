@@ -28,12 +28,14 @@ describe("mockClient", () => {
   it("handles auth state change registration", async () => {
     const client = getMockSupabaseClient();
     let fired = false;
-    const { data: { subscription } } = client.auth.onAuthStateChange((event: string, session: any) => {
+    const {
+      data: { subscription },
+    } = client.auth.onAuthStateChange((event: string, session: any) => {
       fired = true;
       expect(event).toBe("SIGNED_IN");
       expect(session.access_token).toBe("mock-access-token");
     });
-    
+
     // Wait for the timeout callback
     await new Promise((resolve) => setTimeout(resolve, 10));
     expect(fired).toBe(true);
@@ -97,7 +99,7 @@ describe("mockClient", () => {
       },
       set(name: string, value: string, options?: any) {
         store.set(name, { name, value, options });
-      }
+      },
     };
 
     const client = getMockSupabaseClient(mockCookieStore);
@@ -111,11 +113,11 @@ describe("mockClient", () => {
     // 1. Test concatenated JSON cookie via mock cookieStore
     const store1 = new Map<string, any>();
     store1.set("hmc_mock_db", { value: '{"lessons":["concatenated-1"]}{"lessons":["concatenated-2"]}' });
-    
+
     const mockCookieStore1 = {
       get(name: string) {
         return store1.get(name);
-      }
+      },
     };
 
     const client1 = getMockSupabaseClient(mockCookieStore1);
@@ -125,11 +127,11 @@ describe("mockClient", () => {
     // 2. Test totally invalid JSON cookie via mock cookieStore
     const store2 = new Map<string, any>();
     store2.set("hmc_mock_db", { value: "{invalid}" });
-    
+
     const mockCookieStore2 = {
       get(name: string) {
         return store2.get(name);
-      }
+      },
     };
 
     const client2 = getMockSupabaseClient(mockCookieStore2);
