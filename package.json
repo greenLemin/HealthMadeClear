@@ -35,7 +35,7 @@
     "prebuild": "npm run content:bundle"
   },
   "dependencies": {
-    "@sentry/browser": "^9.15.0",
+    "@sentry/browser": "^10.57.0",
     "@supabase/ssr": "^0.12.0",
     "@supabase/supabase-js": "^2.108.1",
     "gray-matter": "^4.0.3",
