@@ -16,17 +16,18 @@ const COPY = {
   },
 } as const;
 
-function resolveLocale(): keyof typeof COPY {
-  const cookieStore = cookies();
+async function resolveLocale(): Promise<keyof typeof COPY> {
+  const cookieStore = await cookies();
   const fromCookie = cookieStore.get("hmc-locale")?.value;
   if (fromCookie === "es") return "es";
-  const pathname = headers().get("x-pathname") ?? headers().get("x-invoke-path") ?? "";
+  const h = await headers();
+  const pathname = h.get("x-pathname") ?? h.get("x-invoke-path") ?? "";
   if (pathname.startsWith("/es")) return "es";
   return "en";
 }
 
-export default function RootNotFound() {
-  const locale = resolveLocale();
+export default async function RootNotFound() {
+  const locale = await resolveLocale();
   const t = COPY[locale];
 
   return (
