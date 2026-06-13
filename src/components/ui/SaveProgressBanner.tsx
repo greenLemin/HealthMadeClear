@@ -21,6 +21,7 @@ export default function SaveProgressBanner() {
     if (dismissed) return;
     const progress = getGuestProgress();
     if (progress.completedLessons.length > 0 || progress.quizAttempts.length > 0) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setVisible(true);
     }
   }, [authLoading, user]);

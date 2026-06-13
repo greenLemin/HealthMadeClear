@@ -11,11 +11,13 @@ export default function VisitChecklistClient() {
   const t = useTranslations("tools");
   const tCommon = useTranslations("common");
   const checklistItems = useMemo(() => t.raw("checklistItems") as string[], [t]);
-  const [checkedItems, setCheckedItems] = useState<string[]>([]);
+  const [checkedItems, setCheckedItems] = useState<string[]>(() =>
+    readStoredStringArray(STORAGE_KEYS.checklist)
+  );
   const [hydrated, setHydrated] = useState(false);
 
   useEffect(() => {
-    setCheckedItems(readStoredStringArray(STORAGE_KEYS.checklist));
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setHydrated(true);
   }, []);
 

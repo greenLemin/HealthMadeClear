@@ -43,17 +43,8 @@ export default function VisitPlannerClient() {
     [t]
   );
 
-  const [step, setStep] = useState(1);
-  const [visitType, setVisitType] = useState<VisitTypeKey>("new-symptom");
-  const [selectedQuestions, setSelectedQuestions] = useState<string[]>(
-    visitTypes["new-symptom"].questions.slice(0, 2)
-  );
-  const [customQuestions, setCustomQuestions] = useState<CustomQuestion[]>([]);
-  const [customInput, setCustomInput] = useState("");
-  const [notes, setNotes] = useState("");
-
-  useEffect(() => {
-    const saved = readStoredJson(STORAGE_KEYS.visitPlanner, (value): PlannerState | null => {
+  const [saved] = useState((): PlannerState | null => {
+    return readStoredJson(STORAGE_KEYS.visitPlanner, (value): PlannerState | null => {
       if (!value || typeof value !== "object") return null;
       const parsed = value as Partial<PlannerState>;
       if (!VISIT_TYPE_KEYS.includes(parsed.visitType as VisitTypeKey)) return null;
@@ -76,13 +67,17 @@ export default function VisitPlannerClient() {
         step: typeof parsed.step === "number" && parsed.step >= 1 && parsed.step <= 3 ? parsed.step : 1,
       };
     });
-    if (!saved) return;
-    setVisitType(saved.visitType);
-    setSelectedQuestions(saved.selectedQuestions);
-    if (saved.customQuestions) setCustomQuestions(saved.customQuestions);
-    setNotes(saved.notes);
-    setStep(saved.step);
-  }, []);
+  });
+  const [step, setStep] = useState(() => saved?.step ?? 1);
+  const [visitType, setVisitType] = useState<VisitTypeKey>(() => saved?.visitType ?? "new-symptom");
+  const [selectedQuestions, setSelectedQuestions] = useState<string[]>(
+    () => saved?.selectedQuestions ?? visitTypes["new-symptom"].questions.slice(0, 2)
+  );
+  const [customQuestions, setCustomQuestions] = useState<CustomQuestion[]>(
+    () => saved?.customQuestions ?? []
+  );
+  const [customInput, setCustomInput] = useState("");
+  const [notes, setNotes] = useState(() => saved?.notes ?? "");
 
   useEffect(() => {
     const state: PlannerState = {
@@ -98,6 +93,7 @@ export default function VisitPlannerClient() {
   const questions = visitTypes[visitType].questions;
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setSelectedQuestions(visitTypes[visitType].questions.slice(0, 2));
   }, [visitType, visitTypes]);
 

@@ -10,13 +10,11 @@ const ONBOARDING_KEY = "hmc_onboarded";
 
 export default function OnboardingDialog() {
   const t = useTranslations("onboarding");
-  const [visible, setVisible] = useState(false);
+  const [visible, setVisible] = useState(() => {
+    if (typeof window === "undefined") return false;
+    return !localStorage.getItem(ONBOARDING_KEY);
+  });
   const dialogRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const done = localStorage.getItem(ONBOARDING_KEY);
-    if (!done) setVisible(true);
-  }, []);
 
   const dismiss = () => {
     localStorage.setItem(ONBOARDING_KEY, "true");

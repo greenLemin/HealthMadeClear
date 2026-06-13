@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 
 export default function NetworkStatusBanner() {
-  const [offline, setOffline] = useState(false);
+  const [offline, setOffline] = useState(() => !navigator.onLine);
   const [dismissed, setDismissed] = useState(false);
 
   useEffect(() => {
@@ -15,8 +15,6 @@ export default function NetworkStatusBanner() {
         setDismissed(false);
       }, 3000);
     };
-
-    setOffline(!navigator.onLine);
 
     window.addEventListener("offline", handleOffline);
     window.addEventListener("online", handleOnline);

@@ -21,17 +21,15 @@ type Props = {
 
 function Confetti() {
   const particleCount = 30;
-  const particles = useMemo(
-    () =>
-      Array.from({ length: particleCount }, (_, i) => ({
-        id: i,
-        left: `${Math.random() * 100}%`,
-        delay: `${Math.random() * 0.5}s`,
-        duration: `${0.5 + Math.random() * 1}s`,
-        color: ["#14b8a6", "#0d9488", "#0f766e", "#115e59", "#134e4a"][Math.floor(Math.random() * 5)],
-        size: 4 + Math.random() * 8,
-      })),
-    []
+  const [particles] = useState(() =>
+    Array.from({ length: particleCount }, (_, i) => ({
+      id: i,
+      left: `${Math.random() * 100}%`,
+      delay: `${Math.random() * 0.5}s`,
+      duration: `${0.5 + Math.random() * 1}s`,
+      color: ["#14b8a6", "#0d9488", "#0f766e", "#115e59", "#134e4a"][Math.floor(Math.random() * 5)],
+      size: 4 + Math.random() * 8,
+    }))
   );
 
   return (

@@ -51,24 +51,25 @@ export default function AppProviders({
   locale: Locale;
 }) {
   const [locale, setLocaleState] = useState<Locale>(initialLocale);
-  const [theme, setThemeState] = useState<ThemeMode>("light");
-  const [textSize, setTextSizeState] = useState<TextSize>("standard");
-  const [simpleMode, setSimpleModeState] = useState(false);
-  const [completedLessons, setCompletedLessons] = useState<string[]>([]);
-  const [recentLessons, setRecentLessons] = useState<string[]>([]);
-  const [startedPaths, setStartedPaths] = useState<string[]>([]);
-  const [quizScores, setQuizScores] = useState<QuizScore[]>([]);
+  const [theme, setThemeState] = useState<ThemeMode>(() => readStoredTheme());
+  const [textSize, setTextSizeState] = useState<TextSize>(() => readStoredTextSize());
+  const [simpleMode, setSimpleModeState] = useState(() => readStoredSimpleMode());
+  const [completedLessons, setCompletedLessons] = useState<string[]>(() =>
+    readStoredStringArray(STORAGE_KEYS.completedLessons)
+  );
+  const [recentLessons, setRecentLessons] = useState<string[]>(() =>
+    readStoredStringArray(STORAGE_KEYS.recentLessons)
+  );
+  const [startedPaths, setStartedPaths] = useState<string[]>(() =>
+    readStoredStringArray(STORAGE_KEYS.startedPaths)
+  );
+  const [quizScores, setQuizScores] = useState<QuizScore[]>(() => readStoredQuizScores());
   const [hydrated, setHydrated] = useState(false);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setLocaleState(initialLocale);
-    setThemeState(readStoredTheme());
-    setTextSizeState(readStoredTextSize());
-    setSimpleModeState(readStoredSimpleMode());
-    setCompletedLessons(readStoredStringArray(STORAGE_KEYS.completedLessons));
-    setRecentLessons(readStoredStringArray(STORAGE_KEYS.recentLessons));
-    setStartedPaths(readStoredStringArray(STORAGE_KEYS.startedPaths));
-    setQuizScores(readStoredQuizScores());
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setHydrated(true);
   }, [initialLocale]);
 
