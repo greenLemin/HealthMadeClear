@@ -38,14 +38,16 @@ export function useScrollSpy(options: ScrollSpyOptions = {}) {
             const id = entry.target.id;
             if (entry.isIntersecting) {
               newIntersecting.add(id);
-              onIntersect?.(id, true);
             } else {
               newIntersecting.delete(id);
-              onIntersect?.(id, false);
             }
           }
           return newIntersecting;
         });
+
+        for (const entry of entries) {
+          onIntersect?.(entry.target.id, entry.isIntersecting);
+        }
       },
       { rootMargin, threshold }
     );
