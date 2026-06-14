@@ -1,4 +1,5 @@
-import fs from "fs";
+import fs from "fs/promises";
+
 import path from "path";
 import matter from "gray-matter";
 import type { Quiz, QuizQuestion } from "@/types/quiz";
@@ -96,13 +97,17 @@ export function getQuizMdxDir(locale: "en" | "es") {
   return path.join(process.cwd(), "content", "quizzes", locale);
 }
 
-export function getAllQuizzesFromMdx(locale: "en" | "es"): Quiz[] {
+export async function getAllQuizzesFromMdx(locale: "en" | "es"): Promise<Quiz[]> {
   const dir = getQuizMdxDir(locale);
 
-  return LESSON_IDS.map((id) => {
+  const promises = LESSON_IDS.map(async (id) => {
     const filePath = path.join(dir, `${id}.mdx`);
-    if (!fs.existsSync(filePath)) return null;
-    const raw = fs.readFileSync(filePath, "utf8");
+    try {
+      await fs.access(filePath);
+    } catch {
+      return null;
+    }
+    const raw = await fs.readFile(filePath, "utf8");
     const { data, content } = matter(raw);
 
     return {
@@ -112,13 +117,20 @@ export function getAllQuizzesFromMdx(locale: "en" | "es"): Quiz[] {
       passScore: Number(data.passScore) || 70,
       questions: parseQuestions(content.trim()),
     } as Quiz;
-  }).filter(Boolean) as Quiz[];
+  });
+
+  const results = await Promise.all(promises);
+  return results.filter(Boolean) as Quiz[];
 }
 
-export function getQuizFromMdx(id: string, locale: "en" | "es"): Quiz | undefined {
+export async function getQuizFromMdx(id: string, locale: "en" | "es"): Promise<Quiz | undefined> {
   const filePath = path.join(getQuizMdxDir(locale), `${id}.mdx`);
-  if (!fs.existsSync(filePath)) return undefined;
-  const raw = fs.readFileSync(filePath, "utf8");
+  try {
+    await fs.access(filePath);
+  } catch {
+    return undefined;
+  }
+  const raw = await fs.readFile(filePath, "utf8");
   const { data, content } = matter(raw);
 
   return {
@@ -130,12 +142,15 @@ export function getQuizFromMdx(id: string, locale: "en" | "es"): Quiz | undefine
   } as Quiz;
 }
 
-export function assertAllQuizzesExist(locale: "en" | "es"): void {
+export async function assertAllQuizzesExist(locale: "en" | "es"): Promise<void> {
   const dir = getQuizMdxDir(locale);
-  for (const id of LESSON_IDS) {
+  const promises = LESSON_IDS.map(async (id) => {
     const filePath = path.join(dir, `${id}.mdx`);
-    if (!fs.existsSync(filePath)) {
+    try {
+      await fs.access(filePath);
+    } catch {
       throw new Error(`Missing quiz MDX file: ${filePath}`);
     }
-  }
+  });
+  await Promise.all(promises);
 }
