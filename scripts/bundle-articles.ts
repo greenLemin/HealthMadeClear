@@ -19,7 +19,7 @@ const writeLocaleBundle = (locale: "en" | "es", articles: typeof en) => {
     `${header}export const articles: Article[] = ${JSON.stringify(articles, null, 2)} as const;\n`,
     "utf8"
   );
-  execFileSync("npx", ["prettier", "--write", outPath]);
+  execFileSync("npx", ["prettier", "--write", outPath], { shell: process.platform === "win32" });
 };
 
 writeLocaleBundle("en", en);

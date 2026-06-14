@@ -115,6 +115,6 @@ for (const locale of locales) {
     `${header}export type SearchEntryType = "lesson" | "article" | "glossary" | "path" | "tool";\n\nexport interface SearchEntry {\n  id: string;\n  type: SearchEntryType;\n  title: string;\n  description: string;\n  category: string;\n  categoryId: string;\n  content: string;\n  url: string;\n}\n\nexport const searchIndex: SearchEntry[] = ${JSON.stringify(entries, null, 2)} as const;\n`,
     "utf8"
   );
-  execFileSync("npx", ["prettier", "--write", outPath]);
+  execFileSync("npx", ["prettier", "--write", outPath], { shell: process.platform === "win32" });
   console.log(`Wrote search index (${entries.length} entries) for ${locale}.`);
 }
