@@ -15,15 +15,21 @@ export default function ArticlesClient() {
   const tCommon = useTranslations("common");
   const articles = getArticles(locale);
 
+  const searchIndex = useMemo(() => {
+    return articles.map((article) => ({
+      titleLower: article.title.toLowerCase(),
+      descriptionLower: article.description.toLowerCase(),
+      categoryLower: article.category.toLowerCase(),
+    }));
+  }, [articles]);
+
   const filtered = useMemo(() => {
     const q = query.toLowerCase();
-    return articles.filter(
-      (article) =>
-        article.title.toLowerCase().includes(q) ||
-        article.description.toLowerCase().includes(q) ||
-        article.category.toLowerCase().includes(q)
-    );
-  }, [articles, query]);
+    return articles.filter((article, index) => {
+      const idx = searchIndex[index];
+      return idx.titleLower.includes(q) || idx.descriptionLower.includes(q) || idx.categoryLower.includes(q);
+    });
+  }, [articles, query, searchIndex]);
 
   return (
     <div className="py-12 md:py-16">
