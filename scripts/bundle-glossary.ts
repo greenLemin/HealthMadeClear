@@ -1,6 +1,6 @@
 import fs from "fs";
 import path from "path";
-import { execSync } from "child_process";
+import { execFileSync } from "child_process";
 import { getAllGlossaryFromMdx } from "../src/lib/glossary/mdxParser";
 import { assertLocaleIdParity } from "./lib/validateLocaleParity";
 
@@ -19,7 +19,7 @@ const writeLocaleBundle = (locale: "en" | "es", terms: typeof en) => {
     `${header}export const terms: GlossaryTerm[] = ${JSON.stringify(terms, null, 2)} as const;\n`,
     "utf8"
   );
-  execSync(`npx prettier --write ${outPath}`);
+  execFileSync("npx", ["prettier", "--write", outPath]);
   return outPath;
 };
 

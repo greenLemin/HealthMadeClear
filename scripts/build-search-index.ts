@@ -1,6 +1,6 @@
 import fs from "fs";
 import path from "path";
-import { execSync } from "child_process";
+import { execFileSync } from "child_process";
 import { getAllLessonsFromMdx } from "../src/lib/lessons/mdxParser";
 import { getAllArticlesFromMdx } from "../src/lib/articles/mdxParser";
 import { getAllGlossaryFromMdx } from "../src/lib/glossary/mdxParser";
@@ -115,6 +115,6 @@ for (const locale of locales) {
     `${header}export type SearchEntryType = "lesson" | "article" | "glossary" | "path" | "tool";\n\nexport interface SearchEntry {\n  id: string;\n  type: SearchEntryType;\n  title: string;\n  description: string;\n  category: string;\n  categoryId: string;\n  content: string;\n  url: string;\n}\n\nexport const searchIndex: SearchEntry[] = ${JSON.stringify(entries, null, 2)} as const;\n`,
     "utf8"
   );
-  execSync(`npx prettier --write ${outPath}`);
+  execFileSync("npx", ["prettier", "--write", outPath]);
   console.log(`Wrote search index (${entries.length} entries) for ${locale}.`);
 }
