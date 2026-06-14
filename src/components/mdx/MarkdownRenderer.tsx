@@ -4,6 +4,7 @@ import { useMemo } from "react";
 import MarkdownIt from "markdown-it";
 import InlineGlossaryTerm from "./InlineGlossaryTerm";
 import type { GlossaryTerm } from "@/types/glossary";
+import { getGlossaryRegexAndMap } from "@/lib/glossary/highlighterCache";
 import type MarkdownItToken from "markdown-it/lib/token.mjs";
 
 const md = new MarkdownIt({
@@ -214,16 +215,7 @@ function renderTokens(
 function GlossaryHighlighter({ text, glossaryTerms }: { text: string; glossaryTerms: GlossaryTerm[] }) {
   if (!text || glossaryTerms.length === 0) return text;
 
-  const sortedTerms = [...glossaryTerms].sort((a, b) => b.term.length - a.term.length);
-  const termMap = new Map<string, GlossaryTerm>();
-  const patterns: string[] = [];
-
-  for (const termObj of sortedTerms) {
-    termMap.set(termObj.term.toLowerCase(), termObj);
-    patterns.push(termObj.term.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"));
-  }
-
-  const regex = new RegExp(`\\b(${patterns.join("|")})\\b`, "gi");
+  const { termMap, regex } = getGlossaryRegexAndMap(glossaryTerms);
   const parts = text.split(regex);
 
   return parts.map((part, index) => {
