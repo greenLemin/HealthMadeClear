@@ -37,4 +37,7 @@ async function main() {
   console.log(`Wrote quiz bundles (${en.length} EN, ${es.length} ES quizzes).`);
 }
 
-main().catch(console.error);
+main().catch((error) => {
+  console.error(error);
+  process.exit(1);
+});
