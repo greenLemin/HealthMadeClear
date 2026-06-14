@@ -1,13 +1,16 @@
 import next from "eslint-config-next";
 
-export default [
+const config = [
   ...next,
   {
     rules: {
       "@typescript-eslint/no-require-imports": "off",
+      "react-hooks/set-state-in-effect": "off",
     },
   },
   {
     ignores: ["e2e/**"],
   },
 ];
+
+export default config;
