@@ -65,7 +65,7 @@ export function useProgress(): ProgressState & ProgressActions {
       } else {
         // eslint-disable-next-line react-hooks/set-state-in-effect
         setIsLoading(false);
-        // eslint-disable-next-line react-hooks/set-state-in-effect
+
         setMigrated(true);
       }
     } else if (!user) {
@@ -83,7 +83,7 @@ export function useProgress(): ProgressState & ProgressActions {
     if (!user) {
       // eslint-disable-next-line react-hooks/set-state-in-effect
       setSupabaseCompletedLessonIds([]);
-      // eslint-disable-next-line react-hooks/set-state-in-effect
+
       setSupabaseQuizAttempts({});
       return;
     }

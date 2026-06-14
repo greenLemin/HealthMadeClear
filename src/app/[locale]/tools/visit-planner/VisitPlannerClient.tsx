@@ -86,16 +86,16 @@ export default function VisitPlannerClient() {
     if (saved) {
       // eslint-disable-next-line react-hooks/set-state-in-effect
       setStep(saved.step);
-      // eslint-disable-next-line react-hooks/set-state-in-effect
+
       setVisitType(saved.visitType);
-      // eslint-disable-next-line react-hooks/set-state-in-effect
+
       setSelectedQuestions(saved.selectedQuestions);
-      // eslint-disable-next-line react-hooks/set-state-in-effect
+
       setCustomQuestions(saved.customQuestions ?? []);
-      // eslint-disable-next-line react-hooks/set-state-in-effect
+
       setNotes(saved.notes);
     }
-    // eslint-disable-next-line react-hooks/set-state-in-effect
+
     setHydrated(true);
   }, []);
 
