@@ -28,8 +28,7 @@ describe("lessonVisuals helpers", () => {
     });
 
     it("returns undefined for an invalid or unknown category ID", () => {
-      // @ts-expect-error Testing invalid input for robustness
-      expect(getLessonCategoryVisual("unknown-category" as LessonCategoryId)).toBeUndefined();
+      expect(getLessonCategoryVisual("unknown-category" as unknown as LessonCategoryId)).toBeUndefined();
     });
   });
 });
