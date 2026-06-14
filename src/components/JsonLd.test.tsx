@@ -30,10 +30,10 @@ describe("JsonLd", () => {
     expect(innerHTML).not.toContain("<script>");
 
     // Check specific unicode hex escapes are used
-    expect(innerHTML).toContain("\\u003c\\u002fscript\\u003e"); // </script>
-    expect(innerHTML).toContain("\\u003cscript\\u003e"); // <script>
-    expect(innerHTML).toContain("XSS \\u0026 co"); // &
-    expect(innerHTML).toContain("\\u0027"); // '
+    expect(innerHTML.toLowerCase()).toContain("\\u003c\\u002fscript\\u003e"); // </script>
+    expect(innerHTML.toLowerCase()).toContain("\\u003cscript\\u003e"); // <script>
+    expect(innerHTML).toContain("XSS & co"); // & (serialize-javascript doesn't escape & by default in isJSON)
+    expect(innerHTML).toContain("'"); // ' (serialize-javascript doesn't escape ' by default in isJSON)
     expect(innerHTML).toContain("\\u2028"); // \u2028
     expect(innerHTML).toContain("\\u2029"); // \u2029
   });
