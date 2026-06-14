@@ -1,6 +1,6 @@
 import next from "eslint-config-next";
 
-export default [
+const config = [
   ...next,
   {
     rules: {
@@ -11,3 +11,4 @@ export default [
     ignores: ["e2e/**"],
   },
 ];
+export default config;
