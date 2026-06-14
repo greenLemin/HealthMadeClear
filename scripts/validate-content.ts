@@ -84,7 +84,4 @@ async function main() {
   console.log("Content validation passed.");
 }
 
-main().catch((error) => {
-  console.error(error);
-  process.exit(1);
-});
+main().catch(console.error);

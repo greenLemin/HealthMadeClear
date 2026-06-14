@@ -20,7 +20,7 @@ export default function VisitChecklistClient() {
       // eslint-disable-next-line react-hooks/set-state-in-effect
       setCheckedItems(stored);
     }
-    // eslint-disable-next-line react-hooks/set-state-in-effect
+
     setHydrated(true);
   }, []);
 

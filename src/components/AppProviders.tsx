@@ -65,22 +65,21 @@ export default function AppProviders({
     setLocaleState(initialLocale);
 
     // Load stored preferences after mount to prevent hydration mismatches
-    // eslint-disable-next-line react-hooks/set-state-in-effect
+
     setThemeState(readStoredTheme());
-    // eslint-disable-next-line react-hooks/set-state-in-effect
+
     setTextSizeState(readStoredTextSize());
-    // eslint-disable-next-line react-hooks/set-state-in-effect
+
     setSimpleModeState(readStoredSimpleMode());
-    // eslint-disable-next-line react-hooks/set-state-in-effect
+
     setCompletedLessons(readStoredStringArray(STORAGE_KEYS.completedLessons));
-    // eslint-disable-next-line react-hooks/set-state-in-effect
+
     setRecentLessons(readStoredStringArray(STORAGE_KEYS.recentLessons));
-    // eslint-disable-next-line react-hooks/set-state-in-effect
+
     setStartedPaths(readStoredStringArray(STORAGE_KEYS.startedPaths));
-    // eslint-disable-next-line react-hooks/set-state-in-effect
+
     setQuizScores(readStoredQuizScores());
 
-    // eslint-disable-next-line react-hooks/set-state-in-effect
     setHydrated(true);
   }, [initialLocale]);
 
