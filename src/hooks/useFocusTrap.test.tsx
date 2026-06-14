@@ -34,6 +34,7 @@ describe("useFocusTrap", () => {
   beforeAll(() => {
     originalOffsetParent = Object.getOwnPropertyDescriptor(HTMLElement.prototype, "offsetParent");
     Object.defineProperty(HTMLElement.prototype, "offsetParent", {
+      configurable: true,
       get() {
         return this.parentNode;
       },
