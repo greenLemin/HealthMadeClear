@@ -179,7 +179,7 @@ function renderTokens(
       result.push(<Tag key={`h${level}-${i}`}>{headingChildren}</Tag>);
     } else if (token.type === "link_open") {
       const href = token.attrGet("href") || "#";
-      if (/^javascript:/i.test(href)) {
+      if (/^\s*javascript:/i.test(href)) {
         i++;
         while (i < tokens.length && tokens[i].type !== "link_close") i++;
         continue;
