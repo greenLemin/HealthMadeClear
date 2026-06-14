@@ -21,7 +21,8 @@ interface MarkdownRendererProps {
 function renderInlineChildren(
   children: MarkdownItToken[],
   glossaryTerms: GlossaryTerm[],
-  keyPrefix: string
+  keyPrefix: string,
+  glossaryMatch: { termMap: Map<string, GlossaryTerm>; regex: RegExp | null }
 ): React.ReactNode[] {
   const nodes: React.ReactNode[] = [];
   let index = 0;
@@ -34,7 +35,7 @@ function renderInlineChildren(
         <GlossaryHighlighter
           key={`${keyPrefix}-text-${index}`}
           text={child.content}
-          glossaryTerms={glossaryTerms}
+          glossaryMatch={glossaryMatch}
         />
       );
       index++;
@@ -50,7 +51,7 @@ function renderInlineChildren(
             <GlossaryHighlighter
               key={`${keyPrefix}-strong-${index}`}
               text={children[index].content ?? ""}
-              glossaryTerms={glossaryTerms}
+              glossaryMatch={glossaryMatch}
             />
           );
         }
@@ -70,7 +71,7 @@ function renderInlineChildren(
             <GlossaryHighlighter
               key={`${keyPrefix}-em-${index}`}
               text={children[index].content ?? ""}
-              glossaryTerms={glossaryTerms}
+              glossaryMatch={glossaryMatch}
             />
           );
         }
@@ -90,6 +91,7 @@ function renderInlineChildren(
 function renderTokens(
   tokens: MarkdownItToken[],
   glossaryTerms: GlossaryTerm[],
+  glossaryMatch: { termMap: Map<string, GlossaryTerm>; regex: RegExp | null },
   index: number = 0
 ): React.ReactNode[] {
   const result: React.ReactNode[] = [];
@@ -100,14 +102,14 @@ function renderTokens(
 
     if (token.type === "inline") {
       if (token.children) {
-        result.push(...renderInlineChildren(token.children, glossaryTerms, `inline-${i}`));
+        result.push(...renderInlineChildren(token.children, glossaryTerms, `inline-${i}`, glossaryMatch));
       }
     } else if (token.type === "paragraph_open") {
       const children: React.ReactNode[] = [];
       i++;
       while (i < tokens.length && tokens[i].type !== "paragraph_close") {
         if (tokens[i].type === "inline") {
-          const inlineChildren = renderTokens([tokens[i]], glossaryTerms);
+          const inlineChildren = renderTokens([tokens[i]], glossaryTerms, glossaryMatch);
           children.push(...inlineChildren);
         }
         i++;
@@ -126,7 +128,7 @@ function renderTokens(
               i++;
               while (i < tokens.length && tokens[i].type !== "paragraph_close") {
                 if (tokens[i].type === "inline") {
-                  paraChildren.push(...renderTokens([tokens[i]], glossaryTerms));
+                  paraChildren.push(...renderTokens([tokens[i]], glossaryTerms, glossaryMatch));
                 }
                 i++;
               }
@@ -152,7 +154,7 @@ function renderTokens(
               i++;
               while (i < tokens.length && tokens[i].type !== "paragraph_close") {
                 if (tokens[i].type === "inline") {
-                  paraChildren.push(...renderTokens([tokens[i]], glossaryTerms));
+                  paraChildren.push(...renderTokens([tokens[i]], glossaryTerms, glossaryMatch));
                 }
                 i++;
               }
@@ -171,7 +173,7 @@ function renderTokens(
       i++;
       while (i < tokens.length && tokens[i].type !== "heading_close") {
         if (tokens[i].type === "inline") {
-          headingChildren.push(...renderTokens([tokens[i]], glossaryTerms));
+          headingChildren.push(...renderTokens([tokens[i]], glossaryTerms, glossaryMatch));
         }
         i++;
       }
@@ -188,7 +190,7 @@ function renderTokens(
       i++;
       while (i < tokens.length && tokens[i].type !== "link_close") {
         if (tokens[i].type === "inline") {
-          linkChildren.push(...renderTokens([tokens[i]], glossaryTerms));
+          linkChildren.push(...renderTokens([tokens[i]], glossaryTerms, glossaryMatch));
         }
         i++;
       }
@@ -211,23 +213,20 @@ function renderTokens(
   return result;
 }
 
-function GlossaryHighlighter({ text, glossaryTerms }: { text: string; glossaryTerms: GlossaryTerm[] }) {
-  if (!text || glossaryTerms.length === 0) return text;
+function GlossaryHighlighter({
+  text,
+  glossaryMatch,
+}: {
+  text: string;
+  glossaryMatch: { termMap: Map<string, GlossaryTerm>; regex: RegExp | null };
+}) {
+  if (!text || !glossaryMatch.regex) return text;
 
-  const sortedTerms = [...glossaryTerms].sort((a, b) => b.term.length - a.term.length);
-  const termMap = new Map<string, GlossaryTerm>();
-  const patterns: string[] = [];
-
-  for (const termObj of sortedTerms) {
-    termMap.set(termObj.term.toLowerCase(), termObj);
-    patterns.push(termObj.term.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"));
-  }
-
-  const regex = new RegExp(`\\b(${patterns.join("|")})\\b`, "gi");
-  const parts = text.split(regex);
+  const parts = text.split(glossaryMatch.regex);
+  if (parts.length === 1) return text;
 
   return parts.map((part, index) => {
-    const termObj = termMap.get(part.toLowerCase());
+    const termObj = glossaryMatch.termMap.get(part.toLowerCase());
     if (termObj) {
       return (
         <InlineGlossaryTerm
@@ -244,9 +243,27 @@ function GlossaryHighlighter({ text, glossaryTerms }: { text: string; glossaryTe
 export default function MarkdownRenderer({ text, glossaryTerms }: MarkdownRendererProps) {
   const tokens = useMemo(() => md.parse(text, {}), [text]);
 
+  const glossaryMatch = useMemo(() => {
+    const termMap = new Map<string, GlossaryTerm>();
+    if (!glossaryTerms || glossaryTerms.length === 0) {
+      return { termMap, regex: null };
+    }
+
+    const sortedTerms = [...glossaryTerms].sort((a, b) => b.term.length - a.term.length);
+    const patterns: string[] = [];
+
+    for (const termObj of sortedTerms) {
+      termMap.set(termObj.term.toLowerCase(), termObj);
+      patterns.push(termObj.term.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"));
+    }
+
+    const regex = new RegExp(`\\b(${patterns.join("|")})\\b`, "gi");
+    return { termMap, regex };
+  }, [glossaryTerms]);
+
   const rendered = useMemo(() => {
-    return renderTokens(tokens, glossaryTerms);
-  }, [tokens, glossaryTerms]);
+    return renderTokens(tokens, glossaryTerms, glossaryMatch);
+  }, [tokens, glossaryTerms, glossaryMatch]);
 
   return <div className="prose prose-sm max-w-none text-on-surface-variant">{rendered}</div>;
 }
