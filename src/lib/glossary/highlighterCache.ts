@@ -17,12 +17,8 @@ export function getGlossaryRegexAndMap(glossaryTerms: GlossaryTerm[]): GlossaryC
   let cacheEntry = glossaryCache.get(glossaryTerms);
 
   if (!cacheEntry) {
-    if (
-      lastTermsFallback &&
-      lastTermsFallback.length === glossaryTerms.length &&
-      lastTermsFallback[0].id === glossaryTerms[0].id
-    ) {
-      cacheEntry = lastCacheFallback!;
+    if (lastTermsFallback === glossaryTerms && lastCacheFallback) {
+      cacheEntry = lastCacheFallback;
     } else {
       const sortedTerms = [...glossaryTerms].sort((a, b) => b.term.length - a.term.length);
       const termMap = new Map<string, GlossaryTerm>();
