@@ -231,19 +231,13 @@ export default function VisitPlannerClient() {
 
               {/* Custom Questions Section */}
               <div className="mt-8 border-t border-outline-variant pt-8">
-                <h3 className="mb-4 text-headline-md text-primary">
-                  {t("customQuestionsTitle", { defaultValue: "Your Custom Questions" })}
-                </h3>
+                <h3 className="mb-4 text-headline-md text-primary">{t("customQuestionsTitle")}</h3>
                 <div className="mb-4 flex gap-3">
                   <input
                     type="text"
                     className="input-field py-2"
-                    placeholder={t("customQuestionPlaceholder", {
-                      defaultValue: "Type your custom question here...",
-                    })}
-                    aria-label={t("customQuestionPlaceholder", {
-                      defaultValue: "Type your custom question here...",
-                    })}
+                    placeholder={t("customQuestionPlaceholder")}
+                    aria-label={t("customQuestionPlaceholder")}
                     value={customInput}
                     onChange={(e) => setCustomInput(e.target.value)}
                     onKeyDown={(e) => {
@@ -258,7 +252,7 @@ export default function VisitPlannerClient() {
                     className="btn-primary min-h-[48px] py-2 px-4"
                     onClick={addCustomQuestion}
                   >
-                    {tCommon("add", { defaultValue: "Add" })}
+                    {tCommon("add")}
                   </button>
                 </div>
 
@@ -275,7 +269,7 @@ export default function VisitPlannerClient() {
                           className="text-error hover:text-red-700 font-semibold text-label-md"
                           onClick={() => removeCustomQuestion(cq.id)}
                         >
-                          {t("remove", { defaultValue: "Remove" })}
+                          {t("remove")}
                         </button>
                       </div>
                     ))}
@@ -338,7 +332,7 @@ export default function VisitPlannerClient() {
                     <li key={cq.id}>- {cq.text}</li>
                   ))}
                   {selectedQuestions.length === 0 && customQuestions.length === 0 && (
-                    <li>{t("noQuestionsSelected", { defaultValue: "No questions selected." })}</li>
+                    <li>{t("noQuestionsSelected")}</li>
                   )}
                 </ul>
               </div>

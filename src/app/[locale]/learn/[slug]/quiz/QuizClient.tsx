@@ -204,7 +204,9 @@ export default function QuizClient({ quiz, lessonTitle, lessonId }: Props) {
               {t("passRequirement", { score: quiz.passScore })}
             </p>
             {bestScore !== null ? (
-              <p className="mb-4 text-label-md font-semibold text-secondary">Your best score: {bestScore}%</p>
+              <p className="mb-4 text-label-md font-semibold text-secondary">
+                {t("bestScore", { score: bestScore })}
+              </p>
             ) : null}
             <button type="button" onClick={() => setState("active")} className="btn-primary">
               {bestScore !== null ? t("retake") : t("startQuiz")}
@@ -246,20 +248,18 @@ export default function QuizClient({ quiz, lessonTitle, lessonId }: Props) {
       {showExitWarning ? (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4">
           <div className="max-w-sm rounded-2xl bg-surface p-6 shadow-elevation-3">
-            <h2 className="mb-3 text-headline-md text-primary">Leave quiz?</h2>
-            <p className="mb-6 text-body-md text-on-surface-variant">
-              Your progress will be lost if you leave this page.
-            </p>
+            <h2 className="mb-3 text-headline-md text-primary">{t("leaveQuiz")}</h2>
+            <p className="mb-6 text-body-md text-on-surface-variant">{t("progressWillBeLost")}</p>
             <div className="flex gap-3">
               <button
                 type="button"
                 onClick={() => setShowExitWarning(false)}
                 className="btn-secondary flex-1"
               >
-                Stay
+                {t("stay")}
               </button>
               <Link href={`/learn/${lessonId}`} className="btn-primary flex-1 text-center">
-                Leave
+                {t("leave")}
               </Link>
             </div>
           </div>

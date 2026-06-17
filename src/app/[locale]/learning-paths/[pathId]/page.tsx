@@ -18,9 +18,25 @@ export async function generateMetadata({ params }: Props) {
   const { locale, pathId } = await params;
   const path = getPathById(pathId, requireLocale(locale));
   if (!path) return { title: "Learning path not found" };
+  const siteUrl = getSiteUrl();
+  const url = `${siteUrl}/${locale}/learning-paths/${path.id}`;
   return {
     title: `${path.title} — Learning Path`,
     description: path.description,
+    openGraph: {
+      type: "website" as const,
+      url,
+      title: `${path.title} — Learning Path`,
+      description: path.description,
+      siteName: "Health Made Clear",
+      images: [{ url: "/og-default.png", width: 1200, height: 630, alt: "Health Made Clear" }],
+    },
+    twitter: {
+      card: "summary_large_image" as const,
+      title: `${path.title} — Learning Path`,
+      description: path.description,
+      images: ["/og-default.png"],
+    },
   };
 }
 

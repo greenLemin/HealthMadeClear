@@ -120,7 +120,7 @@ export default function LearnClient({ lessons }: LearnClientProps) {
           aria-live="polite"
         >
           {filteredLessons.length > 0
-            ? `Showing ${filteredLessons.length} ${filteredLessons.length === 1 ? "lesson" : "lessons"}`
+            ? t("showingLessons", { count: filteredLessons.length })
             : tCommon("noLessonsFound")}
         </div>
 
