@@ -1,10 +1,9 @@
 /**
  * @vitest-environment jsdom
  */
-import { describe, expect, it } from "vitest";
-import { vi } from "vitest";
+import { describe, expect, it, vi, afterEach } from "vitest";
 import fs from "fs";
-import { parseQuestions, assertAllQuizzesExist } from "@/lib/quizzes/quizParser";
+import { parseQuestions, getQuizFromMdx, assertAllQuizzesExist } from "@/lib/quizzes/quizParser";
 
 describe("Quiz Parser", () => {
   it("parses a single question with options and explanation", () => {
@@ -147,6 +146,55 @@ explanation: Explanation.
     const questions = parseQuestions(markdown);
 
     expect(questions[0].correctAnswer).toBe("B");
+  });
+});
+
+describe("getQuizFromMdx", () => {
+  afterEach(() => {
+    vi.restoreAllMocks();
+  });
+
+  it("returns undefined if file does not exist", () => {
+    vi.spyOn(fs, "existsSync").mockReturnValue(false);
+    expect(getQuizFromMdx("non-existent", "en")).toBeUndefined();
+  });
+
+  it("returns parsed quiz when file exists", () => {
+    vi.spyOn(fs, "existsSync").mockReturnValue(true);
+    vi.spyOn(fs, "readFileSync").mockReturnValue(`---
+id: "test-quiz"
+title: "Test Quiz"
+lessonId: "test-lesson"
+passScore: 80
+---
+
+## Question 1
+
+What is 2+2?
+
+A) 3
+B) 4
+C) 5
+D) 6
+
+answer: B
+explanation: 2+2 equals 4.
+`);
+    const quiz = getQuizFromMdx("test-quiz", "en");
+    expect(quiz).toEqual({
+      id: "test-quiz",
+      title: "Test Quiz",
+      lessonId: "test-lesson",
+      passScore: 80,
+      questions: [
+        {
+          question: "What is 2+2?",
+          options: ["3", "4", "5", "6"],
+          correctAnswer: "B",
+          explanation: "2+2 equals 4.",
+        },
+      ],
+    });
   });
 });
 
