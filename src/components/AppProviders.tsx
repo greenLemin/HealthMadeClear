@@ -167,8 +167,27 @@ export default function AppProviders({
       recordQuizScore,
       importProgress,
     }),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [locale, theme, textSize, simpleMode, completedLessons, recentLessons, startedPaths, quizScores]
+
+    [
+      locale,
+      theme,
+      textSize,
+      simpleMode,
+      completedLessons,
+      recentLessons,
+      startedPaths,
+      quizScores,
+      setLocale,
+      setTheme,
+      setTextSize,
+      setSimpleMode,
+      toggleLessonComplete,
+      markLessonViewed,
+      markPathStarted,
+      markLessonComplete,
+      recordQuizScore,
+      importProgress,
+    ]
   );
 
   return (
