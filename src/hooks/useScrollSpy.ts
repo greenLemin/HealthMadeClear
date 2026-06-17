@@ -32,26 +32,35 @@ export function useScrollSpy(options: ScrollSpyOptions = {}) {
   useEffect(() => {
     observerRef.current = new IntersectionObserver(
       (entries) => {
-        const newIntersecting = new Set(intersectingIds);
-        for (const entry of entries) {
-          const id = entry.target.id;
-          if (entry.isIntersecting) {
-            newIntersecting.add(id);
-            onIntersect?.(id, true);
-          } else {
-            newIntersecting.delete(id);
-            onIntersect?.(id, false);
+        setIntersectingIds((prevIntersectingIds) => {
+          const newIntersecting = new Set(prevIntersectingIds);
+          for (const entry of entries) {
+            const id = entry.target.id;
+            if (entry.isIntersecting) {
+              newIntersecting.add(id);
+            } else {
+              newIntersecting.delete(id);
+            }
           }
+          return newIntersecting;
+        });
+
+        for (const entry of entries) {
+          onIntersect?.(entry.target.id, entry.isIntersecting);
         }
-        setIntersectingIds(newIntersecting);
       },
       { rootMargin, threshold }
     );
 
+    // Re-observe elements when observer is recreated
+    elementsRef.current.forEach((element) => {
+      observerRef.current?.observe(element);
+    });
+
     return () => {
       observerRef.current?.disconnect();
     };
-  }, [rootMargin, threshold, onIntersect, intersectingIds]);
+  }, [rootMargin, threshold, onIntersect]);
 
   return { observe, unobserve, intersectingIds };
 }
