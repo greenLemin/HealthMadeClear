@@ -2,7 +2,9 @@
  * @vitest-environment jsdom
  */
 import { describe, expect, it } from "vitest";
-import { parseQuestions } from "@/lib/quizzes/quizParser";
+import { vi } from "vitest";
+import fs from "fs";
+import { parseQuestions, assertAllQuizzesExist } from "@/lib/quizzes/quizParser";
 
 describe("Quiz Parser", () => {
   it("parses a single question with options and explanation", () => {
@@ -145,5 +147,15 @@ explanation: Explanation.
     const questions = parseQuestions(markdown);
 
     expect(questions[0].correctAnswer).toBe("B");
+  });
+});
+
+describe("assertAllQuizzesExist", () => {
+  it("throws an error if a quiz is missing", () => {
+    const existsSyncSpy = vi.spyOn(fs, "existsSync").mockReturnValue(false);
+
+    expect(() => assertAllQuizzesExist("en")).toThrowError(/Missing quiz MDX file:/);
+
+    existsSyncSpy.mockRestore();
   });
 });
