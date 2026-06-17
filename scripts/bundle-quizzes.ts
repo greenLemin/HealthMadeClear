@@ -20,7 +20,7 @@ async function main() {
       `${header}export const quizzes: Quiz[] = ${JSON.stringify(quizzes, null, 2)} as const;\n`,
       "utf8"
     );
-    execSync(`npx prettier --write ${outPath}`);
+    execFileSync("npx", ["prettier", "--write", outPath], { shell: process.platform === "win32" });
     return outPath;
   };
 
@@ -33,12 +33,6 @@ async function main() {
     `${header}import { quizzes as en } from "./quizBundles.en";\nimport { quizzes as es } from "./quizBundles.es";\n\nexport const quizBundles: Record<"en" | "es", Quiz[]> = { en, es } as const;\n`,
     "utf8"
   );
-<<<<<<< HEAD
-=======
-  execFileSync("npx", ["prettier", "--write", outPath], { shell: process.platform === "win32" });
-  return outPath;
-};
->>>>>>> origin/main
 
   console.log(`Wrote quiz bundles (${en.length} EN, ${es.length} ES quizzes).`);
 }
