@@ -12,6 +12,10 @@ describe("JsonLd", () => {
     const script = container.querySelector("script");
     expect(script).toBeInTheDocument();
     expect(script).toHaveAttribute("type", "application/ld+json");
+
+    const parsedData = JSON.parse(script?.innerHTML || "{}");
+    expect(parsedData["@type"]).toBe("WebSite");
+    expect(parsedData.name).toBe("My Site");
   });
 
   it("safely escapes characters that could lead to XSS", () => {
@@ -47,7 +51,7 @@ describe("JsonLd", () => {
     const script = container.querySelector("script");
 
     // The browser interprets the inner HTML as the raw JSON content
-    const parsedData = JSON.parse(script?.innerHTML || "");
+    const parsedData = JSON.parse(script?.innerHTML || "{}");
 
     expect(parsedData).toEqual(dangerousData);
   });
