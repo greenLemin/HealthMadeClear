@@ -1,6 +1,6 @@
 import fs from "fs";
 import path from "path";
-import { execSync } from "child_process";
+import { execFileSync } from "child_process";
 import { getAllArticlesFromMdx } from "../src/lib/articles/mdxParser";
 import { assertLocaleIdParity } from "./lib/validateLocaleParity";
 
@@ -19,7 +19,7 @@ const writeLocaleBundle = (locale: "en" | "es", articles: typeof en) => {
     `${header}export const articles: Article[] = ${JSON.stringify(articles, null, 2)} as const;\n`,
     "utf8"
   );
-  execSync(`npx prettier --write ${outPath}`);
+  execFileSync("npx", ["prettier", "--write", outPath], { shell: process.platform === "win32" });
 };
 
 writeLocaleBundle("en", en);

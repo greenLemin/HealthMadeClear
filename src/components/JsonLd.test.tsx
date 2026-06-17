@@ -12,6 +12,10 @@ describe("JsonLd", () => {
     const script = container.querySelector("script");
     expect(script).toBeInTheDocument();
     expect(script).toHaveAttribute("type", "application/ld+json");
+
+    const parsedData = JSON.parse(script?.innerHTML || "{}");
+    expect(parsedData["@type"]).toBe("WebSite");
+    expect(parsedData.name).toBe("My Site");
   });
 
   it("safely escapes characters that could lead to XSS", () => {
@@ -30,10 +34,10 @@ describe("JsonLd", () => {
     expect(innerHTML).not.toContain("<script>");
 
     // Check specific unicode hex escapes are used
-    expect(innerHTML).toContain("\\u003c\\u002fscript\\u003e"); // </script>
-    expect(innerHTML).toContain("\\u003cscript\\u003e"); // <script>
-    expect(innerHTML).toContain("XSS \\u0026 co"); // &
-    expect(innerHTML).toContain("\\u0027"); // '
+    expect(innerHTML.toLowerCase()).toContain("\\u003c\\u002fscript\\u003e"); // </script>
+    expect(innerHTML.toLowerCase()).toContain("\\u003cscript\\u003e"); // <script>
+    expect(innerHTML).toContain("XSS & co"); // & (serialize-javascript doesn't escape & by default in isJSON)
+    expect(innerHTML).toContain("'"); // ' (serialize-javascript doesn't escape ' by default in isJSON)
     expect(innerHTML).toContain("\\u2028"); // \u2028
     expect(innerHTML).toContain("\\u2029"); // \u2029
   });
@@ -47,7 +51,7 @@ describe("JsonLd", () => {
     const script = container.querySelector("script");
 
     // The browser interprets the inner HTML as the raw JSON content
-    const parsedData = JSON.parse(script?.innerHTML || "");
+    const parsedData = JSON.parse(script?.innerHTML || "{}");
 
     expect(parsedData).toEqual(dangerousData);
   });

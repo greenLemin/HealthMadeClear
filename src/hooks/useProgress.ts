@@ -63,7 +63,6 @@ export function useProgress(): ProgressState & ProgressActions {
           setIsLoading(false);
         });
       } else {
-        // eslint-disable-next-line react-hooks/set-state-in-effect
         setIsLoading(false);
 
         setMigrated(true);
@@ -81,7 +80,6 @@ export function useProgress(): ProgressState & ProgressActions {
 
   useEffect(() => {
     if (!user) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect
       setSupabaseCompletedLessonIds([]);
 
       setSupabaseQuizAttempts({});

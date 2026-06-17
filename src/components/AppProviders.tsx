@@ -61,7 +61,6 @@ export default function AppProviders({
   const [hydrated, setHydrated] = useState(false);
 
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
     setLocaleState(initialLocale);
 
     // Load stored preferences after mount to prevent hydration mismatches

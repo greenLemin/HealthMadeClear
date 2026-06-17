@@ -19,4 +19,23 @@ describe("MarkdownRenderer", () => {
     expect(container.querySelector("a")).toBeNull();
     expect(container.textContent).toContain("click me");
   });
+  it("does not render javascript: links with leading whitespace", () => {
+    const { container: container1 } = render(
+      <MarkdownRenderer text="[click me]( javascript:alert(1))" glossaryTerms={[]} />
+    );
+    expect(container1.querySelector("a")).toBeNull();
+    expect(container1.textContent).toContain("click me");
+
+    const { container: container2 } = render(
+      <MarkdownRenderer text="[click me](\tjavascript:alert(1))" glossaryTerms={[]} />
+    );
+    expect(container2.querySelector("a")).toBeNull();
+    expect(container2.textContent).toContain("click me");
+
+    const { container: container3 } = render(
+      <MarkdownRenderer text="[click me](%20javascript:alert(1))" glossaryTerms={[]} />
+    );
+    expect(container3.querySelector("a")).toBeNull();
+    expect(container3.textContent).toContain("click me");
+  });
 });

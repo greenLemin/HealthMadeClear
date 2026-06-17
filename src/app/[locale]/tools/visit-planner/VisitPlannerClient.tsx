@@ -53,7 +53,6 @@ export default function VisitPlannerClient() {
 
   useEffect(() => {
     if (!hydrated && selectedQuestions.length === 0) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect
       setSelectedQuestions(visitTypes[visitType].questions.slice(0, 2));
     }
   }, [visitType, visitTypes, hydrated, selectedQuestions]);
@@ -84,7 +83,6 @@ export default function VisitPlannerClient() {
     });
 
     if (saved) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect
       setStep(saved.step);
 
       setVisitType(saved.visitType);
@@ -115,7 +113,7 @@ export default function VisitPlannerClient() {
 
   useEffect(() => {
     if (!hydrated) return;
-    // eslint-disable-next-line react-hooks/set-state-in-effect
+
     setSelectedQuestions(visitTypes[visitType].questions.slice(0, 2));
   }, [visitType, visitTypes, hydrated]);
 

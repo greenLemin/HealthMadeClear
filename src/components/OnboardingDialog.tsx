@@ -13,7 +13,6 @@ export default function OnboardingDialog() {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
     setVisible(!localStorage.getItem(ONBOARDING_KEY));
   }, []);
   const dialogRef = useRef<HTMLDivElement>(null);
