@@ -17,7 +17,6 @@ export default function VisitChecklistClient() {
   useEffect(() => {
     const stored = readStoredStringArray(STORAGE_KEYS.checklist);
     if (stored.length > 0) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect
       setCheckedItems(stored);
     }
 

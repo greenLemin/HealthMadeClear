@@ -1,6 +1,6 @@
 import fs from "fs";
 import path from "path";
-import { execSync } from "child_process";
+import { execFileSync } from "child_process";
 import { getAllQuizzesFromMdx } from "../src/lib/quizzes/quizParser";
 import { assertLocaleIdParity } from "./lib/validateLocaleParity";
 
@@ -33,6 +33,12 @@ async function main() {
     `${header}import { quizzes as en } from "./quizBundles.en";\nimport { quizzes as es } from "./quizBundles.es";\n\nexport const quizBundles: Record<"en" | "es", Quiz[]> = { en, es } as const;\n`,
     "utf8"
   );
+<<<<<<< HEAD
+=======
+  execFileSync("npx", ["prettier", "--write", outPath], { shell: process.platform === "win32" });
+  return outPath;
+};
+>>>>>>> origin/main
 
   console.log(`Wrote quiz bundles (${en.length} EN, ${es.length} ES quizzes).`);
 }
