@@ -12,5 +12,4 @@ const config = [
     ignores: ["e2e/**"],
   },
 ];
-
 export default config;
