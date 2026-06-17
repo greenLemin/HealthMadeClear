@@ -1,14 +1,11 @@
 import { useMemo, useId } from "react";
 import InlineGlossaryTerm from "./InlineGlossaryTerm";
 import type { GlossaryTerm } from "@/types/glossary";
+import { getGlossaryRegexAndMap } from "@/lib/glossary/highlighterCache";
 
 interface GlossaryHighlighterProps {
   text: string;
   glossaryTerms: GlossaryTerm[];
-}
-
-function escapeRegExp(string: string) {
-  return string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }
 
 export default function GlossaryHighlighter({ text, glossaryTerms }: GlossaryHighlighterProps) {
@@ -17,17 +14,7 @@ export default function GlossaryHighlighter({ text, glossaryTerms }: GlossaryHig
   const parsedContent = useMemo(() => {
     if (!text || glossaryTerms.length === 0) return [text];
 
-    const sortedTerms = [...glossaryTerms].sort((a, b) => b.term.length - a.term.length);
-
-    const termMap = new Map<string, (typeof glossaryTerms)[number]>();
-    const patterns: string[] = [];
-
-    for (const termObj of sortedTerms) {
-      termMap.set(termObj.term.toLowerCase(), termObj);
-      patterns.push(escapeRegExp(termObj.term));
-    }
-
-    const regex = new RegExp(`\\b(${patterns.join("|")})\\b`, "gi");
+    const { termMap, regex } = getGlossaryRegexAndMap(glossaryTerms);
     const parts = text.split(regex);
 
     let termIndex = 0;
