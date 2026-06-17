@@ -23,7 +23,6 @@ export default function ResetPasswordPage() {
     const code = params.get("code");
 
     if (!code) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect
       setError(t("errorGeneric"));
       setLoading(false);
       return;

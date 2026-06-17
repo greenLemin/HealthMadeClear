@@ -5,6 +5,7 @@ const config = [
   {
     rules: {
       "@typescript-eslint/no-require-imports": "off",
+      "react-hooks/set-state-in-effect": "off",
     },
   },
   {

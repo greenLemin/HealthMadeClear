@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useMemo, useId } from "react";
 import InlineGlossaryTerm from "./InlineGlossaryTerm";
 import type { GlossaryTerm } from "@/types/glossary";
 
@@ -12,6 +12,8 @@ function escapeRegExp(string: string) {
 }
 
 export default function GlossaryHighlighter({ text, glossaryTerms }: GlossaryHighlighterProps) {
+  const baseId = useId();
+
   const parsedContent = useMemo(() => {
     if (!text || glossaryTerms.length === 0) return [text];
 
@@ -33,7 +35,7 @@ export default function GlossaryHighlighter({ text, glossaryTerms }: GlossaryHig
       const termObj = termMap.get(part.toLowerCase());
 
       if (termObj) {
-        const instanceId = `glossary-term-${termIndex++}`;
+        const instanceId = `glossary-term-${baseId}-${termIndex++}`;
         return (
           <InlineGlossaryTerm
             key={`${termObj.id}-${index}`}
@@ -45,7 +47,7 @@ export default function GlossaryHighlighter({ text, glossaryTerms }: GlossaryHig
       }
       return part;
     });
-  }, [text, glossaryTerms]);
+  }, [text, glossaryTerms, baseId]);
 
   return <>{parsedContent}</>;
 }

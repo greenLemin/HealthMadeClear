@@ -7,7 +7,6 @@ export default function NetworkStatusBanner() {
   const [dismissed, setDismissed] = useState(false);
 
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
     setOffline(!navigator.onLine);
 
     const handleOffline = () => setOffline(true);
