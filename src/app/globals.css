@@ -1,6 +1,5 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@config "../../tailwind.config.ts";
+@import "tailwindcss";
 
 @layer base {
   *,
@@ -154,7 +153,10 @@
   }
 
   body {
-    @apply bg-surface text-on-surface font-hyperlegible antialiased;
+    background-color: var(--color-surface);
+    color: var(--color-on-surface);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
     background-color: var(--background);
     color: var(--foreground);
     font-size: 18px;
@@ -261,23 +263,71 @@
 
 @layer components {
   .btn-primary {
-    @apply bg-primary text-on-primary rounded min-h-[56px] px-6 py-3 font-semibold transition-all hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2;
+    background-color: var(--color-primary);
+    color: var(--color-on-primary);
+    border-radius: 0.5rem;
+    min-height: 56px;
+    padding: 0.75rem 1.5rem;
+    font-weight: 600;
+    transition: all 0.2s ease;
+  }
+  .btn-primary:hover {
+    opacity: 0.9;
+  }
+  .btn-primary:focus {
+    outline: none;
+    --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
+    --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--color-primary);
+    box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+    --tw-ring-offset-width: 2px;
   }
 
   .btn-secondary {
-    @apply border-2 border-primary text-primary rounded min-h-[56px] px-6 py-3 font-semibold transition-all hover:bg-surface-container-low focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2;
+    border: 2px solid var(--color-primary);
+    color: var(--color-primary);
+    border-radius: 0.5rem;
+    min-height: 56px;
+    padding: 0.75rem 1.5rem;
+    font-weight: 600;
+    transition: all 0.2s ease;
+  }
+  .btn-secondary:hover {
+    background-color: var(--color-surface-container-low);
+  }
+  .btn-secondary:focus {
+    outline: none;
+    --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
+    --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--color-primary);
+    box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+    --tw-ring-offset-width: 2px;
   }
 
   .card {
-    @apply bg-surface-container-lowest rounded-lg shadow-card border border-outline-variant p-6;
+    background-color: var(--color-surface-container-lowest);
+    border-radius: 1rem;
+    box-shadow: 0 1px 3px rgba(0, 67, 73, 0.04), 0 1px 2px rgba(0, 67, 73, 0.04);
+    border: 1px solid var(--color-outline-variant);
+    padding: 1.5rem;
   }
 
   .card-hover {
-    @apply card hover:shadow-card-hover transition-shadow cursor-pointer;
+    background-color: var(--color-surface-container-lowest);
+    border-radius: 1rem;
+    box-shadow: 0 1px 3px rgba(0, 67, 73, 0.04), 0 1px 2px rgba(0, 67, 73, 0.04);
+    border: 1px solid var(--color-outline-variant);
+    padding: 1.5rem;
+    transition: box-shadow 0.2s ease;
+    cursor: pointer;
+  }
+  .card-hover:hover {
+    box-shadow: 0 4px 6px rgba(0, 67, 73, 0.06), 0 2px 4px rgba(0, 67, 73, 0.04);
   }
 
   .hover-lift {
-    @apply transition-all hover:-translate-y-1;
+    transition: all 0.2s ease;
+  }
+  .hover-lift:hover {
+    transform: translateY(-0.25rem);
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -301,19 +351,41 @@
   }
 
   .input-field {
-    @apply w-full rounded border-[1.5px] border-outline bg-surface-container-lowest px-4 py-3 text-body-md text-on-surface focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2;
+    width: 100%;
+    border-radius: 0.5rem;
+    border: 1.5px solid var(--color-outline);
+    background-color: var(--color-surface-container-lowest);
+    padding: 0.75rem 1rem;
+    color: var(--color-on-surface);
+  }
+  .input-field:focus {
+    border-color: var(--color-primary);
+    outline: none;
+    --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
+    --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--color-primary);
+    box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+    --tw-ring-offset-width: 2px;
   }
 
   .input-label {
-    @apply block mb-2 text-label-md font-semibold text-on-surface;
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--color-on-surface);
+    font-weight: 600;
   }
 
   .progress-bar {
-    @apply h-2 rounded-full bg-surface-container overflow-hidden;
+    height: 0.5rem;
+    border-radius: 9999px;
+    background-color: var(--color-surface-container);
+    overflow: hidden;
   }
 
   .progress-fill {
-    @apply h-full rounded-full bg-secondary-container transition-all duration-300;
+    height: 100%;
+    border-radius: 9999px;
+    background-color: var(--color-secondary-container);
+    transition: all 0.3s ease;
   }
 }
 
