@@ -16,10 +16,6 @@ describe("preferences", () => {
 
   describe("readStoredJson", () => {
     it("returns null if window is undefined", () => {
-      // Create an environment where window is undefined
-      const { window, ...globalWithoutWindow } = global as any;
-      const originalGlobal = global;
-
       try {
         // Mock global scope to simulate window being undefined
         vi.stubGlobal("window", undefined);

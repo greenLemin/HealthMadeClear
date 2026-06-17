@@ -3,7 +3,7 @@
  */
 import { describe, expect, it, vi, afterEach } from "vitest";
 import fs from "fs";
-import { parseQuestions, getQuizFromMdx } from "@/lib/quizzes/quizParser";
+import { parseQuestions, getQuizFromMdx, assertAllQuizzesExist } from "@/lib/quizzes/quizParser";
 
 describe("Quiz Parser", () => {
   it("parses a single question with options and explanation", () => {
@@ -195,5 +195,15 @@ explanation: 2+2 equals 4.
         },
       ],
     });
+  });
+});
+
+describe("assertAllQuizzesExist", () => {
+  it("throws an error if a quiz is missing", () => {
+    const existsSyncSpy = vi.spyOn(fs, "existsSync").mockReturnValue(false);
+
+    expect(() => assertAllQuizzesExist("en")).toThrowError(/Missing quiz MDX file:/);
+
+    existsSyncSpy.mockRestore();
   });
 });

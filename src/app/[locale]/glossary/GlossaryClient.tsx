@@ -33,21 +33,31 @@ export default function GlossaryClient({ terms: glossaryTerms }: GlossaryClientP
     element?.scrollIntoView({ behavior: "smooth", block: "start" });
   }, []);
 
+  const searchableTerms = useMemo(() => {
+    return glossaryTerms.map((term) => ({
+      ...term,
+      lowerTerm: term.term.toLowerCase(),
+      lowerDefinition: term.definition.toLowerCase(),
+      lowerCategory: term.category.toLowerCase(),
+      normalized: normalizeGlossaryLetter(term.term),
+    }));
+  }, [glossaryTerms]);
+
   const filteredTerms = useMemo(() => {
     const lowerQuery = query.toLowerCase();
-    return glossaryTerms.filter((term) => {
-      const normalized = normalizeGlossaryLetter(term.term);
-      const matchesLetter = activeLetter === "All" || normalized === activeLetter;
+    return searchableTerms.filter((term) => {
+      const matchesLetter = activeLetter === "All" || term.normalized === activeLetter;
 
       if (!matchesLetter) return false;
+      if (!lowerQuery) return true;
 
       const matchesQuery =
-        term.term.toLowerCase().includes(lowerQuery) ||
-        term.definition.toLowerCase().includes(lowerQuery) ||
-        term.category.toLowerCase().includes(lowerQuery);
+        term.lowerTerm.includes(lowerQuery) ||
+        term.lowerDefinition.includes(lowerQuery) ||
+        term.lowerCategory.includes(lowerQuery);
       return matchesQuery;
     });
-  }, [activeLetter, glossaryTerms, query]);
+  }, [activeLetter, searchableTerms, query]);
 
   return (
     <div className="py-12 md:py-16">
