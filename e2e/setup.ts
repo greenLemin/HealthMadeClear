@@ -2,6 +2,7 @@ import { test as base, expect, type Page } from "@playwright/test";
 
 export async function waitForAppReady(page: Page) {
   await page.waitForLoadState("domcontentloaded");
+  await page.locator('html[data-hydrated="true"]').waitFor({ state: "attached" });
   await page.locator("header").waitFor({ state: "visible" });
 }
 

@@ -2,7 +2,7 @@
 
 import { Languages } from "lucide-react";
 import { useAppState } from "@/components/AppProviders";
-import { usePathname, useRouter } from "@/i18n/navigation";
+import { Link, usePathname, useRouter } from "@/i18n/navigation";
 import type { Locale } from "@/lib/i18n";
 import { useTranslations } from "next-intl";
 
@@ -38,13 +38,13 @@ export default function LanguageToggle() {
         <Languages size={14} aria-hidden="true" />
         {t("language")}
       </div>
-      <button
-        type="button"
-        lang="en"
+      <Link
+        href={pathname}
+        locale="en"
         role="radio"
         aria-checked={locale === "en"}
         aria-label={t("switchToEnglish")}
-        onClick={() => switchLocale("en")}
+        onClick={() => setLocale("en")}
         onKeyDown={(event) => handleKeyDown(event, "en")}
         className={
           locale === "en"
@@ -53,14 +53,14 @@ export default function LanguageToggle() {
         }
       >
         EN
-      </button>
-      <button
-        type="button"
-        lang="es"
+      </Link>
+      <Link
+        href={pathname}
+        locale="es"
         role="radio"
         aria-checked={locale === "es"}
         aria-label={t("switchToSpanish")}
-        onClick={() => switchLocale("es")}
+        onClick={() => setLocale("es")}
         onKeyDown={(event) => handleKeyDown(event, "es")}
         className={
           locale === "es"
@@ -69,7 +69,7 @@ export default function LanguageToggle() {
         }
       >
         ES
-      </button>
+      </Link>
     </div>
   );
 }

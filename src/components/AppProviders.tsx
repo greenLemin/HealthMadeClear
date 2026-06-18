@@ -85,6 +85,7 @@ export default function AppProviders({
   useEffect(() => {
     if (!hydrated) return;
     applyDocumentPreferences(locale, theme, textSize, simpleMode);
+    document.documentElement.dataset.hydrated = "true";
     window.localStorage.setItem(STORAGE_KEYS.locale, locale);
     window.localStorage.setItem(STORAGE_KEYS.theme, theme);
     window.localStorage.setItem(STORAGE_KEYS.textSize, textSize);
