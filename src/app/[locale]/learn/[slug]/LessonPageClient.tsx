@@ -121,7 +121,7 @@ export default function LessonPageClient({
         aria-valuenow={Math.round(scrollProgress)}
         aria-valuemin={0}
         aria-valuemax={100}
-        aria-label="Reading progress"
+        aria-label={t("readingProgress")}
       />
 
       <div className="py-12 md:py-16">
@@ -152,7 +152,7 @@ export default function LessonPageClient({
             </span>
             {lesson.lastReviewed ? (
               <span className="rounded-full bg-surface-container px-3 py-1">
-                Updated {lesson.lastReviewed}
+                {t("updatedOn", { date: lesson.lastReviewed })}
               </span>
             ) : null}
           </div>
@@ -175,7 +175,7 @@ export default function LessonPageClient({
                   {isComplete ? (
                     <span className="inline-flex items-center gap-2 rounded-lg bg-secondary-container px-6 py-3 text-label-lg font-semibold text-secondary">
                       <CheckCircle2 size={22} />
-                      Lesson Complete
+                      {t("lessonComplete")}
                     </span>
                   ) : (
                     <button
@@ -228,7 +228,7 @@ export default function LessonPageClient({
                 {/* Key Takeaways */}
                 {lesson.sidebarTips && lesson.sidebarTips.length > 0 ? (
                   <div className="mt-10">
-                    <KeyTakeaway title="Key Takeaways">
+                    <KeyTakeaway title={t("keyTakeaways")}>
                       <ul className="list-disc space-y-2 pl-5">
                         {lesson.sidebarTips.map((tip, i) => (
                           <li key={i}>{tip}</li>
@@ -257,20 +257,18 @@ export default function LessonPageClient({
                 {/* Quiz CTA Card */}
                 {hasQuiz ? (
                   <div className="no-print mt-10 rounded-2xl border border-primary bg-primary-fixed/20 p-6 md:p-8">
-                    <h3 className="mb-2 text-headline-md text-primary">Test Your Knowledge</h3>
-                    <p className="mb-4 text-body-md text-on-surface-variant">
-                      Take a short quiz to check your understanding of this lesson.
-                    </p>
+                    <h3 className="mb-2 text-headline-md text-primary">{t("quizCta")}</h3>
+                    <p className="mb-4 text-body-md text-on-surface-variant">{t("quizSubtitle")}</p>
                     {bestQuizScore !== null ? (
                       <p className="mb-4 text-label-md text-on-surface-variant">
-                        Your best score: {bestQuizScore}%
+                        {t("quizBestScore", { score: bestQuizScore })}
                       </p>
                     ) : null}
                     <Link
                       href={`/learn/${lessonId}/quiz`}
                       className="btn-primary inline-flex items-center gap-2"
                     >
-                      {bestQuizScore !== null ? "Retake Quiz" : "Start Quiz"}
+                      {bestQuizScore !== null ? t("quizRetake") : t("takeQuiz")}
                       <ArrowRight size={18} />
                     </Link>
                   </div>
@@ -282,13 +280,13 @@ export default function LessonPageClient({
 
                 {/* Previous / Next lesson navigation */}
                 {prevLesson || nextLesson ? (
-                  <nav className="no-print mt-12 grid grid-cols-2 gap-4" aria-label="Lesson navigation">
+                  <nav className="no-print mt-12 grid grid-cols-2 gap-4" aria-label={t("lessonNavigation")}>
                     {prevLesson ? (
                       <Link
                         href={`/learn/${prevLesson.id}`}
                         className="flex flex-col gap-1 rounded-2xl border border-outline-variant bg-surface-container-lowest p-4 transition-shadow hover:shadow-card-hover"
                       >
-                        <span className="text-label-md text-on-surface-variant">Previous</span>
+                        <span className="text-label-md text-on-surface-variant">{t("previousLesson")}</span>
                         <span className="text-headline-sm text-primary">{prevLesson.title}</span>
                       </Link>
                     ) : (
@@ -299,7 +297,7 @@ export default function LessonPageClient({
                         href={`/learn/${nextLesson.id}`}
                         className="flex flex-col items-end gap-1 rounded-2xl border border-outline-variant bg-surface-container-lowest p-4 text-right transition-shadow hover:shadow-card-hover"
                       >
-                        <span className="text-label-md text-on-surface-variant">Next</span>
+                        <span className="text-label-md text-on-surface-variant">{t("nextLesson")}</span>
                         <span className="text-headline-sm text-primary">{nextLesson.title}</span>
                       </Link>
                     ) : null}

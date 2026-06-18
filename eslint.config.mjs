@@ -9,7 +9,7 @@ const config = [
     },
   },
   {
-    ignores: ["e2e/**"],
+    ignores: ["e2e/**", "coverage/**"],
   },
 ];
 export default config;

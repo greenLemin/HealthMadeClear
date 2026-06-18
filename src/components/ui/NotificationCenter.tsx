@@ -8,7 +8,7 @@ import { getNotifications, markAsRead, markAllAsRead, getUnreadCount } from "@/l
 import type { Notification } from "@/lib/notifications";
 import { useTranslations } from "next-intl";
 
-function formatNotifTime(dateStr: string): string {
+function formatNotifTime(dateStr: string, tCommon: ReturnType<typeof useTranslations<"common">>): string {
   const date = new Date(dateStr);
   const now = new Date();
   const diffMs = now.getTime() - date.getTime();
@@ -16,11 +16,11 @@ function formatNotifTime(dateStr: string): string {
   const diffHours = Math.floor(diffMs / 3600000);
   const diffDays = Math.floor(diffMs / 86400000);
 
-  if (diffMins < 1) return "just now";
-  if (diffMins < 60) return `${diffMins}m ago`;
-  if (diffHours < 24) return `${diffHours}h ago`;
-  if (diffDays === 1) return "yesterday";
-  if (diffDays < 7) return `${diffDays}d ago`;
+  if (diffMins < 1) return tCommon("relativeJustNow");
+  if (diffMins < 60) return tCommon("relativeMinutes", { count: diffMins });
+  if (diffHours < 24) return tCommon("relativeHours", { count: diffHours });
+  if (diffDays === 1) return tCommon("relativeYesterday");
+  if (diffDays < 7) return tCommon("relativeDays", { count: diffDays });
   return date.toLocaleDateString();
 }
 
@@ -39,7 +39,8 @@ function getNotifIcon(type: string) {
 
 export default function NotificationCenter() {
   const { user } = useAuth();
-  const t = useTranslations("common");
+  const t = useTranslations("notifications");
+  const tCommon = useTranslations("common");
   const supabase = useMemo(() => createClient(), []);
   const [isOpen, setIsOpen] = useState(false);
   const [notifications, setNotifications] = useState<Notification[]>([]);
@@ -104,7 +105,7 @@ export default function NotificationCenter() {
         type="button"
         onClick={() => setIsOpen(!isOpen)}
         className="relative flex min-h-11 min-w-11 items-center justify-center rounded-lg text-on-surface-variant transition-colors hover:bg-surface-container hover:text-on-surface"
-        aria-label={`Notifications${unreadCount > 0 ? ` (${unreadCount} unread)` : ""}`}
+        aria-label={t("ariaLabel", { count: unreadCount })}
       >
         {unreadCount > 0 ? <BellDot size={20} /> : <Bell size={20} />}
         {unreadCount > 0 ? (
@@ -120,7 +121,7 @@ export default function NotificationCenter() {
           className="absolute right-0 top-full z-50 mt-2 w-80 rounded-xl border border-outline-variant bg-surface shadow-elevation-3 motion-safe:animate-fadeIn"
         >
           <div className="flex items-center justify-between border-b border-outline-variant px-4 py-3">
-            <span className="text-label-md font-semibold text-on-surface">Notifications</span>
+            <span className="text-label-md font-semibold text-on-surface">{t("title")}</span>
             {unreadCount > 0 ? (
               <button
                 type="button"
@@ -128,7 +129,7 @@ export default function NotificationCenter() {
                 className="flex items-center gap-1 text-label-sm font-medium text-primary transition-colors hover:text-primary/80"
               >
                 <CheckCheck size={14} />
-                Mark all read
+                {t("markAllRead")}
               </button>
             ) : null}
           </div>
@@ -136,11 +137,11 @@ export default function NotificationCenter() {
           <div className="max-h-80 overflow-y-auto">
             {loading ? (
               <div className="px-4 py-8 text-center text-label-md text-on-surface-variant">
-                {t("loading")}
+                {tCommon("loading")}
               </div>
             ) : notifications.length === 0 ? (
               <div className="px-4 py-8 text-center text-label-md text-on-surface-variant">
-                You&apos;re all caught up! 🎉
+                {t("empty")} 🎉
               </div>
             ) : (
               <div className="divide-y divide-outline-variant">
@@ -164,7 +165,7 @@ export default function NotificationCenter() {
                       </p>
                       <p className="text-label-sm text-on-surface-variant">{notif.body}</p>
                       <p className="mt-0.5 text-label-sm text-on-surface-variant">
-                        {formatNotifTime(notif.created_at)}
+                        {formatNotifTime(notif.created_at, tCommon)}
                       </p>
                     </div>
                   </button>
