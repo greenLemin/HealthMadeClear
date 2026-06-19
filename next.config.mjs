@@ -7,6 +7,14 @@ if (process.env.NETLIFY === "true" && !process.env.NEXT_PUBLIC_SITE_URL) {
   process.env.NEXT_PUBLIC_SITE_URL = process.env.URL || process.env.DEPLOY_PRIME_URL;
 }
 
+// Bridge legacy Netlify var names → Next.js public vars (inlined at build time)
+if (!process.env.NEXT_PUBLIC_SUPABASE_URL?.trim() && process.env.SUPABASE_URL?.trim()) {
+  process.env.NEXT_PUBLIC_SUPABASE_URL = process.env.SUPABASE_URL.trim();
+}
+if (!process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY?.trim() && process.env.SUPABASE_ANON_KEY?.trim()) {
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY = process.env.SUPABASE_ANON_KEY.trim();
+}
+
 const isDev = process.env.NODE_ENV !== "production";
 
 const securityHeaders = [

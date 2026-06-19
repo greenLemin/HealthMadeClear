@@ -13,7 +13,7 @@ Set these in **Netlify → Site configuration → Environment variables**. See [
 
 Apply to **Production** at minimum. Also set for **Deploy Previews** and **Branch deploys** if auth, dashboard, or contact form should work there.
 
-**Legacy naming:** If you previously set `SUPABASE_ANON_KEY` (without the `NEXT_PUBLIC_` prefix), the build script copies it to `NEXT_PUBLIC_SUPABASE_ANON_KEY` automatically. You still must set `NEXT_PUBLIC_SUPABASE_URL` explicitly — it cannot be derived from `SUPABASE_DATABASE_URL`.
+**Legacy naming:** If you previously set `SUPABASE_URL` or `SUPABASE_ANON_KEY` (without the `NEXT_PUBLIC_` prefix), the build copies them to the corresponding `NEXT_PUBLIC_*` vars automatically. You must still provide a project URL — it cannot be derived from `SUPABASE_DATABASE_URL`.
 
 **Do not** commit real keys in `netlify.toml` or the repo. Use the Netlify dashboard only.
 

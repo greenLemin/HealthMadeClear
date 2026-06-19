@@ -5,9 +5,21 @@ import { describe, expect, it } from "vitest";
 
 const scriptPath = join(dirname(fileURLToPath(import.meta.url)), "check-production-env.mjs");
 
+const SUPABASE_ENV_KEYS = [
+  "NEXT_PUBLIC_SUPABASE_URL",
+  "NEXT_PUBLIC_SUPABASE_ANON_KEY",
+  "SUPABASE_ANON_KEY",
+  "SUPABASE_URL",
+] as const;
+
 function runCheck(env: Record<string, string | undefined>) {
+  const baseEnv = { ...process.env };
+  for (const key of SUPABASE_ENV_KEYS) {
+    delete baseEnv[key];
+  }
+
   return spawnSync(process.execPath, [scriptPath], {
-    env: { ...process.env, ...env },
+    env: { ...baseEnv, ...env },
     encoding: "utf8",
   });
 }
@@ -32,13 +44,12 @@ describe("check-production-env.mjs", () => {
     expect(result.stderr).toContain("NEXT_PUBLIC_SUPABASE_URL");
   });
 
-  it("bridges SUPABASE_ANON_KEY to NEXT_PUBLIC_SUPABASE_ANON_KEY", () => {
+  it("bridges SUPABASE_URL and SUPABASE_ANON_KEY legacy names", () => {
     const result = runCheck({
       CI: "true",
       NETLIFY: "true",
       URL: "https://healthmadeclear.org",
-      NEXT_PUBLIC_SUPABASE_URL: "https://example.supabase.co",
-      NEXT_PUBLIC_SUPABASE_ANON_KEY: undefined,
+      SUPABASE_URL: "https://example.supabase.co",
       SUPABASE_ANON_KEY: "legacy_anon_key_value",
     });
     expect(result.status).toBe(0);
