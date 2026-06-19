@@ -49,13 +49,21 @@ Edit the MDX files below, then run `npm run content:bundle` (or `npm run build`)
 
 ## Environment variables
 
-This app runs fully client-side for preferences and progress (localStorage). No secrets are required for local development.
+Copy [`.env.example`](.env.example) to `.env.local` for local development.
+
+**Local dev:** Supabase is optional — without real credentials the app uses a mock client in development.
+
+**Production / CI builds** require:
+
+- `NEXT_PUBLIC_SUPABASE_URL` — Supabase project URL
+- `NEXT_PUBLIC_SUPABASE_ANON_KEY` — publishable anon key
 
 Optional:
 
-- `NEXT_PUBLIC_SITE_URL` — canonical site URL for sitemap/metadata (e.g. `https://healthmadeclear.example`)
+- `NEXT_PUBLIC_SITE_URL` — canonical site URL for sitemap/metadata (auto-set on Netlify from deploy URL)
+- `NEXT_PUBLIC_SENTRY_DSN` — client error reporting
 
-Copy [`.env.example`](.env.example) to `.env.local` if needed.
+See [`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md) for the full Netlify checklist.
 
 ## Contributing
 
@@ -63,14 +71,14 @@ See [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## Deployment
 
-Build and deploy as a standard Next.js 14 app (Vercel, Netlify, or any Node host):
+Build and deploy as a standard Next.js app on Netlify (see [`netlify.toml`](netlify.toml)) or any Node host:
 
 ```bash
 npm run build
 npm run start
 ```
 
-Set `NEXT_PUBLIC_SITE_URL` in production for correct sitemap and Open Graph URLs.
+Before deploying to Netlify, set `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_ANON_KEY` in the Netlify dashboard. See [`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md).
 
 ## License
 

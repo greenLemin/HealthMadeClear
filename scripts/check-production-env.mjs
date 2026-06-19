@@ -6,6 +6,11 @@ if (process.env.NETLIFY === "true" && !process.env.NEXT_PUBLIC_SITE_URL) {
   process.env.NEXT_PUBLIC_SITE_URL = process.env.URL || process.env.DEPLOY_PRIME_URL;
 }
 
+// Bridge legacy Netlify var names → Next.js public vars (build-time only)
+if (!process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY?.trim() && process.env.SUPABASE_ANON_KEY?.trim()) {
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY = process.env.SUPABASE_ANON_KEY.trim();
+}
+
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL?.trim();
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL?.trim();
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY?.trim();
@@ -22,7 +27,9 @@ if (
   supabaseAnonKey === "placeholder_anon_key"
 ) {
   console.error(
-    "NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY must be set for production/CI builds."
+    "Missing Supabase public env vars for production/CI build.\n" +
+      "Set NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY in Netlify.\n" +
+      "(Legacy SUPABASE_ANON_KEY alone is not enough — URL must also be set.)"
   );
   process.exit(1);
 }
