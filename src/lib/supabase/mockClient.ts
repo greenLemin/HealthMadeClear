@@ -21,7 +21,7 @@ const DEFAULT_DB: MockDb = {
   profile: { display_name: "Guest Student", created_at: new Date().toISOString() },
 };
 
-function parseFirstJsonObject(str: string): any {
+function parseFirstJsonObject<T = unknown>(str: string): T {
   try {
     return JSON.parse(str);
   } catch (err) {
@@ -79,7 +79,7 @@ function getMockDb(cookieStore?: any): MockDb {
 
   if (!json) return cloneDefault();
   try {
-    return parseFirstJsonObject(json);
+    return parseFirstJsonObject<MockDb>(json);
   } catch {
     return cloneDefault();
   }
