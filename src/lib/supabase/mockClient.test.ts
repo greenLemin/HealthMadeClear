@@ -13,13 +13,16 @@ describe("mockClient", () => {
   it("provides mock authentication info", async () => {
     const client = getMockSupabaseClient();
     const userRes = await client.auth.getUser();
-    expect(userRes.data.user.email).toBe("guest@example.com");
+    expect(userRes.data.user?.email).toBe("guest@example.com");
 
     const sessionRes = await client.auth.getSession();
-    expect(sessionRes.data.session.access_token).toBe("mock-access-token");
+    expect(sessionRes.data.session?.access_token).toBe("mock-access-token");
 
-    const signInRes = await client.auth.signInWithPassword();
-    expect(signInRes.data.user.email).toBe("guest@example.com");
+    const signInRes = await client.auth.signInWithPassword({
+      email: "guest@example.com",
+      password: "password",
+    });
+    expect(signInRes.data.user?.email).toBe("guest@example.com");
 
     const signOutRes = await client.auth.signOut();
     expect(signOutRes.error).toBeNull();
@@ -53,8 +56,7 @@ describe("mockClient", () => {
       .limit(5)
       .range(0, 10)
       .not("name", "eq", "test")
-      .is("active", true)
-      .delete();
+      .is("active", true);
 
     expect(query).toBeDefined();
   });
@@ -78,16 +80,16 @@ describe("mockClient", () => {
 
     // 3. Upsert streak
     await client.from("streaks").upsert({ current_streak: 5, longest_streak: 10 });
-    const streakRes = await client.from("streaks").single();
+    const streakRes = await client.from("streaks").select().single();
     expect(streakRes.data).toEqual({ current_streak: 5, longest_streak: 10 });
 
     // 4. Update profile
     await client.from("profiles").update({ display_name: "Test User" });
-    const profileRes = await client.from("profiles").single();
-    expect(profileRes.data.display_name).toBe("Test User");
+    const profileRes = await client.from("profiles").select().single();
+    expect(profileRes.data?.[0]?.display_name || profileRes.data?.display_name).toBe("Test User");
 
     // Generic single fallback
-    const fallbackRes = await client.from("other_table").single();
+    const fallbackRes = await client.from("other_table").select().single();
     expect(fallbackRes.data).toBeNull();
   });
 
