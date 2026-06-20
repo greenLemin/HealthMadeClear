@@ -60,7 +60,12 @@ function parseFirstJsonObject(str: string): any {
   }
 }
 
-function getMockDb(cookieStore?: any): MockDb {
+export interface CookieStore {
+  get: (name: string) => { value: string } | undefined | null;
+  set?: (name: string, value: string, options?: { path: string }) => void;
+}
+
+function getMockDb(cookieStore?: CookieStore): MockDb {
   let json: string | null = null;
   if (cookieStore) {
     json = cookieStore.get("hmc_mock_db")?.value || null;
@@ -85,16 +90,16 @@ function getMockDb(cookieStore?: any): MockDb {
   }
 }
 
-function saveMockDb(db: MockDb, cookieStore?: any) {
+function saveMockDb(db: MockDb, cookieStore?: CookieStore) {
   const json = JSON.stringify(db);
   if (cookieStore) {
-    cookieStore.set("hmc_mock_db", json, { path: "/" });
+    cookieStore.set?.("hmc_mock_db", json, { path: "/" });
   } else if (typeof document !== "undefined") {
     document.cookie = `hmc_mock_db=${encodeURIComponent(json)};path=/;max-age=31536000;SameSite=Lax`;
   }
 }
 
-export function getMockSupabaseClient(cookieStore?: any) {
+export function getMockSupabaseClient(cookieStore?: CookieStore) {
   const mockUser = {
     id: "00000000-0000-0000-0000-000000000000",
     email: "guest@example.com",
