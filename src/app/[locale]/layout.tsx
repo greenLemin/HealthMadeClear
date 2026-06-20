@@ -12,10 +12,11 @@ import Header from "@/components/Header";
 import NetworkStatusBanner from "@/components/ui/NetworkStatusBanner";
 import ScrollToTop from "@/components/ScrollToTop";
 import { routing } from "@/i18n/routing";
-import type { Locale } from "@/lib/i18n";
 import { requireLocale } from "@/lib/locale";
 import { PREFERENCE_BOOTSTRAP_SCRIPT } from "@/lib/preferences";
 import { getSiteUrl } from "@/lib/site";
+import AnalyticsPageViewTracker from "@/components/AnalyticsPageViewTracker";
+import GoogleAnalytics from "@/components/GoogleAnalytics";
 import "../globals.css";
 
 const siteUrl = getSiteUrl();
@@ -98,10 +99,12 @@ export default async function LocaleLayout({
   }
   setRequestLocale(locale);
   const messages = await getMessages();
+  const validLocale = requireLocale(locale);
 
   return (
     <html lang={locale} suppressHydrationWarning className={atkinson.variable}>
       <head>
+        <GoogleAnalytics measurementId={process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || ""} />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
         <Script id="hmc-preferences" strategy="beforeInteractive">
@@ -111,6 +114,7 @@ export default async function LocaleLayout({
       <body className="min-h-screen bg-surface font-hyperlegible">
         <NextIntlClientProvider locale={locale} messages={messages}>
           <AppProviders locale={locale}>
+            <AnalyticsPageViewTracker locale={validLocale} />
             <AuthProvider>
               <NetworkStatusBanner />
               <div className="min-h-screen bg-surface text-on-surface">
