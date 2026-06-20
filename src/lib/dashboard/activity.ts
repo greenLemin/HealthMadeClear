@@ -27,6 +27,7 @@ export async function getRecentActivity(
       .select("lesson_id, completed_at")
       .eq("user_id", userId)
       .eq("completed", true)
+      .not("completed_at", "is", null)
       .order("completed_at", { ascending: false })
       .limit(10),
     supabase

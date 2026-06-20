@@ -1,6 +1,5 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { getAllLessons } from "@/lib/lessons/loadLessons";
-import { getAllQuizzes } from "@/lib/localizedQuiz";
 import type { Locale } from "@/lib/i18n";
 import { logQueryError } from "./utils";
 
@@ -19,7 +18,6 @@ export async function getUserProgressSummary(
   longestStreak: number;
 }> {
   const allLessons = getAllLessons(locale);
-  const allQuizzes = getAllQuizzes(locale);
 
   const [lessonResult, quizResult, streakResult] = await Promise.all([
     supabase
@@ -41,15 +39,15 @@ export async function getUserProgressSummary(
   const totalTimeSpentSeconds = completedLessons.reduce((sum, l) => sum + (l.time_spent_seconds ?? 0), 0);
   const totalLessonsCompleted = new Set(completedLessons.map((l) => l.lesson_id)).size;
 
-  const passedQuizzes = quizAttempts.filter((q) => q.passed);
+  const passedQuizzes = quizAttempts.filter((q) => q.passed).length;
   const totalScore = quizAttempts.reduce((sum, q) => sum + (q.score ?? 0), 0);
   const totalMaxScore = quizAttempts.reduce((sum, q) => sum + (q.max_score ?? 0), 0);
 
   return {
     totalLessonsCompleted,
     totalLessonsAvailable: allLessons.length,
-    totalQuizzesPassed: new Set(passedQuizzes.map((q) => q.quiz_id)).size,
-    totalQuizzesAttempted: allQuizzes.length,
+    totalQuizzesPassed: passedQuizzes,
+    totalQuizzesAttempted: quizAttempts.length,
     averageQuizScore: totalMaxScore > 0 ? Math.round((totalScore / totalMaxScore) * 100) : 0,
     totalTimeSpentMinutes: Math.round(totalTimeSpentSeconds / 60),
     currentStreak: streakResult.data?.current_streak ?? 0,
