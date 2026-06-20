@@ -101,6 +101,11 @@ function saveMockDb(db: MockDb, cookieStore?: CookieStore) {
   }
 }
 
+export interface SelectOptions {
+  head?: boolean;
+  count?: "exact" | "planned" | "estimated";
+}
+
 export function getMockSupabaseClient(cookieStore?: CookieStore) {
   const mockUser = {
     id: "00000000-0000-0000-0000-000000000000",
@@ -156,7 +161,7 @@ export function getMockSupabaseClient(cookieStore?: CookieStore) {
     },
     from(table: string) {
       return {
-        select(columns?: string, options?: any) {
+        select(columns?: string, options?: SelectOptions) {
           return this;
         },
         eq(column: string, value: unknown) {
