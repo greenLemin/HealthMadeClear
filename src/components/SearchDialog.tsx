@@ -9,7 +9,7 @@ import { useFocusTrap } from "@/hooks/useFocusTrap";
 import { useTranslations } from "next-intl";
 import type { SearchEntry } from "@/data/searchIndex.en";
 
-function highlightMatches(text: string, query: string) {
+export function highlightMatches(text: string, query: string) {
   if (!query) return text;
   const regex = new RegExp(`(${query.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")})`, "gi");
   const parts = text.split(regex);
