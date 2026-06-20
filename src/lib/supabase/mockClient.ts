@@ -21,9 +21,9 @@ const DEFAULT_DB: MockDb = {
   profile: { display_name: "Guest Student", created_at: new Date().toISOString() },
 };
 
-function parseFirstJsonObject(str: string): any {
+function parseFirstJsonObject<T = unknown>(str: string): T {
   try {
-    return JSON.parse(str);
+    return JSON.parse(str) as T;
   } catch (err) {
     let depth = 0;
     let inString = false;
@@ -50,7 +50,7 @@ function parseFirstJsonObject(str: string): any {
           if (depth === 0) {
             const candidate = str.substring(0, i + 1);
             try {
-              return JSON.parse(candidate);
+              return JSON.parse(candidate) as T;
             } catch {}
           }
         }
@@ -79,7 +79,7 @@ function getMockDb(cookieStore?: any): MockDb {
 
   if (!json) return cloneDefault();
   try {
-    return parseFirstJsonObject(json);
+    return parseFirstJsonObject<MockDb>(json);
   } catch {
     return cloneDefault();
   }
