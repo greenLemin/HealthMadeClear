@@ -1,10 +1,12 @@
 import type { AuthChangeEvent, Session } from "@supabase/supabase-js";
+import type { ReadonlyRequestCookies } from "next/dist/server/web/spec-extension/adapters/request-cookies";
 
-// Minimal interface representing the cookie store methods needed by the mock client
-export interface CookieStore {
-  get(name: string): { value: string } | undefined | null;
-  set(name: string, value: string, options?: { path?: string; [key: string]: any }): void;
+export interface MockCookieStore {
+  get(name: string): { name: string; value: string } | undefined | null;
+  set?(name: string, value: string, options?: any): void;
 }
+
+export type CookieStore = ReadonlyRequestCookies | MockCookieStore;
 // Mock database type
 type MockDb = {
   lessons: string[];
@@ -94,8 +96,8 @@ function getMockDb(cookieStore?: Pick<CookieStore, "get">): MockDb {
 
 function saveMockDb(db: MockDb, cookieStore?: CookieStore) {
   const json = JSON.stringify(db);
-  if (cookieStore) {
-    cookieStore.set?.("hmc_mock_db", json, { path: "/" });
+  if (cookieStore && "set" in cookieStore && typeof cookieStore.set === "function") {
+    cookieStore.set("hmc_mock_db", json, { path: "/" });
   } else if (typeof document !== "undefined") {
     document.cookie = `hmc_mock_db=${encodeURIComponent(json)};path=/;max-age=31536000;SameSite=Lax`;
   }
@@ -105,7 +107,6 @@ export interface SelectOptions {
   head?: boolean;
   count?: "exact" | "planned" | "estimated";
 }
-
 export function getMockSupabaseClient(cookieStore?: CookieStore) {
   const mockUser = {
     id: "00000000-0000-0000-0000-000000000000",
