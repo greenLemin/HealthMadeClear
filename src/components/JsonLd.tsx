@@ -10,5 +10,5 @@ function safeJsonLd(data: unknown): string {
 }
 
 export default function JsonLd({ data }: JsonLdProps) {
-  return <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(data) }} />;
+  return <script type="application/ld+json">{safeJsonLd(data)}</script>;
 }
