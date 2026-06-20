@@ -1,9 +1,10 @@
+import type { AuthChangeEvent, Session } from "@supabase/supabase-js";
+
 // Minimal interface representing the cookie store methods needed by the mock client
 export interface CookieStore {
   get(name: string): { value: string } | undefined | null;
   set(name: string, value: string, options?: { path?: string; [key: string]: any }): void;
 }
-
 // Mock database type
 type MockDb = {
   lessons: string[];
@@ -136,11 +137,11 @@ export function getMockSupabaseClient(cookieStore?: CookieStore) {
           error: null,
         };
       },
-      onAuthStateChange(callback: any) {
+      onAuthStateChange(callback: (event: AuthChangeEvent, session: Session | null) => void) {
         if (typeof callback === "function") {
           setTimeout(() => {
             try {
-              callback("SIGNED_IN", mockSession);
+              callback("SIGNED_IN", mockSession as unknown as Session);
             } catch {}
           }, 0);
         }
