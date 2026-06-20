@@ -1,3 +1,12 @@
+import type { ReadonlyRequestCookies } from "next/dist/server/web/spec-extension/adapters/request-cookies";
+
+interface MockCookieStore {
+  get(name: string): { name: string; value: string } | undefined;
+  set?(name: string, value: string, options?: any): void;
+}
+
+type CookieStore = ReadonlyRequestCookies | MockCookieStore;
+
 // Mock database type
 type MockDb = {
   lessons: string[];
@@ -60,7 +69,7 @@ function parseFirstJsonObject(str: string): any {
   }
 }
 
-function getMockDb(cookieStore?: any): MockDb {
+function getMockDb(cookieStore?: CookieStore): MockDb {
   let json: string | null = null;
   if (cookieStore) {
     json = cookieStore.get("hmc_mock_db")?.value || null;
@@ -85,16 +94,16 @@ function getMockDb(cookieStore?: any): MockDb {
   }
 }
 
-function saveMockDb(db: MockDb, cookieStore?: any) {
+function saveMockDb(db: MockDb, cookieStore?: CookieStore) {
   const json = JSON.stringify(db);
-  if (cookieStore) {
+  if (cookieStore && "set" in cookieStore && typeof cookieStore.set === "function") {
     cookieStore.set("hmc_mock_db", json, { path: "/" });
   } else if (typeof document !== "undefined") {
     document.cookie = `hmc_mock_db=${encodeURIComponent(json)};path=/;max-age=31536000;SameSite=Lax`;
   }
 }
 
-export function getMockSupabaseClient(cookieStore?: any) {
+export function getMockSupabaseClient(cookieStore?: CookieStore) {
   const mockUser = {
     id: "00000000-0000-0000-0000-000000000000",
     email: "guest@example.com",
