@@ -6,6 +6,22 @@ export type NotificationInput = {
   body: string;
 };
 
+export async function createNotifications(
+  supabase: SupabaseClient,
+  userId: string,
+  inputs: NotificationInput[]
+): Promise<void> {
+  if (inputs.length === 0) return;
+  const records = inputs.map((input) => ({
+    user_id: userId,
+    type: input.type,
+    title: input.title,
+    body: input.body,
+    read: false,
+  }));
+  await supabase.from("notifications").insert(records);
+}
+
 export async function createNotification(
   supabase: SupabaseClient,
   userId: string,

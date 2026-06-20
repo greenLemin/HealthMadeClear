@@ -1,5 +1,5 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
-import { createNotification } from "@/lib/notifications";
+import { createNotifications } from "@/lib/notifications";
 import { getMessages, type Locale } from "@/lib/i18n";
 
 export const ACHIEVEMENTS = {
@@ -101,6 +101,7 @@ export async function checkAndAwardAchievements(
 
   const earned = new Set((existing ?? []).map((a) => a.achievement_id));
   const newlyEarned: string[] = [];
+  const achievementsToInsert: { user_id: string; achievement_id: string }[] = [];
 
   const checks: Array<{ id: string; condition: boolean }> = [
     { id: "first-lesson", condition: context.totalLessonsCompleted >= 1 },
@@ -130,22 +131,43 @@ export async function checkAndAwardAchievements(
 
   for (const check of checks) {
     if (check.condition && !earned.has(check.id)) {
-      const { error } = await supabase.from("achievements").insert({
-        user_id: userId,
-        achievement_id: check.id,
-      });
-      if (!error) {
-        newlyEarned.push(check.id);
-        const achievement = ACHIEVEMENTS[check.id as AchievementId];
-        if (achievement) {
-          await createNotification(supabase, userId, {
+      achievementsToInsert.push({ user_id: userId, achievement_id: check.id });
+      newlyEarned.push(check.id);
+    }
+  }
+
+  if (achievementsToInsert.length > 0) {
+    const { data: inserted, error } = await supabase
+      .from("achievements")
+      .upsert(achievementsToInsert, {
+        onConflict: "user_id,achievement_id",
+        ignoreDuplicates: true,
+      })
+      .select("achievement_id");
+    if (error) {
+      return [];
+    }
+
+    const actuallyEarned = (inserted ?? []).map((row) => row.achievement_id);
+
+    if (actuallyEarned.length > 0) {
+      const earnedNotifications = actuallyEarned.flatMap((id) => {
+        const achievement = ACHIEVEMENTS[id as AchievementId];
+        if (!achievement) return [];
+        return [
+          {
             type: "achievement",
             title: `Achievement Unlocked: ${achievement.title}`,
             body: achievement.description,
-          });
-        }
+          },
+        ];
+      });
+      if (earnedNotifications.length > 0) {
+        await createNotifications(supabase, userId, earnedNotifications);
       }
     }
+
+    return actuallyEarned;
   }
 
   return newlyEarned;
