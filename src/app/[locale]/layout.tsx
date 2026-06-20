@@ -104,7 +104,7 @@ export default async function LocaleLayout({
   return (
     <html lang={locale} suppressHydrationWarning className={atkinson.variable}>
       <head>
-        <GoogleAnalytics measurementId={process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || ""} />
+        <GoogleAnalytics />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
         <Script id="hmc-preferences" strategy="beforeInteractive">

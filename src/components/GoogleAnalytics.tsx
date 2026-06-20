@@ -2,7 +2,9 @@
 
 import Script from "next/script";
 
-export default function GoogleAnalytics({ measurementId }: { measurementId: string }) {
+export default function GoogleAnalytics() {
+  const measurementId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
+
   if (process.env.NODE_ENV !== "production" || !measurementId) return null;
 
   return (
@@ -17,7 +19,9 @@ export default function GoogleAnalytics({ measurementId }: { measurementId: stri
           function gtag(){window.dataLayer.push(arguments);}
           gtag('js', new Date());
 
-          gtag('config', '${measurementId}');
+          gtag('config', '${measurementId}', {
+            page_path: window.location.pathname,
+          });
         `}
       </Script>
     </>
