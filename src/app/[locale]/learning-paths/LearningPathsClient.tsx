@@ -29,8 +29,6 @@ export default function LearningPathsClient({
   const tLearn = useTranslations("learn");
   const tCommon = useTranslations("common");
 
-  const completedLessonsSet = new Set(completedLessons);
-
   return (
     <div className="py-12 md:py-16">
       <div className="max-w-container mx-auto px-4 md:px-6">
@@ -39,10 +37,10 @@ export default function LearningPathsClient({
         <div className="space-y-8">
           {learningPaths.map((path) => {
             const pathLessons = getLessonsByPath(path.id, lessons, learningPaths);
-            const progress = getPathProgress(path.id, completedLessons, lessons, learningPaths);
+            const progress = getPathProgress(path.id, Array.from(completedLessons), lessons, learningPaths);
             const isStarted = startedPaths.includes(path.id) || progress.completedCount > 0;
             const nextLesson =
-              pathLessons.find((lesson) => !completedLessonsSet.has(lesson.id)) ?? pathLessons[0];
+              pathLessons.find((lesson) => !completedLessons.has(lesson.id)) ?? pathLessons[0];
 
             return (
               <section
@@ -127,7 +125,7 @@ export default function LearningPathsClient({
                             <div className="text-label-md text-on-surface-variant">{lesson.duration}</div>
                           </div>
                           <div className="text-label-md font-semibold text-primary">
-                            {completedLessonsSet.has(lesson.id) ? t("done") : t("ready")}
+                            {completedLessons.has(lesson.id) ? t("done") : t("ready")}
                           </div>
                         </Link>
                       ))}

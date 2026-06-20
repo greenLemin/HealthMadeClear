@@ -113,7 +113,7 @@ export function useProgress(): ProgressState & ProgressActions {
   // Derive effective state from auth or guest sources
   const completedLessonIds = useMemo(() => {
     if (user) return supabaseCompletedLessonIds;
-    return completedLessons;
+    return Array.from(completedLessons);
   }, [user, supabaseCompletedLessonIds, completedLessons]);
 
   const quizAttempts = useMemo(() => {

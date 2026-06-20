@@ -10,7 +10,7 @@ function Consumer() {
   const { completedLessons, toggleLessonComplete } = useAppState();
   return (
     <div>
-      <span data-testid="count">{completedLessons.length}</span>
+      <span data-testid="count">{completedLessons.size}</span>
       <button type="button" onClick={() => toggleLessonComplete("lesson-a")}>
         toggle
       </button>

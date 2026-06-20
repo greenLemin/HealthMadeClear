@@ -115,7 +115,7 @@ export default function HomeClient({ lessons, learningPaths }: HomeClientProps) 
           </div>
           <div className="grid gap-6 md:grid-cols-2">
             {learningPaths.slice(0, 2).map((path) => {
-              const progress = getPathProgress(path.id, completedLessons, lessons, learningPaths);
+              const progress = getPathProgress(path.id, Array.from(completedLessons), lessons, learningPaths);
               return (
                 <Link
                   key={path.id}
@@ -223,7 +223,7 @@ export default function HomeClient({ lessons, learningPaths }: HomeClientProps) 
                 {tCommon("continue")}
               </h2>
               <p className="mb-6 text-body-md text-on-surface-variant">
-                {tCommon("completed")}: {completedLessons.length} {tCommon("modules")}
+                {tCommon("completed")}: {completedLessons.size} {tCommon("modules")}
               </p>
               <Link href="/dashboard">
                 <Button variant="primary" size="md">

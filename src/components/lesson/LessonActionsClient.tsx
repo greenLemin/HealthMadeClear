@@ -9,7 +9,7 @@ import { useTranslations } from "next-intl";
 export default function LessonActionsClient({ lessonId }: { lessonId: LessonId }) {
   const { completedLessons, toggleLessonComplete, markLessonViewed } = useAppState();
   const t = useTranslations("learn");
-  const isCompleted = completedLessons.includes(lessonId);
+  const isCompleted = completedLessons.has(lessonId);
 
   useEffect(() => {
     markLessonViewed(lessonId);
