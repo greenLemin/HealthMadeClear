@@ -1,5 +1,7 @@
 // Privacy: No PII is sent to analytics. User IDs, email addresses, and search queries are excluded.
 
+import { logger } from "./logger";
+
 type EventProperties = Record<string, string | number | boolean>;
 
 const EVENTS = {
@@ -16,16 +18,12 @@ const EVENTS = {
 } as const;
 
 export function trackPageView(_url: string, _locale: string): void {
-  if (process.env.NODE_ENV === "development") {
-    console.log("[Analytics] Page view:", _url, _locale);
-  }
+  logger.log("[Analytics] Page view:", _url, _locale);
   // TODO before launch: wire to GA4 gtag or Plausible
 }
 
 export function trackEvent(event: string, _properties?: EventProperties): void {
-  if (process.env.NODE_ENV === "development") {
-    console.log("[Analytics] Event:", event, _properties);
-  }
+  logger.log("[Analytics] Event:", event, _properties);
   // TODO before launch: wire to GA4 gtag or Plausible
 }
 
