@@ -4,6 +4,13 @@ import { logger } from "./logger";
 
 type EventProperties = Record<string, string | number | boolean>;
 
+declare global {
+  interface Window {
+    gtag?: (command: "event", action: string, params?: Record<string, any>) => void;
+    plausible?: (event: string, options?: { props?: Record<string, any>; u?: string }) => void;
+  }
+}
+
 const EVENTS = {
   LESSON_STARTED: "lesson_started",
   LESSON_COMPLETED: "lesson_completed",
@@ -19,29 +26,31 @@ const EVENTS = {
 
 export function trackPageView(_url: string, _locale: string): void {
   logger.log("[Analytics] Page view:", _url, _locale);
-  if (
-    process.env.NODE_ENV === "production" &&
-    typeof window !== "undefined" &&
-    window.gtag &&
-    process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID
-  ) {
-    window.gtag("event", "page_view", {
-      page_location: window.location.href,
-      page_path: _url,
-      locale: _locale,
-    });
+
+  if (typeof window !== "undefined") {
+    if (typeof window.gtag === "function") {
+      window.gtag("event", "page_view", {
+        page_location: window.location.href,
+        page_path: _url,
+        locale: _locale,
+      });
+    }
+    if (typeof window.plausible === "function") {
+      window.plausible("pageview", { u: _url });
+    }
   }
 }
 
 export function trackEvent(event: string, _properties?: EventProperties): void {
   logger.log("[Analytics] Event:", event, _properties);
-  if (
-    process.env.NODE_ENV === "production" &&
-    typeof window !== "undefined" &&
-    window.gtag &&
-    process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID
-  ) {
-    window.gtag("event", event, _properties || {});
+
+  if (typeof window !== "undefined") {
+    if (typeof window.gtag === "function") {
+      window.gtag("event", event, _properties || {});
+    }
+    if (typeof window.plausible === "function") {
+      window.plausible(event, { props: _properties });
+    }
   }
 }
 
