@@ -16,6 +16,7 @@ import type { Locale } from "@/lib/i18n";
 import { requireLocale } from "@/lib/locale";
 import { PREFERENCE_BOOTSTRAP_SCRIPT } from "@/lib/preferences";
 import { getSiteUrl } from "@/lib/site";
+import GoogleAnalytics from "@/components/GoogleAnalytics";
 import "../globals.css";
 
 const siteUrl = getSiteUrl();
@@ -102,6 +103,7 @@ export default async function LocaleLayout({
   return (
     <html lang={locale} suppressHydrationWarning className={atkinson.variable}>
       <head>
+        <GoogleAnalytics measurementId={process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || ""} />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
         <Script id="hmc-preferences" strategy="beforeInteractive">

@@ -19,14 +19,22 @@ export function trackPageView(_url: string, _locale: string): void {
   if (process.env.NODE_ENV === "development") {
     console.log("[Analytics] Page view:", _url, _locale);
   }
-  // TODO before launch: wire to GA4 gtag or Plausible
+  if (typeof window !== "undefined" && window.gtag && process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID) {
+    window.gtag("event", "page_view", {
+      page_location: _url,
+      page_path: _url,
+      locale: _locale,
+    });
+  }
 }
 
 export function trackEvent(event: string, _properties?: EventProperties): void {
   if (process.env.NODE_ENV === "development") {
     console.log("[Analytics] Event:", event, _properties);
   }
-  // TODO before launch: wire to GA4 gtag or Plausible
+  if (typeof window !== "undefined" && window.gtag && process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID) {
+    window.gtag("event", event, _properties || {});
+  }
 }
 
 export { EVENTS };
