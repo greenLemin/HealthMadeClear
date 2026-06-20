@@ -1,7 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { getLocalizedAchievement, checkAndAwardAchievements, ACHIEVEMENTS } from "./achievements";
 import { getMessages } from "./i18n";
-import { createNotification } from "./notifications";
+import { createNotifications } from "./notifications";
 import type { SupabaseClient } from "@supabase/supabase-js";
 
 vi.mock("./i18n", () => ({
@@ -9,7 +9,7 @@ vi.mock("./i18n", () => ({
 }));
 
 vi.mock("./notifications", () => ({
-  createNotification: vi.fn(),
+  createNotifications: vi.fn(),
 }));
 
 describe("achievements", () => {
@@ -54,7 +54,8 @@ describe("achievements", () => {
 
   describe("checkAndAwardAchievements", () => {
     let mockSupabase: any;
-    let mockInsert: any;
+    let mockUpsert: any;
+    let mockSelectChain: any;
     let mockEq: any;
     let mockSelect: any;
     let mockFrom: any;
@@ -62,12 +63,27 @@ describe("achievements", () => {
     beforeEach(() => {
       vi.clearAllMocks();
 
-      mockInsert = vi.fn().mockResolvedValue({ error: null });
+      mockSelectChain = vi.fn().mockImplementation(() => {
+        const lastUpsertCall = mockUpsert.mock.calls[mockUpsert.mock.calls.length - 1];
+        const val = lastUpsertCall ? lastUpsertCall[0] : [];
+        const achievements = Array.isArray(val) ? val : [val];
+        return Promise.resolve({
+          data: achievements.map((a: any) => ({ achievement_id: a.achievement_id })),
+          error: null,
+        });
+      });
+
+      mockUpsert = vi.fn().mockImplementation(() => {
+        return {
+          select: mockSelectChain,
+        };
+      });
+
       mockEq = vi.fn().mockResolvedValue({ data: [] });
       mockSelect = vi.fn().mockReturnValue({ eq: mockEq });
       mockFrom = vi.fn().mockReturnValue({
         select: mockSelect,
-        insert: mockInsert,
+        upsert: mockUpsert,
       });
 
       mockSupabase = {
@@ -85,11 +101,19 @@ describe("achievements", () => {
       );
 
       expect(result).toContain("first-lesson");
-      expect(mockInsert).toHaveBeenCalledWith({
-        user_id: "user1",
-        achievement_id: "first-lesson",
-      });
-      expect(createNotification).toHaveBeenCalled();
+      expect(mockUpsert).toHaveBeenCalledWith(
+        [
+          {
+            user_id: "user1",
+            achievement_id: "first-lesson",
+          },
+        ],
+        {
+          onConflict: "user_id,achievement_id",
+          ignoreDuplicates: true,
+        }
+      );
+      expect(createNotifications).toHaveBeenCalled();
     });
 
     it("does not award first-lesson achievement when condition is not met", async () => {
@@ -102,8 +126,8 @@ describe("achievements", () => {
       );
 
       expect(result).not.toContain("first-lesson");
-      expect(mockInsert).not.toHaveBeenCalled();
-      expect(createNotification).not.toHaveBeenCalled();
+      expect(mockUpsert).not.toHaveBeenCalled();
+      expect(createNotifications).not.toHaveBeenCalled();
     });
 
     it("does not award achievement if already earned", async () => {
@@ -119,8 +143,8 @@ describe("achievements", () => {
       );
 
       expect(result).not.toContain("first-lesson");
-      expect(mockInsert).not.toHaveBeenCalled();
-      expect(createNotification).not.toHaveBeenCalled();
+      expect(mockUpsert).not.toHaveBeenCalled();
+      expect(createNotifications).not.toHaveBeenCalled();
     });
 
     it("handles all available achievement checks correctly", async () => {
@@ -153,14 +177,15 @@ describe("achievements", () => {
       expect(result).toContain("all-beginner");
       expect(result).toContain("glossary-reader");
 
-      expect(mockInsert).toHaveBeenCalledTimes(10);
+      expect(mockUpsert).toHaveBeenCalledTimes(1);
+      expect(mockUpsert.mock.calls[0][0]).toHaveLength(10);
     });
 
     it("does not award notification if the achievement does not exist", async () => {
       // Test when DB fails to insert
       const context = { totalLessonsCompleted: 1 };
 
-      mockInsert.mockResolvedValueOnce({ error: { message: "DB Error" } });
+      mockSelectChain.mockResolvedValueOnce({ data: null, error: { message: "DB Error" } });
 
       const result = await checkAndAwardAchievements(
         mockSupabase as unknown as SupabaseClient,
@@ -169,7 +194,7 @@ describe("achievements", () => {
       );
 
       expect(result).not.toContain("first-lesson");
-      expect(createNotification).not.toHaveBeenCalled();
+      expect(createNotifications).not.toHaveBeenCalled();
     });
 
     it("does not call createNotification if achievement lookup returns null/undefined", async () => {
@@ -179,8 +204,7 @@ describe("achievements", () => {
       // Temporarily delete achievement to test branch
       // We need to bypass TS here since it's an object property mutation for testing
       // The easiest way is to mock a completely missing achievement ID by passing custom context logic,
-      // but the `checks` array in `checkAndAwardAchievements` is hardcoded.
-      // We'll mutate ACHIEVEMENTS via any casting just for this test
+      // mutate ACHIEVEMENTS via any casting just for this test
       delete (ACHIEVEMENTS as any)["first-lesson"];
 
       const result = await checkAndAwardAchievements(
@@ -190,7 +214,7 @@ describe("achievements", () => {
       );
 
       expect(result).toContain("first-lesson"); // It gets pushed to newlyEarned
-      expect(createNotification).not.toHaveBeenCalled(); // But no notification is created
+      expect(createNotifications).not.toHaveBeenCalled(); // But no notification is created
 
       // Restore
       (ACHIEVEMENTS as any)["first-lesson"] = originalFirstLesson;
@@ -209,7 +233,7 @@ describe("achievements", () => {
       );
 
       expect(result).toContain("first-lesson");
-      expect(mockInsert).toHaveBeenCalled();
+      expect(mockUpsert).toHaveBeenCalled();
     });
   });
 });
