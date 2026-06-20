@@ -26,7 +26,7 @@ export function trackPageView(_url: string, _locale: string): void {
     process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID
   ) {
     window.gtag("event", "page_view", {
-      page_location: _url,
+      page_location: window.location.href,
       page_path: _url,
       locale: _locale,
     });
