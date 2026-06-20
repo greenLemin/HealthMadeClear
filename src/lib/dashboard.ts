@@ -255,10 +255,18 @@ export async function getRecommendedNextLesson(
 
   const completedSet = new Set((progressData ?? []).map((p) => p.lesson_id));
 
+  const lessonRecord = allLessons.reduce(
+    (acc, lesson) => {
+      acc[lesson.id] = lesson;
+      return acc;
+    },
+    {} as Record<string, (typeof allLessons)[0]>
+  );
+
   for (const path of allPaths) {
     const nextIncomplete = path.lessons.find((id) => !completedSet.has(id));
     if (nextIncomplete && path.lessons.some((id) => completedSet.has(id))) {
-      const lesson = allLessons.find((l) => l.id === nextIncomplete);
+      const lesson = lessonRecord[nextIncomplete];
       if (lesson) {
         return {
           id: lesson.id,
@@ -272,27 +280,30 @@ export async function getRecommendedNextLesson(
     }
   }
 
-  const beginnerLessons = allLessons.filter((l) => l.level === "beginner");
-  const firstIncomplete = beginnerLessons.find((l) => !completedSet.has(l.id));
-  if (firstIncomplete) {
-    return {
-      id: firstIncomplete.id,
-      title: firstIncomplete.title,
-      description: firstIncomplete.description,
-      duration: firstIncomplete.duration,
-      level: firstIncomplete.level,
-    };
+  for (let i = 0; i < allLessons.length; i++) {
+    const l = allLessons[i];
+    if (l.level === "beginner" && !completedSet.has(l.id)) {
+      return {
+        id: l.id,
+        title: l.title,
+        description: l.description,
+        duration: l.duration,
+        level: l.level,
+      };
+    }
   }
 
-  const anyIncomplete = allLessons.find((l) => !completedSet.has(l.id));
-  if (anyIncomplete) {
-    return {
-      id: anyIncomplete.id,
-      title: anyIncomplete.title,
-      description: anyIncomplete.description,
-      duration: anyIncomplete.duration,
-      level: anyIncomplete.level,
-    };
+  for (let i = 0; i < allLessons.length; i++) {
+    const l = allLessons[i];
+    if (!completedSet.has(l.id)) {
+      return {
+        id: l.id,
+        title: l.title,
+        description: l.description,
+        duration: l.duration,
+        level: l.level,
+      };
+    }
   }
 
   return null;
