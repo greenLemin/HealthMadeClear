@@ -118,6 +118,7 @@ describe("mockClient", () => {
       get(name: string) {
         return store1.get(name);
       },
+      set() {}, // dummy for CookieStore interface
     };
 
     const client1 = getMockSupabaseClient(mockCookieStore1);
@@ -132,6 +133,7 @@ describe("mockClient", () => {
       get(name: string) {
         return store2.get(name);
       },
+      set() {}, // dummy for CookieStore interface
     };
 
     const client2 = getMockSupabaseClient(mockCookieStore2);
