@@ -12,10 +12,10 @@ import Header from "@/components/Header";
 import NetworkStatusBanner from "@/components/ui/NetworkStatusBanner";
 import ScrollToTop from "@/components/ScrollToTop";
 import { routing } from "@/i18n/routing";
-import type { Locale } from "@/lib/i18n";
 import { requireLocale } from "@/lib/locale";
 import { PREFERENCE_BOOTSTRAP_SCRIPT } from "@/lib/preferences";
 import { getSiteUrl } from "@/lib/site";
+import AnalyticsPageViewTracker from "@/components/AnalyticsPageViewTracker";
 import GoogleAnalytics from "@/components/GoogleAnalytics";
 import "../globals.css";
 
@@ -99,6 +99,7 @@ export default async function LocaleLayout({
   }
   setRequestLocale(locale);
   const messages = await getMessages();
+  const validLocale = requireLocale(locale);
 
   return (
     <html lang={locale} suppressHydrationWarning className={atkinson.variable}>
@@ -113,6 +114,7 @@ export default async function LocaleLayout({
       <body className="min-h-screen bg-surface font-hyperlegible">
         <NextIntlClientProvider locale={locale} messages={messages}>
           <AppProviders locale={locale}>
+            <AnalyticsPageViewTracker locale={validLocale} />
             <AuthProvider>
               <NetworkStatusBanner />
               <div className="min-h-screen bg-surface text-on-surface">
