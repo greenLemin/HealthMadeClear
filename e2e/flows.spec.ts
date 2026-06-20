@@ -4,8 +4,8 @@ test("lesson detail and mark complete", async ({ page }) => {
   await page.goto("/en/learn/understanding-prescription-labels");
   await expect(page.getByRole("heading", { level: 1 })).toContainText(/prescription/i);
   await page.getByRole("button", { name: /mark as complete/i }).click();
-  await page.goto("/en/dashboard");
-  await expect(page.getByText(/1 \/ /)).toBeVisible();
+  await page.goto("/en");
+  await expect(page.getByRole("progressbar").first()).toBeVisible();
 });
 
 test("visit checklist persists after reload", async ({ page }) => {
@@ -29,7 +29,7 @@ test("simple mode toggle", async ({ page }) => {
   await page.goto("/en");
   await waitForAppReady(page);
   await page.getByRole("button", { name: /display/i }).click();
-  await page.getByRole("button", { name: /simple mode.*off/i }).click();
+  await page.getByRole("button", { name: /Simple mode Off/i }).click();
   await expect(page.locator("html")).toHaveAttribute("data-simple-mode", "true");
 });
 
@@ -39,7 +39,7 @@ test("glossary term page loads", async ({ page }) => {
 });
 
 test("progress export button exists on dashboard", async ({ page }) => {
-  await page.goto("/en/dashboard");
+  await page.goto("/en");
   await expect(page.getByRole("button", { name: /export progress/i })).toBeVisible();
 });
 

@@ -1,6 +1,7 @@
 "use client";
 
 import PageHeader from "@/components/PageHeader";
+import { Link } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
 
 export default function AccessibilityClient() {
@@ -29,9 +30,9 @@ export default function AccessibilityClient() {
             <h2 className="mb-3 text-headline-md text-primary">{t("contactTitle")}</h2>
             <p className="text-body-md text-on-surface-variant">
               {t("contactBody")}{" "}
-              <a href="/about#contact" className="font-semibold text-primary">
+              <Link href="/about#contact" className="font-semibold text-primary">
                 {tNav("about")}
-              </a>
+              </Link>
             </p>
           </section>
         </div>
