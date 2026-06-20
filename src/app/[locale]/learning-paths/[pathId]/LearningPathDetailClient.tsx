@@ -32,7 +32,8 @@ export default function LearningPathDetailClient({ path, lessons, glossaryTerms 
   );
 
   const progress = getLearningPathProgress(path.lessons);
-  const firstUncompleted = pathLessons.find((l) => !completedLessonIds.includes(l.id));
+  const completedLessonIdsSet = new Set(completedLessonIds);
+  const firstUncompleted = pathLessons.find((l) => !completedLessonIdsSet.has(l.id));
   const nextLesson = firstUncompleted ?? pathLessons[0];
   const allDone = progress.percentage === 100 && pathLessons.length > 0;
 
@@ -118,7 +119,7 @@ export default function LearningPathDetailClient({ path, lessons, glossaryTerms 
             <h2 className="mb-4 text-headline-lg text-primary">Lessons in this path</h2>
             <div className="space-y-3">
               {pathLessons.map((lesson, index) => {
-                const isCompleted = completedLessonIds.includes(lesson.id);
+                const isCompleted = completedLessonIdsSet.has(lesson.id);
                 const isNext = lesson.id === nextLesson?.id;
                 return (
                   <Link
