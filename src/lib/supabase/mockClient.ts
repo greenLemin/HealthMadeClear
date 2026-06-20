@@ -157,10 +157,10 @@ export function getMockSupabaseClient(cookieStore?: CookieStore) {
         select(columns?: string, options?: any) {
           return this;
         },
-        eq(column: string, value: any) {
+        eq(column: string, value: unknown) {
           return this;
         },
-        gte(column: string, value: any) {
+        gte(column: string, value: unknown) {
           return this;
         },
         order(column: string, options?: any) {
@@ -172,10 +172,10 @@ export function getMockSupabaseClient(cookieStore?: CookieStore) {
         range(from: number, to: number) {
           return this;
         },
-        not(column: string, operator: string, value: any) {
+        not(column: string, operator: string, value: unknown) {
           return this;
         },
-        is(column: string, value: any) {
+        is(column: string, value: unknown) {
           return this;
         },
         upsert(values: any, options?: any) {
