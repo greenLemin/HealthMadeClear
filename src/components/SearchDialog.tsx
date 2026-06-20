@@ -127,6 +127,7 @@ export default function SearchDialog() {
             role="dialog"
             aria-modal="true"
             aria-label={t("searchDialog")}
+            aria-describedby="search-results-count"
             className="relative z-10 w-full max-w-xl rounded-xl border border-outline-variant bg-surface shadow-elevation-3"
           >
             <div className="flex items-center gap-3 border-b border-outline-variant px-4 py-3">

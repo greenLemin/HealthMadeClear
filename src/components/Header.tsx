@@ -76,7 +76,7 @@ export default function Header() {
       <a
         href="#main-content"
         onClick={handleSkip}
-        className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[60] focus:rounded-lg focus:bg-primary focus:px-4 focus:py-3 focus:text-on-primary focus:shadow-elevation-2"
+        className="fixed -top-20 left-4 z-[60] rounded-lg bg-primary px-4 py-3 text-on-primary shadow-elevation-2 transition-all duration-200 focus:top-4 focus:outline-none focus:ring-2 focus:ring-on-primary motion-reduce:transition-none"
       >
         {t("skipToContent")}
       </a>
@@ -94,7 +94,7 @@ export default function Header() {
             </div>
           </Link>
 
-          <nav className="hidden items-center gap-1 lg:flex" aria-label={t("mainNavigation")}>
+          <nav className="hidden items-center gap-1 xl:flex" aria-label={t("mainNavigation")}>
             {navItems.map((item) => (
               <NavLink
                 key={item.href}
@@ -157,7 +157,7 @@ export default function Header() {
           <button
             ref={toggleButtonRef}
             type="button"
-            className="flex min-h-11 min-w-11 items-center justify-center rounded-lg border border-outline-variant p-2.5 text-primary lg:hidden"
+            className="flex min-h-11 min-w-11 items-center justify-center rounded-lg border border-outline-variant p-2.5 text-primary xl:hidden"
             onClick={() => setIsOpen((current) => !current)}
             aria-expanded={isOpen}
             aria-controls="mobile-menu"
@@ -174,15 +174,9 @@ export default function Header() {
             role="dialog"
             aria-modal="true"
             aria-label={t("mobileNavigation")}
-            className="border-t border-outline-variant py-4 lg:hidden"
+            className="border-t border-outline-variant py-4 xl:hidden"
           >
-            <div className="mb-4 space-y-3 md:hidden">
-              <SearchDialog />
-              <LanguageToggle />
-              <ThemeToggle />
-              <AccessibilityControls />
-            </div>
-            <nav className="grid gap-2" aria-label={t("mobileNavigation")}>
+            <nav className="mb-4 grid gap-2" aria-label={t("mobileNavigation")}>
               {navItems.map((item) => (
                 <NavLink
                   key={item.href}
@@ -236,6 +230,12 @@ export default function Header() {
                 </div>
               )}
             </nav>
+            <div className="space-y-3 xl:hidden">
+              <SearchDialog />
+              <LanguageToggle />
+              <ThemeToggle />
+              <AccessibilityControls />
+            </div>
           </div>
         ) : null}
       </div>
@@ -263,7 +263,7 @@ function NavLink({
       aria-current={active ? "page" : undefined}
       className={
         active
-          ? "flex items-center gap-2 rounded-lg bg-surface-container px-4 py-2 text-body-md font-semibold text-primary"
+          ? "flex items-center gap-2 rounded-lg bg-surface-container px-4 py-2 text-body-md font-semibold text-primary border-b-2 border-primary"
           : "flex items-center gap-2 rounded-lg px-4 py-2 text-body-md font-medium text-on-surface-variant transition-colors hover:bg-surface-container hover:text-primary"
       }
     >

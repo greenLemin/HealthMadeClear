@@ -15,7 +15,11 @@ const sizeStyles: Record<ContainerSize, string> = {
 };
 
 export default function Container({ children, size = "default", className = "" }: ContainerProps) {
-  return <div className={["mx-auto px-4 md:px-16", sizeStyles[size], className].join(" ")}>{children}</div>;
+  return (
+    <div className={["mx-auto px-[clamp(1rem,3vw,4rem)]", sizeStyles[size], className].join(" ")}>
+      {children}
+    </div>
+  );
 }
 
 export type { ContainerProps, ContainerSize };

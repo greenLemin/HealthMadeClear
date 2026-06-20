@@ -59,6 +59,16 @@ export default function GlossaryClient({ terms: glossaryTerms }: GlossaryClientP
     });
   }, [activeLetter, searchableTerms, query]);
 
+  const groupedTerms = useMemo(() => {
+    const groups: Record<string, typeof filteredTerms> = {};
+    for (const term of filteredTerms) {
+      const letter = term.normalized || "?";
+      if (!groups[letter]) groups[letter] = [];
+      groups[letter].push(term);
+    }
+    return Object.fromEntries(Object.entries(groups).sort(([a], [b]) => a.localeCompare(b)));
+  }, [filteredTerms]);
+
   return (
     <div className="py-12 md:py-16">
       <div className="max-w-container mx-auto px-4 md:px-6">
@@ -89,8 +99,8 @@ export default function GlossaryClient({ terms: glossaryTerms }: GlossaryClientP
                 aria-pressed={activeLetter === letter}
                 className={
                   activeLetter === letter
-                    ? "flex h-10 min-w-10 items-center justify-center rounded-lg bg-primary px-3 text-label-md font-semibold text-on-primary"
-                    : "flex h-10 min-w-10 items-center justify-center rounded-lg bg-surface-container px-3 text-label-md font-semibold text-on-surface-variant"
+                    ? "flex h-11 min-w-11 items-center justify-center rounded-lg bg-primary px-3 text-label-md font-semibold text-on-primary"
+                    : "flex h-11 min-w-11 items-center justify-center rounded-lg bg-surface-container px-3 text-label-md font-semibold text-on-surface-variant"
                 }
               >
                 {letter === "All" ? allLabel : letter}
@@ -109,70 +119,86 @@ export default function GlossaryClient({ terms: glossaryTerms }: GlossaryClientP
             : tCommon("noTermsFound")}
         </div>
 
-        <div className="grid gap-6 lg:grid-cols-3">
-          {filteredTerms.map((term) => (
-            <article key={term.id} id={term.id} className="card scroll-mt-24">
-              <h2 className="mb-4 text-headline-md text-primary">
-                <Link href={`/glossary/${term.id}`} className="hover:underline">
-                  {term.term}
-                </Link>
-              </h2>
-              <p className="mb-5 text-body-md text-on-surface-variant">{term.definition}</p>
-              <div className="border-t border-outline-variant pt-4">
-                {term.relatedLessons?.length ? (
-                  <div className="mb-4">
-                    <div className="mb-2 text-label-md font-semibold uppercase tracking-wide text-on-surface-variant">
-                      {t("seenIn")}
+        {Object.entries(groupedTerms).map(([letter, terms]) => (
+          <section key={letter} aria-labelledby={`glossary-letter-${letter}`}>
+            <h2
+              id={`glossary-letter-${letter}`}
+              className="mb-4 mt-8 text-headline-md text-primary first:mt-0"
+            >
+              {letter}
+            </h2>
+            <div className="grid gap-6 lg:grid-cols-3">
+              {terms.map((term) => (
+                <article key={term.id} id={term.id} className="card scroll-mt-24">
+                  <h3 className="mb-4 text-headline-md text-primary">
+                    <Link href={`/glossary/${term.id}`} className="hover:underline">
+                      {term.term}
+                    </Link>
+                  </h3>
+                  <p className="mb-5 text-body-md text-on-surface-variant">{term.definition}</p>
+                  <div className="border-t border-outline-variant pt-4">
+                    {term.relatedLessons?.length ? (
+                      <div className="mb-4">
+                        <div className="mb-2 text-label-md font-semibold uppercase tracking-wide text-on-surface-variant">
+                          {t("seenIn")}
+                        </div>
+                        <div className="flex flex-col gap-1">
+                          {term.relatedLessons.map((lessonId) => {
+                            const lesson = getLessonById(lessonId, locale);
+                            if (!lesson) return null;
+                            return (
+                              <Link
+                                key={lessonId}
+                                href={`/learn/${lessonId}`}
+                                className="text-label-md font-semibold text-primary underline hover:underline"
+                              >
+                                {lesson.title}
+                              </Link>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    ) : null}
+                    <div className="mb-2 text-label-md font-semibold text-primary">
+                      {tCommon("category")}: {term.category}
                     </div>
-                    <div className="flex flex-col gap-1">
-                      {term.relatedLessons.map((lessonId) => {
-                        const lesson = getLessonById(lessonId, locale);
-                        if (!lesson) return null;
-                        return (
-                          <Link
-                            key={lessonId}
-                            href={`/learn/${lessonId}`}
-                            className="text-label-md font-semibold text-primary hover:underline"
-                          >
-                            {lesson.title}
-                          </Link>
-                        );
-                      })}
-                    </div>
+                    {term.relatedTerms?.length ? (
+                      <div>
+                        <div className="mb-2 text-label-md font-semibold uppercase tracking-wide text-on-surface-variant">
+                          {tCommon("relatedTerms")}
+                        </div>
+                        <div className="flex flex-wrap gap-2">
+                          {term.relatedTerms.map((related) => (
+                            <Link
+                              key={related}
+                              href={`/glossary/${related}`}
+                              className="rounded-full bg-surface-container px-3 py-1 text-label-md font-semibold text-primary underline hover:bg-secondary-container"
+                            >
+                              {getGlossaryLabelFromBundle(related, locale)}
+                            </Link>
+                          ))}
+                        </div>
+                      </div>
+                    ) : null}
                   </div>
-                ) : null}
-                <div className="mb-2 text-label-md font-semibold text-primary">
-                  {tCommon("category")}: {term.category}
-                </div>
-                {term.relatedTerms?.length ? (
-                  <div>
-                    <div className="mb-2 text-label-md font-semibold uppercase tracking-wide text-on-surface-variant">
-                      {tCommon("relatedTerms")}
-                    </div>
-                    <div className="flex flex-wrap gap-2">
-                      {term.relatedTerms.map((related) => (
-                        <Link
-                          key={related}
-                          href={`/glossary/${related}`}
-                          className="rounded-full bg-surface-container px-3 py-1 text-label-md font-semibold text-primary hover:bg-secondary-container"
-                        >
-                          {getGlossaryLabelFromBundle(related, locale)}
-                        </Link>
-                      ))}
-                    </div>
-                  </div>
-                ) : null}
-              </div>
-            </article>
-          ))}
-        </div>
+                </article>
+              ))}
+            </div>
+          </section>
+        ))}
 
         {filteredTerms.length === 0 ? (
           <div className="card mt-6 text-center" role="status">
-            <p className="text-body-md text-on-surface-variant">{tCommon("noResultsTryAnother")}</p>
+            <div className="mb-4 text-on-surface-variant" aria-hidden="true">
+              <Search size={48} />
+            </div>
+            <h3 className="mb-2 text-headline-md text-on-surface">{tCommon("noTermsFound")}</h3>
+            <p className="mb-6 max-w-md mx-auto text-body-md text-on-surface-variant">
+              {tCommon("noResultsTryAnother")}
+            </p>
             <button
               type="button"
-              className="btn-secondary mt-4 inline-flex items-center"
+              className="btn-secondary inline-flex items-center"
               onClick={() => {
                 setQuery("");
                 setActiveLetter("All");

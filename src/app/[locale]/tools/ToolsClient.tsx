@@ -16,7 +16,7 @@ export default function ToolsClient() {
       description: t("askDescription"),
       href: "/tools/visit-planner",
       icon: MessagesSquare,
-      variant: "gradient" as const,
+      variant: "standard" as const,
     },
     {
       title: t("careTitle"),
@@ -42,13 +42,11 @@ export default function ToolsClient() {
   ];
 
   const cardClass: Record<(typeof tools)[number]["variant"], string> = {
-    gradient:
-      "hover-lift rounded-[24px] border border-outline-variant bg-gradient-to-br from-secondary-container to-primary-fixed p-6 shadow-card hover:shadow-card-hover",
     standard:
       "group hover-lift rounded-[24px] border border-outline-variant bg-surface p-6 shadow-card hover:shadow-card-hover",
     muted:
       "group hover-lift rounded-[24px] border border-outline-variant bg-surface-container-low p-6 shadow-card hover:shadow-card-hover",
-    dark: "group hover-lift rounded-[24px] border border-primary bg-gradient-to-br from-primary to-primary-container p-6 text-on-primary shadow-card-hover hover:shadow-elevation-2",
+    dark: "group hover-lift rounded-[24px] border border-primary bg-primary p-6 text-on-primary shadow-card-hover hover:shadow-elevation-2",
   };
 
   return (

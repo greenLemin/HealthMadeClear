@@ -30,11 +30,18 @@
   }
 
   :focus-visible {
-    outline: 2px solid #004349;
+    outline: 3px solid var(--color-primary);
     outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  :root[data-theme="dark"] :focus-visible {
+    outline-color: var(--color-primary-fixed);
   }
 
   :root {
+    --shadow-color: rgba(0, 67, 73, 0.08);
+    --shadow-color-heavy: rgba(0, 67, 73, 0.12);
     --color-background: #f8f9fb;
     --color-on-background: #191c1e;
     --color-surface: #f8f9fb;
@@ -93,6 +100,8 @@
 
   :root[data-theme="dark"],
   .dark {
+    --shadow-color: rgba(0, 0, 0, 0.4);
+    --shadow-color-heavy: rgba(0, 0, 0, 0.5);
     --color-background: #191c1e;
     --color-on-background: #eff1f3;
     --color-surface: #191c1e;
@@ -159,10 +168,16 @@
     -moz-osx-font-smoothing: grayscale;
     background-color: var(--background);
     color: var(--foreground);
-    font-size: 18px;
+    font-size: 16px;
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+  }
+
+  @media (min-width: 768px) {
+    body {
+      font-size: 18px;
+    }
   }
 
   :root,
@@ -192,6 +207,11 @@
   html,
   body {
     max-width: 100%;
+    overflow-x: hidden;
+  }
+
+  html {
+    scroll-padding-top: 80px;
   }
 
   main#main-content {
@@ -218,12 +238,26 @@
       width: 100% !important;
     }
     .max-w-container,
-    .max-w-4xl {
+    .max-w-4xl,
+    .prose {
       max-width: 100% !important;
       width: 100% !important;
       padding: 0 !important;
     }
-    .card {
+    a {
+      color: #000000 !important;
+      text-decoration: underline !important;
+    }
+    h1,
+    h2,
+    h3,
+    h4 {
+      page-break-after: avoid;
+    }
+    .card,
+    .rounded-2xl,
+    .rounded-xl,
+    .rounded-lg {
       border: 1px solid #000000 !important;
       box-shadow: none !important;
       background: #ffffff !important;
@@ -233,6 +267,10 @@
     section,
     article,
     li {
+      page-break-inside: avoid;
+    }
+    img {
+      max-width: 100% !important;
       page-break-inside: avoid;
     }
     input[type="checkbox"] {
@@ -274,13 +312,13 @@
   .btn-primary:hover {
     opacity: 0.9;
   }
-  .btn-primary:focus {
-    outline: none;
-    --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width)
-      var(--tw-ring-offset-color);
-    --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--color-primary);
-    box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
-    --tw-ring-offset-width: 2px;
+  .btn-primary:active {
+    background-color: var(--color-primary-container);
+    transform: scale(0.97);
+  }
+  .btn-primary:focus-visible {
+    outline: 3px solid var(--color-primary);
+    outline-offset: 2px;
   }
 
   .btn-secondary {
@@ -295,13 +333,13 @@
   .btn-secondary:hover {
     background-color: var(--color-surface-container-low);
   }
-  .btn-secondary:focus {
-    outline: none;
-    --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width)
-      var(--tw-ring-offset-color);
-    --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--color-primary);
-    box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
-    --tw-ring-offset-width: 2px;
+  .btn-secondary:active {
+    background-color: var(--color-surface-container);
+    transform: scale(0.97);
+  }
+  .btn-secondary:focus-visible {
+    outline: 3px solid var(--color-primary);
+    outline-offset: 2px;
   }
 
   .card {
@@ -339,7 +377,8 @@
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .hover-lift {
+    .hover-lift,
+    .hover-lift:hover {
       transform: none !important;
       transition: none !important;
     }
@@ -347,13 +386,17 @@
     .btn-secondary {
       transition: none !important;
     }
+    .btn-primary:active,
+    .btn-secondary:active {
+      transform: none !important;
+    }
     .card-hover {
       transition: none !important;
     }
     .progress-fill {
       transition: none !important;
     }
-    .hover-lift:hover {
+    .scroll-to-top-btn {
       transform: none !important;
     }
   }

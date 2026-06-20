@@ -27,7 +27,7 @@ export default function Section({
     <section
       id={id}
       aria-labelledby={ariaLabelledBy}
-      className={["py-16 md:py-20", backgroundStyles[background], className].join(" ")}
+      className={["py-[clamp(2rem,4vw,5rem)]", backgroundStyles[background], className].join(" ")}
     >
       {children}
     </section>

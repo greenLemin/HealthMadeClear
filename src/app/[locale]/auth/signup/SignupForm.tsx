@@ -33,6 +33,15 @@ export default function SignupForm() {
     e.preventDefault();
     setError("");
 
+    if (!email.trim()) {
+      setError("Email is required");
+      return;
+    }
+    if (!password.trim()) {
+      setError("Password is required");
+      return;
+    }
+
     if (password.length < 8) {
       setError(t("passwordMinLength"));
       return;

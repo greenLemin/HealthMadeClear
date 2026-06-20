@@ -40,7 +40,7 @@ export default function ToastItem({ toast, onDismiss }: ToastProps) {
     const timer = setTimeout(() => {
       setVisible(false);
       setTimeout(() => onDismiss(toast.id), 300);
-    }, 4000);
+    }, 8000);
     return () => clearTimeout(timer);
   }, [toast.id, onDismiss]);
 
@@ -51,7 +51,7 @@ export default function ToastItem({ toast, onDismiss }: ToastProps) {
       className={[
         "flex items-start gap-3 rounded-xl border-l-4 border-outline-variant bg-surface p-4 shadow-elevation-2 transition-all duration-300 motion-reduce:transition-none",
         variantStyles[toast.variant],
-        visible ? "translate-x-0 opacity-100" : "translate-x-full opacity-0",
+        visible ? "motion-safe:translate-x-0 opacity-100" : "motion-safe:translate-x-full opacity-0",
       ].join(" ")}
     >
       <span className="mt-0.5 shrink-0" aria-hidden="true">

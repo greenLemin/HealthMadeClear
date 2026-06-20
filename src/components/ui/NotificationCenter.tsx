@@ -110,6 +110,9 @@ export default function NotificationCenter() {
         {unreadCount > 0 ? <BellDot size={20} /> : <Bell size={20} />}
         {unreadCount > 0 ? (
           <span className="absolute right-1.5 top-1.5 flex h-4 min-w-[16px] items-center justify-center rounded-full bg-error px-1 text-label-sm font-bold text-on-error">
+            <span className="sr-only" aria-live="polite">
+              {unreadCount} {t("title")}
+            </span>
             {unreadCount > 99 ? "99+" : unreadCount}
           </span>
         ) : null}
@@ -118,6 +121,9 @@ export default function NotificationCenter() {
       {isOpen ? (
         <div
           ref={panelRef}
+          role="dialog"
+          aria-modal="true"
+          aria-label={t("title")}
           className="absolute right-0 top-full z-50 mt-2 w-80 rounded-xl border border-outline-variant bg-surface shadow-elevation-3 motion-safe:animate-fadeIn"
         >
           <div className="flex items-center justify-between border-b border-outline-variant px-4 py-3">

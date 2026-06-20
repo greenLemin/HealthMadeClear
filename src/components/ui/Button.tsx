@@ -15,11 +15,13 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 const variantStyles: Record<ButtonVariant, string> = {
-  primary: "bg-primary text-on-primary hover:bg-primary-container focus-visible:ring-primary",
+  primary:
+    "bg-primary text-on-primary hover:bg-primary-container active:bg-primary-container focus-visible:ring-primary",
   secondary:
-    "border-2 border-primary text-primary bg-transparent hover:bg-surface-container-low focus-visible:ring-primary",
-  ghost: "bg-transparent text-on-surface hover:bg-surface-container focus-visible:ring-primary",
-  danger: "bg-error text-on-error hover:bg-error/90 focus-visible:ring-error",
+    "border-2 border-primary text-primary bg-transparent hover:bg-surface-container-low active:bg-surface-container focus-visible:ring-primary",
+  ghost:
+    "bg-transparent text-on-surface hover:bg-surface-container active:bg-surface-container focus-visible:ring-primary",
+  danger: "bg-error text-on-error hover:bg-error/90 active:bg-error/80 focus-visible:ring-error",
 };
 
 const sizeStyles: Record<ButtonSize, string> = {
@@ -48,7 +50,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         ref={ref}
         disabled={disabled || loading}
         className={[
-          "inline-flex items-center justify-center gap-2 rounded-lg font-semibold transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
+          "inline-flex items-center justify-center gap-2 rounded-lg font-semibold transition-all active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
           variantStyles[variant],
           sizeStyles[size],
           fullWidth ? "w-full" : "",

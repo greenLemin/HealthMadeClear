@@ -69,18 +69,14 @@ export default function HomeClient({ lessons, learningPaths }: HomeClientProps) 
           <div className="grid gap-6 md:grid-cols-6">
             {/* Knowledge — spans 3 cols, teal background highlight */}
             <div className="md:col-span-3 rounded-2xl border border-outline-variant bg-primary-container/10 p-8">
-              <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-primary text-on-primary">
-                <Heart size={28} aria-hidden="true" />
-              </div>
+              <Heart size={28} className="text-primary mb-4" aria-hidden="true" />
               <h3 className="mb-3 text-headline-md text-primary">{t("valueKnowledgeTitle")}</h3>
               <p className="text-body-md text-on-surface-variant">{t("valueKnowledgeBody")}</p>
             </div>
 
             {/* Confidence — spans 3 cols, subtle surface tint */}
             <div className="md:col-span-3 rounded-2xl border border-outline-variant bg-surface-container-low p-8">
-              <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-secondary-container text-secondary">
-                <Shield size={28} aria-hidden="true" />
-              </div>
+              <Shield size={28} className="text-secondary mb-4" aria-hidden="true" />
               <h3 className="mb-3 text-headline-md text-primary">{t("valueConfidenceTitle")}</h3>
               <p className="text-body-md text-on-surface-variant">{t("valueConfidenceBody")}</p>
             </div>
@@ -88,9 +84,7 @@ export default function HomeClient({ lessons, learningPaths }: HomeClientProps) 
             {/* Access — full width, simple treatment */}
             <div className="md:col-span-6 rounded-2xl border border-outline-variant bg-surface-container-lowest p-8 shadow-card">
               <div className="flex flex-col gap-6 md:flex-row md:items-center">
-                <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-surface-container-high text-primary">
-                  <BookOpen size={28} aria-hidden="true" />
-                </div>
+                <BookOpen size={28} className="text-primary mb-4 shrink-0" aria-hidden="true" />
                 <div>
                   <h3 className="mb-2 text-headline-md text-primary">{t("valueAccessTitle")}</h3>
                   <p className="text-body-md text-on-surface-variant">{t("valueAccessBody")}</p>
@@ -193,9 +187,7 @@ export default function HomeClient({ lessons, learningPaths }: HomeClientProps) 
               href="/learn"
               className="group rounded-2xl border border-outline-variant bg-surface-container-lowest p-6 shadow-card transition-shadow hover:shadow-card-hover"
             >
-              <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-primary-fixed/40 text-primary">
-                <BookOpen size={24} aria-hidden="true" />
-              </div>
+              <BookOpen size={24} className="text-primary mb-4" aria-hidden="true" />
               <h3 className="mb-2 text-label-lg text-primary">{tCommon("exploreLibrary")}</h3>
               <p className="text-body-md text-on-surface-variant">{t("learnPreviewBody")}</p>
             </Link>
@@ -203,9 +195,7 @@ export default function HomeClient({ lessons, learningPaths }: HomeClientProps) 
               href="/glossary"
               className="group rounded-2xl border border-outline-variant bg-surface-container-lowest p-6 shadow-card transition-shadow hover:shadow-card-hover"
             >
-              <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-secondary-container/60 text-secondary">
-                <Search size={24} aria-hidden="true" />
-              </div>
+              <Search size={24} className="text-secondary mb-4" aria-hidden="true" />
               <h3 className="mb-2 text-label-lg text-primary">{t("glossaryTitle")}</h3>
               <p className="text-body-md text-on-surface-variant">{t("glossaryPreviewBody")}</p>
             </Link>
@@ -213,9 +203,7 @@ export default function HomeClient({ lessons, learningPaths }: HomeClientProps) 
               href="/tools"
               className="group rounded-2xl border border-outline-variant bg-surface-container-lowest p-6 shadow-card transition-shadow hover:shadow-card-hover"
             >
-              <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-surface-container-high text-primary">
-                <Wrench size={24} aria-hidden="true" />
-              </div>
+              <Wrench size={24} className="text-primary mb-4" aria-hidden="true" />
               <h3 className="mb-2 text-label-lg text-primary">{t("toolsSectionTitle")}</h3>
               <p className="text-body-md text-on-surface-variant">{t("toolsPreviewBody")}</p>
             </Link>

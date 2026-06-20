@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { Search } from "lucide-react";
+import { BookOpen, Search } from "lucide-react";
 import { useAppState } from "@/components/AppProviders";
 import LessonCard from "@/components/learn/LessonCard";
 import PageHeader from "@/components/PageHeader";
@@ -87,8 +87,8 @@ export default function LearnClient({ lessons }: LearnClientProps) {
               aria-pressed={activeCategory === category.id}
               className={
                 activeCategory === category.id
-                  ? "rounded-full bg-secondary-container px-4 py-2 text-label-md font-semibold text-primary"
-                  : "rounded-full border border-outline-variant bg-surface px-4 py-2 text-label-md font-semibold text-on-surface-variant"
+                  ? "rounded-full bg-secondary-container px-4 py-3 min-h-11 text-label-md font-semibold text-primary"
+                  : "rounded-full border border-outline-variant bg-surface px-4 py-3 min-h-11 text-label-md font-semibold text-on-surface-variant"
               }
             >
               {category.label}
@@ -105,8 +105,8 @@ export default function LearnClient({ lessons }: LearnClientProps) {
               aria-pressed={activeDifficulty === d.id}
               className={
                 activeDifficulty === d.id
-                  ? "rounded-full bg-primary-container px-4 py-1 text-label-md font-semibold text-on-primary-container"
-                  : "rounded-full border border-outline-variant bg-surface px-4 py-1 text-label-md font-semibold text-on-surface-variant"
+                  ? "rounded-full bg-primary-container px-4 py-2 min-h-11 text-label-md font-semibold text-on-primary-container"
+                  : "rounded-full border border-outline-variant bg-surface px-4 py-2 min-h-11 text-label-md font-semibold text-on-surface-variant"
               }
             >
               {d.label}
@@ -152,10 +152,16 @@ export default function LearnClient({ lessons }: LearnClientProps) {
 
         {filteredLessons.length === 0 ? (
           <div className="card mt-6 text-center" role="status">
-            <p className="text-body-md text-on-surface-variant">{tCommon("noLessonsTryBroader")}</p>
+            <div className="mb-4 text-on-surface-variant" aria-hidden="true">
+              <BookOpen size={48} />
+            </div>
+            <h3 className="mb-2 text-headline-md text-on-surface">{tCommon("noLessonsFound")}</h3>
+            <p className="mb-6 max-w-md mx-auto text-body-md text-on-surface-variant">
+              {tCommon("noLessonsTryBroader")}
+            </p>
             <button
               type="button"
-              className="btn-secondary mt-4 inline-flex items-center"
+              className="btn-secondary inline-flex items-center"
               onClick={() => {
                 setQuery("");
                 setActiveCategory(ALL);

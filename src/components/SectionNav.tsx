@@ -55,7 +55,7 @@ export default function SectionNav() {
               className="group hover-lift rounded-2xl border border-outline-variant bg-surface p-6 shadow-card hover:shadow-card-hover"
             >
               <div className="flex items-start gap-4">
-                <div className={`rounded-2xl p-4 ${section.color}`}>{section.icon}</div>
+                <div className="p-4">{section.icon}</div>
                 <div className="flex-1">
                   <h3 className="mb-2 text-headline-md text-primary">{section.title}</h3>
                   <p className="mb-4 text-body-md text-on-surface-variant">{section.description}</p>
