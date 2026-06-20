@@ -25,6 +25,7 @@ const EVENTS = {
 export function trackPageView(_url: string, _locale: string): void {
   if (process.env.NODE_ENV === "development") {
     console.log("[Analytics] Page view:", _url, _locale);
+    return;
   }
 
   if (typeof window !== "undefined") {
@@ -43,6 +44,7 @@ export function trackPageView(_url: string, _locale: string): void {
 export function trackEvent(event: string, _properties?: EventProperties): void {
   if (process.env.NODE_ENV === "development") {
     console.log("[Analytics] Event:", event, _properties);
+    return;
   }
 
   if (typeof window !== "undefined") {
