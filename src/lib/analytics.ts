@@ -1,3 +1,8 @@
+declare global {
+  interface Window {
+    gtag?: (...args: any[]) => void;
+  }
+}
 // Privacy: No PII is sent to analytics. User IDs, email addresses, and search queries are excluded.
 
 type EventProperties = Record<string, string | number | boolean>;
@@ -19,14 +24,22 @@ export function trackPageView(_url: string, _locale: string): void {
   if (process.env.NODE_ENV === "development") {
     console.log("[Analytics] Page view:", _url, _locale);
   }
-  // TODO before launch: wire to GA4 gtag or Plausible
+  if (typeof window !== "undefined" && typeof window.gtag === "function") {
+    window.gtag("event", "page_view", {
+      page_path: _url,
+      page_location: window.location.href,
+      locale: _locale,
+    });
+  }
 }
 
 export function trackEvent(event: string, _properties?: EventProperties): void {
   if (process.env.NODE_ENV === "development") {
     console.log("[Analytics] Event:", event, _properties);
   }
-  // TODO before launch: wire to GA4 gtag or Plausible
+  if (typeof window !== "undefined" && typeof window.gtag === "function") {
+    window.gtag("event", event, _properties);
+  }
 }
 
 export { EVENTS };
