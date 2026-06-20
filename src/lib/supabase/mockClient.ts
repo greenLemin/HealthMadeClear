@@ -1,3 +1,5 @@
+import type { SupabaseClient } from "@supabase/supabase-js";
+
 // Mock database type
 type MockDb = {
   lessons: string[];
@@ -94,7 +96,7 @@ function saveMockDb(db: MockDb, cookieStore?: any) {
   }
 }
 
-export function getMockSupabaseClient(cookieStore?: any) {
+export function getMockSupabaseClient(cookieStore?: any): SupabaseClient<any, "public", any> {
   const mockUser = {
     id: "00000000-0000-0000-0000-000000000000",
     email: "guest@example.com",
@@ -262,5 +264,5 @@ export function getMockSupabaseClient(cookieStore?: any) {
         },
       };
     },
-  } as any;
+  } as unknown as SupabaseClient<any, "public", any>;
 }
