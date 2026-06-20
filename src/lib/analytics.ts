@@ -6,7 +6,6 @@ type EventProperties = Record<string, string | number | boolean>;
 
 declare global {
   interface Window {
-    gtag?: (...args: any[]) => void;
     plausible?: (event: string, options?: { props?: Record<string, any>; u?: string }) => void;
   }
 }
