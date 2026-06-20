@@ -1,3 +1,9 @@
+// Minimal interface representing the cookie store methods needed by the mock client
+export interface CookieStore {
+  get(name: string): { value: string } | undefined | null;
+  set(name: string, value: string, options?: { path?: string; [key: string]: any }): void;
+}
+
 // Mock database type
 type MockDb = {
   lessons: string[];
@@ -60,7 +66,7 @@ function parseFirstJsonObject(str: string): any {
   }
 }
 
-function getMockDb(cookieStore?: any): MockDb {
+function getMockDb(cookieStore?: Pick<CookieStore, "get">): MockDb {
   let json: string | null = null;
   if (cookieStore) {
     json = cookieStore.get("hmc_mock_db")?.value || null;
@@ -85,7 +91,7 @@ function getMockDb(cookieStore?: any): MockDb {
   }
 }
 
-function saveMockDb(db: MockDb, cookieStore?: any) {
+function saveMockDb(db: MockDb, cookieStore?: CookieStore) {
   const json = JSON.stringify(db);
   if (cookieStore) {
     cookieStore.set("hmc_mock_db", json, { path: "/" });
@@ -94,7 +100,7 @@ function saveMockDb(db: MockDb, cookieStore?: any) {
   }
 }
 
-export function getMockSupabaseClient(cookieStore?: any) {
+export function getMockSupabaseClient(cookieStore?: CookieStore) {
   const mockUser = {
     id: "00000000-0000-0000-0000-000000000000",
     email: "guest@example.com",
