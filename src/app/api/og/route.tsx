@@ -4,22 +4,35 @@ export const runtime = "edge";
 
 const FONT_URL = "https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&display=swap";
 
+let fontCache: Promise<ArrayBuffer> | null = null;
+
 async function loadFont(): Promise<ArrayBuffer> {
-  const css = await fetch(FONT_URL, {
-    headers: { "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36" },
-  }).then((r) => r.text());
+  if (fontCache) return fontCache;
 
-  const urlMatch = css.match(/url\(([^)]+)\)/);
-  if (!urlMatch) {
-    const fallback = await fetch(
-      "https://fonts.gstatic.com/s/atkinsonhyperlegible/v11/9Bt23C1KxNDXMspQ1lPyU89-1h6ONRlW45GE5Zg.woff2"
-    );
-    return fallback.arrayBuffer();
-  }
+  fontCache = (async () => {
+    try {
+      const css = await fetch(FONT_URL, {
+        headers: { "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36" },
+      }).then((r) => r.text());
 
-  const fontUrl = urlMatch[1].replace(/['"]/g, "");
-  const font = await fetch(fontUrl);
-  return font.arrayBuffer();
+      const urlMatch = css.match(/url\(([^)]+)\)/);
+      if (!urlMatch) {
+        const fallback = await fetch(
+          "https://fonts.gstatic.com/s/atkinsonhyperlegible/v11/9Bt23C1KxNDXMspQ1lPyU89-1h6ONRlW45GE5Zg.woff2"
+        );
+        return fallback.arrayBuffer();
+      }
+
+      const fontUrl = urlMatch[1].replace(/['"]/g, "");
+      const font = await fetch(fontUrl);
+      return font.arrayBuffer();
+    } catch (e) {
+      fontCache = null;
+      throw e;
+    }
+  })();
+
+  return fontCache;
 }
 
 export async function GET(request: Request) {
