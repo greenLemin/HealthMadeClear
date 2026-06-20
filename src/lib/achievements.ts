@@ -102,7 +102,6 @@ export async function checkAndAwardAchievements(
   const earned = new Set((existing ?? []).map((a) => a.achievement_id));
   const newlyEarned: string[] = [];
   const achievementsToInsert: { user_id: string; achievement_id: string }[] = [];
-  const notificationsToInsert: { type: string; title: string; body: string }[] = [];
 
   const checks: Array<{ id: string; condition: boolean }> = [
     { id: "first-lesson", condition: context.totalLessonsCompleted >= 1 },
@@ -134,15 +133,6 @@ export async function checkAndAwardAchievements(
     if (check.condition && !earned.has(check.id)) {
       achievementsToInsert.push({ user_id: userId, achievement_id: check.id });
       newlyEarned.push(check.id);
-
-      const achievement = ACHIEVEMENTS[check.id as AchievementId];
-      if (achievement) {
-        notificationsToInsert.push({
-          type: "achievement",
-          title: `Achievement Unlocked: ${achievement.title}`,
-          body: achievement.description,
-        });
-      }
     }
   }
 
@@ -159,12 +149,19 @@ export async function checkAndAwardAchievements(
     }
 
     const actuallyEarned = (inserted ?? []).map((row) => row.achievement_id);
-    const actuallyEarnedSet = new Set(actuallyEarned);
 
     if (actuallyEarned.length > 0) {
-      const earnedNotifications = notificationsToInsert.filter((_, i) =>
-        actuallyEarnedSet.has(newlyEarned[i])
-      );
+      const earnedNotifications = actuallyEarned.flatMap((id) => {
+        const achievement = ACHIEVEMENTS[id as AchievementId];
+        if (!achievement) return [];
+        return [
+          {
+            type: "achievement",
+            title: `Achievement Unlocked: ${achievement.title}`,
+            body: achievement.description,
+          },
+        ];
+      });
       if (earnedNotifications.length > 0) {
         await createNotifications(supabase, userId, earnedNotifications);
       }
