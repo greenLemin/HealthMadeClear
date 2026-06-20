@@ -147,15 +147,30 @@ export async function checkAndAwardAchievements(
   }
 
   if (achievementsToInsert.length > 0) {
-    const { error } = await supabase.from("achievements").insert(achievementsToInsert);
+    const { data: inserted, error } = await supabase
+      .from("achievements")
+      .upsert(achievementsToInsert, {
+        onConflict: "user_id,achievement_id",
+        ignoreDuplicates: true,
+      })
+      .select("achievement_id");
     if (error) {
-      // If batch insert fails, return empty array indicating nothing was earned
       return [];
     }
 
-    if (notificationsToInsert.length > 0) {
-      await createNotifications(supabase, userId, notificationsToInsert);
+    const actuallyEarned = (inserted ?? []).map((row) => row.achievement_id);
+    const actuallyEarnedSet = new Set(actuallyEarned);
+
+    if (actuallyEarned.length > 0) {
+      const earnedNotifications = notificationsToInsert.filter((_, i) =>
+        actuallyEarnedSet.has(newlyEarned[i])
+      );
+      if (earnedNotifications.length > 0) {
+        await createNotifications(supabase, userId, earnedNotifications);
+      }
     }
+
+    return actuallyEarned;
   }
 
   return newlyEarned;
