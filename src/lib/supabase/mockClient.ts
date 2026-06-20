@@ -32,7 +32,7 @@ const DEFAULT_DB: MockDb = {
 
 function parseFirstJsonObject<T = unknown>(str: string): T {
   try {
-    return JSON.parse(str);
+    return JSON.parse(str) as T;
   } catch (err) {
     let depth = 0;
     let inString = false;
@@ -59,7 +59,7 @@ function parseFirstJsonObject<T = unknown>(str: string): T {
           if (depth === 0) {
             const candidate = str.substring(0, i + 1);
             try {
-              return JSON.parse(candidate);
+              return JSON.parse(candidate) as T;
             } catch {}
           }
         }
