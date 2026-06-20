@@ -25,7 +25,7 @@ type AppContextValue = {
   theme: ThemeMode;
   textSize: TextSize;
   simpleMode: boolean;
-  completedLessons: string[];
+  completedLessons: Set<string>;
   recentLessons: string[];
   startedPaths: string[];
   quizScores: QuizScore[];
@@ -54,7 +54,7 @@ export default function AppProviders({
   const [theme, setThemeState] = useState<ThemeMode>("light");
   const [textSize, setTextSizeState] = useState<TextSize>("standard");
   const [simpleMode, setSimpleModeState] = useState(false);
-  const [completedLessons, setCompletedLessons] = useState<string[]>([]);
+  const [completedLessons, setCompletedLessons] = useState<Set<string>>(new Set());
   const [recentLessons, setRecentLessons] = useState<string[]>([]);
   const [startedPaths, setStartedPaths] = useState<string[]>([]);
   const [quizScores, setQuizScores] = useState<QuizScore[]>([]);
@@ -72,7 +72,7 @@ export default function AppProviders({
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setSimpleModeState(readStoredSimpleMode());
     // eslint-disable-next-line react-hooks/set-state-in-effect
-    setCompletedLessons(readStoredStringArray(STORAGE_KEYS.completedLessons));
+    setCompletedLessons(new Set(readStoredStringArray(STORAGE_KEYS.completedLessons)));
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setRecentLessons(readStoredStringArray(STORAGE_KEYS.recentLessons));
     // eslint-disable-next-line react-hooks/set-state-in-effect
@@ -99,7 +99,7 @@ export default function AppProviders({
 
   useEffect(() => {
     if (!hydrated) return;
-    window.localStorage.setItem(STORAGE_KEYS.completedLessons, JSON.stringify(completedLessons));
+    window.localStorage.setItem(STORAGE_KEYS.completedLessons, JSON.stringify(Array.from(completedLessons)));
     window.localStorage.setItem(STORAGE_KEYS.recentLessons, JSON.stringify(recentLessons));
     window.localStorage.setItem(STORAGE_KEYS.startedPaths, JSON.stringify(startedPaths));
     window.localStorage.setItem(STORAGE_KEYS.quizScores, JSON.stringify(quizScores));
@@ -111,9 +111,15 @@ export default function AppProviders({
   const setSimpleMode = useCallback((value: boolean) => setSimpleModeState(value), []);
 
   const toggleLessonComplete = useCallback((lessonId: string) => {
-    setCompletedLessons((current) =>
-      current.includes(lessonId) ? current.filter((id) => id !== lessonId) : [...current, lessonId]
-    );
+    setCompletedLessons((current) => {
+      const next = new Set(current);
+      if (next.has(lessonId)) {
+        next.delete(lessonId);
+      } else {
+        next.add(lessonId);
+      }
+      return next;
+    });
   }, []);
 
   const markLessonViewed = useCallback((lessonId: string) => {
@@ -125,7 +131,12 @@ export default function AppProviders({
   }, []);
 
   const markLessonComplete = useCallback((lessonId: string) => {
-    setCompletedLessons((current) => (current.includes(lessonId) ? current : [...current, lessonId]));
+    setCompletedLessons((current) => {
+      if (current.has(lessonId)) return current;
+      const next = new Set(current);
+      next.add(lessonId);
+      return next;
+    });
   }, []);
 
   const recordQuizScore = useCallback((lessonId: string, score: number, passed: boolean) => {
@@ -142,7 +153,7 @@ export default function AppProviders({
   }, []);
 
   const importProgress = useCallback((data: ExportedProgress) => {
-    setCompletedLessons(data.completedLessons);
+    setCompletedLessons(new Set(data.completedLessons));
     setRecentLessons(data.recentLessons);
     setStartedPaths(data.startedPaths);
     setQuizScores(data.quizScores);

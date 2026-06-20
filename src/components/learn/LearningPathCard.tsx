@@ -25,7 +25,7 @@ export default function LearningPathCard({ path, lessons, progress }: LearningPa
   const pathProgress =
     progress ||
     (() => {
-      const completed = pathLessons.filter((l) => completedLessons.includes(l.id)).length;
+      const completed = pathLessons.filter((l) => completedLessons.has(l.id)).length;
       const total = pathLessons.length;
       return {
         completed,
@@ -36,7 +36,7 @@ export default function LearningPathCard({ path, lessons, progress }: LearningPa
 
   const allDone = pathProgress.completed === pathProgress.total && pathProgress.total > 0;
   const isStarted = pathProgress.completed > 0;
-  const nextLesson = pathLessons.find((l) => !completedLessons.includes(l.id)) ?? pathLessons[0];
+  const nextLesson = pathLessons.find((l) => !completedLessons.has(l.id)) ?? pathLessons[0];
 
   return (
     <div className="rounded-2xl border border-outline-variant bg-surface-container-lowest p-6 shadow-card md:p-8">

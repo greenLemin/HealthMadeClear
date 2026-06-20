@@ -117,7 +117,7 @@ export default function DashboardClient({
 
   const handleExport = () => {
     try {
-      const data = buildProgressExport(completedLessons, recentLessons, startedPaths, quizScores);
+      const data = buildProgressExport(Array.from(completedLessons), recentLessons, startedPaths, quizScores);
       downloadProgressExport(data);
       showToast("success", t("exportSuccess"));
     } catch (err) {

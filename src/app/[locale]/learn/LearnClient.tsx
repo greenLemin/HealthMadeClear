@@ -130,7 +130,7 @@ export default function LearnClient({ lessons }: LearnClientProps) {
             <div className="grid gap-6 lg:grid-cols-2">
               {featuredLessons.map((lesson) => (
                 <div key={lesson.id} onClick={() => markLessonViewed(lesson.id)}>
-                  <LessonCard lesson={lesson} isComplete={completedLessons.includes(lesson.id)} />
+                  <LessonCard lesson={lesson} isComplete={completedLessons.has(lesson.id)} />
                 </div>
               ))}
             </div>
@@ -143,7 +143,7 @@ export default function LearnClient({ lessons }: LearnClientProps) {
             <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
               {libraryLessons.map((lesson) => (
                 <div key={lesson.id} onClick={() => markLessonViewed(lesson.id)}>
-                  <LessonCard lesson={lesson} isComplete={completedLessons.includes(lesson.id)} />
+                  <LessonCard lesson={lesson} isComplete={completedLessons.has(lesson.id)} />
                 </div>
               ))}
             </div>
