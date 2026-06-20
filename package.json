@@ -48,8 +48,7 @@
     "next": "16.2.9",
     "next-intl": "^4.13.0",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "serialize-javascript": "^7.0.5"
+    "react-dom": "^18.3.1"
   },
   "devDependencies": {
     "@netlify/plugin-nextjs": "^5.15.11",
@@ -64,7 +63,6 @@
     "@types/node": "^25.9.3",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
-    "@types/serialize-javascript": "^5.0.4",
     "@vitejs/plugin-react": "^6.0.2",
     "@vitest/coverage-v8": "^4.1.9",
     "autoprefixer": "^10.4.19",
