@@ -1,3 +1,4 @@
+import type { AuthChangeEvent, Session } from "@supabase/supabase-js";
 // Mock database type
 type MockDb = {
   lessons: string[];
@@ -130,11 +131,11 @@ export function getMockSupabaseClient(cookieStore?: any) {
           error: null,
         };
       },
-      onAuthStateChange(callback: any) {
+      onAuthStateChange(callback: (event: AuthChangeEvent, session: Session | null) => void) {
         if (typeof callback === "function") {
           setTimeout(() => {
             try {
-              callback("SIGNED_IN", mockSession);
+              callback("SIGNED_IN", mockSession as unknown as Session);
             } catch {}
           }, 0);
         }
