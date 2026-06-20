@@ -19,7 +19,12 @@ export function trackPageView(_url: string, _locale: string): void {
   if (process.env.NODE_ENV === "development") {
     console.log("[Analytics] Page view:", _url, _locale);
   }
-  if (typeof window !== "undefined" && window.gtag && process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID) {
+  if (
+    process.env.NODE_ENV === "production" &&
+    typeof window !== "undefined" &&
+    window.gtag &&
+    process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID
+  ) {
     window.gtag("event", "page_view", {
       page_location: _url,
       page_path: _url,
@@ -32,7 +37,12 @@ export function trackEvent(event: string, _properties?: EventProperties): void {
   if (process.env.NODE_ENV === "development") {
     console.log("[Analytics] Event:", event, _properties);
   }
-  if (typeof window !== "undefined" && window.gtag && process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID) {
+  if (
+    process.env.NODE_ENV === "production" &&
+    typeof window !== "undefined" &&
+    window.gtag &&
+    process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID
+  ) {
     window.gtag("event", event, _properties || {});
   }
 }
