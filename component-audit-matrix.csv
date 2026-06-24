@@ -1,0 +1,55 @@
+Component,Page,Issue Count,Severity,Status
+useDismissibleOverlay (hook),Global overlays,2,High,Open
+useFocusTrap (hook),Global dialogs,1,Medium,Open
+ThemeToggle,Global header,1,Medium,Open
+NotificationCenter,Global header,3,Medium,Open
+Button,Global,1,Low,Open
+SignupForm,Auth - Signup,4,High,Open
+LoginForm,Auth - Login,4,High,Open
+ForgotPasswordForm,Auth - Forgot password,3,Medium,Open
+reset-password,Auth - Reset password,5,High,Open
+Auth route metadata,Auth - all routes,1,High,Open
+Input,Global forms,3,Medium,Open
+ContactClient,Contact,1,Medium,Open
+InlineGlossaryTerm,Lesson content,2,High,Open
+QuizResults,Quiz,2,High,Open
+QuizClient,Quiz,3,High,Open
+LessonPageClient,Lesson detail,3,Medium,Open
+LessonActionsClient (dead),Lesson,1,Medium,Open
+Skeleton,Global loading,1,Medium,Open
+Toast,Global,3,Medium,Open
+ToastProvider,Global,1,Low,Open
+progress-client,Dashboard - Progress,5,High,Open
+settings-client,Dashboard - Settings,1,High,Open
+DashboardClient,Dashboard,2,Medium,Open
+DashboardSidebar,Dashboard,1,Medium,Open
+AchievementCard,Dashboard - Achievements,1,Medium,Open
+MarkdownRenderer,Lesson/Article content,2,Medium,Open
+Callout,Content,2,Medium,Open
+KeyTakeaway,Lesson content,1,Medium,Open
+Footer,Global,1,Medium,Open
+SectionNav,Home,2,Medium,Open
+HomeClient,Home,1,Medium,Open
+Hero,Home,1,Low,Open
+GlossaryClient,Glossary,1,Medium,Open
+GlossaryTermClient,Glossary term,3,Medium,Open
+ArticlesClient,Articles,2,Medium,Open
+ArticlePageClient,Article detail,2,Medium,Open
+ToolsClient,Tools,2,Medium,Open
+LearningPathDetailClient,Learning path detail,3,Medium,Open
+LearningPathsClient,Learning paths,1,Low,Open
+LearnClient,Learn,2,Low,Open
+SearchDialog,Global,3,Medium,Open
+LanguageToggle,Global,2,Medium,Open
+OnboardingDialog,Global,4,Medium,Open
+ScrollToTop,Global,2,Low,Open
+NetworkStatusBanner,Global,2,Medium,Open
+AccessibilityControls,Global,2,Medium,Open
+Card,Global,1,Low,Open
+Badge,Global,1,Low,Open
+Modal,Global,1,Medium,Open
+EmptyState,Global,1,Low,Open
+AboutClient,About,2,Low,Open
+AccessibilityClient,Accessibility,1,Low,Open
+LessonThumbnail,Learn,1,Low,Open
+Global tokens (globals.css/tailwind),Global,3,Low,Open

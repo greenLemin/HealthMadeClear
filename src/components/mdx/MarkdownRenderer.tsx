@@ -204,12 +204,108 @@ function renderTokens(
           {linkChildren}
         </a>
       );
+    } else if (token.type === "blockquote_open") {
+      const inner: MarkdownItToken[] = [];
+      let depth = 1;
+      i++;
+      while (i < tokens.length && depth > 0) {
+        if (tokens[i].type === "blockquote_open") depth++;
+        else if (tokens[i].type === "blockquote_close") {
+          depth--;
+          if (depth === 0) break;
+        }
+        inner.push(tokens[i]);
+        i++;
+      }
+      result.push(
+        <blockquote
+          key={`bq-${i}`}
+          className="border-l-4 border-primary-container pl-4 italic text-on-surface-variant"
+        >
+          {renderTokens(inner, glossaryTerms)}
+        </blockquote>
+      );
+    } else if (token.type === "fence" || token.type === "code_block") {
+      result.push(
+        <pre key={`code-${i}`} className="overflow-x-auto rounded-lg bg-surface-container p-4 text-label-md">
+          <code>{token.content}</code>
+        </pre>
+      );
+    } else if (token.type === "table_open") {
+      const { node, next } = renderTable(tokens, i, glossaryTerms);
+      result.push(node);
+      i = next;
+      continue;
     }
 
     i++;
   }
 
   return result;
+}
+
+function renderTable(
+  tokens: MarkdownItToken[],
+  start: number,
+  glossaryTerms: GlossaryTerm[]
+): { node: React.ReactNode; next: number } {
+  let i = start + 1;
+  const head: React.ReactNode[] = [];
+  const body: React.ReactNode[] = [];
+
+  const renderRow = (isHeader: boolean, key: string) => {
+    const cells: React.ReactNode[] = [];
+    i++; // past tr_open
+    while (i < tokens.length && tokens[i].type !== "tr_close") {
+      const cellToken = tokens[i];
+      if (cellToken.type === "th_open" || cellToken.type === "td_open") {
+        const isTh = cellToken.type === "th_open";
+        const cellChildren: React.ReactNode[] = [];
+        i++;
+        while (i < tokens.length && tokens[i].type !== "th_close" && tokens[i].type !== "td_close") {
+          if (tokens[i].type === "inline") {
+            cellChildren.push(...renderTokens([tokens[i]], glossaryTerms));
+          }
+          i++;
+        }
+        cells.push(
+          isTh ? (
+            <th key={`${key}-c${cells.length}`} scope="col" className="px-3 py-2 text-left font-semibold">
+              {cellChildren}
+            </th>
+          ) : (
+            <td key={`${key}-c${cells.length}`} className="px-3 py-2">
+              {cellChildren}
+            </td>
+          )
+        );
+      }
+      i++;
+    }
+    const row = <tr key={key}>{cells}</tr>;
+    if (isHeader) head.push(row);
+    else body.push(row);
+  };
+
+  while (i < tokens.length && tokens[i].type !== "table_close") {
+    const t = tokens[i];
+    if (t.type === "tr_open") {
+      const inHead = head.length === 0 && body.length === 0;
+      renderRow(inHead, `row-${i}`);
+    }
+    i++;
+  }
+
+  const node = (
+    <div key={`table-${start}`} className="my-4 overflow-x-auto">
+      <table className="w-full border-collapse text-label-md">
+        {head.length > 0 ? <thead>{head}</thead> : null}
+        <tbody>{body}</tbody>
+      </table>
+    </div>
+  );
+
+  return { node, next: i + 1 };
 }
 
 function GlossaryHighlighter({ text, glossaryTerms }: { text: string; glossaryTerms: GlossaryTerm[] }) {

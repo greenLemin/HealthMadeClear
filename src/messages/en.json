@@ -77,6 +77,8 @@
     "read": "read",
     "back": "Back",
     "backToTop": "Back to top",
+    "offlineMessage": "You're offline. Some features may be unavailable.",
+    "dismiss": "Dismiss",
     "searchLessons": "Search lessons",
     "searchTerms": "Search terms",
     "allTopics": "All topics",
@@ -265,7 +267,13 @@
     "exportError": "Failed to export progress",
     "daysUnit": "days",
     "cancel": "Cancel",
-    "confirmationLabel": "Confirmation"
+    "confirmationLabel": "Confirmation",
+    "statsStreakValue": "{count} days",
+    "modulesCount": "{count} modules",
+    "completeLabel": "{completed} of {total} complete",
+    "completedLabel": "Completed",
+    "quizResultPassed": "{score}% — Passed",
+    "quizResultFailed": "{score}% — Not passed"
   },
   "settings": {
     "title": "Settings",
@@ -332,7 +340,17 @@
     "last30Days": "Last 30 Days",
     "activeLabel": "Active",
     "inactiveLabel": "Inactive",
-    "keepStreakAlive": "Keep your streak alive! Learn something new today."
+    "keepStreakAlive": "Keep your streak alive! Learn something new today.",
+    "daysValue": "{count} days",
+    "lessonsValue": "{count} lessons",
+    "averageScoreValue": "Average score {score}%",
+    "categoryTableCaption": "Lessons completed and quiz results by category",
+    "completedTableCaption": "Lessons you have completed",
+    "streakCalendarCaption": "Your learning activity over the last 30 days",
+    "activeDayLabel": "{date}: active",
+    "inactiveDayLabel": "{date}: no activity",
+    "startLearningCta": "Start learning",
+    "categoryMobileSummary": "{completed}/{total} lessons · Quizzes: {passed}/{attempts}"
   },
   "achievements": {
     "title": "Achievements",
@@ -580,17 +598,24 @@
     "progressWillBeLost": "Your progress will be lost if you leave this page.",
     "stay": "Stay",
     "leave": "Leave",
-    "bestScore": "Your best score: {score}%"
+    "bestScore": "Your best score: {score}%",
+    "yourAnswer": "Your answer",
+    "correctAnswer": "Correct answer"
   },
   "articles": {
     "title": "Health Articles",
     "description": "Short reads on navigating healthcare, preventive care, and understanding medical information.",
     "searchArticles": "Search articles…",
     "noResults": "No articles match your search.",
+    "noResultsHint": "Try a different word or clear your search to see all articles.",
+    "clearSearch": "Clear search",
+    "resultsCount": "{count} articles found",
     "backToArticles": "Back to articles",
     "lastReviewed": "Reviewed {date}",
     "share": "Share",
-    "shareOnX": "Share on X"
+    "shareOnX": "Share on X",
+    "linkCopied": "Link copied to clipboard",
+    "linkCopyError": "Could not copy link"
   },
   "search": {
     "openSearch": "Open search",
@@ -667,7 +692,14 @@
     "createAccountCta": "Create Account",
     "dismissBanner": "Dismiss",
     "errorConfirmationFailed": "Your email confirmation link is invalid or has expired. Please try logging in or request a new link.",
-    "errorAuthFailed": "Authentication failed. Please try again."
+    "errorAuthFailed": "Authentication failed. Please try again.",
+    "emailRequired": "Please enter your email address.",
+    "passwordRequired": "Please enter your password.",
+    "showPassword": "Show password",
+    "hidePassword": "Hide password",
+    "passwordStrengthLabel": "Password strength",
+    "resetSuccessTitle": "Password updated",
+    "resetSuccessMessage": "Your password has been changed. Redirecting you to sign in…"
   },
   "terms": {
     "title": "Terms of Service",

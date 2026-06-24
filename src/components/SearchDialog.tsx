@@ -108,11 +108,12 @@ export default function SearchDialog() {
     <>
       <button
         ref={triggerRef}
+        type="button"
         onClick={() => setIsOpen(true)}
         className="flex min-h-11 items-center gap-3 rounded-lg border border-outline-variant bg-surface-container-lowest px-3 py-2 text-label-md text-on-surface-variant transition-colors hover:bg-surface-container hover:text-on-surface md:w-56"
         aria-label={t("openSearch")}
       >
-        <Search size={16} />
+        <Search size={16} aria-hidden="true" />
         <span className="hidden md:inline">{t("placeholder")}</span>
         <kbd className="ml-auto hidden rounded border border-outline-variant bg-surface px-1.5 py-0.5 text-label-md tracking-wider text-on-surface-variant md:inline">
           ⌘K
@@ -133,7 +134,7 @@ export default function SearchDialog() {
               {t("searchDialog")}
             </h2>
             <div className="flex items-center gap-3 border-b border-outline-variant px-4 py-3">
-              <Search size={20} className="shrink-0 text-on-surface-variant" />
+              <Search size={20} className="shrink-0 text-on-surface-variant" aria-hidden="true" />
               <input
                 ref={inputRef}
                 type="search"
@@ -141,15 +142,16 @@ export default function SearchDialog() {
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder={t("placeholder")}
                 aria-label={t("placeholder")}
-                className="flex-1 border-0 bg-transparent text-body-md text-on-surface outline-none placeholder:text-on-surface-variant"
+                className="flex-1 border-0 bg-transparent text-body-md text-on-surface outline-none focus-visible:outline-none placeholder:text-on-surface-variant"
                 autoComplete="off"
               />
               <button
+                type="button"
                 onClick={close}
-                className="flex h-8 w-8 items-center justify-center rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface"
+                className="flex min-h-11 min-w-11 items-center justify-center rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
                 aria-label={t("close")}
               >
-                <X size={18} />
+                <X size={18} aria-hidden="true" />
               </button>
             </div>
 
@@ -165,7 +167,7 @@ export default function SearchDialog() {
                         onClick={close}
                         className="flex items-start gap-3 rounded-lg px-3 py-3 transition-colors hover:bg-surface-container"
                       >
-                        <BookOpen size={18} className="mt-0.5 shrink-0 text-primary" />
+                        <BookOpen size={18} className="mt-0.5 shrink-0 text-primary" aria-hidden="true" />
                         <div className="min-w-0 flex-1">
                           <div className="text-body-md font-semibold text-on-surface">
                             {highlightMatches(entry.title, query)}

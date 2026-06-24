@@ -13,59 +13,83 @@ export default function Footer() {
       <div className="max-w-container mx-auto px-4 py-12 md:px-16">
         <div className="grid gap-10 md:grid-cols-[1.4fr_1fr_1fr]">
           <div>
-            <p className="mb-3 text-headline-md text-on-primary font-bold">Health Made Clear</p>
+            <h2 className="mb-3 text-headline-md text-on-primary font-bold">Health Made Clear</h2>
             <p className="max-w-md text-body-md text-on-primary/80">{t("tagline")}</p>
           </div>
-          <div>
-            <p className="mb-3 text-label-md text-on-primary font-semibold">{t("platform")}</p>
-            <div className="space-y-2 text-body-md text-on-primary/80">
-              <div>
-                <Link href="/about" className="hover:text-on-primary transition-colors">
+          <nav aria-label={t("platform")}>
+            <h2 className="mb-3 text-label-md text-on-primary font-semibold">{t("platform")}</h2>
+            <ul className="space-y-2 text-body-md text-on-primary/80">
+              <li>
+                <Link
+                  href="/about"
+                  className="underline underline-offset-2 hover:text-on-primary transition-colors"
+                >
                   {tNav("about")}
                 </Link>
-              </div>
-              <div>
-                <Link href="/learning-paths" className="hover:text-on-primary transition-colors">
+              </li>
+              <li>
+                <Link
+                  href="/learning-paths"
+                  className="underline underline-offset-2 hover:text-on-primary transition-colors"
+                >
                   {tNav("paths")}
                 </Link>
-              </div>
-              <div>
-                <Link href="/tools" className="hover:text-on-primary transition-colors">
+              </li>
+              <li>
+                <Link
+                  href="/tools"
+                  className="underline underline-offset-2 hover:text-on-primary transition-colors"
+                >
                   {tNav("tools")}
                 </Link>
-              </div>
-              <div>
-                <Link href="/glossary" className="hover:text-on-primary transition-colors">
+              </li>
+              <li>
+                <Link
+                  href="/glossary"
+                  className="underline underline-offset-2 hover:text-on-primary transition-colors"
+                >
                   {tNav("glossary")}
                 </Link>
-              </div>
-            </div>
-          </div>
-          <div>
-            <p className="mb-3 text-label-md text-on-primary font-semibold">{t("legal")}</p>
-            <div className="space-y-2 text-body-md text-on-primary/80">
-              <div>
-                <Link href="/accessibility" className="hover:text-on-primary transition-colors">
+              </li>
+            </ul>
+          </nav>
+          <nav aria-label={t("legal")}>
+            <h2 className="mb-3 text-label-md text-on-primary font-semibold">{t("legal")}</h2>
+            <ul className="space-y-2 text-body-md text-on-primary/80">
+              <li>
+                <Link
+                  href="/accessibility"
+                  className="underline underline-offset-2 hover:text-on-primary transition-colors"
+                >
                   {t("accessibility")}
                 </Link>
-              </div>
-              <div>
-                <Link href="/privacy" className="hover:text-on-primary transition-colors">
+              </li>
+              <li>
+                <Link
+                  href="/privacy"
+                  className="underline underline-offset-2 hover:text-on-primary transition-colors"
+                >
                   {t("privacy")}
                 </Link>
-              </div>
-              <div>
-                <Link href="/terms" className="hover:text-on-primary transition-colors">
+              </li>
+              <li>
+                <Link
+                  href="/terms"
+                  className="underline underline-offset-2 hover:text-on-primary transition-colors"
+                >
                   {t("terms")}
                 </Link>
-              </div>
-              <div>
-                <Link href="/contact" className="hover:text-on-primary transition-colors">
+              </li>
+              <li>
+                <Link
+                  href="/contact"
+                  className="underline underline-offset-2 hover:text-on-primary transition-colors"
+                >
                   {t("contact")}
                 </Link>
-              </div>
-            </div>
-          </div>
+              </li>
+            </ul>
+          </nav>
         </div>
         <div className="mt-8 rounded-2xl bg-primary-container/20 p-4 text-label-md text-on-primary/80">
           {tDisclaimer("educationalLong")}

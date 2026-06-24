@@ -119,9 +119,7 @@ export default function LearnClient({ lessons }: LearnClientProps) {
           className="mb-4 text-label-md text-on-surface-variant"
           aria-live="polite"
         >
-          {filteredLessons.length > 0
-            ? t("showingLessons", { count: filteredLessons.length })
-            : tCommon("noLessonsFound")}
+          {filteredLessons.length > 0 ? t("showingLessons", { count: filteredLessons.length }) : ""}
         </div>
 
         {featuredLessons.length > 0 ? (

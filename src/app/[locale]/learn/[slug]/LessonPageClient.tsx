@@ -70,6 +70,8 @@ export default function LessonPageClient({
   const { markLessonComplete, isLessonComplete, getQuizBestScore } = useProgress();
   const t = useTranslations("learn");
   const tCommon = useTranslations("common");
+  const tNav = useTranslations("nav");
+  const [isSaving, setIsSaving] = useState(false);
   const lessonId = lesson.id as LessonId;
   const sidebar = useSidebarContent(lesson, t);
   const contentRef = useRef<HTMLDivElement>(null);
@@ -93,7 +95,12 @@ export default function LessonPageClient({
   }, []);
 
   const handleMarkComplete = useCallback(async () => {
-    await markLessonComplete(lessonId);
+    setIsSaving(true);
+    try {
+      await markLessonComplete(lessonId);
+    } finally {
+      setIsSaving(false);
+    }
   }, [markLessonComplete, lessonId]);
 
   // Find prev/next lesson in learning path
@@ -127,19 +134,26 @@ export default function LessonPageClient({
       <div className="py-12 md:py-16">
         <div className="max-w-container mx-auto px-4 md:px-6">
           {/* Breadcrumbs */}
-          <nav
-            className="mb-6 flex flex-wrap items-center gap-2 text-label-md text-on-surface-variant"
-            aria-label="Breadcrumb"
-          >
-            <Link href="/" className="hover:text-primary transition-colors">
-              {tCommon("back")}
-            </Link>
-            <span aria-hidden="true">/</span>
-            <Link href="/learn" className="hover:text-primary transition-colors">
-              {tCommon("allTopics")}
-            </Link>
-            <span aria-hidden="true">/</span>
-            <span className="text-on-surface">{lesson.title}</span>
+          <nav className="mb-6" aria-label="Breadcrumb">
+            <ol className="flex flex-wrap items-center gap-2 text-label-md text-on-surface-variant">
+              <li>
+                <Link href="/" className="hover:text-primary transition-colors">
+                  {tNav("home")}
+                </Link>
+              </li>
+              <li aria-hidden="true">/</li>
+              <li>
+                <Link href="/learn" className="hover:text-primary transition-colors">
+                  {tCommon("allTopics")}
+                </Link>
+              </li>
+              <li aria-hidden="true">/</li>
+              <li>
+                <span className="text-on-surface" aria-current="page">
+                  {lesson.title}
+                </span>
+              </li>
+            </ol>
           </nav>
 
           <div className="mb-6 flex flex-wrap items-center gap-3 text-label-md text-on-surface-variant">
@@ -171,20 +185,25 @@ export default function LessonPageClient({
                 <p className="mb-8 max-w-3xl text-body-lg text-on-surface-variant">{lesson.description}</p>
 
                 {/* Mark as Complete button */}
-                <div className="no-print mb-8">
+                <div className="no-print mb-8" aria-live="polite">
                   {isComplete ? (
-                    <span className="inline-flex items-center gap-2 rounded-lg bg-secondary-container px-6 py-3 text-label-lg font-semibold text-secondary">
-                      <CheckCircle2 size={22} />
+                    <span
+                      role="status"
+                      className="inline-flex items-center gap-2 rounded-lg bg-secondary-container px-6 py-3 text-label-lg font-semibold text-secondary"
+                    >
+                      <CheckCircle2 size={22} aria-hidden="true" />
                       {t("lessonComplete")}
                     </span>
                   ) : (
                     <button
                       type="button"
                       onClick={handleMarkComplete}
-                      className="btn-primary inline-flex items-center gap-2"
+                      disabled={isSaving}
+                      aria-busy={isSaving || undefined}
+                      className="btn-primary inline-flex items-center gap-2 disabled:cursor-not-allowed disabled:opacity-60"
                     >
-                      <CheckCircle2 size={18} />
-                      {t("markComplete")}
+                      <CheckCircle2 size={18} aria-hidden="true" />
+                      {isSaving ? tCommon("loading") : t("markComplete")}
                     </button>
                   )}
                 </div>
@@ -204,12 +223,15 @@ export default function LessonPageClient({
                   {lesson.content.sections.map((section, index) => (
                     <section key={section.title}>
                       <div className="mb-3 flex items-center gap-3">
-                        <div className="flex h-8 w-8 items-center justify-center rounded-full bg-secondary-container text-label-md font-bold text-primary">
+                        <div
+                          className="flex h-8 w-8 items-center justify-center rounded-full bg-secondary-container text-label-md font-bold text-primary"
+                          aria-hidden="true"
+                        >
                           {index + 1}
                         </div>
                         <h2 className="text-headline-md text-primary">{section.title}</h2>
                       </div>
-                      <div className="whitespace-pre-line text-body-md text-on-surface-variant">
+                      <div className="max-w-[70ch] whitespace-pre-line text-body-md text-on-surface-variant">
                         <MarkdownRenderer text={section.content} glossaryTerms={glossaryTerms} />
                       </div>
                       {section.callouts?.map((callout, calloutIndex) => (

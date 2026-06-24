@@ -1,3 +1,6 @@
+"use client";
+
+import { useTranslations } from "next-intl";
 import { formatRelativeDate } from "@/lib/i18n";
 
 export type AchievementItem = {
@@ -14,6 +17,7 @@ interface AchievementCardProps {
 }
 
 export default function AchievementCard({ achievement }: AchievementCardProps) {
+  const t = useTranslations("achievements");
   return (
     <div
       className={`flex flex-col items-center justify-center rounded-2xl p-6 text-center transition-all ${
@@ -43,7 +47,7 @@ export default function AchievementCard({ achievement }: AchievementCardProps) {
           ) : null}
         </>
       ) : (
-        <p className="mt-1 text-label-sm text-on-surface-variant">Keep learning to unlock</p>
+        <p className="mt-1 text-label-sm text-on-surface-variant">{t("keepLearning")}</p>
       )}
     </div>
   );

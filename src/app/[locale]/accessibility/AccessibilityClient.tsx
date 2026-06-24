@@ -30,7 +30,7 @@ export default function AccessibilityClient() {
             <h2 className="mb-3 text-headline-md text-primary">{t("contactTitle")}</h2>
             <p className="text-body-md text-on-surface-variant">
               {t("contactBody")}{" "}
-              <Link href="/about#contact" className="font-semibold text-primary">
+              <Link href="/about#contact" className="font-semibold text-primary underline underline-offset-2">
                 {tNav("about")}
               </Link>
             </p>

@@ -141,13 +141,16 @@ export default function ContactClient() {
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
                 rows={6}
+                required
+                aria-required="true"
+                aria-invalid={!!errors.message}
+                aria-describedby={errors.message ? "message-error" : undefined}
                 className={`w-full rounded-lg border bg-surface px-4 py-3 text-body-md text-on-surface transition-colors focus:outline-none focus:ring-2 focus:ring-primary/20 ${
                   errors.message ? "border-error" : "border-outline-variant focus:border-primary"
                 }`}
-                required
               />
               {errors.message ? (
-                <p role="alert" className="mt-1 text-label-md text-error">
+                <p id="message-error" role="alert" className="mt-1 text-label-md text-error">
                   {errors.message}
                 </p>
               ) : null}

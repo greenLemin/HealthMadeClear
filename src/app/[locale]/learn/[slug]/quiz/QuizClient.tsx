@@ -325,13 +325,14 @@ export default function QuizClient({ quiz, lessonTitle, lessonId }: Props) {
                   : "border-tertiary bg-tertiary-container/20 text-tertiary"
               }`}
             >
-              <p className="mb-1 font-semibold">{isCorrect ? "Correct!" : "Not quite."}</p>
+              <p className="mb-1 font-semibold">{isCorrect ? t("correct") : t("incorrect")}</p>
               {question.explanation && <p className="text-label-md">{question.explanation}</p>}
             </div>
           ) : null}
 
           <div className="flex items-center justify-between">
             <button
+              type="button"
               onClick={handlePrevious}
               disabled={current === 0}
               className="btn-secondary disabled:opacity-30"
@@ -341,13 +342,13 @@ export default function QuizClient({ quiz, lessonTitle, lessonId }: Props) {
 
             <div className="flex gap-3">
               {selectedIdx >= 0 && !showResult ? (
-                <button onClick={handleCheckAnswer} className="btn-primary">
+                <button type="button" onClick={handleCheckAnswer} className="btn-primary">
                   {t("checkAnswer")}
                 </button>
               ) : null}
 
               {selectedIdx >= 0 && showResult ? (
-                <button onClick={handleNext} className="btn-primary">
+                <button type="button" onClick={handleNext} className="btn-primary">
                   {current < total - 1 ? t("next") : t("seeResults")}
                 </button>
               ) : null}

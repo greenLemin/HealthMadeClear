@@ -11,28 +11,28 @@ export default function SectionNav() {
     {
       title: t("pathsTitle"),
       description: t("pathsDescription"),
-      icon: <BookOpen size={32} className="text-primary" />,
+      icon: <BookOpen size={32} className="text-primary" aria-hidden="true" />,
       href: "/learning-paths",
       color: "bg-secondary-container/70",
     },
     {
       title: t("learnTitle"),
       description: t("learnDescription"),
-      icon: <GraduationCap size={32} className="text-primary" />,
+      icon: <GraduationCap size={32} className="text-primary" aria-hidden="true" />,
       href: "/learn",
       color: "bg-primary-fixed/70",
     },
     {
       title: t("glossaryTitle"),
       description: t("glossaryDescription"),
-      icon: <Search size={32} className="text-primary" />,
+      icon: <Search size={32} className="text-primary" aria-hidden="true" />,
       href: "/glossary",
       color: "bg-surface-container",
     },
     {
       title: t("toolsTitle"),
       description: t("toolsDescription"),
-      icon: <Wrench size={32} className="text-primary" />,
+      icon: <Wrench size={32} className="text-primary" aria-hidden="true" />,
       href: "/tools",
       color: "bg-tools-accent",
     },
@@ -61,7 +61,11 @@ export default function SectionNav() {
                   <p className="mb-4 text-body-md text-on-surface-variant">{section.description}</p>
                   <div className="inline-flex items-center gap-2 text-label-md font-semibold text-primary">
                     {t("explore")}
-                    <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
+                    <ArrowRight
+                      size={16}
+                      className="transition-transform group-hover:translate-x-1 motion-reduce:transition-none"
+                      aria-hidden="true"
+                    />
                   </div>
                 </div>
               </div>

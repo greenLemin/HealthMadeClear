@@ -6,8 +6,11 @@ import type { Metadata } from "next";
 
 type Props = { params: Promise<{ locale: string }> };
 
-export async function generateMetadata(): Promise<Metadata> {
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "auth" });
   return {
+    title: t("loginTitle"),
     robots: {
       index: false,
       follow: false,

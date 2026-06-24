@@ -6,6 +6,7 @@ interface SkeletonProps {
   height?: string;
   lines?: number;
   className?: string;
+  loadingLabel?: string;
 }
 
 const variantDefaults: Record<SkeletonVariant, { width: string; height: string; rounded: string }> = {
@@ -22,12 +23,20 @@ export default function Skeleton({
   height,
   lines = 3,
   className = "",
+  loadingLabel,
 }: SkeletonProps) {
   const defaults = variantDefaults[variant];
 
+  const status = loadingLabel ? (
+    <span role="status" aria-live="polite" className="sr-only">
+      {loadingLabel}
+    </span>
+  ) : null;
+
   if (variant === "text" && lines > 1) {
     return (
-      <div className={className} aria-hidden="true">
+      <div className={className} aria-hidden={loadingLabel ? undefined : "true"}>
+        {status}
         {Array.from({ length: lines }).map((_, i) => (
           <div
             key={i}
@@ -43,18 +52,21 @@ export default function Skeleton({
   }
 
   return (
-    <div
-      aria-hidden="true"
-      className={[
-        "animate-pulse bg-surface-container-high motion-reduce:animate-none",
-        defaults.rounded,
-        className,
-      ].join(" ")}
-      style={{
-        width: width || defaults.width,
-        height: height || defaults.height,
-      }}
-    />
+    <>
+      {status}
+      <div
+        aria-hidden="true"
+        className={[
+          "animate-pulse bg-surface-container-high motion-reduce:animate-none",
+          defaults.rounded,
+          className,
+        ].join(" ")}
+        style={{
+          width: width || defaults.width,
+          height: height || defaults.height,
+        }}
+      />
+    </>
   );
 }
 

@@ -2,7 +2,7 @@
 
 import { Languages } from "lucide-react";
 import { useAppState } from "@/components/AppProviders";
-import { Link, usePathname, useRouter } from "@/i18n/navigation";
+import { usePathname, useRouter } from "@/i18n/navigation";
 import type { Locale } from "@/lib/i18n";
 import { useTranslations } from "next-intl";
 
@@ -38,38 +38,38 @@ export default function LanguageToggle() {
         <Languages size={14} aria-hidden="true" />
         {t("language")}
       </div>
-      <Link
-        href={pathname}
-        locale="en"
+      <button
+        type="button"
         role="radio"
         aria-checked={locale === "en"}
         aria-label={t("switchToEnglish")}
-        onClick={() => setLocale("en")}
+        tabIndex={locale === "en" ? 0 : -1}
+        onClick={() => switchLocale("en")}
         onKeyDown={(event) => handleKeyDown(event, "en")}
         className={
           locale === "en"
-            ? "rounded-full bg-primary px-3 py-2 text-label-md font-semibold uppercase tracking-[0.08em] text-on-primary"
-            : "rounded-full px-3 py-2 text-label-md font-semibold uppercase tracking-[0.08em] text-on-surface-variant"
+            ? "inline-flex min-h-11 items-center rounded-full bg-primary px-4 py-2 text-label-md font-semibold uppercase tracking-[0.08em] text-on-primary"
+            : "inline-flex min-h-11 items-center rounded-full px-4 py-2 text-label-md font-semibold uppercase tracking-[0.08em] text-on-surface-variant"
         }
       >
         EN
-      </Link>
-      <Link
-        href={pathname}
-        locale="es"
+      </button>
+      <button
+        type="button"
         role="radio"
         aria-checked={locale === "es"}
         aria-label={t("switchToSpanish")}
-        onClick={() => setLocale("es")}
+        tabIndex={locale === "es" ? 0 : -1}
+        onClick={() => switchLocale("es")}
         onKeyDown={(event) => handleKeyDown(event, "es")}
         className={
           locale === "es"
-            ? "rounded-full bg-primary px-3 py-2 text-label-md font-semibold uppercase tracking-[0.08em] text-on-primary"
-            : "rounded-full px-3 py-2 text-label-md font-semibold uppercase tracking-[0.08em] text-on-surface-variant"
+            ? "inline-flex min-h-11 items-center rounded-full bg-primary px-4 py-2 text-label-md font-semibold uppercase tracking-[0.08em] text-on-primary"
+            : "inline-flex min-h-11 items-center rounded-full px-4 py-2 text-label-md font-semibold uppercase tracking-[0.08em] text-on-surface-variant"
         }
       >
         ES
-      </Link>
+      </button>
     </div>
   );
 }

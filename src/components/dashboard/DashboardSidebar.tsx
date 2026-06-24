@@ -46,7 +46,7 @@ export default function DashboardSidebar({ displayName, email, streak }: Dashboa
 
           {streak && streak > 0 ? (
             <div className="flex items-center gap-2 rounded-full bg-tertiary-container/40 px-4 py-2 text-label-md font-semibold text-tertiary">
-              <Flame size={18} />
+              <Flame size={18} aria-hidden="true" />
               <span>{t("streakDays", { count: streak })}</span>
             </div>
           ) : null}
@@ -65,7 +65,7 @@ export default function DashboardSidebar({ displayName, email, streak }: Dashboa
                       : "flex items-center gap-3 rounded-xl px-4 py-3 text-label-md font-medium text-on-surface-variant transition-colors hover:bg-surface-container hover:text-primary"
                   }
                 >
-                  <item.icon size={20} />
+                  <item.icon size={20} aria-hidden="true" />
                   {item.label}
                 </Link>
               );
@@ -87,11 +87,11 @@ export default function DashboardSidebar({ displayName, email, streak }: Dashboa
               aria-current={active ? "page" : undefined}
               className={
                 active
-                  ? "flex flex-1 flex-col items-center gap-0.5 border-t-2 border-primary py-2 text-label-sm font-semibold text-primary"
-                  : "flex flex-1 flex-col items-center gap-0.5 py-2 text-label-sm text-on-surface-variant"
+                  ? "flex min-h-[56px] flex-1 flex-col items-center justify-center gap-0.5 border-t-2 border-primary py-3 text-label-sm font-semibold text-primary"
+                  : "flex min-h-[56px] flex-1 flex-col items-center justify-center gap-0.5 py-3 text-label-sm text-on-surface-variant"
               }
             >
-              <item.icon size={20} />
+              <item.icon size={20} aria-hidden="true" />
               {item.label}
             </Link>
           );

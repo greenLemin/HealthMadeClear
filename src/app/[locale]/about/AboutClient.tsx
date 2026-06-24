@@ -37,7 +37,10 @@ export default function AboutClient() {
             const Icon = value.icon;
             return (
               <article key={value.title} className="card">
-                <div className="mb-4 inline-flex rounded-lg bg-surface-container px-4 py-4 text-primary">
+                <div
+                  className="mb-4 inline-flex rounded-lg bg-surface-container px-4 py-4 text-primary"
+                  aria-hidden="true"
+                >
                   <Icon size={22} />
                 </div>
                 <h2 className="mb-3 text-headline-md text-primary">{value.title}</h2>
@@ -68,7 +71,10 @@ export default function AboutClient() {
           <h2 className="mb-2 text-headline-md text-primary">{t("contactTitle")}</h2>
           <p className="text-body-md text-on-surface-variant">
             {t("contactBody")}{" "}
-            <a href="mailto:hello@healthmadeclear.org" className="font-semibold text-primary">
+            <a
+              href="mailto:hello@healthmadeclear.org"
+              className="font-semibold text-primary underline underline-offset-2"
+            >
               hello@healthmadeclear.org
             </a>
           </p>

@@ -43,20 +43,25 @@ export default function OnboardingDialog() {
 
   return (
     <div className="fixed inset-0 z-[110] flex items-center justify-center p-4">
-      <div className="fixed inset-0 bg-black/50 backdrop-blur-sm" onClick={dismiss} aria-hidden="true" />
+      <div
+        className="fixed inset-0 bg-black/50 backdrop-blur-sm motion-safe:animate-fadeIn"
+        onClick={dismiss}
+        aria-hidden="true"
+      />
       <div
         ref={dialogRef}
         role="dialog"
         aria-modal="true"
         aria-labelledby="onboarding-title"
-        className="relative z-10 w-full max-w-lg rounded-xl border border-outline-variant bg-surface p-6 shadow-elevation-3 md:p-8"
+        className="relative z-10 w-full max-w-lg rounded-xl border border-outline-variant bg-surface p-6 shadow-elevation-3 motion-safe:animate-fadeIn md:p-8"
       >
         <button
+          type="button"
           onClick={dismiss}
-          className="absolute right-3 top-3 flex h-8 w-8 items-center justify-center rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface"
+          className="absolute right-3 top-3 flex min-h-11 min-w-11 items-center justify-center rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
           aria-label={t("close")}
         >
-          <X size={18} />
+          <X size={18} aria-hidden="true" />
         </button>
 
         <h2 id="onboarding-title" className="mb-1 text-headline-lg text-primary">
@@ -66,7 +71,10 @@ export default function OnboardingDialog() {
 
         <div className="mb-6 space-y-4">
           <div className="flex items-start gap-4">
-            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-primary-container text-primary">
+            <div
+              className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-primary-container text-primary"
+              aria-hidden="true"
+            >
               <BookOpen size={20} />
             </div>
             <div>
@@ -75,7 +83,10 @@ export default function OnboardingDialog() {
             </div>
           </div>
           <div className="flex items-start gap-4">
-            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-secondary-container text-on-secondary-container">
+            <div
+              className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-secondary-container text-on-secondary-container"
+              aria-hidden="true"
+            >
               <Route size={20} />
             </div>
             <div>
@@ -84,7 +95,10 @@ export default function OnboardingDialog() {
             </div>
           </div>
           <div className="flex items-start gap-4">
-            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-surface-container text-on-surface">
+            <div
+              className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-surface-container text-on-surface"
+              aria-hidden="true"
+            >
               <Search size={20} />
             </div>
             <div>
@@ -94,7 +108,7 @@ export default function OnboardingDialog() {
           </div>
         </div>
 
-        <button onClick={dismiss} className="btn-primary w-full">
+        <button type="button" onClick={dismiss} className="btn-primary w-full">
           {t("getStarted")}
         </button>
       </div>

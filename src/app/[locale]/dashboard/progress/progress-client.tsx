@@ -6,6 +6,7 @@ import { Clock, BookOpen, CheckCircle2, Flame, TrendingUp, ArrowLeft, ArrowRight
 import Card from "@/components/ui/Card";
 import Button from "@/components/ui/Button";
 import ProgressBar from "@/components/ui/ProgressBar";
+import EmptyState from "@/components/ui/EmptyState";
 import { formatRelativeDate, formatMemberSince, type Locale } from "@/lib/i18n";
 
 type Summary = {
@@ -103,13 +104,22 @@ export default function ProgressClient({
 
   return (
     <div className="space-y-10">
+      <h1 className="text-headline-lg text-primary">{t("title")}</h1>
+
       {/* Section 1: Overall Progress */}
       <section>
         <h2 className="mb-6 text-headline-md text-primary">{t("overallProgress")}</h2>
         <div className="grid gap-6 md:grid-cols-[1fr_2fr]">
           <div className="flex flex-col items-center justify-center rounded-2xl border border-outline-variant bg-surface-container-lowest p-8 shadow-card">
-            <div className="relative mb-4 flex h-36 w-36 items-center justify-center">
-              <svg className="h-full w-full -rotate-90" viewBox="0 0 100 100">
+            <div
+              className="relative mb-4 flex h-36 w-36 items-center justify-center"
+              role="img"
+              aria-label={t("lessonsCompleted", {
+                count: summary.totalLessonsCompleted,
+                total: summary.totalLessonsAvailable,
+              })}
+            >
+              <svg className="h-full w-full -rotate-90" viewBox="0 0 100 100" aria-hidden="true">
                 <circle
                   cx="50"
                   cy="50"
@@ -131,30 +141,37 @@ export default function ProgressClient({
                   className="text-secondary"
                 />
               </svg>
-              <span className="absolute text-headline-lg font-bold text-primary">{overallPct}%</span>
+              <span className="absolute text-headline-lg font-bold text-primary" aria-hidden="true">
+                {overallPct}%
+              </span>
             </div>
             <p className="text-label-md text-on-surface-variant">
-              {summary.totalLessonsCompleted} of {summary.totalLessonsAvailable} lessons completed
+              {t("lessonsCompleted", {
+                count: summary.totalLessonsCompleted,
+                total: summary.totalLessonsAvailable,
+              })}
             </p>
           </div>
           <div className="space-y-4">
             <Card padding="sm">
               <div className="flex items-center gap-3">
-                <Clock size={20} className="text-primary" />
+                <Clock size={20} className="text-primary" aria-hidden="true" />
                 <div>
-                  <p className="text-label-sm text-on-surface-variant">Total time learning</p>
+                  <p className="text-label-sm text-on-surface-variant">{t("totalTime")}</p>
                   <p className="text-headline-md text-primary">{formatTime(summary.totalTimeSpentMinutes)}</p>
                 </div>
               </div>
             </Card>
             <Card padding="sm">
               <div className="flex items-center gap-3">
-                <CheckCircle2 size={20} className="text-primary" />
+                <CheckCircle2 size={20} className="text-primary" aria-hidden="true" />
                 <div>
                   <p className="text-label-sm text-on-surface-variant">
                     <MemberSince date={memberSince} locale={locale} />
                   </p>
-                  <p className="text-headline-md text-primary">{summary.totalLessonsCompleted} lessons</p>
+                  <p className="text-headline-md text-primary">
+                    {t("lessonsValue", { count: summary.totalLessonsCompleted })}
+                  </p>
                 </div>
               </div>
             </Card>
@@ -164,15 +181,24 @@ export default function ProgressClient({
 
       {/* Section 2: Progress by Category */}
       <section>
-        <h2 className="mb-4 text-headline-md text-primary">Progress by Category</h2>
+        <h2 className="mb-4 text-headline-md text-primary">{t("progressByCategory")}</h2>
         <div className="overflow-hidden rounded-2xl border border-outline-variant">
           <table className="w-full">
+            <caption className="sr-only">{t("categoryTableCaption")}</caption>
             <thead>
               <tr className="bg-surface-container text-left text-label-md font-semibold text-on-surface-variant">
-                <th className="px-4 py-3 md:px-6">Category</th>
-                <th className="px-4 py-3 md:px-6">Lessons Completed</th>
-                <th className="hidden px-4 py-3 md:table-cell md:px-6">Quizzes Passed</th>
-                <th className="hidden px-4 py-3 md:table-cell md:px-6">Avg. Quiz Score</th>
+                <th scope="col" className="px-4 py-3 md:px-6">
+                  {t("category")}
+                </th>
+                <th scope="col" className="px-4 py-3 md:px-6">
+                  {t("lessonsColumn")}
+                </th>
+                <th scope="col" className="hidden px-4 py-3 md:table-cell md:px-6">
+                  {t("quizzesPassedColumn")}
+                </th>
+                <th scope="col" className="hidden px-4 py-3 md:table-cell md:px-6">
+                  {t("avgQuizScoreColumn")}
+                </th>
               </tr>
             </thead>
             <tbody className="divide-y divide-outline-variant">
@@ -180,9 +206,12 @@ export default function ProgressClient({
                 const pct = cat.total > 0 ? Math.round((cat.completed / cat.total) * 100) : 0;
                 return (
                   <tr key={cat.categoryId} className="bg-surface-container-lowest">
-                    <td className="px-4 py-4 text-label-md font-medium text-on-surface md:px-6">
+                    <th
+                      scope="row"
+                      className="px-4 py-4 text-left text-label-md font-medium text-on-surface md:px-6"
+                    >
                       {cat.label || cat.categoryId}
-                    </td>
+                    </th>
                     <td className="px-4 py-4 md:px-6">
                       <div className="max-w-[160px]">
                         <ProgressBar value={pct} size="sm" />
@@ -215,8 +244,12 @@ export default function ProgressClient({
                   </p>
                   <ProgressBar value={pct} size="sm" />
                   <p className="mt-1 text-label-sm text-on-surface-variant">
-                    {cat.completed}/{cat.total} lessons | Quizzes: {cat.quizStats.passed}/
-                    {cat.quizStats.attempts}
+                    {t("categoryMobileSummary", {
+                      completed: cat.completed,
+                      total: cat.total,
+                      passed: cat.quizStats.passed,
+                      attempts: cat.quizStats.attempts,
+                    })}
                   </p>
                 </div>
               );
@@ -228,7 +261,7 @@ export default function ProgressClient({
       {/* Section 3: Quiz Performance */}
       {quizPerformance.length > 0 ? (
         <section>
-          <h2 className="mb-4 text-headline-md text-primary">Quiz Performance</h2>
+          <h2 className="mb-4 text-headline-md text-primary">{t("quizPerformance")}</h2>
           <div className="space-y-4">
             {quizPerformance.map((item) => (
               <Card key={item.categoryId} padding="sm">
@@ -236,15 +269,22 @@ export default function ProgressClient({
                   <div className="min-w-0 flex-1">
                     <p className="text-label-md font-medium text-on-surface">{item.category}</p>
                     <div className="mt-2 flex items-center gap-4 text-label-sm text-on-surface-variant">
-                      <span>{item.attemptsCount} attempts</span>
-                      <span>Pass rate: {item.passRate}%</span>
+                      <span>{t("attemptsLabel", { count: item.attemptsCount })}</span>
+                      <span>{t("passRateLabel", { rate: item.passRate })}</span>
                     </div>
                   </div>
                   <div className="flex items-center gap-3">
-                    <span className="text-label-sm text-on-surface-variant">Avg:</span>
-                    <div className="flex h-3 w-48 overflow-hidden rounded-full bg-surface-container md:w-64">
+                    <span className="text-label-sm text-on-surface-variant">{t("avgLabel")}</span>
+                    <div
+                      className="flex h-3 w-48 overflow-hidden rounded-full bg-surface-container md:w-64"
+                      role="progressbar"
+                      aria-valuenow={item.averageScore}
+                      aria-valuemin={0}
+                      aria-valuemax={100}
+                      aria-label={t("averageScoreValue", { score: item.averageScore })}
+                    >
                       <div
-                        className="h-full rounded-full bg-secondary transition-all duration-500"
+                        className="h-full rounded-full bg-secondary transition-all duration-500 motion-reduce:transition-none"
                         style={{ width: `${item.averageScore}%` }}
                       />
                     </div>
@@ -261,18 +301,27 @@ export default function ProgressClient({
 
       {/* Section 4: Completed Lessons */}
       <section>
-        <h2 className="mb-4 text-headline-md text-primary">Completed Lessons</h2>
+        <h2 className="mb-4 text-headline-md text-primary">{t("completedLessons")}</h2>
         {completedLessons.lessons.length > 0 ? (
           <>
             {/* Desktop table */}
             <div className="hidden overflow-hidden rounded-2xl border border-outline-variant md:block">
               <table className="w-full">
+                <caption className="sr-only">{t("completedTableCaption")}</caption>
                 <thead>
                   <tr className="bg-surface-container text-left text-label-md font-semibold text-on-surface-variant">
-                    <th className="px-6 py-3">Lesson</th>
-                    <th className="px-6 py-3">Category</th>
-                    <th className="px-6 py-3">Completed</th>
-                    <th className="px-6 py-3">Quiz Score</th>
+                    <th scope="col" className="px-6 py-3">
+                      {t("lessonColumn")}
+                    </th>
+                    <th scope="col" className="px-6 py-3">
+                      {t("category")}
+                    </th>
+                    <th scope="col" className="px-6 py-3">
+                      {t("completedColumn")}
+                    </th>
+                    <th scope="col" className="px-6 py-3">
+                      {t("quizScoreColumn")}
+                    </th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-outline-variant bg-surface-container-lowest">
@@ -350,56 +399,68 @@ export default function ProgressClient({
           </>
         ) : (
           <Card padding="sm">
-            <p className="text-label-md text-on-surface-variant">
-              Complete your first lesson to see it here.
-            </p>
+            <EmptyState
+              icon={<BookOpen size={40} aria-hidden="true" />}
+              title={t("completedLessons")}
+              description={t("noCompletedLessons")}
+              action={{ label: t("startLearningCta"), href: "/learn", onClick: () => {} }}
+            />
           </Card>
         )}
       </section>
 
       {/* Section 5: Streak History */}
       <section>
-        <h2 className="mb-4 text-headline-md text-primary">Streak History</h2>
+        <h2 className="mb-4 text-headline-md text-primary">{t("streakHistory")}</h2>
         <div className="grid gap-4 md:grid-cols-[1fr_2fr]">
           <div className="flex items-center gap-4 rounded-2xl border border-outline-variant bg-surface-container-lowest p-6 shadow-card">
-            <div className="rounded-full bg-tertiary-container/40 p-3 text-tertiary">
+            <div className="rounded-full bg-tertiary-container/40 p-3 text-tertiary" aria-hidden="true">
               <Flame size={28} />
             </div>
             <div>
-              <p className="text-label-sm text-on-surface-variant">Current Streak</p>
-              <p className="text-headline-md text-primary">{summary.currentStreak} days</p>
-              <p className="text-label-sm text-on-surface-variant">Longest: {summary.longestStreak} days</p>
+              <p className="text-label-sm text-on-surface-variant">{t("currentStreak")}</p>
+              <p className="text-headline-md text-primary">
+                {t("daysValue", { count: summary.currentStreak })}
+              </p>
+              <p className="text-label-sm text-on-surface-variant">
+                {t("longestStreak", { count: summary.longestStreak })}
+              </p>
             </div>
           </div>
           <div className="rounded-2xl border border-outline-variant bg-surface-container-lowest p-6 shadow-card">
-            <p className="mb-3 text-label-md font-semibold text-on-surface">Last 30 Days</p>
-            <div className="grid grid-cols-10 gap-1.5">
+            <p className="mb-3 text-label-md font-semibold text-on-surface">{t("last30Days")}</p>
+            <ul className="grid grid-cols-10 gap-1.5" aria-label={t("streakCalendarCaption")}>
               {calendarDays.map((dateStr) => {
                 const isActive = activeSet.has(dateStr);
                 const isToday = dateStr === today;
                 return (
-                  <div
+                  <li
                     key={dateStr}
                     className={`aspect-square rounded-md ${
                       isActive ? "bg-secondary" : "bg-surface-container"
                     } ${isToday ? "ring-2 ring-primary" : ""}`}
-                    title={dateStr}
-                  />
+                  >
+                    <span className="sr-only">
+                      {isActive
+                        ? t("activeDayLabel", { date: dateStr })
+                        : t("inactiveDayLabel", { date: dateStr })}
+                    </span>
+                  </li>
                 );
               })}
-            </div>
+            </ul>
             <div className="mt-3 flex items-center gap-3 text-label-sm text-on-surface-variant">
               <span className="flex items-center gap-1">
-                <span className="inline-block h-3 w-3 rounded-sm bg-secondary" /> Active
+                <span className="inline-block h-3 w-3 rounded-sm bg-secondary" aria-hidden="true" />{" "}
+                {t("activeLabel")}
               </span>
               <span className="flex items-center gap-1">
-                <span className="inline-block h-3 w-3 rounded-sm bg-surface-container" /> Inactive
+                <span className="inline-block h-3 w-3 rounded-sm bg-surface-container" aria-hidden="true" />{" "}
+                {t("inactiveLabel")}
               </span>
             </div>
             {!hasActivityToday ? (
-              <p className="mt-3 text-label-sm font-medium text-primary">
-                Keep your streak alive! Learn something new today.
-              </p>
+              <p className="mt-3 text-label-sm font-medium text-primary">{t("keepStreakAlive")}</p>
             ) : null}
           </div>
         </div>

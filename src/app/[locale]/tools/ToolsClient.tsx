@@ -68,6 +68,7 @@ export default function ToolsClient() {
                   className={`mb-6 inline-flex rounded-2xl px-4 py-4 shadow-sm ${
                     isDark ? "bg-surface/15 text-on-primary" : "bg-surface text-primary"
                   }`}
+                  aria-hidden="true"
                 >
                   <Icon size={28} />
                 </div>

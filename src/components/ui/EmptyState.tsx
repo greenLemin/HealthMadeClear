@@ -33,7 +33,7 @@ export default function EmptyState({ icon, title, description, action, className
         action.href ? (
           <Link
             href={action.href}
-            className="inline-flex min-h-[56px] items-center justify-center gap-2 rounded-lg bg-primary px-6 py-3 text-label-lg font-semibold text-on-primary hover:bg-primary-container transition-colors"
+            className="inline-flex min-h-[56px] items-center justify-center gap-2 rounded-lg bg-primary px-6 py-3 text-label-lg font-semibold text-on-primary hover:bg-primary-container transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
           >
             {action.label}
           </Link>

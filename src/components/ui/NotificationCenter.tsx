@@ -102,10 +102,12 @@ export default function NotificationCenter() {
         ref={buttonRef}
         type="button"
         onClick={() => setIsOpen(!isOpen)}
+        aria-expanded={isOpen}
+        aria-haspopup="dialog"
         className="relative flex min-h-11 min-w-11 items-center justify-center rounded-lg text-on-surface-variant transition-colors hover:bg-surface-container hover:text-on-surface"
         aria-label={t("ariaLabel", { count: unreadCount })}
       >
-        {unreadCount > 0 ? <BellDot size={20} /> : <Bell size={20} />}
+        {unreadCount > 0 ? <BellDot size={20} aria-hidden="true" /> : <Bell size={20} aria-hidden="true" />}
         {unreadCount > 0 ? (
           <span className="absolute right-1.5 top-1.5 flex h-4 min-w-[16px] items-center justify-center rounded-full bg-error px-1 text-label-sm font-bold text-on-error">
             <span className="sr-only" aria-live="polite">
@@ -130,9 +132,9 @@ export default function NotificationCenter() {
               <button
                 type="button"
                 onClick={handleMarkAllRead}
-                className="flex items-center gap-1 text-label-sm font-medium text-primary transition-colors hover:text-primary/80"
+                className="flex min-h-11 items-center gap-1 px-2 text-label-sm font-medium text-primary transition-colors hover:text-primary/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
               >
-                <CheckCheck size={14} />
+                <CheckCheck size={14} aria-hidden="true" />
                 {t("markAllRead")}
               </button>
             ) : null}
@@ -158,7 +160,9 @@ export default function NotificationCenter() {
                       !notif.read ? "bg-primary-fixed/10" : ""
                     }`}
                   >
-                    <div className="mt-0.5 shrink-0">{getNotifIcon(notif.type)}</div>
+                    <div className="mt-0.5 shrink-0" aria-hidden="true">
+                      {getNotifIcon(notif.type)}
+                    </div>
                     <div className="min-w-0 flex-1">
                       <p
                         className={`text-label-sm ${

@@ -38,7 +38,7 @@ export default function QuizResults({
 
   return (
     <div className="mx-auto max-w-2xl">
-      <div className="card mb-8 text-center">
+      <div className="card mb-8 text-center" role="status" aria-live="polite">
         <div className="mx-auto mb-4 flex h-24 w-24 items-center justify-center">
           <svg className="h-24 w-24 -rotate-90" viewBox="0 0 36 36" aria-hidden="true">
             <circle
@@ -102,9 +102,15 @@ export default function QuizResults({
                   {i + 1}
                 </span>
                 {isCorrect ? (
-                  <CheckCircle2 size={18} className="text-secondary" aria-label="Correct" />
+                  <span className="inline-flex items-center gap-1 text-label-md font-semibold text-secondary">
+                    <CheckCircle2 size={18} aria-hidden="true" />
+                    {t("correct")}
+                  </span>
                 ) : (
-                  <XCircle size={18} className="text-tertiary" aria-label="Incorrect" />
+                  <span className="inline-flex items-center gap-1 text-label-md font-semibold text-tertiary">
+                    <XCircle size={18} aria-hidden="true" />
+                    {t("incorrect")}
+                  </span>
                 )}
               </div>
               <p className="mb-4 font-semibold text-on-surface">{q.question}</p>
@@ -123,10 +129,22 @@ export default function QuizResults({
                   }
                   return (
                     <div key={oi} className={className}>
-                      <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-surface-container text-label-md font-bold text-on-surface-variant">
+                      <span
+                        className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-surface-container text-label-md font-bold text-on-surface-variant"
+                        aria-hidden="true"
+                      >
                         {String.fromCharCode(65 + oi)}
                       </span>
-                      <span>{opt}</span>
+                      <span className="flex-1">{opt}</span>
+                      {isCorrectOption ? (
+                        <span className="shrink-0 text-label-sm font-semibold text-secondary">
+                          {t("correctAnswer")}
+                        </span>
+                      ) : isSelected ? (
+                        <span className="shrink-0 text-label-sm font-semibold text-tertiary">
+                          {t("yourAnswer")}
+                        </span>
+                      ) : null}
                     </div>
                   );
                 })}

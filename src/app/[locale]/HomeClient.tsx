@@ -107,10 +107,10 @@ export default function HomeClient({ lessons, learningPaths }: HomeClientProps) 
             </div>
             <Link
               href="/learning-paths"
-              className="hidden shrink-0 items-center gap-1 text-label-md font-semibold text-primary sm:flex"
+              className="hidden shrink-0 items-center gap-1 text-label-md font-semibold text-primary underline underline-offset-2 sm:flex"
             >
               {t("viewAllPaths")}
-              <ArrowRight size={16} />
+              <ArrowRight size={16} aria-hidden="true" />
             </Link>
           </div>
           <div className="grid gap-6 md:grid-cols-2">
@@ -166,10 +166,10 @@ export default function HomeClient({ lessons, learningPaths }: HomeClientProps) 
           <div className="mt-6 text-center sm:hidden">
             <Link
               href="/learning-paths"
-              className="inline-flex items-center gap-1 text-label-md font-semibold text-primary"
+              className="inline-flex items-center gap-1 text-label-md font-semibold text-primary underline underline-offset-2"
             >
               {t("viewAllPaths")}
-              <ArrowRight size={16} />
+              <ArrowRight size={16} aria-hidden="true" />
             </Link>
           </div>
         </div>

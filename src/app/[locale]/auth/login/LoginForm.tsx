@@ -17,6 +17,7 @@ export default function LoginForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [fieldErrors, setFieldErrors] = useState<{ email?: string; password?: string }>({});
   const [loading, setLoading] = useState(false);
 
   // Display errors passed via URL params (e.g. from email confirmation or OAuth)
@@ -32,14 +33,11 @@ export default function LoginForm() {
     e.preventDefault();
     setError("");
 
-    if (!email.trim()) {
-      setError("Email is required");
-      return;
-    }
-    if (!password.trim()) {
-      setError("Password is required");
-      return;
-    }
+    const nextFieldErrors: { email?: string; password?: string } = {};
+    if (!email.trim()) nextFieldErrors.email = t("emailRequired");
+    if (!password.trim()) nextFieldErrors.password = t("passwordRequired");
+    setFieldErrors(nextFieldErrors);
+    if (Object.keys(nextFieldErrors).length > 0) return;
 
     setLoading(true);
 
@@ -81,6 +79,7 @@ export default function LoginForm() {
         icon={<Mail size={18} />}
         required
         autoComplete="email"
+        error={fieldErrors.email}
       />
 
       <Input
@@ -91,6 +90,9 @@ export default function LoginForm() {
         icon={<Lock size={18} />}
         required
         autoComplete="current-password"
+        error={fieldErrors.password}
+        showPasswordLabel={t("showPassword")}
+        hidePasswordLabel={t("hidePassword")}
       />
 
       {/* Form submission errors */}

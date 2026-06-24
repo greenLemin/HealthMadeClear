@@ -99,8 +99,8 @@ export default function AccessibilityControls() {
                   onKeyDown={(event) => handleArrowSelection(event, TEXT_SIZES, textSize, setTextSize)}
                   className={
                     textSize === value
-                      ? "rounded-lg bg-primary px-3 py-3 text-label-md font-semibold text-on-primary"
-                      : "rounded-lg border border-outline-variant bg-surface-container-low px-3 py-3 text-label-md font-semibold text-on-surface"
+                      ? "min-h-11 rounded-lg bg-primary px-3 py-3 text-label-md font-semibold text-on-primary"
+                      : "min-h-11 rounded-lg border border-outline-variant bg-surface-container-low px-3 py-3 text-label-md font-semibold text-on-surface"
                   }
                 >
                   {value === "standard" ? "A" : value === "large" ? "A+" : "A++"}
@@ -120,8 +120,8 @@ export default function AccessibilityControls() {
                 onKeyDown={(event) => handleArrowSelection(event, THEMES, theme, setTheme)}
                 className={
                   theme === "light"
-                    ? "flex items-center justify-center gap-2 rounded-lg bg-primary px-3 py-3 text-label-md font-semibold text-on-primary"
-                    : "flex items-center justify-center gap-2 rounded-lg border border-outline-variant bg-surface-container-low px-3 py-3 text-label-md font-semibold text-on-surface"
+                    ? "flex min-h-11 items-center justify-center gap-2 rounded-lg bg-primary px-3 py-3 text-label-md font-semibold text-on-primary"
+                    : "flex min-h-11 items-center justify-center gap-2 rounded-lg border border-outline-variant bg-surface-container-low px-3 py-3 text-label-md font-semibold text-on-surface"
                 }
               >
                 <Sun size={16} aria-hidden="true" />
@@ -135,8 +135,8 @@ export default function AccessibilityControls() {
                 onKeyDown={(event) => handleArrowSelection(event, THEMES, theme, setTheme)}
                 className={
                   theme === "dark"
-                    ? "flex items-center justify-center gap-2 rounded-lg bg-primary px-3 py-3 text-label-md font-semibold text-on-primary"
-                    : "flex items-center justify-center gap-2 rounded-lg border border-outline-variant bg-surface-container-low px-3 py-3 text-label-md font-semibold text-on-surface"
+                    ? "flex min-h-11 items-center justify-center gap-2 rounded-lg bg-primary px-3 py-3 text-label-md font-semibold text-on-primary"
+                    : "flex min-h-11 items-center justify-center gap-2 rounded-lg border border-outline-variant bg-surface-container-low px-3 py-3 text-label-md font-semibold text-on-surface"
                 }
               >
                 <Moon size={16} aria-hidden="true" />
@@ -152,13 +152,13 @@ export default function AccessibilityControls() {
             </div>
             <button
               type="button"
-              aria-label={`${t("simpleMode")} ${simpleMode ? t("on") : t("off")}`}
+              aria-labelledby="simple-mode-label"
               aria-pressed={simpleMode}
               onClick={() => setSimpleMode(!simpleMode)}
               className={
                 simpleMode
-                  ? "rounded-full bg-primary px-4 py-2 text-label-md font-semibold text-on-primary"
-                  : "rounded-full border border-outline-variant px-4 py-2 text-label-md font-semibold text-on-surface"
+                  ? "inline-flex min-h-11 items-center rounded-full bg-primary px-4 py-2 text-label-md font-semibold text-on-primary"
+                  : "inline-flex min-h-11 items-center rounded-full border border-outline-variant px-4 py-2 text-label-md font-semibold text-on-surface"
               }
             >
               {simpleMode ? t("on") : t("off")}

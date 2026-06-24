@@ -171,7 +171,7 @@ export default function DashboardClient({
           </h1>
           {summary.currentStreak > 1 ? (
             <div className="mt-3 inline-flex items-center gap-2 rounded-full bg-secondary-container/60 px-4 py-2 text-label-md font-semibold text-secondary">
-              <Flame size={18} />
+              <Flame size={18} aria-hidden="true" />
               {t("streakCallout", { count: summary.currentStreak })}
             </div>
           ) : null}
@@ -200,49 +200,53 @@ export default function DashboardClient({
       <section className="grid grid-cols-2 gap-4 md:grid-cols-4">
         <Card padding="sm">
           <div className="flex items-center gap-3">
-            <div className="rounded-lg bg-primary-fixed p-2.5 text-primary">
+            <div className="rounded-lg bg-primary-fixed p-2.5 text-primary" aria-hidden="true">
               <BookOpen size={20} />
             </div>
             <div>
               <p className="text-headline-md text-primary">
                 {summary.totalLessonsCompleted} / {summary.totalLessonsAvailable}
               </p>
-              <p className="text-label-sm text-on-surface-variant">lessons completed</p>
+              <p className="text-label-sm text-on-surface-variant">{t("completedLessons")}</p>
             </div>
           </div>
         </Card>
         <Card padding="sm">
           <div className="flex items-center gap-3">
-            <div className="rounded-lg bg-secondary-container/60 p-2.5 text-secondary">
+            <div className="rounded-lg bg-secondary-container/60 p-2.5 text-secondary" aria-hidden="true">
               <CheckCircle2 size={20} />
             </div>
             <div>
               <p className="text-headline-md text-primary">{summary.totalQuizzesPassed}</p>
               <p className="text-label-sm text-on-surface-variant">
-                {summary.totalQuizzesAttempted > 0 ? `${passRate}% pass rate` : "No quizzes yet"}
+                {summary.totalQuizzesAttempted > 0
+                  ? t("statsPassRate", { rate: passRate })
+                  : t("statsNoQuizzes")}
               </p>
             </div>
           </div>
         </Card>
         <Card padding="sm">
           <div className="flex items-center gap-3">
-            <div className="rounded-lg bg-tertiary-container/30 p-2.5 text-tertiary">
+            <div className="rounded-lg bg-tertiary-container/30 p-2.5 text-tertiary" aria-hidden="true">
               <Flame size={20} />
             </div>
             <div>
-              <p className="text-headline-md text-primary">{summary.currentStreak} days</p>
-              <p className="text-label-sm text-on-surface-variant">Current streak</p>
+              <p className="text-headline-md text-primary">
+                {t("statsStreakValue", { count: summary.currentStreak })}
+              </p>
+              <p className="text-label-sm text-on-surface-variant">{t("statsStreak")}</p>
             </div>
           </div>
         </Card>
         <Card padding="sm">
           <div className="flex items-center gap-3">
-            <div className="rounded-lg bg-surface-container p-2.5 text-primary">
+            <div className="rounded-lg bg-surface-container p-2.5 text-primary" aria-hidden="true">
               <Clock size={20} />
             </div>
             <div>
               <p className="text-headline-md text-primary">{formatTime(summary.totalTimeSpentMinutes)}</p>
-              <p className="text-label-sm text-on-surface-variant">Time spent</p>
+              <p className="text-label-sm text-on-surface-variant">{t("statsTimeSpent")}</p>
             </div>
           </div>
         </Card>
@@ -250,23 +254,25 @@ export default function DashboardClient({
 
       {/* Continue Learning */}
       <section>
-        <h2 className="mb-4 text-headline-md text-primary">Continue Learning</h2>
+        <h2 className="mb-4 text-headline-md text-primary">{t("continueLearning")}</h2>
         {isFirstVisit && recommendedNext ? (
           <Card padding="md" className="border-secondary/30 bg-secondary-container/20">
             <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
               <div>
-                <p className="mb-1 text-label-sm font-semibold text-secondary">Recommended for you</p>
+                <p className="mb-1 text-label-sm font-semibold text-secondary">{t("recommendedForYou")}</p>
                 <h3 className="text-headline-md text-primary">{recommendedNext.title}</h3>
                 <p className="mt-1 text-body-md text-on-surface-variant">{recommendedNext.description}</p>
                 <div className="mt-2 flex items-center gap-3 text-label-sm text-on-surface-variant">
                   <span>{recommendedNext.duration}</span>
-                  {recommendedNext.pathTitle ? <span>Part of {recommendedNext.pathTitle}</span> : null}
+                  {recommendedNext.pathTitle ? (
+                    <span>{t("partOfPath", { path: recommendedNext.pathTitle })}</span>
+                  ) : null}
                 </div>
               </div>
               <div className="shrink-0">
                 <Link href={`/learn/${recommendedNext.id}`}>
                   <Button size="lg" icon={<Sparkles size={20} />}>
-                    Begin Your Journey
+                    {t("beginYourJourney")}
                   </Button>
                 </Link>
               </div>
@@ -281,12 +287,15 @@ export default function DashboardClient({
                   <div className="min-w-0 flex-1">
                     <p className="mb-1 text-label-sm font-semibold text-primary">{active.path.title}</p>
                     <h3 className="text-headline-md text-primary">
-                      {active.nextLesson?.title ?? "All lessons complete!"}
+                      {active.nextLesson?.title ?? t("allLessonsComplete")}
                     </h3>
                     <div className="mt-3 max-w-md">
                       <ProgressBar
                         value={active.progressPercentage}
-                        label={`Lesson ${active.completedLessonIds.length + 1} of ${active.path.lessons.length}`}
+                        label={t("lessonXofY", {
+                          current: active.completedLessonIds.length + 1,
+                          total: active.path.lessons.length,
+                        })}
                         showPercentage
                         size="sm"
                       />
@@ -296,7 +305,7 @@ export default function DashboardClient({
                     <div className="shrink-0">
                       <Link href={`/learn/${active.nextLesson.id}`}>
                         <Button size="lg" icon={<ArrowRight size={20} />}>
-                          Continue
+                          {t("continueCta")}
                         </Button>
                       </Link>
                     </div>
@@ -309,14 +318,12 @@ export default function DashboardClient({
           <Card padding="md">
             <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
               <div>
-                <h3 className="text-headline-md text-primary">All caught up!</h3>
-                <p className="mt-1 text-body-md text-on-surface-variant">
-                  You&apos;ve completed all available lessons. Check back for new content.
-                </p>
+                <h3 className="text-headline-md text-primary">{t("allCaughtUpTitle")}</h3>
+                <p className="mt-1 text-body-md text-on-surface-variant">{t("allCaughtUpDesc")}</p>
               </div>
               <Link href="/learning-paths">
                 <Button variant="secondary" icon={<BookOpen size={20} />}>
-                  Browse learning paths
+                  {t("browsePaths")}
                 </Button>
               </Link>
             </div>
@@ -327,12 +334,12 @@ export default function DashboardClient({
       {/* My Learning Paths */}
       <section>
         <div className="mb-4 flex items-end justify-between gap-4">
-          <h2 className="text-headline-md text-primary">My Learning Paths</h2>
+          <h2 className="text-headline-md text-primary">{t("myLearningPaths")}</h2>
           <Link
             href="/learning-paths"
-            className="text-label-md font-semibold text-primary underline-offset-2 hover:underline"
+            className="text-label-md font-semibold text-primary underline underline-offset-2"
           >
-            Browse All Paths &rarr;
+            {t("browseAllPaths")} &rarr;
           </Link>
         </div>
         {inProgressPaths.length > 0 ? (
@@ -360,12 +367,15 @@ export default function DashboardClient({
                 <p className="mb-4 text-body-md text-on-surface-variant">{entry.path.description}</p>
                 <div className="mb-4 flex items-center gap-2 text-label-md text-on-surface-variant">
                   <ListChecks size={16} aria-hidden="true" />
-                  <span>{entry.path.lessons.length} modules</span>
+                  <span>{t("modulesCount", { count: entry.path.lessons.length })}</span>
                 </div>
                 <div className="mb-5">
                   <ProgressBar
                     value={entry.progressPercentage}
-                    label={`${entry.completedLessonIds.length} of ${entry.path.lessons.length} complete`}
+                    label={t("completeLabel", {
+                      completed: entry.completedLessonIds.length,
+                      total: entry.path.lessons.length,
+                    })}
                     showPercentage
                     size="sm"
                   />
@@ -373,14 +383,14 @@ export default function DashboardClient({
                 <div className="flex items-center justify-between gap-4">
                   {entry.isComplete ? (
                     <span className="inline-flex items-center gap-1.5 text-label-md font-semibold text-secondary">
-                      Completed ✓
+                      {t("completedLabel")} ✓
                     </span>
                   ) : entry.nextLesson ? (
                     <Link
                       href={`/learn/${entry.nextLesson.id}`}
                       className="btn-primary inline-flex items-center gap-2 text-label-lg"
                     >
-                      Continue
+                      {t("continueCta")}
                     </Link>
                   ) : null}
                 </div>
@@ -389,11 +399,11 @@ export default function DashboardClient({
           </div>
         ) : (
           <EmptyState
-            icon={<BookOpen size={32} />}
-            title="No learning paths started yet"
-            description="Start a guided learning path to track your progress through a topic."
+            icon={<BookOpen size={32} aria-hidden="true" />}
+            title={t("noPathsStarted")}
+            description={t("noPathsStartedDesc")}
             action={{
-              label: "Explore Learning Paths",
+              label: t("explorePathsCta"),
               onClick: () => {},
               href: "/learning-paths",
             }}
@@ -403,7 +413,7 @@ export default function DashboardClient({
 
       {/* Recent Activity */}
       <section>
-        <h2 className="mb-4 text-headline-md text-primary">Recent Activity</h2>
+        <h2 className="mb-4 text-headline-md text-primary">{t("recentActivity")}</h2>
         {recentActivity.length > 0 ? (
           <div className="space-y-3">
             {recentActivity.map((item, i) => (
@@ -417,6 +427,7 @@ export default function DashboardClient({
                       ? "bg-primary-fixed text-primary"
                       : "bg-secondary-container/60 text-secondary"
                   }`}
+                  aria-hidden="true"
                 >
                   {item.type === "lesson" ? <BookOpen size={16} /> : <CheckCircle2 size={16} />}
                 </div>
@@ -424,7 +435,9 @@ export default function DashboardClient({
                   <p className="text-label-md text-on-surface">{item.title}</p>
                   <p className="text-label-sm text-on-surface-variant">
                     {item.type === "quiz" && item.score !== undefined
-                      ? `${item.score}% - ${item.passed ? "Passed" : "Not passed"}`
+                      ? item.passed
+                        ? t("quizResultPassed", { score: item.score })
+                        : t("quizResultFailed", { score: item.score })
                       : null}
                     <span className="ml-2">
                       {formatRelativeDate(item.completedAt, locale as "en" | "es")}
@@ -434,9 +447,10 @@ export default function DashboardClient({
                 {item.lessonId ? (
                   <Link
                     href={`/learn/${item.lessonId}`}
-                    className="shrink-0 text-label-sm font-semibold text-primary underline-offset-2 hover:underline"
+                    className="shrink-0 text-label-sm font-semibold text-primary underline underline-offset-2"
+                    aria-label={`${t("viewDetails")}: ${item.title}`}
                   >
-                    View
+                    {t("viewDetails")}
                   </Link>
                 ) : null}
               </div>
@@ -444,11 +458,11 @@ export default function DashboardClient({
           </div>
         ) : (
           <EmptyState
-            icon={<TrendingUp size={32} />}
-            title="No activity yet"
-            description="Complete your first lesson to get started"
+            icon={<TrendingUp size={32} aria-hidden="true" />}
+            title={t("noActivity")}
+            description={t("noActivityDesc")}
             action={{
-              label: "Start your first lesson",
+              label: t("startFirstLessonCta"),
               onClick: () => {},
               href: recommendedNext ? `/learn/${recommendedNext.id}` : "/learn",
             }}
@@ -460,12 +474,12 @@ export default function DashboardClient({
       {earnedAchievements.length > 0 ? (
         <section>
           <div className="mb-4 flex items-end justify-between gap-4">
-            <h2 className="text-headline-md text-primary">Recently Earned</h2>
+            <h2 className="text-headline-md text-primary">{t("recentlyEarned")}</h2>
             <Link
               href="/dashboard/achievements"
-              className="text-label-md font-semibold text-primary underline-offset-2 hover:underline"
+              className="text-label-md font-semibold text-primary underline underline-offset-2"
             >
-              View all achievements &rarr;
+              {t("viewAllAchievements")} &rarr;
             </Link>
           </div>
           <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4">

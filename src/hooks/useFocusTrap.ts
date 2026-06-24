@@ -30,10 +30,16 @@ export function useFocusTrap(containerRef: React.RefObject<HTMLElement | null>, 
       }
     };
 
+    const previouslyFocused = document.activeElement as HTMLElement | null;
     const firstFocusable = focusables()[0];
     firstFocusable?.focus();
 
     document.addEventListener("keydown", handleKeyDown);
-    return () => document.removeEventListener("keydown", handleKeyDown);
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+      if (previouslyFocused && typeof previouslyFocused.focus === "function") {
+        previouslyFocused.focus();
+      }
+    };
   }, [active, containerRef]);
 }

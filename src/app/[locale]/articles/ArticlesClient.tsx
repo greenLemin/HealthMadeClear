@@ -5,6 +5,7 @@ import { Link } from "@/i18n/navigation";
 import { Clock, Search } from "lucide-react";
 import { useAppState } from "@/components/AppProviders";
 import PageHeader from "@/components/PageHeader";
+import EmptyState from "@/components/ui/EmptyState";
 import { getArticles } from "@/lib/localizedContent";
 import { useTranslations } from "next-intl";
 
@@ -51,25 +52,34 @@ export default function ArticlesClient() {
           </label>
         </PageHeader>
 
-        <div className="grid gap-6 md:grid-cols-2">
-          {filtered.map((article) => (
-            <Link key={article.id} href={`/articles/${article.id}`} className="card-hover card block">
-              <div className="mb-2 text-label-md font-semibold uppercase tracking-wide text-primary">
-                {article.category}
-              </div>
-              <h2 className="mb-2 text-headline-md text-primary">{article.title}</h2>
-              <p className="mb-4 text-body-md text-on-surface-variant">{article.description}</p>
-              <div className="flex items-center gap-2 text-label-md text-on-surface-variant">
-                <Clock size={16} aria-hidden />
-                {article.readingTime} {tCommon("read")}
-              </div>
-            </Link>
-          ))}
-        </div>
+        <p className="sr-only" role="status" aria-live="polite">
+          {t("resultsCount", { count: filtered.length })}
+        </p>
 
-        {filtered.length === 0 ? (
-          <p className="mt-8 text-center text-body-md text-on-surface-variant">{t("noResults")}</p>
-        ) : null}
+        {filtered.length > 0 ? (
+          <div className="grid gap-6 md:grid-cols-2">
+            {filtered.map((article) => (
+              <Link key={article.id} href={`/articles/${article.id}`} className="card-hover card block">
+                <div className="mb-2 text-label-md font-semibold uppercase tracking-wide text-primary">
+                  {article.category}
+                </div>
+                <h2 className="mb-2 text-headline-md text-primary">{article.title}</h2>
+                <p className="mb-4 text-body-md text-on-surface-variant">{article.description}</p>
+                <div className="flex items-center gap-2 text-label-md text-on-surface-variant">
+                  <Clock size={16} aria-hidden="true" />
+                  {article.readingTime} {tCommon("read")}
+                </div>
+              </Link>
+            ))}
+          </div>
+        ) : (
+          <EmptyState
+            icon={<Search size={40} aria-hidden="true" />}
+            title={t("noResults")}
+            description={t("noResultsHint")}
+            action={{ label: t("clearSearch"), onClick: () => setQuery("") }}
+          />
+        )}
       </div>
     </div>
   );

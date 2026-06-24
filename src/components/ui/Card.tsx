@@ -28,7 +28,9 @@ export default function Card({
       className={[
         "rounded-2xl border border-outline-variant bg-surface-container-lowest",
         paddingStyles[padding],
-        clickable ? "cursor-pointer transition-shadow hover:shadow-card-hover" : "shadow-card",
+        clickable
+          ? "cursor-pointer transition-shadow hover:shadow-card-hover focus-within:ring-2 focus-within:ring-primary focus-within:ring-offset-2"
+          : "shadow-card",
         className,
       ].join(" ")}
     >

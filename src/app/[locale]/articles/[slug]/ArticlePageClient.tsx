@@ -16,6 +16,7 @@ export default function ArticlePageClient({ article }: { article: Article }) {
   const { locale } = useAppState();
   const t = useTranslations("articles");
   const tCommon = useTranslations("common");
+  const tNav = useTranslations("nav");
   const glossaryTerms = getGlossaryTerms(locale);
   const { showToast } = useToast();
   const url = typeof window !== "undefined" ? window.location.href : "";
@@ -23,11 +24,11 @@ export default function ArticlePageClient({ article }: { article: Article }) {
   const handleCopyLink = useCallback(async () => {
     try {
       await navigator.clipboard.writeText(url);
-      showToast("success", "Link copied to clipboard");
+      showToast("success", t("linkCopied"));
     } catch {
-      showToast("error", "Could not copy link");
+      showToast("error", t("linkCopyError"));
     }
-  }, [url, showToast]);
+  }, [url, showToast, t]);
 
   const handleShareTwitter = useCallback(() => {
     const text = encodeURIComponent(`${article.title} — Health Made Clear`);
@@ -42,11 +43,32 @@ export default function ArticlePageClient({ article }: { article: Article }) {
   return (
     <div className="py-12 md:py-16">
       <div className="max-w-container mx-auto px-4 md:px-6">
+        <nav className="no-print mb-6" aria-label="Breadcrumb">
+          <ol className="flex flex-wrap items-center gap-2 text-label-md text-on-surface-variant">
+            <li>
+              <Link href="/" className="hover:text-primary transition-colors">
+                {tNav("home")}
+              </Link>
+            </li>
+            <li aria-hidden="true">/</li>
+            <li>
+              <Link href="/articles" className="hover:text-primary transition-colors">
+                {tNav("articles")}
+              </Link>
+            </li>
+            <li aria-hidden="true">/</li>
+            <li>
+              <span className="text-on-surface" aria-current="page">
+                {article.title}
+              </span>
+            </li>
+          </ol>
+        </nav>
         <Link
           href="/articles"
           className="no-print mb-6 inline-flex items-center gap-2 text-label-md font-semibold text-primary"
         >
-          <ArrowLeft size={18} />
+          <ArrowLeft size={18} aria-hidden="true" />
           {t("backToArticles")}
         </Link>
         <div className="mb-4 flex flex-wrap gap-3 text-label-md text-on-surface-variant">
@@ -80,19 +102,19 @@ export default function ArticlePageClient({ article }: { article: Article }) {
           <button
             type="button"
             onClick={handleCopyLink}
-            className="inline-flex items-center gap-2 rounded-lg border border-outline-variant bg-surface px-4 py-2 text-label-md text-on-surface transition-colors hover:bg-surface-container"
-            aria-label="Copy link to clipboard"
+            className="inline-flex min-h-11 items-center gap-2 rounded-lg border border-outline-variant bg-surface px-4 py-2 text-label-md text-on-surface transition-colors hover:bg-surface-container focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+            aria-label={tCommon("copyLink")}
           >
-            <Link2 size={16} />
+            <Link2 size={16} aria-hidden="true" />
             {tCommon("copyLink")}
           </button>
           <button
             type="button"
             onClick={handleShareTwitter}
-            className="inline-flex items-center gap-2 rounded-lg border border-outline-variant bg-surface px-4 py-2 text-label-md text-on-surface transition-colors hover:bg-surface-container"
-            aria-label="Share on X"
+            className="inline-flex min-h-11 items-center gap-2 rounded-lg border border-outline-variant bg-surface px-4 py-2 text-label-md text-on-surface transition-colors hover:bg-surface-container focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+            aria-label={t("shareOnX")}
           >
-            <Share2 size={16} />
+            <Share2 size={16} aria-hidden="true" />
             {t("shareOnX")}
           </button>
         </div>

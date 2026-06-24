@@ -92,7 +92,7 @@ const config: Config = {
         "card-hover": "0 4px 6px var(--shadow-color-heavy), 0 2px 4px var(--shadow-color)",
         "elevation-1": "0 2px 4px var(--shadow-color), 0 1px 2px var(--shadow-color)",
         "elevation-2": "0 8px 16px var(--shadow-color-heavy), 0 4px 8px var(--shadow-color)",
-        "elevation-3": "0 12px 24px rgba(0, 0, 0, 0.10), 0 6px 12px rgba(0, 0, 0, 0.06)",
+        "elevation-3": "0 12px 24px var(--shadow-color-heavy), 0 6px 12px var(--shadow-color)",
       },
     },
   },

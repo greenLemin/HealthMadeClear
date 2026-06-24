@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { CheckCircle2, Info, X, XCircle } from "lucide-react";
 
 type ToastVariant = "success" | "error" | "info";
@@ -28,26 +28,45 @@ const variantIcons: Record<ToastVariant, React.ReactNode> = {
   info: <Info size={20} className="text-primary" />,
 };
 
+const AUTO_DISMISS_MS = 8000;
+
 export default function ToastItem({ toast, onDismiss }: ToastProps) {
   const [visible, setVisible] = useState(false);
+  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const isError = toast.variant === "error";
 
   useEffect(() => {
     const show = requestAnimationFrame(() => setVisible(true));
     return () => cancelAnimationFrame(show);
   }, []);
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
+  const startTimer = useCallback(() => {
+    if (timerRef.current) clearTimeout(timerRef.current);
+    timerRef.current = setTimeout(() => {
       setVisible(false);
       setTimeout(() => onDismiss(toast.id), 300);
-    }, 8000);
-    return () => clearTimeout(timer);
+    }, AUTO_DISMISS_MS);
   }, [toast.id, onDismiss]);
+
+  const pauseTimer = useCallback(() => {
+    if (timerRef.current) clearTimeout(timerRef.current);
+  }, []);
+
+  useEffect(() => {
+    startTimer();
+    return () => {
+      if (timerRef.current) clearTimeout(timerRef.current);
+    };
+  }, [startTimer]);
 
   return (
     <div
-      role="status"
-      aria-live="polite"
+      role={isError ? "alert" : "status"}
+      aria-live={isError ? "assertive" : "polite"}
+      onMouseEnter={pauseTimer}
+      onMouseLeave={startTimer}
+      onFocus={pauseTimer}
+      onBlur={startTimer}
       className={[
         "flex items-start gap-3 rounded-xl border-l-4 border-outline-variant bg-surface p-4 shadow-elevation-2 transition-all duration-300 motion-reduce:transition-none",
         variantStyles[toast.variant],
@@ -61,10 +80,10 @@ export default function ToastItem({ toast, onDismiss }: ToastProps) {
       <button
         type="button"
         onClick={() => onDismiss(toast.id)}
-        className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface"
+        className="flex min-h-11 min-w-11 shrink-0 items-center justify-center rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
         aria-label="Dismiss notification"
       >
-        <X size={16} />
+        <X size={16} aria-hidden="true" />
       </button>
     </div>
   );

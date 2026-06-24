@@ -172,7 +172,7 @@ export default function GlossaryClient({ terms: glossaryTerms }: GlossaryClientP
                             <Link
                               key={related}
                               href={`/glossary/${related}`}
-                              className="rounded-full bg-surface-container px-3 py-1 text-label-md font-semibold text-primary underline hover:bg-secondary-container"
+                              className="inline-flex min-h-11 items-center rounded-full bg-surface-container px-4 py-2 text-label-md font-semibold text-primary underline hover:bg-secondary-container"
                             >
                               {getGlossaryLabelFromBundle(related, locale)}
                             </Link>

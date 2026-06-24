@@ -4,6 +4,7 @@ import { useState, useRef, useEffect, useCallback } from "react";
 import { Link } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
 import { createPortal } from "react-dom";
+import { useFocusTrap } from "@/hooks/useFocusTrap";
 import { useOptionalScrollSpyContext } from "./ScrollSpyProvider";
 
 /** The minimal shape of a glossary term needed to render the popover. */
@@ -23,10 +24,12 @@ function Popover({
   term,
   triggerRect,
   onClose,
+  popoverId,
 }: {
   term: GlossaryTermSummary;
   triggerRect: DOMRect;
   onClose: () => void;
+  popoverId: string;
 }) {
   const t = useTranslations("glossary");
   const popoverRef = useRef<HTMLDivElement>(null);
@@ -34,9 +37,12 @@ function Popover({
   const gap = 8;
   const popoverWidth = 288;
 
+  useFocusTrap(popoverRef, true);
+
   useEffect(() => {
     if (popoverRef.current) {
       setPopoverHeight(popoverRef.current.offsetHeight);
+      popoverRef.current.focus();
     }
   }, []);
 
@@ -57,14 +63,16 @@ function Popover({
   return (
     <div
       ref={popoverRef}
+      id={popoverId}
       role="dialog"
+      aria-modal="true"
       aria-label={term.term}
-      className="no-print fixed z-50 w-72 rounded-lg border border-outline-variant bg-surface p-4 shadow-elevation-2"
+      tabIndex={-1}
+      className="no-print fixed z-50 w-72 rounded-lg border border-outline-variant bg-surface p-4 shadow-elevation-2 transition-opacity duration-150 ease-out motion-reduce:transition-none focus:outline-none"
       style={{
         top: top < 8 ? 8 : top,
         left,
         opacity: popoverHeight === 0 ? 0 : 1,
-        transition: "opacity 0.15s ease-out",
       }}
     >
       <span className="mb-1 block text-label-md font-bold text-primary">{term.term}</span>
@@ -91,6 +99,7 @@ export default function InlineGlossaryTerm({ term, displayText, instanceId }: In
   const scrollSpy = useOptionalScrollSpyContext();
 
   const isActive = instanceId && scrollSpy?.activeTermIds.has(instanceId);
+  const popoverId = `glossary-popover-${term.id}${instanceId ? `-${instanceId}` : ""}`;
 
   useEffect(() => {
     if (!instanceId || !scrollSpy) return;
@@ -101,6 +110,7 @@ export default function InlineGlossaryTerm({ term, displayText, instanceId }: In
   const close = useCallback(() => {
     setIsOpen(false);
     setTriggerRect(null);
+    buttonRef.current?.focus();
   }, []);
 
   const toggle = useCallback(() => {
@@ -163,6 +173,7 @@ export default function InlineGlossaryTerm({ term, displayText, instanceId }: In
         className={`${baseClasses} ${activeClasses}`}
         aria-haspopup="dialog"
         aria-expanded={isOpen}
+        aria-controls={isOpen ? popoverId : undefined}
       >
         {displayText}
       </button>
@@ -171,7 +182,10 @@ export default function InlineGlossaryTerm({ term, displayText, instanceId }: In
       {isOpen &&
         triggerRect &&
         typeof document !== "undefined" &&
-        createPortal(<Popover term={term} triggerRect={triggerRect} onClose={close} />, document.body)}
+        createPortal(
+          <Popover term={term} triggerRect={triggerRect} onClose={close} popoverId={popoverId} />,
+          document.body
+        )}
     </span>
   );
 }

@@ -77,6 +77,8 @@
     "read": "lectura",
     "back": "Atrás",
     "backToTop": "Volver arriba",
+    "offlineMessage": "Estás sin conexión. Algunas funciones pueden no estar disponibles.",
+    "dismiss": "Descartar",
     "searchLessons": "Buscar lecciones",
     "searchTerms": "Buscar términos",
     "allTopics": "Todos los temas",
@@ -265,7 +267,13 @@
     "exportError": "Error al exportar el progreso",
     "daysUnit": "días",
     "cancel": "Cancelar",
-    "confirmationLabel": "Confirmación"
+    "confirmationLabel": "Confirmación",
+    "statsStreakValue": "{count} días",
+    "modulesCount": "{count} módulos",
+    "completeLabel": "{completed} de {total} completadas",
+    "completedLabel": "Completado",
+    "quizResultPassed": "{score}% — Aprobado",
+    "quizResultFailed": "{score}% — No aprobado"
   },
   "settings": {
     "title": "Configuración",
@@ -332,7 +340,17 @@
     "last30Days": "Últimos 30 Días",
     "activeLabel": "Activo",
     "inactiveLabel": "Inactivo",
-    "keepStreakAlive": "¡Mantén tu racha viva! Aprende algo nuevo hoy."
+    "keepStreakAlive": "¡Mantén tu racha viva! Aprende algo nuevo hoy.",
+    "daysValue": "{count} días",
+    "lessonsValue": "{count} lecciones",
+    "averageScoreValue": "Puntuación media {score}%",
+    "categoryTableCaption": "Lecciones completadas y resultados de cuestionarios por categoría",
+    "completedTableCaption": "Lecciones que has completado",
+    "streakCalendarCaption": "Tu actividad de aprendizaje en los últimos 30 días",
+    "activeDayLabel": "{date}: activo",
+    "inactiveDayLabel": "{date}: sin actividad",
+    "startLearningCta": "Empezar a aprender",
+    "categoryMobileSummary": "{completed}/{total} lecciones · Cuestionarios: {passed}/{attempts}"
   },
   "achievements": {
     "title": "Logros",
@@ -589,17 +607,24 @@
     "progressWillBeLost": "Si sales de esta página, perderás tu progreso.",
     "stay": "Permanecer",
     "leave": "Salir",
-    "bestScore": "Tu mejor puntuación: {score}%"
+    "bestScore": "Tu mejor puntuación: {score}%",
+    "yourAnswer": "Tu respuesta",
+    "correctAnswer": "Respuesta correcta"
   },
   "articles": {
     "title": "Artículos de salud",
     "description": "Lecturas breves sobre navegar el sistema de salud, atención preventiva e información médica.",
     "searchArticles": "Buscar artículos…",
     "noResults": "Ningún artículo coincide con tu búsqueda.",
+    "noResultsHint": "Prueba con otra palabra o borra la búsqueda para ver todos los artículos.",
+    "clearSearch": "Borrar búsqueda",
+    "resultsCount": "{count} artículos encontrados",
     "backToArticles": "Volver a artículos",
     "lastReviewed": "Revisado {date}",
     "share": "Compartir",
-    "shareOnX": "Compartir en X"
+    "shareOnX": "Compartir en X",
+    "linkCopied": "Enlace copiado al portapapeles",
+    "linkCopyError": "No se pudo copiar el enlace"
   },
   "search": {
     "openSearch": "Abrir búsqueda",
@@ -676,7 +701,14 @@
     "createAccountCta": "Crear cuenta",
     "dismissBanner": "Cerrar",
     "errorConfirmationFailed": "Tu enlace de confirmación de correo no es válido o ha expirado. Intenta iniciar sesión o solicita un nuevo enlace.",
-    "errorAuthFailed": "La autenticación falló. Por favor, inténtalo de nuevo."
+    "errorAuthFailed": "La autenticación falló. Por favor, inténtalo de nuevo.",
+    "emailRequired": "Introduce tu correo electrónico.",
+    "passwordRequired": "Introduce tu contraseña.",
+    "showPassword": "Mostrar contraseña",
+    "hidePassword": "Ocultar contraseña",
+    "passwordStrengthLabel": "Seguridad de la contraseña",
+    "resetSuccessTitle": "Contraseña actualizada",
+    "resetSuccessMessage": "Tu contraseña ha sido cambiada. Redirigiéndote para iniciar sesión…"
   },
   "terms": {
     "title": "Términos del Servicio",

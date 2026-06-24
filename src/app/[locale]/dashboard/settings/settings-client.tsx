@@ -93,6 +93,7 @@ export default function SettingsClient({
 
   return (
     <div className="space-y-10">
+      <h1 className="text-headline-lg text-primary">{t("title")}</h1>
       <section>
         <h2 className="mb-4 text-headline-md text-primary">{t("profileSection")}</h2>
         <Card padding="md">
