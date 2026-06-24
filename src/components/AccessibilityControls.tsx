@@ -146,13 +146,16 @@ export default function AccessibilityControls() {
           </div>
 
           <div className="flex items-center justify-between rounded-lg bg-surface-container-low px-4 py-4">
-            <div id="simple-mode-label">
+            <div>
               <div className="text-label-md text-on-surface">{t("simpleMode")}</div>
-              <div className="text-label-md text-on-surface-variant">{t("simpleModeDescription")}</div>
+              <div id="simple-mode-description" className="text-label-md text-on-surface-variant">
+                {t("simpleModeDescription")}
+              </div>
             </div>
             <button
               type="button"
-              aria-labelledby="simple-mode-label"
+              aria-label={`${t("simpleMode")}, ${simpleMode ? t("on") : t("off")}`}
+              aria-describedby="simple-mode-description"
               aria-pressed={simpleMode}
               onClick={() => setSimpleMode(!simpleMode)}
               className={
