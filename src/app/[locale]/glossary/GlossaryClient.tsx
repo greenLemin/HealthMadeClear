@@ -24,7 +24,7 @@ export default function GlossaryClient({ terms: glossaryTerms }: GlossaryClientP
   const t = useTranslations("glossary");
   const tCommon = useTranslations("common");
   const allLabel = tCommon("all");
-  const showAlphabet = locale === "en";
+  const showAlphabet = true;
 
   useEffect(() => {
     const hash = window.location.hash.replace("#", "");
@@ -131,7 +131,7 @@ export default function GlossaryClient({ terms: glossaryTerms }: GlossaryClientP
               {terms.map((term) => (
                 <article key={term.id} id={term.id} className="card scroll-mt-24">
                   <h3 className="mb-4 text-headline-md text-primary">
-                    <Link href={`/glossary/${term.id}`} className="hover:underline">
+                    <Link href={`/glossary/${term.id}`} className="underline hover:no-underline">
                       {term.term}
                     </Link>
                   </h3>

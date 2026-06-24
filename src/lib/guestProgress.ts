@@ -1,4 +1,5 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
+import { logger } from "./logger";
 
 const STORAGE_PREFIX = "hmc_guest_";
 
@@ -76,7 +77,7 @@ export async function migrateGuestProgressToSupabase(
     });
 
     if (lessonError) {
-      console.error("Failed to migrate lesson progress:", lessonError);
+      logger.error("Failed to migrate lesson progress:", lessonError);
       errors.push(lessonError.message);
     }
   }
@@ -93,7 +94,7 @@ export async function migrateGuestProgressToSupabase(
     const { error: quizError } = await supabase.from("quiz_attempts").insert(quizRows);
 
     if (quizError) {
-      console.error("Failed to migrate quiz attempts:", quizError);
+      logger.error("Failed to migrate quiz attempts:", quizError);
       errors.push(quizError.message);
     }
   }

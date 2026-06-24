@@ -145,6 +145,7 @@ export default function VisitPlannerClient() {
             <button
               key={value}
               type="button"
+              aria-current={value === step ? "step" : undefined}
               className={
                 value === step
                   ? "rounded-lg bg-primary px-4 py-3 text-left text-on-primary"
@@ -172,6 +173,7 @@ export default function VisitPlannerClient() {
                     <button
                       key={key}
                       type="button"
+                      aria-pressed={visitType === key}
                       className={
                         visitType === key
                           ? "rounded-lg border-2 border-primary bg-primary-fixed px-5 py-5 text-left"
@@ -200,34 +202,37 @@ export default function VisitPlannerClient() {
 
           {step === 2 ? (
             <div>
-              <h2 className="mb-3 text-headline-md text-primary">{t("selectQuestions")}</h2>
-              <p className="mb-6 text-body-md text-on-surface-variant">{t("selectQuestionsBody")}</p>
-              <div className="grid gap-4 md:grid-cols-2">
-                {questions.map((question) => {
-                  const selected = selectedQuestions.includes(question);
-                  const inputId = `question-${question.slice(0, 20)}`;
-                  return (
-                    <label
-                      key={question}
-                      htmlFor={inputId}
-                      className={
-                        selected
-                          ? "flex cursor-pointer items-start gap-3 rounded-lg border-2 border-primary bg-primary-fixed px-5 py-5"
-                          : "flex cursor-pointer items-start gap-3 rounded-lg border border-outline-variant bg-surface px-5 py-5"
-                      }
-                    >
-                      <input
-                        id={inputId}
-                        type="checkbox"
-                        className="mt-1 h-5 w-5 rounded border-outline text-primary focus:ring-primary"
-                        checked={selected}
-                        onChange={() => toggleQuestion(question)}
-                      />
-                      <span className="text-label-lg text-on-surface">{question}</span>
-                    </label>
-                  );
-                })}
-              </div>
+              <fieldset className="border-0 p-0 m-0">
+                <legend className="sr-only">{t("selectQuestions")}</legend>
+                <h2 className="mb-3 text-headline-md text-primary">{t("selectQuestions")}</h2>
+                <p className="mb-6 text-body-md text-on-surface-variant">{t("selectQuestionsBody")}</p>
+                <div className="grid gap-4 md:grid-cols-2">
+                  {questions.map((question) => {
+                    const selected = selectedQuestions.includes(question);
+                    const inputId = `question-${question.slice(0, 20)}`;
+                    return (
+                      <label
+                        key={question}
+                        htmlFor={inputId}
+                        className={
+                          selected
+                            ? "flex cursor-pointer items-start gap-3 rounded-lg border-2 border-primary bg-primary-fixed px-5 py-5"
+                            : "flex cursor-pointer items-start gap-3 rounded-lg border border-outline-variant bg-surface px-5 py-5"
+                        }
+                      >
+                        <input
+                          id={inputId}
+                          type="checkbox"
+                          className="mt-1 h-5 w-5 rounded border-outline text-primary focus:ring-primary"
+                          checked={selected}
+                          onChange={() => toggleQuestion(question)}
+                        />
+                        <span className="text-label-lg text-on-surface">{question}</span>
+                      </label>
+                    );
+                  })}
+                </div>
+              </fieldset>
 
               {/* Custom Questions Section */}
               <div className="mt-8 border-t border-outline-variant pt-8">
@@ -268,6 +273,7 @@ export default function VisitPlannerClient() {
                           type="button"
                           className="text-error hover:text-red-700 font-semibold text-label-md"
                           onClick={() => removeCustomQuestion(cq.id)}
+                          aria-label={`${t("remove")} "${cq.text}"`}
                         >
                           {t("remove")}
                         </button>

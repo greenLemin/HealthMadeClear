@@ -10,6 +10,9 @@
 
   html {
     scroll-behavior: smooth;
+    max-width: 100%;
+    overflow-x: hidden;
+    scroll-padding-top: 80px;
   }
 
   h1,
@@ -119,7 +122,7 @@
     --color-primary-container: #0d5c63;
     --color-on-primary-container: #c0f0f6;
     --color-primary-fixed: #8fd1d9;
-    --color-secondary-container: #3e6658;
+    --color-secondary-container: #1b3d32;
     --color-on-secondary-container: #c0ecda;
     --color-error: #ffb4ab;
     --color-on-error: #690005;
@@ -130,7 +133,7 @@
     --color-surface-tint: #8fd1d9;
     --color-secondary: #a5d0be;
     --color-on-secondary: #002117;
-    --color-secondary-container: #3e6658;
+    --color-secondary-container: #1b3d32;
     --color-on-secondary-container: #c0ecda;
     --color-tertiary: #fcb889;
     --color-on-tertiary: #301400;
@@ -162,14 +165,12 @@
   }
 
   body {
-    background-color: var(--color-surface);
-    color: var(--color-on-surface);
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
     background-color: var(--background);
     color: var(--foreground);
     font-size: 16px;
     line-height: 1.6;
+    max-width: 100%;
+    overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
@@ -180,8 +181,17 @@
     }
   }
 
-  :root,
-  :root * {
+  body,
+  header,
+  main,
+  footer,
+  .card,
+  .card-hover,
+  button,
+  a,
+  input,
+  select,
+  textarea {
     transition:
       background-color 0.2s ease,
       border-color 0.2s ease,

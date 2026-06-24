@@ -10,6 +10,7 @@ import QuizQuestionComponent from "@/components/quiz/QuizQuestion";
 import QuizResults from "@/components/quiz/QuizResults";
 import type { Quiz } from "@/types/quiz";
 import { useRouter } from "@/i18n/navigation";
+import { useFocusTrap } from "@/hooks/useFocusTrap";
 
 type QuizState = "start" | "active" | "completed";
 
@@ -81,6 +82,19 @@ export default function QuizClient({ quiz, lessonTitle, lessonId }: Props) {
   const [showResult, setShowResult] = useState(false);
   const [showConfetti, setShowConfetti] = useState(false);
   const [showExitWarning, setShowExitWarning] = useState(false);
+
+  const exitWarningRef = useRef<HTMLDivElement>(null);
+  useFocusTrap(exitWarningRef, showExitWarning);
+
+  // Close exit warning on Escape key
+  useEffect(() => {
+    if (!showExitWarning) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setShowExitWarning(false);
+    };
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [showExitWarning]);
 
   const total = quiz.questions.length;
   const answered = useMemo(() => Object.keys(answers).length, [answers]);
@@ -247,8 +261,16 @@ export default function QuizClient({ quiz, lessonTitle, lessonId }: Props) {
       {/* Exit warning dialog */}
       {showExitWarning ? (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4">
-          <div className="max-w-sm rounded-2xl bg-surface p-6 shadow-elevation-3">
-            <h2 className="mb-3 text-headline-md text-primary">{t("leaveQuiz")}</h2>
+          <div
+            ref={exitWarningRef}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="exit-warning-title"
+            className="max-w-sm rounded-2xl bg-surface p-6 shadow-elevation-3"
+          >
+            <h2 id="exit-warning-title" className="mb-3 text-headline-md text-primary">
+              {t("leaveQuiz")}
+            </h2>
             <p className="mb-6 text-body-md text-on-surface-variant">{t("progressWillBeLost")}</p>
             <div className="flex gap-3">
               <button

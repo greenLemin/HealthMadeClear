@@ -74,32 +74,35 @@ export default function VisitChecklistClient() {
             />
           </div>
 
-          <div className="space-y-3">
-            {checklistItems.map((item) => {
-              const checked = checkedItems.includes(item);
-              const inputId = `checklist-${item.replace(/\s+/g, "-")}`;
-              return (
-                <label
-                  key={item}
-                  htmlFor={inputId}
-                  className={
-                    checked
-                      ? "flex w-full cursor-pointer items-center gap-4 rounded-lg border-2 border-primary bg-primary-fixed px-5 py-4 text-left"
-                      : "flex w-full cursor-pointer items-center gap-4 rounded-lg border border-outline-variant bg-surface px-5 py-4 text-left"
-                  }
-                >
-                  <input
-                    id={inputId}
-                    type="checkbox"
-                    className="h-5 w-5 rounded border-outline text-primary focus:ring-primary"
-                    checked={checked}
-                    onChange={() => toggleItem(item)}
-                  />
-                  <span className="text-body-md text-on-surface">{item}</span>
-                </label>
-              );
-            })}
-          </div>
+          <fieldset className="border-0 p-0 m-0">
+            <legend className="sr-only">{t("checklistPageTitle")}</legend>
+            <div className="space-y-3">
+              {checklistItems.map((item) => {
+                const checked = checkedItems.includes(item);
+                const inputId = `checklist-${item.replace(/\s+/g, "-")}`;
+                return (
+                  <label
+                    key={item}
+                    htmlFor={inputId}
+                    className={
+                      checked
+                        ? "flex w-full cursor-pointer items-center gap-4 rounded-lg border-2 border-primary bg-primary-fixed px-5 py-4 text-left"
+                        : "flex w-full cursor-pointer items-center gap-4 rounded-lg border border-outline-variant bg-surface px-5 py-4 text-left"
+                    }
+                  >
+                    <input
+                      id={inputId}
+                      type="checkbox"
+                      className="h-5 w-5 rounded border-outline text-primary focus:ring-primary"
+                      checked={checked}
+                      onChange={() => toggleItem(item)}
+                    />
+                    <span className="text-body-md text-on-surface">{item}</span>
+                  </label>
+                );
+              })}
+            </div>
+          </fieldset>
         </div>
 
         <div className="mt-8 max-w-4xl">

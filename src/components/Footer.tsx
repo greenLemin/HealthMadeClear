@@ -9,7 +9,7 @@ export default function Footer() {
   const tDisclaimer = useTranslations("disclaimer");
 
   return (
-    <footer className="no-print border-t border-outline-variant bg-primary text-on-primary">
+    <footer className="no-print border-t border-outline-variant bg-primary dark:bg-surface-container-low text-on-primary dark:text-on-surface">
       <div className="max-w-container mx-auto px-4 py-12 md:px-16">
         <div className="grid gap-10 md:grid-cols-[1.4fr_1fr_1fr]">
           <div>

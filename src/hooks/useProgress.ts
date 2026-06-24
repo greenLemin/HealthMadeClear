@@ -5,6 +5,7 @@ import { useAuth } from "@/hooks/useAuth";
 import { useAppState } from "@/components/AppProviders";
 import { useToast } from "@/components/ui/ToastProvider";
 import { createClient } from "@/lib/supabase/client";
+import { useLocale } from "next-intl";
 import {
   getGuestProgress,
   markLessonComplete as guestMarkLessonComplete,
@@ -39,6 +40,7 @@ export interface ProgressActions {
 
 export function useProgress(): ProgressState & ProgressActions {
   const { user, loading: authLoading } = useAuth();
+  const locale = useLocale();
   const {
     completedLessons,
     quizScores,
@@ -162,7 +164,7 @@ export function useProgress(): ProgressState & ProgressActions {
 
           // Check for close-to-completion notifications on learning paths
           const allCompletedSet = new Set(allCompleted);
-          const allPaths = (await import("@/lib/paths/loadPaths")).getAllLearningPaths("en");
+          const allPaths = (await import("@/lib/paths/loadPaths")).getAllLearningPaths(locale as any);
           const notificationPromises = [];
           for (const path of allPaths) {
             const remaining = path.lessons.filter((id) => !allCompletedSet.has(id));

@@ -46,7 +46,7 @@ export default function ToastItem({ toast, onDismiss }: ToastProps) {
 
   return (
     <div
-      role="alert"
+      role="status"
       aria-live="polite"
       className={[
         "flex items-start gap-3 rounded-xl border-l-4 border-outline-variant bg-surface p-4 shadow-elevation-2 transition-all duration-300 motion-reduce:transition-none",

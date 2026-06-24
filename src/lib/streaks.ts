@@ -11,7 +11,8 @@ export async function updateStreak(
   longestStreak: number;
   isNewDay: boolean;
 }> {
-  const today = new Date().toISOString().split("T")[0];
+  const d = new Date();
+  const today = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
 
   const { data: existing } = await supabase.from("streaks").select("*").eq("user_id", userId).single();
 
@@ -44,7 +45,7 @@ export async function updateStreak(
   } else {
     const yesterday = new Date();
     yesterday.setDate(yesterday.getDate() - 1);
-    const yesterdayStr = yesterday.toISOString().split("T")[0];
+    const yesterdayStr = `${yesterday.getFullYear()}-${String(yesterday.getMonth() + 1).padStart(2, "0")}-${String(yesterday.getDate()).padStart(2, "0")}`;
 
     if (lastDate === yesterdayStr) {
       currentStreak += 1;

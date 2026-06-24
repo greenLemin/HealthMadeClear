@@ -32,7 +32,7 @@ export default function NetworkStatusBanner() {
     <div
       role="status"
       aria-live="polite"
-      className="fixed inset-x-0 top-0 z-[100] bg-warning-container px-4 py-3 text-center text-label-md text-on-warning-container shadow-elevation-2 motion-safe:animate-slideDown"
+      className="fixed inset-x-0 top-0 z-[100] border-b border-tertiary/20 bg-tertiary-fixed px-4 py-3 text-center text-label-md font-semibold text-on-tertiary-fixed shadow-elevation-2 motion-safe:animate-slideDown"
     >
       You&apos;re offline. Some features may be unavailable.
     </div>

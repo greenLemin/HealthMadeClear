@@ -57,7 +57,7 @@ export default function QuizResults({
               fill="none"
               stroke="currentColor"
               strokeWidth="3"
-              strokeDasharray={`${(score / maxScore) * 100} ${100 - (score / maxScore) * 100}`}
+              strokeDasharray={`${score} ${100 - score}`}
               strokeLinecap="round"
               className={passed ? "text-secondary" : "text-tertiary"}
             />

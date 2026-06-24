@@ -5,13 +5,13 @@ import MedicalDisclaimer from "@/components/MedicalDisclaimer";
 import PageHeader from "@/components/PageHeader";
 import { useTranslations } from "next-intl";
 
-function ChecklistItems({ items }: { items: string }) {
+function ChecklistItems({ items, textColor }: { items: string; textColor?: string }) {
   const list = items.split("|");
   return (
-    <ul className="mt-4 space-y-2 text-label-md text-on-surface-variant">
+    <ul className={`mt-4 space-y-2 text-label-md ${textColor || "text-on-surface-variant"}`}>
       {list.map((item) => (
         <li key={item} className="flex gap-2">
-          <span className="text-primary" aria-hidden>
+          <span className={textColor ? "" : "text-primary"} aria-hidden>
             •
           </span>
           <span>{item}</span>
@@ -44,16 +44,22 @@ export default function CareGuideClient() {
       title: t("urgentCare"),
       description: t("urgentCareBody"),
       checklist: t("urgentCareChecklist"),
-      tone: "border-transparent bg-secondary-container",
+      tone: "border-transparent bg-secondary-container text-on-secondary-container",
       icon: Hospital,
+      iconColor: "text-on-secondary-container",
+      titleColor: "text-on-secondary-container font-bold",
+      textColor: "text-on-secondary-container/90",
     },
     {
       title: t("emergency"),
       description: t("emergencyBody"),
       checklist: t("emergencyChecklist"),
-      tone: "border-error bg-error-container",
+      tone: "border-error bg-error-container text-on-error-container",
       icon: Siren,
       badge: t("emergencyBadge24"),
+      iconColor: "text-error dark:text-on-error-container",
+      titleColor: "text-error dark:text-on-error-container font-bold",
+      textColor: "text-on-error-container",
     },
   ];
 
@@ -74,7 +80,10 @@ export default function CareGuideClient() {
 
   return (
     <div className="pb-16">
-      <div className="no-print bg-error px-4 py-3 text-center text-label-md font-semibold text-on-error">
+      <div
+        role="alert"
+        className="no-print bg-error px-4 py-3 text-center text-label-md font-semibold text-on-error"
+      >
         {tDisclaimer("emergencyTitle")}: {t("emergencyShort")}
       </div>
       <div className="max-w-container mx-auto px-4 py-12 md:px-6">
@@ -88,16 +97,20 @@ export default function CareGuideClient() {
               return (
                 <article key={option.title} className={`rounded-lg border p-6 ${option.tone}`}>
                   <div className="mb-3 flex items-start justify-between gap-2">
-                    <Icon size={24} className="text-primary" aria-hidden />
+                    <Icon size={24} className={option.iconColor || "text-primary"} aria-hidden />
                     {option.badge ? (
                       <span className="rounded-full bg-error px-2 py-1 text-label-md font-semibold text-on-error">
                         {option.badge}
                       </span>
                     ) : null}
                   </div>
-                  <h3 className="mb-3 text-headline-md text-primary">{option.title}</h3>
-                  <p className="text-body-md text-on-surface-variant">{option.description}</p>
-                  <ChecklistItems items={option.checklist} />
+                  <h3 className={`mb-3 text-headline-md ${option.titleColor || "text-primary"}`}>
+                    {option.title}
+                  </h3>
+                  <p className={`text-body-md ${option.textColor || "text-on-surface-variant"}`}>
+                    {option.description}
+                  </p>
+                  <ChecklistItems items={option.checklist} textColor={option.textColor} />
                 </article>
               );
             })}

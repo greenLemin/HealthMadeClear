@@ -5,8 +5,10 @@ import { Bell, BellDot, CheckCheck, Trophy, Flame, Target } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
 import { getNotifications, markAsRead, markAllAsRead, getUnreadCount } from "@/lib/notifications";
-import type { Notification } from "@/lib/notifications";
+import type { Notification as DbNotification } from "@/lib/notifications";
 import { useTranslations } from "next-intl";
+import { useFocusTrap } from "@/hooks/useFocusTrap";
+import { useDismissibleOverlay } from "@/hooks/useDismissibleOverlay";
 
 function formatNotifTime(dateStr: string, tCommon: ReturnType<typeof useTranslations<"common">>): string {
   const date = new Date(dateStr);
@@ -43,11 +45,20 @@ export default function NotificationCenter() {
   const tCommon = useTranslations("common");
   const supabase = useMemo(() => createClient(), []);
   const [isOpen, setIsOpen] = useState(false);
-  const [notifications, setNotifications] = useState<Notification[]>([]);
+  const [notifications, setNotifications] = useState<DbNotification[]>([]);
   const [unreadCount, setUnreadCount] = useState(0);
   const [loading, setLoading] = useState(false);
   const panelRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
+
+  useFocusTrap(panelRef, isOpen);
+  useDismissibleOverlay({
+    isOpen,
+    onClose: () => setIsOpen(false),
+    containerRef: panelRef,
+    triggerRef: buttonRef,
+    returnFocusRef: buttonRef,
+  });
 
   const fetchNotifications = useCallback(async () => {
     if (!user) return;
@@ -65,20 +76,7 @@ export default function NotificationCenter() {
     fetchNotifications();
   }, [fetchNotifications]);
 
-  useEffect(() => {
-    function handleClickOutside(e: MouseEvent) {
-      if (
-        panelRef.current &&
-        !panelRef.current.contains(e.target as Node) &&
-        buttonRef.current &&
-        !buttonRef.current.contains(e.target as Node)
-      ) {
-        setIsOpen(false);
-      }
-    }
-    if (isOpen) document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, [isOpen]);
+  // Removed manual click outside listener in favor of useDismissibleOverlay hook
 
   async function handleMarkAllRead() {
     if (!user) return;
@@ -87,7 +85,7 @@ export default function NotificationCenter() {
     setNotifications((prev) => prev.map((n) => ({ ...n, read: true })));
   }
 
-  async function handleClick(notif: Notification) {
+  async function handleClick(notif: DbNotification) {
     if (!user) return;
     if (!notif.read) {
       await markAsRead(supabase, user.id, notif.id);

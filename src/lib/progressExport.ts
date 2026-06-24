@@ -38,7 +38,9 @@ export function downloadProgressExport(data: ExportedProgress) {
   const anchor = document.createElement("a");
   anchor.href = url;
   anchor.download = `health-made-clear-progress-${new Date().toISOString().slice(0, 10)}.json`;
+  document.body.appendChild(anchor);
   anchor.click();
+  document.body.removeChild(anchor);
   URL.revokeObjectURL(url);
 }
 
