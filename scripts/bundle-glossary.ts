@@ -1,8 +1,8 @@
 import fs from "fs";
 import path from "path";
-import { execFileSync } from "child_process";
 import { getAllGlossaryFromMdx } from "../src/lib/glossary/mdxParser";
 import { assertLocaleIdParity } from "./lib/validateLocaleParity";
+import { formatWithPrettier } from "./lib/formatWithPrettier";
 
 const en = getAllGlossaryFromMdx("en");
 const es = getAllGlossaryFromMdx("es");
@@ -19,7 +19,7 @@ const writeLocaleBundle = (locale: "en" | "es", terms: typeof en) => {
     `${header}export const terms: GlossaryTerm[] = ${JSON.stringify(terms, null, 2)} as const;\n`,
     "utf8"
   );
-  execFileSync("npx", ["prettier", "--write", outPath], { shell: process.platform === "win32" });
+  formatWithPrettier(outPath);
   return outPath;
 };
 

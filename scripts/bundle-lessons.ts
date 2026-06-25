@@ -1,8 +1,8 @@
 import fs from "fs";
 import path from "path";
-import { execFileSync } from "child_process";
 import { getAllLessonsFromMdx } from "../src/lib/lessons/mdxParser";
 import { assertLocaleIdParity } from "./lib/validateLocaleParity";
+import { formatWithPrettier } from "./lib/formatWithPrettier";
 
 const en = getAllLessonsFromMdx("en");
 const es = getAllLessonsFromMdx("es");
@@ -19,7 +19,7 @@ const writeLocaleBundle = (locale: "en" | "es", lessons: typeof en) => {
     `${header}export const lessons: Lesson[] = ${JSON.stringify(lessons, null, 2)} as const;\n`,
     "utf8"
   );
-  execFileSync("npx", ["prettier", "--write", outPath], { shell: process.platform === "win32" });
+  formatWithPrettier(outPath);
   return outPath;
 };
 

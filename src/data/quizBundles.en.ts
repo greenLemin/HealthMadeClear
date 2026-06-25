@@ -2380,4 +2380,1120 @@ export const quizzes: Quiz[] = [
       },
     ],
   },
+  {
+    id: "otc-drug-interactions",
+    title: "OTC Drug Interactions Quiz",
+    lessonId: "otc-drug-interactions",
+    passScore: 70,
+    questions: [
+      {
+        question: "Why is checking active ingredients on multiple OTC labels important?",
+        options: [
+          "Brands always use different ingredients",
+          "Duplicate ingredients can exceed safe daily limits",
+          "Only prescription drugs have active ingredients",
+          "Labels are optional for adults",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "Multiple OTC products may share the same active drug (e.g., acetaminophen), pushing total dose past safe limits. Brands often differ, and both prescriptions and OTC products list actives — labels are required, not optional.",
+      },
+      {
+        question: "Who is especially helpful for screening drug interactions?",
+        options: [
+          "A pharmacist with your full medication list",
+          "Social media health forums",
+          "Only the drug manufacturer hotline",
+          "No one — interactions are rare",
+        ],
+        correctAnswer: "A",
+        explanation:
+          "Pharmacists are trained to identify interactions when they know all medicines and supplements you use. Forums lack your personal history; manufacturers cannot review your full regimen, and interactions are common enough to warrant screening.",
+      },
+      {
+        question: "How can NSAIDs like ibuprofen interact with some blood pressure medicines?",
+        options: [
+          "They always lower blood pressure further",
+          "They may reduce kidney blood flow and affect blood pressure control",
+          "They have no effect on kidneys",
+          "They replace the need for blood pressure drugs",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "NSAIDs can reduce prostaglandin-mediated kidney blood flow, which may worsen blood pressure control or kidney function in susceptible people. They do not reliably lower BP, are not kidney-neutral, and never replace prescribed therapy.",
+      },
+      {
+        question: "Why tell providers about herbal supplements when taking prescriptions?",
+        options: [
+          "Supplements never interact with drugs",
+          "Some supplements like St. John's wort can alter prescription drug levels",
+          "Only vitamins matter, not herbs",
+          "Providers already know every supplement you take",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "Herbal products can induce or inhibit drug metabolism — St. John's wort is a well-known example. Supplements can interact; herbs are not exempt; providers do not automatically know what you take unless you tell them.",
+      },
+      {
+        question: "What should you do before adding a new OTC medicine if you take several prescriptions?",
+        options: [
+          "Assume OTC is always safe",
+          "Ask a pharmacist or clinician to review for interactions",
+          "Double all prescription doses instead",
+          "Stop all prescriptions for one day",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "Professional review catches interaction risks with your specific regimen. OTC is not automatically safe with prescriptions; changing doses or stopping prescribed drugs without guidance is dangerous.",
+      },
+    ],
+  },
+  {
+    id: "antibiotic-stewardship",
+    title: "Antibiotic Stewardship Quiz",
+    lessonId: "antibiotic-stewardship",
+    passScore: 70,
+    questions: [
+      {
+        question: "Antibiotics are effective against which type of infection?",
+        options: [
+          "Most common colds caused by viruses",
+          "Bacterial infections when appropriately prescribed",
+          "All sore throats regardless of cause",
+          "Seasonal allergies",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "Antibiotics target bacteria, not viruses or allergies. Most colds and many sore throats are viral; only specific bacterial causes warrant antibiotics after proper evaluation.",
+      },
+      {
+        question: "Why is stopping antibiotics early a concern?",
+        options: [
+          "It always causes instant resistance in the patient",
+          "It may not fully clear the infection and can select harder-to-treat bacteria",
+          "It makes the medicine work better later",
+          "It has no effect on treatment outcomes",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "Incomplete treatment can leave surviving bacteria and contribute to resistance. It does not instantly make you permanently resistant, does not improve future efficacy, and clearly affects outcomes.",
+      },
+      {
+        question: "What is a serious side effect linked to antibiotic use?",
+        options: [
+          "C. difficile colitis",
+          "Improved vision",
+          "Permanent immunity to all infections",
+          "Lower cholesterol",
+        ],
+        correctAnswer: "A",
+        explanation:
+          "Antibiotics can disrupt gut flora and allow C. diff overgrowth, causing severe diarrhea. They do not improve vision, grant broad immunity, or lower cholesterol.",
+      },
+      {
+        question: "What should you do with leftover antibiotic pills?",
+        options: [
+          "Save them for the next cold",
+          "Share with a family member with similar symptoms",
+          "Dispose of them safely per pharmacy guidance — do not self-treat later",
+          "Take double dose to finish the bottle faster",
+        ],
+        correctAnswer: "C",
+        explanation:
+          "Leftover antibiotics may be the wrong drug, dose, or duration for a new illness. Saving, sharing, or doubling doses without medical direction is unsafe.",
+      },
+      {
+        question: "Why does the CDC emphasize antibiotic stewardship?",
+        options: [
+          "Antibiotics are no longer used in hospitals",
+          "Resistant bacteria make infections harder and sometimes impossible to treat",
+          "Viruses are becoming resistant to antibiotics",
+          "Stewardship means avoiding all medical care",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "Resistance limits treatment options for serious bacterial infections. Antibiotics remain essential in hospitals; viruses do not become antibiotic-resistant — bacteria do; stewardship promotes appropriate use, not avoiding care.",
+      },
+    ],
+  },
+  {
+    id: "drug-food-interactions",
+    title: "Drug-Food Interactions Quiz",
+    lessonId: "drug-food-interactions",
+    passScore: 70,
+    questions: [
+      {
+        question: "Why can grapefruit juice be problematic with certain medicines?",
+        options: [
+          "It always makes medicines work faster safely",
+          "It can inhibit enzymes and raise drug blood levels",
+          "It only affects vitamins, not prescriptions",
+          "It has no clinical significance",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "Grapefruit inhibits intestinal CYP3A4, increasing absorption of some drugs to potentially toxic levels. It does not universally speed drugs safely, affects many prescriptions, and has well-documented clinical effects.",
+      },
+      {
+        question: "Why might levothyroxine be taken on an empty stomach?",
+        options: [
+          "Food always improves thyroid absorption",
+          "Food and minerals like calcium can reduce absorption",
+          "It must always be taken with a high-fat meal",
+          "Timing never matters for thyroid medicine",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "Food, calcium, and iron can interfere with levothyroxine absorption, so consistent fasting timing is often recommended. Food does not reliably improve absorption; high-fat meals are not required; timing does matter.",
+      },
+      {
+        question: "What dietary approach helps people on warfarin?",
+        options: [
+          "Completely avoid all vitamin K forever",
+          "Keep vitamin K intake fairly consistent day to day",
+          "Double leafy greens weekly for health",
+          "Stop warfarin when eating salad",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "Warfarin dosing is adjusted to consistent vitamin K intake — sudden large changes matter more than moderate steady amounts. Avoiding all vitamin K is unnecessary; erratic doubling or stopping warfarin around meals is unsafe.",
+      },
+      {
+        question: "Why limit alcohol with acetaminophen?",
+        options: [
+          "Alcohol improves liver detoxification of acetaminophen",
+          "Both can stress the liver and increase injury risk",
+          "Alcohol has no liver effects",
+          "Only children are at risk",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "Alcohol and acetaminophen both burden hepatic pathways; combined use raises liver injury risk. Alcohol does not protect the liver, does have hepatic effects, and adults are also at risk.",
+      },
+      {
+        question: "What should you do when starting a medicine with food warnings on the label?",
+        options: [
+          "Ignore the label if you feel fine",
+          "Follow label directions and ask a pharmacist if unclear",
+          "Always take every drug with a full meal",
+          "Only take medicines with grapefruit juice",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "Labels reflect how food affects that specific drug. Ignoring guidance risks under- or overdosing; not every drug needs food; grapefruit is contraindicated for many medicines, not a universal aid.",
+      },
+    ],
+  },
+  {
+    id: "micronutrient-deficiencies",
+    title: "Micronutrient Deficiencies Quiz",
+    lessonId: "micronutrient-deficiencies",
+    passScore: 70,
+    questions: [
+      {
+        question: "Which nutrient deficiency is common and often linked to fatigue and anemia?",
+        options: ["Iron", "Vitamin C only", "Sodium", "Caffeine"],
+        correctAnswer: "A",
+        explanation:
+          "Iron deficiency reduces hemoglobin and commonly causes fatigue and anemia. Vitamin C aids absorption but alone does not cause classic anemia pattern; sodium and caffeine are not micronutrient deficiencies in this sense.",
+      },
+      {
+        question: "Who may need extra attention to vitamin B12 intake?",
+        options: [
+          "Only infants under six months",
+          "Older adults and people on strict vegan diets without fortification",
+          "Everyone should avoid B12 entirely",
+          "Only competitive athletes",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "B12 absorption often declines with age; plant-only diets lack B12 unless fortified foods or supplements are used. Infants get B12 from formula or breast milk with adequate maternal intake; avoiding B12 is harmful; athletes are not the primary at-risk group.",
+      },
+      {
+        question: "Why test before starting high-dose supplements?",
+        options: [
+          "All deficiencies feel identical",
+          "Excess of some nutrients can be harmful and symptoms have many causes",
+          "Blood tests never detect deficiencies",
+          "Supplements always replace medical care",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "Testing targets the right deficiency; iron overload and fat-soluble vitamin excess are dangerous. Deficiencies differ symptomatically; blood tests do detect many deficiencies; supplements complement but do not always replace treatment.",
+      },
+      {
+        question: "Which condition can impair micronutrient absorption?",
+        options: [
+          "Celiac disease affecting the small intestine",
+          "Wearing glasses",
+          "Mild seasonal allergies",
+          "Regular walking",
+        ],
+        correctAnswer: "A",
+        explanation:
+          "Celiac damages the small intestine and reduces absorption of iron, folate, and other nutrients. Glasses, mild allergies, and walking do not cause malabsorption syndromes.",
+      },
+      {
+        question: "Why is folic acid emphasized in pregnancy?",
+        options: [
+          "It prevents all birth defects of any kind",
+          "Adequate folate lowers risk of neural tube defects",
+          "It replaces prenatal care visits",
+          "It is only needed after delivery",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "Folic acid before and early in pregnancy reduces neural tube defect risk — it does not prevent all birth defects, does not replace prenatal care, and is needed before conception and early pregnancy, not only postpartum.",
+      },
+    ],
+  },
+  {
+    id: "glycemic-index-and-load",
+    title: "Glycemic Index and Load Quiz",
+    lessonId: "glycemic-index-and-load",
+    passScore: 70,
+    questions: [
+      {
+        question: "What does glycemic load (GL) add beyond glycemic index (GI)?",
+        options: [
+          "It ignores portion size entirely",
+          "It accounts for both food GI and serving size",
+          "It only measures protein content",
+          "It replaces blood glucose monitoring",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "GL multiplies GI by available carbohydrate amount per serving, making portion size part of the estimate. GL does not ignore portions, measure protein, or replace actual glucose monitoring.",
+      },
+      {
+        question: "Which meal strategy tends to blunt glucose spikes?",
+        options: [
+          "Carbohydrates alone in large portions",
+          "Adding fiber, protein, or healthy fat to carbohydrate foods",
+          "Skipping all vegetables",
+          "Only drinking sugary beverages",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "Fiber, protein, and fat slow carbohydrate absorption and moderate post-meal glucose. Large carbs alone, avoiding vegetables, or sugary drinks tend to raise glucose more sharply.",
+      },
+      {
+        question: "How does the ADA generally view GI/GI-only diets?",
+        options: [
+          "As the sole treatment for diabetes",
+          "As one tool within broader healthy eating patterns",
+          "As unnecessary for everyone with diabetes",
+          "As a cure for type 1 diabetes",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "ADA guidance emphasizes overall dietary patterns, medications, and activity — GI/GL can inform choices but are not standalone treatment or cures, and they remain useful for many with diabetes.",
+      },
+      {
+        question: "Which statement about sugar and type 2 diabetes is most accurate?",
+        options: [
+          "Eating sugar alone directly causes type 2 diabetes in everyone",
+          "Type 2 risk involves genetics, weight, activity, and metabolism — not sugar alone",
+          "Only children develop type 2 diabetes",
+          "Sugar has no effect on blood glucose",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "Type 2 diabetes is multifactorial; sugar affects glucose but does not singularly cause the disease in everyone. Adults develop type 2 commonly; sugar clearly affects blood glucose.",
+      },
+      {
+        question: "Why might two people respond differently to the same high-GI food?",
+        options: [
+          "GI is identical for every human always",
+          "Individual metabolism, activity, and medications vary",
+          "GI only applies to fats",
+          "Blood glucose never changes after meals",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "Real-world glucose responses differ by insulin sensitivity, activity, gut microbiome, and meds. GI varies by food, not only fats, and post-meal glucose clearly changes.",
+      },
+    ],
+  },
+  {
+    id: "understanding-lipids",
+    title: "Understanding Lipids Quiz",
+    lessonId: "understanding-lipids",
+    passScore: 70,
+    questions: [
+      {
+        question: "Which lipoprotein is most associated with artery plaque buildup when elevated?",
+        options: ["LDL cholesterol", "HDL cholesterol", "Vitamin D", "Sodium"],
+        correctAnswer: "A",
+        explanation:
+          "High LDL promotes atherosclerotic plaque. HDL generally helps remove cholesterol from arteries; vitamin D and sodium are not lipoprotein cholesterol types.",
+      },
+      {
+        question: "What do very high triglycerides (e.g., above 500 mg/dL) especially risk?",
+        options: [
+          "Pancreatitis",
+          "Improved athletic performance only",
+          "Lower stroke risk automatically",
+          "No health effects",
+        ],
+        correctAnswer: "A",
+        explanation:
+          "Severely elevated triglycerides increase acute pancreatitis risk. They do not improve performance by themselves, do not automatically lower stroke risk, and clearly have health effects.",
+      },
+      {
+        question: "How do ACC/AHA guidelines typically use LDL results?",
+        options: [
+          "As the only factor in every decision",
+          "Within overall cardiovascular risk assessment",
+          "They ignore LDL completely",
+          "Only for patients under age 18",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "Guidelines integrate LDL with age, BP, diabetes, smoking, and other factors. LDL alone is not the sole driver; LDL is central, not ignored; lipid management applies across adult ages per risk.",
+      },
+      {
+        question: "Which lifestyle change can improve lipid profiles?",
+        options: [
+          "Regular physical activity and heart-healthy eating",
+          "Eliminating all dietary fat regardless of type",
+          "Avoiding all medical screening",
+          "Increasing added sugars for energy",
+        ],
+        correctAnswer: "A",
+        explanation:
+          "Activity and Mediterranean-style patterns lower LDL and triglycerides in many people. Not all fats are harmful; screening guides care; added sugars can worsen triglycerides.",
+      },
+      {
+        question: "What does HDL cholesterol generally do?",
+        options: [
+          "Helps transport cholesterol away from arteries",
+          "Directly clogs arteries when any amount is present",
+          "Is identical to LDL in function",
+          "Measures blood sugar control",
+        ],
+        correctAnswer: "A",
+        explanation:
+          "HDL participates in reverse cholesterol transport. It does not clog arteries by mere presence, is functionally different from LDL, and does not reflect glucose control (that is A1c).",
+      },
+    ],
+  },
+  {
+    id: "how-statins-work",
+    title: "How Statins Work Quiz",
+    lessonId: "how-statins-work",
+    passScore: 70,
+    questions: [
+      {
+        question: "What is the primary mechanism of statins?",
+        options: [
+          "Blocking liver HMG-CoA reductase to reduce cholesterol production",
+          "Dissolving existing artery plaque overnight",
+          "Raising HDL by exercising muscles directly",
+          "Replacing all dietary cholesterol absorption",
+        ],
+        correctAnswer: "A",
+        explanation:
+          "Statins inhibit hepatic cholesterol synthesis, lowering LDL. They do not instantly dissolve plaque, do not directly exercise muscles, and do not block all dietary cholesterol uptake.",
+      },
+      {
+        question: "Why should muscle symptoms on a statin be reported?",
+        options: [
+          "They are always harmless and should be ignored",
+          "Rare severe muscle injury needs evaluation and possible medication change",
+          "They mean the statin is curing diabetes",
+          "Only athletes experience muscle effects",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "Most muscle complaints are mild, but severe cases need assessment. Symptoms are not always harmless, do not indicate diabetes cure, and affect non-athletes too.",
+      },
+      {
+        question: "How do ACC/AHA guidelines generally position statins?",
+        options: [
+          "Only for people already hospitalized",
+          "For selected high-risk patients alongside lifestyle therapy",
+          "As replacements for blood pressure medicines",
+          "Only when LDL is normal",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "Guidelines recommend statins based on risk and LDL in outpatient prevention too. They complement lifestyle, do not replace BP drugs, and are used when LDL or risk warrants treatment — not only at normal LDL.",
+      },
+      {
+        question: "What should you do before stopping a prescribed statin due to side effects?",
+        options: [
+          "Stop immediately without telling anyone",
+          "Discuss with your clinician for dose change or alternative",
+          "Double the dose to push through pain",
+          "Replace with unproven supplements only",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "Clinicians can adjust therapy safely. Stopping without guidance risks cardiovascular events; doubling dose worsens toxicity; supplements alone lack proven event reduction.",
+      },
+      {
+        question: "Why might grapefruit be mentioned on some statin labels?",
+        options: [
+          "It improves statin safety for all statins equally",
+          "It can raise blood levels of certain statins via enzyme inhibition",
+          "It has no interaction with any medicines",
+          "It is required to absorb statins",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "Grapefruit inhibits CYP3A4, increasing exposure for some statins like simvastatin and atorvastatin. It does not universally improve safety, does interact with drugs, and is not required for absorption.",
+      },
+    ],
+  },
+  {
+    id: "heart-attack-vs-stroke-signs",
+    title: "Heart Attack vs Stroke Signs Quiz",
+    lessonId: "heart-attack-vs-stroke-signs",
+    passScore: 70,
+    questions: [
+      {
+        question: "Which symptom cluster is most typical of stroke?",
+        options: [
+          "Gradual mild knee pain over weeks",
+          "Sudden one-sided face droop and slurred speech",
+          "Itchy eyes from pollen",
+          "Slow weight gain over years",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "Stroke symptoms are sudden and neurologic — face, arm, speech changes. Knee pain, allergies, and slow weight change are not stroke hallmarks.",
+      },
+      {
+        question: "What does the 'T' in FAST stand for regarding stroke?",
+        options: [
+          "Take a nap first",
+          "Time — call emergency services immediately",
+          "Test blood sugar only",
+          "Travel to clinic next week",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "FAST emphasizes Time to call 911 because stroke treatments are time-limited. Napping, glucose checks alone, or delayed clinic visits waste critical minutes.",
+      },
+      {
+        question: "Why call 911 instead of driving yourself for possible heart attack?",
+        options: [
+          "EMS can start care and route to appropriate hospital faster",
+          "Driving is always faster than ambulances",
+          "Hospitals refuse walk-in patients",
+          "Symptoms always resolve during the drive",
+        ],
+        correctAnswer: "A",
+        explanation:
+          "Ambulances provide monitoring, aspirin when appropriate, and destination to capable centers. Self-driving risks collapse en route; hospitals accept emergencies; symptoms may worsen, not improve.",
+      },
+      {
+        question: "Which heart attack symptom may be more subtle in women?",
+        options: [
+          "Chest discomfort, fatigue, or shortness of breath without classic crushing pain",
+          "Only hair loss",
+          "Chronic toenail fungus",
+          "Seasonal sneezing",
+        ],
+        correctAnswer: "A",
+        explanation:
+          "Women more often present with atypical chest pressure, fatigue, nausea, or breathlessness. Hair, nail, and allergy symptoms are unrelated to acute MI presentation.",
+      },
+      {
+        question: "Why note the time symptoms began in suspected stroke?",
+        options: [
+          "Clinicians use timing to decide eligibility for acute stroke therapies",
+          "Hospitals charge by the minute only",
+          "Time is irrelevant to stroke treatment",
+          "It replaces all brain imaging",
+        ],
+        correctAnswer: "A",
+        explanation:
+          "IV thrombolysis and thrombectomy windows depend on last known well time. Billing is not the reason; timing is clinically critical; imaging still required.",
+      },
+    ],
+  },
+  {
+    id: "type-1-vs-type-2-diabetes",
+    title: "Type 1 vs Type 2 Diabetes Quiz",
+    lessonId: "type-1-vs-type-2-diabetes",
+    passScore: 70,
+    questions: [
+      {
+        question: "What causes type 1 diabetes?",
+        options: [
+          "Autoimmune destruction of insulin-producing pancreatic cells",
+          "Eating too much candy alone in every person",
+          "Only obesity in adults over 65",
+          "Lack of exercise for one week",
+        ],
+        correctAnswer: "A",
+        explanation:
+          "Type 1 is immune-mediated beta cell loss requiring insulin. Candy alone does not cause type 1; obesity is central to type 2 risk, not type 1 mechanism; brief inactivity does not explain type 1.",
+      },
+      {
+        question: "Which treatment is essential from diagnosis for type 1 diabetes?",
+        options: [
+          "Insulin therapy",
+          "Only herbal supplements",
+          "Avoiding all carbohydrates forever",
+          "No monitoring needed",
+        ],
+        correctAnswer: "A",
+        explanation:
+          "Type 1 always needs insulin for survival. Supplements cannot replace insulin; zero-carb diets are not standard mandatory therapy; monitoring is essential for safety.",
+      },
+      {
+        question: "What best describes type 2 diabetes pathophysiology?",
+        options: [
+          "Insulin resistance with progressive insulin secretory decline",
+          "Complete absence of any insulin from birth in all cases",
+          "Only a viral infection lasting two days",
+          "Exclusively a childhood autoimmune disease",
+        ],
+        correctAnswer: "A",
+        explanation:
+          "Type 2 combines resistance and relative insulin deficiency over time. Total absence from birth describes type 1; brief viruses and childhood autoimmunity do not define type 2.",
+      },
+      {
+        question: "Why is distinguishing type 1 from type 2 clinically important?",
+        options: [
+          "Treatment and urgency differ — insulin is lifesaving in type 1",
+          "Both are identical and need no insulin ever",
+          "Only type 2 requires any medical follow-up",
+          "Type 1 never causes emergencies",
+        ],
+        correctAnswer: "A",
+        explanation:
+          "Misclassification risks DKA if type 1 is untreated with insulin. Types differ; both need follow-up; type 1 can cause rapid emergencies without insulin.",
+      },
+      {
+        question: "Which statement about sugar and diabetes is most accurate?",
+        options: [
+          "Sugar alone directly causes all diabetes types",
+          "Type 2 risk is multifactorial; type 1 is not caused by sugar intake alone",
+          "Only people who never eat sugar get diabetes",
+          "Sugar has no effect on blood glucose in any person",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "Sugar affects glucose levels but does not singularly cause type 1 or all type 2. Avoiding sugar entirely does not guarantee prevention; sugar clearly impacts blood glucose.",
+      },
+    ],
+  },
+  {
+    id: "thyroid-disorders-basics",
+    title: "Thyroid Disorders Basics Quiz",
+    lessonId: "thyroid-disorders-basics",
+    passScore: 70,
+    questions: [
+      {
+        question: "Which test is commonly used first to screen thyroid function?",
+        options: ["TSH", "Cholesterol only", "Blood type", "Skin biopsy"],
+        correctAnswer: "A",
+        explanation:
+          "TSH is the primary screening test for hypo- and hyperthyroidism. Cholesterol may rise in hypothyroidism but is not the screen; blood type and skin biopsy do not assess thyroid function.",
+      },
+      {
+        question: "Which symptoms align more with hypothyroidism?",
+        options: [
+          "Fatigue, weight gain, and cold intolerance",
+          "Only fever and rash for 24 hours",
+          "Sudden face droop and arm weakness",
+          "Improved marathon speed without training",
+        ],
+        correctAnswer: "A",
+        explanation:
+          "Hypothyroidism slows metabolism causing fatigue, weight gain, and cold sensitivity. Brief fever/rash, stroke signs, and unexplained athletic gains are not typical hypothyroid patterns.",
+      },
+      {
+        question: "What is a standard treatment for hypothyroidism?",
+        options: [
+          "Levothyroxine hormone replacement",
+          "High-dose iodine for everyone",
+          "Avoiding all medical follow-up",
+          "Only aspirin daily",
+        ],
+        correctAnswer: "A",
+        explanation:
+          "Levothyroxine replaces deficient T4. Iodine helps only in deficiency states and can worsen some conditions; follow-up is required; aspirin does not treat hypothyroidism.",
+      },
+      {
+        question: "Why can hyperthyroidism be dangerous if untreated?",
+        options: [
+          "It can cause rapid heart rate and serious arrhythmias",
+          "It always lowers heart rate to zero safely",
+          "It only affects hair color",
+          "It prevents all infections permanently",
+        ],
+        correctAnswer: "A",
+        explanation:
+          "Excess thyroid hormone stresses the cardiovascular system. It increases rather than safely zeroes heart rate; effects extend beyond cosmetic hair changes; it does not confer infection immunity.",
+      },
+      {
+        question: "Why tell the lab if you take biotin supplements before thyroid blood work?",
+        options: [
+          "Biotin can falsely affect some immunoassay thyroid results",
+          "Biotin is required for accurate TSH always",
+          "Labs refuse all patients on vitamins",
+          "Biotin cures Graves' disease",
+        ],
+        correctAnswer: "A",
+        explanation:
+          "High-dose biotin interferes with certain thyroid immunoassays. It is not required for accuracy; labs do not refuse vitamin users; biotin is not a Graves' cure.",
+      },
+    ],
+  },
+  {
+    id: "insulin-resistance-explained",
+    title: "Insulin Resistance Explained Quiz",
+    lessonId: "insulin-resistance-explained",
+    passScore: 70,
+    questions: [
+      {
+        question: "What is insulin resistance?",
+        options: [
+          "Cells respond poorly to insulin, requiring more insulin to control glucose",
+          "The pancreas makes too much insulin only in type 1 diabetes always",
+          "Complete absence of any insulin from birth",
+          "A condition cured by one day of fasting",
+        ],
+        correctAnswer: "A",
+        explanation:
+          "Resistance means reduced cellular response, driving compensatory hyperinsulinemia. Type 1 is insulin deficiency, not resistance-only; absence from birth describes type 1; one-day fasting does not cure metabolic disease.",
+      },
+      {
+        question: "Which ADA A1c range defines prediabetes?",
+        options: ["5.7% to 6.4%", "Below 4.0%", "Above 10% only", "Exactly 8.0% always"],
+        correctAnswer: "A",
+        explanation:
+          "Prediabetes A1c is 5.7–6.4%; diabetes is ≥6.5%. Below 4% is unusually low; 10% suggests poorly controlled diabetes, not prediabetes definition; 8% is not the prediabetes band.",
+      },
+      {
+        question: "What did the Diabetes Prevention Program lifestyle intervention achieve?",
+        options: [
+          "Roughly 58% reduction in progression to type 2 in high-risk adults",
+          "100% cure of all diabetes types",
+          "No effect compared to usual care",
+          "Only worked in people under age 12",
+        ],
+        correctAnswer: "A",
+        explanation:
+          "DPP showed major risk reduction with weight loss and activity in adults. It did not cure all diabetes, clearly beat usual care, and targeted adults at risk, not only children.",
+      },
+      {
+        question: "Which factor contributes to insulin resistance?",
+        options: [
+          "Excess visceral fat and physical inactivity",
+          "Wearing glasses",
+          "Drinking water daily",
+          "Seasonal pollen allergies alone",
+        ],
+        correctAnswer: "A",
+        explanation:
+          "Visceral adiposity and inactivity worsen insulin signaling. Glasses, hydration, and pollen allergies are not established drivers of insulin resistance.",
+      },
+      {
+        question: "Why screen for prediabetes even without symptoms?",
+        options: [
+          "Damage can start before symptoms and lifestyle change is most effective early",
+          "Prediabetes always causes immediate pain",
+          "Screening is only for hospitalized patients",
+          "There is no proven way to slow progression",
+        ],
+        correctAnswer: "A",
+        explanation:
+          "Prediabetes is often silent yet progressive; early intervention works. It is not always painful, screening is outpatient, and DPP proves progression can be slowed.",
+      },
+    ],
+  },
+  {
+    id: "how-antidepressants-work",
+    title: "How Antidepressants Work Quiz",
+    lessonId: "how-antidepressants-work",
+    passScore: 70,
+    questions: [
+      {
+        question: "How long do antidepressants often need before full benefit?",
+        options: [
+          "About 4 to 8 weeks for many people",
+          "Full effect within 2 hours always",
+          "At least 2 years before any change",
+          "Only one dose is ever needed",
+        ],
+        correctAnswer: "A",
+        explanation:
+          "Most antidepressants require weeks of consistent use. Two hours is unrealistic for full mood effect; two years is not a standard wait for initial response; chronic treatment may continue but not as a single dose.",
+      },
+      {
+        question: "What do SSRIs primarily affect?",
+        options: [
+          "Serotonin reuptake in the brain",
+          "Insulin production in the pancreas",
+          "Thyroid hormone synthesis only",
+          "Blood type antigens",
+        ],
+        correctAnswer: "A",
+        explanation:
+          "SSRIs selectively inhibit serotonin reuptake. They do not primarily act on insulin, thyroid synthesis, or blood group antigens.",
+      },
+      {
+        question: "Why monitor young adults when starting antidepressants?",
+        options: [
+          "Risk of worsening mood or suicidal thoughts in some patients early in treatment",
+          "Antidepressants always cause instant cure without side effects",
+          "Only children under age 2 take antidepressants",
+          "Monitoring is required because medicines are placebos only",
+        ],
+        correctAnswer: "A",
+        explanation:
+          "FDA black box warnings address possible suicidality monitoring early in treatment. Medicines are not instant cure-only drugs, are used in adolescents/adults not toddlers only, and are active drugs not placebos.",
+      },
+      {
+        question: "What can happen if antidepressants are stopped abruptly?",
+        options: [
+          "Discontinuation symptoms such as dizziness or flu-like feelings",
+          "Guaranteed permanent happiness",
+          "Instant cure of all anxiety forever",
+          "No possible effects whatsoever",
+        ],
+        correctAnswer: "A",
+        explanation:
+          "Abrupt stop can cause discontinuation syndrome. Permanent happiness, instant universal anxiety cure, and zero effects are not accurate outcomes of sudden stops.",
+      },
+      {
+        question: "Why tell all prescribers about antidepressants and supplements?",
+        options: [
+          "To avoid dangerous interactions like serotonin syndrome",
+          "So they can discourage all mental health care",
+          "Supplements never interact with prescriptions",
+          "Only one doctor ever needs medication information",
+        ],
+        correctAnswer: "A",
+        explanation:
+          "Combining serotonergic drugs and some supplements risks serotonin syndrome. Providers support care, supplements can interact, and all prescribers need complete med lists.",
+      },
+    ],
+  },
+  {
+    id: "copd-vs-asthma",
+    title: "COPD vs Asthma Quiz",
+    lessonId: "copd-vs-asthma",
+    passScore: 70,
+    questions: [
+      {
+        question: "Which factor is the leading preventable cause of COPD?",
+        options: [
+          "Cigarette smoking and long-term lung irritant exposure",
+          "Drinking water daily",
+          "Seasonal pollen only",
+          "One episode of childhood asthma",
+        ],
+        correctAnswer: "A",
+        explanation:
+          "Tobacco smoke is the dominant COPD risk factor; occupational exposures also matter. Water intake, pollen alone, and resolved childhood asthma do not explain typical COPD pathogenesis.",
+      },
+      {
+        question: "How does asthma airflow limitation typically differ from COPD?",
+        options: [
+          "Asthma obstruction is often largely reversible with bronchodilators",
+          "Asthma never causes wheezing",
+          "COPD always fully reverses with one dose of albuterol",
+          "Only asthma is diagnosed with spirometry",
+        ],
+        correctAnswer: "A",
+        explanation:
+          "Asthma features reversible bronchospasm; wheezing is common. COPD has fixed or partially reversible obstruction — not full reversal with one rescue dose. Spirometry helps both conditions.",
+      },
+      {
+        question: "Which symptoms suggest an asthma attack rather than stable COPD alone?",
+        options: [
+          "Sudden wheeze and chest tightness after a known trigger",
+          "Gradual cough over 20 years in a heavy smoker only",
+          "Slow nail growth over months",
+          "Chronic knee arthritis",
+        ],
+        correctAnswer: "A",
+        explanation:
+          "Acute trigger-linked wheeze fits asthma exacerbation. Decades-long smoker's cough fits COPD; nail growth and knee arthritis are unrelated respiratory patterns.",
+      },
+      {
+        question: "Why is correct inhaler technique important?",
+        options: [
+          "Poor technique delivers less medicine to the lungs",
+          "Technique only matters for oral pills",
+          "Any spray direction works equally",
+          "Inhalers are decorative only",
+        ],
+        correctAnswer: "A",
+        explanation:
+          "Deposition in lungs depends on coordination and device use. Technique matters greatly for inhalers, not pills; spray direction and device mechanics affect dose; inhalers are active drug delivery.",
+      },
+      {
+        question: "When should you seek emergency care for breathing symptoms?",
+        options: [
+          "Severe breathlessness, blue lips, or inability to speak full sentences",
+          "Mild cough once in winter only",
+          "Sneezing from allergies without breathing trouble",
+          "After normal exercise in healthy young athletes only",
+        ],
+        correctAnswer: "A",
+        explanation:
+          "Severe respiratory distress with hypoxia signs is emergent. Isolated mild seasonal cough, allergic sneeze without dyspnea, and normal post-exercise breathing in healthy people are lower concern.",
+      },
+    ],
+  },
+  {
+    id: "understanding-oxygen-saturation",
+    title: "Understanding Oxygen Saturation Quiz",
+    lessonId: "understanding-oxygen-saturation",
+    passScore: 70,
+    questions: [
+      {
+        question: "What does a pulse oximeter SpO2 reading represent?",
+        options: [
+          "Estimated percentage of hemoglobin carrying oxygen",
+          "Blood sugar level",
+          "Heart valve function directly",
+          "Liver enzyme activity",
+        ],
+        correctAnswer: "A",
+        explanation:
+          "SpO2 reflects oxyhemoglobin saturation via light absorption. It does not measure glucose, valve anatomy directly, or hepatic enzymes.",
+      },
+      {
+        question: "Which SpO2 range is typical for healthy adults at sea level?",
+        options: ["About 95% to 100%", "50% to 60%", "Exactly 70% always", "Below 40% normally"],
+        correctAnswer: "A",
+        explanation:
+          "NIH cites roughly 95–100% as normal adult sea-level SpO2. 50–60%, fixed 70%, or below 40% indicate serious hypoxemia, not normal wellness.",
+      },
+      {
+        question: "When is SpO2 below 90% especially concerning?",
+        options: [
+          "When accompanied by shortness of breath or other acute symptoms",
+          "Only when measured during sleep in all people always",
+          "Never — any reading is fine",
+          "Only in people wearing glasses",
+        ],
+        correctAnswer: "A",
+        explanation:
+          "Hypoxemia with dyspnea or chest symptoms warrants urgent evaluation. Low SpO2 is not always benign during sleep for everyone; very low values are never fine; glasses do not define hypoxemia risk.",
+      },
+      {
+        question: "What can falsely lower pulse oximeter accuracy?",
+        options: [
+          "Cold fingers, poor circulation, or dark nail polish",
+          "Drinking water before the reading",
+          "Sitting quietly with warm hands",
+          "Using a calibrated device on the index finger",
+        ],
+        correctAnswer: "A",
+        explanation:
+          "Poor perfusion and nail pigment interfere with light signals. Hydration and proper warm still measurement improve accuracy; calibrated proper use is best practice, not a source of error.",
+      },
+      {
+        question: "Why can a normal SpO2 still require medical attention?",
+        options: [
+          "Severe breathing trouble can occur before numbers drop in some conditions",
+          "Oximeters diagnose every disease perfectly",
+          "SpO2 above 100% is common and harmless always",
+          "Carbon monoxide effects never matter",
+        ],
+        correctAnswer: "A",
+        explanation:
+          "Clinical distress matters beyond one number; oximeters are imperfect; SpO2 cannot exceed 100% meaningfully; carbon monoxide can cause tissue hypoxia with misleadingly normal SpO2.",
+      },
+    ],
+  },
+  {
+    id: "smoking-cessation-medicines",
+    title: "Smoking Cessation Medicines Quiz",
+    lessonId: "smoking-cessation-medicines",
+    passScore: 70,
+    questions: [
+      {
+        question: "Which are FDA-approved smoking cessation medicines?",
+        options: [
+          "Nicotine replacement, varenicline, and bupropion",
+          "Only unregulated herbal cigarettes",
+          "High-dose antibiotics",
+          "Daily aspirin as the sole quit therapy",
+        ],
+        correctAnswer: "A",
+        explanation:
+          "NRT, varenicline, and bupropion are established FDA-approved pharmacotherapies. Herbal cigarettes are not approved quit aids; antibiotics and aspirin alone are not standard cessation drugs.",
+      },
+      {
+        question: "How does nicotine replacement therapy help quitting?",
+        options: [
+          "Delivers controlled nicotine to reduce withdrawal while avoiding most cigarette toxins",
+          "Makes cigarettes taste better",
+          "Eliminates all nicotine addiction instantly in one day",
+          "Replaces the need for any behavioral support",
+        ],
+        correctAnswer: "A",
+        explanation:
+          "NRT eases withdrawal without most combustion toxins. It does not enhance cigarette flavor, does not instantly erase addiction, and works best combined with counseling per CDC.",
+      },
+      {
+        question: "What does the USPSTF recommend for adults who smoke?",
+        options: [
+          "Offer tobacco cessation interventions including pharmacotherapy when appropriate",
+          "Avoid discussing smoking until age 80",
+          "Only recommend quitting without any support tools",
+          "Discourage all quit attempts as futile",
+        ],
+        correctAnswer: "A",
+        explanation:
+          "USPSTF strongly recommends cessation support for all adult smokers. Clinicians should address smoking at relevant visits, not delay until old age, and evidence supports tools beyond willpower alone.",
+      },
+      {
+        question: "Why combine patch plus short-acting nicotine product?",
+        options: [
+          "Steady baseline plus relief for breakthrough cravings often improves quit rates",
+          "It guarantees instant harm from nicotine overdose always",
+          "Patches alone contain zero nicotine",
+          "Short-acting forms are only for non-smokers",
+        ],
+        correctAnswer: "A",
+        explanation:
+          "Combination NRT is a CDC-supported strategy for difficult cravings. Used correctly it is not designed to overdose; patches do deliver nicotine; short-acting NRT is for people quitting smoking.",
+      },
+      {
+        question: "What should you do if bupropion for quitting causes mood worsening?",
+        options: [
+          "Contact your clinician immediately — do not ignore psychiatric side effects",
+          "Double the dose to push through",
+          "Start smoking more to balance mood",
+          "Stop all medical care permanently",
+        ],
+        correctAnswer: "A",
+        explanation:
+          "Bupropion carries neuropsychiatric monitoring needs. Doubling dose worsens risk; smoking more undermines quitting; stopping all care is unsafe — clinician guidance is required.",
+      },
+    ],
+  },
+  {
+    id: "understanding-cbc",
+    title: "Understanding a CBC Quiz",
+    lessonId: "understanding-cbc",
+    passScore: 70,
+    questions: [
+      {
+        question: "What does a CBC primarily measure?",
+        options: [
+          "Blood cells including RBCs, WBCs, and platelets",
+          "Cholesterol and triglycerides only",
+          "Kidney function creatinine only",
+          "Thyroid hormone TSH only",
+        ],
+        correctAnswer: "A",
+        explanation:
+          "CBC counts cellular blood components. Lipid panels, creatinine, and TSH are separate tests — not components of a standard CBC.",
+      },
+      {
+        question: "Low hemoglobin on a CBC most often suggests which condition?",
+        options: ["Anemia", "High blood sugar diabetes", "Broken bone", "Seasonal allergy"],
+        correctAnswer: "A",
+        explanation:
+          "Hemoglobin carries oxygen; low values define anemia. Diabetes, fractures, and allergies are not directly diagnosed by low hemoglobin alone on CBC.",
+      },
+      {
+        question: "Why might white blood cell count be elevated?",
+        options: [
+          "Infection, inflammation, or physiological stress",
+          "Only because of drinking water",
+          "Always means leukemia with no other causes",
+          "WBC never changes in illness",
+        ],
+        correctAnswer: "A",
+        explanation:
+          "Leukocytosis commonly follows infection and inflammation. Hydration alone does not typically spike WBC; leukemia is one rare cause among many; WBC clearly shifts with illness.",
+      },
+      {
+        question: "Why should you avoid starting iron supplements solely because of fatigue?",
+        options: [
+          "Anemia cause should be confirmed — excess iron can be harmful",
+          "Iron never treats anemia",
+          "CBC never detects low hemoglobin",
+          "Fatigue only comes from lack of sleep always",
+        ],
+        correctAnswer: "A",
+        explanation:
+          "Iron helps iron-deficiency anemia but harms if given unnecessarily. Iron does treat deficiency; CBC detects low hemoglobin; fatigue has many causes beyond sleep alone.",
+      },
+      {
+        question: "What do low platelets (thrombocytopenia) increase risk for?",
+        options: [
+          "Bleeding and bruising",
+          "Improved blood clotting always",
+          "Higher oxygen saturation automatically",
+          "Lower infection risk always",
+        ],
+        correctAnswer: "A",
+        explanation:
+          "Platelets enable clotting; low counts raise bleeding risk. Thrombocytopenia does not improve clotting, raise SpO2, or universally prevent infection.",
+      },
+    ],
+  },
+  {
+    id: "understanding-a1c",
+    title: "Understanding A1c Quiz",
+    lessonId: "understanding-a1c",
+    passScore: 70,
+    questions: [
+      {
+        question: "What time period does A1c roughly reflect?",
+        options: [
+          "Average blood glucose over about 2 to 3 months",
+          "Only the last meal eaten",
+          "Blood pressure over one week",
+          "Cholesterol for six years",
+        ],
+        correctAnswer: "A",
+        explanation:
+          "A1c integrates glycation over red blood cell lifespan (~120 days). It is not meal-specific, does not measure BP, and is unrelated to cholesterol duration.",
+      },
+      {
+        question: "Which A1c range does ADA use for prediabetes?",
+        options: ["5.7% to 6.4%", "Below 4.0%", "8.0% to 9.0% only", "Exactly 10% always"],
+        correctAnswer: "A",
+        explanation:
+          "ADA prediabetes is 5.7–6.4%; diabetes ≥6.5%. Below 4% is abnormally low; 8–10% suggests diabetes, not prediabetes band definition.",
+      },
+      {
+        question: "At what A1c is diabetes generally diagnosed (with confirmation rules)?",
+        options: ["6.5% or higher", "4.0% exactly", "3.0% or lower", "9.9% only on Tuesdays"],
+        correctAnswer: "A",
+        explanation:
+          "ADA diagnostic threshold for diabetes is A1c ≥6.5% with repeat confirmation when asymptomatic. 4% and 3% are not diabetes thresholds; arbitrary day-specific cutoffs are not clinical criteria.",
+      },
+      {
+        question: "Why might A1c disagree with daily glucose meter readings?",
+        options: [
+          "Anemia or hemoglobin variants can falsely lower or raise A1c",
+          "Meters and A1c always match perfectly",
+          "A1c measures insulin dose directly",
+          "Home glucose never varies",
+        ],
+        correctAnswer: "A",
+        explanation:
+          "RBC turnover and hemoglobin variants affect glycation measurement. Perfect match is not guaranteed; A1c is not an insulin assay; home glucose varies daily.",
+      },
+      {
+        question: "Why act on prediabetes even without symptoms?",
+        options: [
+          "Lifestyle change can slow or prevent progression to type 2 diabetes",
+          "Prediabetes means you already need insulin always",
+          "A1c cannot detect prediabetes",
+          "Only children get prediabetes",
+        ],
+        correctAnswer: "A",
+        explanation:
+          "DPP and CDC programs show progression can be reduced. Prediabetes does not mandate immediate insulin; A1c defines prediabetes band; adults commonly have prediabetes.",
+      },
+    ],
+  },
 ] as const;

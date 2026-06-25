@@ -2,14 +2,14 @@
 export const QUIZ_EXPLANATION_PATCHES: Record<string, { en: string[]; es: string[] }> = {
   "pain-medications-safely": {
     en: [
-      "Acetaminophen is processed by the liver. Taking more than the daily limit — especially from multiple products — can cause serious liver damage. The heart, kidneys, and lungs are not the primary organs at risk from acetaminophen overdose.",
+      "FDA labeling allows up to 4,000 mg daily for most healthy adults, but many clinicians recommend 3,000 mg or less for chronic use or with liver risk. The heart, kidneys, and lungs are not the primary organs at risk from acetaminophen overdose.",
       "Many cold, flu, and pain products contain acetaminophen under different brand names. Adding them together can push you past the safe daily limit without realizing it. Always read active ingredients on every label.",
       "NSAIDs like ibuprofen can worsen kidney function and irritate the stomach lining. People with kidney disease, stomach ulcers, or on blood thinners should only use them with medical guidance. A mild headache in someone without those conditions is different.",
       "Chest pain can signal a heart attack or other life-threatening condition. Pain medicine will not fix the underlying emergency. Call 911 or go to the emergency room immediately — do not wait to see if it passes.",
       "Pharmacists check for duplicate ingredients (like acetaminophen in multiple products) and dangerous drug interactions. This is especially important when you take prescriptions, OTC medicines, and supplements together.",
     ],
     es: [
-      "El acetaminofén se procesa en el hígado. Superar el límite diario — especialmente con varios productos — puede causar daño hepático grave. El corazón, riñones y pulmones no son los órganos principales en riesgo por sobredosis de acetaminofén.",
+      "La etiqueta de la FDA permite hasta 4,000 mg diarios para la mayoría de adultos sanos, pero muchos médicos recomiendan 3,000 mg o menos en uso crónico o con riesgo hepático. El corazón, riñones y pulmones no son los órganos principales en riesgo por sobredosis de acetaminofén.",
       "Muchos productos para resfriado, gripe y dolor contienen acetaminofén con distintos nombres. Combinarlos puede superar el límite diario seguro sin darse cuenta. Lea siempre los ingredientes activos en cada etiqueta.",
       "Los AINE como el ibuprofeno pueden empeorar la función renal e irritar el estómago. Quienes tienen enfermedad renal, úlcera o toman anticoagulantes deben usarlos solo con orientación médica. Un dolor de cabeza leve sin esas condiciones es distinto.",
       "El dolor de pecho puede indicar infarto u otra emergencia. Los analgésicos no tratan la causa. Llame al 911 o vaya a emergencias de inmediato — no espere a ver si pasa.",

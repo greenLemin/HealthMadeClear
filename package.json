@@ -27,6 +27,7 @@
     "content:bundle-search": "tsx scripts/build-search-index.ts",
     "content:generate-articles": "tsx scripts/generate-articles.ts",
     "content:generate-expansion-lessons": "tsx scripts/generate-expansion-lessons.ts",
+    "content:generate-expansion-lessons-part3": "tsx scripts/generate-expansion-lessons-part3.ts",
     "content:enrich-glossary": "tsx scripts/enrich-glossary.ts",
     "content:bundle": "npm run content:bundle-lessons && npm run content:bundle-paths && npm run content:bundle-glossary && npm run content:bundle-quizzes && npm run content:bundle-articles && npm run content:bundle-search && prettier --write src/data",
     "content:validate": "tsx scripts/validate-content.ts",
@@ -57,6 +58,7 @@
     "@swc/helpers": "0.5.23",
     "@tailwindcss/postcss": "^4.3.1",
     "@tailwindcss/typography": "^0.5.20",
+    "@testing-library/dom": "^10.4.1",
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.2",
     "@types/markdown-it": "^14.1.2",
@@ -79,6 +81,7 @@
     "vitest": "^4.1.9"
   },
   "overrides": {
-    "next": "16.2.9"
+    "next": "16.2.9",
+    "postcss": "^8.5.10"
   }
 }
