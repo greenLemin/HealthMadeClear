@@ -2,6 +2,7 @@ import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
 import { ARTICLE_IDS, type ArticleId } from "@/types/content";
+import { normalizeLineEndings } from "@/lib/normalizeLineEndings";
 import type { Article } from "@/types/article";
 
 const CALLOUT_REGEX = /:::([a-z]+)\n([\s\S]*?)\n:::/g;
@@ -31,7 +32,7 @@ function parseSections(markdown: string): Article["content"]["sections"] {
 }
 
 function articleFromFile(filePath: string): Article {
-  const raw = fs.readFileSync(filePath, "utf8");
+  const raw = normalizeLineEndings(fs.readFileSync(filePath, "utf8"));
   const { data, content } = matter(raw);
   return {
     id: data.id as ArticleId,

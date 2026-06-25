@@ -4,6 +4,7 @@ import path from "path";
 import matter from "gray-matter";
 import type { Quiz, QuizQuestion } from "@/types/quiz";
 import type { LessonId } from "@/types/content";
+import { normalizeLineEndings } from "@/lib/normalizeLineEndings";
 import { LESSON_IDS } from "@/types/content";
 
 const OPTION_REGEX = /^([A-D])\)\s(.+)$/m;
@@ -107,7 +108,7 @@ export async function getAllQuizzesFromMdx(locale: "en" | "es"): Promise<Quiz[]>
     } catch {
       return null;
     }
-    const raw = await fs.readFile(filePath, "utf8");
+    const raw = normalizeLineEndings(await fs.readFile(filePath, "utf8"));
     const { data, content } = matter(raw);
 
     return {
@@ -130,7 +131,7 @@ export async function getQuizFromMdx(id: string, locale: "en" | "es"): Promise<Q
   } catch {
     return undefined;
   }
-  const raw = await fs.readFile(filePath, "utf8");
+  const raw = normalizeLineEndings(await fs.readFile(filePath, "utf8"));
   const { data, content } = matter(raw);
 
   return {

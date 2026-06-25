@@ -27,8 +27,14 @@ export const paths: LearningPath[] = [
         {
           title:
             "Medications can improve your health, but only if taken correctly. This path teaches you how to read prescription labels, what questions to ask your doctor or pharmacist, and how to recognize and manage side effects. Whether you take one medication or many, these skills help you stay safe.",
-          content:
-            ":::warning\r\nAlways talk to your doctor or pharmacist before changing how you take any medication.\r\n:::",
+          content: "",
+          callouts: [
+            {
+              type: "warning",
+              content:
+                "Always talk to your doctor or pharmacist before changing how you take any medication.",
+            },
+          ],
         },
       ],
     },
@@ -47,8 +53,14 @@ export const paths: LearningPath[] = [
         {
           title:
             "Doctor visits can feel rushed and overwhelming. This path helps you prepare so you get the most out of every appointment. Learn what to bring, how to describe your symptoms, what questions to ask, and how to follow up after your visit.",
-          content:
-            ":::info\r\nYou are the expert on your own body. A good doctor visit is a partnership — your doctor brings medical knowledge, and you bring knowledge about how you feel.\r\n:::",
+          content: "",
+          callouts: [
+            {
+              type: "info",
+              content:
+                "You are the expert on your own body. A good doctor visit is a partnership — your doctor brings medical knowledge, and you bring knowledge about how you feel.",
+            },
+          ],
         },
       ],
     },
@@ -74,8 +86,14 @@ export const paths: LearningPath[] = [
         {
           title:
             "Lab results are full of numbers and abbreviations that can be confusing. This path helps you understand common blood tests, what reference ranges mean, and when a result might be a cause for concern — or completely normal.",
-          content:
-            ":::info\r\nLab results are just one piece of the puzzle. Your doctor considers your symptoms, history, and overall health — not just numbers on a page.\r\n:::",
+          content: "",
+          callouts: [
+            {
+              type: "info",
+              content:
+                "Lab results are just one piece of the puzzle. Your doctor considers your symptoms, history, and overall health — not just numbers on a page.",
+            },
+          ],
         },
       ],
     },
@@ -108,8 +126,14 @@ export const paths: LearningPath[] = [
         {
           title:
             "Receiving a new diagnosis can feel overwhelming. This path helps you understand common chronic conditions — what they are, how they're managed, and how to work with your healthcare team. Each lesson builds understanding of a different condition, but you can take them in any order.",
-          content:
-            ":::info\r\nA new diagnosis is a starting point, not an ending one. Knowledge and consistent care help people with chronic conditions live full, active lives.\r\n:::",
+          content: "",
+          callouts: [
+            {
+              type: "info",
+              content:
+                "A new diagnosis is a starting point, not an ending one. Knowledge and consistent care help people with chronic conditions live full, active lives.",
+            },
+          ],
         },
       ],
     },
@@ -139,8 +163,14 @@ export const paths: LearningPath[] = [
         {
           title:
             "Preventive care is one of the most powerful tools for staying healthy. This path covers why prevention matters, which screenings you need at every age, how vaccines protect you, and how to build healthy eating habits. Perfect for anyone looking to take charge of their health.",
-          content:
-            ":::success\r\nSmall steps add up. Even one preventive action — a screening, a vaccine, a healthier meal — makes a difference.\r\n:::",
+          content: "",
+          callouts: [
+            {
+              type: "success",
+              content:
+                "Small steps add up. Even one preventive action — a screening, a vaccine, a healthier meal — makes a difference.",
+            },
+          ],
         },
       ],
     },
@@ -165,8 +195,13 @@ export const paths: LearningPath[] = [
         {
           title:
             "Mental health is just as important as physical health. This path covers the basics of depression, anxiety, and the critical role of sleep in mental wellness. Learn to recognize symptoms, when to seek help, and practical strategies for coping.",
-          content:
-            ":::warning\r\nIf you're in crisis, call or text **988** (US). Help is available 24/7.\r\n:::",
+          content: "",
+          callouts: [
+            {
+              type: "warning",
+              content: "If you're in crisis, call or text **988** (US). Help is available 24/7.",
+            },
+          ],
         },
       ],
     },
@@ -193,8 +228,14 @@ export const paths: LearningPath[] = [
         {
           title:
             "The healthcare system can feel overwhelming. This path helps you navigate it with confidence — from understanding insurance and reading medical bills to knowing when to call 911 and how to get the most from your doctor visits.",
-          content:
-            ":::info\r\nKnowing how the system works saves money, reduces stress, and helps you get better care.\r\n:::",
+          content: "",
+          callouts: [
+            {
+              type: "info",
+              content:
+                "Knowing how the system works saves money, reduces stress, and helps you get better care.",
+            },
+          ],
         },
       ],
     },

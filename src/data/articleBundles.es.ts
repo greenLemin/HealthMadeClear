@@ -28,17 +28,24 @@ export const articles: Article[] = [
         {
           title: "Considere logística",
           content:
-            "- **Ubicación** — viaje razonable para visitas y laboratorios\r\n- **Horarios** — tardes o fines de semana si trabaja horario estándar\r\n- **Afiliación hospitalaria** — importa si puede necesitar hospitalización\r\n- **Telemedicina** — útil para seguimientos y problemas menores",
+            "- **Ubicación** — viaje razonable para visitas y laboratorios\n- **Horarios** — tardes o fines de semana si trabaja horario estándar\n- **Afiliación hospitalaria** — importa si puede necesitar hospitalización\n- **Telemedicina** — útil para seguimientos y problemas menores",
         },
         {
           title: "Evalúe en la primera visita",
           content:
-            "- ¿El médico escuchó sin apresurarse?\r\n- ¿Las explicaciones fueron claras?\r\n- ¿Se sintió respetado?\r\n- ¿El personal ayudó con citas y facturación?\r\n\r\n:::info\r\nEstá bien cambiar de PCP si la relación no funciona. Su comodidad afecta qué tan honesto es al compartir síntomas.\r\n:::",
+            "- ¿El médico escuchó sin apresurarse?\n- ¿Las explicaciones fueron claras?\n- ¿Se sintió respetado?\n- ¿El personal ayudó con citas y facturación?",
+          callouts: [
+            {
+              type: "info",
+              content:
+                "Está bien cambiar de PCP si la relación no funciona. Su comodidad afecta qué tan honesto es al compartir síntomas.",
+            },
+          ],
         },
         {
           title: "Preguntas útiles",
           content:
-            "- ¿Quién cubre cuando mi médico no está?\r\n- ¿Cómo contacto a alguien fuera de horario?\r\n- ¿Cómo comunican resultados?\r\n- ¿Puedo usar el portal para resurtidos y mensajes?",
+            "- ¿Quién cubre cuando mi médico no está?\n- ¿Cómo contacto a alguien fuera de horario?\n- ¿Cómo comunican resultados?\n- ¿Puedo usar el portal para resurtidos y mensajes?",
         },
       ],
     },
@@ -62,17 +69,30 @@ export const articles: Article[] = [
         {
           title: "Componentes típicos",
           content:
-            "- Talla, peso, presión, examen cardíaco y pulmonar\r\n- Revisión de medicamentos y alergias\r\n- Órdenes de detección según edad\r\n- Actualización de vacunas\r\n- Consejería de estilo de vida",
+            "- Talla, peso, presión, examen cardíaco y pulmonar\n- Revisión de medicamentos y alergias\n- Órdenes de detección según edad\n- Actualización de vacunas\n- Consejería de estilo de vida",
         },
         {
           title: "Cómo prepararse",
           content:
-            "Lleve lista de medicamentos, resultados recientes y preguntas. Mencione síntomas nuevos aunque parezcan menores.\r\n\r\n:::warning\r\nUna visita de bienestar no es lo mismo que atención urgente por enfermedad aguda. Reserve por separado si está enfermo.\r\n:::",
+            "Lleve lista de medicamentos, resultados recientes y preguntas. Mencione síntomas nuevos aunque parezcan menores.",
+          callouts: [
+            {
+              type: "warning",
+              content:
+                "Una visita de bienestar no es lo mismo que atención urgente por enfermedad aguda. Reserve por separado si está enfermo.",
+            },
+          ],
         },
         {
           title: "Después de la visita",
           content:
-            "Puede recibir órdenes de laboratorio o referencias. Pregunte cuándo estarán los resultados y cómo le avisarán.\r\n\r\n:::success\r\nUse beneficios preventivos de su seguro — muchas pruebas no tienen copago en red.\r\n:::",
+            "Puede recibir órdenes de laboratorio o referencias. Pregunte cuándo estarán los resultados y cómo le avisarán.",
+          callouts: [
+            {
+              type: "success",
+              content: "Use beneficios preventivos de su seguro — muchas pruebas no tienen copago en red.",
+            },
+          ],
         },
       ],
     },
@@ -91,7 +111,7 @@ export const articles: Article[] = [
         {
           title: "Términos clave",
           content:
-            "- **Formulario** — lista de medicamentos que cubre su plan\r\n- **Nivel (tier)** — nivel de costo (genéricos nivel 1 suelen ser más baratos)\r\n- **Autorización previa** — aprobación del asegurador antes de pagar ciertos medicamentos\r\n- **Terapia escalonada** — probar un medicamento preferido antes de uno más caro",
+            "- **Formulario** — lista de medicamentos que cubre su plan\n- **Nivel (tier)** — nivel de costo (genéricos nivel 1 suelen ser más baratos)\n- **Autorización previa** — aprobación del asegurador antes de pagar ciertos medicamentos\n- **Terapia escalonada** — probar un medicamento preferido antes de uno más caro",
         },
         {
           title: "Leer su tarjeta de medicamentos",
@@ -101,7 +121,14 @@ export const articles: Article[] = [
         {
           title: "Ahorrar dinero",
           content:
-            "- Pida genéricos cuando sea apropiado\r\n- Use farmacias en red\r\n- Compare precios de pedido por correo a 90 días\r\n- Pregunte por ayuda con copago para marcas\r\n\r\n:::info\r\nLos farmacéuticos pueden sugerir alternativas cubiertas — lleve su tarjeta de seguro siempre.\r\n:::",
+            "- Pida genéricos cuando sea apropiado\n- Use farmacias en red\n- Compare precios de pedido por correo a 90 días\n- Pregunte por ayuda con copago para marcas",
+          callouts: [
+            {
+              type: "info",
+              content:
+                "Los farmacéuticos pueden sugerir alternativas cubiertas — lleve su tarjeta de seguro siempre.",
+            },
+          ],
         },
         {
           title: "Si rechazan un reclamo",
@@ -130,12 +157,18 @@ export const articles: Article[] = [
         {
           title: "Frases que funcionan",
           content:
-            '- "¿Puede explicarlo en lenguaje cotidiano?"\r\n- "¿Qué es lo más importante que debo hacer ahora?"\r\n- "¿Qué haría si fuera su familiar?"\r\n- "¿Puedo tener instrucciones por escrito?"\r\n- "¿Qué síntomas deberían hacer que le llame?"',
+            '- "¿Puede explicarlo en lenguaje cotidiano?"\n- "¿Qué es lo más importante que debo hacer ahora?"\n- "¿Qué haría si fuera su familiar?"\n- "¿Puedo tener instrucciones por escrito?"\n- "¿Qué síntomas deberían hacer que le llame?"',
         },
         {
           title: "Técnica de enseñanza de vuelta",
           content:
-            'Repita lo que oyó: "Entonces tomaré esto dos veces al día con comida y llamaré si tengo erupción — ¿correcto?"\r\n\r\n:::info\r\nTraiga a un amigo o use grabadora **solo si** la clínica lo permite.\r\n:::',
+            'Repita lo que oyó: "Entonces tomaré esto dos veces al día con comida y llamaré si tengo erupción — ¿correcto?"',
+          callouts: [
+            {
+              type: "info",
+              content: "Traiga a un amigo o use grabadora **solo si** la clínica lo permite.",
+            },
+          ],
         },
         {
           title: "Si se siente apurado",
@@ -164,12 +197,19 @@ export const articles: Article[] = [
         {
           title: "Señales de alerta",
           content:
-            "- Promesas de cura total sin evidencia\r\n- Presión para comprar suplementos de inmediato\r\n- Autores anónimos sin credenciales\r\n- Historias que contradicen a su equipo sin discusión\r\n- Contenido diseñado para generar miedo",
+            "- Promesas de cura total sin evidencia\n- Presión para comprar suplementos de inmediato\n- Autores anónimos sin credenciales\n- Historias que contradicen a su equipo sin discusión\n- Contenido diseñado para generar miedo",
         },
         {
           title: "Revise fechas y fuentes",
           content:
-            "La orientación médica cambia. Prefiera páginas actualizadas en los últimos años con estudios citados.\r\n\r\n:::warning\r\nLas anécdotas en redes no son evidencia médica. La experiencia de una persona puede no aplicarle.\r\n:::",
+            "La orientación médica cambia. Prefiera páginas actualizadas en los últimos años con estudios citados.",
+          callouts: [
+            {
+              type: "warning",
+              content:
+                "Las anécdotas en redes no son evidencia médica. La experiencia de una persona puede no aplicarle.",
+            },
+          ],
         },
         {
           title: "Lleve lo que encuentre a su visita",
@@ -198,17 +238,24 @@ export const articles: Article[] = [
         {
           title: "Líneas clave",
           content:
-            "- **Monto facturado** — lo que cobró el proveedor\r\n- **Monto permitido** — tarifa negociada que acepta su plan\r\n- **Pagó el plan** — lo que cubrió el seguro\r\n- **Responsabilidad del paciente** — deducible, copago, coseguro o cargos no cubiertos",
+            "- **Monto facturado** — lo que cobró el proveedor\n- **Monto permitido** — tarifa negociada que acepta su plan\n- **Pagó el plan** — lo que cubrió el seguro\n- **Responsabilidad del paciente** — deducible, copago, coseguro o cargos no cubiertos",
         },
         {
           title: "Comparar EOB con facturas",
           content:
-            "Compare fecha de servicio, proveedor y códigos. Si el total no coincide con la responsabilidad del paciente en el EOB, llame a facturación antes de pagar.\r\n\r\n:::info\r\nGuarde EOBs al menos un año — puede necesitarlos para impuestos (HSA/FSA) o apelaciones.\r\n:::",
+            "Compare fecha de servicio, proveedor y códigos. Si el total no coincide con la responsabilidad del paciente en el EOB, llame a facturación antes de pagar.",
+          callouts: [
+            {
+              type: "info",
+              content:
+                "Guarde EOBs al menos un año — puede necesitarlos para impuestos (HSA/FSA) o apelaciones.",
+            },
+          ],
         },
         {
           title: "Confusiones comunes",
           content:
-            '- **EOB duplicados** por una visita — una por línea de servicio es normal\r\n- **"Puede deber"** — verifique contra la factura real\r\n- **Fuera de red** — reglas de monto permitido y facturación balanceada difieren',
+            '- **EOB duplicados** por una visita — una por línea de servicio es normal\n- **"Puede deber"** — verifique contra la factura real\n- **Fuera de red** — reglas de monto permitido y facturación balanceada difieren',
         },
         {
           title: "Cuándo llamar al asegurador",
@@ -237,12 +284,19 @@ export const articles: Article[] = [
         {
           title: "Pasos para encontrar atención",
           content:
-            "1. Entre al sitio o app de su aseguradora\r\n2. Busque por especialidad, ubicación e idioma\r\n3. Confirme que el **médico específico** está en red — no solo la clínica\r\n4. Llame para verificar que aún aceptan su plan",
+            "1. Entre al sitio o app de su aseguradora\n2. Busque por especialidad, ubicación e idioma\n3. Confirme que el **médico específico** está en red — no solo la clínica\n4. Llame para verificar que aún aceptan su plan",
         },
         {
           title: "Red del hospital vs del médico",
           content:
-            "Hospitales y médicos negocian por separado. Un cirujano puede estar fuera de red aunque el hospital esté en red — pregunte antes de procedimientos programados.\r\n\r\n:::warning\r\nEmergencias suelen cubrirse como en red por ley, pero seguimiento y ambulancia pueden no — verifique tras estabilización.\r\n:::",
+            "Hospitales y médicos negocian por separado. Un cirujano puede estar fuera de red aunque el hospital esté en red — pregunte antes de procedimientos programados.",
+          callouts: [
+            {
+              type: "warning",
+              content:
+                "Emergencias suelen cubrirse como en red por ley, pero seguimiento y ambulancia pueden no — verifique tras estabilización.",
+            },
+          ],
         },
         {
           title: "Telesalud y urgencias",
@@ -270,7 +324,7 @@ export const articles: Article[] = [
         {
           title: "Antes de ir",
           content:
-            "- Confirme requisitos de **ayuno** (a menudo 8–12 horas para glucosa y lípidos; agua suele estar bien)\r\n- Tome medicamentos matutinos recetados salvo indicación contraria\r\n- Use mangas que suban fácilmente\r\n- Lleve la orden o muestre la orden electrónica",
+            "- Confirme requisitos de **ayuno** (a menudo 8–12 horas para glucosa y lípidos; agua suele estar bien)\n- Tome medicamentos matutinos recetados salvo indicación contraria\n- Use mangas que suban fácilmente\n- Lleve la orden o muestre la orden electrónica",
         },
         {
           title: "En el laboratorio",
@@ -280,7 +334,13 @@ export const articles: Article[] = [
         {
           title: "Después",
           content:
-            "Presione gasa firmemente varios minutos para reducir moretones. Evite levantar peso con ese brazo el resto del día.\r\n\r\n:::info\r\nMoretones leves son comunes y no peligrosos. Aplique hielo si hay dolor.\r\n:::",
+            "Presione gasa firmemente varios minutos para reducir moretones. Evite levantar peso con ese brazo el resto del día.",
+          callouts: [
+            {
+              type: "info",
+              content: "Moretones leves son comunes y no peligrosos. Aplique hielo si hay dolor.",
+            },
+          ],
         },
         {
           title: "Plazo de resultados",
@@ -314,12 +374,19 @@ export const articles: Article[] = [
         {
           title: "Cuándo considerarla",
           content:
-            "- Diagnóstico grave o poco claro (cáncer, enfermedad rara)\r\n- Cirugía recomendada con riesgo significativo\r\n- Síntomas que no mejoran con tratamiento\r\n- Se siente apurado o no escuchado",
+            "- Diagnóstico grave o poco claro (cáncer, enfermedad rara)\n- Cirugía recomendada con riesgo significativo\n- Síntomas que no mejoran con tratamiento\n- Se siente apurado o no escuchado",
         },
         {
           title: "Cómo solicitar registros",
           content:
-            'Pida copias de imágenes, patología y notas — o autorice transferencia al segundo médico. Muchos sistemas comparten electrónicamente.\r\n\r\n:::info\r\nNo necesita dar razón negativa a su médico actual — "quiero confirmar el plan" basta.\r\n:::',
+            "Pida copias de imágenes, patología y notas — o autorice transferencia al segundo médico. Muchos sistemas comparten electrónicamente.",
+          callouts: [
+            {
+              type: "info",
+              content:
+                'No necesita dar razón negativa a su médico actual — "quiero confirmar el plan" basta.',
+            },
+          ],
         },
         {
           title: "Cobertura del seguro",
@@ -348,7 +415,7 @@ export const articles: Article[] = [
         {
           title: "Antes de la visita",
           content:
-            "- Pruebe cámara, micrófono e inicio de sesión 15 minutos antes\r\n- Siéntese en lugar tranquilo y bien iluminado\r\n- Tenga lista de medicamentos, temperaturas y fotos de erupciones listas\r\n- Sepa nombre y dirección de farmacia para recetas electrónicas",
+            "- Pruebe cámara, micrófono e inicio de sesión 15 minutos antes\n- Siéntese en lugar tranquilo y bien iluminado\n- Tenga lista de medicamentos, temperaturas y fotos de erupciones listas\n- Sepa nombre y dirección de farmacia para recetas electrónicas",
         },
         {
           title: "Durante la llamada",
@@ -358,7 +425,14 @@ export const articles: Article[] = [
         {
           title: "Limitaciones",
           content:
-            "Emergencias, exámenes físicos y algunas pruebas aún requieren presencial. Pregunte qué no se puede hacer virtualmente.\r\n\r\n:::warning\r\nSi empeoran síntomas durante video visita, pueden dirigirlo a urgencias — tenga plan de transporte.\r\n:::",
+            "Emergencias, exámenes físicos y algunas pruebas aún requieren presencial. Pregunte qué no se puede hacer virtualmente.",
+          callouts: [
+            {
+              type: "warning",
+              content:
+                "Si empeoran síntomas durante video visita, pueden dirigirlo a urgencias — tenga plan de transporte.",
+            },
+          ],
         },
         {
           title: "Privacidad",
@@ -392,12 +466,18 @@ export const articles: Article[] = [
         {
           title: "Herramientas prácticas",
           content:
-            "- **Organizador de pastillas** — cajas semanales AM/PM\r\n- **Alarmas del teléfono** — etiquete con nombre del medicamento\r\n- **Resurtido automático** — reduce huecos\r\n- **Blísteres** — algunas farmacias preordenan por horario",
+            "- **Organizador de pastillas** — cajas semanales AM/PM\n- **Alarmas del teléfono** — etiquete con nombre del medicamento\n- **Resurtido automático** — reduce huecos\n- **Blísteres** — algunas farmacias preordenan por horario",
         },
         {
           title: "Enlace a rutinas diarias",
-          content:
-            "Asocie medicamentos con cepillado, comidas o dormir para anclar el hábito.\r\n\r\n:::info\r\nSi costo o efectos secundarios bloquean adherencia, dígalo al clínico — hay alternativas.\r\n:::",
+          content: "Asocie medicamentos con cepillado, comidas o dormir para anclar el hábito.",
+          callouts: [
+            {
+              type: "info",
+              content:
+                "Si costo o efectos secundarios bloquean adherencia, dígalo al clínico — hay alternativas.",
+            },
+          ],
         },
         {
           title: "Viajes y días de enfermedad",
@@ -426,17 +506,23 @@ export const articles: Article[] = [
         {
           title: "Llame 911 o vaya a emergencias",
           content:
-            "- Dolor u opresión de pecho\r\n- Dificultad para respirar\r\n- Signos de ACV (FAST: cara, brazo, habla, tiempo)\r\n- Sangrado severo o inconsciencia\r\n- Pensamientos suicidas con plan",
+            "- Dolor u opresión de pecho\n- Dificultad para respirar\n- Signos de ACV (FAST: cara, brazo, habla, tiempo)\n- Sangrado severo o inconsciencia\n- Pensamientos suicidas con plan",
         },
         {
           title: "Atención urgente (mismo día)",
           content:
-            "- Esguinces, cortes menores que necesitan puntos\r\n- Fiebre sin angustia severa en adultos sanos\r\n- Ardor al orinar si no puede contactar al médico\r\n- Brote leve de asma si inhalador no ayuda tras una hora",
+            "- Esguinces, cortes menores que necesitan puntos\n- Fiebre sin angustia severa en adultos sanos\n- Ardor al orinar si no puede contactar al médico\n- Brote leve de asma si inhalador no ayuda tras una hora",
         },
         {
           title: "Llame al consultorio",
           content:
-            "- Efectos secundarios de medicamentos\r\n- Empeoramiento de condición crónica\r\n- Preguntas sobre resultados\r\n- Referencias y citas preventivas\r\n\r\n:::info\r\nMuchas clínicas tienen línea de enfermería — describa síntomas y orientan timing.\r\n:::",
+            "- Efectos secundarios de medicamentos\n- Empeoramiento de condición crónica\n- Preguntas sobre resultados\n- Referencias y citas preventivas",
+          callouts: [
+            {
+              type: "info",
+              content: "Muchas clínicas tienen línea de enfermería — describa síntomas y orientan timing.",
+            },
+          ],
         },
         {
           title: "Si no está seguro",
@@ -460,7 +546,7 @@ export const articles: Article[] = [
         {
           title: "Qué hacen los portales",
           content:
-            "La mayoría de clínicas ofrecen sitios o apps seguros para:\r\n\r\n- Ver resultados de laboratorio e imágenes\r\n- Enviar mensajes al equipo\r\n- Solicitar resurtidos\r\n- Programar citas\r\n- Descargar resúmenes de visita",
+            "La mayoría de clínicas ofrecen sitios o apps seguros para:\n\n- Ver resultados de laboratorio e imágenes\n- Enviar mensajes al equipo\n- Solicitar resurtidos\n- Programar citas\n- Descargar resúmenes de visita",
         },
         {
           title: "Primeros pasos",
@@ -470,7 +556,14 @@ export const articles: Article[] = [
         {
           title: "Leer resultados temprano",
           content:
-            "Los resultados pueden aparecer antes de que el médico los revise. Banderas anormales no siempre son urgentes — anote preguntas para seguimiento.\r\n\r\n:::warning\r\nLos portales no son para emergencias. Llame 911 o vaya a emergencias ante peligro inmediato.\r\n:::",
+            "Los resultados pueden aparecer antes de que el médico los revise. Banderas anormales no siempre son urgentes — anote preguntas para seguimiento.",
+          callouts: [
+            {
+              type: "warning",
+              content:
+                "Los portales no son para emergencias. Llame 911 o vaya a emergencias ante peligro inmediato.",
+            },
+          ],
         },
         {
           title: "Etiqueta de mensajes",
@@ -504,12 +597,19 @@ export const articles: Article[] = [
         {
           title: "Preparen citas juntos",
           content:
-            "- Liste medicamentos y alergias actuales\r\n- Escriban tres preocupaciones principales con palabras del paciente\r\n- Tomen notas o pidan permiso para grabar",
+            "- Liste medicamentos y alergias actuales\n- Escriban tres preocupaciones principales con palabras del paciente\n- Tomen notas o pidan permiso para grabar",
         },
         {
           title: "Acceso proxy",
           content:
-            "Hospitales requieren autorización HIPAA para darle información médica. Complete formularios antes de emergencias cuando sea posible.\r\n\r\n:::info\r\nLleve documentos de poder notarial para salud en visitas importantes si es quien decide.\r\n:::",
+            "Hospitales requieren autorización HIPAA para darle información médica. Complete formularios antes de emergencias cuando sea posible.",
+          callouts: [
+            {
+              type: "info",
+              content:
+                "Lleve documentos de poder notarial para salud en visitas importantes si es quien decide.",
+            },
+          ],
         },
         {
           title: "Evite agotamiento",
@@ -542,12 +642,18 @@ export const articles: Article[] = [
         {
           title: "Disparadores comunes",
           content:
-            "- Medicamentos de marca costosos con genéricos\r\n- Imágenes avanzadas (RM, PET)\r\n- Cirugías electivas\r\n- Equipo médico durable",
+            "- Medicamentos de marca costosos con genéricos\n- Imágenes avanzadas (RM, PET)\n- Cirugías electivas\n- Equipo médico durable",
         },
         {
           title: "Plazos",
           content:
-            "Decisiones pueden tardar días a dos semanas. Empiece pronto — pida que la oficina envíe el mismo día que ordenan el servicio.\r\n\r\n:::warning\r\nIniciar tratamiento antes de aprobación puede dejarlo con costo total si rechazan.\r\n:::",
+            "Decisiones pueden tardar días a dos semanas. Empiece pronto — pida que la oficina envíe el mismo día que ordenan el servicio.",
+          callouts: [
+            {
+              type: "warning",
+              content: "Iniciar tratamiento antes de aprobación puede dejarlo con costo total si rechazan.",
+            },
+          ],
         },
         {
           title: "Si rechazan",

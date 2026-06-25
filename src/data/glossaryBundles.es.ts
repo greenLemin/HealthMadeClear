@@ -9,7 +9,7 @@ export const terms: GlossaryTerm[] = [
     term: "Presión arterial",
     category: "General",
     definition:
-      "## Qué es\r\n\r\nLa presión arterial es la fuerza con la que la sangre empuja las paredes de las arterias cuando el corazón bombea. Se registra con dos números: sistólica (presión al latir) sobre diastólica (presión entre latidos). En adultos, lecturas normales suelen rondar 120/80 mmHg, pero las metas varían según edad y condiciones de salud.\r\n\r\n## Por qué importa\r\n\r\nLas lecturas de presión guían tratamiento para prevenir ACV y enfermedad cardíaca. Las lecturas en casa y clínica pueden diferir — registrar ambas ayuda a ajustar medicamentos con precisión.\r\n\r\n## Hable con su equipo de salud\r\n\r\nPregunte: ¿Cuál es mi meta de presión y debo monitorear en casa? ¿Cómo se comparan mis lecturas a distintas horas del día?",
+      "## Qué es\n\nLa presión arterial es la fuerza con la que la sangre empuja las paredes de las arterias cuando el corazón bombea. Se registra con dos números: sistólica (presión al latir) sobre diastólica (presión entre latidos). En adultos, lecturas normales suelen rondar 120/80 mmHg, pero las metas varían según edad y condiciones de salud.\n\n## Por qué importa\n\nLas lecturas de presión guían tratamiento para prevenir ACV y enfermedad cardíaca. Las lecturas en casa y clínica pueden diferir — registrar ambas ayuda a ajustar medicamentos con precisión.\n\n## Hable con su equipo de salud\n\nPregunte: ¿Cuál es mi meta de presión y debo monitorear en casa? ¿Cómo se comparan mis lecturas a distintas horas del día?",
     relatedTerms: ["hypertension", "hypotension"],
     relatedLessons: ["living-with-hypertension", "blood-basics"],
   },
@@ -18,7 +18,7 @@ export const terms: GlossaryTerm[] = [
     term: "Hipertensión",
     category: "Condiciones",
     definition:
-      '## Qué es\r\n\r\nLa hipertensión es el término médico para presión arterial alta — cuando la sangre empuja con demasiada fuerza las paredes arteriales con el tiempo. A menudo se llama "asesino silencioso" porque puede no dar síntomas mientras daña corazón, cerebro, riñones y ojos. El tratamiento incluye cambios de estilo de vida y a menudo medicamentos.\r\n\r\n## Por qué importa\r\n\r\nLa hipertensión sin tratar daña vasos silenciosamente por años. Monitoreo en casa y adherencia a medicamentos reducen directamente riesgo de ACV, infarto e insuficiencia renal.\r\n\r\n## Hable con su equipo de salud\r\n\r\nPregunte: ¿Hacia qué meta de presión debo trabajar y con qué frecuencia revisar en casa? ¿Qué efectos secundarios de mi medicamento para presión debo reportar?',
+      '## Qué es\n\nLa hipertensión es el término médico para presión arterial alta — cuando la sangre empuja con demasiada fuerza las paredes arteriales con el tiempo. A menudo se llama "asesino silencioso" porque puede no dar síntomas mientras daña corazón, cerebro, riñones y ojos. El tratamiento incluye cambios de estilo de vida y a menudo medicamentos.\n\n## Por qué importa\n\nLa hipertensión sin tratar daña vasos silenciosamente por años. Monitoreo en casa y adherencia a medicamentos reducen directamente riesgo de ACV, infarto e insuficiencia renal.\n\n## Hable con su equipo de salud\n\nPregunte: ¿Hacia qué meta de presión debo trabajar y con qué frecuencia revisar en casa? ¿Qué efectos secundarios de mi medicamento para presión debo reportar?',
     relatedTerms: ["blood-pressure"],
     relatedLessons: ["living-with-hypertension", "blood-basics"],
   },
@@ -27,7 +27,7 @@ export const terms: GlossaryTerm[] = [
     term: "Hipotensión",
     category: "Condiciones",
     definition:
-      "## Qué es\r\n\r\nLa hipotensión significa presión arterial anormalmente baja. Puede causar mareos, desmayos o fatiga, especialmente al levantarse rápido. Las causas incluyen deshidratación, ciertos medicamentos, problemas cardíacos o infección grave. La hipotensión severa repentina requiere atención médica urgente.\r\n\r\n## Por qué importa\r\n\r\nLa presión baja puede causar caídas, especialmente en adultos mayores con varios medicamentos. Distinguir lecturas bajas inofensivas de caídas peligrosas previene lesiones y guía ajustes.\r\n\r\n## Hable con su equipo de salud\r\n\r\nPregunte: ¿Mi presión baja causa mareos y debo cambiar algún medicamento? ¿Cuándo debo sentarme o acostarme y qué metas de hidratación recomienda?",
+      "## Qué es\n\nLa hipotensión significa presión arterial anormalmente baja. Puede causar mareos, desmayos o fatiga, especialmente al levantarse rápido. Las causas incluyen deshidratación, ciertos medicamentos, problemas cardíacos o infección grave. La hipotensión severa repentina requiere atención médica urgente.\n\n## Por qué importa\n\nLa presión baja puede causar caídas, especialmente en adultos mayores con varios medicamentos. Distinguir lecturas bajas inofensivas de caídas peligrosas previene lesiones y guía ajustes.\n\n## Hable con su equipo de salud\n\nPregunte: ¿Mi presión baja causa mareos y debo cambiar algún medicamento? ¿Cuándo debo sentarme o acostarme y qué metas de hidratación recomienda?",
     relatedTerms: ["blood-pressure"],
     relatedLessons: ["when-to-call-911", "blood-basics"],
   },
@@ -36,7 +36,7 @@ export const terms: GlossaryTerm[] = [
     term: "Colesterol",
     category: "General",
     definition:
-      '## Qué es\r\n\r\nEl colesterol es una sustancia cerosa similar a la grasa en la sangre. El cuerpo necesita algo de colesterol para formar células, pero demasiado LDL ("malo") puede acumularse en las arterias y aumentar el riesgo de infarto o derrame. El HDL ("bueno") ayuda a eliminar el exceso de colesterol de la sangre.\r\n\r\n## Por qué importa\r\n\r\nLos niveles de colesterol ayudan a estimar riesgo cardiovascular junto con presión, tabaco e historial familiar. Estilo de vida y medicamentos apuntan al LDL y triglicéridos para proteger arterias.\r\n\r\n## Hable con su equipo de salud\r\n\r\nPregunte: ¿Qué números de mi perfil lipídico importan más para mí? ¿Cuándo repetir la prueba tras cambios de dieta o estatinas?',
+      '## Qué es\n\nEl colesterol es una sustancia cerosa similar a la grasa en la sangre. El cuerpo necesita algo de colesterol para formar células, pero demasiado LDL ("malo") puede acumularse en las arterias y aumentar el riesgo de infarto o derrame. El HDL ("bueno") ayuda a eliminar el exceso de colesterol de la sangre.\n\n## Por qué importa\n\nLos niveles de colesterol ayudan a estimar riesgo cardiovascular junto con presión, tabaco e historial familiar. Estilo de vida y medicamentos apuntan al LDL y triglicéridos para proteger arterias.\n\n## Hable con su equipo de salud\n\nPregunte: ¿Qué números de mi perfil lipídico importan más para mí? ¿Cuándo repetir la prueba tras cambios de dieta o estatinas?',
     relatedTerms: ["ldl", "hdl", "triglycerides"],
     relatedLessons: ["common-tests", "introduction-to-heart-disease"],
   },
@@ -45,7 +45,7 @@ export const terms: GlossaryTerm[] = [
     term: "Colesterol LDL",
     category: "Resultados de laboratorio",
     definition:
-      '## Qué es\r\n\r\nEl LDL (lipoproteína de baja densidad) se llama a menudo colesterol "malo" porque niveles altos depositan colesterol en las paredes arteriales, formando placa. Esto estrecha arterias y aumenta riesgo de infarto y derrame. Dieta, ejercicio y medicamentos como estatinas pueden bajar el LDL.\r\n\r\n## Por qué importa\r\n\r\nLDL alto contribuye a placa que estrecha arterias. Bajar LDL con dieta, ejercicio y estatinas es una de las formas más probadas de reducir riesgo de infarto y ACV.\r\n\r\n## Hable con su equipo de salud\r\n\r\nPregunte: ¿Qué nivel de LDL buscamos y cuándo repetiremos laboratorios? ¿Qué efectos secundarios de estatinas debo vigilar?',
+      '## Qué es\n\nEl LDL (lipoproteína de baja densidad) se llama a menudo colesterol "malo" porque niveles altos depositan colesterol en las paredes arteriales, formando placa. Esto estrecha arterias y aumenta riesgo de infarto y derrame. Dieta, ejercicio y medicamentos como estatinas pueden bajar el LDL.\n\n## Por qué importa\n\nLDL alto contribuye a placa que estrecha arterias. Bajar LDL con dieta, ejercicio y estatinas es una de las formas más probadas de reducir riesgo de infarto y ACV.\n\n## Hable con su equipo de salud\n\nPregunte: ¿Qué nivel de LDL buscamos y cuándo repetiremos laboratorios? ¿Qué efectos secundarios de estatinas debo vigilar?',
     relatedTerms: ["cholesterol", "hdl"],
     relatedLessons: ["common-tests", "reading-nutrition-labels"],
   },
@@ -54,7 +54,7 @@ export const terms: GlossaryTerm[] = [
     term: "Colesterol HDL",
     category: "Resultados de laboratorio",
     definition:
-      '## Qué es\r\n\r\nEl HDL (lipoproteína de alta densidad) se llama a menudo colesterol "bueno" porque transporta el colesterol desde las arterias al hígado. Niveles más altos de HDL suelen asociarse con menor riesgo cardíaco. El ejercicio, no fumar y grasas saludables pueden ayudar a subir el HDL.\r\n\r\n## Por qué importa\r\n\r\nEl HDL ayuda a quitar colesterol de arterias, pero es una pieza del riesgo cardíaco — no garantía sola de protección. HDL muy bajo puede motivar cambios de estilo aunque el LDL parezca aceptable.\r\n\r\n## Hable con su equipo de salud\r\n\r\nPregunte: ¿Mi nivel de HDL es preocupante dado mi riesgo cardíaco total? ¿Qué cambios de estilo podrían subir el HDL y cuándo se consideraría medicamento?',
+      '## Qué es\n\nEl HDL (lipoproteína de alta densidad) se llama a menudo colesterol "bueno" porque transporta el colesterol desde las arterias al hígado. Niveles más altos de HDL suelen asociarse con menor riesgo cardíaco. El ejercicio, no fumar y grasas saludables pueden ayudar a subir el HDL.\n\n## Por qué importa\n\nEl HDL ayuda a quitar colesterol de arterias, pero es una pieza del riesgo cardíaco — no garantía sola de protección. HDL muy bajo puede motivar cambios de estilo aunque el LDL parezca aceptable.\n\n## Hable con su equipo de salud\n\nPregunte: ¿Mi nivel de HDL es preocupante dado mi riesgo cardíaco total? ¿Qué cambios de estilo podrían subir el HDL y cuándo se consideraría medicamento?',
     relatedTerms: ["cholesterol", "ldl"],
     relatedLessons: ["common-tests", "reading-nutrition-labels"],
   },
@@ -63,7 +63,7 @@ export const terms: GlossaryTerm[] = [
     term: "Triglicéridos",
     category: "Resultados de laboratorio",
     definition:
-      "## Qué es\r\n\r\nLos triglicéridos son un tipo de grasa en sangre usada como reserva de energía. Triglicéridos altos — a menudo por exceso de azúcar, alcohol o carbohidratos refinados — aumentan riesgo cardíaco y de pancreatitis. Un perfil lipídico mide triglicéridos junto con colesterol.\r\n\r\n## Por qué importa\r\n\r\nTriglicéridos altos suelen responder a reducir bebidas azucaradas, alcohol y carbohidratos refinados. Niveles muy altos pueden causar pancreatitis — emergencia dolorosa — así que la urgencia depende del número.\r\n\r\n## Hable con su equipo de salud\r\n\r\nPregunte: ¿Qué tan altos están mis triglicéridos respecto a la última prueba y qué cambios de dieta importan más? ¿Necesito medicamento ahora o podemos repetir tras cambios de estilo?",
+      "## Qué es\n\nLos triglicéridos son un tipo de grasa en sangre usada como reserva de energía. Triglicéridos altos — a menudo por exceso de azúcar, alcohol o carbohidratos refinados — aumentan riesgo cardíaco y de pancreatitis. Un perfil lipídico mide triglicéridos junto con colesterol.\n\n## Por qué importa\n\nTriglicéridos altos suelen responder a reducir bebidas azucaradas, alcohol y carbohidratos refinados. Niveles muy altos pueden causar pancreatitis — emergencia dolorosa — así que la urgencia depende del número.\n\n## Hable con su equipo de salud\n\nPregunte: ¿Qué tan altos están mis triglicéridos respecto a la última prueba y qué cambios de dieta importan más? ¿Necesito medicamento ahora o podemos repetir tras cambios de estilo?",
     relatedTerms: ["cholesterol"],
     relatedLessons: ["common-tests", "reading-nutrition-labels"],
   },
@@ -72,7 +72,7 @@ export const terms: GlossaryTerm[] = [
     term: "Diabetes",
     category: "Condiciones",
     definition:
-      "## Qué es\r\n\r\nLa diabetes es una enfermedad crónica que afecta cómo el cuerpo convierte los alimentos en energía. Con diabetes, el cuerpo no produce suficiente insulina o no puede usarla bien, lo que causa azúcar alta en sangre. Con el tiempo, el azúcar alta puede dañar corazón, riñones, nervios y ojos si no se controla.\r\n\r\n## Por qué importa\r\n\r\nLa diabetes afecta elecciones diarias de alimentos, actividad, cuidado de pies, exámenes oculares y horarios de medicamentos. Manejo temprano y constante previene complicaciones silenciosas.\r\n\r\n## Hable con su equipo de salud\r\n\r\nPregunte: ¿Qué metas de A1C o azúcar son adecuadas para mí? ¿Con qué frecuencia debo ver oftalmólogo y especialista en pies, y qué síntomas nuevos debo reportar de inmediato?",
+      "## Qué es\n\nLa diabetes es una enfermedad crónica que afecta cómo el cuerpo convierte los alimentos en energía. Con diabetes, el cuerpo no produce suficiente insulina o no puede usarla bien, lo que causa azúcar alta en sangre. Con el tiempo, el azúcar alta puede dañar corazón, riñones, nervios y ojos si no se controla.\n\n## Por qué importa\n\nLa diabetes afecta elecciones diarias de alimentos, actividad, cuidado de pies, exámenes oculares y horarios de medicamentos. Manejo temprano y constante previene complicaciones silenciosas.\n\n## Hable con su equipo de salud\n\nPregunte: ¿Qué metas de A1C o azúcar son adecuadas para mí? ¿Con qué frecuencia debo ver oftalmólogo y especialista en pies, y qué síntomas nuevos debo reportar de inmediato?",
     relatedTerms: ["blood-sugar", "insulin", "glucose"],
     relatedLessons: ["understanding-type2-diabetes", "common-tests"],
   },
@@ -81,7 +81,7 @@ export const terms: GlossaryTerm[] = [
     term: "Azúcar en sangre",
     category: "General",
     definition:
-      "## Qué es\r\n\r\nEl azúcar en sangre (glucosa) es la cantidad de azúcar en el torrente sanguíneo. El cuerpo usa la glucosa como energía, y la insulina ayuda a que entre en las células. El azúcar alta con el tiempo puede dañar nervios, riñones, ojos y vasos sanguíneos — característica de la diabetes.\r\n\r\n## Por qué importa\r\n\r\nLos niveles de azúcar en sangre afectan energía, ánimo y salud de órganos a largo plazo. Reconocer patrones altos y bajos ayuda a responder antes de emergencias y seguir su plan.\r\n\r\n## Hable con su equipo de salud\r\n\r\nPregunte: ¿Qué rango debo buscar antes de comidas y al acostarme? ¿Qué síntomas indican medir azúcar de inmediato o buscar ayuda?",
+      "## Qué es\n\nEl azúcar en sangre (glucosa) es la cantidad de azúcar en el torrente sanguíneo. El cuerpo usa la glucosa como energía, y la insulina ayuda a que entre en las células. El azúcar alta con el tiempo puede dañar nervios, riñones, ojos y vasos sanguíneos — característica de la diabetes.\n\n## Por qué importa\n\nLos niveles de azúcar en sangre afectan energía, ánimo y salud de órganos a largo plazo. Reconocer patrones altos y bajos ayuda a responder antes de emergencias y seguir su plan.\n\n## Hable con su equipo de salud\n\nPregunte: ¿Qué rango debo buscar antes de comidas y al acostarme? ¿Qué síntomas indican medir azúcar de inmediato o buscar ayuda?",
     relatedTerms: ["diabetes", "glucose", "insulin"],
     relatedLessons: ["understanding-type2-diabetes", "common-tests"],
   },
@@ -90,7 +90,7 @@ export const terms: GlossaryTerm[] = [
     term: "Glucosa",
     category: "General",
     definition:
-      "## Qué es\r\n\r\nLa glucosa es un azúcar simple y la principal fuente de energía del cuerpo a partir de los alimentos. Después de comer, la glucosa entra en la sangre y la insulina ayuda a las células a absorberla. La glucosa en ayunas y la A1C miden cómo el cuerpo controla el azúcar con el tiempo.\r\n\r\n## Por qué importa\r\n\r\nLa glucosa es el combustible celular y el número que rastrean la mayoría de pruebas de diabetes. Picos tras comidas y niveles en ayunas cuentan historias distintas — ambos importan para tratamiento.\r\n\r\n## Hable con su equipo de salud\r\n\r\nPregunte: ¿Debo medir glucosa en casa y cómo cambian mi plan las lecturas en ayunas versus después de comer? ¿Qué carbohidratos o actividades afectan más mis niveles?",
+      "## Qué es\n\nLa glucosa es un azúcar simple y la principal fuente de energía del cuerpo a partir de los alimentos. Después de comer, la glucosa entra en la sangre y la insulina ayuda a las células a absorberla. La glucosa en ayunas y la A1C miden cómo el cuerpo controla el azúcar con el tiempo.\n\n## Por qué importa\n\nLa glucosa es el combustible celular y el número que rastrean la mayoría de pruebas de diabetes. Picos tras comidas y niveles en ayunas cuentan historias distintas — ambos importan para tratamiento.\n\n## Hable con su equipo de salud\n\nPregunte: ¿Debo medir glucosa en casa y cómo cambian mi plan las lecturas en ayunas versus después de comer? ¿Qué carbohidratos o actividades afectan más mis niveles?",
     relatedTerms: ["blood-sugar", "diabetes"],
     relatedLessons: ["understanding-type2-diabetes", "blood-basics"],
   },
@@ -99,7 +99,7 @@ export const terms: GlossaryTerm[] = [
     term: "Insulina",
     category: "General",
     definition:
-      "## Qué es\r\n\r\nLa insulina es una hormona del páncreas que ayuda a que la glucosa entre en las células como energía. En diabetes tipo 1 el cuerpo produce poca o ninguna insulina; en tipo 2 las células resisten sus efectos. Las personas con diabetes pueden necesitar insulina inyectable u otros medicamentos para controlar el azúcar.\r\n\r\n## Por qué importa\r\n\r\nErrores de horario y dosis de insulina pueden causar picos y caídas peligrosas en horas. Entender cómo su cuerpo usa insulina ayuda a coordinar comidas, actividad y reglas en días de enfermedad.\r\n\r\n## Hable con su equipo de salud\r\n\r\nPregunte: ¿Cuándo debo tomar cada tipo de insulina respecto a comidas? ¿Qué ajustes aplican en días de enfermedad y qué niveles de azúcar indican ayuda de emergencia?",
+      "## Qué es\n\nLa insulina es una hormona del páncreas que ayuda a que la glucosa entre en las células como energía. En diabetes tipo 1 el cuerpo produce poca o ninguna insulina; en tipo 2 las células resisten sus efectos. Las personas con diabetes pueden necesitar insulina inyectable u otros medicamentos para controlar el azúcar.\n\n## Por qué importa\n\nErrores de horario y dosis de insulina pueden causar picos y caídas peligrosas en horas. Entender cómo su cuerpo usa insulina ayuda a coordinar comidas, actividad y reglas en días de enfermedad.\n\n## Hable con su equipo de salud\n\nPregunte: ¿Cuándo debo tomar cada tipo de insulina respecto a comidas? ¿Qué ajustes aplican en días de enfermedad y qué niveles de azúcar indican ayuda de emergencia?",
     relatedTerms: ["diabetes", "blood-sugar"],
     relatedLessons: ["understanding-type2-diabetes", "blood-basics"],
   },
@@ -108,7 +108,7 @@ export const terms: GlossaryTerm[] = [
     term: "Crónico",
     category: "General",
     definition:
-      "## Qué es\r\n\r\nCrónico describe una condición que dura mucho tiempo — por lo general tres meses o más. Ejemplos: diabetes, hipertensión, asma y enfermedad cardíaca. Las condiciones crónicas suelen requerir tratamiento continuo, cambios de estilo de vida y monitoreo regular en lugar de una cura única.\r\n\r\n## Por qué importa\r\n\r\nLas condiciones crónicas requieren autocuidado continuo, no solo una visita. Entender la etiqueta ayuda a planear monitoreo, adherencia a medicamentos y metas realistas a largo plazo.\r\n\r\n## Hable con su equipo de salud\r\n\r\nPregunte: ¿Cómo es vivir con esta condición día a día y cuáles son mis tres prioridades de autocuidado? ¿A quién contacto entre visitas si cambian los síntomas?",
+      "## Qué es\n\nCrónico describe una condición que dura mucho tiempo — por lo general tres meses o más. Ejemplos: diabetes, hipertensión, asma y enfermedad cardíaca. Las condiciones crónicas suelen requerir tratamiento continuo, cambios de estilo de vida y monitoreo regular en lugar de una cura única.\n\n## Por qué importa\n\nLas condiciones crónicas requieren autocuidado continuo, no solo una visita. Entender la etiqueta ayuda a planear monitoreo, adherencia a medicamentos y metas realistas a largo plazo.\n\n## Hable con su equipo de salud\n\nPregunte: ¿Cómo es vivir con esta condición día a día y cuáles son mis tres prioridades de autocuidado? ¿A quién contacto entre visitas si cambian los síntomas?",
     relatedLessons: ["living-with-hypertension", "asthma-basics", "introduction-to-heart-disease"],
   },
   {
@@ -116,7 +116,7 @@ export const terms: GlossaryTerm[] = [
     term: "Agudo",
     category: "General",
     definition:
-      "## Qué es\r\n\r\nAgudo significa de inicio repentino y a menudo de corta duración. Las enfermedades o lesiones agudas se desarrollan rápido y pueden requerir atención pronta — por ejemplo una fractura, faringitis estreptocócica o un ataque de pánico. Agudo es lo opuesto a crónico, que dura meses o años.\r\n\r\n## Por qué importa\r\n\r\nSaber si un problema es agudo o crónico ayuda a fijar expectativas de recuperación y urgencia del seguimiento. Síntomas agudos que empeoran rápido pueden requerir atención el mismo día.\r\n\r\n## Hable con su equipo de salud\r\n\r\nPregunte: ¿Es probable que esta condición se resuelva sola y qué señales de alerta indican llamar antes? ¿Cuánto debo esperar antes de esperar mejoría?",
+      "## Qué es\n\nAgudo significa de inicio repentino y a menudo de corta duración. Las enfermedades o lesiones agudas se desarrollan rápido y pueden requerir atención pronta — por ejemplo una fractura, faringitis estreptocócica o un ataque de pánico. Agudo es lo opuesto a crónico, que dura meses o años.\n\n## Por qué importa\n\nSaber si un problema es agudo o crónico ayuda a fijar expectativas de recuperación y urgencia del seguimiento. Síntomas agudos que empeoran rápido pueden requerir atención el mismo día.\n\n## Hable con su equipo de salud\n\nPregunte: ¿Es probable que esta condición se resuelva sola y qué señales de alerta indican llamar antes? ¿Cuánto debo esperar antes de esperar mejoría?",
     relatedLessons: ["when-to-call-911", "building-first-aid-kit"],
   },
   {
@@ -124,7 +124,7 @@ export const terms: GlossaryTerm[] = [
     term: "Síntoma",
     category: "General",
     definition:
-      "## Qué es\r\n\r\nUn síntoma es algo que usted siente o experimenta — dolor, fatiga, náuseas, ansiedad — que reporta al médico. Anotar cuándo empezaron, con qué frecuencia ocurren y qué los mejora o empeora ayuda al equipo de salud a encontrar causas y planear tratamiento.\r\n\r\n## Por qué importa\r\n\r\nDescripciones claras de síntomas — inicio, severidad, desencadenantes — a menudo importan más que resultados de pruebas al inicio. Un diario de síntomas acelera diagnóstico y reduce visitas repetidas.\r\n\r\n## Hable con su equipo de salud\r\n\r\nPregunte: ¿Qué detalles de mis síntomas le ayudarían más — horario, ubicación, qué mejora o empeora? ¿Debo llevar un registro hasta la próxima visita?",
+      "## Qué es\n\nUn síntoma es algo que usted siente o experimenta — dolor, fatiga, náuseas, ansiedad — que reporta al médico. Anotar cuándo empezaron, con qué frecuencia ocurren y qué los mejora o empeora ayuda al equipo de salud a encontrar causas y planear tratamiento.\n\n## Por qué importa\n\nDescripciones claras de síntomas — inicio, severidad, desencadenantes — a menudo importan más que resultados de pruebas al inicio. Un diario de síntomas acelera diagnóstico y reduce visitas repetidas.\n\n## Hable con su equipo de salud\n\nPregunte: ¿Qué detalles de mis síntomas le ayudarían más — horario, ubicación, qué mejora o empeora? ¿Debo llevar un registro hasta la próxima visita?",
     relatedTerms: ["sign"],
     relatedLessons: ["before-your-visit", "during-your-visit"],
   },
@@ -133,7 +133,7 @@ export const terms: GlossaryTerm[] = [
     term: "Signo",
     category: "General",
     definition:
-      "## Qué es\r\n\r\nUn signo es un hallazgo objetivo que otros pueden observar o medir — como fiebre, erupción o presión arterial alta. Los signos difieren de los síntomas, que son lo que el paciente siente y reporta. Los médicos usan signos y síntomas para diagnosticar.\r\n\r\n## Por qué importa\r\n\r\nLos signos dan evidencia objetiva que los médicos miden — fiebre, presión, banderas de laboratorio. Conocer la diferencia con síntomas ayuda a describir ambos claramente en visitas.\r\n\r\n## Hable con su equipo de salud\r\n\r\nPregunte: ¿Qué signos monitoreará en seguimiento y puedo registrar alguno en casa? ¿Qué signos nuevos indican llamar antes de mi próxima cita?",
+      "## Qué es\n\nUn signo es un hallazgo objetivo que otros pueden observar o medir — como fiebre, erupción o presión arterial alta. Los signos difieren de los síntomas, que son lo que el paciente siente y reporta. Los médicos usan signos y síntomas para diagnosticar.\n\n## Por qué importa\n\nLos signos dan evidencia objetiva que los médicos miden — fiebre, presión, banderas de laboratorio. Conocer la diferencia con síntomas ayuda a describir ambos claramente en visitas.\n\n## Hable con su equipo de salud\n\nPregunte: ¿Qué signos monitoreará en seguimiento y puedo registrar alguno en casa? ¿Qué signos nuevos indican llamar antes de mi próxima cita?",
     relatedTerms: ["symptom"],
     relatedLessons: ["blood-basics", "when-to-worry"],
   },
@@ -142,7 +142,7 @@ export const terms: GlossaryTerm[] = [
     term: "Diagnóstico",
     category: "General",
     definition:
-      "## Qué es\r\n\r\nUn diagnóstico es la identificación de una enfermedad o condición según síntomas, exámenes y resultados de pruebas. Recibir un diagnóstico puede ser abrumador, pero es el punto de partida para tratamiento y planificación. Pregunte siempre a su médico qué significa el diagnóstico para su vida diaria y los siguientes pasos.\r\n\r\n## Por qué importa\r\n\r\nUn diagnóstico moldea opciones de tratamiento, cobertura de seguro y su respuesta emocional. Entender con claridad reduce miedo y ayuda a pedir segundas opiniones cuando algo no cuadra.\r\n\r\n## Hable con su equipo de salud\r\n\r\nPregunte: ¿Qué evidencia apoya este diagnóstico y qué más podría ser? ¿Cuáles son los siguientes pasos esta semana y este mes?",
+      "## Qué es\n\nUn diagnóstico es la identificación de una enfermedad o condición según síntomas, exámenes y resultados de pruebas. Recibir un diagnóstico puede ser abrumador, pero es el punto de partida para tratamiento y planificación. Pregunte siempre a su médico qué significa el diagnóstico para su vida diaria y los siguientes pasos.\n\n## Por qué importa\n\nUn diagnóstico moldea opciones de tratamiento, cobertura de seguro y su respuesta emocional. Entender con claridad reduce miedo y ayuda a pedir segundas opiniones cuando algo no cuadra.\n\n## Hable con su equipo de salud\n\nPregunte: ¿Qué evidencia apoya este diagnóstico y qué más podría ser? ¿Cuáles son los siguientes pasos esta semana y este mes?",
     relatedLessons: ["introduction-to-heart-disease", "understanding-type2-diabetes"],
   },
   {
@@ -150,7 +150,7 @@ export const terms: GlossaryTerm[] = [
     term: "Pronóstico",
     category: "General",
     definition:
-      "## Qué es\r\n\r\nEl pronóstico es la mejor estimación del médico sobre cómo probablemente evolucionará una enfermedad — incluyendo recuperación, estabilidad o complicaciones. El pronóstico no es una garantía; tratamiento, estilo de vida e investigación pueden cambiar resultados. Pregunte qué factores afectan su pronóstico personal.\r\n\r\n## Por qué importa\r\n\r\nEl pronóstico ayuda a planear trabajo, familia e intensidad de tratamiento — pero los números son promedios, no destino. Nuevas terapias y factores personales pueden cambiar resultados tras la primera conversación.\r\n\r\n## Hable con su equipo de salud\r\n\r\nPregunte: ¿Qué factores afectan más mi panorama individual? ¿Qué cambiaría el pronóstico si sigo tratamiento versus si no?",
+      "## Qué es\n\nEl pronóstico es la mejor estimación del médico sobre cómo probablemente evolucionará una enfermedad — incluyendo recuperación, estabilidad o complicaciones. El pronóstico no es una garantía; tratamiento, estilo de vida e investigación pueden cambiar resultados. Pregunte qué factores afectan su pronóstico personal.\n\n## Por qué importa\n\nEl pronóstico ayuda a planear trabajo, familia e intensidad de tratamiento — pero los números son promedios, no destino. Nuevas terapias y factores personales pueden cambiar resultados tras la primera conversación.\n\n## Hable con su equipo de salud\n\nPregunte: ¿Qué factores afectan más mi panorama individual? ¿Qué cambiaría el pronóstico si sigo tratamiento versus si no?",
     relatedLessons: ["understanding-depression", "introduction-to-heart-disease"],
   },
   {
@@ -158,7 +158,7 @@ export const terms: GlossaryTerm[] = [
     term: "Efecto secundario",
     category: "Medicamentos",
     definition:
-      "## Qué es\r\n\r\nUn efecto secundario es una reacción no deseada a un medicamento — de leve (boca seca) a grave (reacción alérgica). No todos los tienen, y muchos desaparecen al adaptarse el cuerpo. Reporte efectos molestos o graves a su médico; no suspenda medicamentos recetados sin orientación.\r\n\r\n## Por qué importa\r\n\r\nAlgunos efectos secundarios desaparecen con el tiempo; otros señalan alergia o estrés orgánico. Reportar problemas temprano permite ajustar dosis o cambiar medicamentos antes de daño grave.\r\n\r\n## Hable con su equipo de salud\r\n\r\nPregunte: ¿Qué efectos son comunes y temporales versus motivos para suspender el medicamento de inmediato? ¿Debo reportar síntomas leves primero a usted o al farmacéutico?",
+      "## Qué es\n\nUn efecto secundario es una reacción no deseada a un medicamento — de leve (boca seca) a grave (reacción alérgica). No todos los tienen, y muchos desaparecen al adaptarse el cuerpo. Reporte efectos molestos o graves a su médico; no suspenda medicamentos recetados sin orientación.\n\n## Por qué importa\n\nAlgunos efectos secundarios desaparecen con el tiempo; otros señalan alergia o estrés orgánico. Reportar problemas temprano permite ajustar dosis o cambiar medicamentos antes de daño grave.\n\n## Hable con su equipo de salud\n\nPregunte: ¿Qué efectos son comunes y temporales versus motivos para suspender el medicamento de inmediato? ¿Debo reportar síntomas leves primero a usted o al farmacéutico?",
     relatedLessons: ["managing-side-effects", "asking-about-medications"],
   },
   {
@@ -166,7 +166,7 @@ export const terms: GlossaryTerm[] = [
     term: "Dosis",
     category: "Medicamentos",
     definition:
-      '## Qué es\r\n\r\nLa dosis es la cantidad de medicamento recetada y con qué frecuencia debe tomarla — por ejemplo "una tableta dos veces al día". Tomar la dosis correcta a la hora indicada es esencial para seguridad y eficacia. Nunca cambie la dosis sin hablar con su médico o farmacéutico.\r\n\r\n## Por qué importa\r\n\r\nDosis incorrecta — demasiada, poca o a hora equivocada — es causa principal de daño por medicamentos. Las instrucciones en la etiqueta son órdenes médicas y legales, no sugerencias.\r\n\r\n## Hable con su equipo de salud\r\n\r\nPregunte: ¿Qué pasa si olvido una dosis o la tomo tarde? ¿Puedo partir o triturar esta tableta y debo tomarla con comida o en ayunas?',
+      '## Qué es\n\nLa dosis es la cantidad de medicamento recetada y con qué frecuencia debe tomarla — por ejemplo "una tableta dos veces al día". Tomar la dosis correcta a la hora indicada es esencial para seguridad y eficacia. Nunca cambie la dosis sin hablar con su médico o farmacéutico.\n\n## Por qué importa\n\nDosis incorrecta — demasiada, poca o a hora equivocada — es causa principal de daño por medicamentos. Las instrucciones en la etiqueta son órdenes médicas y legales, no sugerencias.\n\n## Hable con su equipo de salud\n\nPregunte: ¿Qué pasa si olvido una dosis o la tomo tarde? ¿Puedo partir o triturar esta tableta y debo tomarla con comida o en ayunas?',
     relatedLessons: ["understanding-prescription-labels", "asking-about-medications"],
   },
   {
@@ -174,7 +174,7 @@ export const terms: GlossaryTerm[] = [
     term: "Medicamento genérico",
     category: "Medicamentos",
     definition:
-      "## Qué es\r\n\r\nUn medicamento genérico contiene el mismo ingrediente activo que una marca y debe cumplir los mismos estándares de seguridad y eficacia. Los genéricos suelen costar menos porque no repiten costos de marketing y desarrollo. Pueden verse distintos pero actúan igual.\r\n\r\n## Por qué importa\r\n\r\nLos genéricos ahorran dinero y mejoran acceso para la mayoría. Saber que son equivalentes según FDA ayuda a discutir cambios con confianza mientras vigila sensibilidades raras a excipientes.\r\n\r\n## Hable con su equipo de salud\r\n\r\nPregunte: ¿Es apropiado un genérico para este medicamento y mi seguro lo exigirá? ¿Qué hago si la pastilla se ve distinta o me siento diferente tras el cambio?",
+      "## Qué es\n\nUn medicamento genérico contiene el mismo ingrediente activo que una marca y debe cumplir los mismos estándares de seguridad y eficacia. Los genéricos suelen costar menos porque no repiten costos de marketing y desarrollo. Pueden verse distintos pero actúan igual.\n\n## Por qué importa\n\nLos genéricos ahorran dinero y mejoran acceso para la mayoría. Saber que son equivalentes según FDA ayuda a discutir cambios con confianza mientras vigila sensibilidades raras a excipientes.\n\n## Hable con su equipo de salud\n\nPregunte: ¿Es apropiado un genérico para este medicamento y mi seguro lo exigirá? ¿Qué hago si la pastilla se ve distinta o me siento diferente tras el cambio?",
     relatedLessons: ["understanding-prescription-labels", "asking-about-medications"],
   },
   {
@@ -182,7 +182,7 @@ export const terms: GlossaryTerm[] = [
     term: "Receta médica",
     category: "Medicamentos",
     definition:
-      "## Qué es\r\n\r\nUna receta es una orden escrita o electrónica de un profesional autorizado para un medicamento, dosis e instrucciones específicas. Solo las farmacias dispensan medicamentos con receta. La etiqueta incluye su nombre, medicamento, cómo tomarlo, resurtidos y contacto de la farmacia.\r\n\r\n## Por qué importa\r\n\r\nLas recetas tienen requisitos legales para resurtidos, sustancias controladas y transferencias entre farmacias. Recetas vencidas o compartidas pueden ser inseguras y no surtirse.\r\n\r\n## Hable con su equipo de salud\r\n\r\nPregunte: ¿Cuántos resurtidos quedan y debo programar seguimiento antes de que se acaben? ¿Esta receta puede enviarse electrónicamente a mi farmacia preferida?",
+      "## Qué es\n\nUna receta es una orden escrita o electrónica de un profesional autorizado para un medicamento, dosis e instrucciones específicas. Solo las farmacias dispensan medicamentos con receta. La etiqueta incluye su nombre, medicamento, cómo tomarlo, resurtidos y contacto de la farmacia.\n\n## Por qué importa\n\nLas recetas tienen requisitos legales para resurtidos, sustancias controladas y transferencias entre farmacias. Recetas vencidas o compartidas pueden ser inseguras y no surtirse.\n\n## Hable con su equipo de salud\n\nPregunte: ¿Cuántos resurtidos quedan y debo programar seguimiento antes de que se acaben? ¿Esta receta puede enviarse electrónicamente a mi farmacia preferida?",
     relatedLessons: ["understanding-prescription-labels", "asking-about-medications"],
   },
   {
@@ -190,7 +190,7 @@ export const terms: GlossaryTerm[] = [
     term: "De venta libre (OTC)",
     category: "Medicamentos",
     definition:
-      "## Qué es\r\n\r\nLos medicamentos de venta libre (OTC) se compran sin receta — por ejemplo acetaminofén, ibuprofeno y antialérgicos. Aun así tienen riesgos e interacciones. Informe a su médico y farmacéutico sobre todos los productos OTC que usa, con frecuencia y dosis.\r\n\r\n## Por qué importa\r\n\r\nLos productos OTC son medicamentos reales con riesgo de sobredosis e interacciones — especialmente acetaminofén oculto en fórmulas para resfriado. Deben estar en su lista completa en cada visita.\r\n\r\n## Hable con su equipo de salud\r\n\r\nPregunte: ¿Este producto OTC es seguro con mis recetas y condiciones de salud? ¿Cuál es la dosis diaria máxima sumando todas las fuentes?",
+      "## Qué es\n\nLos medicamentos de venta libre (OTC) se compran sin receta — por ejemplo acetaminofén, ibuprofeno y antialérgicos. Aun así tienen riesgos e interacciones. Informe a su médico y farmacéutico sobre todos los productos OTC que usa, con frecuencia y dosis.\n\n## Por qué importa\n\nLos productos OTC son medicamentos reales con riesgo de sobredosis e interacciones — especialmente acetaminofén oculto en fórmulas para resfriado. Deben estar en su lista completa en cada visita.\n\n## Hable con su equipo de salud\n\nPregunte: ¿Este producto OTC es seguro con mis recetas y condiciones de salud? ¿Cuál es la dosis diaria máxima sumando todas las fuentes?",
     relatedLessons: ["asking-about-medications", "understanding-prescription-labels"],
   },
   {
@@ -198,7 +198,7 @@ export const terms: GlossaryTerm[] = [
     term: "Biopsia",
     category: "Procedimientos",
     definition:
-      "## Qué es\r\n\r\nUna biopsia es un procedimiento en el que se extrae una pequeña muestra de tejido o células para examen en laboratorio. Los médicos usan biopsias para detectar cáncer, infección u otras enfermedades. Los resultados suelen tardar varios días o semanas según el tipo de prueba.\r\n\r\n## Por qué importa\r\n\r\nLos resultados de biopsia a menudo determinan estadificación y tratamiento del cáncer. Entender el procedimiento reduce ansiedad y ayuda a prepararse para tiempos de espera y citas de seguimiento.\r\n\r\n## Hable con su equipo de salud\r\n\r\nPregunte: ¿Cómo recibiré resultados y quién me llama si hay algo urgente? ¿Qué restricciones aplican tras el procedimiento (actividad, baño, medicamentos)?",
+      "## Qué es\n\nUna biopsia es un procedimiento en el que se extrae una pequeña muestra de tejido o células para examen en laboratorio. Los médicos usan biopsias para detectar cáncer, infección u otras enfermedades. Los resultados suelen tardar varios días o semanas según el tipo de prueba.\n\n## Por qué importa\n\nLos resultados de biopsia a menudo determinan estadificación y tratamiento del cáncer. Entender el procedimiento reduce ansiedad y ayuda a prepararse para tiempos de espera y citas de seguimiento.\n\n## Hable con su equipo de salud\n\nPregunte: ¿Cómo recibiré resultados y quién me llama si hay algo urgente? ¿Qué restricciones aplican tras el procedimiento (actividad, baño, medicamentos)?",
     relatedLessons: ["common-tests", "blood-basics"],
   },
   {
@@ -206,7 +206,7 @@ export const terms: GlossaryTerm[] = [
     term: "Tomografía computarizada (TC)",
     category: "Procedimientos",
     definition:
-      "## Qué es\r\n\r\nUna tomografía computarizada (TC) usa rayos X y procesamiento por computadora para crear imágenes detalladas en cortes del cuerpo. Puede mostrar huesos, órganos y vasos sanguíneos. Los médicos usan TC para diagnosticar lesiones, tumores, infecciones y otros problemas internos.\r\n\r\n## Por qué importa\r\n\r\nLa TC expone a más radiación que una radiografía simple. Ofrece imágenes rápidas y detalladas para emergencias y diagnósticos complejos — conviene discutir cuando alternativas como ultrasonido o RM pueden bastar.\r\n\r\n## Hable con su equipo de salud\r\n\r\nPregunte: ¿Por qué la TC es la mejor prueba para mi situación y necesitaré contraste? ¿Cómo me preparo y cuándo explicarán los resultados?",
+      "## Qué es\n\nUna tomografía computarizada (TC) usa rayos X y procesamiento por computadora para crear imágenes detalladas en cortes del cuerpo. Puede mostrar huesos, órganos y vasos sanguíneos. Los médicos usan TC para diagnosticar lesiones, tumores, infecciones y otros problemas internos.\n\n## Por qué importa\n\nLa TC expone a más radiación que una radiografía simple. Ofrece imágenes rápidas y detalladas para emergencias y diagnósticos complejos — conviene discutir cuando alternativas como ultrasonido o RM pueden bastar.\n\n## Hable con su equipo de salud\n\nPregunte: ¿Por qué la TC es la mejor prueba para mi situación y necesitaré contraste? ¿Cómo me preparo y cuándo explicarán los resultados?",
     relatedLessons: ["common-tests", "blood-basics"],
   },
   {
@@ -214,7 +214,7 @@ export const terms: GlossaryTerm[] = [
     term: "Resonancia magnética (RM)",
     category: "Procedimientos",
     definition:
-      "## Qué es\r\n\r\nLa resonancia magnética (RM) usa imanes potentes y ondas de radio — no rayos X — para crear imágenes detalladas de tejidos blandos como cerebro, columna, articulaciones y órganos. Es útil para detectar tumores, lesiones y condiciones neurológicas. El estudio puede durar 30–60 minutos y es indoloro.\r\n\r\n## Por qué importa\r\n\r\nLa RM ofrece imágenes detalladas de tejidos blandos sin radiación pero requiere permanecer quieto en espacio cerrado. Implantes metálicos y claustrofobia pueden requerir programación especial u otras pruebas.\r\n\r\n## Hable con su equipo de salud\r\n\r\nPregunte: ¿Necesito contraste para esta RM y mi implante es seguro dentro del escáner? ¿Qué pasa si me siento ansioso durante la prueba?",
+      "## Qué es\n\nLa resonancia magnética (RM) usa imanes potentes y ondas de radio — no rayos X — para crear imágenes detalladas de tejidos blandos como cerebro, columna, articulaciones y órganos. Es útil para detectar tumores, lesiones y condiciones neurológicas. El estudio puede durar 30–60 minutos y es indoloro.\n\n## Por qué importa\n\nLa RM ofrece imágenes detalladas de tejidos blandos sin radiación pero requiere permanecer quieto en espacio cerrado. Implantes metálicos y claustrofobia pueden requerir programación especial u otras pruebas.\n\n## Hable con su equipo de salud\n\nPregunte: ¿Necesito contraste para esta RM y mi implante es seguro dentro del escáner? ¿Qué pasa si me siento ansioso durante la prueba?",
     relatedLessons: ["common-tests", "blood-basics"],
   },
   {
@@ -222,7 +222,7 @@ export const terms: GlossaryTerm[] = [
     term: "Ultrasonido",
     category: "Procedimientos",
     definition:
-      "## Qué es\r\n\r\nEl ultrasonido usa ondas sonoras de alta frecuencia para crear imágenes de estructuras internas, como un feto en desarrollo, vesícula, corazón o vasos sanguíneos. No usa radiación. Se aplica gel en la piel y una sonda envía y recibe ondas para formar una imagen en vivo.\r\n\r\n## Por qué importa\r\n\r\nEl ultrasonido es seguro en embarazo y para monitoreo repetido porque usa sonido, no radiación. Los resultados dependen de la habilidad del operador — algunos hallazgos necesitan TC o RM de seguimiento.\r\n\r\n## Hable con su equipo de salud\r\n\r\nPregunte: ¿Qué mostrará este ultrasonido y necesito vejiga llena o ayuno antes? ¿Quién explica resultados — el técnico o mi médico — y cuándo?",
+      "## Qué es\n\nEl ultrasonido usa ondas sonoras de alta frecuencia para crear imágenes de estructuras internas, como un feto en desarrollo, vesícula, corazón o vasos sanguíneos. No usa radiación. Se aplica gel en la piel y una sonda envía y recibe ondas para formar una imagen en vivo.\n\n## Por qué importa\n\nEl ultrasonido es seguro en embarazo y para monitoreo repetido porque usa sonido, no radiación. Los resultados dependen de la habilidad del operador — algunos hallazgos necesitan TC o RM de seguimiento.\n\n## Hable con su equipo de salud\n\nPregunte: ¿Qué mostrará este ultrasonido y necesito vejiga llena o ayuno antes? ¿Quién explica resultados — el técnico o mi médico — y cuándo?",
     relatedLessons: ["common-tests", "common-adult-screenings"],
   },
   {
@@ -230,7 +230,7 @@ export const terms: GlossaryTerm[] = [
     term: "Inflamación",
     category: "General",
     definition:
-      "## Qué es\r\n\r\nLa inflamación es la respuesta del cuerpo a lesión o infección — enrojecimiento, hinchazón, calor y dolor. La inflamación aguda ayuda a sanar. La inflamación crónica de meses puede contribuir a enfermedad cardíaca, artritis y otras condiciones. El estilo de vida y el tratamiento pueden reducir la inflamación crónica dañina.\r\n\r\n## Por qué importa\r\n\r\nLa inflamación a corto plazo sana lesiones; la crónica contribuye a enfermedad cardíaca, complicaciones de diabetes y daño articular. El tratamiento apunta a la causa, no solo al dolor.\r\n\r\n## Hable con su equipo de salud\r\n\r\nPregunte: ¿Mi inflamación es por infección, enfermedad autoinmune o estilo de vida? ¿Cómo sabremos si el tratamiento funciona?",
+      "## Qué es\n\nLa inflamación es la respuesta del cuerpo a lesión o infección — enrojecimiento, hinchazón, calor y dolor. La inflamación aguda ayuda a sanar. La inflamación crónica de meses puede contribuir a enfermedad cardíaca, artritis y otras condiciones. El estilo de vida y el tratamiento pueden reducir la inflamación crónica dañina.\n\n## Por qué importa\n\nLa inflamación a corto plazo sana lesiones; la crónica contribuye a enfermedad cardíaca, complicaciones de diabetes y daño articular. El tratamiento apunta a la causa, no solo al dolor.\n\n## Hable con su equipo de salud\n\nPregunte: ¿Mi inflamación es por infección, enfermedad autoinmune o estilo de vida? ¿Cómo sabremos si el tratamiento funciona?",
     relatedLessons: ["introduction-to-heart-disease", "asthma-basics"],
   },
   {
@@ -238,7 +238,7 @@ export const terms: GlossaryTerm[] = [
     term: "Sistema inmunológico",
     category: "General",
     definition:
-      "## Qué es\r\n\r\nEl sistema inmunológico es la red de defensa del cuerpo contra gérmenes, virus y células anormales. Incluye glóbulos blancos, anticuerpos y órganos como el bazo y ganglios linfáticos. Las vacunas entrenan al sistema inmune para reconocer amenazas específicas sin causar la enfermedad completa.\r\n\r\n## Por qué importa\r\n\r\nLa salud inmune afecta respuesta a vacunas, infecciones y algunos medicamentos que suprimen inmunidad. Enfermedades autoinmunes ocurren cuando el sistema ataca al propio cuerpo.\r\n\r\n## Hable con su equipo de salud\r\n\r\nPregunte: ¿Se me considera inmunocomprometido y necesito vacunas o precauciones extra? ¿Qué infecciones debo vigilar con mi tratamiento actual?",
+      "## Qué es\n\nEl sistema inmunológico es la red de defensa del cuerpo contra gérmenes, virus y células anormales. Incluye glóbulos blancos, anticuerpos y órganos como el bazo y ganglios linfáticos. Las vacunas entrenan al sistema inmune para reconocer amenazas específicas sin causar la enfermedad completa.\n\n## Por qué importa\n\nLa salud inmune afecta respuesta a vacunas, infecciones y algunos medicamentos que suprimen inmunidad. Enfermedades autoinmunes ocurren cuando el sistema ataca al propio cuerpo.\n\n## Hable con su equipo de salud\n\nPregunte: ¿Se me considera inmunocomprometido y necesito vacunas o precauciones extra? ¿Qué infecciones debo vigilar con mi tratamiento actual?",
     relatedLessons: ["understanding-vaccines", "asthma-basics"],
   },
   {
@@ -246,7 +246,7 @@ export const terms: GlossaryTerm[] = [
     term: "Metabolismo",
     category: "General",
     definition:
-      '## Qué es\r\n\r\nEl metabolismo es el conjunto de procesos químicos que convierten alimentos en energía y materiales para el cuerpo. La tasa metabólica basal es la energía en reposo. Edad, masa muscular, actividad y hormonas afectan el metabolismo. Un "metabolismo lento" rara vez es la única causa de aumento de peso.\r\n\r\n## Por qué importa\r\n\r\nEl metabolismo afecta peso, energía y procesamiento de medicamentos. Trastornos tiroideos, masa muscular y edad cambian la tasa metabólica — culpar solo al metabolismo a menudo omite causas tratables.\r\n\r\n## Hable con su equipo de salud\r\n\r\nPregunte: ¿Podría un problema tiroideo u hormonal afectar mi peso o energía? ¿Qué cambios realistas ayudarían más allá de solo dieta?',
+      '## Qué es\n\nEl metabolismo es el conjunto de procesos químicos que convierten alimentos en energía y materiales para el cuerpo. La tasa metabólica basal es la energía en reposo. Edad, masa muscular, actividad y hormonas afectan el metabolismo. Un "metabolismo lento" rara vez es la única causa de aumento de peso.\n\n## Por qué importa\n\nEl metabolismo afecta peso, energía y procesamiento de medicamentos. Trastornos tiroideos, masa muscular y edad cambian la tasa metabólica — culpar solo al metabolismo a menudo omite causas tratables.\n\n## Hable con su equipo de salud\n\nPregunte: ¿Podría un problema tiroideo u hormonal afectar mi peso o energía? ¿Qué cambios realistas ayudarían más allá de solo dieta?',
     relatedLessons: ["reading-nutrition-labels", "building-balanced-plate"],
   },
   {
@@ -254,7 +254,7 @@ export const terms: GlossaryTerm[] = [
     term: "Placebo",
     category: "General",
     definition:
-      "## Qué es\r\n\r\nUn placebo es un tratamiento inactivo — como una pastilla de azúcar — usado en investigación para comparar con medicina real. Algunas personas mejoran con placebo por la respuesta mente-cuerpo (efecto placebo). En ensayos clínicos, los placebos ayudan a demostrar si un tratamiento funciona más allá de las expectativas.\r\n\r\n## Por qué importa\r\n\r\nEntender placebos ayuda a interpretar afirmaciones de salud y consentimientos de ensayos. Mejorar con placebo muestra cómo expectativas y rituales de cuidado afectan síntomas — pero no reemplaza tratamientos probados para enfermedad grave.\r\n\r\n## Hable con su equipo de salud\r\n\r\nPregunte: En este estudio o tratamiento, ¿cómo sabemos que la mejoría es del fármaco activo y no solo expectativa? ¿Qué evidencia hay de que funciona más allá del placebo?",
+      "## Qué es\n\nUn placebo es un tratamiento inactivo — como una pastilla de azúcar — usado en investigación para comparar con medicina real. Algunas personas mejoran con placebo por la respuesta mente-cuerpo (efecto placebo). En ensayos clínicos, los placebos ayudan a demostrar si un tratamiento funciona más allá de las expectativas.\n\n## Por qué importa\n\nEntender placebos ayuda a interpretar afirmaciones de salud y consentimientos de ensayos. Mejorar con placebo muestra cómo expectativas y rituales de cuidado afectan síntomas — pero no reemplaza tratamientos probados para enfermedad grave.\n\n## Hable con su equipo de salud\n\nPregunte: En este estudio o tratamiento, ¿cómo sabemos que la mejoría es del fármaco activo y no solo expectativa? ¿Qué evidencia hay de que funciona más allá del placebo?",
     relatedLessons: ["understanding-vaccines", "asking-about-medications"],
   },
   {
@@ -262,7 +262,7 @@ export const terms: GlossaryTerm[] = [
     term: "Ensayo clínico",
     category: "General",
     definition:
-      "## Qué es\r\n\r\nUn ensayo clínico es un estudio de investigación que prueba nuevos tratamientos, medicamentos o enfoques médicos en personas. Los ensayos siguen reglas estrictas de seguridad y consentimiento informado. Los participantes ayudan a avanzar la medicina pero pueden recibir placebo o atención estándar según el diseño del estudio.\r\n\r\n## Por qué importa\r\n\r\nLos ensayos clínicos avanzan opciones de tratamiento pero implican incertidumbre y protocolos estrictos. Saber cómo funcionan ayuda a decidir si participar encaja con sus valores y necesidades.\r\n\r\n## Hable con su equipo de salud\r\n\r\nPregunte: ¿En qué fase está este ensayo y cuáles son riesgos y beneficios conocidos? ¿Puedo salir en cualquier momento y cómo afecta mi atención estándar?",
+      "## Qué es\n\nUn ensayo clínico es un estudio de investigación que prueba nuevos tratamientos, medicamentos o enfoques médicos en personas. Los ensayos siguen reglas estrictas de seguridad y consentimiento informado. Los participantes ayudan a avanzar la medicina pero pueden recibir placebo o atención estándar según el diseño del estudio.\n\n## Por qué importa\n\nLos ensayos clínicos avanzan opciones de tratamiento pero implican incertidumbre y protocolos estrictos. Saber cómo funcionan ayuda a decidir si participar encaja con sus valores y necesidades.\n\n## Hable con su equipo de salud\n\nPregunte: ¿En qué fase está este ensayo y cuáles son riesgos y beneficios conocidos? ¿Puedo salir en cualquier momento y cómo afecta mi atención estándar?",
     relatedLessons: ["understanding-vaccines", "common-adult-screenings"],
   },
 ] as const;
