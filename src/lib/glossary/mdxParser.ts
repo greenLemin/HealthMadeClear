@@ -35,10 +35,10 @@ export async function getAllGlossaryFromMdx(locale: "en" | "es"): Promise<Glossa
     const filePath = path.join(dir, `${id}.mdx`);
     try {
       await fs.access(filePath);
-      return termFromFile(filePath);
     } catch {
       throw new Error(`Missing glossary MDX file: ${filePath}`);
     }
+    return termFromFile(filePath);
   });
 
   return Promise.all(promises);
@@ -52,8 +52,8 @@ export async function getGlossaryTermFromMdx(
   const filePath = path.join(getGlossaryMdxDir(locale), `${id}.mdx`);
   try {
     await fs.access(filePath);
-    return termFromFile(filePath);
   } catch {
     return undefined;
   }
+  return termFromFile(filePath);
 }
