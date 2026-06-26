@@ -10,6 +10,7 @@ import { getGlossaryLabelFromBundle } from "@/lib/glossary/loadGlossary";
 import { getLessonById } from "@/lib/localizedContent";
 import type { GlossaryTerm } from "@/types/glossary";
 import { useTranslations } from "next-intl";
+import MarkdownRenderer from "@/components/mdx/MarkdownRenderer";
 
 const alphabet = ["All", ..."ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("")];
 
@@ -135,7 +136,9 @@ export default function GlossaryClient({ terms: glossaryTerms }: GlossaryClientP
                       {term.term}
                     </Link>
                   </h3>
-                  <p className="mb-5 text-body-md text-on-surface-variant">{term.definition}</p>
+                  <div className="mb-5">
+                    <MarkdownRenderer text={term.definition} glossaryTerms={glossaryTerms} />
+                  </div>
                   <div className="border-t border-outline-variant pt-4">
                     {term.relatedLessons?.length ? (
                       <div className="mb-4">

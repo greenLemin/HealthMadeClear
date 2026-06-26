@@ -3,10 +3,11 @@ import path from "path";
 import matter from "gray-matter";
 import type { GlossaryId, LessonId } from "@/types/content";
 import { GLOSSARY_IDS } from "@/types/content";
+import { normalizeLineEndings } from "@/lib/normalizeLineEndings";
 import type { GlossaryTerm } from "@/types/glossary";
 
 function termFromFile(filePath: string): GlossaryTerm {
-  const raw = fs.readFileSync(filePath, "utf8");
+  const raw = normalizeLineEndings(fs.readFileSync(filePath, "utf8"));
   const { data, content } = matter(raw);
   const related = data.relatedTerms;
   const lessons = data.relatedLessons;

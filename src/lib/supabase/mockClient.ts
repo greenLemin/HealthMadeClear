@@ -71,11 +71,32 @@ function parseFirstJsonObject<T = unknown>(str: string): T {
 
 function getMockDb(cookieStore?: Pick<CookieStore, "get">): MockDb {
   let json: string | null = null;
-  if (cookieStore) {
-    json = cookieStore.get("hmc_mock_db")?.value || null;
-  } else if (typeof document !== "undefined") {
-    const match = document.cookie.match(/(?:^|; )hmc_mock_db=([^;]*)/);
-    json = match ? decodeURIComponent(match[1]) : null;
+  try {
+    if (cookieStore) {
+      const raw = cookieStore.get("hmc_mock_db")?.value || null;
+      if (raw) {
+        if (raw.startsWith("%7B") || raw.includes("%")) {
+          // It is URL-encoded. We can safely split by comma and decode.
+          const singleRaw = raw.split(",")[0];
+          json = decodeURIComponent(singleRaw);
+        } else {
+          // It is a raw JSON string (legacy/non-encoded). Do NOT split by comma!
+          json = raw;
+        }
+      }
+    } else if (typeof document !== "undefined") {
+      const match = document.cookie.match(/(?:^|; )hmc_mock_db=([^;]*)/);
+      if (match) {
+        const raw = match[1];
+        if (raw.startsWith("%7B") || raw.includes("%")) {
+          json = decodeURIComponent(raw);
+        } else {
+          json = raw;
+        }
+      }
+    }
+  } catch {
+    json = null;
   }
 
   const cloneDefault = () => ({
@@ -96,10 +117,11 @@ function getMockDb(cookieStore?: Pick<CookieStore, "get">): MockDb {
 
 function saveMockDb(db: MockDb, cookieStore?: CookieStore) {
   const json = JSON.stringify(db);
+  const encoded = encodeURIComponent(json);
   if (cookieStore && "set" in cookieStore && typeof cookieStore.set === "function") {
-    cookieStore.set("hmc_mock_db", json, { path: "/" });
+    cookieStore.set("hmc_mock_db", encoded, { path: "/" });
   } else if (typeof document !== "undefined") {
-    document.cookie = `hmc_mock_db=${encodeURIComponent(json)};path=/;max-age=31536000;SameSite=Lax`;
+    document.cookie = `hmc_mock_db=${encoded};path=/;max-age=31536000;SameSite=Lax`;
   }
 }
 

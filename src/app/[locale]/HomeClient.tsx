@@ -1,5 +1,6 @@
 "use client";
 
+import { useMemo } from "react";
 import { Link } from "@/i18n/navigation";
 import { ArrowRight, BookOpen, Heart, Search, Shield, Wrench } from "lucide-react";
 import Hero from "@/components/Hero";
@@ -21,12 +22,22 @@ type HomeClientProps = {
 };
 
 export default function HomeClient({ lessons, learningPaths }: HomeClientProps) {
-  const { completedLessons, locale } = useAppState();
+  const { completedLessons, recentLessons, locale } = useAppState();
   const { user } = useAuth();
   const t = useTranslations("home");
   const tCommon = useTranslations("common");
   const tDisclaimer = useTranslations("disclaimer");
   const tAuth = useTranslations("auth");
+  const tDashboard = useTranslations("dashboard");
+
+  const lastUncompletedRecentLessonId = useMemo(() => {
+    return recentLessons.find((id) => !completedLessons.has(id));
+  }, [recentLessons, completedLessons]);
+
+  const lastRecentLesson = useMemo(() => {
+    if (!lastUncompletedRecentLessonId) return null;
+    return lessons.find((l) => l.id === lastUncompletedRecentLessonId);
+  }, [lastUncompletedRecentLessonId, lessons]);
 
   return (
     <div>
@@ -218,20 +229,59 @@ export default function HomeClient({ lessons, learningPaths }: HomeClientProps) 
       >
         <div className="max-w-container mx-auto px-4 md:px-16">
           {user ? (
-            <div className="rounded-2xl border border-outline-variant bg-surface-container-lowest p-8 md:p-10 shadow-card">
-              <h2 id="cta-heading-authenticated" className="mb-4 text-headline-md text-primary">
-                {tCommon("continue")}
-              </h2>
-              <p className="mb-6 text-body-md text-on-surface-variant">
-                {tCommon("completed")}: {completedLessons.size} {tCommon("modules")}
-              </p>
-              <Link href="/dashboard">
-                <Button variant="primary" size="md">
-                  {tCommon("exploreLibrary")}
-                  <ArrowRight size={18} />
-                </Button>
-              </Link>
-            </div>
+            lastRecentLesson ? (
+              // Resume lesson state
+              <div className="rounded-2xl border border-outline-variant bg-surface-container-lowest p-8 md:p-10 shadow-card">
+                <h2 id="cta-heading-authenticated" className="mb-4 text-headline-md text-primary font-bold">
+                  {tCommon("continue")}
+                </h2>
+                <div className="mb-6 rounded-xl border border-outline-variant bg-surface-container-low p-5">
+                  <div className="mb-2 text-label-md font-bold uppercase tracking-wider text-secondary">
+                    {locale === "es" ? "En curso" : "In Progress"}
+                  </div>
+                  <h3 className="mb-2 text-headline-md font-semibold text-primary">
+                    {lastRecentLesson.title}
+                  </h3>
+                  <p className="text-body-md text-on-surface-variant">{lastRecentLesson.description}</p>
+                </div>
+                <Link href={`/learn/${lastRecentLesson.id}`}>
+                  <Button variant="primary" size="md">
+                    {tDashboard("continueCta")}
+                    <ArrowRight size={18} />
+                  </Button>
+                </Link>
+              </div>
+            ) : completedLessons.size === 0 ? (
+              // Brand new user empty state
+              <div className="rounded-2xl border border-outline-variant bg-surface-container-lowest p-8 md:p-10 shadow-card">
+                <h2 id="cta-heading-authenticated" className="mb-2 text-headline-md text-primary font-bold">
+                  {tDashboard("startFirstLessonCta")}
+                </h2>
+                <p className="mb-6 text-body-md text-on-surface-variant">{tDashboard("startJourney")}</p>
+                <Link href="/learn">
+                  <Button variant="primary" size="md">
+                    {tCommon("exploreLibrary")}
+                    <ArrowRight size={18} />
+                  </Button>
+                </Link>
+              </div>
+            ) : (
+              // Completed all started lessons state
+              <div className="rounded-2xl border border-outline-variant bg-surface-container-lowest p-8 md:p-10 shadow-card">
+                <h2 id="cta-heading-authenticated" className="mb-4 text-headline-md text-primary font-bold">
+                  {tCommon("continue")}
+                </h2>
+                <p className="mb-6 text-body-md text-on-surface-variant">
+                  {tCommon("completed")}: {completedLessons.size} {tCommon("modules")}
+                </p>
+                <Link href="/dashboard">
+                  <Button variant="primary" size="md">
+                    {tCommon("exploreLibrary")}
+                    <ArrowRight size={18} />
+                  </Button>
+                </Link>
+              </div>
+            )
           ) : (
             <div className="rounded-2xl border border-outline-variant bg-primary-container/10 p-8 md:p-10 text-center md:text-left">
               <div className="flex flex-col items-center gap-6 md:flex-row md:justify-between">

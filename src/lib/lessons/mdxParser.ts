@@ -3,6 +3,7 @@ import path from "path";
 import matter from "gray-matter";
 import type { Lesson } from "@/types/lesson";
 import type { LessonCategoryId, LessonId } from "@/types/content";
+import { normalizeLineEndings } from "@/lib/normalizeLineEndings";
 import { LESSON_IDS } from "@/types/content";
 
 const CALLOUT_REGEX = /:::([a-z]+)\n([\s\S]*?)\n:::/g;
@@ -35,7 +36,7 @@ export function parseSections(markdown: string): Lesson["content"]["sections"] {
 }
 
 function lessonFromFile(filePath: string): Lesson {
-  const raw = fs.readFileSync(filePath, "utf8");
+  const raw = normalizeLineEndings(fs.readFileSync(filePath, "utf8"));
   const { data, content } = matter(raw);
 
   const id = data.id as LessonId;

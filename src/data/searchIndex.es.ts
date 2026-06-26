@@ -367,7 +367,7 @@ export const searchIndex: SearchEntry[] = [
     type: "lesson",
     title: "Hidratación y salud",
     description: "Cuánta agua necesita, signos de deshidratación y situaciones especiales.",
-    category: "Nutrition",
+    category: "Nutrición y dieta",
     categoryId: "nutrition",
     content:
       "Por qué importan los líquidos El agua transporta nutrientes, elimina desechos, regula temperatura y amortigua articulaciones. Incluso deshidratación leve puede causar dolor de cabeza, fatiga, mareo y estreñimiento. ¿Cuánto necesita? No hay un número único. Una guía común es unos **8 vasos (2 litros) al día** para muchos adultos — más con calor, enfermedad, embarazo o ejercicio. Alimentos como fruta y sopa también cuentan. Signos de deshidratación - Sed, boca seca\n- Orina amarillo oscuro o orinar menos\n- Mareo al levantarse\n- Confusión en adultos mayores (busque atención pronto) Quién necesita más cuidado Personas con insuficiencia cardíaca o renal pueden necesitar **límites de líquidos**. Siga instrucciones del equipo de salud. Atletas y trabajadores al aire libre pueden necesitar electrolitos con sudor prolongado. Mejores opciones El agua es la mejor opción base. Té sin azúcar o leche también. Limite refrescos azucarados — añaden calorías sin hidratación duradera. Electrolitos y enfermedad Con vómito, diarrea o sudor intenso pierde sodio y potasio — no solo agua. En enfermedad leve:\n\n- Soluciones de rehidratación oral (comerciales o receta OMS) superan solo agua\n- Caldo puede ayudar si lo tolera\n- Evite bebidas deportivas azucaradas como único líquido — pueden empeorar diarrea Ejercicio y calor Beba antes de sentir sed con calor o actividad intensa. Señales de pausa: mareo, calambres o dejar de sudar con calor (posible emergencia por calor). Medicamentos que afectan líquidos Diuréticos (“pastillas de agua”), algunos antihipertensivos y litio requieren ingesta constante — no siempre extra. Siga instrucciones del prescriptor; no cambie ingesta drásticamente sin preguntar. Mitos vs hechos | Mito                              | Hecho                                                       |\n| --------------------------------- | ----------------------------------------------------------- |\n| “8 vasos para todos”              | Las necesidades varían por tamaño, actividad, clima y salud |\n| “Orina clara siempre mejor”       | Orina muy clara puede indicar sobrehidratación              |\n| “El café deshidrata por completo” | Café moderado aún aporta líquidos                           |\n\n<!-- lesson-depth-added -->",
@@ -378,7 +378,7 @@ export const searchIndex: SearchEntry[] = [
     type: "lesson",
     title: "Cuándo usar atención urgente",
     description: "Cómo la atención urgente encaja entre consultorio y sala de emergencias.",
-    category: "Emergency",
+    category: "Emergencias y primeros auxilios",
     categoryId: "emergency",
     content:
       "Tres niveles de atención - **Atención primaria** — salud continua, resurtidos, prevención (a menudo espera de días o semanas)\n- **Atención urgente** — problemas el mismo día que no son mortales\n- **Emergencias (ER)** — condiciones graves o potencialmente mortales\n\nElegir el lugar correcto ahorra tiempo, dinero y deja la ER para verdaderas emergencias. Buenas razones para atención urgente - Esguinces, cortes menores que necesitan puntos\n- Fiebre sin angustia severa (según guía local)\n- Síntomas de infección urinaria\n- Brote leve de asma que responde al inhalador habitual\n- Erupción sin problemas respiratorios\n- Dolor de oído o garganta cuando el consultorio está cerrado Vaya a emergencias en su lugar Llame al 911 o vaya a ER por dolor de pecho, signos de derrame (FAST), dificultad respiratoria severa, sangrado abundante, intoxicación, pensamientos suicidas con plan o trauma mayor. Antes de ir - Lleve ID, seguro, lista de medicamentos\n- Conozca horarios — algunas cierran de noche\n- Pregunte si hacen pruebas necesarias (rayos X, estreptococo)\n- Planee seguimiento con su médico de cabecera Costos y facturación La atención urgente suele costar menos que emergencias pero más que consultorio. Puede deber:\n\n- Copago al registrarse\n- Cargos por laboratorios o rayos X en el sitio\n- Facturación balanceada si el centro está fuera de red\n\nTraiga tarjeta de seguro e identificación. Pregunte si pueden enviar registros a su médico de cabecera. Telesalud vs urgencias vs emergencias | Opción           | Bueno para                                 | No para                                        |\n| ---------------- | ------------------------------------------ | ---------------------------------------------- |\n| Telesalud        | Sarpullido leve, resurtido, resfriado      | Dolor de pecho, dificultad respiratoria severa |\n| Atención urgente | Esguinces, puntos, síntomas de ITU, fiebre | ACV, trauma mayor, inconsciencia               |\n| ER / 911         | Emergencias mortales                       | Resurtidos de rutina                           | Después de la visita - Recoja recetas el mismo día si es posible\n- Siga cuidado de heridas o restricciones de actividad\n- Programe seguimiento con PCP en una semana para problemas persistentes\n- Vaya a emergencias si empeora pese al tratamiento urgente Prepare un kit rápido Tenga tarjeta de seguro, lista de medicamentos y contactos de emergencia en cartera o teléfono. Ahorra tiempo cuando hay estrés.\n\n<!-- lesson-depth-added -->",
@@ -416,6 +416,205 @@ export const searchIndex: SearchEntry[] = [
     content:
       "¿Qué es la apnea del sueño? La apnea del sueño significa que la respiración se pausa o se vuelve superficial repetidamente al dormir. El tipo más común es **apnea obstructiva del sueño (AOS)** — los músculos de la garganta se relajan y bloquean el flujo de aire. Síntomas comunes - Ronquidos fuertes con jadeos o ahogos\n- Somnolencia diurna pese a tiempo en cama\n- Dolores de cabeza matutinos\n- Dificultad para concentrarse\n- Pareja nota que deja de respirar\n\nNo todos los que roncan tienen apnea, pero señales de alerta merecen evaluación. Por qué importa La AOS sin tratar aumenta riesgo de presión alta, enfermedad cardíaca, derrame, diabetes y accidentes por manejar somnoliento. Diagnóstico Un **estudio del sueño** (en casa o laboratorio) mide respiración, oxígeno y actividad cerebral. El médico revisa el índice apnea-hipopnea (IAH). Tratamiento - **CPAP** — máquina que entrega presión de aire para mantener abierta la vía aérea\n- **Aparatos orales** — casos leves o intolerancia a CPAP\n- **Pérdida de peso** — puede mejorar AOS leve\n- **Cirugía** — casos seleccionados Prueba en casa vs estudio en laboratorio | Prueba                         | Dónde                        | Mejor para                                  |\n| ------------------------------ | ---------------------------- | ------------------------------------------- |\n| Prueba casera de apnea         | Su cama, sensores portátiles | Muchos adultos con riesgo moderado-alto     |\n| Polisomnografía en laboratorio | Centro del sueño             | Casos complejos, otros trastornos del sueño |\n\nEl especialista elige según síntomas e historial. Cambios de estilo de vida Incluso con CPAP, esto ayuda:\n\n- **Pérdida de peso** — incluso modesta puede reducir severidad en algunas personas\n- **Dormir de lado** — almohadas posicionales o técnicas para evitar boca arriba\n- **Evitar alcohol antes de dormir** — relaja músculos de la vía aérea\n- **Tratar congestión nasal** — alergias y desviación septal empeoran obstrucción Impacto en pareja y familia Ronquidos fuertes y pausas observadas afectan a quien duerme junto. Inclúyalos en citas cuando sea posible — sus observaciones ayudan al diagnóstico. Seguimiento esperado Espere visitas de ajuste de mascarilla, presión y descargas periódicas de datos de la máquina. El seguro a menudo exige prueba de uso para continuar cobertura.\n\n<!-- lesson-depth-added -->",
     url: "/learn/sleep-apnea-basics",
+  },
+  {
+    id: "otc-drug-interactions",
+    type: "lesson",
+    title: "Interacciones con medicamentos de venta libre",
+    description: "Aprenda cómo los medicamentos OTC pueden interactuar con recetas, suplementos y entre sí.",
+    category: "Medication Safety",
+    categoryId: "medication-safety",
+    content:
+      "¿Qué es? Los medicamentos de venta libre (OTC) se compran sin receta — analgésicos, antihistamínicos, antiácidos, jarabes para la tos y más. Una **interacción** ocurre cuando una sustancia cambia cómo actúa otra en el cuerpo. Puede reducir eficacia, aumentar toxicidad o causar efectos inesperados. Los OTC cuentan: muchas interacciones graves involucran combinaciones que parecen inofensivas. ¿Cómo funciona? Las interacciones ocurren por varias vías. Algunos fármacos compiten por las mismas enzimas hepáticas, alterando el metabolismo. Otros suman efectos similares — dos antihistamínicos sedantes pueden aumentar peligrosamente la somnolencia. Los **ingredientes duplicados** son frecuentes: un medicamento para resfriado más un analgésico pueden contener ambos acetaminofén, elevando el riesgo hepático. Los AINE como ibuprofeno pueden reducir el flujo sanguíneo renal, especialmente con ciertos antihipertensivos o diuréticos. La hierba de San Juan y algunos suplementos pueden debilitar recetas como anticonceptivos y antidepresivos. ¿Por qué importa? La FDA reporta miles de eventos adversos prevenibles por interacciones cada año. Los adultos mayores tienen mayor riesgo por tomar múltiples medicamentos. La enfermedad renal o hepática también cambia el procesamiento. Los farmacéuticos pueden detectar interacciones — pero solo si conocen su lista completa, incluyendo vitaminas y OTC ocasionales. Qué significa para usted Antes de un producto OTC nuevo, lea la etiqueta **Drug Facts** buscando ingredientes activos y advertencias. Use una farmacia cuando sea posible. Mantenga una lista actualizada de recetas, OTC y suplementos. Si toma anticoagulantes, antihipertensivos, medicamentos para diabetes o antidepresivos, consulte antes de añadir OTC.",
+    url: "/learn/otc-drug-interactions",
+  },
+  {
+    id: "antibiotic-stewardship",
+    type: "lesson",
+    title: "Uso responsable de antibióticos",
+    description: "Entienda cuándo los antibióticos ayudan, cuándo no, y cómo usarlos de forma responsable.",
+    category: "Medication Safety",
+    categoryId: "medication-safety",
+    content:
+      "¿Qué es? El **uso responsable de antibióticos** significa usarlos solo cuando hacen falta, elegir el fármaco y la duración correctos, y tomarlos exactamente como se indica. Los antibióticos matan bacterias o impiden su crecimiento. No funcionan contra virus — causa de la mayoría de resfriados, gripe, bronquitis y muchos dolores de garganta. El mal uso impulsa la **resistencia antibiótica**, cuando las bacterias evolucionan y los medicamentos dejan de funcionar. ¿Cómo funciona? Con un antibiótico apropiado, ataca las bacterias susceptibles de su infección. Suspender antes de tiempo o usar pastillas guardadas puede dejar bacterias más resistentes. Los antibióticos de amplio espectro afectan más que el sitio infectado, a veces alterando bacterias intestinales normales y provocando diarrea por **Clostridioides difficile** (C. diff). Los sistemas de salud rastrean patrones de resistencia locales para recetar fármacos que aún funcionen en su comunidad. ¿Por qué importa? Los CDC consideran la resistencia antibiótica una de las principales amenazas de salud pública. Las infecciones resistentes son más difíciles de tratar, requieren medicamentos más fuertes, hospitalizaciones más largas y pueden ser mortales. Niños y adultos mayores son vulnerables. El uso responsable protege hoy y preserva tratamientos efectivos para el futuro — incluyendo cirugías, cáncer e infecciones graves. Qué significa para usted Si le recetan un antibiótico, tome cada dosis a tiempo aunque se sienta mejor. No guarde pastillas ni las comparta. Pregunte si su enfermedad es bacteriana o viral. En algunas condiciones — como sinusitis o otitis sin complicaciones — puede ser apropiado observar y esperar. Reporte diarrea severa durante o después de antibióticos de inmediato.",
+    url: "/learn/antibiotic-stewardship",
+  },
+  {
+    id: "drug-food-interactions",
+    type: "lesson",
+    title: "Interacciones medicamento-alimento",
+    description:
+      "Descubra cómo alimentos y bebidas pueden cambiar la absorción, eficacia y seguridad de los medicamentos.",
+    category: "Medication Safety",
+    categoryId: "medication-safety",
+    content:
+      "¿Qué es? Una **interacción medicamento-alimento** ocurre cuando algo que come o bebe cambia cómo un medicamento se absorbe, metaboliza o actúa. Los alimentos pueden retrasar o acelerar la absorción, unirse al fármaco en el estómago o afectar enzimas hepáticas. Ejemplos comunes: el jugo de pomelo inhibe enzimas que procesan estatinas y algunos antihipertensivos, y alimentos ricos en vitamina K afectan la consistencia de la warfarina. ¿Cómo funciona? Algunos medicamentos deben tomarse **con comida** para reducir molestias gástricas — metformina y muchos AINE son ejemplos. Otros funcionan mejor en **ayunas** porque la comida bloquea la absorción — ciertas hormonas tiroideas y algunos antibióticos. El alcohol suma sedación con opioides, benzodiacepinas y inductores del sueño, y estresa el hígado con acetaminofén. Alimentos ricos en tiramina interactúan con IMAO antiguos. Calcio y hierro pueden unirse a levotiroxina si se toman juntos. ¿Por qué importa? Las interacciones alimentarias pueden debilitar un fármaco (fallo terapéutico) o intensificarlo (toxicidad). Quienes toman warfarina, medicamentos de trasplante o fármacos de índice terapéutico estrecho necesitan patrones dietéticos consistentes. El momento importa tanto como el alimento — separar dosis de comidas o suplementos mejora la fiabilidad. Qué significa para usted Lea recetas y etiquetas OTC sobre alimentos y alcohol. Pregunte al farmacéutico si tomar nuevos medicamentos con comidas. Mantenga hábitos dietéticos estables con warfarina; cambios bruscos en verduras de hoja verde pueden alterar el INR. No inicie dietas restrictivas o suplementos intensivos sin revisar su lista de medicamentos con un clínico.",
+    url: "/learn/drug-food-interactions",
+  },
+  {
+    id: "micronutrient-deficiencies",
+    type: "lesson",
+    title: "Deficiencias de micronutrientes",
+    description:
+      "Conozca carencias comunes de vitaminas y minerales, quién está en riesgo y cómo se identifican.",
+    category: "Nutrition",
+    categoryId: "nutrition",
+    content:
+      '¿Qué es? Los **micronutrientes** son vitaminas y minerales que el cuerpo necesita en pequeñas cantidades para inmunidad, huesos, nervios, transporte de oxígeno y cientos de reacciones metabólicas. Una **deficiencia** significa que la ingesta o absorción es demasiado baja para mantener niveles saludables. Carencias comunes en EE. UU. incluyen vitamina D, hierro (anemia), vitamina B12 (especialmente en mayores y veganos), folato en embarazo e yodo en dietas limitadas. ¿Cómo funciona? Se obtienen de alimentos — lácteos y exposición solar ayudan la vitamina D; carnes rojas y legumbres aportan hierro; B12 viene principalmente de productos animales o fortificados. La absorción depende de la salud intestinal: celiaquía, cirugía bariátrica y IBP crónicos pueden alterarla. Los requerimientos cambian con edad, embarazo y condiciones médicas. Análisis — ferritina, 25-hidroxivitamina D, B12 — confirman deficiencia antes del tratamiento. ¿Por qué importa? Las deficiencias causan síntomas reales: hierro bajo trae fatiga y falta de aire; B12 baja puede causar entumecimiento y cambios cognitivos; vitamina D severa debilita huesos; folato bajo en embarazo aumenta riesgo de defectos del tubo neural. Sin tratar, pueden imitar otras enfermedades. El exceso de suplementos también daña — demasiado hierro o vitaminas liposolubles pueden ser tóxicos. Qué significa para usted Priorice variedad alimentaria antes de suplementos de alta dosis. Si sigue dieta restrictiva, tiene malabsorción o toma medicamentos que bloquean nutrientes, pregunte sobre pruebas. Las embarazadas deben tomar prenatales con ácido fólico según indicación. No autodiagnostique fatiga como "vitaminas bajas" sin análisis — hay muchas causas.',
+    url: "/learn/micronutrient-deficiencies",
+  },
+  {
+    id: "glycemic-index-and-load",
+    type: "lesson",
+    title: "Índice y carga glucémica",
+    description:
+      "Entienda cómo los alimentos afectan la glucosa de forma distinta y cómo usar IG y CG en la planificación de comidas.",
+    category: "Nutrition",
+    categoryId: "nutrition",
+    content:
+      "¿Qué es? El **índice glucémico (IG)** clasifica alimentos con carbohidratos según cuánto elevan la glucosa comparado con una referencia (generalmente glucosa o pan blanco). Los alimentos de IG alto suben la glucosa más rápido; los de IG bajo la suben más gradualmente. La **carga glucémica (CG)** combina IG con tamaño de porción — una porción pequeña de un alimento de IG alto puede tener CG modesta, mientras una porción grande tiene mayor impacto. Estas herramientas ayudan a personas con diabetes y a quien planea energía más estable, pero son guías, no reglas rígidas. ¿Cómo funciona? La velocidad de digestión, fibra, grasa, proteína y método de cocción cambian la respuesta glucémica. Pan blanco y bebidas azucaradas tienden a IG alto; legumbres, verduras sin almidón y muchos granos integrales son más bajos. Añadir proteína, grasa o fibra ralentiza la absorción. La actividad física después de comer también ayuda a los músculos a captar glucosa. La ADA enfatiza patrones alimentarios generales — estilo mediterráneo y DASH — más que rankings de un solo alimento. ¿Por qué importa? Los picos bruscos de glucosa pueden desafiar la función de insulina con el tiempo en diabetes o prediabetes. Una glucosa más estable apoya energía, ánimo y reducción de riesgo de complicaciones junto con atención médica. Los atletas a veces usan carbohidratos de IG alto alrededor de la actividad. Para la mayoría, la CG es más práctica que el IG porque las porciones reales importan. Qué significa para usted Arme comidas con verduras, proteína magra, grasas saludables y carbohidratos con fibra. Prefiera granos integrales sobre refinados cuando sea posible. Si tiene diabetes, siga el conteo de carbohidratos o método del plato de su equipo — las tablas de IG complementan, no reemplazan, planes personalizados. Revise respuestas glucémicas con medidor o MCG si los usa.",
+    url: "/learn/glycemic-index-and-load",
+  },
+  {
+    id: "understanding-lipids",
+    type: "lesson",
+    title: "Entendiendo los lípidos",
+    description:
+      "Aprenda qué miden colesterol y triglicéridos y por qué importan para el riesgo cardíaco y de accidente cerebrovascular.",
+    category: "Chronic Conditions",
+    categoryId: "chronic-conditions",
+    content:
+      "¿Qué es? Los **lípidos** son sustancias relacionadas con grasas en sangre medidas en un perfil lipídico. El **colesterol total** suma varios tipos. El **colesterol LDL** transporta colesterol a tejidos; LDL alto se vincula con placa en arterias. El **colesterol HDL** ayuda a retirar colesterol de arterias — HDL más alto suele ser protector. Los **triglicéridos** son otra grasa sanguínea; niveles altos a menudo acompañan obesidad, diabetes y exceso de alcohol o carbohidratos refinados. ¿Cómo funciona? El hígado produce colesterol y también se obtiene de alimentos. Las lipoproteínas empaquetan grasas para transporte en sangre acuosa. La placa (**aterosclerosis**) forma cuando partículas LDL penetran paredes arteriales, provocan inflamación y estrechan vasos — elevando riesgo de infarto y accidente cerebrovascular. Los triglicéridos almacenan energía; niveles muy altos pueden inflamar el páncreas. Los lípidos responden a dieta, ejercicio, peso, genética, tiroides y medicamentos. ¿Por qué importa? La enfermedad cardíaca sigue siendo causa principal de muerte en EE. UU. Bajar LDL con estilo de vida y, cuando corresponda, estatinas reduce eventos cardiovasculares mayores en grupos de alto riesgo según evidencia AHA/ACC. Triglicéridos sobre 500 mg/dL necesitan atención urgente por riesgo de pancreatitis. Conocer sus números ayuda a decidir cambios dietéticos, metas de actividad y si medicación es apropiada. Qué significa para usted Hágase un perfil lipídico en ayunas o no según indique su clínico — muchos adultos necesitan cribado periódico. Enfóquese en alimentación mediterránea, fibra, actividad y peso. No suspenda medicamentos para lípidos sin consejo médico. Pregunte cuál debe ser su meta de LDL según su riesgo personal, no solo tablas genéricas.",
+    url: "/learn/understanding-lipids",
+  },
+  {
+    id: "how-statins-work",
+    type: "lesson",
+    title: "Cómo funcionan las estatinas",
+    description:
+      "Entienda cómo las estatinas bajan LDL, quién puede beneficiarse y preguntas comunes sobre efectos musculares.",
+    category: "Chronic Conditions",
+    categoryId: "chronic-conditions",
+    content:
+      "¿Qué es? Las **estatinas** son medicamentos que bajan el colesterol LDL bloqueando la **HMG-CoA reductasa**, enzima que el hígado usa para fabricar colesterol. Menos producción hepática lleva al hígado a extraer más LDL de la sangre. Estatinas comunes incluyen atorvastatina, rosuvastatina, simvastatina y pravastatina. Están entre los fármacos más estudiados en cardiología y las guías ACC/AHA las recomiendan para muchas personas con enfermedad cardiovascular establecida o riesgo calculado alto. ¿Cómo funciona? Al bajar LDL, menos partículas de colesterol entran en paredes arteriales, frenando crecimiento de placa y estabilizando placa existente — reduciendo riesgo de infarto y accidente cerebrovascular con el tiempo. Las estatinas también tienen efectos antiinflamatorios vasculares. La dosis y potencia varían; los clínicos ajustan intensidad al riesgo. A veces se monitorean enzimas hepáticas. Síntomas musculares ocurren en minoría — desde molestias leves hasta rara ruptura muscular severa (rabdomiólisis). ¿Por qué importa? Ensayos grandes muestran que las estatinas reducen eventos cardiovasculares mayores en prevención primaria y secundaria. Funcionan junto con control de presión, diabetes, dejar de fumar y alimentación saludable — no en lugar de ellos. El miedo a efectos secundarios lleva a algunos a evitar terapia probada; el diálogo abierto con su clínico ayuda a equilibrar beneficio y tolerancia. Qué significa para usted Tome estatinas según receta, generalmente una vez al día. El pomelo puede elevar niveles de algunas estatinas — revise la etiqueta de su fármaco. Informe todos los medicamentos y suplementos. Si hay efectos secundarios, ajuste de dosis u otra estatina puede ayudar en lugar de abandonar la terapia por completo. Pregunte cómo su riesgo personal respalda la recomendación.",
+    url: "/learn/how-statins-work",
+  },
+  {
+    id: "heart-attack-vs-stroke-signs",
+    type: "lesson",
+    title: "Signos de infarto vs accidente cerebrovascular",
+    description: "Aprenda cómo difieren los síntomas de infarto y ACV y cuándo llamar al 911 de inmediato.",
+    category: "Emergency & First Aid",
+    categoryId: "emergency",
+    content:
+      "¿Qué es? Un **infarto** (infarto de miocardio) ocurre cuando el flujo sanguíneo a parte del músculo cardíaco se bloquea, generalmente por un coágulo en arteria coronaria. Un **accidente cerebrovascular (ACV)** ocurre cuando el flujo al cerebro se bloquea (ACV isquémico) o un vaso se rompe (ACV hemorrágico). Ambos son emergencias, pero síntomas y acciones inmediatas difieren. Los minutos importan — el tratamiento rápido limita daño cardíaco y mejora recuperación del ACV. ¿Cómo funciona? Síntomas de infarto incluyen presión o dolor torácico que puede extenderse a brazo, mandíbula o espalda; falta de aire; sudoración; náuseas o fatiga inexplicada — las mujeres pueden tener síntomas más sutiles. Síntomas de ACV aparecen de repente: caída de un lado de la cara, debilidad en brazo, habla arrastrada, pérdida de visión, dolor de cabeza severo o confusión. El mnemotécnico **FAST** ayuda — Face (cara), Arms (brazos), Speech (habla), Time (tiempo de llamar al 911). Equipos de ACV pueden ofrecer fármacos o procedimientos en horas si el paciente llega rápido. ¿Por qué importa? La AHA y la American Stroke Association reportan que la reperfusión temprana en infarto y el tratamiento sensible al tiempo en ACV salvan vidas y reducen discapacidad. Retrasos por manejar uno mismo, ignorar síntomas leves o dormir empeoran resultados. El reconocimiento de testigos es crítico — muchos eventos ocurren en casa o trabajo. Qué significa para usted Conozca factores de riesgo: presión alta (umbrales ACC/AHA 2017), tabaco, diabetes, fibrilación auricular (riesgo de ACV) e historial familiar. Si síntomas torácicos sugieren infarto, siéntese o descanse y llame al 911 — tome aspirina solo si un clínico ya se lo indicó. En ACV, anote la última vez que la persona estuvo bien. No dé comida ni bebida si la deglución o habla están afectadas.",
+    url: "/learn/heart-attack-vs-stroke-signs",
+  },
+  {
+    id: "type-1-vs-type-2-diabetes",
+    type: "lesson",
+    title: "Diabetes tipo 1 vs tipo 2",
+    description: "Entienda cómo difieren diabetes tipo 1 y tipo 2 en causa, tratamiento y manejo diario.",
+    category: "Chronic Conditions",
+    categoryId: "chronic-conditions",
+    content:
+      "¿Qué es? La **diabetes mellitus** es glucosa alta en sangre por problemas con la insulina — hormona que lleva glucosa a las células. La **diabetes tipo 1** es enfermedad autoinmune: el sistema inmune destruye células beta productoras de insulina en el páncreas. A menudo comienza en niñez o adultez joven pero puede ocurrir a cualquier edad. La **diabetes tipo 2** se desarrolla cuando el cuerpo tiene **resistencia a la insulina** y el páncreas no produce suficiente insulina — el riesgo sube con genética, mayor peso corporal, inactividad y edad. ¿Cómo funciona? Quienes tienen tipo 1 requieren **terapia con insulina** desde el diagnóstico — sin insulina, el cuerpo descompone grasa peligrosamente (CAD). Tipo 2 a menudo se maneja primero con cambios de estilo de vida y medicamentos orales o inyectables no insulínicos; muchos eventualmente necesitan insulina, pero no siempre al diagnóstico. Ambos tipos se benefician de monitoreo glucémico, metas de A1c con clínicos, cribado de pies y ojos, y manejo de presión y lípidos según estándares ADA. ¿Por qué importa? Más de 37 millones de estadounidenses tienen diabetes; muchos más tienen prediabetes. La hiperglucemia sin tratar daña riñones, nervios, ojos y vasos. Tipo 1 puede volverse mortal en horas si falta insulina. Tipo 2 a menudo se desarrolla en silencio años. La clasificación correcta guía tratamiento seguro — dar solo pastillas en tipo 1 es peligroso; miedo innecesario a insulina en tipo 2 puede retrasar terapia necesaria. Qué significa para usted Si usted o un niño tienen sed inexplicable, orina frecuente, pérdida de peso o fatiga, busque evaluación pronta — debe descartarse tipo 1 rápido. Siga el plan de su equipo para carbohidratos, actividad, medicamentos y cribado. Use identificación médica si usa insulina. Aprenda signos de hipoglucemia y reglas de días de enfermedad. Historial familiar importa para tipo 2; historial de tipo 1 eleva riesgo pero muchos casos no tienen antecedente familiar.",
+    url: "/learn/type-1-vs-type-2-diabetes",
+  },
+  {
+    id: "thyroid-disorders-basics",
+    type: "lesson",
+    title: "Conceptos básicos de trastornos tiroideos",
+    description: "Aprenda cómo una tiroides hiperactiva o hipoactiva afecta energía, peso y metabolismo.",
+    category: "Chronic Conditions",
+    categoryId: "chronic-conditions",
+    content:
+      "¿Qué es? La **tiroides** es una glándula en forma de mariposa en el cuello que produce hormonas (T4 y T3) que controlan metabolismo, ritmo cardíaco, temperatura y energía. **Hipotiroidismo** significa glándula hipoactiva — causas comunes incluyen tiroiditis de Hashimoto (autoinmune) y tratamiento previo de tiroides. **Hipertiroidismo** significa hiperactividad — causas incluyen enfermedad de Graves y nódulos tiroideos. Ambos se diagnostican con análisis de sangre, principalmente **TSH** con T4 libre según necesidad. ¿Cómo funciona? Poca hormona tiroidea enlentece sistemas corporales: fatiga, aumento de peso, intolerancia al frío, estreñimiento, piel seca, depresión y colesterol elevado. Mucha hormona acelera sistemas: pérdida de peso, intolerancia al calor, ritmo cardíaco rápido, ansiedad, temblor y cambios oculares en Graves. TSH es retroalimentación pituitaria — TSH alto usualmente significa hipotiroidismo; TSH bajo a menudo señala hipertiroidismo. Tratamiento reemplaza hormona (levotiroxina) para hipotiroidismo o reduce producción (antitiroideos, yodo radioactivo, cirugía) para hipertiroidismo. ¿Por qué importa? Enfermedad tiroidea es común — especialmente en mujeres y después de los 60. Síntomas se superponen con trastornos del ánimo, anemia y menopausia, por eso las pruebas previenen diagnóstico erróneo. Embarazo requiere control tiroideo estricto para desarrollo fetal. Algunos medicamentos y suplementos (biotina, exceso de yodo) pueden interferir con precisión de laboratorio — informe lo que toma. Qué significa para usted Pregunte sobre cribado tiroideo si tiene síntomas persistentes sin explicación. Tome levotiroxina igual cada día — a menudo en ayunas — y no cambie marcas sin que su clínico lo sepa. Pacientes hipertiroideos deben reportar palpitaciones o fiebre. Una vez estables, monitoreo periódico de TSH mantiene dosis correcta cuando cambian peso y edad.",
+    url: "/learn/thyroid-disorders-basics",
+  },
+  {
+    id: "insulin-resistance-explained",
+    type: "lesson",
+    title: "Resistencia a la insulina explicada",
+    description:
+      "Entienda qué significa resistencia a la insulina, cómo se vincula con prediabetes y diabetes tipo 2, y qué ayuda.",
+    category: "Chronic Conditions",
+    categoryId: "chronic-conditions",
+    content:
+      "¿Qué es? **Resistencia a la insulina** significa que las células — especialmente en músculo, hígado y grasa — no responden eficientemente a la insulina, así el páncreas produce más insulina para mantener glucosa normal. Con el tiempo, el páncreas puede no alcanzar, llevando a **prediabetes** (glucosa más alta que normal pero bajo umbrales de diabetes) y **diabetes tipo 2**. La resistencia la impulsan genética, exceso de grasa visceral, inactividad, apnea del sueño, algunos medicamentos y envejecimiento — no una sola exposición alimentaria. ¿Cómo funciona? La insulina actúa como llave que abre puertas para que la glucosa entre a células. Cuando las puertas se pegan, la glucosa queda en sangre y la insulina sube (**hiperinsulinemia**). La ADA define prediabetes como A1c 5.7–6.4%, glucosa en ayunas 100–125 mg/dL o prueba de tolerancia anormal. El Programa de Prevención de Diabetes del NIH mostró que cambio intensivo de estilo de vida — pérdida modesta de peso (~7%), 150 minutos semanales de actividad — redujo progresión a tipo 2 ~58% en adultos de alto riesgo. Metformina ayuda a algunos pacientes de alto riesgo según criterio clínico. ¿Por qué importa? Más de uno de cada tres adultos en EE. UU. tiene prediabetes; la mayoría no lo sabe. La progresión sin tratar daña vasos, riñones y nervios. El cambio temprano de estilo de vida es más efectivo que esperar diagnóstico completo de diabetes. Resistencia sin glucosa alta aún puede señalar riesgo metabólico — circunferencia de cintura, triglicéridos, HDL y presión juntos describen **síndrome metabólico**. Qué significa para usted Pregunte sobre cribado si tiene factores de riesgo: historial familiar, IMC más alto, diabetes gestacional previa o sedentarismo. Enfóquese en patrones alimentarios sostenibles (plantas con fibra, proteína magra, menos bebidas azucaradas), actividad regular, sueño y manejo de estrés. Celebre pequeños cambios de peso. Si le recetan metformina u otra terapia, tómela según indicación y monitoree según su plan.",
+    url: "/learn/insulin-resistance-explained",
+  },
+  {
+    id: "how-antidepressants-work",
+    type: "lesson",
+    title: "Cómo funcionan los antidepresivos",
+    description:
+      "Conozca las principales clases de antidepresivos, plazos esperados y cómo encajan con terapia y autocuidado.",
+    category: "Mental Health",
+    categoryId: "mental-health",
+    content:
+      "¿Qué es? Los **antidepresivos** son medicamentos recetados que tratan depresión, trastornos de ansiedad y algunas condiciones de dolor crónico. Clases principales incluyen **ISRS** (p. ej., sertralina, escitalopram), **IRSN** (p. ej., venlafaxina, duloxetina), **bupropión**, y **tricíclicos** e **IMAO** más antiguos usados menos. Ajustan señalización química cerebral — principalmente vías de serotonina y norepinefrina — para mejorar regulación del ánimo con el tiempo. No son adictivos en sentido tradicional pero requieren suspensión cuidadosa. ¿Cómo funciona? La depresión involucra cambios complejos en circuitos cerebrales y neurotransmisores; los antidepresivos mejoran gradualmente la señalización sináptica. ISRS bloquean recaptación de serotonina; IRSN afectan serotonina y norepinefrina; bupropión influye principalmente dopamina y norepinefrina. El efecto completo suele tardar **cuatro a ocho semanas**, aunque sueño o apetito pueden cambiar antes. El primer medicamento puede no ser el adecuado — los clínicos ajustan dosis o clase según respuesta y efectos como náuseas, insomnio o disfunción sexual. ¿Por qué importa? La depresión es causa principal de discapacidad mundialmente. Tratamiento efectivo reduce riesgo suicida, mejora función y ayuda a participar en terapia y vida diaria. Suspender abruptamente puede causar síntomas de discontinuación — mareo, sensación gripal, cambios de ánimo. Combinar medicamentos sin supervisión arriesga **síndrome serotoninérgico** (agitación, fiebre, ritmo rápido) — especialmente con IMAO, ciertos opioides o hierba de San Juan. Qué significa para usted Tome antidepresivos según receta y déles tiempo antes de juzgar fracaso. Combine medicamento con psicoterapia (TCC, TIP, etc.) cuando sea posible según guía NIH y APA. Informe a todos los prescriptores lo que toma — incluyendo OTC y suplementos. No consuma alcohol en exceso mientras se adapta a medicamentos nuevos. Si está embarazada o planea estarlo, discuta riesgos y beneficios con especialista.",
+    url: "/learn/how-antidepressants-work",
+  },
+  {
+    id: "copd-vs-asthma",
+    type: "lesson",
+    title: "EPOC vs asma",
+    description:
+      "Aprenda cómo difieren EPOC y asma en causa, síntomas, desencadenantes y manejo a largo plazo.",
+    category: "Chronic Conditions",
+    categoryId: "chronic-conditions",
+    content:
+      "¿Qué es? **EPOC** (enfermedad pulmonar obstructiva crónica) es enfermedad pulmonar progresiva — principalmente enfisema y bronquitis crónica — usualmente por exposición prolongada a irritantes, especialmente **cigarrillo**. La limitación de flujo aéreo en gran parte **no es totalmente reversible**. **Asma** es inflamación crónica de vías aéreas con estrechamiento **reversible**, a menudo desde la infancia, desencadenada por alérgenos, ejercicio, aire frío o infecciones. Algunos adultos mayores tienen rasgos de ambas (**solapamiento EPOC-asma**). ¿Cómo funciona? En EPOC, alvéolos dañados y vías obstruidas por mucosidad atrapan aire — tos crónica, esputo y falta de aire progresiva dominan. Exacerbaciones siguen a infecciones respiratorias. En asma, broncoespasmo va y viene — sibilancias, opresión torácica, tos, especialmente de noche o con desencadenantes. **Broncodilatadores** de acción rápida alivian síntomas agudos de asma; EPOC también usa broncodilatadores y esteroides inhalados cuando corresponde, más dejar de fumar y rehabilitación pulmonar. Espirometría distingue obstrucción reversible de fija. ¿Por qué importa? EPOC es causa principal de discapacidad y muerte mundialmente; la mayoría de casos son prevenibles sin fumar y reduciendo polvo/humos laborales. Asma afecta más de 25 millones de estadounidenses — asma no controlada causa visitas a urgencias y ausencias escolares o laborales. Etiquetar mal EPOC como asma (o viceversa) lleva a terapia incorrecta. Vacunas (gripe, COVID-19, neumococo según CDC) reducen exacerbaciones graves en ambas condiciones. Qué significa para usted Si fuma, busque ayuda para dejarlo — la intervención más impactante en EPOC. Aprenda técnica correcta de inhalador con farmacéutico o terapeuta respiratorio. Registre desencadenantes de asma y evítelos cuando sea posible. Siga planes de acción para exacerbaciones. Espirometría anual puede ser necesaria si cambian síntomas. Oxígeno se receta solo cuando oxígeno en sangre cumple criterios específicos — no para enfermedad leve.",
+    url: "/learn/copd-vs-asthma",
+  },
+  {
+    id: "understanding-oxygen-saturation",
+    type: "lesson",
+    title: "Entendiendo la saturación de oxígeno",
+    description:
+      "Aprenda qué mide SpO2, rangos normales y cuándo lecturas de oxímetro requieren atención médica.",
+    category: "Chronic Conditions",
+    categoryId: "chronic-conditions",
+    content:
+      "¿Qué es? La **saturación de oxígeno (SpO2)** mide el porcentaje de hemoglobina en sangre arterial que transporta oxígeno. Un **oxímetro de pulso** — clip en dedo, dedo del pie u oreja — usa sensores de luz para estimar SpO2 sin dolor. Se usa ampliamente en clínicas, hospitales y en casa para condiciones pulmonares y cardíacas. SpO2 no mide dióxido de carbono ni esfuerzo respiratorio — eso requiere otras pruebas como gasometría arterial. ¿Cómo funciona? Pulmones sanos cargan oxígeno en hemoglobina al pasar la sangre. A nivel del mar, **SpO2 de 95–100%** es típico en adultos sanos según guía NIH. Valores **bajo 90%** a menudo indican hipoxemia que necesita evaluación clínica — especialmente con síntomas como falta de aire, dolor torácico o confusión. Pacientes con enfermedad pulmonar crónica pueden tener metas individuales con neumólogos. Oxímetros pueden ser inexactos con mala circulación, esmalte oscuro, movimiento o ciertas dishemoglobinas. ¿Por qué importa? Durante COVID-19 y después, oxímetros caseros ayudaron a detectar hipoxemia silenciosa. Oxígeno suplementario se receta cuando saturación baja sostenida cumple criterios — uso excesivo sin receta desperdicia recursos y puede dañar en algunos contextos. Vuelos, gran altitud y apnea del sueño también afectan oxígeno. Clínicos ACC/AHA usan saturación junto con examen e imagen en emergencias cardiopulmonares. Qué significa para usted Caliente manos y retire esmalte antes de medir. Siéntese quieto 30–60 segundos y registre lectura estable. Si SpO2 permanece bajo 90% o tiene dificultad respiratoria, busque atención — llame al 911 ante angustia severa. No ajuste flujo de oxígeno recetado sin indicación clínica. Informe a su médico si lecturas caseras bajan en días.",
+    url: "/learn/understanding-oxygen-saturation",
+  },
+  {
+    id: "smoking-cessation-medicines",
+    type: "lesson",
+    title: "Medicamentos para dejar de fumar",
+    description:
+      "Conozca opciones aprobadas por la FDA para dejar de fumar, cómo funcionan y cómo combinan con consejería.",
+    category: "Preventive Care",
+    categoryId: "preventive-care",
+    content:
+      "¿Qué es? Los **medicamentos para dejar de fumar** reducen abstinencia y antojos para poder dejar el tabaco. Opciones aprobadas por la FDA incluyen **terapia de reposición de nicotina (TRN)** — parches, chicle, pastillas, inhalador, spray nasal — y **vareniclina** y **bupropión** con receta. La consejería (líneas para dejar de fumar, terapia conductual) mejora significativamente el éxito. USPSTF recomienda que clínicos ofrezcan intervenciones de cesación a todos los adultos que fuman. ¿Cómo funciona? La nicotina del tabaco es adictiva; dejar causa irritabilidad, antojo y problemas de concentración. TRN entrega nicotina controlada sin la mayoría de toxinas del cigarrillo, reduciendo dependencia. **Vareniclina** activa parcialmente receptores de nicotina y bloquea nicotina de cigarrillos, reduciendo recompensa. **Bupropión** (también antidepresivo) disminuye antojos y abstinencia — mecanismo no es totalmente basado en nicotina. TRN combinada (parche más forma de acción corta) a menudo supera un solo producto según CDC. Duración típica es 8–12 semanas o más si hace falta — siga guía del prescriptor, no megadosis autodirigida. ¿Por qué importa? Fumar causa cáncer, EPOC, enfermedad cardíaca y accidente cerebrovascular — dejar a cualquier edad añade años de vida. Medicamentos pueden **duplicar o triplicar** tasas de éxito versus dejar en frío solo. Fumadoras embarazadas deben buscar apoyo especializado — riesgos de TRN deben sopesarse contra seguir fumando. Cigarrillos electrónicos no son dispositivos de cesación aprobados por FDA; evidencia favorece terapias probadas más consejería. Qué significa para usted Hable con clínico o farmacéutico sobre la mejor opción para su historial. Fije fecha para dejar, retire cigarrillos de su entorno y use 1-800-QUIT-NOW para coaching gratis. No fume con parche de nicotina — sobredosis causa náuseas y palpitaciones. Si un medicamento falla, otro enfoque puede funcionar. Celebre hitos sin humo; la recaída es común — reenganche apoyo en lugar de rendirse.",
+    url: "/learn/smoking-cessation-medicines",
+  },
+  {
+    id: "understanding-cbc",
+    type: "lesson",
+    title: "Entendiendo un hemograma completo",
+    description:
+      "Aprenda qué mide un hemograma completo (CBC) y qué pueden sugerir resultados altos o bajos.",
+    category: "Lab Results",
+    categoryId: "lab-results",
+    content:
+      '¿Qué es? Un **hemograma completo (CBC)** es uno de los análisis de sangre más comunes. Mide **glóbulos rojos (GR)**, **hemoglobina** y **hematocrito** (capacidad de transporte de oxígeno), **glóbulos blancos (GB)** (células inmunes) y **plaquetas** (coagulación). Un diferencial puede listar subtipos de GB — neutrófilos, linfocitos, monocitos, eosinófilos, basófilos. CBC es herramienta de cribado — no diagnóstico por sí solo. ¿Cómo funciona? **Hemoglobina/hematocrito bajos** sugieren anemia — causas incluyen deficiencia de hierro, B12 o folato, enfermedad crónica o pérdida de sangre. **Hemoglobina alta** puede reflejar deshidratación, enfermedad pulmonar, tabaco o trastornos de médula ósea. **GB bajos** pueden seguir a enfermedad viral, algunos medicamentos o problemas de médula. **GB altos** a menudo señalan infección, inflamación, estrés o raramente leucemia. **Plaquetas bajas** aumentan riesgo de sangrado; **plaquetas altas** pueden seguir a inflamación o deficiencia de hierro. Rangos de referencia varían ligeramente por laboratorio y sexo. ¿Por qué importa? La anemia explica fatiga, debilidad y falta de aire. Trastornos plaquetarios afectan seguridad quirúrgica y sangrado. Patrones de GB orientan estudios de infección. CBC es rutinario antes de cirugía, durante quimioterapia y en monitoreo de enfermedad crónica. Rangos pediátricos y de embarazo difieren de valores adultos estándar. Qué significa para usted Lleve CBC previos a citas para comparar tendencias. Pregunte qué significa cada valor marcado para usted — "ligeramente bajo" en un contexto puede ser urgente en otro. Si le recetan hierro o B12, repita análisis según indicación. Moretones súbitos, sangrado de encías o fatiga extrema con plaquetas o hemoglobina anormales requiere contacto pronto con su equipo.',
+    url: "/learn/understanding-cbc",
+  },
+  {
+    id: "understanding-a1c",
+    type: "lesson",
+    title: "Entendiendo la A1c",
+    description:
+      "Aprenda qué mide la prueba A1c, cómo refleja glucosa en el tiempo y qué significan los resultados.",
+    category: "Lab Results",
+    categoryId: "lab-results",
+    content:
+      "¿Qué es? La prueba **A1c** (hemoglobina A1c o HbA1c) mide el porcentaje de hemoglobina recubierta de glucosa, reflejando glucosa promedio en sangre durante aproximadamente los **últimos dos a tres meses**. A diferencia de una medición puntual de glucosa, A1c muestra exposición glucémica a más largo plazo. Se usa para **diagnosticar** diabetes y prediabetes y para **monitorear** tratamiento en personas con diabetes según criterios ADA. ¿Cómo funciona? La glucosa en sangre se une a hemoglobina en glóbulos rojos durante la vida de la célula (~120 días). Mayor glucosa promedio produce A1c más alta. Umbrales ADA: **A1c ≥6.5%** diagnostica diabetes (confirmado en repetición salvo síntomas); **5.7–6.4%** es prediabetes; **bajo 5.7%** suele ser normal en adultos. Muchas personas con diabetes apuntan bajo **7%** — o metas más estrictas/altas según edad, riesgo de hipoglucemia y comorbilidades. Condiciones que afectan glóbulos rojos (anemia, variantes de hemoglobina, transfusión reciente) pueden alterar A1c — clínicos pueden usar pruebas de glucosa en su lugar. ¿Por qué importa? Glucosa alta a largo plazo daña ojos, riñones, nervios y vasos. Bajar A1c reduce riesgo de complicaciones, pero metas demasiado agresivas en ancianos frágiles elevan daño por hipoglucemia. A1c ayuda a ver si estilo de vida y medicinas funcionan. Embarazo usa pruebas de glucosa distintas — A1c estándar no diagnostica diabetes gestacional. Qué significa para usted Conozca su última A1c y discuta metas personales con su clínico. Mejore A1c con alimentación equilibrada, actividad, peso y medicinas recetadas — no restricción extrema sin guía. Repita A1c cada tres a seis meses al ajustar terapia. Si resultados no coinciden con lecturas caseras, pregunte por anemia, enfermedad renal o efectos de hemoglobina variante.",
+    url: "/learn/understanding-a1c",
   },
   {
     id: "choosing-primary-care-doctor",
@@ -964,7 +1163,7 @@ export const searchIndex: SearchEntry[] = [
     category: "Learning Paths",
     categoryId: "paths",
     content:
-      "Uso más seguro de medicamentos Aprende a tomar y manejar tus medicamentos con seguridad, entender etiquetas de receta y evitar interacciones. understanding-prescription-labels asking-about-medications managing-side-effects generic-vs-brand-drugs pain-medications-safely",
+      "Uso más seguro de medicamentos Aprende a tomar y manejar tus medicamentos con seguridad, entender etiquetas de receta y evitar interacciones. understanding-prescription-labels asking-about-medications managing-side-effects generic-vs-brand-drugs pain-medications-safely otc-drug-interactions drug-food-interactions antibiotic-stewardship",
     url: "/learning-paths#safer-medicine-use",
   },
   {
@@ -987,7 +1186,7 @@ export const searchIndex: SearchEntry[] = [
     category: "Learning Paths",
     categoryId: "paths",
     content:
-      "Entendiendo los resultados de laboratorio Aprende qué miden los análisis de sangre comunes, qué significan los rangos de referencia y cómo interpretar tus resultados. blood-basics common-tests reading-lab-report when-to-worry",
+      "Entendiendo los resultados de laboratorio Aprende qué miden los análisis de sangre comunes, qué significan los rangos de referencia y cómo interpretar tus resultados. blood-basics common-tests understanding-cbc understanding-a1c reading-lab-report when-to-worry",
     url: "/learning-paths#understanding-labs",
   },
   {
@@ -999,7 +1198,7 @@ export const searchIndex: SearchEntry[] = [
     category: "Learning Paths",
     categoryId: "paths",
     content:
-      "Manejando un nuevo diagnóstico Aprende sobre condiciones crónicas comunes y cómo entender y manejar un nuevo diagnóstico de salud. living-with-hypertension understanding-type2-diabetes introduction-to-heart-disease asthma-basics understanding-allergies sleep-apnea-basics",
+      "Manejando un nuevo diagnóstico Aprende sobre condiciones crónicas comunes y cómo entender y manejar un nuevo diagnóstico de salud. living-with-hypertension understanding-type2-diabetes type-1-vs-type-2-diabetes insulin-resistance-explained introduction-to-heart-disease understanding-lipids how-statins-work thyroid-disorders-basics asthma-basics copd-vs-asthma understanding-allergies sleep-apnea-basics understanding-oxygen-saturation",
     url: "/learning-paths#managing-new-diagnosis",
   },
   {
@@ -1011,7 +1210,7 @@ export const searchIndex: SearchEntry[] = [
     category: "Learning Paths",
     categoryId: "paths",
     content:
-      "Mantenerse saludable: atención preventiva Crea hábitos saludables y mantente al día con vacunas y pruebas de detección para prevenir enfermedades. why-preventive-care-matters common-adult-screenings understanding-vaccines cancer-screening-basics hydration-and-health reading-nutrition-labels building-balanced-plate",
+      "Mantenerse saludable: atención preventiva Crea hábitos saludables y mantente al día con vacunas y pruebas de detección para prevenir enfermedades. why-preventive-care-matters common-adult-screenings understanding-vaccines cancer-screening-basics smoking-cessation-medicines hydration-and-health reading-nutrition-labels building-balanced-plate micronutrient-deficiencies glycemic-index-and-load",
     url: "/learning-paths#staying-healthy-preventive",
   },
   {
@@ -1023,7 +1222,7 @@ export const searchIndex: SearchEntry[] = [
     category: "Learning Paths",
     categoryId: "paths",
     content:
-      "Conceptos básicos de bienestar mental Entiende la depresión y la ansiedad, aprende estrategias de afrontamiento y descubre cómo el sueño afecta la salud mental. understanding-depression anxiety-and-panic managing-stress sleep-and-health",
+      "Conceptos básicos de bienestar mental Entiende la depresión y la ansiedad, aprende estrategias de afrontamiento y descubre cómo el sueño afecta la salud mental. understanding-depression anxiety-and-panic how-antidepressants-work managing-stress sleep-and-health",
     url: "/learning-paths#mental-wellness-basics",
   },
   {

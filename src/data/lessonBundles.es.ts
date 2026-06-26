@@ -1968,7 +1968,7 @@ export const lessons: Lesson[] = [
     categoryId: "medication-safety",
     duration: "12 minutes",
     level: "beginner",
-    lastReviewed: "2026-06-11",
+    lastReviewed: "2026-06-25",
     reviewedBy: "RN Health Education Team",
     sources: ["NIH", "CDC", "MedlinePlus"],
     sidebarTips: [
@@ -1993,7 +1993,7 @@ export const lessons: Lesson[] = [
             {
               type: "warning",
               content:
-                "Los adultos no deben exceder 4,000 mg de acetaminofén al día de todas las fuentes, salvo indicación médica. Quienes tienen enfermedad hepática necesitan límites menores.",
+                "La etiqueta de la FDA permite hasta 4,000 mg de acetaminofén al día para la mayoría de adultos sanos de todas las fuentes. Muchos médicos recomiendan no superar 3,000 mg al día en uso crónico, o menos si consume alcohol con frecuencia, tiene enfermedad hepática o toma otros medicamentos que afectan el hígado. Siga siempre la etiqueta y la orientación de su médico.",
             },
           ],
         },
@@ -2292,7 +2292,7 @@ export const lessons: Lesson[] = [
     id: "hydration-and-health",
     title: "Hidratación y salud",
     description: "Cuánta agua necesita, signos de deshidratación y situaciones especiales.",
-    category: "Nutrition",
+    category: "Nutrición y dieta",
     categoryId: "nutrition",
     duration: "10 minutes",
     level: "beginner",
@@ -2381,7 +2381,7 @@ export const lessons: Lesson[] = [
     id: "when-to-use-urgent-care",
     title: "Cuándo usar atención urgente",
     description: "Cómo la atención urgente encaja entre consultorio y sala de emergencias.",
-    category: "Emergency",
+    category: "Emergencias y primeros auxilios",
     categoryId: "emergency",
     duration: "12 minutes",
     level: "beginner",
@@ -2715,6 +2715,987 @@ export const lessons: Lesson[] = [
           title: "Seguimiento esperado",
           content:
             "Espere visitas de ajuste de mascarilla, presión y descargas periódicas de datos de la máquina. El seguro a menudo exige prueba de uso para continuar cobertura.\n\n<!-- lesson-depth-added -->",
+        },
+      ],
+    },
+  },
+  {
+    id: "otc-drug-interactions",
+    title: "Interacciones con medicamentos de venta libre",
+    description: "Aprenda cómo los medicamentos OTC pueden interactuar con recetas, suplementos y entre sí.",
+    category: "Medication Safety",
+    categoryId: "medication-safety",
+    duration: "14 minutes",
+    level: "intermediate",
+    lastReviewed: "2026-06-25",
+    reviewedBy: "RN Health Education Team",
+    sources: ["NIH", "CDC", "MedlinePlus"],
+    sidebarTips: [
+      "Lea cada ingrediente activo en las etiquetas.",
+      "Informe al farmacéutico todos sus medicamentos.",
+      "Evite duplicar analgésicos.",
+      "Pregunte antes de combinar productos OTC nuevos.",
+    ],
+    sidebarTitle: "Interacciones OTC",
+    content: {
+      sections: [
+        {
+          title: "¿Qué es?",
+          content:
+            "Los medicamentos de venta libre (OTC) se compran sin receta — analgésicos, antihistamínicos, antiácidos, jarabes para la tos y más. Una **interacción** ocurre cuando una sustancia cambia cómo actúa otra en el cuerpo. Puede reducir eficacia, aumentar toxicidad o causar efectos inesperados. Los OTC cuentan: muchas interacciones graves involucran combinaciones que parecen inofensivas.",
+        },
+        {
+          title: "¿Cómo funciona?",
+          content:
+            "Las interacciones ocurren por varias vías. Algunos fármacos compiten por las mismas enzimas hepáticas, alterando el metabolismo. Otros suman efectos similares — dos antihistamínicos sedantes pueden aumentar peligrosamente la somnolencia. Los **ingredientes duplicados** son frecuentes: un medicamento para resfriado más un analgésico pueden contener ambos acetaminofén, elevando el riesgo hepático. Los AINE como ibuprofeno pueden reducir el flujo sanguíneo renal, especialmente con ciertos antihipertensivos o diuréticos. La hierba de San Juan y algunos suplementos pueden debilitar recetas como anticonceptivos y antidepresivos.",
+          callouts: [
+            {
+              type: "warning",
+              content:
+                'No asuma que "natural" u OTC significa seguro de combinar. Los productos herbales no siempre se prueban con medicamentos recetados.',
+            },
+          ],
+        },
+        {
+          title: "¿Por qué importa?",
+          content:
+            "La FDA reporta miles de eventos adversos prevenibles por interacciones cada año. Los adultos mayores tienen mayor riesgo por tomar múltiples medicamentos. La enfermedad renal o hepática también cambia el procesamiento. Los farmacéuticos pueden detectar interacciones — pero solo si conocen su lista completa, incluyendo vitaminas y OTC ocasionales.",
+        },
+        {
+          title: "Qué significa para usted",
+          content:
+            "Antes de un producto OTC nuevo, lea la etiqueta **Drug Facts** buscando ingredientes activos y advertencias. Use una farmacia cuando sea posible. Mantenga una lista actualizada de recetas, OTC y suplementos. Si toma anticoagulantes, antihipertensivos, medicamentos para diabetes o antidepresivos, consulte antes de añadir OTC.",
+          callouts: [
+            {
+              type: "info",
+              content:
+                "El momento también importa: algunas interacciones ocurren solo al tomarse juntos; otras duran días. En duda, separe los productos y pida consejo profesional.",
+            },
+          ],
+        },
+      ],
+    },
+  },
+  {
+    id: "antibiotic-stewardship",
+    title: "Uso responsable de antibióticos",
+    description: "Entienda cuándo los antibióticos ayudan, cuándo no, y cómo usarlos de forma responsable.",
+    category: "Medication Safety",
+    categoryId: "medication-safety",
+    duration: "13 minutes",
+    level: "beginner",
+    lastReviewed: "2026-06-25",
+    reviewedBy: "RN Health Education Team",
+    sources: ["NIH", "CDC", "MedlinePlus"],
+    sidebarTips: [
+      "Los antibióticos no tratan virus.",
+      "Complete el tratamiento que le indiquen.",
+      "No comparta ni guarde pastillas sobrantes.",
+      "Pregunte si puede observar y esperar.",
+    ],
+    sidebarTitle: "Antibióticos inteligentes",
+    content: {
+      sections: [
+        {
+          title: "¿Qué es?",
+          content:
+            "El **uso responsable de antibióticos** significa usarlos solo cuando hacen falta, elegir el fármaco y la duración correctos, y tomarlos exactamente como se indica. Los antibióticos matan bacterias o impiden su crecimiento. No funcionan contra virus — causa de la mayoría de resfriados, gripe, bronquitis y muchos dolores de garganta. El mal uso impulsa la **resistencia antibiótica**, cuando las bacterias evolucionan y los medicamentos dejan de funcionar.",
+        },
+        {
+          title: "¿Cómo funciona?",
+          content:
+            "Con un antibiótico apropiado, ataca las bacterias susceptibles de su infección. Suspender antes de tiempo o usar pastillas guardadas puede dejar bacterias más resistentes. Los antibióticos de amplio espectro afectan más que el sitio infectado, a veces alterando bacterias intestinales normales y provocando diarrea por **Clostridioides difficile** (C. diff). Los sistemas de salud rastrean patrones de resistencia locales para recetar fármacos que aún funcionen en su comunidad.",
+          callouts: [
+            {
+              type: "warning",
+              content:
+                "No presione a un clínico por antibióticos ante una enfermedad viral. Los antibióticos innecesarios exponen a efectos secundarios sin beneficio y contribuyen a la resistencia que afecta a todos.",
+            },
+          ],
+        },
+        {
+          title: "¿Por qué importa?",
+          content:
+            "Los CDC consideran la resistencia antibiótica una de las principales amenazas de salud pública. Las infecciones resistentes son más difíciles de tratar, requieren medicamentos más fuertes, hospitalizaciones más largas y pueden ser mortales. Niños y adultos mayores son vulnerables. El uso responsable protege hoy y preserva tratamientos efectivos para el futuro — incluyendo cirugías, cáncer e infecciones graves.",
+        },
+        {
+          title: "Qué significa para usted",
+          content:
+            "Si le recetan un antibiótico, tome cada dosis a tiempo aunque se sienta mejor. No guarde pastillas ni las comparta. Pregunte si su enfermedad es bacteriana o viral. En algunas condiciones — como sinusitis o otitis sin complicaciones — puede ser apropiado observar y esperar. Reporte diarrea severa durante o después de antibióticos de inmediato.",
+          callouts: [
+            {
+              type: "info",
+              content:
+                "La prevención también importa: vacunas, higiene de manos y manipulación segura de alimentos reducen infecciones que necesitan antibióticos.",
+            },
+          ],
+        },
+      ],
+    },
+  },
+  {
+    id: "drug-food-interactions",
+    title: "Interacciones medicamento-alimento",
+    description:
+      "Descubra cómo alimentos y bebidas pueden cambiar la absorción, eficacia y seguridad de los medicamentos.",
+    category: "Medication Safety",
+    categoryId: "medication-safety",
+    duration: "13 minutes",
+    level: "intermediate",
+    lastReviewed: "2026-06-25",
+    reviewedBy: "RN Health Education Team",
+    sources: ["NIH", "CDC", "MedlinePlus"],
+    sidebarTips: [
+      "Lea etiquetas de medicamentos sobre alimentos.",
+      "El pomelo afecta muchos fármacos — pregunte primero.",
+      "Algunos medicamentos van con comida, otros sin.",
+      "Limite alcohol con la mayoría de recetas.",
+    ],
+    sidebarTitle: "Alimentos y medicinas",
+    content: {
+      sections: [
+        {
+          title: "¿Qué es?",
+          content:
+            "Una **interacción medicamento-alimento** ocurre cuando algo que come o bebe cambia cómo un medicamento se absorbe, metaboliza o actúa. Los alimentos pueden retrasar o acelerar la absorción, unirse al fármaco en el estómago o afectar enzimas hepáticas. Ejemplos comunes: el jugo de pomelo inhibe enzimas que procesan estatinas y algunos antihipertensivos, y alimentos ricos en vitamina K afectan la consistencia de la warfarina.",
+        },
+        {
+          title: "¿Cómo funciona?",
+          content:
+            "Algunos medicamentos deben tomarse **con comida** para reducir molestias gástricas — metformina y muchos AINE son ejemplos. Otros funcionan mejor en **ayunas** porque la comida bloquea la absorción — ciertas hormonas tiroideas y algunos antibióticos. El alcohol suma sedación con opioides, benzodiacepinas y inductores del sueño, y estresa el hígado con acetaminofén. Alimentos ricos en tiramina interactúan con IMAO antiguos. Calcio y hierro pueden unirse a levotiroxina si se toman juntos.",
+          callouts: [
+            {
+              type: "warning",
+              content:
+                "El pomelo y algunos cítricos pueden elevar niveles sanguíneos de varios medicamentos a rangos inseguros. Si la etiqueta menciona pomelo, evítelo salvo indicación contraria de su clínico.",
+            },
+          ],
+        },
+        {
+          title: "¿Por qué importa?",
+          content:
+            "Las interacciones alimentarias pueden debilitar un fármaco (fallo terapéutico) o intensificarlo (toxicidad). Quienes toman warfarina, medicamentos de trasplante o fármacos de índice terapéutico estrecho necesitan patrones dietéticos consistentes. El momento importa tanto como el alimento — separar dosis de comidas o suplementos mejora la fiabilidad.",
+        },
+        {
+          title: "Qué significa para usted",
+          content:
+            "Lea recetas y etiquetas OTC sobre alimentos y alcohol. Pregunte al farmacéutico si tomar nuevos medicamentos con comidas. Mantenga hábitos dietéticos estables con warfarina; cambios bruscos en verduras de hoja verde pueden alterar el INR. No inicie dietas restrictivas o suplementos intensivos sin revisar su lista de medicamentos con un clínico.",
+          callouts: [
+            {
+              type: "info",
+              content:
+                "Un diario alimentario puede ayudar si nota síntomas nuevos cuando comidas y medicinas coinciden — compártalo con su equipo en lugar de adivinar la interacción.",
+            },
+          ],
+        },
+      ],
+    },
+  },
+  {
+    id: "micronutrient-deficiencies",
+    title: "Deficiencias de micronutrientes",
+    description:
+      "Conozca carencias comunes de vitaminas y minerales, quién está en riesgo y cómo se identifican.",
+    category: "Nutrition",
+    categoryId: "nutrition",
+    duration: "15 minutes",
+    level: "beginner",
+    lastReviewed: "2026-06-25",
+    reviewedBy: "RN Health Education Team",
+    sources: ["NIH", "CDC", "MedlinePlus"],
+    sidebarTips: [
+      "Priorice alimentos variados y enteros.",
+      "Algunos grupos necesitan más vitamina D o B12.",
+      "Análisis antes de megadosis de suplementos.",
+      "Condiciones de malabsorción aumentan el riesgo.",
+    ],
+    sidebarTitle: "Vitaminas y minerales",
+    content: {
+      sections: [
+        {
+          title: "¿Qué es?",
+          content:
+            "Los **micronutrientes** son vitaminas y minerales que el cuerpo necesita en pequeñas cantidades para inmunidad, huesos, nervios, transporte de oxígeno y cientos de reacciones metabólicas. Una **deficiencia** significa que la ingesta o absorción es demasiado baja para mantener niveles saludables. Carencias comunes en EE. UU. incluyen vitamina D, hierro (anemia), vitamina B12 (especialmente en mayores y veganos), folato en embarazo e yodo en dietas limitadas.",
+        },
+        {
+          title: "¿Cómo funciona?",
+          content:
+            "Se obtienen de alimentos — lácteos y exposición solar ayudan la vitamina D; carnes rojas y legumbres aportan hierro; B12 viene principalmente de productos animales o fortificados. La absorción depende de la salud intestinal: celiaquía, cirugía bariátrica y IBP crónicos pueden alterarla. Los requerimientos cambian con edad, embarazo y condiciones médicas. Análisis — ferritina, 25-hidroxivitamina D, B12 — confirman deficiencia antes del tratamiento.",
+          callouts: [
+            {
+              type: "info",
+              content:
+                "Un plato equilibrado con verduras, frutas, granos integrales, proteínas magras y lácteos o alternativas fortificadas cubre la mayoría de necesidades en adultos sanos sin megadosis rutinarias.",
+            },
+          ],
+        },
+        {
+          title: "¿Por qué importa?",
+          content:
+            "Las deficiencias causan síntomas reales: hierro bajo trae fatiga y falta de aire; B12 baja puede causar entumecimiento y cambios cognitivos; vitamina D severa debilita huesos; folato bajo en embarazo aumenta riesgo de defectos del tubo neural. Sin tratar, pueden imitar otras enfermedades. El exceso de suplementos también daña — demasiado hierro o vitaminas liposolubles pueden ser tóxicos.",
+        },
+        {
+          title: "Qué significa para usted",
+          content:
+            'Priorice variedad alimentaria antes de suplementos de alta dosis. Si sigue dieta restrictiva, tiene malabsorción o toma medicamentos que bloquean nutrientes, pregunte sobre pruebas. Las embarazadas deben tomar prenatales con ácido fólico según indicación. No autodiagnostique fatiga como "vitaminas bajas" sin análisis — hay muchas causas.',
+          callouts: [
+            {
+              type: "warning",
+              content:
+                "Las megadosis pueden interactuar con medicamentos y enmascarar deficiencia de B12 si se da folato solo. Trabaje con un clínico para diagnóstico y tratamiento.",
+            },
+          ],
+        },
+      ],
+    },
+  },
+  {
+    id: "glycemic-index-and-load",
+    title: "Índice y carga glucémica",
+    description:
+      "Entienda cómo los alimentos afectan la glucosa de forma distinta y cómo usar IG y CG en la planificación de comidas.",
+    category: "Nutrition",
+    categoryId: "nutrition",
+    duration: "14 minutes",
+    level: "intermediate",
+    lastReviewed: "2026-06-25",
+    reviewedBy: "RN Health Education Team",
+    sources: ["NIH", "CDC", "MedlinePlus"],
+    sidebarTips: [
+      "Combine carbohidratos con proteína o fibra.",
+      "El tamaño de porción afecta la carga glucémica.",
+      "Los granos integrales suelen superar los refinados.",
+      "Las respuestas individuales varían — use monitoreo si le indican.",
+    ],
+    sidebarTitle: "Bases de IG y CG",
+    content: {
+      sections: [
+        {
+          title: "¿Qué es?",
+          content:
+            "El **índice glucémico (IG)** clasifica alimentos con carbohidratos según cuánto elevan la glucosa comparado con una referencia (generalmente glucosa o pan blanco). Los alimentos de IG alto suben la glucosa más rápido; los de IG bajo la suben más gradualmente. La **carga glucémica (CG)** combina IG con tamaño de porción — una porción pequeña de un alimento de IG alto puede tener CG modesta, mientras una porción grande tiene mayor impacto. Estas herramientas ayudan a personas con diabetes y a quien planea energía más estable, pero son guías, no reglas rígidas.",
+        },
+        {
+          title: "¿Cómo funciona?",
+          content:
+            "La velocidad de digestión, fibra, grasa, proteína y método de cocción cambian la respuesta glucémica. Pan blanco y bebidas azucaradas tienden a IG alto; legumbres, verduras sin almidón y muchos granos integrales son más bajos. Añadir proteína, grasa o fibra ralentiza la absorción. La actividad física después de comer también ayuda a los músculos a captar glucosa. La ADA enfatiza patrones alimentarios generales — estilo mediterráneo y DASH — más que rankings de un solo alimento.",
+          callouts: [
+            {
+              type: "info",
+              content:
+                "La diabetes tipo 2 se desarrolla por genética compleja, peso, actividad y metabolismo — no por comer azúcar sola. Las herramientas IG/CG ayudan a manejar glucosa tras el diagnóstico, no culpan por causar la enfermedad.",
+            },
+          ],
+        },
+        {
+          title: "¿Por qué importa?",
+          content:
+            "Los picos bruscos de glucosa pueden desafiar la función de insulina con el tiempo en diabetes o prediabetes. Una glucosa más estable apoya energía, ánimo y reducción de riesgo de complicaciones junto con atención médica. Los atletas a veces usan carbohidratos de IG alto alrededor de la actividad. Para la mayoría, la CG es más práctica que el IG porque las porciones reales importan.",
+        },
+        {
+          title: "Qué significa para usted",
+          content:
+            "Arme comidas con verduras, proteína magra, grasas saludables y carbohidratos con fibra. Prefiera granos integrales sobre refinados cuando sea posible. Si tiene diabetes, siga el conteo de carbohidratos o método del plato de su equipo — las tablas de IG complementan, no reemplazan, planes personalizados. Revise respuestas glucémicas con medidor o MCG si los usa.",
+          callouts: [
+            {
+              type: "warning",
+              content:
+                "No elimine todos los carbohidratos sin guía médica — la ingesta equilibrada con ajuste de medicamentos previene hipoglucemias inseguras y carencias nutricionales.",
+            },
+          ],
+        },
+      ],
+    },
+  },
+  {
+    id: "understanding-lipids",
+    title: "Entendiendo los lípidos",
+    description:
+      "Aprenda qué miden colesterol y triglicéridos y por qué importan para el riesgo cardíaco y de accidente cerebrovascular.",
+    category: "Chronic Conditions",
+    categoryId: "chronic-conditions",
+    duration: "15 minutes",
+    level: "beginner",
+    lastReviewed: "2026-06-25",
+    reviewedBy: "RN Health Education Team",
+    sources: ["NIH", "CDC", "MedlinePlus"],
+    sidebarTips: [
+      "El LDL suele llamarse colesterol 'malo'.",
+      "El HDL ayuda a alejar colesterol de arterias.",
+      "Los triglicéridos reflejan grasas de dieta e hígado.",
+      "Estilo de vida y medicinas pueden mejorar lípidos.",
+    ],
+    sidebarTitle: "Bases del colesterol",
+    content: {
+      sections: [
+        {
+          title: "¿Qué es?",
+          content:
+            "Los **lípidos** son sustancias relacionadas con grasas en sangre medidas en un perfil lipídico. El **colesterol total** suma varios tipos. El **colesterol LDL** transporta colesterol a tejidos; LDL alto se vincula con placa en arterias. El **colesterol HDL** ayuda a retirar colesterol de arterias — HDL más alto suele ser protector. Los **triglicéridos** son otra grasa sanguínea; niveles altos a menudo acompañan obesidad, diabetes y exceso de alcohol o carbohidratos refinados.",
+        },
+        {
+          title: "¿Cómo funciona?",
+          content:
+            "El hígado produce colesterol y también se obtiene de alimentos. Las lipoproteínas empaquetan grasas para transporte en sangre acuosa. La placa (**aterosclerosis**) forma cuando partículas LDL penetran paredes arteriales, provocan inflamación y estrechan vasos — elevando riesgo de infarto y accidente cerebrovascular. Los triglicéridos almacenan energía; niveles muy altos pueden inflamar el páncreas. Los lípidos responden a dieta, ejercicio, peso, genética, tiroides y medicamentos.",
+          callouts: [
+            {
+              type: "info",
+              content:
+                "Las guías ACC/AHA enfatizan el riesgo cardiovascular global — edad, presión, diabetes, tabaco y LDL juntos — no un solo número aislado.",
+            },
+          ],
+        },
+        {
+          title: "¿Por qué importa?",
+          content:
+            "La enfermedad cardíaca sigue siendo causa principal de muerte en EE. UU. Bajar LDL con estilo de vida y, cuando corresponda, estatinas reduce eventos cardiovasculares mayores en grupos de alto riesgo según evidencia AHA/ACC. Triglicéridos sobre 500 mg/dL necesitan atención urgente por riesgo de pancreatitis. Conocer sus números ayuda a decidir cambios dietéticos, metas de actividad y si medicación es apropiada.",
+        },
+        {
+          title: "Qué significa para usted",
+          content:
+            "Hágase un perfil lipídico en ayunas o no según indique su clínico — muchos adultos necesitan cribado periódico. Enfóquese en alimentación mediterránea, fibra, actividad y peso. No suspenda medicamentos para lípidos sin consejo médico. Pregunte cuál debe ser su meta de LDL según su riesgo personal, no solo tablas genéricas.",
+          callouts: [
+            {
+              type: "warning",
+              content:
+                "LDL muy bajo por enfermedad no tratada es distinto de LDL bajado por terapia — interprete siempre los análisis con su equipo en contexto clínico.",
+            },
+          ],
+        },
+      ],
+    },
+  },
+  {
+    id: "how-statins-work",
+    title: "Cómo funcionan las estatinas",
+    description:
+      "Entienda cómo las estatinas bajan LDL, quién puede beneficiarse y preguntas comunes sobre efectos musculares.",
+    category: "Chronic Conditions",
+    categoryId: "chronic-conditions",
+    duration: "14 minutes",
+    level: "intermediate",
+    lastReviewed: "2026-06-25",
+    reviewedBy: "RN Health Education Team",
+    sources: ["NIH", "CDC", "MedlinePlus"],
+    sidebarTips: [
+      "Las estatinas bloquean una enzima hepática que hace colesterol.",
+      "Los beneficios crecen con años de uso.",
+      "Reporte dolor muscular inexplicado a su clínico.",
+      "No suspenda estatinas sin consejo médico.",
+    ],
+    sidebarTitle: "Bases de estatinas",
+    content: {
+      sections: [
+        {
+          title: "¿Qué es?",
+          content:
+            "Las **estatinas** son medicamentos que bajan el colesterol LDL bloqueando la **HMG-CoA reductasa**, enzima que el hígado usa para fabricar colesterol. Menos producción hepática lleva al hígado a extraer más LDL de la sangre. Estatinas comunes incluyen atorvastatina, rosuvastatina, simvastatina y pravastatina. Están entre los fármacos más estudiados en cardiología y las guías ACC/AHA las recomiendan para muchas personas con enfermedad cardiovascular establecida o riesgo calculado alto.",
+        },
+        {
+          title: "¿Cómo funciona?",
+          content:
+            "Al bajar LDL, menos partículas de colesterol entran en paredes arteriales, frenando crecimiento de placa y estabilizando placa existente — reduciendo riesgo de infarto y accidente cerebrovascular con el tiempo. Las estatinas también tienen efectos antiinflamatorios vasculares. La dosis y potencia varían; los clínicos ajustan intensidad al riesgo. A veces se monitorean enzimas hepáticas. Síntomas musculares ocurren en minoría — desde molestias leves hasta rara ruptura muscular severa (rabdomiólisis).",
+          callouts: [
+            {
+              type: "warning",
+              content:
+                "Si desarrolla dolor muscular significativo, orina oscura o debilidad con una estatina, contacte a su clínico de inmediato. No suspenda el medicamento en silencio sin plan — paradas bruscas en pacientes de alto riesgo pueden ser dañinas.",
+            },
+          ],
+        },
+        {
+          title: "¿Por qué importa?",
+          content:
+            "Ensayos grandes muestran que las estatinas reducen eventos cardiovasculares mayores en prevención primaria y secundaria. Funcionan junto con control de presión, diabetes, dejar de fumar y alimentación saludable — no en lugar de ellos. El miedo a efectos secundarios lleva a algunos a evitar terapia probada; el diálogo abierto con su clínico ayuda a equilibrar beneficio y tolerancia.",
+        },
+        {
+          title: "Qué significa para usted",
+          content:
+            "Tome estatinas según receta, generalmente una vez al día. El pomelo puede elevar niveles de algunas estatinas — revise la etiqueta de su fármaco. Informe todos los medicamentos y suplementos. Si hay efectos secundarios, ajuste de dosis u otra estatina puede ayudar en lugar de abandonar la terapia por completo. Pregunte cómo su riesgo personal respalda la recomendación.",
+          callouts: [
+            {
+              type: "info",
+              content:
+                "Las estatinas no sustituyen cambios de estilo de vida — complementan dieta, actividad y otro tratamiento de factores de riesgo para protección cardíaca y cerebral a largo plazo.",
+            },
+          ],
+        },
+      ],
+    },
+  },
+  {
+    id: "heart-attack-vs-stroke-signs",
+    title: "Signos de infarto vs accidente cerebrovascular",
+    description: "Aprenda cómo difieren los síntomas de infarto y ACV y cuándo llamar al 911 de inmediato.",
+    category: "Emergency & First Aid",
+    categoryId: "emergency",
+    duration: "12 minutes",
+    level: "beginner",
+    lastReviewed: "2026-06-25",
+    reviewedBy: "RN Health Education Team",
+    sources: ["NIH", "CDC", "MedlinePlus"],
+    sidebarTips: [
+      "Llame al 911 — no maneje usted mismo.",
+      "Anote la hora de inicio para atención de ACV.",
+      "Aspirina masticada solo si le indicaron para síntomas cardíacos.",
+      "FAST ayuda a recordar signos de ACV.",
+    ],
+    sidebarTitle: "Emergencia corazón vs cerebro",
+    content: {
+      sections: [
+        {
+          title: "¿Qué es?",
+          content:
+            "Un **infarto** (infarto de miocardio) ocurre cuando el flujo sanguíneo a parte del músculo cardíaco se bloquea, generalmente por un coágulo en arteria coronaria. Un **accidente cerebrovascular (ACV)** ocurre cuando el flujo al cerebro se bloquea (ACV isquémico) o un vaso se rompe (ACV hemorrágico). Ambos son emergencias, pero síntomas y acciones inmediatas difieren. Los minutos importan — el tratamiento rápido limita daño cardíaco y mejora recuperación del ACV.",
+        },
+        {
+          title: "¿Cómo funciona?",
+          content:
+            "Síntomas de infarto incluyen presión o dolor torácico que puede extenderse a brazo, mandíbula o espalda; falta de aire; sudoración; náuseas o fatiga inexplicada — las mujeres pueden tener síntomas más sutiles. Síntomas de ACV aparecen de repente: caída de un lado de la cara, debilidad en brazo, habla arrastrada, pérdida de visión, dolor de cabeza severo o confusión. El mnemotécnico **FAST** ayuda — Face (cara), Arms (brazos), Speech (habla), Time (tiempo de llamar al 911). Equipos de ACV pueden ofrecer fármacos o procedimientos en horas si el paciente llega rápido.",
+          callouts: [
+            {
+              type: "warning",
+              content:
+                "Nunca espere a ver si los síntomas pasan. Llame al 911 ante molestia torácica súbita con signos preocupantes o cualquier signo súbito de ACV — el EMS puede iniciar atención en camino.",
+            },
+          ],
+        },
+        {
+          title: "¿Por qué importa?",
+          content:
+            "La AHA y la American Stroke Association reportan que la reperfusión temprana en infarto y el tratamiento sensible al tiempo en ACV salvan vidas y reducen discapacidad. Retrasos por manejar uno mismo, ignorar síntomas leves o dormir empeoran resultados. El reconocimiento de testigos es crítico — muchos eventos ocurren en casa o trabajo.",
+        },
+        {
+          title: "Qué significa para usted",
+          content:
+            "Conozca factores de riesgo: presión alta (umbrales ACC/AHA 2017), tabaco, diabetes, fibrilación auricular (riesgo de ACV) e historial familiar. Si síntomas torácicos sugieren infarto, siéntese o descanse y llame al 911 — tome aspirina solo si un clínico ya se lo indicó. En ACV, anote la última vez que la persona estuvo bien. No dé comida ni bebida si la deglución o habla están afectadas.",
+          callouts: [
+            {
+              type: "info",
+              content:
+                "Infarto y ACV pueden ocurrir juntos o en secuencia cuando viajan coágulos. En duda, trate como emergencia y deje que el EMS determine el diagnóstico.",
+            },
+          ],
+        },
+      ],
+    },
+  },
+  {
+    id: "type-1-vs-type-2-diabetes",
+    title: "Diabetes tipo 1 vs tipo 2",
+    description: "Entienda cómo difieren diabetes tipo 1 y tipo 2 en causa, tratamiento y manejo diario.",
+    category: "Chronic Conditions",
+    categoryId: "chronic-conditions",
+    duration: "16 minutes",
+    level: "beginner",
+    lastReviewed: "2026-06-25",
+    reviewedBy: "RN Health Education Team",
+    sources: ["NIH", "CDC", "MedlinePlus"],
+    sidebarTips: [
+      "Tipo 1 es autoinmune — no se debe solo a la dieta.",
+      "Tipo 2 involucra resistencia a insulina con el tiempo.",
+      "Ambas necesitan planes de atención individualizados.",
+      "Nunca suspenda insulina sin guía médica.",
+    ],
+    sidebarTitle: "DT1 vs DT2",
+    content: {
+      sections: [
+        {
+          title: "¿Qué es?",
+          content:
+            "La **diabetes mellitus** es glucosa alta en sangre por problemas con la insulina — hormona que lleva glucosa a las células. La **diabetes tipo 1** es enfermedad autoinmune: el sistema inmune destruye células beta productoras de insulina en el páncreas. A menudo comienza en niñez o adultez joven pero puede ocurrir a cualquier edad. La **diabetes tipo 2** se desarrolla cuando el cuerpo tiene **resistencia a la insulina** y el páncreas no produce suficiente insulina — el riesgo sube con genética, mayor peso corporal, inactividad y edad.",
+        },
+        {
+          title: "¿Cómo funciona?",
+          content:
+            "Quienes tienen tipo 1 requieren **terapia con insulina** desde el diagnóstico — sin insulina, el cuerpo descompone grasa peligrosamente (CAD). Tipo 2 a menudo se maneja primero con cambios de estilo de vida y medicamentos orales o inyectables no insulínicos; muchos eventualmente necesitan insulina, pero no siempre al diagnóstico. Ambos tipos se benefician de monitoreo glucémico, metas de A1c con clínicos, cribado de pies y ojos, y manejo de presión y lípidos según estándares ADA.",
+          callouts: [
+            {
+              type: "info",
+              content:
+                "Comer azúcar no causa directamente diabetes tipo 1. El riesgo de tipo 2 refleja metabolismo y genética complejos — no una sola elección alimentaria. Culpa y estigma dañan el compromiso con el cuidado.",
+            },
+          ],
+        },
+        {
+          title: "¿Por qué importa?",
+          content:
+            "Más de 37 millones de estadounidenses tienen diabetes; muchos más tienen prediabetes. La hiperglucemia sin tratar daña riñones, nervios, ojos y vasos. Tipo 1 puede volverse mortal en horas si falta insulina. Tipo 2 a menudo se desarrolla en silencio años. La clasificación correcta guía tratamiento seguro — dar solo pastillas en tipo 1 es peligroso; miedo innecesario a insulina en tipo 2 puede retrasar terapia necesaria.",
+        },
+        {
+          title: "Qué significa para usted",
+          content:
+            "Si usted o un niño tienen sed inexplicable, orina frecuente, pérdida de peso o fatiga, busque evaluación pronta — debe descartarse tipo 1 rápido. Siga el plan de su equipo para carbohidratos, actividad, medicamentos y cribado. Use identificación médica si usa insulina. Aprenda signos de hipoglucemia y reglas de días de enfermedad. Historial familiar importa para tipo 2; historial de tipo 1 eleva riesgo pero muchos casos no tienen antecedente familiar.",
+          callouts: [
+            {
+              type: "warning",
+              content:
+                "No suspenda ni racione insulina por costo o peso sin supervisión clínica — CAD e hiperglucemia severa son emergencias.",
+            },
+          ],
+        },
+      ],
+    },
+  },
+  {
+    id: "thyroid-disorders-basics",
+    title: "Conceptos básicos de trastornos tiroideos",
+    description: "Aprenda cómo una tiroides hiperactiva o hipoactiva afecta energía, peso y metabolismo.",
+    category: "Chronic Conditions",
+    categoryId: "chronic-conditions",
+    duration: "14 minutes",
+    level: "beginner",
+    lastReviewed: "2026-06-25",
+    reviewedBy: "RN Health Education Team",
+    sources: ["NIH", "CDC", "MedlinePlus"],
+    sidebarTips: [
+      "TSH es la prueba de cribado habitual.",
+      "Hipotiroidismo es más común que hipertiroidismo.",
+      "Tome levotiroxina de forma consistente.",
+      "Reporte palpitaciones o hinchazón de cuello pronto.",
+    ],
+    sidebarTitle: "Bases de tiroides",
+    content: {
+      sections: [
+        {
+          title: "¿Qué es?",
+          content:
+            "La **tiroides** es una glándula en forma de mariposa en el cuello que produce hormonas (T4 y T3) que controlan metabolismo, ritmo cardíaco, temperatura y energía. **Hipotiroidismo** significa glándula hipoactiva — causas comunes incluyen tiroiditis de Hashimoto (autoinmune) y tratamiento previo de tiroides. **Hipertiroidismo** significa hiperactividad — causas incluyen enfermedad de Graves y nódulos tiroideos. Ambos se diagnostican con análisis de sangre, principalmente **TSH** con T4 libre según necesidad.",
+        },
+        {
+          title: "¿Cómo funciona?",
+          content:
+            "Poca hormona tiroidea enlentece sistemas corporales: fatiga, aumento de peso, intolerancia al frío, estreñimiento, piel seca, depresión y colesterol elevado. Mucha hormona acelera sistemas: pérdida de peso, intolerancia al calor, ritmo cardíaco rápido, ansiedad, temblor y cambios oculares en Graves. TSH es retroalimentación pituitaria — TSH alto usualmente significa hipotiroidismo; TSH bajo a menudo señala hipertiroidismo. Tratamiento reemplaza hormona (levotiroxina) para hipotiroidismo o reduce producción (antitiroideos, yodo radioactivo, cirugía) para hipertiroidismo.",
+          callouts: [
+            {
+              type: "warning",
+              content:
+                "Hipertiroidismo sin tratar puede desencadenar arritmias peligrosas; hipotiroidismo severo puede causar crisis de mixedema — busque atención ante dolor torácico, debilidad severa o confusión.",
+            },
+          ],
+        },
+        {
+          title: "¿Por qué importa?",
+          content:
+            "Enfermedad tiroidea es común — especialmente en mujeres y después de los 60. Síntomas se superponen con trastornos del ánimo, anemia y menopausia, por eso las pruebas previenen diagnóstico erróneo. Embarazo requiere control tiroideo estricto para desarrollo fetal. Algunos medicamentos y suplementos (biotina, exceso de yodo) pueden interferir con precisión de laboratorio — informe lo que toma.",
+        },
+        {
+          title: "Qué significa para usted",
+          content:
+            "Pregunte sobre cribado tiroideo si tiene síntomas persistentes sin explicación. Tome levotiroxina igual cada día — a menudo en ayunas — y no cambie marcas sin que su clínico lo sepa. Pacientes hipertiroideos deben reportar palpitaciones o fiebre. Una vez estables, monitoreo periódico de TSH mantiene dosis correcta cuando cambian peso y edad.",
+          callouts: [
+            {
+              type: "info",
+              content:
+                "Un bulto en cuello o dificultad para tragar necesita evaluación — los nódulos suelen ser benignos pero requieren ecografía y a veces biopsia según indicación clínica.",
+            },
+          ],
+        },
+      ],
+    },
+  },
+  {
+    id: "insulin-resistance-explained",
+    title: "Resistencia a la insulina explicada",
+    description:
+      "Entienda qué significa resistencia a la insulina, cómo se vincula con prediabetes y diabetes tipo 2, y qué ayuda.",
+    category: "Chronic Conditions",
+    categoryId: "chronic-conditions",
+    duration: "15 minutes",
+    level: "intermediate",
+    lastReviewed: "2026-06-25",
+    reviewedBy: "RN Health Education Team",
+    sources: ["NIH", "CDC", "MedlinePlus"],
+    sidebarTips: [
+      "Prediabetes es etapa de alerta — actuar ayuda.",
+      "La actividad mejora sensibilidad a insulina.",
+      "Pérdida de peso del 5–7% puede bajar riesgo.",
+      "A1c y glucosa en ayunas detectan progresión.",
+    ],
+    sidebarTitle: "Resistencia insulínica",
+    content: {
+      sections: [
+        {
+          title: "¿Qué es?",
+          content:
+            "**Resistencia a la insulina** significa que las células — especialmente en músculo, hígado y grasa — no responden eficientemente a la insulina, así el páncreas produce más insulina para mantener glucosa normal. Con el tiempo, el páncreas puede no alcanzar, llevando a **prediabetes** (glucosa más alta que normal pero bajo umbrales de diabetes) y **diabetes tipo 2**. La resistencia la impulsan genética, exceso de grasa visceral, inactividad, apnea del sueño, algunos medicamentos y envejecimiento — no una sola exposición alimentaria.",
+        },
+        {
+          title: "¿Cómo funciona?",
+          content:
+            "La insulina actúa como llave que abre puertas para que la glucosa entre a células. Cuando las puertas se pegan, la glucosa queda en sangre y la insulina sube (**hiperinsulinemia**). La ADA define prediabetes como A1c 5.7–6.4%, glucosa en ayunas 100–125 mg/dL o prueba de tolerancia anormal. El Programa de Prevención de Diabetes del NIH mostró que cambio intensivo de estilo de vida — pérdida modesta de peso (~7%), 150 minutos semanales de actividad — redujo progresión a tipo 2 ~58% en adultos de alto riesgo. Metformina ayuda a algunos pacientes de alto riesgo según criterio clínico.",
+          callouts: [
+            {
+              type: "info",
+              content:
+                "La resistencia también se vincula con hígado graso, síndrome de ovario poliquístico (SOP) y mayor riesgo cardiovascular — el manejo aborda el cuadro metabólico completo.",
+            },
+          ],
+        },
+        {
+          title: "¿Por qué importa?",
+          content:
+            "Más de uno de cada tres adultos en EE. UU. tiene prediabetes; la mayoría no lo sabe. La progresión sin tratar daña vasos, riñones y nervios. El cambio temprano de estilo de vida es más efectivo que esperar diagnóstico completo de diabetes. Resistencia sin glucosa alta aún puede señalar riesgo metabólico — circunferencia de cintura, triglicéridos, HDL y presión juntos describen **síndrome metabólico**.",
+        },
+        {
+          title: "Qué significa para usted",
+          content:
+            "Pregunte sobre cribado si tiene factores de riesgo: historial familiar, IMC más alto, diabetes gestacional previa o sedentarismo. Enfóquese en patrones alimentarios sostenibles (plantas con fibra, proteína magra, menos bebidas azucaradas), actividad regular, sueño y manejo de estrés. Celebre pequeños cambios de peso. Si le recetan metformina u otra terapia, tómela según indicación y monitoree según su plan.",
+          callouts: [
+            {
+              type: "warning",
+              content:
+                "No ignore prediabetes porque se sienta bien — el daño puede comenzar antes de síntomas. Trabaje con su clínico en metas individualizadas en lugar de dietas extremas de moda.",
+            },
+          ],
+        },
+      ],
+    },
+  },
+  {
+    id: "how-antidepressants-work",
+    title: "Cómo funcionan los antidepresivos",
+    description:
+      "Conozca las principales clases de antidepresivos, plazos esperados y cómo encajan con terapia y autocuidado.",
+    category: "Mental Health",
+    categoryId: "mental-health",
+    duration: "16 minutes",
+    level: "intermediate",
+    lastReviewed: "2026-06-25",
+    reviewedBy: "RN Health Education Team",
+    sources: ["NIH", "CDC", "MedlinePlus"],
+    sidebarTips: [
+      "Beneficios suelen tardar 4–8 semanas.",
+      "Nunca suspenda de golpe sin guía.",
+      "Reporte empeoramiento del ánimo o pensamientos suicidas de inmediato.",
+      "Terapia más medicamento ayuda a muchas personas.",
+    ],
+    sidebarTitle: "Bases de antidepresivos",
+    content: {
+      sections: [
+        {
+          title: "¿Qué es?",
+          content:
+            "Los **antidepresivos** son medicamentos recetados que tratan depresión, trastornos de ansiedad y algunas condiciones de dolor crónico. Clases principales incluyen **ISRS** (p. ej., sertralina, escitalopram), **IRSN** (p. ej., venlafaxina, duloxetina), **bupropión**, y **tricíclicos** e **IMAO** más antiguos usados menos. Ajustan señalización química cerebral — principalmente vías de serotonina y norepinefrina — para mejorar regulación del ánimo con el tiempo. No son adictivos en sentido tradicional pero requieren suspensión cuidadosa.",
+        },
+        {
+          title: "¿Cómo funciona?",
+          content:
+            "La depresión involucra cambios complejos en circuitos cerebrales y neurotransmisores; los antidepresivos mejoran gradualmente la señalización sináptica. ISRS bloquean recaptación de serotonina; IRSN afectan serotonina y norepinefrina; bupropión influye principalmente dopamina y norepinefrina. El efecto completo suele tardar **cuatro a ocho semanas**, aunque sueño o apetito pueden cambiar antes. El primer medicamento puede no ser el adecuado — los clínicos ajustan dosis o clase según respuesta y efectos como náuseas, insomnio o disfunción sexual.",
+          callouts: [
+            {
+              type: "warning",
+              content:
+                "Adultos jóvenes que inician antidepresivos deben vigilarse por empeoramiento del ánimo o pensamientos suicidas — contacte a su clínico de inmediato si ocurren. Existen advertencias en caja negra por esta razón.",
+            },
+          ],
+        },
+        {
+          title: "¿Por qué importa?",
+          content:
+            "La depresión es causa principal de discapacidad mundialmente. Tratamiento efectivo reduce riesgo suicida, mejora función y ayuda a participar en terapia y vida diaria. Suspender abruptamente puede causar síntomas de discontinuación — mareo, sensación gripal, cambios de ánimo. Combinar medicamentos sin supervisión arriesga **síndrome serotoninérgico** (agitación, fiebre, ritmo rápido) — especialmente con IMAO, ciertos opioides o hierba de San Juan.",
+        },
+        {
+          title: "Qué significa para usted",
+          content:
+            "Tome antidepresivos según receta y déles tiempo antes de juzgar fracaso. Combine medicamento con psicoterapia (TCC, TIP, etc.) cuando sea posible según guía NIH y APA. Informe a todos los prescriptores lo que toma — incluyendo OTC y suplementos. No consuma alcohol en exceso mientras se adapta a medicamentos nuevos. Si está embarazada o planea estarlo, discuta riesgos y beneficios con especialista.",
+          callouts: [
+            {
+              type: "info",
+              content:
+                'Los antidepresivos tratan enfermedad — no son "pastillas de felicidad" que cambian personalidad. Muchas personas los usan a corto plazo; otras necesitan mantenimiento más largo — las decisiones son individualizadas con su clínico.',
+            },
+          ],
+        },
+      ],
+    },
+  },
+  {
+    id: "copd-vs-asthma",
+    title: "EPOC vs asma",
+    description:
+      "Aprenda cómo difieren EPOC y asma en causa, síntomas, desencadenantes y manejo a largo plazo.",
+    category: "Chronic Conditions",
+    categoryId: "chronic-conditions",
+    duration: "14 minutes",
+    level: "beginner",
+    lastReviewed: "2026-06-25",
+    reviewedBy: "RN Health Education Team",
+    sources: ["NIH", "CDC", "MedlinePlus"],
+    sidebarTips: [
+      "Fumar es el principal factor de riesgo de EPOC.",
+      "Asma a menudo comienza más joven con síntomas variables.",
+      "Use inhaladores según receta — la técnica importa.",
+      "Busque ayuda si empeora la falta de aire.",
+    ],
+    sidebarTitle: "EPOC vs asma",
+    content: {
+      sections: [
+        {
+          title: "¿Qué es?",
+          content:
+            "**EPOC** (enfermedad pulmonar obstructiva crónica) es enfermedad pulmonar progresiva — principalmente enfisema y bronquitis crónica — usualmente por exposición prolongada a irritantes, especialmente **cigarrillo**. La limitación de flujo aéreo en gran parte **no es totalmente reversible**. **Asma** es inflamación crónica de vías aéreas con estrechamiento **reversible**, a menudo desde la infancia, desencadenada por alérgenos, ejercicio, aire frío o infecciones. Algunos adultos mayores tienen rasgos de ambas (**solapamiento EPOC-asma**).",
+        },
+        {
+          title: "¿Cómo funciona?",
+          content:
+            "En EPOC, alvéolos dañados y vías obstruidas por mucosidad atrapan aire — tos crónica, esputo y falta de aire progresiva dominan. Exacerbaciones siguen a infecciones respiratorias. En asma, broncoespasmo va y viene — sibilancias, opresión torácica, tos, especialmente de noche o con desencadenantes. **Broncodilatadores** de acción rápida alivian síntomas agudos de asma; EPOC también usa broncodilatadores y esteroides inhalados cuando corresponde, más dejar de fumar y rehabilitación pulmonar. Espirometría distingue obstrucción reversible de fija.",
+          callouts: [
+            {
+              type: "warning",
+              content:
+                "Falta de aire severa súbita, labios azules, confusión o incapacidad para hablar en frases completas es emergencia — use inhalador de rescate si le recetaron y llame al 911.",
+            },
+          ],
+        },
+        {
+          title: "¿Por qué importa?",
+          content:
+            "EPOC es causa principal de discapacidad y muerte mundialmente; la mayoría de casos son prevenibles sin fumar y reduciendo polvo/humos laborales. Asma afecta más de 25 millones de estadounidenses — asma no controlada causa visitas a urgencias y ausencias escolares o laborales. Etiquetar mal EPOC como asma (o viceversa) lleva a terapia incorrecta. Vacunas (gripe, COVID-19, neumococo según CDC) reducen exacerbaciones graves en ambas condiciones.",
+        },
+        {
+          title: "Qué significa para usted",
+          content:
+            "Si fuma, busque ayuda para dejarlo — la intervención más impactante en EPOC. Aprenda técnica correcta de inhalador con farmacéutico o terapeuta respiratorio. Registre desencadenantes de asma y evítelos cuando sea posible. Siga planes de acción para exacerbaciones. Espirometría anual puede ser necesaria si cambian síntomas. Oxígeno se receta solo cuando oxígeno en sangre cumple criterios específicos — no para enfermedad leve.",
+          callouts: [
+            {
+              type: "info",
+              content:
+                "Medicamentos de control a largo plazo previenen ataques; inhaladores de rescate tratan síntomas súbitos. Usar rescate más de dos veces por semana puede señalar mal control — informe a su clínico.",
+            },
+          ],
+        },
+      ],
+    },
+  },
+  {
+    id: "understanding-oxygen-saturation",
+    title: "Entendiendo la saturación de oxígeno",
+    description:
+      "Aprenda qué mide SpO2, rangos normales y cuándo lecturas de oxímetro requieren atención médica.",
+    category: "Chronic Conditions",
+    categoryId: "chronic-conditions",
+    duration: "12 minutes",
+    level: "beginner",
+    lastReviewed: "2026-06-25",
+    reviewedBy: "RN Health Education Team",
+    sources: ["NIH", "CDC", "MedlinePlus"],
+    sidebarTips: [
+      "SpO2 estima oxígeno en glóbulos rojos.",
+      "Rango saludable típico es ~95–100%.",
+      "Dedos fríos y esmalte pueden alterar lecturas.",
+      "Lecturas bajas con síntomas necesitan evaluación urgente.",
+    ],
+    sidebarTitle: "Saturación de oxígeno",
+    content: {
+      sections: [
+        {
+          title: "¿Qué es?",
+          content:
+            "La **saturación de oxígeno (SpO2)** mide el porcentaje de hemoglobina en sangre arterial que transporta oxígeno. Un **oxímetro de pulso** — clip en dedo, dedo del pie u oreja — usa sensores de luz para estimar SpO2 sin dolor. Se usa ampliamente en clínicas, hospitales y en casa para condiciones pulmonares y cardíacas. SpO2 no mide dióxido de carbono ni esfuerzo respiratorio — eso requiere otras pruebas como gasometría arterial.",
+        },
+        {
+          title: "¿Cómo funciona?",
+          content:
+            "Pulmones sanos cargan oxígeno en hemoglobina al pasar la sangre. A nivel del mar, **SpO2 de 95–100%** es típico en adultos sanos según guía NIH. Valores **bajo 90%** a menudo indican hipoxemia que necesita evaluación clínica — especialmente con síntomas como falta de aire, dolor torácico o confusión. Pacientes con enfermedad pulmonar crónica pueden tener metas individuales con neumólogos. Oxímetros pueden ser inexactos con mala circulación, esmalte oscuro, movimiento o ciertas dishemoglobinas.",
+          callouts: [
+            {
+              type: "warning",
+              content:
+                "SpO2 normal no descarta enfermedad grave — intoxicación por monóxido de carbono y algunos problemas pulmonares pueden engañar sensores. Busque atención ante dificultad respiratoria aunque el número parezca bien.",
+            },
+          ],
+        },
+        {
+          title: "¿Por qué importa?",
+          content:
+            "Durante COVID-19 y después, oxímetros caseros ayudaron a detectar hipoxemia silenciosa. Oxígeno suplementario se receta cuando saturación baja sostenida cumple criterios — uso excesivo sin receta desperdicia recursos y puede dañar en algunos contextos. Vuelos, gran altitud y apnea del sueño también afectan oxígeno. Clínicos ACC/AHA usan saturación junto con examen e imagen en emergencias cardiopulmonares.",
+        },
+        {
+          title: "Qué significa para usted",
+          content:
+            "Caliente manos y retire esmalte antes de medir. Siéntese quieto 30–60 segundos y registre lectura estable. Si SpO2 permanece bajo 90% o tiene dificultad respiratoria, busque atención — llame al 911 ante angustia severa. No ajuste flujo de oxígeno recetado sin indicación clínica. Informe a su médico si lecturas caseras bajan en días.",
+          callouts: [
+            {
+              type: "info",
+              content:
+                "Rangos normales pediátricos y de gran altitud difieren ligeramente — compare lecturas con guía de su equipo, no solo tablas genéricas de adultos a nivel del mar.",
+            },
+          ],
+        },
+      ],
+    },
+  },
+  {
+    id: "smoking-cessation-medicines",
+    title: "Medicamentos para dejar de fumar",
+    description:
+      "Conozca opciones aprobadas por la FDA para dejar de fumar, cómo funcionan y cómo combinan con consejería.",
+    category: "Preventive Care",
+    categoryId: "preventive-care",
+    duration: "15 minutes",
+    level: "beginner",
+    lastReviewed: "2026-06-25",
+    reviewedBy: "RN Health Education Team",
+    sources: ["NIH", "CDC", "MedlinePlus"],
+    sidebarTips: [
+      "Reposición de nicotina duplica tasas de éxito con apoyo.",
+      "Vareniclina y bupropión requieren receta.",
+      "Combine medicamento con consejería cuando sea posible.",
+      "Muchos seguros cubren tratamiento para cesación.",
+    ],
+    sidebarTitle: "Medicinas para dejar de fumar",
+    content: {
+      sections: [
+        {
+          title: "¿Qué es?",
+          content:
+            "Los **medicamentos para dejar de fumar** reducen abstinencia y antojos para poder dejar el tabaco. Opciones aprobadas por la FDA incluyen **terapia de reposición de nicotina (TRN)** — parches, chicle, pastillas, inhalador, spray nasal — y **vareniclina** y **bupropión** con receta. La consejería (líneas para dejar de fumar, terapia conductual) mejora significativamente el éxito. USPSTF recomienda que clínicos ofrezcan intervenciones de cesación a todos los adultos que fuman.",
+        },
+        {
+          title: "¿Cómo funciona?",
+          content:
+            "La nicotina del tabaco es adictiva; dejar causa irritabilidad, antojo y problemas de concentración. TRN entrega nicotina controlada sin la mayoría de toxinas del cigarrillo, reduciendo dependencia. **Vareniclina** activa parcialmente receptores de nicotina y bloquea nicotina de cigarrillos, reduciendo recompensa. **Bupropión** (también antidepresivo) disminuye antojos y abstinencia — mecanismo no es totalmente basado en nicotina. TRN combinada (parche más forma de acción corta) a menudo supera un solo producto según CDC. Duración típica es 8–12 semanas o más si hace falta — siga guía del prescriptor, no megadosis autodirigida.",
+          callouts: [
+            {
+              type: "warning",
+              content:
+                "Si toma bupropión, reporte cambios de ánimo o pensamientos suicidas de inmediato. Vareniclina puede causar sueños vívidos o náuseas — discuta riesgos si tiene historial psiquiátrico o cardiovascular.",
+            },
+          ],
+        },
+        {
+          title: "¿Por qué importa?",
+          content:
+            "Fumar causa cáncer, EPOC, enfermedad cardíaca y accidente cerebrovascular — dejar a cualquier edad añade años de vida. Medicamentos pueden **duplicar o triplicar** tasas de éxito versus dejar en frío solo. Fumadoras embarazadas deben buscar apoyo especializado — riesgos de TRN deben sopesarse contra seguir fumando. Cigarrillos electrónicos no son dispositivos de cesación aprobados por FDA; evidencia favorece terapias probadas más consejería.",
+        },
+        {
+          title: "Qué significa para usted",
+          content:
+            "Hable con clínico o farmacéutico sobre la mejor opción para su historial. Fije fecha para dejar, retire cigarrillos de su entorno y use 1-800-QUIT-NOW para coaching gratis. No fume con parche de nicotina — sobredosis causa náuseas y palpitaciones. Si un medicamento falla, otro enfoque puede funcionar. Celebre hitos sin humo; la recaída es común — reenganche apoyo en lugar de rendirse.",
+          callouts: [
+            {
+              type: "info",
+              content:
+                "Seguros y Medicare a menudo cubren medicamentos de cesación sin copago en beneficios preventivos — pregunte a su plan antes de pagar precio completo.",
+            },
+          ],
+        },
+      ],
+    },
+  },
+  {
+    id: "understanding-cbc",
+    title: "Entendiendo un hemograma completo",
+    description:
+      "Aprenda qué mide un hemograma completo (CBC) y qué pueden sugerir resultados altos o bajos.",
+    category: "Lab Results",
+    categoryId: "lab-results",
+    duration: "16 minutes",
+    level: "intermediate",
+    lastReviewed: "2026-06-25",
+    reviewedBy: "RN Health Education Team",
+    sources: ["NIH", "CDC", "MedlinePlus"],
+    sidebarTips: [
+      "CBC mide células — no colesterol ni glucosa.",
+      "Hemoglobina baja puede significar anemia.",
+      "GB alto puede seguir a infección o inflamación.",
+      "Interprete siempre resultados con su clínico.",
+    ],
+    sidebarTitle: "CBC explicado",
+    content: {
+      sections: [
+        {
+          title: "¿Qué es?",
+          content:
+            "Un **hemograma completo (CBC)** es uno de los análisis de sangre más comunes. Mide **glóbulos rojos (GR)**, **hemoglobina** y **hematocrito** (capacidad de transporte de oxígeno), **glóbulos blancos (GB)** (células inmunes) y **plaquetas** (coagulación). Un diferencial puede listar subtipos de GB — neutrófilos, linfocitos, monocitos, eosinófilos, basófilos. CBC es herramienta de cribado — no diagnóstico por sí solo.",
+        },
+        {
+          title: "¿Cómo funciona?",
+          content:
+            "**Hemoglobina/hematocrito bajos** sugieren anemia — causas incluyen deficiencia de hierro, B12 o folato, enfermedad crónica o pérdida de sangre. **Hemoglobina alta** puede reflejar deshidratación, enfermedad pulmonar, tabaco o trastornos de médula ósea. **GB bajos** pueden seguir a enfermedad viral, algunos medicamentos o problemas de médula. **GB altos** a menudo señalan infección, inflamación, estrés o raramente leucemia. **Plaquetas bajas** aumentan riesgo de sangrado; **plaquetas altas** pueden seguir a inflamación o deficiencia de hierro. Rangos de referencia varían ligeramente por laboratorio y sexo.",
+          callouts: [
+            {
+              type: "warning",
+              content:
+                "Un CBC anormal aislado necesita contexto clínico — repetir pruebas, historial, examen y análisis de seguimiento (estudios de hierro, B12, reticulocitos) aclaran causa. No autotrate anemia con hierro sin confirmación.",
+            },
+          ],
+        },
+        {
+          title: "¿Por qué importa?",
+          content:
+            "La anemia explica fatiga, debilidad y falta de aire. Trastornos plaquetarios afectan seguridad quirúrgica y sangrado. Patrones de GB orientan estudios de infección. CBC es rutinario antes de cirugía, durante quimioterapia y en monitoreo de enfermedad crónica. Rangos pediátricos y de embarazo difieren de valores adultos estándar.",
+        },
+        {
+          title: "Qué significa para usted",
+          content:
+            'Lleve CBC previos a citas para comparar tendencias. Pregunte qué significa cada valor marcado para usted — "ligeramente bajo" en un contexto puede ser urgente en otro. Si le recetan hierro o B12, repita análisis según indicación. Moretones súbitos, sangrado de encías o fatiga extrema con plaquetas o hemoglobina anormales requiere contacto pronto con su equipo.',
+          callouts: [
+            {
+              type: "info",
+              content:
+                "Ayuno usualmente no es necesario para CBC. Hidratación y enfermedad reciente pueden cambiar conteos — menciónelo al revisar resultados.",
+            },
+          ],
+        },
+      ],
+    },
+  },
+  {
+    id: "understanding-a1c",
+    title: "Entendiendo la A1c",
+    description:
+      "Aprenda qué mide la prueba A1c, cómo refleja glucosa en el tiempo y qué significan los resultados.",
+    category: "Lab Results",
+    categoryId: "lab-results",
+    duration: "14 minutes",
+    level: "beginner",
+    lastReviewed: "2026-06-25",
+    reviewedBy: "RN Health Education Team",
+    sources: ["NIH", "CDC", "MedlinePlus"],
+    sidebarTips: [
+      "A1c refleja ~3 meses de glucosa.",
+      "Diabetes es generalmente A1c 6.5% o más.",
+      "Prediabetes es 5.7% a 6.4%.",
+      "Las metas se individualizan con su clínico.",
+    ],
+    sidebarTitle: "A1c explicada",
+    content: {
+      sections: [
+        {
+          title: "¿Qué es?",
+          content:
+            "La prueba **A1c** (hemoglobina A1c o HbA1c) mide el porcentaje de hemoglobina recubierta de glucosa, reflejando glucosa promedio en sangre durante aproximadamente los **últimos dos a tres meses**. A diferencia de una medición puntual de glucosa, A1c muestra exposición glucémica a más largo plazo. Se usa para **diagnosticar** diabetes y prediabetes y para **monitorear** tratamiento en personas con diabetes según criterios ADA.",
+        },
+        {
+          title: "¿Cómo funciona?",
+          content:
+            "La glucosa en sangre se une a hemoglobina en glóbulos rojos durante la vida de la célula (~120 días). Mayor glucosa promedio produce A1c más alta. Umbrales ADA: **A1c ≥6.5%** diagnostica diabetes (confirmado en repetición salvo síntomas); **5.7–6.4%** es prediabetes; **bajo 5.7%** suele ser normal en adultos. Muchas personas con diabetes apuntan bajo **7%** — o metas más estrictas/altas según edad, riesgo de hipoglucemia y comorbilidades. Condiciones que afectan glóbulos rojos (anemia, variantes de hemoglobina, transfusión reciente) pueden alterar A1c — clínicos pueden usar pruebas de glucosa en su lugar.",
+          callouts: [
+            {
+              type: "info",
+              content:
+                "A1c no reemplaza monitoreo glucémico diario con insulina o sulfonilureas — picos y caídas severas pueden promediarse a una A1c engañosa.",
+            },
+          ],
+        },
+        {
+          title: "¿Por qué importa?",
+          content:
+            "Glucosa alta a largo plazo daña ojos, riñones, nervios y vasos. Bajar A1c reduce riesgo de complicaciones, pero metas demasiado agresivas en ancianos frágiles elevan daño por hipoglucemia. A1c ayuda a ver si estilo de vida y medicinas funcionan. Embarazo usa pruebas de glucosa distintas — A1c estándar no diagnostica diabetes gestacional.",
+        },
+        {
+          title: "Qué significa para usted",
+          content:
+            "Conozca su última A1c y discuta metas personales con su clínico. Mejore A1c con alimentación equilibrada, actividad, peso y medicinas recetadas — no restricción extrema sin guía. Repita A1c cada tres a seis meses al ajustar terapia. Si resultados no coinciden con lecturas caseras, pregunte por anemia, enfermedad renal o efectos de hemoglobina variante.",
+          callouts: [
+            {
+              type: "warning",
+              content:
+                "Prediabetes (A1c 5.7–6.4%) es oportunidad de actuar — programas de estilo de vida del CDC pueden reducir progresión a diabetes tipo 2. No ignore resultados limítrofes porque se sienta bien.",
+            },
+          ],
         },
       ],
     },

@@ -2418,4 +2418,1125 @@ export const quizzes: Quiz[] = [
       },
     ],
   },
+  {
+    id: "otc-drug-interactions",
+    title: "Cuestionario: Interacciones OTC",
+    lessonId: "otc-drug-interactions",
+    passScore: 70,
+    questions: [
+      {
+        question: "¿Por qué revisar ingredientes activos en varias etiquetas OTC?",
+        options: [
+          "Las marcas siempre usan ingredientes distintos",
+          "Ingredientes duplicados pueden exceder límites diarios seguros",
+          "Solo las recetas tienen ingredientes activos",
+          "Las etiquetas son opcionales para adultos",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "Varios productos OTC pueden compartir el mismo fármaco activo y superar límites seguros. Las marcas varían, y recetas y OTC listan activos — las etiquetas son obligatorias, no opcionales.",
+      },
+      {
+        question: "¿Quién es especialmente útil para detectar interacciones?",
+        options: [
+          "Un farmacéutico con su lista completa de medicamentos",
+          "Foros de salud en redes sociales",
+          "Solo la línea del fabricante",
+          "Nadie — las interacciones son raras",
+        ],
+        correctAnswer: "A",
+        explanation:
+          "Los farmacéuticos están capacitados para identificar interacciones con su historial completo. Los foros no tienen su contexto; los fabricantes no revisan todo su régimen, y las interacciones son lo bastante comunes para merecer revisión.",
+      },
+      {
+        question: "¿Cómo pueden interactuar los AINE con algunos antihipertensivos?",
+        options: [
+          "Siempre bajan más la presión",
+          "Pueden reducir flujo renal y afectar el control de presión",
+          "No afectan los riñones",
+          "Reemplazan medicamentos para presión",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "Los AINE pueden reducir el flujo sanguíneo renal y empeorar el control de presión o función renal en personas susceptibles. No bajan la presión de forma confiable ni reemplazan la terapia recetada.",
+      },
+      {
+        question: "¿Por qué informar suplementos herbales al tomar recetas?",
+        options: [
+          "Los suplementos nunca interactúan",
+          "Algunos como la hierba de San Juan alteran niveles de recetas",
+          "Solo importan las vitaminas",
+          "Los proveedores ya saben todo lo que toma",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "Los productos herbales pueden alterar el metabolismo de fármacos. Los suplementos sí interactúan; las hierbas no están exentas; los proveedores no saben lo que toma a menos que se lo diga.",
+      },
+      {
+        question: "¿Qué hacer antes de añadir un OTC si toma varias recetas?",
+        options: [
+          "Asumir que OTC siempre es seguro",
+          "Pedir al farmacéutico o clínico revisar interacciones",
+          "Duplicar todas las dosis de receta",
+          "Suspender todas las recetas un día",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "La revisión profesional detecta riesgos con su régimen específico. OTC no es automáticamente seguro con recetas; cambiar dosis o suspender medicamentos sin guía es peligroso.",
+      },
+    ],
+  },
+  {
+    id: "antibiotic-stewardship",
+    title: "Cuestionario: Uso responsable de antibióticos",
+    lessonId: "antibiotic-stewardship",
+    passScore: 70,
+    questions: [
+      {
+        question: "¿Contra qué tipo de infección son efectivos los antibióticos?",
+        options: [
+          "La mayoría de resfriados por virus",
+          "Infecciones bacterianas cuando se recetan apropiadamente",
+          "Todos los dolores de garganta sin importar la causa",
+          "Alergias estacionales",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "Los antibióticos atacan bacterias, no virus ni alergias. La mayoría de resfriados y muchas faringitis son virales; solo causas bacterianas específicas justifican antibióticos tras evaluación adecuada.",
+      },
+      {
+        question: "¿Por qué preocupa suspender antibióticos antes de tiempo?",
+        options: [
+          "Siempre causa resistencia instantánea en el paciente",
+          "Puede no eliminar la infección y seleccionar bacterias más difíciles de tratar",
+          "Hace que el medicamento funcione mejor después",
+          "No afecta los resultados del tratamiento",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "El tratamiento incompleto puede dejar bacterias sobrevivientes y contribuir a resistencia. No causa resistencia permanente instantánea ni mejora la eficacia futura, y sí afecta los resultados.",
+      },
+      {
+        question: "¿Qué efecto secundario grave se vincula con antibióticos?",
+        options: [
+          "Colitis por C. difficile",
+          "Mejor visión",
+          "Inmunidad permanente a todas las infecciones",
+          "Colesterol más bajo",
+        ],
+        correctAnswer: "A",
+        explanation:
+          "Los antibióticos pueden alterar la flora intestinal y permitir proliferación de C. diff con diarrea severa. No mejoran la visión, no dan inmunidad amplia ni bajan el colesterol.",
+      },
+      {
+        question: "¿Qué hacer con pastillas antibióticas sobrantes?",
+        options: [
+          "Guardarlas para el próximo resfriado",
+          "Compartirlas con un familiar con síntomas similares",
+          "Desecharlas de forma segura según indicación — no autotratarse después",
+          "Tomar doble dosis para terminar el frasco más rápido",
+        ],
+        correctAnswer: "C",
+        explanation:
+          "Los sobrantes pueden ser el fármaco, dosis o duración incorrectos para una nueva enfermedad. Guardar, compartir o duplicar dosis sin indicación médica es inseguro.",
+      },
+      {
+        question: "¿Por qué los CDC enfatizan el uso responsable de antibióticos?",
+        options: [
+          "Los antibióticos ya no se usan en hospitales",
+          "Las bacterias resistentes hacen las infecciones más difíciles o imposibles de tratar",
+          "Los virus se vuelven resistentes a antibióticos",
+          "Significa evitar toda atención médica",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "La resistencia limita opciones para infecciones bacterianas graves. Los antibióticos siguen siendo esenciales en hospitales; los virus no se vuelven resistentes a antibióticos — las bacterias sí; el uso responsable promueve el uso apropiado, no evitar la atención.",
+      },
+    ],
+  },
+  {
+    id: "drug-food-interactions",
+    title: "Cuestionario: Interacciones medicamento-alimento",
+    lessonId: "drug-food-interactions",
+    passScore: 70,
+    questions: [
+      {
+        question: "¿Por qué el jugo de pomelo puede ser problemático con ciertos medicamentos?",
+        options: [
+          "Siempre hace que los medicamentos funcionen más rápido de forma segura",
+          "Puede inhibir enzimas y elevar niveles sanguíneos del fármaco",
+          "Solo afecta vitaminas, no recetas",
+          "No tiene significado clínico",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "El pomelo inhibe CYP3A4 intestinal, aumentando la absorción de algunos fármacos a niveles potencialmente tóxicos. No acelera todos los medicamentos de forma segura, afecta muchas recetas y tiene efectos clínicos documentados.",
+      },
+      {
+        question: "¿Por qué la levotiroxina puede tomarse en ayunas?",
+        options: [
+          "La comida siempre mejora la absorción tiroidea",
+          "La comida y minerales como calcio pueden reducir la absorción",
+          "Debe tomarse siempre con comida alta en grasa",
+          "El momento nunca importa para medicina tiroidea",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "La comida, calcio e hierro pueden interferir con la levotiroxina, por eso a menudo se recomienda tomarla en ayunas de forma consistente. La comida no mejora la absorción de forma confiable; las comidas grasas no son obligatorias; el momento sí importa.",
+      },
+      {
+        question: "¿Qué enfoque dietético ayuda a quienes toman warfarina?",
+        options: [
+          "Evitar toda vitamina K para siempre",
+          "Mantener ingesta de vitamina K bastante consistente día a día",
+          "Duplicar verduras de hoja semanalmente",
+          "Suspender warfarina al comer ensalada",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "La dosis de warfarina se ajusta a ingesta constante de vitamina K — los cambios bruscos importan más que cantidades moderadas y estables. Evitar toda vitamina K no es necesario; duplicar o suspender warfarina alrededor de comidas es inseguro.",
+      },
+      {
+        question: "¿Por qué limitar alcohol con acetaminofén?",
+        options: [
+          "El alcohol mejora la detoxificación hepática del acetaminofén",
+          "Ambos pueden estresar el hígado y aumentar riesgo de lesión",
+          "El alcohol no tiene efectos hepáticos",
+          "Solo los niños están en riesgo",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "El alcohol y el acetaminofén cargan vías hepáticas; el uso combinado aumenta el riesgo de lesión hepática. El alcohol no protege el hígado, sí tiene efectos hepáticos, y los adultos también están en riesgo.",
+      },
+      {
+        question: "¿Qué hacer al iniciar un medicamento con advertencias alimentarias en la etiqueta?",
+        options: [
+          "Ignorar la etiqueta si se siente bien",
+          "Seguir las indicaciones y preguntar al farmacéutico si no está claro",
+          "Tomar siempre todo fármaco con comida completa",
+          "Tomar todos los medicamentos solo con jugo de pomelo",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "Las etiquetas reflejan cómo la comida afecta ese fármaco específico. Ignorar la guía arriesga sub o sobredosis; no todo fármaco necesita comida; el pomelo está contraindicado para muchos medicamentos, no es ayuda universal.",
+      },
+    ],
+  },
+  {
+    id: "micronutrient-deficiencies",
+    title: "Cuestionario: Deficiencias de micronutrientes",
+    lessonId: "micronutrient-deficiencies",
+    passScore: 70,
+    questions: [
+      {
+        question: "¿Qué deficiencia nutricional es común y a menudo se vincula con fatiga y anemia?",
+        options: ["Hierro", "Solo vitamina C", "Sodio", "Cafeína"],
+        correctAnswer: "A",
+        explanation:
+          "La deficiencia de hierro reduce hemoglobina y comúnmente causa fatiga y anemia. La vitamina C ayuda la absorción pero sola no causa el patrón clásico de anemia; sodio y cafeína no son deficiencias de micronutrientes en este sentido.",
+      },
+      {
+        question: "¿Quién puede necesitar atención extra a la vitamina B12?",
+        options: [
+          "Solo bebés menores de seis meses",
+          "Adultos mayores y personas con dieta vegana estricta sin fortificación",
+          "Todos deben evitar B12 por completo",
+          "Solo atletas competitivos",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "La absorción de B12 a menudo disminuye con la edad; las dietas solo vegetales carecen de B12 sin alimentos fortificados o suplementos. Los bebés obtienen B12 de fórmula o leche materna adecuada; evitar B12 es dañino; los atletas no son el grupo principal en riesgo.",
+      },
+      {
+        question: "¿Por qué analizar antes de suplementos de alta dosis?",
+        options: [
+          "Todas las deficiencias se sienten igual",
+          "El exceso de algunos nutrientes puede dañar y los síntomas tienen muchas causas",
+          "Los análisis nunca detectan deficiencias",
+          "Los suplementos siempre reemplazan atención médica",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "Las pruebas orientan la deficiencia correcta; la sobrecarga de hierro y vitaminas liposolubles es peligrosa. Las deficiencias difieren; los análisis sí detectan muchas deficiencias; los suplementos complementan pero no siempre reemplazan el tratamiento.",
+      },
+      {
+        question: "¿Qué condición puede alterar la absorción de micronutrientes?",
+        options: [
+          "Enfermedad celíaca que afecta el intestino delgado",
+          "Usar gafas",
+          "Alergias estacionales leves",
+          "Caminar regularmente",
+        ],
+        correctAnswer: "A",
+        explanation:
+          "La celiaquía daña el intestino delgado y reduce absorción de hierro, folato y otros nutrientes. Las gafas, alergias leves y caminar no causan síndromes de malabsorción.",
+      },
+      {
+        question: "¿Por qué se enfatiza el ácido fólico en el embarazo?",
+        options: [
+          "Previene todos los defectos de nacimiento de cualquier tipo",
+          "El folato adecuado reduce el riesgo de defectos del tubo neural",
+          "Reemplaza las visitas prenatales",
+          "Solo se necesita después del parto",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "El ácido fólico antes y al inicio del embarazo reduce el riesgo de defectos del tubo neural — no previene todos los defectos, no reemplaza atención prenatal, y se necesita antes de la concepción y al inicio, no solo posparto.",
+      },
+    ],
+  },
+  {
+    id: "glycemic-index-and-load",
+    title: "Cuestionario: Índice y carga glucémica",
+    lessonId: "glycemic-index-and-load",
+    passScore: 70,
+    questions: [
+      {
+        question: "¿Qué añade la carga glucémica (CG) más allá del índice glucémico (IG)?",
+        options: [
+          "Ignora por completo el tamaño de porción",
+          "Considera tanto el IG del alimento como el tamaño de porción",
+          "Solo mide contenido de proteína",
+          "Reemplaza el monitoreo de glucosa",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "La CG multiplica el IG por la cantidad de carbohidrato disponible por porción. No ignora porciones, no mide proteína ni reemplaza el monitoreo real de glucosa.",
+      },
+      {
+        question: "¿Qué estrategia de comida tiende a suavizar picos de glucosa?",
+        options: [
+          "Carbohidratos solos en porciones grandes",
+          "Añadir fibra, proteína o grasa saludable a carbohidratos",
+          "Omitir todas las verduras",
+          "Solo beber bebidas azucaradas",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "Fibra, proteína y grasa ralentizan la absorción de carbohidratos. Carbohidratos solos en exceso, sin verduras o con bebidas azucaradas elevan más la glucosa.",
+      },
+      {
+        question: "¿Cómo ve generalmente la ADA las dietas basadas solo en IG?",
+        options: [
+          "Como el único tratamiento para diabetes",
+          "Como una herramienta dentro de patrones alimentarios más amplios",
+          "Como innecesarias para todos con diabetes",
+          "Como cura para diabetes tipo 1",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "La guía de la ADA enfatiza patrones generales, medicamentos y actividad — IG/CG informan elecciones pero no son tratamiento único ni curas, y siguen siendo útiles para muchos con diabetes.",
+      },
+      {
+        question: "¿Qué afirmación sobre azúcar y diabetes tipo 2 es más precisa?",
+        options: [
+          "Comer azúcar sola causa diabetes tipo 2 en todos",
+          "El riesgo de tipo 2 involucra genética, peso, actividad y metabolismo — no solo azúcar",
+          "Solo los niños desarrollan diabetes tipo 2",
+          "El azúcar no afecta la glucosa",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "La diabetes tipo 2 es multifactorial; el azúcar afecta la glucosa pero no causa la enfermedad sola en todos. Los adultos desarrollan tipo 2 comúnmente; el azúcar sí cambia la glucosa.",
+      },
+      {
+        question: "¿Por qué dos personas pueden responder distinto al mismo alimento de IG alto?",
+        options: [
+          "El IG es idéntico para todos siempre",
+          "El metabolismo individual, actividad y medicamentos varían",
+          "El IG solo aplica a grasas",
+          "La glucosa nunca cambia después de comer",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "Las respuestas reales difieren por sensibilidad a insulina, actividad, microbioma y medicamentos. El IG varía por alimento, no solo grasas, y la glucosa posprandial sí cambia.",
+      },
+    ],
+  },
+  {
+    id: "understanding-lipids",
+    title: "Cuestionario: Entendiendo los lípidos",
+    lessonId: "understanding-lipids",
+    passScore: 70,
+    questions: [
+      {
+        question: "¿Qué lipoproteína se asocia más con acumulación de placa arterial cuando está elevada?",
+        options: ["Colesterol LDL", "Colesterol HDL", "Vitamina D", "Sodio"],
+        correctAnswer: "A",
+        explanation:
+          "LDL alto promueve placa aterosclerótica. HDL generalmente ayuda a retirar colesterol de arterias; vitamina D y sodio no son tipos de lipoproteína colesterol.",
+      },
+      {
+        question: "¿Qué riesgo especial tienen triglicéridos muy altos (p. ej., sobre 500 mg/dL)?",
+        options: [
+          "Pancreatitis",
+          "Solo mejor rendimiento atlético",
+          "Menor riesgo de accidente cerebrovascular automáticamente",
+          "Sin efectos en la salud",
+        ],
+        correctAnswer: "A",
+        explanation:
+          "Triglicéridos severamente elevados aumentan riesgo de pancreatitis aguda. No mejoran rendimiento solos, no bajan automáticamente riesgo de ACV y claramente tienen efectos en salud.",
+      },
+      {
+        question: "¿Cómo usan típicamente las guías ACC/AHA los resultados de LDL?",
+        options: [
+          "Como único factor en cada decisión",
+          "Dentro de evaluación global de riesgo cardiovascular",
+          "Ignoran LDL por completo",
+          "Solo para pacientes menores de 18 años",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "Las guías integran LDL con edad, presión, diabetes, tabaco y otros factores. LDL solo no es el único motor; LDL es central, no ignorado; el manejo lipídico aplica en adultos según riesgo.",
+      },
+      {
+        question: "¿Qué cambio de estilo de vida puede mejorar perfiles lipídicos?",
+        options: [
+          "Actividad física regular y alimentación cardiosaludable",
+          "Eliminar toda grasa dietética sin importar el tipo",
+          "Evitar todo cribado médico",
+          "Aumentar azúcares añadidos para energía",
+        ],
+        correctAnswer: "A",
+        explanation:
+          "Actividad y patrones mediterráneos bajan LDL y triglicéridos en muchas personas. No todas las grasas son dañinas; el cribado orienta la atención; azúcares añadidos pueden empeorar triglicéridos.",
+      },
+      {
+        question: "¿Qué hace generalmente el colesterol HDL?",
+        options: [
+          "Ayuda a transportar colesterol lejos de las arterias",
+          "Obstruye arterias directamente por estar presente",
+          "Es idéntico al LDL en función",
+          "Mide control de glucosa",
+        ],
+        correctAnswer: "A",
+        explanation:
+          "HDL participa en transporte reverso de colesterol. No obstruye arterias por mera presencia, es funcionalmente distinto de LDL, y no refleja control glucémico (eso es A1c).",
+      },
+    ],
+  },
+  {
+    id: "how-statins-work",
+    title: "Cuestionario: Cómo funcionan las estatinas",
+    lessonId: "how-statins-work",
+    passScore: 70,
+    questions: [
+      {
+        question: "¿Cuál es el mecanismo principal de las estatinas?",
+        options: [
+          "Bloquear HMG-CoA reductasa hepática para reducir producción de colesterol",
+          "Disolver placa arterial existente de la noche a la mañana",
+          "Elevar HDL ejercitando músculos directamente",
+          "Reemplazar toda absorción de colesterol dietético",
+        ],
+        correctAnswer: "A",
+        explanation:
+          "Las estatinas inhiben la síntesis hepática de colesterol, bajando LDL. No disuelven placa al instante, no ejercitan músculos directamente ni bloquean toda absorción dietética.",
+      },
+      {
+        question: "¿Por qué reportar síntomas musculares con una estatina?",
+        options: [
+          "Siempre son inofensivos y deben ignorarse",
+          "La rara lesión muscular severa necesita evaluación y posible cambio de medicamento",
+          "Significan que la estatina cura la diabetes",
+          "Solo los atletas experimentan efectos musculares",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "La mayoría de molestias musculares son leves, pero casos severos necesitan evaluación. No siempre son inofensivos, no curan diabetes y afectan también a no atletas.",
+      },
+      {
+        question: "¿Cómo posicionan generalmente las guías ACC/AHA las estatinas?",
+        options: [
+          "Solo para personas ya hospitalizadas",
+          "Para pacientes seleccionados de alto riesgo junto con terapia de estilo de vida",
+          "Como reemplazo de medicamentos para presión",
+          "Solo cuando el LDL es normal",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "Las guías recomiendan estatinas según riesgo y LDL también en prevención ambulatoria. Complementan estilo de vida, no reemplazan antihipertensivos, y se usan cuando LDL o riesgo lo justifican.",
+      },
+      {
+        question: "¿Qué hacer antes de suspender una estatina recetada por efectos secundarios?",
+        options: [
+          "Suspender de inmediato sin avisar a nadie",
+          "Hablar con su clínico para cambio de dosis o alternativa",
+          "Duplicar la dosis para superar el dolor",
+          "Reemplazar solo con suplementos no probados",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "Los clínicos pueden ajustar la terapia con seguridad. Suspender sin guía arriesga eventos cardiovasculares; duplicar dosis empeora toxicidad; suplementos solos carecen de reducción probada de eventos.",
+      },
+      {
+        question: "¿Por qué el pomelo puede mencionarse en algunas etiquetas de estatinas?",
+        options: [
+          "Mejora la seguridad de todas las estatinas por igual",
+          "Puede elevar niveles sanguíneos de ciertas estatinas por inhibición enzimática",
+          "No tiene interacción con ningún medicamento",
+          "Es necesario para absorber estatinas",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "El pomelo inhibe CYP3A4, aumentando exposición de algunas estatinas como simvastatina y atorvastatina. No mejora universalmente la seguridad, sí interactúa con fármacos y no es necesario para absorción.",
+      },
+    ],
+  },
+  {
+    id: "heart-attack-vs-stroke-signs",
+    title: "Cuestionario: Infarto vs ACV",
+    lessonId: "heart-attack-vs-stroke-signs",
+    passScore: 70,
+    questions: [
+      {
+        question: "¿Qué grupo de síntomas es más típico de ACV?",
+        options: [
+          "Dolor de rodilla leve gradual en semanas",
+          "Caída súbita de un lado de la cara y habla arrastrada",
+          "Picazón ocular por polen",
+          "Aumento lento de peso en años",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "Los síntomas de ACV son súbitos y neurológicos — cara, brazo, habla. Dolor de rodilla, alergias y cambio lento de peso no son signos clásicos de ACV.",
+      },
+      {
+        question: "¿Qué significa la 'T' en FAST respecto al ACV?",
+        options: [
+          "Tomar una siesta primero",
+          "Tiempo — llamar servicios de emergencia de inmediato",
+          "Solo medir glucosa",
+          "Ir a la clínica la próxima semana",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "FAST enfatiza Tiempo para llamar al 911 porque los tratamientos de ACV son limitados en tiempo. Dormir, solo glucosa o clínica tardía desperdician minutos críticos.",
+      },
+      {
+        question: "¿Por qué llamar al 911 en lugar de manejar ante posible infarto?",
+        options: [
+          "El EMS puede iniciar atención y dirigir al hospital adecuado más rápido",
+          "Manejar siempre es más rápido que ambulancias",
+          "Los hospitales rechazan pacientes sin cita",
+          "Los síntomas siempre mejoran al manejar",
+        ],
+        correctAnswer: "A",
+        explanation:
+          "Las ambulancias ofrecen monitoreo, aspirina cuando corresponde y destino a centros capaces. Manejar arriesga colapso en ruta; hospitales atienden emergencias; síntomas pueden empeorar.",
+      },
+      {
+        question: "¿Qué síntoma de infarto puede ser más sutil en mujeres?",
+        options: [
+          "Molestia torácica, fatiga o falta de aire sin dolor opresivo clásico",
+          "Solo caída del cabello",
+          "Hongo crónico en uñas de pies",
+          "Estornudos estacionales",
+        ],
+        correctAnswer: "A",
+        explanation:
+          "Las mujeres presentan más a menudo presión atípica, fatiga, náuseas o disnea. Cabello, uñas y alergias no se relacionan con presentación aguda de IM.",
+      },
+      {
+        question: "¿Por qué anotar la hora de inicio de síntomas en ACV sospechado?",
+        options: [
+          "Los clínicos usan el tiempo para decidir elegibilidad para terapias agudas de ACV",
+          "Los hospitales cobran solo por minuto",
+          "El tiempo es irrelevante para tratamiento de ACV",
+          "Reemplaza toda imagen cerebral",
+        ],
+        correctAnswer: "A",
+        explanation:
+          "Trombólisis IV y trombectomía dependen del último momento conocido bien. No es por facturación; el tiempo es clínicamente crítico; la imagen sigue siendo necesaria.",
+      },
+    ],
+  },
+  {
+    id: "type-1-vs-type-2-diabetes",
+    title: "Cuestionario: Diabetes tipo 1 vs tipo 2",
+    lessonId: "type-1-vs-type-2-diabetes",
+    passScore: 70,
+    questions: [
+      {
+        question: "¿Qué causa la diabetes tipo 1?",
+        options: [
+          "Destrucción autoinmune de células pancreáticas productoras de insulina",
+          "Comer demasiados dulces sola en todas las personas",
+          "Solo obesidad en adultos mayores de 65",
+          "Falta de ejercicio por una semana",
+        ],
+        correctAnswer: "A",
+        explanation:
+          "Tipo 1 es pérdida de células beta mediada por inmunidad que requiere insulina. Dulces solos no causan tipo 1; obesidad es central en tipo 2, no en mecanismo de tipo 1; inactividad breve no explica tipo 1.",
+      },
+      {
+        question: "¿Qué tratamiento es esencial desde el diagnóstico en diabetes tipo 1?",
+        options: [
+          "Terapia con insulina",
+          "Solo suplementos herbales",
+          "Evitar todos los carbohidratos para siempre",
+          "Sin monitoreo necesario",
+        ],
+        correctAnswer: "A",
+        explanation:
+          "Tipo 1 siempre necesita insulina para sobrevivir. Suplementos no reemplazan insulina; dieta cero carbohidratos no es terapia obligatoria estándar; el monitoreo es esencial para seguridad.",
+      },
+      {
+        question: "¿Qué describe mejor la fisiopatología de diabetes tipo 2?",
+        options: [
+          "Resistencia a insulina con declive progresivo de secreción insulínica",
+          "Ausencia completa de insulina desde nacimiento en todos los casos",
+          "Solo infección viral de dos días",
+          "Exclusivamente enfermedad autoinmune infantil",
+        ],
+        correctAnswer: "A",
+        explanation:
+          "Tipo 2 combina resistencia y deficiencia relativa de insulina con el tiempo. Ausencia total desde nacimiento describe tipo 1; virus breves y autoinmunidad infantil no definen tipo 2.",
+      },
+      {
+        question: "¿Por qué es clínicamente importante distinguir tipo 1 de tipo 2?",
+        options: [
+          "Tratamiento y urgencia difieren — insulina salva vidas en tipo 1",
+          "Ambas son idénticas y nunca necesitan insulina",
+          "Solo tipo 2 requiere seguimiento médico",
+          "Tipo 1 nunca causa emergencias",
+        ],
+        correctAnswer: "A",
+        explanation:
+          "Clasificar mal arriesga CAD si tipo 1 no recibe insulina. Los tipos difieren; ambos necesitan seguimiento; tipo 1 puede causar emergencias rápidas sin insulina.",
+      },
+      {
+        question: "¿Qué afirmación sobre azúcar y diabetes es más precisa?",
+        options: [
+          "El azúcar sola causa directamente todos los tipos de diabetes",
+          "Riesgo de tipo 2 es multifactorial; tipo 1 no se debe solo a ingesta de azúcar",
+          "Solo quienes nunca comen azúcar tienen diabetes",
+          "El azúcar no afecta glucosa en ninguna persona",
+        ],
+        correctAnswer: "B",
+        explanation:
+          "El azúcar afecta glucosa pero no causa sola tipo 1 ni todo tipo 2. Evitar azúcar no garantiza prevención; el azúcar sí impacta glucosa sanguínea.",
+      },
+    ],
+  },
+  {
+    id: "thyroid-disorders-basics",
+    title: "Cuestionario: Trastornos tiroideos",
+    lessonId: "thyroid-disorders-basics",
+    passScore: 70,
+    questions: [
+      {
+        question: "¿Qué prueba se usa comúnmente primero para cribar función tiroidea?",
+        options: ["TSH", "Solo colesterol", "Tipo de sangre", "Biopsia de piel"],
+        correctAnswer: "A",
+        explanation:
+          "TSH es la prueba principal de cribado para hipo e hipertiroidismo. Colesterol puede subir en hipotiroidismo pero no es el cribado; tipo de sangre y biopsia de piel no evalúan tiroides.",
+      },
+      {
+        question: "¿Qué síntomas se alinean más con hipotiroidismo?",
+        options: [
+          "Fatiga, aumento de peso e intolerancia al frío",
+          "Solo fiebre y erupción por 24 horas",
+          "Caída súbita de cara y debilidad de brazo",
+          "Mejor velocidad en maratón sin entrenar",
+        ],
+        correctAnswer: "A",
+        explanation:
+          "Hipotiroidismo enlentece metabolismo causando fatiga, peso y sensibilidad al frío. Fiebre/erupción breve, signos de ACV y mejoras atléticas inexplicables no son patrones típicos.",
+      },
+      {
+        question: "¿Cuál es tratamiento estándar para hipotiroidismo?",
+        options: [
+          "Reemplazo hormonal con levotiroxina",
+          "Yodo en alta dosis para todos",
+          "Evitar todo seguimiento médico",
+          "Solo aspirina diaria",
+        ],
+        correctAnswer: "A",
+        explanation:
+          "Levotiroxina reemplaza T4 deficiente. Yodo solo ayuda en deficiencia y puede empeorar algunas condiciones; se requiere seguimiento; aspirina no trata hipotiroidismo.",
+      },
+      {
+        question: "¿Por qué el hipertiroidismo sin tratar puede ser peligroso?",
+        options: [
+          "Puede causar ritmo cardíaco rápido y arritmias graves",
+          "Siempre baja el ritmo cardíaco a cero de forma segura",
+          "Solo afecta color del cabello",
+          "Previene todas las infecciones permanentemente",
+        ],
+        correctAnswer: "A",
+        explanation:
+          "Exceso de hormona tiroidea estresa el sistema cardiovascular. Aumenta en lugar de anular ritmo cardíaco; efectos van más allá del cabello; no confiere inmunidad a infecciones.",
+      },
+      {
+        question: "¿Por qué informar al laboratorio si toma biotina antes de análisis tiroideos?",
+        options: [
+          "La biotina puede falsificar algunos inmunoanálisis tiroideos",
+          "La biotina siempre es necesaria para TSH preciso",
+          "Los laboratorios rechazan pacientes con vitaminas",
+          "La biotina cura enfermedad de Graves",
+        ],
+        correctAnswer: "A",
+        explanation:
+          "Biotina en alta dosis interfiere con ciertos inmunoanálisis tiroideos. No es necesaria para precisión; laboratorios no rechazan usuarios de vitaminas; biotina no cura Graves.",
+      },
+    ],
+  },
+  {
+    id: "insulin-resistance-explained",
+    title: "Cuestionario: Resistencia a la insulina",
+    lessonId: "insulin-resistance-explained",
+    passScore: 70,
+    questions: [
+      {
+        question: "¿Qué es la resistencia a la insulina?",
+        options: [
+          "Las células responden mal a insulina, requiriendo más insulina para controlar glucosa",
+          "El páncreas solo hace demasiada insulina en diabetes tipo 1 siempre",
+          "Ausencia completa de insulina desde nacimiento",
+          "Condición curada con un día de ayuno",
+        ],
+        correctAnswer: "A",
+        explanation:
+          "Resistencia significa respuesta celular reducida, impulsando hiperinsulinemia compensatoria. Tipo 1 es deficiencia de insulina; ausencia desde nacimiento describe tipo 1; un día de ayuno no cura enfermedad metabólica.",
+      },
+      {
+        question: "¿Qué rango de A1c de la ADA define prediabetes?",
+        options: ["5.7% a 6.4%", "Bajo 4.0%", "Solo sobre 10%", "Exactamente 8.0% siempre"],
+        correctAnswer: "A",
+        explanation:
+          "Prediabetes A1c es 5.7–6.4%; diabetes es ≥6.5%. Bajo 4% es inusualmente bajo; 10% sugiere diabetes mal controlada; 8% no es la banda de prediabetes.",
+      },
+      {
+        question: "¿Qué logró la intervención de estilo de vida del Programa de Prevención de Diabetes?",
+        options: [
+          "Reducción aproximada del 58% en progresión a tipo 2 en adultos de alto riesgo",
+          "Cura del 100% de todos los tipos de diabetes",
+          "Sin efecto comparado con atención habitual",
+          "Solo funcionó en menores de 12 años",
+        ],
+        correctAnswer: "A",
+        explanation:
+          "DPP mostró gran reducción de riesgo con pérdida de peso y actividad en adultos. No curó toda diabetes, claramente superó atención habitual y apuntó a adultos en riesgo, no solo niños.",
+      },
+      {
+        question: "¿Qué factor contribuye a resistencia a la insulina?",
+        options: [
+          "Exceso de grasa visceral e inactividad física",
+          "Usar gafas",
+          "Beber agua diariamente",
+          "Solo alergias estacionales al polen",
+        ],
+        correctAnswer: "A",
+        explanation:
+          "Adiposidad visceral e inactividad empeoran señalización de insulina. Gafas, hidratación y alergias al polen no son impulsores establecidos de resistencia insulínica.",
+      },
+      {
+        question: "¿Por qué detectar prediabetes aunque no haya síntomas?",
+        options: [
+          "El daño puede comenzar antes de síntomas y el cambio de estilo de vida es más efectivo temprano",
+          "Prediabetes siempre causa dolor inmediato",
+          "Cribado solo es para hospitalizados",
+          "No hay forma probada de frenar progresión",
+        ],
+        correctAnswer: "A",
+        explanation:
+          "Prediabetes suele ser silenciosa pero progresiva; intervención temprana funciona. No siempre duele, cribado es ambulatorio y DPP prueba que la progresión puede frenarse.",
+      },
+    ],
+  },
+  {
+    id: "how-antidepressants-work",
+    title: "Cuestionario: Cómo funcionan antidepresivos",
+    lessonId: "how-antidepressants-work",
+    passScore: 70,
+    questions: [
+      {
+        question: "¿Cuánto tiempo suelen necesitar los antidepresivos antes del beneficio completo?",
+        options: [
+          "Aproximadamente 4 a 8 semanas en muchas personas",
+          "Efecto completo en 2 horas siempre",
+          "Al menos 2 años antes de cualquier cambio",
+          "Solo se necesita una dosis",
+        ],
+        correctAnswer: "A",
+        explanation:
+          "La mayoría requiere semanas de uso consistente. Dos horas es irreal para efecto completo; dos años no es espera estándar para respuesta inicial; tratamiento crónico puede continuar pero no como dosis única.",
+      },
+      {
+        question: "¿Qué afectan principalmente los ISRS?",
+        options: [
+          "Recaptación de serotonina en el cerebro",
+          "Producción de insulina en páncreas",
+          "Solo síntesis de hormona tiroidea",
+          "Antígenos de tipo sanguíneo",
+        ],
+        correctAnswer: "A",
+        explanation:
+          "Los ISRS inhiben selectivamente recaptación de serotonina. No actúan principalmente sobre insulina, síntesis tiroidea o grupos sanguíneos.",
+      },
+      {
+        question: "¿Por qué vigilar adultos jóvenes al iniciar antidepresivos?",
+        options: [
+          "Riesgo de empeoramiento del ánimo o pensamientos suicidas al inicio en algunos pacientes",
+          "Los antidepresivos siempre curan al instante sin efectos",
+          "Solo niños menores de 2 años toman antidepresivos",
+          "Vigilar porque son solo placebos",
+        ],
+        correctAnswer: "A",
+        explanation:
+          "Advertencias FDA abordan posible suicidio a vigilar al inicio. No son cura instantánea sin efectos, se usan en adolescentes/adultos no solo lactantes, y son fármacos activos no placebos.",
+      },
+      {
+        question: "¿Qué puede pasar si se suspenden antidepresivos abruptamente?",
+        options: [
+          "Síntomas de discontinuación como mareo o sensación gripal",
+          "Felicidad permanente garantizada",
+          "Cura instantánea de toda ansiedad para siempre",
+          "Ningún efecto posible",
+        ],
+        correctAnswer: "A",
+        explanation:
+          "Parada abrupta puede causar síndrome de discontinuación. Felicidad permanente, cura universal instantánea de ansiedad y cero efectos no son resultados precisos de paradas súbitas.",
+      },
+      {
+        question: "¿Por qué informar antidepresivos y suplementos a todos los prescriptores?",
+        options: [
+          "Para evitar interacciones peligrosas como síndrome serotoninérgico",
+          "Para que desanimen toda atención de salud mental",
+          "Los suplementos nunca interactúan con recetas",
+          "Solo un médico necesita información de medicamentos",
+        ],
+        correctAnswer: "A",
+        explanation:
+          "Combinar fármacos serotoninérgicos y algunos suplementos arriesga síndrome serotoninérgico. Proveedores apoyan cuidado, suplementos sí interactúan y todos los prescriptores necesitan lista completa.",
+      },
+    ],
+  },
+  {
+    id: "copd-vs-asthma",
+    title: "Cuestionario: EPOC vs asma",
+    lessonId: "copd-vs-asthma",
+    passScore: 70,
+    questions: [
+      {
+        question: "¿Qué factor es la principal causa prevenible de EPOC?",
+        options: [
+          "Cigarrillo y exposición prolongada a irritantes pulmonares",
+          "Beber agua diariamente",
+          "Solo polen estacional",
+          "Un episodio de asma infantil",
+        ],
+        correctAnswer: "A",
+        explanation:
+          "Humo de tabaco es factor dominante de EPOC; exposiciones laborales también importan. Agua, polen solo y asma infantil resuelta no explican patogénesis típica de EPOC.",
+      },
+      {
+        question: "¿Cómo difiere típicamente la limitación de flujo en asma respecto a EPOC?",
+        options: [
+          "Obstrucción en asma a menudo es en gran parte reversible con broncodilatadores",
+          "Asma nunca causa sibilancias",
+          "EPOC siempre revierte totalmente con una dosis de albuterol",
+          "Solo asma se diagnostica con espirometría",
+        ],
+        correctAnswer: "A",
+        explanation:
+          "Asma presenta broncoespasmo reversible; sibilancias son comunes. EPOC tiene obstrucción fija o parcialmente reversible — no reversión total con una dosis de rescate. Espirometría ayuda en ambas.",
+      },
+      {
+        question: "¿Qué síntomas sugieren ataque de asma más que EPOC estable solo?",
+        options: [
+          "Sibilancias súbitas y opresión torácica tras desencadenante conocido",
+          "Tos gradual en 20 años solo en fumador pesado",
+          "Crecimiento lento de uñas en meses",
+          "Artritis crónica de rodilla",
+        ],
+        correctAnswer: "A",
+        explanation:
+          "Sibilancias agudas ligadas a desencadenante encajan con exacerbación de asma. Tos de décadas en fumador encaja con EPOC; uñas y rodilla no son patrones respiratorios relacionados.",
+      },
+      {
+        question: "¿Por qué es importante la técnica correcta de inhalador?",
+        options: [
+          "Mala técnica entrega menos medicamento a los pulmones",
+          "Técnica solo importa para pastillas orales",
+          "Cualquier dirección del spray funciona igual",
+          "Inhaladores son solo decorativos",
+        ],
+        correctAnswer: "A",
+        explanation:
+          "Depósito pulmonar depende de coordinación y uso del dispositivo. Técnica importa mucho en inhaladores, no en pastillas; dirección y mecánica afectan dosis; inhaladores son entrega activa de fármaco.",
+      },
+      {
+        question: "¿Cuándo buscar atención de emergencia por síntomas respiratorios?",
+        options: [
+          "Falta de aire severa, labios azules o incapacidad para hablar en frases completas",
+          "Tos leve una vez en invierno",
+          "Estornudos por alergias sin dificultad respiratoria",
+          "Solo después de ejercicio normal en atletas sanos jóvenes",
+        ],
+        correctAnswer: "A",
+        explanation:
+          "Dificultad respiratoria severa con signos de hipoxia es emergencia. Tos estacional leve aislada, estornudo alérgico sin disnea y respiración normal post-ejercicio en sanos son menor preocupación.",
+      },
+    ],
+  },
+  {
+    id: "understanding-oxygen-saturation",
+    title: "Cuestionario: Saturación de oxígeno",
+    lessonId: "understanding-oxygen-saturation",
+    passScore: 70,
+    questions: [
+      {
+        question: "¿Qué representa la lectura SpO2 de un oxímetro de pulso?",
+        options: [
+          "Porcentaje estimado de hemoglobina que transporta oxígeno",
+          "Nivel de glucosa en sangre",
+          "Función valvular cardíaca directamente",
+          "Actividad de enzimas hepáticas",
+        ],
+        correctAnswer: "A",
+        explanation:
+          "SpO2 refleja saturación de oxihemoglobina vía absorción de luz. No mide glucosa, anatomía valvular directamente ni enzimas hepáticas.",
+      },
+      {
+        question: "¿Qué rango de SpO2 es típico en adultos sanos a nivel del mar?",
+        options: [
+          "Aproximadamente 95% a 100%",
+          "50% a 60%",
+          "Exactamente 70% siempre",
+          "Bajo 40% normalmente",
+        ],
+        correctAnswer: "A",
+        explanation:
+          "NIH cita ~95–100% como SpO2 normal en adultos a nivel del mar. 50–60%, 70% fijo o bajo 40% indican hipoxemia grave, no bienestar normal.",
+      },
+      {
+        question: "¿Cuándo es especialmente preocupante SpO2 bajo 90%?",
+        options: [
+          "Cuando va acompañado de falta de aire u otros síntomas agudos",
+          "Solo al medir durante sueño en todas las personas siempre",
+          "Nunca — cualquier lectura está bien",
+          "Solo en personas que usan gafas",
+        ],
+        correctAnswer: "A",
+        explanation:
+          "Hipoxemia con disnea o síntomas torácicos requiere evaluación urgente. SpO2 bajo no siempre es benigno en sueño para todos; valores muy bajos nunca están bien; gafas no definen riesgo de hipoxemia.",
+      },
+      {
+        question: "¿Qué puede bajar falsamente la precisión del oxímetro?",
+        options: [
+          "Dedos fríos, mala circulación o esmalte oscuro",
+          "Beber agua antes de la lectura",
+          "Sentarse quieto con manos calientes",
+          "Usar dispositivo calibrado en dedo índice",
+        ],
+        correctAnswer: "A",
+        explanation:
+          "Mala perfusión y pigmento en uñas interfieren con señales de luz. Hidratación y medición quieta con manos calientes mejoran precisión; uso calibrado correcto es buena práctica, no fuente de error.",
+      },
+      {
+        question: "¿Por qué un SpO2 normal aún puede requerir atención médica?",
+        options: [
+          "Dificultad respiratoria severa puede ocurrir antes de que bajen los números en algunas condiciones",
+          "Los oxímetros diagnostican toda enfermedad perfectamente",
+          "SpO2 sobre 100% es común e inofensivo siempre",
+          "Efectos de monóxido de carbono nunca importan",
+        ],
+        correctAnswer: "A",
+        explanation:
+          "Angustia clínica importa más allá de un número; oxímetros son imperfectos; SpO2 no puede exceder 100% de forma significativa; monóxido de carbono puede causar hipoxia tisular con SpO2 engañosamente normal.",
+      },
+    ],
+  },
+  {
+    id: "smoking-cessation-medicines",
+    title: "Cuestionario: Medicamentos para dejar de fumar",
+    lessonId: "smoking-cessation-medicines",
+    passScore: 70,
+    questions: [
+      {
+        question: "¿Cuáles son medicamentos aprobados por FDA para dejar de fumar?",
+        options: [
+          "Reposición de nicotina, vareniclina y bupropión",
+          "Solo cigarrillos herbales no regulados",
+          "Antibióticos en alta dosis",
+          "Aspirina diaria como única terapia para dejar",
+        ],
+        correctAnswer: "A",
+        explanation:
+          "TRN, vareniclina y bupropión son farmacoterapias establecidas aprobadas por FDA. Cigarrillos herbales no son ayudas aprobadas; antibióticos y aspirina solos no son fármacos estándar de cesación.",
+      },
+      {
+        question: "¿Cómo ayuda la terapia de reposición de nicotina a dejar?",
+        options: [
+          "Entrega nicotina controlada para reducir abstinencia evitando la mayoría de toxinas del cigarrillo",
+          "Hace que los cigarrillos sepan mejor",
+          "Elimina toda adicción a nicotina al instante en un día",
+          "Reemplaza necesidad de apoyo conductual",
+        ],
+        correctAnswer: "A",
+        explanation:
+          "TRN alivia abstinencia sin la mayoría de toxinas de combustión. No mejora sabor de cigarrillos, no borra adicción al instante, y funciona mejor combinada con consejería según CDC.",
+      },
+      {
+        question: "¿Qué recomienda USPSTF para adultos que fuman?",
+        options: [
+          "Ofrecer intervenciones de cesación incluyendo farmacoterapia cuando corresponda",
+          "Evitar hablar de tabaco hasta los 80 años",
+          "Solo recomendar dejar sin herramientas de apoyo",
+          "Desalentar intentos de dejar como fútiles",
+        ],
+        correctAnswer: "A",
+        explanation:
+          "USPSTF recomienda fuertemente apoyo de cesación para todos los fumadores adultos. Clínicos deben abordar tabaco en visitas relevantes, no retrasar hasta edad avanzada, y evidencia apoya herramientas más allá de solo fuerza de voluntad.",
+      },
+      {
+        question: "¿Por qué combinar parche más nicotina de acción corta?",
+        options: [
+          "Línea base estable más alivio de antojos repentinos a menudo mejora tasas de éxito",
+          "Garantiza daño instantáneo por sobredosis siempre",
+          "Parches solos no contienen nicotina",
+          "Formas de acción corta son solo para no fumadores",
+        ],
+        correctAnswer: "A",
+        explanation:
+          "TRN combinada es estrategia apoyada por CDC para antojos difíciles. Usada correctamente no busca sobredosis; parches sí entregan nicotina; formas cortas son para quienes dejan de fumar.",
+      },
+      {
+        question: "¿Qué hacer si bupropión para dejar causa empeoramiento del ánimo?",
+        options: [
+          "Contactar a su clínico de inmediato — no ignore efectos psiquiátricos",
+          "Duplicar la dosis para superar",
+          "Fumar más para equilibrar ánimo",
+          "Detener toda atención médica permanentemente",
+        ],
+        correctAnswer: "A",
+        explanation:
+          "Bupropión requiere vigilancia neuropsiquiátrica. Duplicar dosis empeora riesgo; fumar más socava dejar; detener toda atención es inseguro — se requiere guía clínica.",
+      },
+    ],
+  },
+  {
+    id: "understanding-cbc",
+    title: "Cuestionario: Entendiendo un CBC",
+    lessonId: "understanding-cbc",
+    passScore: 70,
+    questions: [
+      {
+        question: "¿Qué mide principalmente un CBC?",
+        options: [
+          "Células sanguíneas incluyendo GR, GB y plaquetas",
+          "Solo colesterol y triglicéridos",
+          "Solo creatinina de función renal",
+          "Solo hormona tiroidea TSH",
+        ],
+        correctAnswer: "A",
+        explanation:
+          "CBC cuenta componentes celulares de sangre. Perfiles lipídicos, creatinina y TSH son pruebas separadas — no componentes de un CBC estándar.",
+      },
+      {
+        question: "¿Hemoglobina baja en CBC sugiere más a menudo qué condición?",
+        options: ["Anemia", "Diabetes con glucosa alta", "Hueso roto", "Alergia estacional"],
+        correctAnswer: "A",
+        explanation:
+          "Hemoglobina transporta oxígeno; valores bajos definen anemia. Diabetes, fracturas y alergias no se diagnostican directamente solo por hemoglobina baja en CBC.",
+      },
+      {
+        question: "¿Por qué el conteo de glóbulos blancos puede estar elevado?",
+        options: [
+          "Infección, inflamación o estrés fisiológico",
+          "Solo por beber agua",
+          "Siempre significa leucemia sin otras causas",
+          "GB nunca cambia en enfermedad",
+        ],
+        correctAnswer: "A",
+        explanation:
+          "Leucocitosis comúnmente sigue a infección e inflamación. Hidratación sola no eleva típicamente GB; leucemia es causa rara entre muchas; GB claramente cambia con enfermedad.",
+      },
+      {
+        question: "¿Por qué evitar iniciar suplementos de hierro solo por fatiga?",
+        options: [
+          "Debe confirmarse causa de anemia — exceso de hierro puede dañar",
+          "Hierro nunca trata anemia",
+          "CBC nunca detecta hemoglobina baja",
+          "Fatiga solo viene de falta de sueño siempre",
+        ],
+        correctAnswer: "A",
+        explanation:
+          "Hierro ayuda anemia ferropénica pero daña si se da innecesariamente. Hierro sí trata deficiencia; CBC detecta hemoglobina baja; fatiga tiene muchas causas además del sueño.",
+      },
+      {
+        question: "¿Qué riesgo aumentan plaquetas bajas (trombocitopenia)?",
+        options: [
+          "Sangrado y moretones",
+          "Coagulación mejorada siempre",
+          "Saturación de oxígeno más alta automáticamente",
+          "Menor riesgo de infección siempre",
+        ],
+        correctAnswer: "A",
+        explanation:
+          "Plaquetas permiten coagulación; conteos bajos elevan riesgo de sangrado. Trombocitopenia no mejora coagulación, eleva SpO2 ni previene infección universalmente.",
+      },
+    ],
+  },
+  {
+    id: "understanding-a1c",
+    title: "Cuestionario: Entendiendo la A1c",
+    lessonId: "understanding-a1c",
+    passScore: 70,
+    questions: [
+      {
+        question: "¿Qué período refleja aproximadamente la A1c?",
+        options: [
+          "Glucosa promedio en sangre durante unos 2 a 3 meses",
+          "Solo la última comida",
+          "Presión arterial de una semana",
+          "Colesterol de seis años",
+        ],
+        correctAnswer: "A",
+        explanation:
+          "A1c integra glicación durante vida de glóbulo rojo (~120 días). No es específica de comida, no mide presión y no se relaciona con duración de colesterol.",
+      },
+      {
+        question: "¿Qué rango de A1c usa ADA para prediabetes?",
+        options: ["5.7% a 6.4%", "Bajo 4.0%", "Solo 8.0% a 9.0%", "Exactamente 10% siempre"],
+        correctAnswer: "A",
+        explanation:
+          "Prediabetes ADA es 5.7–6.4%; diabetes ≥6.5%. Bajo 4% es anormalmente bajo; 8–10% sugiere diabetes, no banda de prediabetes.",
+      },
+      {
+        question: "¿A qué A1c se diagnostica generalmente diabetes (con reglas de confirmación)?",
+        options: ["6.5% o más", "Exactamente 4.0%", "3.0% o menos", "Solo 9.9% los martes"],
+        correctAnswer: "A",
+        explanation:
+          "Umbral diagnóstico ADA para diabetes es A1c ≥6.5% con confirmación repetida si asintomático. 4% y 3% no son umbrales de diabetes; cortes arbitrarios por día no son criterio clínico.",
+      },
+      {
+        question: "¿Por qué A1c puede no coincidir con lecturas diarias de glucómetro?",
+        options: [
+          "Anemia o variantes de hemoglobina pueden bajar o subir falsamente A1c",
+          "Medidores y A1c siempre coinciden perfectamente",
+          "A1c mide dosis de insulina directamente",
+          "Glucosa casera nunca varía",
+        ],
+        correctAnswer: "A",
+        explanation:
+          "Renovación de GR y variantes de hemoglobina afectan medición de glicación. Coincidencia perfecta no está garantizada; A1c no es ensayo de insulina; glucosa casera varía diariamente.",
+      },
+      {
+        question: "¿Por qué actuar ante prediabetes aunque no haya síntomas?",
+        options: [
+          "Cambio de estilo de vida puede frenar o prevenir progresión a diabetes tipo 2",
+          "Prediabetes significa que siempre necesita insulina",
+          "A1c no puede detectar prediabetes",
+          "Solo niños tienen prediabetes",
+        ],
+        correctAnswer: "A",
+        explanation:
+          "DPP y programas CDC muestran que progresión puede reducirse. Prediabetes no exige insulina inmediata; A1c define banda de prediabetes; adultos comúnmente tienen prediabetes.",
+      },
+    ],
+  },
 ] as const;

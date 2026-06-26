@@ -1,8 +1,8 @@
 import fs from "fs";
 import path from "path";
-import { execFileSync } from "child_process";
 import { getAllPathsFromMdx } from "../src/lib/paths/mdxParser";
 import { assertLocaleIdParity } from "./lib/validateLocaleParity";
+import { formatWithPrettier } from "./lib/formatWithPrettier";
 
 const en = getAllPathsFromMdx("en");
 const es = getAllPathsFromMdx("es");
@@ -19,7 +19,7 @@ const writeLocaleBundle = (locale: "en" | "es", paths: typeof en) => {
     `${header}export const paths: LearningPath[] = ${JSON.stringify(paths, null, 2)} as const;\n`,
     "utf8"
   );
-  execFileSync("npx", ["prettier", "--write", outPath], { shell: process.platform === "win32" });
+  formatWithPrettier(outPath);
   return outPath;
 };
 

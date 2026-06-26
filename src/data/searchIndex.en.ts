@@ -355,7 +355,7 @@ export const searchIndex: SearchEntry[] = [
     type: "lesson",
     title: "Hydration and Health",
     description: "How much water you need, signs of dehydration, and special situations.",
-    category: "Nutrition",
+    category: "Nutrition & Diet",
     categoryId: "nutrition",
     content:
       "Why Fluids Matter Water carries nutrients, removes waste, regulates temperature, and cushions joints. Even mild dehydration can cause headache, fatigue, dizziness, and constipation. How Much Do You Need? There is no single number for everyone. A common guide is about **8 cups (2 liters) of fluids daily** for many adults — more in heat, illness, pregnancy, or exercise. Foods like fruit and soup also count. Signs of Dehydration - Thirst, dry mouth\n- Dark yellow urine or urinating less often\n- Dizziness when standing\n- Confusion in older adults (seek care promptly) Who Needs Extra Caution People with heart failure or kidney disease may need **fluid limits**, not extra water. Follow your care team's instructions. Athletes and outdoor workers need electrolytes when sweating heavily for long periods. Better Choices Water is the best default. Unsweetened tea or milk work too. Limit sugary sodas and energy drinks — they add calories without lasting hydration benefits. Electrolytes and Illness When you vomit, have diarrhea, or sweat heavily, you lose sodium and potassium — not just water. For mild illness:\n\n- Oral rehydration solutions (store-bought or WHO recipe) beat plain water alone\n- Broth can help if you tolerate it\n- Avoid sugary sports drinks as your only fluid — they may worsen diarrhea Exercise and Heat Drink before you feel thirsty during hot weather or intense activity. Signs you need a break: dizziness, muscle cramps, or stopping sweating in heat (possible heat emergency). Medicines That Affect Fluids Diuretics (“water pills”), some blood pressure drugs, and lithium require consistent fluid intake — but not always extra. Follow your prescriber’s instructions; do not dramatically change intake without asking. Myths vs Facts | Myth                               | Fact                                              |\n| ---------------------------------- | ------------------------------------------------- |\n| “8 glasses for everyone”           | Needs vary by size, activity, climate, and health |\n| “Clear urine always best”          | Very clear urine can mean overhydration           |\n| “Coffee dehydrates you completely” | Moderate coffee still contributes to fluid intake |\n\n<!-- lesson-depth-added -->",
@@ -366,7 +366,7 @@ export const searchIndex: SearchEntry[] = [
     type: "lesson",
     title: "When to Use Urgent Care",
     description: "How urgent care fits between your doctor's office and the emergency room.",
-    category: "Emergency",
+    category: "Emergency & First Aid",
     categoryId: "emergency",
     content:
       "Three Levels of Care - **Primary care** — ongoing health, refills, preventive visits (often days to weeks wait)\n- **Urgent care** — same-day problems that are not life-threatening\n- **Emergency room (ER)** — severe or potentially life-threatening conditions\n\nChoosing the right setting saves time, money, and ER capacity for true emergencies. Good Reasons for Urgent Care - Sprains, minor cuts needing stitches\n- Fever without severe distress (in adults and older children per local guidance)\n- Urinary tract symptoms\n- Mild asthma flare responding to usual inhaler\n- Rash without breathing problems\n- Ear pain, sore throat when primary care is closed Go to the ER Instead Call 911 or go to the ER for chest pain, stroke signs (FAST: face droop, arm weakness, speech trouble), severe breathing difficulty, heavy bleeding, poisoning, suicidal thoughts with plan, or major trauma. Before You Go - Bring ID, insurance card, medication list\n- Know hours — some urgent cares close overnight\n- Ask if they can do needed tests (X-ray, strep test)\n- Plan follow-up with your primary doctor Cost and Billing Expectations Urgent care usually costs less than an ER visit but more than a primary care office. You may owe:\n\n- A copay at check-in\n- Charges for labs or X-rays done on site\n- Balance billing if the center is out of network\n\nBring insurance card and photo ID. Ask whether they can send records to your primary doctor. Telehealth vs Urgent Care vs ER | Option      | Good for                                     | Not for                               |\n| ----------- | -------------------------------------------- | ------------------------------------- |\n| Telehealth  | Minor rash, medication refill, cold symptoms | Chest pain, severe breathing trouble  |\n| Urgent care | Sprains, stitches, UTI symptoms, fever       | Stroke, major trauma, unconsciousness |\n| ER / 911    | Life-threatening emergencies                 | Routine prescription refills          | After Your Visit - Pick up prescriptions the same day if possible\n- Follow wound care or activity instructions\n- Schedule PCP follow-up within a week for ongoing issues\n- Go to ER if symptoms worsen despite urgent care treatment Prepare a Go-Bag Keep insurance card, medication list, and emergency contacts in your wallet or phone. Saves time when stress is high.\n\n<!-- lesson-depth-added -->",
@@ -404,6 +404,204 @@ export const searchIndex: SearchEntry[] = [
     content:
       "What Is Sleep Apnea? Sleep apnea means breathing repeatedly pauses or becomes shallow during sleep. The most common type is **obstructive sleep apnea (OSA)** — throat muscles relax and block airflow. Each pause can last seconds and disrupt oxygen and sleep quality. Common Symptoms - Loud snoring with gasping or choking\n- Daytime sleepiness despite enough time in bed\n- Morning headaches\n- Trouble concentrating\n- Partner noticing breathing stops\n\nNot everyone who snores has apnea, but red flags deserve evaluation. Why It Matters Untreated OSA raises risk of high blood pressure, heart disease, stroke, diabetes, and motor vehicle accidents from drowsy driving. Diagnosis A **sleep study** (at home or in a lab) measures breathing, oxygen, and brain activity. Your doctor reviews the apnea-hypopnea index (AHI) to guide treatment. Treatment Overview - **CPAP** — machine delivers gentle air pressure to keep the airway open; gold standard for moderate-to-severe OSA\n- **Oral appliances** — for mild cases or CPAP intolerance\n- **Weight loss** — can improve mild OSA\n- **Surgery** — selected cases only Home Sleep Test vs Lab Study | Test                   | Where                      | Best for                                                         |\n| ---------------------- | -------------------------- | ---------------------------------------------------------------- |\n| Home sleep apnea test  | Your bed, portable sensors | Many adults with suspected moderate-high risk                    |\n| In-lab polysomnography | Sleep center               | Complex cases, other sleep disorders, some heart/lung conditions |\n\nYour sleep specialist chooses based on symptoms and medical history. Lifestyle Changes That Help Even with CPAP, these support better sleep:\n\n- **Weight loss** — even modest loss can reduce apnea severity for some people\n- **Side sleeping** — sew a tennis ball in a back pocket or use positional pillows\n- **Avoid alcohol before bed** — relaxes airway muscles\n- **Treat nasal congestion** — allergies and deviated septum worsen obstruction Partner and Family Impact Loud snoring and witnessed pauses disturb bed partners. Include them in appointments when possible — their observations help diagnosis and they may need their own sleep strategies. Follow-Up Expectations Expect mask fitting visits, pressure adjustments, and periodic data downloads from your machine. Insurance often requires proof of usage to continue coverage.\n\n<!-- lesson-depth-added -->",
     url: "/learn/sleep-apnea-basics",
+  },
+  {
+    id: "otc-drug-interactions",
+    type: "lesson",
+    title: "OTC Drug Interactions",
+    description:
+      "Learn how over-the-counter medicines can interact with prescriptions, supplements, and each other.",
+    category: "Medication Safety",
+    categoryId: "medication-safety",
+    content:
+      "What Is It Over-the-counter (OTC) drugs are medicines you can buy without a prescription — pain relievers, antihistamines, acid reducers, cough syrups, and more. An **interaction** happens when one substance changes how another works in your body. Interactions can make a medicine less effective, more toxic, or cause unexpected side effects. OTC products count: many serious interactions involve combinations people assume are harmless. How It Works Interactions happen through several pathways. Some drugs compete for the same liver enzymes (especially CYP pathways), slowing or speeding metabolism. Others add similar effects — two sedating antihistamines can dangerously increase drowsiness. **Duplicate ingredients** are a common problem: cold medicine plus a pain reliever may both contain acetaminophen, raising liver risk. NSAIDs like ibuprofen can reduce kidney blood flow, especially when combined with certain blood pressure medicines or diuretics. St. John's wort and some supplements can weaken prescription drugs including birth control and antidepressants. Why It Matters The FDA reports thousands of preventable adverse events each year from drug interactions. Older adults are at higher risk because they often take multiple medicines. Kidney and liver disease also change how drugs are processed. Pharmacists are trained to screen for interactions — but they can only help if they know your full medication list, including vitamins and occasional OTC use. What This Means for You Before starting any new OTC product, read the **Drug Facts** label for active ingredients and warnings. Use one pharmacy when possible so records stay complete. Keep an updated list of prescriptions, OTC medicines, and supplements. If you take blood thinners, blood pressure medicines, diabetes drugs, or antidepressants, ask a pharmacist or clinician before adding OTC products.",
+    url: "/learn/otc-drug-interactions",
+  },
+  {
+    id: "antibiotic-stewardship",
+    type: "lesson",
+    title: "Antibiotic Stewardship",
+    description: "Understand when antibiotics help, when they do not, and how to use them responsibly.",
+    category: "Medication Safety",
+    categoryId: "medication-safety",
+    content:
+      "What Is It **Antibiotic stewardship** means using antibiotics only when they are needed, choosing the right drug and duration, and taking them exactly as directed. Antibiotics kill bacteria or stop them from growing. They do not work against viruses — the cause of most colds, flu, bronchitis, and many sore throats. Misuse drives **antibiotic resistance**, when bacteria evolve so medicines no longer work. How It Works When you take an antibiotic appropriately, it targets susceptible bacteria causing your infection. Stopping early or using leftover pills for a new illness can leave stronger bacteria behind. Broad-spectrum antibiotics affect more than the infection site, sometimes disrupting normal gut bacteria and leading to **Clostridioides difficile** (C. diff) diarrhea. Healthcare systems track resistance patterns locally so doctors can prescribe drugs that still work in your community. Why It Matters The CDC calls antibiotic resistance one of the top public health threats. Resistant infections are harder to treat, require stronger medicines, longer hospital stays, and can be fatal. Children and older adults are vulnerable. Stewardship protects you today and preserves effective treatments for future generations — including for surgeries, cancer care, and serious infections. What This Means for You If prescribed an antibiotic, take every dose on schedule even if you feel better. Do not save pills for later or share them. Ask your clinician whether your illness is bacterial or viral. For some conditions — like uncomplicated sinusitis or ear infections — watchful waiting may be appropriate. Report severe diarrhea during or after antibiotics promptly.",
+    url: "/learn/antibiotic-stewardship",
+  },
+  {
+    id: "drug-food-interactions",
+    type: "lesson",
+    title: "Drug-Food Interactions",
+    description: "Discover how foods and drinks can change medicine absorption, effectiveness, and safety.",
+    category: "Medication Safety",
+    categoryId: "medication-safety",
+    content:
+      "What Is It A **drug-food interaction** occurs when something you eat or drink changes how a medicine is absorbed, metabolized, or acts in the body. Food can slow or speed absorption, bind to a drug in the stomach, or affect liver enzymes. Common examples include grapefruit juice inhibiting enzymes that process statins and some blood pressure medicines, and vitamin K–rich foods affecting warfarin consistency. How It Works Some medicines should be taken **with food** to reduce stomach upset — metformin and many NSAIDs are examples. Others work best on an **empty stomach** because food blocks absorption — certain thyroid hormones and some antibiotics fall in this group. Alcohol adds sedation with opioids, benzodiazepines, and sleep aids, and stresses the liver with acetaminophen. Tyramine-rich foods interact with older MAOI antidepressants. Calcium and iron supplements can bind levothyroxine if taken together. Why It Matters Food interactions can make a drug too weak (treatment failure) or too strong (toxicity). People on warfarin, transplant medicines, or narrow therapeutic index drugs need consistent dietary patterns. Timing matters as much as the food itself — separating doses from meals or supplements by the recommended interval improves reliability. What This Means for You Read prescription and OTC labels for food and alcohol guidance. Ask your pharmacist whether to take new medicines with meals. Keep dietary habits steady when on warfarin; sudden large changes in leafy greens can shift INR. Do not start restrictive diets or heavy supplement use without discussing your medication list with a clinician.",
+    url: "/learn/drug-food-interactions",
+  },
+  {
+    id: "micronutrient-deficiencies",
+    type: "lesson",
+    title: "Micronutrient Deficiencies",
+    description:
+      "Learn about common vitamin and mineral shortfalls, who is at risk, and how they are identified.",
+    category: "Nutrition",
+    categoryId: "nutrition",
+    content:
+      'What Is It **Micronutrients** are vitamins and minerals your body needs in small amounts for immunity, bone health, nerve function, oxygen transport, and hundreds of metabolic reactions. A **deficiency** means intake or absorption is too low to maintain healthy levels. Common deficiencies in the U.S. include vitamin D, iron (leading to anemia), vitamin B12 (especially in older adults and vegans), folate in pregnancy, and iodine in limited diets. How It Works You get micronutrients from food — dairy and sunlight exposure help vitamin D; red meat and legumes provide iron; B12 comes mainly from animal products or fortified foods. Absorption depends on gut health: celiac disease, bariatric surgery, and chronic PPI use can impair uptake. Requirements change with age, pregnancy, and medical conditions. Blood tests — such as ferritin for iron stores, 25-hydroxy vitamin D, and B12 levels — help confirm deficiency before treatment. Why It Matters Deficiencies cause real symptoms: iron deficiency brings fatigue and shortness of breath; B12 deficiency can cause numbness and cognitive changes; severe vitamin D deficiency weakens bones; folate deficiency in pregnancy raises neural tube defect risk. Untreated deficiencies can mimic other illnesses, delaying correct care. Excess supplementation also harms — too much iron or fat-soluble vitamins can be toxic. What This Means for You Prioritize food variety before buying high-dose supplements. If you follow a restrictive diet, have malabsorption, or take medicines that block nutrients, ask about screening. Pregnant people should take prenatal vitamins with folic acid per clinician guidance. Do not self-diagnose fatigue as "low vitamins" without testing — many causes exist.',
+    url: "/learn/micronutrient-deficiencies",
+  },
+  {
+    id: "glycemic-index-and-load",
+    type: "lesson",
+    title: "Glycemic Index and Load",
+    description:
+      "Understand how foods affect blood glucose differently and how to use GI and GL in meal planning.",
+    category: "Nutrition",
+    categoryId: "nutrition",
+    content:
+      "What Is It The **glycemic index (GI)** ranks carbohydrate-containing foods by how much they raise blood glucose compared to a reference (usually glucose or white bread). High-GI foods spike glucose faster; low-GI foods raise it more gradually. **Glycemic load (GL)** combines GI with portion size — a small serving of a high-GI food may have modest GL, while a large serving has higher impact. These tools help people with diabetes and anyone planning steadier energy, but they are guides, not rigid rules. How It Works Digestion speed, fiber, fat, protein, and cooking method all change glucose response. White bread and sugary drinks tend toward high GI; legumes, non-starchy vegetables, and many whole grains trend lower. Adding protein, fat, or fiber to a meal slows absorption. Physical activity after eating also helps muscles take up glucose. The ADA emphasizes overall eating patterns — Mediterranean-style and DASH patterns — over single food rankings alone. Why It Matters Sharp glucose spikes can challenge insulin function over time in people with diabetes or prediabetes. Steadier glucose supports energy, mood, and long-term complication risk reduction when combined with medical care. Athletes sometimes use targeted high-GI carbs around activity. For most people, GL is more practical than GI because real portions matter. What This Means for You Build meals with vegetables, lean protein, healthy fats, and high-fiber carbs. Prefer whole grains over refined when possible. If you have diabetes, follow your care team's carb counting or plate method — GI tables supplement, not replace, personalized plans. Check glucose responses if you use a meter or CGM to see what works for your body.",
+    url: "/learn/glycemic-index-and-load",
+  },
+  {
+    id: "understanding-lipids",
+    type: "lesson",
+    title: "Understanding Lipids",
+    description:
+      "Learn what cholesterol and triglycerides measure and why they matter for heart and stroke risk.",
+    category: "Chronic Conditions",
+    categoryId: "chronic-conditions",
+    content:
+      "What Is It **Lipids** are fat-related substances in blood measured on a lipid panel. **Total cholesterol** sums several types. **LDL cholesterol** (low-density lipoprotein) carries cholesterol to tissues; high LDL is linked to plaque buildup in arteries. **HDL cholesterol** (high-density lipoprotein) helps remove cholesterol from arteries — higher HDL is generally protective. **Triglycerides** are another blood fat; high levels often accompany obesity, diabetes, and excess alcohol or refined carbs. How It Works Your liver makes cholesterol and you also get some from food. Lipoproteins package fats for transport in blood, which is water-based. Plaque (**atherosclerosis**) forms when LDL particles penetrate artery walls, trigger inflammation, and narrow vessels — raising heart attack and stroke risk. Triglycerides store energy; very high levels can inflame the pancreas. Lipid levels respond to diet, exercise, weight, genetics, thyroid function, and medicines. Why It Matters Heart disease remains a leading cause of death in the U.S. Lowering LDL with lifestyle and, when indicated, statins reduces major cardiovascular events in high-risk groups per AHA/ACC evidence. Triglycerides above 500 mg/dL need urgent attention for pancreatitis risk. Knowing your numbers helps you and your clinician decide on diet changes, activity goals, and whether medication is appropriate. What This Means for You Get a fasting or non-fasting lipid panel as your clinician recommends — many adults need periodic screening. Focus on Mediterranean-style eating, fiber, activity, and weight management. Do not stop prescribed lipid medicines without medical advice. Ask what your LDL goal should be based on your personal risk, not generic charts alone.",
+    url: "/learn/understanding-lipids",
+  },
+  {
+    id: "how-statins-work",
+    type: "lesson",
+    title: "How Statins Work",
+    description:
+      "Understand how statin medicines lower LDL, who may benefit, and common questions about muscle side effects.",
+    category: "Chronic Conditions",
+    categoryId: "chronic-conditions",
+    content:
+      "What Is It **Statins** are medicines that lower LDL cholesterol by blocking **HMG-CoA reductase**, an enzyme your liver uses to make cholesterol. Less liver cholesterol production leads the liver to pull more LDL from blood. Common statins include atorvastatin, rosuvastatin, simvastatin, and pravastatin. They are among the most studied drugs in cardiology and are recommended by ACC/AHA guidelines for many people with established cardiovascular disease or high calculated risk. How It Works When LDL drops, fewer cholesterol particles enter artery walls, slowing plaque growth and stabilizing existing plaque — lowering heart attack and stroke risk over time. Statins also have anti-inflammatory effects on blood vessels. Dose and potency vary; clinicians match intensity to risk. Liver enzymes are sometimes monitored. Muscle symptoms occur in a minority of patients — ranging from mild aches to rare severe muscle breakdown (rhabdomyolysis). Why It Matters Large trials show statins reduce major cardiovascular events in primary and secondary prevention populations. They work alongside blood pressure control, diabetes management, smoking cessation, and healthy eating — not instead of them. Fear of side effects leads some people to avoid proven therapy; open discussion with your clinician helps balance benefit and tolerance. What This Means for You Take statins as prescribed, usually once daily. Grapefruit can raise levels of some statins — check your specific drug label. Tell your doctor about all medicines and supplements. If side effects occur, dose adjustment or a different statin may help rather than abandoning therapy entirely. Ask how your personal risk estimate supports the recommendation.",
+    url: "/learn/how-statins-work",
+  },
+  {
+    id: "heart-attack-vs-stroke-signs",
+    type: "lesson",
+    title: "Heart Attack vs Stroke Signs",
+    description: "Learn how heart attack and stroke symptoms differ and when to call 911 immediately.",
+    category: "Emergency & First Aid",
+    categoryId: "emergency",
+    content:
+      "What Is It A **heart attack** (myocardial infarction) happens when blood flow to part of the heart muscle is blocked, usually by a clot in a coronary artery. A **stroke** happens when blood flow to part of the brain is blocked (ischemic stroke) or a blood vessel bursts (hemorrhagic stroke). Both are medical emergencies, but symptoms and immediate actions differ. Minutes matter — fast treatment limits heart damage and improves stroke recovery. How It Works Heart attack symptoms often include chest pressure or pain that may spread to the arm, jaw, or back; shortness of breath; sweating; nausea; or unexplained fatigue — women may have subtler symptoms than classic chest pain. Stroke symptoms appear suddenly: face drooping on one side, arm weakness, slurred speech, vision loss, severe headache, or confusion. The **FAST** mnemonic helps — Face, Arms, Speech, Time to call 911. Stroke teams may offer clot-busting drugs or procedures within hours if patients arrive quickly. Why It Matters The AHA and American Stroke Association report that early reperfusion therapy for heart attack and time-sensitive stroke treatment save lives and reduce disability. Delays from driving oneself, ignoring mild symptoms, or sleeping it off worsen outcomes. Bystander recognition is critical — many events happen at home or work. What This Means for You Know your personal risk factors: high blood pressure (ACC/AHA 2017 thresholds), smoking, diabetes, atrial fibrillation (stroke risk), and family history. If chest symptoms suggest a heart attack, sit or rest and call 911 — take aspirin only if already advised by a clinician. For stroke, note the last time the person was known well. Do not give food or drink if speech or swallowing is affected.",
+    url: "/learn/heart-attack-vs-stroke-signs",
+  },
+  {
+    id: "type-1-vs-type-2-diabetes",
+    type: "lesson",
+    title: "Type 1 vs Type 2 Diabetes",
+    description:
+      "Understand how type 1 and type 2 diabetes differ in cause, treatment, and daily management.",
+    category: "Chronic Conditions",
+    categoryId: "chronic-conditions",
+    content:
+      "What Is It **Diabetes mellitus** is a condition of high blood glucose from problems with insulin — the hormone that moves glucose into cells. **Type 1 diabetes** is an autoimmune disease: the immune system destroys insulin-producing beta cells in the pancreas. It often starts in childhood or young adulthood but can occur at any age. **Type 2 diabetes** develops when the body becomes **insulin resistant** and the pancreas cannot produce enough insulin to compensate — risk rises with genetics, higher body weight, inactivity, and age. How It Works People with type 1 require **insulin therapy** from diagnosis — without insulin, the body breaks down fat dangerously (DKA). Type 2 is often managed first with lifestyle changes and oral or injectable non-insulin medicines; many eventually need insulin, but not always at diagnosis. Both types benefit from glucose monitoring, A1c targets set with clinicians, foot and eye screening, and blood pressure and lipid management per ADA standards. Why It Matters Over 37 million Americans have diabetes; many more have prediabetes. Untreated hyperglycemia damages kidneys, nerves, eyes, and blood vessels. Type 1 can become life-threatening within hours if insulin is missed. Type 2 often develops silently for years. Correct classification guides safe treatment — giving only pills to type 1 is dangerous; unnecessary insulin fear in type 2 can delay needed therapy. What This Means for You If you or a child have unexplained thirst, frequent urination, weight loss, or fatigue, seek prompt evaluation — type 1 must be ruled out quickly. Follow your care team's plan for carbs, activity, medicines, and screening. Wear medical ID if on insulin. Learn hypoglycemia signs and sick-day rules. Family history matters for type 2; type 1 family history raises risk but many cases have no family link.",
+    url: "/learn/type-1-vs-type-2-diabetes",
+  },
+  {
+    id: "thyroid-disorders-basics",
+    type: "lesson",
+    title: "Thyroid Disorders Basics",
+    description: "Learn how an overactive or underactive thyroid affects energy, weight, and metabolism.",
+    category: "Chronic Conditions",
+    categoryId: "chronic-conditions",
+    content:
+      "What Is It The **thyroid** is a butterfly-shaped gland in the neck that makes hormones (T4 and T3) controlling metabolism, heart rate, temperature, and energy. **Hypothyroidism** means the gland is underactive — common causes include Hashimoto's thyroiditis (autoimmune) and prior thyroid treatment. **Hyperthyroidism** means overactivity — causes include Graves' disease and thyroid nodules. Both are diagnosable with blood tests, mainly **TSH** with free T4 as needed. How It Works Low thyroid hormone slows body systems: fatigue, weight gain, cold intolerance, constipation, dry skin, depression, and elevated cholesterol can occur. High thyroid hormone speeds systems: weight loss, heat intolerance, rapid heartbeat, anxiety, tremor, and eye changes in Graves' disease. TSH is pituitary feedback — high TSH usually means hypothyroidism; low TSH often signals hyperthyroidism. Treatment replaces hormone (levothyroxine) for hypothyroidism or reduces production (antithyroid drugs, radioiodine, surgery) for hyperthyroidism. Why It Matters Thyroid disease is common — especially in women and after age 60. Symptoms overlap with mood disorders, anemia, and menopause, so testing prevents misdiagnosis. Pregnancy requires tight thyroid control for fetal development. Some medicines and supplements (biotin, iodine excess) can interfere with lab accuracy — tell labs what you take. What This Means for You Ask about thyroid screening if you have persistent unexplained symptoms. Take levothyroxine the same way daily — often empty stomach — and do not change brands without clinician awareness. Hyperthyroid patients should report palpitations or fever. Once stable, periodic TSH monitoring maintains correct dose as weight and age change.",
+    url: "/learn/thyroid-disorders-basics",
+  },
+  {
+    id: "insulin-resistance-explained",
+    type: "lesson",
+    title: "Insulin Resistance Explained",
+    description:
+      "Understand what insulin resistance means, how it links to prediabetes and type 2 diabetes, and what helps.",
+    category: "Chronic Conditions",
+    categoryId: "chronic-conditions",
+    content:
+      "What Is It **Insulin resistance** means body cells — especially in muscle, liver, and fat — do not respond efficiently to insulin, so the pancreas makes more insulin to keep blood glucose normal. Over time, the pancreas may not keep up, leading to **prediabetes** (glucose higher than normal but below diabetes thresholds) and **type 2 diabetes**. Resistance is driven by genetics, excess visceral fat, inactivity, sleep apnea, some medicines, and aging — not by a single food exposure. How It Works Insulin acts like a key opening doors for glucose to enter cells. When doors stick, glucose stays in blood and insulin levels rise (**hyperinsulinemia**). The ADA defines prediabetes as A1c 5.7–6.4%, fasting glucose 100–125 mg/dL, or abnormal glucose tolerance test. The NIH Diabetes Prevention Program showed intensive lifestyle change — modest weight loss (~7%), 150 minutes weekly activity — cut progression to type 2 by about 58% in high-risk adults. Metformin helps some high-risk patients per clinician judgment. Why It Matters More than one in three U.S. adults has prediabetes; most do not know it. Untreated progression damages vessels, kidneys, and nerves. Early lifestyle change is more effective than waiting for full diabetes diagnosis. Insulin resistance without high glucose can still signal metabolic risk — waist circumference, triglycerides, HDL, and blood pressure together describe **metabolic syndrome**. What This Means for You Ask about screening if you have risk factors: family history, higher BMI, gestational diabetes history, or sedentary lifestyle. Focus on sustainable eating patterns (fiber-rich plants, lean protein, limited sugary drinks), regular activity, sleep, and stress management. Celebrate small weight changes. If prescribed metformin or other therapy, take as directed and monitor per your plan.",
+    url: "/learn/insulin-resistance-explained",
+  },
+  {
+    id: "how-antidepressants-work",
+    type: "lesson",
+    title: "How Antidepressants Work",
+    description:
+      "Learn major antidepressant classes, expected timelines, and how they fit with therapy and self-care.",
+    category: "Mental Health",
+    categoryId: "mental-health",
+    content:
+      "What Is It **Antidepressants** are prescription medicines that treat depression, anxiety disorders, and some chronic pain conditions. Major classes include **SSRIs** (e.g., sertraline, escitalopram), **SNRIs** (e.g., venlafaxine, duloxetine), **bupropion**, and older **tricyclics** and **MAOIs** used less often. They adjust brain chemical signaling — mainly serotonin and norepinephrine pathways — to improve mood regulation over time. They are not addictive in the traditional sense but require careful stopping. How It Works Depression involves complex brain circuit and neurotransmitter changes; antidepressants gradually enhance synaptic signaling. SSRIs block serotonin reuptake; SNRIs affect serotonin and norepinephrine; bupropion mainly influences dopamine and norepinephrine. Full effect often takes **four to eight weeks**, though sleep or appetite may shift earlier. The first medicine tried may not be the right fit — clinicians adjust dose or class based on response and side effects like nausea, insomnia, or sexual dysfunction. Why It Matters Depression is a leading cause of disability worldwide. Effective treatment reduces suicide risk, improves function, and helps people engage in therapy and daily life. Stopping abruptly can cause discontinuation symptoms — dizziness, flu-like feelings, mood swings. Combining medicines without oversight risks **serotonin syndrome** (agitation, fever, rapid heart rate) — especially with MAOIs, certain opioids, or St. John's wort. What This Means for You Take antidepressants as prescribed and give them time before judging failure. Pair medication with psychotherapy (CBT, IPT, etc.) when possible per NIH and APA guidance. Tell all prescribers what you take — including OTC and supplements. Do not drink alcohol heavily while adjusting to new medicines. If pregnant or planning pregnancy, discuss risks and benefits with a specialist.",
+    url: "/learn/how-antidepressants-work",
+  },
+  {
+    id: "copd-vs-asthma",
+    type: "lesson",
+    title: "COPD vs Asthma",
+    description: "Learn how COPD and asthma differ in cause, symptoms, triggers, and long-term management.",
+    category: "Chronic Conditions",
+    categoryId: "chronic-conditions",
+    content:
+      "What Is It **COPD** (chronic obstructive pulmonary disease) is a progressive lung disease — mainly emphysema and chronic bronchitis — usually caused by long-term exposure to irritants, especially **cigarette smoke**. Airflow limitation is largely **not fully reversible**. **Asthma** is chronic airway inflammation with **reversible** narrowing, often starting in childhood, triggered by allergens, exercise, cold air, or infections. Some older adults have features of both (**ACOS** — asthma-COPD overlap). How It Works In COPD, damaged alveoli and mucus-plugged airways trap air — chronic cough, sputum, and progressive shortness of breath dominate. Exacerbations often follow respiratory infections. In asthma, bronchospasm comes and goes — wheeze, chest tightness, cough, especially at night or with triggers. Quick-relief **bronchodilators** (short-acting beta-agonists) relieve acute asthma symptoms; COPD also uses bronchodilators and inhaled steroids when indicated, plus smoking cessation and pulmonary rehab. Spirometry distinguishes reversible from fixed obstruction. Why It Matters COPD is a leading cause of disability and death worldwide; most cases are preventable by not smoking and reducing occupational dust/fume exposure. Asthma affects over 25 million Americans — uncontrolled asthma causes ER visits and missed school or work. Mislabeling COPD as asthma (or vice versa) leads to wrong therapy. Vaccines (flu, COVID-19, pneumococcal per CDC) reduce severe exacerbations in both conditions. What This Means for You If you smoke, get help quitting — the single most impactful COPD intervention. Learn correct inhaler technique with your pharmacist or respiratory therapist. Track triggers for asthma and avoid them when possible. Follow action plans for exacerbations. Annual spirometry may be needed if symptoms change. Oxygen therapy is prescribed only when blood oxygen meets specific criteria — not for mild disease.",
+    url: "/learn/copd-vs-asthma",
+  },
+  {
+    id: "understanding-oxygen-saturation",
+    type: "lesson",
+    title: "Understanding Oxygen Saturation",
+    description:
+      "Learn what SpO2 measures, normal ranges, and when pulse oximeter readings need medical attention.",
+    category: "Chronic Conditions",
+    categoryId: "chronic-conditions",
+    content:
+      "What Is It **Oxygen saturation (SpO2)** measures the percentage of hemoglobin in arterial blood carrying oxygen. A **pulse oximeter** — clip on finger, toe, or ear — uses light sensors to estimate SpO2 painlessly. It is widely used in clinics, hospitals, and at home for lung and heart conditions. SpO2 does not measure carbon dioxide levels or breathing effort — those require other tests like arterial blood gas. How It Works Healthy lungs load oxygen onto hemoglobin as blood passes through. At sea level, **SpO2 of 95–100%** is typical for healthy adults per NIH guidance. Values **below 90%** often indicate hypoxemia needing clinical evaluation — especially with symptoms like shortness of breath, chest pain, or confusion. Chronic lung disease patients may have individual target ranges set by pulmonologists. Oximeters can be inaccurate with poor circulation, dark nail polish, motion, or certain dyshemoglobins. Why It Matters During COVID-19 and beyond, home oximeters helped detect silent hypoxemia. Supplemental oxygen is prescribed when sustained low saturation meets criteria — overuse without prescription wastes resources and can harm in some settings. Flight, high altitude, and sleep apnea also affect oxygen levels. ACC/AHA clinicians use saturation alongside exam and imaging for heart-lung emergencies. What This Means for You Warm hands and remove nail polish before measuring. Sit still 30–60 seconds and record the steady reading. If SpO2 stays below 90% or you have breathing difficulty, seek medical care — call 911 for severe distress. Do not adjust prescribed oxygen flow without clinician direction. Tell your doctor if home readings trend downward over days.",
+    url: "/learn/understanding-oxygen-saturation",
+  },
+  {
+    id: "smoking-cessation-medicines",
+    type: "lesson",
+    title: "Smoking Cessation Medicines",
+    description:
+      "Learn FDA-approved options to quit smoking, how they work, and how they combine with counseling.",
+    category: "Preventive Care",
+    categoryId: "preventive-care",
+    content:
+      "What Is It **Smoking cessation medicines** reduce withdrawal and cravings so you can quit tobacco. FDA-approved options include **nicotine replacement therapy (NRT)** — patches, gum, lozenges, inhaler, nasal spray — and prescription **varenicline** and **bupropion**. Counseling (quitlines, behavioral therapy) significantly improves success. The USPSTF recommends clinicians offer cessation interventions to all adults who smoke. How It Works Nicotine from tobacco is addictive; stopping causes irritability, craving, and concentration problems. NRT delivers controlled nicotine without most cigarette toxins, tapering dependence. **Varenicline** partially activates nicotine receptors and blocks nicotine from cigarettes, reducing reward. **Bupropion** (also an antidepressant) lessens cravings and withdrawal — mechanism is not fully nicotine-based. Combination NRT (patch plus short-acting form) often beats single product per CDC. Treatment length is typically 8–12 weeks or longer if needed — follow prescriber guidance, not self-directed megadosing. Why It Matters Smoking causes cancer, COPD, heart disease, and stroke — quitting at any age adds years of life. Medicines can **double or triple** quit rates versus cold turkey alone. Pregnant smokers should seek specialized support — NRT risks must be weighed against continued smoking. E-cigarettes are not FDA-approved cessation devices; evidence favors proven therapies plus counseling. What This Means for You Talk to your clinician or pharmacist about the best option for your health history. Set a quit date, remove cigarettes from your environment, and use 1-800-QUIT-NOW for free coaching. Do not smoke while on the nicotine patch — overdose causes nausea and palpitations. If one medicine fails, another approach may work. Celebrate smoke-free milestones; relapse is common — re-engage support rather than giving up.",
+    url: "/learn/smoking-cessation-medicines",
+  },
+  {
+    id: "understanding-cbc",
+    type: "lesson",
+    title: "Understanding a CBC",
+    description: "Learn what a complete blood count measures and what high or low results may suggest.",
+    category: "Lab Results",
+    categoryId: "lab-results",
+    content:
+      'What Is It A **complete blood count (CBC)** is one of the most common blood tests. It measures **red blood cells (RBC)**, **hemoglobin** and **hematocrit** (oxygen-carrying capacity), **white blood cells (WBC)** (immune cells), and **platelets** (clotting). A differential may list WBC subtypes — neutrophils, lymphocytes, monocytes, eosinophils, basophils. CBC is a screening tool — not a diagnosis by itself. How It Works **Low hemoglobin/hematocrit** suggests anemia — causes include iron deficiency, B12 or folate deficiency, chronic disease, or blood loss. **High hemoglobin** may reflect dehydration, lung disease, smoking, or bone marrow disorders. **Low WBC** can follow viral illness, some medicines, or bone marrow problems. **High WBC** often signals infection, inflammation, stress, or rarely leukemia. **Low platelets** increase bleeding risk; **high platelets** may follow inflammation or iron deficiency. Reference ranges vary slightly by lab and sex. Why It Matters Anemia explains fatigue, weakness, and shortness of breath. Platelet disorders affect surgery and bleeding safety. WBC patterns guide infection workups. CBC is routine before surgery, during chemotherapy, and in chronic illness monitoring. Pediatric and pregnancy ranges differ from standard adult values. What This Means for You Bring prior CBC results to appointments for trend comparison. Ask what each flagged value means for you — "mildly low" in one context may be urgent in another. If prescribed iron or B12, recheck labs as directed. Sudden bruising, gum bleeding, or extreme fatigue with abnormal platelets or hemoglobin warrants prompt contact with your care team.',
+    url: "/learn/understanding-cbc",
+  },
+  {
+    id: "understanding-a1c",
+    type: "lesson",
+    title: "Understanding A1c",
+    description:
+      "Learn what the A1c test measures, how it reflects blood sugar over time, and what results mean.",
+    category: "Lab Results",
+    categoryId: "lab-results",
+    content:
+      "What Is It The **A1c** (hemoglobin A1c or HbA1c) test measures the percentage of hemoglobin coated with glucose, reflecting average blood sugar over roughly the **past two to three months**. Unlike a fingerstick glucose snapshot, A1c shows longer-term glycemic exposure. It is used to **diagnose** diabetes and prediabetes and to **monitor** treatment in people with diabetes per ADA criteria. How It Works Glucose in blood attaches to hemoglobin in red blood cells for the cell's lifespan (~120 days). Higher average glucose yields a higher A1c. ADA thresholds: **A1c ≥6.5%** diagnoses diabetes (confirmed on repeat testing unless symptoms are present); **5.7–6.4%** is prediabetes; **below 5.7%** is usually normal in adults. Many people with diabetes aim below **7%** — or stricter/higher targets based on age, hypoglycemia risk, and comorbidities. Conditions affecting red blood cells (anemia, hemoglobin variants, recent transfusion) can skew A1c — clinicians may use glucose tests instead. Why It Matters Long-term high glucose damages eyes, kidneys, nerves, and vessels. Lowering A1c reduces complication risk, but overly aggressive targets in frail elders raise hypoglycemia harm. A1c helps track whether lifestyle and medicines are working. Pregnancy uses different glucose testing — standard A1c is not used to diagnose gestational diabetes. What This Means for You Know your last A1c and discuss personal goals with your clinician. Improve A1c through balanced eating, activity, weight management, and prescribed medicines — not extreme restriction without guidance. Repeat A1c every three to six months when adjusting therapy. If results do not match home glucose readings, ask about anemia, kidney disease, or variant hemoglobin effects.",
+    url: "/learn/understanding-a1c",
   },
   {
     id: "choosing-primary-care-doctor",
@@ -952,7 +1150,7 @@ export const searchIndex: SearchEntry[] = [
     category: "Learning Paths",
     categoryId: "paths",
     content:
-      "Safer Medicine Use Learn how to safely take and manage your medications, understand prescription labels, and avoid drug interactions. understanding-prescription-labels asking-about-medications managing-side-effects generic-vs-brand-drugs pain-medications-safely",
+      "Safer Medicine Use Learn how to safely take and manage your medications, understand prescription labels, and avoid drug interactions. understanding-prescription-labels asking-about-medications managing-side-effects generic-vs-brand-drugs pain-medications-safely otc-drug-interactions drug-food-interactions antibiotic-stewardship",
     url: "/learning-paths#safer-medicine-use",
   },
   {
@@ -976,7 +1174,7 @@ export const searchIndex: SearchEntry[] = [
     category: "Learning Paths",
     categoryId: "paths",
     content:
-      "Understanding Lab Results Learn what common blood tests measure, what reference ranges mean, and how to interpret your results. blood-basics common-tests reading-lab-report when-to-worry",
+      "Understanding Lab Results Learn what common blood tests measure, what reference ranges mean, and how to interpret your results. blood-basics common-tests understanding-cbc understanding-a1c reading-lab-report when-to-worry",
     url: "/learning-paths#understanding-labs",
   },
   {
@@ -988,7 +1186,7 @@ export const searchIndex: SearchEntry[] = [
     category: "Learning Paths",
     categoryId: "paths",
     content:
-      "Managing a New Diagnosis Learn about common chronic conditions and how to understand and manage a new health diagnosis. living-with-hypertension understanding-type2-diabetes introduction-to-heart-disease asthma-basics understanding-allergies sleep-apnea-basics",
+      "Managing a New Diagnosis Learn about common chronic conditions and how to understand and manage a new health diagnosis. living-with-hypertension understanding-type2-diabetes type-1-vs-type-2-diabetes insulin-resistance-explained introduction-to-heart-disease understanding-lipids how-statins-work thyroid-disorders-basics asthma-basics copd-vs-asthma understanding-allergies sleep-apnea-basics understanding-oxygen-saturation",
     url: "/learning-paths#managing-new-diagnosis",
   },
   {
@@ -1000,7 +1198,7 @@ export const searchIndex: SearchEntry[] = [
     category: "Learning Paths",
     categoryId: "paths",
     content:
-      "Staying Healthy: Preventive Care Build healthy habits and stay up to date on vaccines and screenings to prevent illness before it starts. why-preventive-care-matters common-adult-screenings understanding-vaccines cancer-screening-basics hydration-and-health reading-nutrition-labels building-balanced-plate",
+      "Staying Healthy: Preventive Care Build healthy habits and stay up to date on vaccines and screenings to prevent illness before it starts. why-preventive-care-matters common-adult-screenings understanding-vaccines cancer-screening-basics smoking-cessation-medicines hydration-and-health reading-nutrition-labels building-balanced-plate micronutrient-deficiencies glycemic-index-and-load",
     url: "/learning-paths#staying-healthy-preventive",
   },
   {
@@ -1012,7 +1210,7 @@ export const searchIndex: SearchEntry[] = [
     category: "Learning Paths",
     categoryId: "paths",
     content:
-      "Mental Wellness Basics Understand depression and anxiety, learn coping strategies, and discover how sleep impacts mental health. understanding-depression anxiety-and-panic managing-stress sleep-and-health",
+      "Mental Wellness Basics Understand depression and anxiety, learn coping strategies, and discover how sleep impacts mental health. understanding-depression anxiety-and-panic how-antidepressants-work managing-stress sleep-and-health",
     url: "/learning-paths#mental-wellness-basics",
   },
   {

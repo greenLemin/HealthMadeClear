@@ -34,6 +34,23 @@ export const LESSON_IDS = [
   "reading-lab-report",
   "generic-vs-brand-drugs",
   "sleep-apnea-basics",
+  "otc-drug-interactions",
+  "antibiotic-stewardship",
+  "drug-food-interactions",
+  "micronutrient-deficiencies",
+  "glycemic-index-and-load",
+  "understanding-lipids",
+  "how-statins-work",
+  "heart-attack-vs-stroke-signs",
+  "type-1-vs-type-2-diabetes",
+  "thyroid-disorders-basics",
+  "insulin-resistance-explained",
+  "how-antidepressants-work",
+  "copd-vs-asthma",
+  "understanding-oxygen-saturation",
+  "smoking-cessation-medicines",
+  "understanding-cbc",
+  "understanding-a1c",
 ] as const;
 
 export type LessonId = (typeof LESSON_IDS)[number];
