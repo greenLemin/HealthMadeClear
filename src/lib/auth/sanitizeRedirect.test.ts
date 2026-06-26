@@ -10,6 +10,7 @@ describe("sanitizeRedirectPath", () => {
   it("rejects open redirects", () => {
     expect(sanitizeRedirectPath("//evil.com")).toBe("/dashboard");
     expect(sanitizeRedirectPath("https://evil.com")).toBe("/dashboard");
+    expect(sanitizeRedirectPath("/\\evil.com")).toBe("/dashboard");
     expect(sanitizeRedirectPath(null)).toBe("/dashboard");
   });
 
