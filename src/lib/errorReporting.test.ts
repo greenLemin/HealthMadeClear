@@ -70,8 +70,7 @@ describe("reportClientError", () => {
     });
 
     afterEach(() => {
-      // @ts-ignore
-      global.window = originalWindow;
+      (global as any).window = originalWindow;
     });
 
     it("does nothing if DSN is missing", async () => {
@@ -82,8 +81,7 @@ describe("reportClientError", () => {
     });
 
     it("does nothing if window is undefined", async () => {
-      // @ts-ignore
-      delete global.window;
+      delete (global as any).window;
       reportClientError("Error");
       await new Promise(process.nextTick);
       expect(Sentry.captureException).not.toHaveBeenCalled();
@@ -92,8 +90,7 @@ describe("reportClientError", () => {
     it("initializes Sentry and captures exception", async () => {
       // Simulate browser environment
       if (!global.window) {
-        // @ts-ignore
-        global.window = {};
+        (global as any).window = {};
       }
 
       reportClientError("Prod Error", { safe: "data", secret: "hidden" });
@@ -127,8 +124,7 @@ describe("reportClientError", () => {
 
     it("does not initialize Sentry if client already exists", async () => {
       if (!global.window) {
-        // @ts-ignore
-        global.window = {};
+        (global as any).window = {};
       }
 
       // Mock that client already exists
@@ -144,8 +140,7 @@ describe("reportClientError", () => {
 
     it("catches import errors silently", async () => {
       if (!global.window) {
-        // @ts-ignore
-        global.window = {};
+        (global as any).window = {};
       }
 
       // Mock the dynamic import failing
