@@ -20,7 +20,7 @@ export async function getUserProfile(
   if (!profile) return null;
 
   const { data: userData, error: authError } = await supabase.auth.getUser();
-  if (authError) console.error("[dashboard:getUserProfile:auth]", authError.message);
+  if (authError) logQueryError("getUserProfile:auth", authError);
   const email = userData?.user?.email ?? "";
 
   return {
