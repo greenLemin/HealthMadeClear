@@ -13,24 +13,39 @@ describe("dailyLog", () => {
   });
 
   describe("updateDailyLog", () => {
-    it("should call rpc with correct user id", async () => {
-      const mockRpc = vi.fn().mockResolvedValue({ error: null });
+    beforeEach(() => {
+      vi.useFakeTimers();
+      vi.setSystemTime(new Date("2024-05-10T12:00:00Z"));
+    });
+
+    afterEach(() => {
+      vi.useRealTimers();
+    });
+
+    it("should upsert today's activity for the user", async () => {
+      const mockUpsert = vi.fn().mockResolvedValue({ error: null });
+      const mockFrom = vi.fn().mockReturnValue({ upsert: mockUpsert });
       const mockSupabase = {
-        rpc: mockRpc,
+        from: mockFrom,
       } as unknown as SupabaseClient;
 
       const userId = "test-user-id";
       await updateDailyLog(mockSupabase, userId);
 
-      expect(mockRpc).toHaveBeenCalledWith("log_daily_activity", { user_id: userId });
+      expect(mockFrom).toHaveBeenCalledWith("daily_log");
+      expect(mockUpsert).toHaveBeenCalledWith(
+        { user_id: userId, activity_date: "2024-05-10" },
+        { onConflict: "user_id,activity_date" }
+      );
       expect(logQueryError).toHaveBeenCalledWith("updateDailyLog", null);
     });
 
-    it("should log error if rpc fails", async () => {
+    it("should log error if upsert fails", async () => {
       const mockError = new Error("DB error");
-      const mockRpc = vi.fn().mockResolvedValue({ error: mockError });
+      const mockUpsert = vi.fn().mockResolvedValue({ error: mockError });
+      const mockFrom = vi.fn().mockReturnValue({ upsert: mockUpsert });
       const mockSupabase = {
-        rpc: mockRpc,
+        from: mockFrom,
       } as unknown as SupabaseClient;
 
       await updateDailyLog(mockSupabase, "test-user");
