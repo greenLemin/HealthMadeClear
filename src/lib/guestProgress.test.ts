@@ -52,4 +52,16 @@ describe("guestProgress", () => {
     clearGuestProgress();
     expect(getGuestProgress().completedLessons).toEqual([]);
   });
+
+  it("early-exits without making Supabase calls if there is no guest progress", async () => {
+    // sessionStorage is empty, getGuestProgress returns empty arrays
+    const supabase = {
+      from: vi.fn(),
+    };
+
+    const result = await migrateGuestProgressToSupabase(supabase as never, "user-1");
+
+    expect(result.ok).toBe(true);
+    expect(supabase.from).not.toHaveBeenCalled();
+  });
 });
