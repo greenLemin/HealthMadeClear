@@ -2,10 +2,7 @@ import type { SupabaseClient } from "@supabase/supabase-js";
 import { logQueryError } from "./utils";
 
 export async function updateDailyLog(supabase: SupabaseClient, userId: string): Promise<void> {
-  const today = new Date().toISOString().split("T")[0];
-  const { error } = await supabase
-    .from("daily_log")
-    .upsert({ user_id: userId, activity_date: today }, { onConflict: "user_id,activity_date" });
+  const { error } = await supabase.rpc("log_daily_activity", { user_id: userId });
   logQueryError("updateDailyLog", error);
 }
 
