@@ -33,10 +33,10 @@ describe("mockClient", () => {
     let fired = false;
     const {
       data: { subscription },
-    } = client.auth.onAuthStateChange((event: string, session: any) => {
+    } = client.auth.onAuthStateChange((event, session) => {
       fired = true;
       expect(event).toBe("SIGNED_IN");
-      expect(session.access_token).toBe("mock-access-token");
+      expect(session?.access_token).toBe("mock-access-token");
     });
 
     // Wait for the timeout callback
