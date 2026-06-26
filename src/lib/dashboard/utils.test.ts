@@ -1,17 +1,14 @@
-import { describe, it, expect, vi, beforeEach } from "vitest";
+import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
 import { logQueryError } from "./utils";
-import { logger } from "@/lib/logger";
 import type { PostgrestError } from "@supabase/supabase-js";
-
-vi.mock("@/lib/logger", () => ({
-  logger: {
-    error: vi.fn(),
-  },
-}));
 
 describe("dashboard utils", () => {
   beforeEach(() => {
-    vi.clearAllMocks();
+    vi.spyOn(console, "error").mockImplementation(() => {});
+  });
+
+  afterEach(() => {
+    vi.restoreAllMocks();
   });
 
   describe("logQueryError", () => {
@@ -26,14 +23,14 @@ describe("dashboard utils", () => {
 
       logQueryError("TestContext", mockError);
 
-      expect(logger.error).toHaveBeenCalledTimes(1);
-      expect(logger.error).toHaveBeenCalledWith("Query error in TestContext:", mockError);
+      expect(console.error).toHaveBeenCalledTimes(1);
+      expect(console.error).toHaveBeenCalledWith("Query error in TestContext:", mockError);
     });
 
     it("should not log anything when error is null", () => {
       logQueryError("TestContext", null);
 
-      expect(logger.error).not.toHaveBeenCalled();
+      expect(console.error).not.toHaveBeenCalled();
     });
   });
 });
