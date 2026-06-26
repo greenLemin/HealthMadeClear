@@ -39,8 +39,8 @@ async function main() {
   const esPaths = getAllPathsFromMdx("es");
   assertLocaleIdParity(enPaths, esPaths, "paths");
 
-  const enGlossary = getAllGlossaryFromMdx("en");
-  const esGlossary = getAllGlossaryFromMdx("es");
+  const enGlossary = await getAllGlossaryFromMdx("en");
+  const esGlossary = await getAllGlossaryFromMdx("es");
   assertLocaleIdParity(enGlossary, esGlossary, "glossary");
 
   const enQuizzes = await getAllQuizzesFromMdx("en");
