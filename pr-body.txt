@@ -1,0 +1,4 @@
+🎯 **What:** Replaced the `any` typings for the authentication event and session in the `supabase.auth.onAuthStateChange` callback with explicit types from `@supabase/supabase-js`.
+💡 **Why:** Using `any` bypasses TypeScript's type checking, making the code more error-prone to refactoring and harder to understand. Using the explicit `AuthChangeEvent` and `Session | null` types improves type safety, maintainability, and code readability.
+✅ **Verification:** Ran `npm run typecheck` to ensure there are no TypeScript errors. Verified the `onAuthStateChange` logic still passes build and type requirements.
+✨ **Result:** Enhanced type safety and code health within the `AuthProvider` component without altering existing functionality.
