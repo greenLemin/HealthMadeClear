@@ -58,6 +58,20 @@ export default function LearnClient({ lessons }: LearnClientProps) {
   const featuredLessons = filteredLessons.length <= 2 ? filteredLessons : filteredLessons.slice(0, 2);
   const libraryLessons = filteredLessons.length <= 2 ? [] : filteredLessons.slice(2);
 
+  const groupedLibraryLessons = useMemo(() => {
+    if (activeCategory !== ALL) {
+      return null;
+    }
+    const groups: Record<string, LessonListItem[]> = {};
+    for (const lesson of libraryLessons) {
+      if (!groups[lesson.categoryId]) {
+        groups[lesson.categoryId] = [];
+      }
+      groups[lesson.categoryId].push(lesson);
+    }
+    return groups;
+  }, [libraryLessons, activeCategory]);
+
   return (
     <div className="py-12 md:py-16">
       <div className="max-w-container mx-auto px-4 md:px-6">
@@ -137,14 +151,36 @@ export default function LearnClient({ lessons }: LearnClientProps) {
 
         {libraryLessons.length > 0 ? (
           <section>
-            <h2 className="mb-6 text-headline-lg text-primary">{tCommon("exploreLibrary")}</h2>
-            <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-              {libraryLessons.map((lesson) => (
-                <div key={lesson.id} onClick={() => markLessonViewed(lesson.id)}>
-                  <LessonCard lesson={lesson} isComplete={completedLessons.has(lesson.id)} />
-                </div>
-              ))}
-            </div>
+            <h2 className="mb-8 text-headline-lg text-primary">{tCommon("exploreLibrary")}</h2>
+            {groupedLibraryLessons ? (
+              <div className="space-y-12">
+                {Object.entries(groupedLibraryLessons).map(([categoryId, groupLessons]) => (
+                  <div
+                    key={categoryId}
+                    className="border-t border-outline-variant/30 pt-8 first:border-t-0 first:pt-0"
+                  >
+                    <h3 className="mb-6 text-headline-md font-bold text-primary">
+                      {getCategoryLabel(categoryId as any, locale)}
+                    </h3>
+                    <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+                      {groupLessons.map((lesson) => (
+                        <div key={lesson.id} onClick={() => markLessonViewed(lesson.id)}>
+                          <LessonCard lesson={lesson} isComplete={completedLessons.has(lesson.id)} />
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+                {libraryLessons.map((lesson) => (
+                  <div key={lesson.id} onClick={() => markLessonViewed(lesson.id)}>
+                    <LessonCard lesson={lesson} isComplete={completedLessons.has(lesson.id)} />
+                  </div>
+                ))}
+              </div>
+            )}
           </section>
         ) : null}
 

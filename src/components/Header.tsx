@@ -86,7 +86,7 @@ export default function Header() {
             <div className="logo-mark flex h-11 w-11 items-center justify-center rounded-2xl text-label-lg font-bold text-on-primary shadow-sm">
               H
             </div>
-            <div className="hidden sm:block">
+            <div className="hidden sm:block xl:hidden 2xl:block">
               <span className="block text-label-lg text-primary">Health Made Clear</span>
               <span className="text-label-md uppercase tracking-[0.08em] text-on-surface-variant">
                 {t("taglineShort")}
@@ -94,7 +94,7 @@ export default function Header() {
             </div>
           </Link>
 
-          <nav className="hidden items-center gap-1 xl:flex" aria-label={t("mainNavigation")}>
+          <nav className="hidden items-center gap-0.5 xl:flex" aria-label={t("mainNavigation")}>
             {navItems.map((item) => (
               <NavLink
                 key={item.href}
@@ -110,7 +110,7 @@ export default function Header() {
             ))}
           </nav>
 
-          <div className="hidden items-center gap-3 md:flex">
+          <div className="hidden items-center gap-1.5 xl:gap-2 2xl:gap-3 md:flex">
             {loading ? (
               <Skeleton variant="button" width="100px" />
             ) : user ? (
@@ -263,11 +263,11 @@ function NavLink({
       aria-current={active ? "page" : undefined}
       className={
         active
-          ? "flex items-center gap-2 rounded-lg bg-surface-container px-4 py-2 text-body-md font-semibold text-primary border-b-2 border-primary"
-          : "flex items-center gap-2 rounded-lg px-4 py-2 text-body-md font-medium text-on-surface-variant transition-colors hover:bg-surface-container hover:text-primary border-b-2 border-transparent"
+          ? "flex items-center gap-1.5 rounded-lg bg-surface-container px-3 py-2 text-body-md font-semibold text-primary border-b-2 border-primary xl:px-2 xl:gap-1 2xl:px-4 2xl:gap-2"
+          : "flex items-center gap-1.5 rounded-lg px-3 py-2 text-body-md font-medium text-on-surface-variant transition-colors hover:bg-surface-container hover:text-primary border-b-2 border-transparent xl:px-2 xl:gap-1 2xl:px-4 2xl:gap-2"
       }
     >
-      {icon}
+      <span className="xl:hidden 2xl:inline-block">{icon}</span>
       {label}
     </Link>
   );

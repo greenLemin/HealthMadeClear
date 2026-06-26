@@ -2,6 +2,19 @@
 
 import type { QuizQuestion as QuizQuestionType } from "@/types/quiz";
 
+function renderOptionText(text: string): React.ReactNode {
+  const parts = text.split(/(\*\*.*?\*\*|\*.*?\*|_.*?_)/g);
+  return parts.map((part, index) => {
+    if (part.startsWith("**") && part.endsWith("**")) {
+      return <strong key={index}>{part.slice(2, -2)}</strong>;
+    }
+    if ((part.startsWith("*") && part.endsWith("*")) || (part.startsWith("_") && part.endsWith("_"))) {
+      return <em key={index}>{part.slice(1, -1)}</em>;
+    }
+    return part;
+  });
+}
+
 interface QuizQuestionProps {
   question: QuizQuestionType;
   selectedIndex: number | null;
@@ -52,7 +65,7 @@ export default function QuizQuestion({
               >
                 {String.fromCharCode(65 + index)}
               </span>
-              <span className="pointer-events-none flex-1">{option}</span>
+              <span className="pointer-events-none flex-1">{renderOptionText(option)}</span>
             </label>
           );
         })}
