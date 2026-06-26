@@ -33,22 +33,43 @@ export const lessons: Lesson[] = [
         {
           title: "Partes clave de una etiqueta",
           content:
-            "Toda etiqueta de receta tiene varias partes importantes:\r\n\r\n1. Tu nombre: para confirmar que la medicina es para ti\r\n2. Nombre y concentración del medicamento: qué medicina es y qué tan fuerte es\r\n3. Dosis: cuánto debes tomar\r\n4. Frecuencia: cada cuánto debes tomarla\r\n5. Instrucciones especiales: advertencias o indicaciones especiales\r\n6. Fecha de vencimiento: cuándo deja de ser seguro usarla\r\n\r\n:::info\r\nSiempre verifica que tu nombre esté en la etiqueta antes de tomar cualquier medicina.\r\n:::",
+            "Toda etiqueta de receta tiene varias partes importantes:\n\n1. Tu nombre: para confirmar que la medicina es para ti\n2. Nombre y concentración del medicamento: qué medicina es y qué tan fuerte es\n3. Dosis: cuánto debes tomar\n4. Frecuencia: cada cuánto debes tomarla\n5. Instrucciones especiales: advertencias o indicaciones especiales\n6. Fecha de vencimiento: cuándo deja de ser seguro usarla",
+          callouts: [
+            {
+              type: "info",
+              content:
+                "Siempre verifica que tu nombre esté en la etiqueta antes de tomar cualquier medicina.",
+            },
+          ],
         },
         {
           title: "Cómo entender la dosis",
           content:
-            'Las instrucciones de dosis te dicen exactamente cuánto medicamento tomar y cuándo hacerlo. Ejemplos comunes:\r\n\r\n- "Toma una tableta al día" significa una pastilla todos los días a la misma hora\r\n- "Tómalo con comida" significa comer algo antes de tomar la medicina\r\n- "Tómalo con el estómago vacío" significa esperar 2 horas después de comer o 1 hora antes de comer\r\n- "Dos veces al día" normalmente significa por la mañana y por la noche\r\n\r\n:::warning\r\nNunca tomes más de la cantidad indicada. Si olvidas una dosis, pregunta a tu farmacéutico qué debes hacer.\r\n:::',
+            'Las instrucciones de dosis te dicen exactamente cuánto medicamento tomar y cuándo hacerlo. Ejemplos comunes:\n\n- "Toma una tableta al día" significa una pastilla todos los días a la misma hora\n- "Tómalo con comida" significa comer algo antes de tomar la medicina\n- "Tómalo con el estómago vacío" significa esperar 2 horas después de comer o 1 hora antes de comer\n- "Dos veces al día" normalmente significa por la mañana y por la noche',
+          callouts: [
+            {
+              type: "warning",
+              content:
+                "Nunca tomes más de la cantidad indicada. Si olvidas una dosis, pregunta a tu farmacéutico qué debes hacer.",
+            },
+          ],
         },
         {
           title: "Advertencias especiales",
           content:
-            'Las etiquetas de receta pueden incluir advertencias especiales como:\r\n\r\n- "Puede causar sueño": la medicina podría darte somnolencia, así que no manejes\r\n- "Evita el alcohol": beber alcohol con esta medicina puede ser peligroso\r\n- "Guardar en un lugar fresco y seco": mantén la medicina lejos del calor y la humedad\r\n- "Agitar bien antes de usar": en medicinas líquidas, mézclala antes de servirla',
+            'Las etiquetas de receta pueden incluir advertencias especiales como:\n\n- "Puede causar sueño": la medicina podría darte somnolencia, así que no manejes\n- "Evita el alcohol": beber alcohol con esta medicina puede ser peligroso\n- "Guardar en un lugar fresco y seco": mantén la medicina lejos del calor y la humedad\n- "Agitar bien antes de usar": en medicinas líquidas, mézclala antes de servirla',
         },
         {
           title: "Preguntas para tu farmacéutico",
           content:
-            "Si algo en la etiqueta no está claro, pregunta a tu farmacéutico:\r\n\r\n1. ¿Para qué sirve esta medicina?\r\n2. ¿Cómo y cuándo debo tomarla?\r\n3. ¿Qué hago si olvido una dosis?\r\n4. ¿Qué efectos secundarios debo conocer?\r\n5. ¿Puedo tomarla con mis otras medicinas?\r\n\r\n:::success\r\nTu farmacéutico está para ayudarte. Nunca dudes en hacer preguntas sobre tus medicamentos.\r\n:::",
+            "Si algo en la etiqueta no está claro, pregunta a tu farmacéutico:\n\n1. ¿Para qué sirve esta medicina?\n2. ¿Cómo y cuándo debo tomarla?\n3. ¿Qué hago si olvido una dosis?\n4. ¿Qué efectos secundarios debo conocer?\n5. ¿Puedo tomarla con mis otras medicinas?",
+          callouts: [
+            {
+              type: "success",
+              content:
+                "Tu farmacéutico está para ayudarte. Nunca dudes en hacer preguntas sobre tus medicamentos.",
+            },
+          ],
         },
       ],
     },
@@ -76,27 +97,39 @@ export const lessons: Lesson[] = [
         {
           title: "¿Por qué hacer preguntas?",
           content:
-            "Hacer preguntas sobre tus medicamentos te ayuda a entender qué estás tomando y por qué. Puede prevenir errores, efectos secundarios e interacciones peligrosas entre medicamentos. Tienes derecho a saber todo sobre tus medicinas — y los farmacéuticos están capacitados para responder preguntas sobre medicamentos incluso después de que salgas del consultorio.\r\n\r\nLos estudios muestran que muchas personas no toman sus medicinas según lo recetado porque no entienden las instrucciones o temen los efectos secundarios. Las preguntas reducen esas barreras.",
+            "Hacer preguntas sobre tus medicamentos te ayuda a entender qué estás tomando y por qué. Puede prevenir errores, efectos secundarios e interacciones peligrosas entre medicamentos. Tienes derecho a saber todo sobre tus medicinas — y los farmacéuticos están capacitados para responder preguntas sobre medicamentos incluso después de que salgas del consultorio.\n\nLos estudios muestran que muchas personas no toman sus medicinas según lo recetado porque no entienden las instrucciones o temen los efectos secundarios. Las preguntas reducen esas barreras.",
         },
         {
           title: "Preguntas esenciales para tu médico",
           content:
-            "Cuando tu médico te recete una medicina nueva, pregunta:\r\n\r\n1. **¿Cuál es el nombre de la medicina?** (marca y genérico)\r\n2. **¿Para qué sirve?** ¿Cómo sabré que está funcionando?\r\n3. **¿Cómo y cuándo debo tomarla?** ¿Con alimentos? ¿A la hora de dormir?\r\n4. **¿Por cuánto tiempo debo tomarla?** ¿Días, meses o de forma continua?\r\n5. **¿Qué efectos secundarios debo vigilar?** ¿Cuáles requieren que te llame?\r\n6. **¿Hay alimentos, bebidas o actividades que deba evitar?**\r\n7. **¿Qué debo hacer si olvido una dosis?**\r\n8. **¿Interactuará con mis otras medicinas o suplementos?**\r\n9. **¿Existe una versión genérica menos costosa?**\r\n10. **¿Cómo debo guardar esta medicina?**\r\n\r\nAnota las respuestas en tu lista de medicamentos o en tu teléfono.",
+            "Cuando tu médico te recete una medicina nueva, pregunta:\n\n1. **¿Cuál es el nombre de la medicina?** (marca y genérico)\n2. **¿Para qué sirve?** ¿Cómo sabré que está funcionando?\n3. **¿Cómo y cuándo debo tomarla?** ¿Con alimentos? ¿A la hora de dormir?\n4. **¿Por cuánto tiempo debo tomarla?** ¿Días, meses o de forma continua?\n5. **¿Qué efectos secundarios debo vigilar?** ¿Cuáles requieren que te llame?\n6. **¿Hay alimentos, bebidas o actividades que deba evitar?**\n7. **¿Qué debo hacer si olvido una dosis?**\n8. **¿Interactuará con mis otras medicinas o suplementos?**\n9. **¿Existe una versión genérica menos costosa?**\n10. **¿Cómo debo guardar esta medicina?**\n\nAnota las respuestas en tu lista de medicamentos o en tu teléfono.",
         },
         {
           title: "Preguntas para tu farmacéutico",
           content:
-            "Los farmacéuticos son expertos en medicamentos. Cuando recojas una receta, pregunta:\r\n\r\n- ¿Puede revisar todas mis medicinas para detectar interacciones?\r\n- ¿Qué debo hacer si experimento efectos secundarios?\r\n- ¿Debo tomarla con alimentos?\r\n- ¿Puedo triturar o partir esta pastilla si me cuesta tragar?\r\n- ¿Cuál es la mejor forma de recordar las dosis?\r\n\r\nLleva tu lista completa de medicamentos cada vez — incluyendo vitaminas y productos herbales.",
+            "Los farmacéuticos son expertos en medicamentos. Cuando recojas una receta, pregunta:\n\n- ¿Puede revisar todas mis medicinas para detectar interacciones?\n- ¿Qué debo hacer si experimento efectos secundarios?\n- ¿Debo tomarla con alimentos?\n- ¿Puedo triturar o partir esta pastilla si me cuesta tragar?\n- ¿Cuál es la mejor forma de recordar las dosis?\n\nLleva tu lista completa de medicamentos cada vez — incluyendo vitaminas y productos herbales.",
         },
         {
           title: "Sobre las interacciones entre medicamentos",
           content:
-            "Las interacciones ocurren cuando dos o más sustancias se afectan mutuamente. Pueden hacer que un medicamento sea más fuerte, más débil o causar nuevos efectos secundarios. Siempre informa a tu médico y farmacéutico sobre:\r\n\r\n- Todas las medicinas con receta\r\n- Medicinas de venta libre (aspirina, ibuprofeno, medicinas para el resfriado)\r\n- Vitaminas y suplementos\r\n- Remedios herbales (hierba de San Juan, ginseng, etc.)\r\n- Sustancias recreativas\r\n- Cualquier alergia a medicamentos o reacciones adversas anteriores\r\n\r\nIncluso combinaciones comunes — como anticoagulantes más aspirina — pueden ser riesgosas sin orientación médica.",
+            "Las interacciones ocurren cuando dos o más sustancias se afectan mutuamente. Pueden hacer que un medicamento sea más fuerte, más débil o causar nuevos efectos secundarios. Siempre informa a tu médico y farmacéutico sobre:\n\n- Todas las medicinas con receta\n- Medicinas de venta libre (aspirina, ibuprofeno, medicinas para el resfriado)\n- Vitaminas y suplementos\n- Remedios herbales (hierba de San Juan, ginseng, etc.)\n- Sustancias recreativas\n- Cualquier alergia a medicamentos o reacciones adversas anteriores\n\nIncluso combinaciones comunes — como anticoagulantes más aspirina — pueden ser riesgosas sin orientación médica.",
         },
         {
           title: "Mantén una lista actualizada de medicamentos",
           content:
-            "Tu lista debe incluir:\r\n\r\n- Nombre del medicamento (marca y genérico)\r\n- Dosis y con qué frecuencia la tomas\r\n- Quién la recetó y para qué\r\n- Número de teléfono de la farmacia\r\n\r\nActualiza la lista cada vez que algo cambie. Compártela en cada visita médica, ida a atención de urgencia y estancia hospitalaria.\r\n\r\n:::warning\r\nLleva una lista de todas tus medicinas y muéstrala a cada médico que consultes. «Tomo una pastillita blanca» no es suficiente — los nombres y las dosis importan.\r\n:::\r\n\r\n:::info\r\nLos organizadores de pastillas, alarmas del teléfono y recordatorios de resurtido de la farmacia te ayudan a mantener el horario. Pregunta a tu farmacéutico qué herramientas se adaptan a tu rutina.\r\n:::",
+            "Tu lista debe incluir:\n\n- Nombre del medicamento (marca y genérico)\n- Dosis y con qué frecuencia la tomas\n- Quién la recetó y para qué\n- Número de teléfono de la farmacia\n\nActualiza la lista cada vez que algo cambie. Compártela en cada visita médica, ida a atención de urgencia y estancia hospitalaria.",
+          callouts: [
+            {
+              type: "warning",
+              content:
+                "Lleva una lista de todas tus medicinas y muéstrala a cada médico que consultes. «Tomo una pastillita blanca» no es suficiente — los nombres y las dosis importan.",
+            },
+            {
+              type: "info",
+              content:
+                "Los organizadores de pastillas, alarmas del teléfono y recordatorios de resurtido de la farmacia te ayudan a mantener el horario. Pregunta a tu farmacéutico qué herramientas se adaptan a tu rutina.",
+            },
+          ],
         },
       ],
     },
@@ -125,32 +158,46 @@ export const lessons: Lesson[] = [
         {
           title: "¿Qué son los efectos secundarios?",
           content:
-            "Los efectos secundarios son reacciones no deseadas a un medicamento. Pueden variar desde algo leve (boca seca) hasta algo grave (reacción alérgica). No todas las personas los experimentan, y muchos desaparecen a medida que el cuerpo se adapta — especialmente durante las primeras una o dos semanas.\r\n\r\nLos efectos secundarios son distintos de que la medicina no funcione. Si los síntomas no mejoran después del tiempo esperado, informa a tu médico.",
+            "Los efectos secundarios son reacciones no deseadas a un medicamento. Pueden variar desde algo leve (boca seca) hasta algo grave (reacción alérgica). No todas las personas los experimentan, y muchos desaparecen a medida que el cuerpo se adapta — especialmente durante las primeras una o dos semanas.\n\nLos efectos secundarios son distintos de que la medicina no funcione. Si los síntomas no mejoran después del tiempo esperado, informa a tu médico.",
         },
         {
           title: "Efectos secundarios leves comunes",
           content:
-            "Estos generalmente no son emergencias y pueden mejorar por sí solos o con estrategias sencillas:\r\n\r\n- Náusea o malestar estomacal — intenta tomarla con alimentos, a menos que te indiquen lo contrario\r\n- Somnolencia o mareo — evita conducir hasta saber cómo reaccionas\r\n- Boca seca — bebe agua, usa chicle sin azúcar\r\n- Dolor de cabeza — descansa, hidrátate; llama si es intenso o persistente\r\n- Sarpullido o comezón leve — vigílalo; informa si se extiende\r\n- Estreñimiento o diarrea — los cambios en la dieta pueden ayudar; consulta al farmacéutico\r\n\r\nSi los efectos leves afectan tu vida diaria, no suspendas la medicina por tu cuenta. Llama primero a tu médico o farmacéutico. Pueden ajustar la dosis, cambiar el horario o cambiar a otro medicamento.",
+            "Estos generalmente no son emergencias y pueden mejorar por sí solos o con estrategias sencillas:\n\n- Náusea o malestar estomacal — intenta tomarla con alimentos, a menos que te indiquen lo contrario\n- Somnolencia o mareo — evita conducir hasta saber cómo reaccionas\n- Boca seca — bebe agua, usa chicle sin azúcar\n- Dolor de cabeza — descansa, hidrátate; llama si es intenso o persistente\n- Sarpullido o comezón leve — vigílalo; informa si se extiende\n- Estreñimiento o diarrea — los cambios en la dieta pueden ayudar; consulta al farmacéutico\n\nSi los efectos leves afectan tu vida diaria, no suspendas la medicina por tu cuenta. Llama primero a tu médico o farmacéutico. Pueden ajustar la dosis, cambiar el horario o cambiar a otro medicamento.",
         },
         {
           title: "Estrategias que ayudan",
           content:
-            "- Toma la medicina exactamente como se recetó — el horario importa\r\n- No omitas dosis para «evitar» efectos secundarios\r\n- Lleva un registro de síntomas (qué sentiste, cuándo, intensidad)\r\n- Pregunta si los efectos secundarios son temporales\r\n- Nunca combines medicinas sin verificar interacciones",
+            "- Toma la medicina exactamente como se recetó — el horario importa\n- No omitas dosis para «evitar» efectos secundarios\n- Lleva un registro de síntomas (qué sentiste, cuándo, intensidad)\n- Pregunta si los efectos secundarios son temporales\n- Nunca combines medicinas sin verificar interacciones",
         },
         {
           title: "Cuándo llamar a tu médico",
           content:
-            "Llama a tu médico con prontitud (el mismo día) si presentas:\r\n\r\n- Efectos secundarios que interfieren con comer, dormir o trabajar\r\n- Vómito o diarrea persistentes\r\n- Confusión o cambios de humor inusuales\r\n- Dolor muscular con orina oscura (posible lesión muscular por algunas estatinas)\r\n- Sarpullido que empeora y no desaparece",
+            "Llama a tu médico con prontitud (el mismo día) si presentas:\n\n- Efectos secundarios que interfieren con comer, dormir o trabajar\n- Vómito o diarrea persistentes\n- Confusión o cambios de humor inusuales\n- Dolor muscular con orina oscura (posible lesión muscular por algunas estatinas)\n- Sarpullido que empeora y no desaparece",
         },
         {
           title: "Cuándo buscar atención de emergencia",
           content:
-            "Llama al 911 o ve a la sala de emergencias si experimentas:\r\n\r\n- Dificultad para respirar o tragar\r\n- Sarpullido severo, ronchas o hinchazón en cara, labios o lengua\r\n- Mareo intenso, desmayo o dolor en el pecho\r\n- Latidos rápidos o irregulares\r\n- Dolor de estómago intenso o vómito con sangre\r\n- Color amarillo en la piel o los ojos\r\n- Debilidad súbita en un lado, habla arrastrada o confusión (señales de accidente cerebrovascular)\r\n- Sangrado o moretones inusuales\r\n\r\n:::warning\r\nSi crees que estás teniendo una reacción alérgica grave u otra emergencia, llama al 911. No esperes a ver si pasa.\r\n:::",
+            "Llama al 911 o ve a la sala de emergencias si experimentas:\n\n- Dificultad para respirar o tragar\n- Sarpullido severo, ronchas o hinchazón en cara, labios o lengua\n- Mareo intenso, desmayo o dolor en el pecho\n- Latidos rápidos o irregulares\n- Dolor de estómago intenso o vómito con sangre\n- Color amarillo en la piel o los ojos\n- Debilidad súbita en un lado, habla arrastrada o confusión (señales de accidente cerebrovascular)\n- Sangrado o moretones inusuales",
+          callouts: [
+            {
+              type: "warning",
+              content:
+                "Si crees que estás teniendo una reacción alérgica grave u otra emergencia, llama al 911. No esperes a ver si pasa.",
+            },
+          ],
         },
         {
           title: "Suspender medicinas de forma segura",
           content:
-            "Nunca suspendas una receta de forma repentina a menos que tu médico lo indique. Algunas medicinas (esteroides, ciertos medicamentos cardíacos, antidepresivos) requieren una reducción gradual para evitar síntomas de abstinencia o un empeoramiento de la enfermedad.\r\n\r\n:::info\r\nReporta los efectos secundarios al programa MedWatch de la FDA (fda.gov/safety/medwatch). Tu reporte ayuda a identificar problemas de seguridad para todos.\r\n:::",
+            "Nunca suspendas una receta de forma repentina a menos que tu médico lo indique. Algunas medicinas (esteroides, ciertos medicamentos cardíacos, antidepresivos) requieren una reducción gradual para evitar síntomas de abstinencia o un empeoramiento de la enfermedad.",
+          callouts: [
+            {
+              type: "info",
+              content:
+                "Reporta los efectos secundarios al programa MedWatch de la FDA (fda.gov/safety/medwatch). Tu reporte ayuda a identificar problemas de seguridad para todos.",
+            },
+          ],
         },
       ],
     },
@@ -183,27 +230,41 @@ export const lessons: Lesson[] = [
         {
           title: "Reúne tu información",
           content:
-            "Antes de tu cita, reúne estos elementos importantes:\r\n\r\n- Tu tarjeta del seguro e identificación con foto\r\n- Una lista de todas tus medicinas actuales (nombre, dosis, con qué frecuencia las tomas)\r\n- Vitaminas, suplementos y medicinas de venta libre\r\n- Tu historial médico, si verás a un médico nuevo\r\n- Resultados de pruebas anteriores o expedientes médicos\r\n- Una lista de tus síntomas y cuándo comenzaron\r\n- Nombres y números de teléfono de otros médicos que consultas\r\n- Cualquier pregunta que quieras hacer\r\n\r\nSi usas un portal del paciente, inicia sesión antes de tu visita. Descarga resultados de laboratorio recientes o resúmenes de consultas para poder consultarlos durante la cita.",
+            "Antes de tu cita, reúne estos elementos importantes:\n\n- Tu tarjeta del seguro e identificación con foto\n- Una lista de todas tus medicinas actuales (nombre, dosis, con qué frecuencia las tomas)\n- Vitaminas, suplementos y medicinas de venta libre\n- Tu historial médico, si verás a un médico nuevo\n- Resultados de pruebas anteriores o expedientes médicos\n- Una lista de tus síntomas y cuándo comenzaron\n- Nombres y números de teléfono de otros médicos que consultas\n- Cualquier pregunta que quieras hacer\n\nSi usas un portal del paciente, inicia sesión antes de tu visita. Descarga resultados de laboratorio recientes o resúmenes de consultas para poder consultarlos durante la cita.",
         },
         {
           title: "Anota tus síntomas",
           content:
-            "Sé específico sobre tus síntomas. Descripciones vagas como «no me siento bien» dificultan que tu médico te ayude. Para cada síntoma, anota:\r\n\r\n- Cuándo empezó (fecha o «hace unas dos semanas»)\r\n- Con qué frecuencia ocurre (a diario, semanalmente, solo por la noche)\r\n- Qué lo mejora o empeora (alimentos, actividad, descanso)\r\n- Qué tan intenso es en una escala del 1 al 10\r\n- Qué otros síntomas ocurren al mismo tiempo\r\n\r\nEjemplo: «Dolor de cabeza — comenzó el 3 de marzo, ocurre 3 o 4 veces por semana, peor por la mañana, intensidad 6/10, a veces con náuseas».",
+            "Sé específico sobre tus síntomas. Descripciones vagas como «no me siento bien» dificultan que tu médico te ayude. Para cada síntoma, anota:\n\n- Cuándo empezó (fecha o «hace unas dos semanas»)\n- Con qué frecuencia ocurre (a diario, semanalmente, solo por la noche)\n- Qué lo mejora o empeora (alimentos, actividad, descanso)\n- Qué tan intenso es en una escala del 1 al 10\n- Qué otros síntomas ocurren al mismo tiempo\n\nEjemplo: «Dolor de cabeza — comenzó el 3 de marzo, ocurre 3 o 4 veces por semana, peor por la mañana, intensidad 6/10, a veces con náuseas».",
         },
         {
           title: "Prepara tus preguntas",
           content:
-            "Escribe tus preguntas antes de la visita. Coloca primero las más importantes por si se acaba el tiempo. Algunas buenas preguntas son:\r\n\r\n- ¿Qué podría estar causando mis síntomas?\r\n- ¿Qué pruebas necesito y qué mostrarán?\r\n- ¿Cuáles son mis opciones de tratamiento, incluyendo ventajas y desventajas?\r\n- ¿Qué debo hacer si mis síntomas empeoran?\r\n- ¿Cuándo debo volver a consulta?\r\n- ¿Hay cambios en el estilo de vida que podrían ayudar?\r\n- ¿Qué señales de alerta significan que debo llamar o ir a urgencias?\r\n\r\nLleva a un amigo o familiar si quieres apoyo para tomar notas o hacer preguntas.",
+            "Escribe tus preguntas antes de la visita. Coloca primero las más importantes por si se acaba el tiempo. Algunas buenas preguntas son:\n\n- ¿Qué podría estar causando mis síntomas?\n- ¿Qué pruebas necesito y qué mostrarán?\n- ¿Cuáles son mis opciones de tratamiento, incluyendo ventajas y desventajas?\n- ¿Qué debo hacer si mis síntomas empeoran?\n- ¿Cuándo debo volver a consulta?\n- ¿Hay cambios en el estilo de vida que podrían ayudar?\n- ¿Qué señales de alerta significan que debo llamar o ir a urgencias?\n\nLleva a un amigo o familiar si quieres apoyo para tomar notas o hacer preguntas.",
         },
         {
           title: "Conoce el tipo de consulta",
           content:
-            "Diferentes visitas requieren distinta preparación:\r\n\r\n- **Chequeo anual:** Anota tus metas de salud, actualizaciones del historial familiar y preguntas sobre exámenes de detección.\r\n- **Síntoma nuevo:** Concéntrate en la línea de tiempo de los síntomas y en lo que ya has intentado.\r\n- **Seguimiento:** Lleva tu diario de salud y anota si los tratamientos ayudaron.\r\n- **Especialista:** Lleva la documentación de la referencia y los expedientes de tu médico de cabecera.\r\n\r\n:::info\r\nLleva libreta y pluma (o usa tu teléfono) para anotar lo que diga tu médico. También puedes pedir un resumen impreso después de la visita en recepción o a través del portal del paciente.\r\n:::",
+            "Diferentes visitas requieren distinta preparación:\n\n- **Chequeo anual:** Anota tus metas de salud, actualizaciones del historial familiar y preguntas sobre exámenes de detección.\n- **Síntoma nuevo:** Concéntrate en la línea de tiempo de los síntomas y en lo que ya has intentado.\n- **Seguimiento:** Lleva tu diario de salud y anota si los tratamientos ayudaron.\n- **Especialista:** Lleva la documentación de la referencia y los expedientes de tu médico de cabecera.",
+          callouts: [
+            {
+              type: "info",
+              content:
+                "Lleva libreta y pluma (o usa tu teléfono) para anotar lo que diga tu médico. También puedes pedir un resumen impreso después de la visita en recepción o a través del portal del paciente.",
+            },
+          ],
         },
         {
           title: "El día anterior",
           content:
-            "- Confirma la hora y el lugar de la cita.\r\n- Verifica si necesitas estar en ayunas o suspender ciertas medicinas antes de las pruebas.\r\n- Prepara ropa que facilite el examen (mangas que se puedan subir, zapatos cómodos).\r\n- Duerme bien para poder pensar con claridad.\r\n\r\n:::success\r\nLa preparación es una habilidad. Cada visita se vuelve más fácil a medida que aprendes qué funciona para ti.\r\n:::",
+            "- Confirma la hora y el lugar de la cita.\n- Verifica si necesitas estar en ayunas o suspender ciertas medicinas antes de las pruebas.\n- Prepara ropa que facilite el examen (mangas que se puedan subir, zapatos cómodos).\n- Duerme bien para poder pensar con claridad.",
+          callouts: [
+            {
+              type: "success",
+              content:
+                "La preparación es una habilidad. Cada visita se vuelve más fácil a medida que aprendes qué funciona para ti.",
+            },
+          ],
         },
       ],
     },
@@ -231,32 +292,44 @@ export const lessons: Lesson[] = [
         {
           title: "Comienza con tu motivo principal",
           content:
-            "Cuando el médico pregunte «¿Qué lo trae hoy?», empieza por tu preocupación más importante. Usa las notas de síntomas que preparaste. Una apertura clara ahorra tiempo y ayuda al médico a priorizar.\r\n\r\nEjemplo: «He tenido opresión en el pecho al subir escaleras desde hace unas dos semanas. Es algo nuevo para mí y me preocupa».",
+            "Cuando el médico pregunte «¿Qué lo trae hoy?», empieza por tu preocupación más importante. Usa las notas de síntomas que preparaste. Una apertura clara ahorra tiempo y ayuda al médico a priorizar.\n\nEjemplo: «He tenido opresión en el pecho al subir escaleras desde hace unas dos semanas. Es algo nuevo para mí y me preocupa».",
         },
         {
           title: "Sé honesto y completo",
           content:
-            "Cuéntale a tu médico todo sobre tu salud, incluso si algo te da pena. Necesita el panorama completo para ayudarte. No omitas información, incluyendo:\r\n\r\n- Todas las medicinas que tomas (incluidos suplementos y productos herbales)\r\n- Qué tan bien sigues tu horario de medicación\r\n- Consumo de alcohol, tabaco o sustancias\r\n- Tus hábitos de alimentación, sueño y ejercicio\r\n- Preocupaciones de salud mental (estrés, ansiedad, cambios de humor)\r\n- Cualquier cambio en tu salud desde tu última visita\r\n- Tus preocupaciones y miedos\r\n\r\nLos médicos escuchan temas delicados todos los días. La honestidad conduce a una mejor atención.",
+            "Cuéntale a tu médico todo sobre tu salud, incluso si algo te da pena. Necesita el panorama completo para ayudarte. No omitas información, incluyendo:\n\n- Todas las medicinas que tomas (incluidos suplementos y productos herbales)\n- Qué tan bien sigues tu horario de medicación\n- Consumo de alcohol, tabaco o sustancias\n- Tus hábitos de alimentación, sueño y ejercicio\n- Preocupaciones de salud mental (estrés, ansiedad, cambios de humor)\n- Cualquier cambio en tu salud desde tu última visita\n- Tus preocupaciones y miedos\n\nLos médicos escuchan temas delicados todos los días. La honestidad conduce a una mejor atención.",
         },
         {
           title: "Pide aclaraciones",
           content:
-            "El lenguaje médico puede ser confuso. Si tu médico usa términos que no entiendes, pídele que te los explique con lenguaje sencillo. Puedes decir:\r\n\r\n- «¿Puede explicarlo con palabras más simples?»\r\n- «¿Qué significa esa palabra?»\r\n- «¿Puede escribirlo para mí?»\r\n- «¿Me puede dar un ejemplo?»\r\n- «¿Cómo se vería eso en mi vida diaria?»\r\n\r\nNo hay preguntas tontas. Entender tu plan de cuidado te ayuda a seguirlo correctamente.",
+            "El lenguaje médico puede ser confuso. Si tu médico usa términos que no entiendes, pídele que te los explique con lenguaje sencillo. Puedes decir:\n\n- «¿Puede explicarlo con palabras más simples?»\n- «¿Qué significa esa palabra?»\n- «¿Puede escribirlo para mí?»\n- «¿Me puede dar un ejemplo?»\n- «¿Cómo se vería eso en mi vida diaria?»\n\nNo hay preguntas tontas. Entender tu plan de cuidado te ayuda a seguirlo correctamente.",
         },
         {
           title: "Toma notas",
           content:
-            "Anota información importante durante tu visita, incluyendo:\r\n\r\n- Tu diagnóstico (qué está mal, con palabras que entiendas)\r\n- Tu plan de tratamiento y por qué se eligió\r\n- Nombres de medicamentos, dosis y horarios\r\n- Pruebas solicitadas y cuándo estarán listos los resultados\r\n- Cuándo programar citas de seguimiento\r\n- Señales de alerta que significan que debes llamar o buscar atención de emergencia\r\n\r\nSi te cuesta escribir durante la visita, pide grabar una nota de voz o solicita un resumen escrito.",
+            "Anota información importante durante tu visita, incluyendo:\n\n- Tu diagnóstico (qué está mal, con palabras que entiendas)\n- Tu plan de tratamiento y por qué se eligió\n- Nombres de medicamentos, dosis y horarios\n- Pruebas solicitadas y cuándo estarán listos los resultados\n- Cuándo programar citas de seguimiento\n- Señales de alerta que significan que debes llamar o buscar atención de emergencia\n\nSi te cuesta escribir durante la visita, pide grabar una nota de voz o solicita un resumen escrito.",
         },
         {
           title: "Entiende tus próximos pasos",
           content:
-            "Antes de irte, asegúrate de saber:\r\n\r\n- Qué debes hacer hoy (recoger recetas, programar pruebas)\r\n- Qué debes hacer esta semana (empezar una medicina nueva, descansar, cambiar la dieta)\r\n- A quién llamar con preguntas (línea de enfermería, farmacia, especialista)\r\n- Cómo acceder a los resultados de pruebas (portal del paciente, llamada telefónica)\r\n\r\nRepite el plan con tus propias palabras: «Entonces empezaré el antibiótico esta noche, terminaré todo el tratamiento y llamaré si me sale sarpullido — ¿es correcto?»",
+            "Antes de irte, asegúrate de saber:\n\n- Qué debes hacer hoy (recoger recetas, programar pruebas)\n- Qué debes hacer esta semana (empezar una medicina nueva, descansar, cambiar la dieta)\n- A quién llamar con preguntas (línea de enfermería, farmacia, especialista)\n- Cómo acceder a los resultados de pruebas (portal del paciente, llamada telefónica)\n\nRepite el plan con tus propias palabras: «Entonces empezaré el antibiótico esta noche, terminaré todo el tratamiento y llamaré si me sale sarpullido — ¿es correcto?»",
         },
         {
           title: "Defiende tus necesidades",
           content:
-            "Tienes derecho a:\r\n\r\n- Pedir una segunda opinión\r\n- Solicitar un tratamiento diferente si los efectos secundarios son graves\r\n- Llevar a una persona de confianza al consultorio\r\n- Pedir un intérprete si el español no es tu primer idioma\r\n\r\n:::success\r\nEstá bien pedir a tu médico que hable más despacio o repita algo que no escuchaste. Una buena atención es una colaboración.\r\n:::\r\n\r\n:::warning\r\nSi te sientes inseguro, ignorado o confundido sobre síntomas urgentes, habla. Di: «Sigo preocupado por esto. ¿Podemos hablar de qué más podría estar causándolo?»\r\n:::",
+            "Tienes derecho a:\n\n- Pedir una segunda opinión\n- Solicitar un tratamiento diferente si los efectos secundarios son graves\n- Llevar a una persona de confianza al consultorio\n- Pedir un intérprete si el español no es tu primer idioma",
+          callouts: [
+            {
+              type: "success",
+              content:
+                "Está bien pedir a tu médico que hable más despacio o repita algo que no escuchaste. Una buena atención es una colaboración.",
+            },
+            {
+              type: "warning",
+              content:
+                "Si te sientes inseguro, ignorado o confundido sobre síntomas urgentes, habla. Di: «Sigo preocupado por esto. ¿Podemos hablar de qué más podría estar causándolo?»",
+            },
+          ],
         },
       ],
     },
@@ -284,32 +357,46 @@ export const lessons: Lesson[] = [
         {
           title: "Revisa tus instrucciones",
           content:
-            "Tan pronto llegues a casa, revisa lo que te explicó tu médico mientras aún está fresco. Asegúrate de entender:\r\n\r\n- Qué medicinas tomar, cuánto y a qué horas\r\n- Si debes tomar la medicina con alimentos o en ayunas\r\n- Cualquier cambio en el estilo de vida (dieta, ejercicio, descanso, límites en el trabajo)\r\n- Cuándo programar citas de seguimiento o pruebas\r\n- Qué hacer si tus síntomas empeoran\r\n- Cuánto tiempo debes esperar antes de sentir mejoría\r\n\r\nSi algo no está claro, llama a la línea de enfermería de la clínica el mismo día. No adivines sobre las medicinas.",
+            "Tan pronto llegues a casa, revisa lo que te explicó tu médico mientras aún está fresco. Asegúrate de entender:\n\n- Qué medicinas tomar, cuánto y a qué horas\n- Si debes tomar la medicina con alimentos o en ayunas\n- Cualquier cambio en el estilo de vida (dieta, ejercicio, descanso, límites en el trabajo)\n- Cuándo programar citas de seguimiento o pruebas\n- Qué hacer si tus síntomas empeoran\n- Cuánto tiempo debes esperar antes de sentir mejoría\n\nSi algo no está claro, llama a la línea de enfermería de la clínica el mismo día. No adivines sobre las medicinas.",
         },
         {
           title: "Surte tus recetas",
           content:
-            "Si tu médico te recetó medicina:\r\n\r\n- Ve a la farmacia con prontitud para que el tratamiento no se retrase\r\n- Muestra al farmacéutico tu tarjeta del seguro\r\n- Pide al farmacéutico que repase cómo tomar la medicina\r\n- Confirma si este medicamento interactúa con tus otras medicinas\r\n- Lee la etiqueta con cuidado antes de tomar cualquier dosis\r\n- Guarda la medicina según las indicaciones (algunas requieren refrigeración)\r\n\r\nUsa una sola farmacia cuando sea posible para que tengan un registro completo de tus recetas.",
+            "Si tu médico te recetó medicina:\n\n- Ve a la farmacia con prontitud para que el tratamiento no se retrase\n- Muestra al farmacéutico tu tarjeta del seguro\n- Pide al farmacéutico que repase cómo tomar la medicina\n- Confirma si este medicamento interactúa con tus otras medicinas\n- Lee la etiqueta con cuidado antes de tomar cualquier dosis\n- Guarda la medicina según las indicaciones (algunas requieren refrigeración)\n\nUsa una sola farmacia cuando sea posible para que tengan un registro completo de tus recetas.",
         },
         {
           title: "Programa el cuidado de seguimiento",
           content:
-            "No esperes a sentirte mal de nuevo para agendar tu próxima visita. Programa:\r\n\r\n- Las citas de seguimiento que recomendó tu médico\r\n- Análisis de laboratorio o estudios de imagen antes de tu próxima visita\r\n- Referencias a especialistas (llama en los primeros días)\r\n- Exámenes de detección que te correspondan (mamografía, colonoscopia, etc.)\r\n\r\nPon recordatorios en tu calendario y configura alertas en el teléfono para las horas de medicación.",
+            "No esperes a sentirte mal de nuevo para agendar tu próxima visita. Programa:\n\n- Las citas de seguimiento que recomendó tu médico\n- Análisis de laboratorio o estudios de imagen antes de tu próxima visita\n- Referencias a especialistas (llama en los primeros días)\n- Exámenes de detección que te correspondan (mamografía, colonoscopia, etc.)\n\nPon recordatorios en tu calendario y configura alertas en el teléfono para las horas de medicación.",
         },
         {
           title: "Da seguimiento a tu progreso",
           content:
-            "Lleva un diario de salud sencillo — en papel o en una aplicación del teléfono — para registrar:\r\n\r\n- Síntomas y cómo cambian día a día\r\n- Efectos secundarios de medicinas nuevas\r\n- Presión arterial, azúcar en sangre o peso si tu médico te pidió monitorearlos\r\n- Preguntas que surjan entre visitas\r\n- Mejorías o empeoramientos de tu condición\r\n\r\nLleva tu diario a tu próxima cita. Los patrones ayudan a tu médico a ajustar el tratamiento.",
+            "Lleva un diario de salud sencillo — en papel o en una aplicación del teléfono — para registrar:\n\n- Síntomas y cómo cambian día a día\n- Efectos secundarios de medicinas nuevas\n- Presión arterial, azúcar en sangre o peso si tu médico te pidió monitorearlos\n- Preguntas que surjan entre visitas\n- Mejorías o empeoramientos de tu condición\n\nLleva tu diario a tu próxima cita. Los patrones ayudan a tu médico a ajustar el tratamiento.",
         },
         {
           title: "Maneja los resultados de pruebas",
           content:
-            "Si se solicitaron pruebas:\r\n\r\n- Pregunta cuándo y cómo recibirás los resultados (portal, teléfono, correo)\r\n- Revisa tu portal del paciente si tienes uno\r\n- No entres en pánico por números que no entiendes — espera la explicación de tu médico\r\n- Llama si no has recibido noticias para la fecha prometida\r\n\r\n:::info\r\nLleva tu diario de salud a tu próxima cita para ayudar a tu médico a entender tu progreso.\r\n:::",
+            "Si se solicitaron pruebas:\n\n- Pregunta cuándo y cómo recibirás los resultados (portal, teléfono, correo)\n- Revisa tu portal del paciente si tienes uno\n- No entres en pánico por números que no entiendes — espera la explicación de tu médico\n- Llama si no has recibido noticias para la fecha prometida",
+          callouts: [
+            {
+              type: "info",
+              content:
+                "Lleva tu diario de salud a tu próxima cita para ayudar a tu médico a entender tu progreso.",
+            },
+          ],
         },
         {
           title: "Sabe cuándo volver a llamar",
           content:
-            "Contacta al consultorio de tu médico si:\r\n\r\n- Tienes efectos secundarios que te molestan o te preocupan\r\n- No puedes pagar una medicina recetada (puede haber alternativas)\r\n- Los síntomas empeoran en lugar de mejorar\r\n- Olvidaste una dosis y no estás seguro de qué hacer\r\n- Necesitas un resurtido antes de tu próxima visita\r\n\r\n:::warning\r\nLlama al 911 o ve a la sala de emergencias si tienes dolor en el pecho, dificultad para respirar, reacciones alérgicas graves, debilidad súbita u otros síntomas de emergencia — no esperes a que te devuelvan la llamada.\r\n:::",
+            "Contacta al consultorio de tu médico si:\n\n- Tienes efectos secundarios que te molestan o te preocupan\n- No puedes pagar una medicina recetada (puede haber alternativas)\n- Los síntomas empeoran en lugar de mejorar\n- Olvidaste una dosis y no estás seguro de qué hacer\n- Necesitas un resurtido antes de tu próxima visita",
+          callouts: [
+            {
+              type: "warning",
+              content:
+                "Llama al 911 o ve a la sala de emergencias si tienes dolor en el pecho, dificultad para respirar, reacciones alérgicas graves, debilidad súbita u otros síntomas de emergencia — no esperes a que te devuelvan la llamada.",
+            },
+          ],
         },
       ],
     },
@@ -336,27 +423,39 @@ export const lessons: Lesson[] = [
         {
           title: "¿Por qué se hacen análisis de sangre?",
           content:
-            "Los análisis de sangre ayudan a los médicos a ver qué ocurre dentro de tu cuerpo sin cirugía. Una muestra pequeña puede revelar:\r\n\r\n- Qué tan bien funcionan órganos como los riñones y el hígado\r\n- Signos de infección, inflamación o anemia\r\n- Diabetes o prediabetes\r\n- Colesterol y riesgo de enfermedad cardíaca\r\n- Niveles de tiroides, hormonas y vitaminas\r\n- Qué tan bien funcionan los medicamentos\r\n- Si el tratamiento está mejorando una condición\r\n\r\nLos análisis de sangre suelen formar parte de chequeos de rutina, evaluaciones prequirúrgicas o monitoreo de enfermedades crónicas.",
+            "Los análisis de sangre ayudan a los médicos a ver qué ocurre dentro de tu cuerpo sin cirugía. Una muestra pequeña puede revelar:\n\n- Qué tan bien funcionan órganos como los riñones y el hígado\n- Signos de infección, inflamación o anemia\n- Diabetes o prediabetes\n- Colesterol y riesgo de enfermedad cardíaca\n- Niveles de tiroides, hormonas y vitaminas\n- Qué tan bien funcionan los medicamentos\n- Si el tratamiento está mejorando una condición\n\nLos análisis de sangre suelen formar parte de chequeos de rutina, evaluaciones prequirúrgicas o monitoreo de enfermedades crónicas.",
         },
         {
           title: "¿Qué contiene tu sangre?",
           content:
-            "La sangre tiene cuatro componentes principales:\r\n\r\n- **Glóbulos rojos** — transportan oxígeno mediante la hemoglobina\r\n- **Glóbulos blancos** — combaten infecciones\r\n- **Plaquetas** — ayudan a coagular la sangre\r\n- **Plasma** — líquido que transporta células, nutrientes y desechos\r\n\r\nDiferentes pruebas miden distintas partes. Tu médico solicita pruebas según tus síntomas e historial de salud.",
+            "La sangre tiene cuatro componentes principales:\n\n- **Glóbulos rojos** — transportan oxígeno mediante la hemoglobina\n- **Glóbulos blancos** — combaten infecciones\n- **Plaquetas** — ayudan a coagular la sangre\n- **Plasma** — líquido que transporta células, nutrientes y desechos\n\nDiferentes pruebas miden distintas partes. Tu médico solicita pruebas según tus síntomas e historial de salud.",
         },
         {
           title: "Análisis de sangre comunes",
           content:
-            "Algunos de los paneles más frecuentes incluyen:\r\n\r\n- **Biometría hemática completa (CBC)** — glóbulos rojos, glóbulos blancos, plaquetas, hemoglobina, hematocrito\r\n- **Panel metabólico básico (BMP)** — función renal (creatinina), electrolitos, azúcar en sangre\r\n- **Panel metabólico completo (CMP)** — BMP más enzimas hepáticas\r\n- **Perfil de lípidos** — colesterol total, LDL, HDL, triglicéridos\r\n- **Hemoglobina A1C** — promedio de azúcar en sangre de los últimos 2 a 3 meses\r\n- **Panel tiroideo** — TSH y a veces T4/T3\r\n\r\nNo necesitas todas las pruebas en cada visita. Más no siempre es mejor — el objetivo es hacer pruebas dirigidas.",
+            "Algunos de los paneles más frecuentes incluyen:\n\n- **Biometría hemática completa (CBC)** — glóbulos rojos, glóbulos blancos, plaquetas, hemoglobina, hematocrito\n- **Panel metabólico básico (BMP)** — función renal (creatinina), electrolitos, azúcar en sangre\n- **Panel metabólico completo (CMP)** — BMP más enzimas hepáticas\n- **Perfil de lípidos** — colesterol total, LDL, HDL, triglicéridos\n- **Hemoglobina A1C** — promedio de azúcar en sangre de los últimos 2 a 3 meses\n- **Panel tiroideo** — TSH y a veces T4/T3\n\nNo necesitas todas las pruebas en cada visita. Más no siempre es mejor — el objetivo es hacer pruebas dirigidas.",
         },
         {
           title: "Antes de la extracción de sangre",
           content:
-            "Pregunta en tu clínica:\r\n\r\n- ¿Necesito estar en ayunas? (A menudo 8 a 12 horas para glucosa y lípidos)\r\n- ¿Puedo tomar mis medicinas habituales?\r\n- ¿Debo beber agua antes? (Generalmente sí — facilita encontrar las venas)\r\n\r\nDurante la extracción, informa al flebotomista si te has desmayado antes o tienes ansiedad con las agujas.",
+            "Pregunta en tu clínica:\n\n- ¿Necesito estar en ayunas? (A menudo 8 a 12 horas para glucosa y lípidos)\n- ¿Puedo tomar mis medicinas habituales?\n- ¿Debo beber agua antes? (Generalmente sí — facilita encontrar las venas)\n\nDurante la extracción, informa al flebotomista si te has desmayado antes o tienes ansiedad con las agujas.",
         },
         {
           title: "Cómo entender los rangos de referencia",
           content:
-            "Los resultados comparan tus números con un **rango de referencia** — valores típicos para la mayoría de las personas sanas en ese laboratorio. Tu resultado puede estar:\r\n\r\n- **Dentro del rango** — a menudo normal, pero el contexto importa\r\n- **Alto** — por encima del límite superior\r\n- **Bajo** — por debajo del límite inferior\r\n\r\nEstar ligeramente fuera del rango no siempre es un problema. El embarazo, las medicinas, la deshidratación y enfermedades recientes pueden alterar los números. Tu médico interpreta los resultados con tu historial completo — no de forma aislada.\r\n\r\n:::info\r\nLos rangos de referencia varían según el laboratorio, la edad, el sexo y el equipo. Siempre pide a tu médico que te explique qué significan tus números para ti.\r\n:::\r\n\r\n:::success\r\nSolicita una copia de tus resultados a través del portal del paciente. Seguir las tendencias a lo largo del tiempo suele ser más útil que un solo número.\r\n:::",
+            "Los resultados comparan tus números con un **rango de referencia** — valores típicos para la mayoría de las personas sanas en ese laboratorio. Tu resultado puede estar:\n\n- **Dentro del rango** — a menudo normal, pero el contexto importa\n- **Alto** — por encima del límite superior\n- **Bajo** — por debajo del límite inferior\n\nEstar ligeramente fuera del rango no siempre es un problema. El embarazo, las medicinas, la deshidratación y enfermedades recientes pueden alterar los números. Tu médico interpreta los resultados con tu historial completo — no de forma aislada.",
+          callouts: [
+            {
+              type: "info",
+              content:
+                "Los rangos de referencia varían según el laboratorio, la edad, el sexo y el equipo. Siempre pide a tu médico que te explique qué significan tus números para ti.",
+            },
+            {
+              type: "success",
+              content:
+                "Solicita una copia de tus resultados a través del portal del paciente. Seguir las tendencias a lo largo del tiempo suele ser más útil que un solo número.",
+            },
+          ],
         },
       ],
     },
@@ -390,22 +489,29 @@ export const lessons: Lesson[] = [
         {
           title: "Biometría hemática completa (CBC)",
           content:
-            "Una biometría hemática completa mide varias partes de tu sangre:\r\n\r\n- **Glóbulos rojos (RBC)** — transportan oxígeno; niveles bajos pueden causar fatiga (anemia)\r\n- **Glóbulos blancos (WBC)** — combaten infecciones; niveles altos pueden sugerir infección o inflamación\r\n- **Plaquetas** — ayudan a la coagulación; niveles bajos aumentan el riesgo de sangrado\r\n- **Hemoglobina** — proteína que transporta oxígeno en los glóbulos rojos\r\n- **Hematocrito** — porcentaje del volumen sanguíneo formado por glóbulos rojos\r\n\r\nLos médicos usan la CBC para detectar anemia, infección y algunos trastornos sanguíneos.",
+            "Una biometría hemática completa mide varias partes de tu sangre:\n\n- **Glóbulos rojos (RBC)** — transportan oxígeno; niveles bajos pueden causar fatiga (anemia)\n- **Glóbulos blancos (WBC)** — combaten infecciones; niveles altos pueden sugerir infección o inflamación\n- **Plaquetas** — ayudan a la coagulación; niveles bajos aumentan el riesgo de sangrado\n- **Hemoglobina** — proteína que transporta oxígeno en los glóbulos rojos\n- **Hematocrito** — porcentaje del volumen sanguíneo formado por glóbulos rojos\n\nLos médicos usan la CBC para detectar anemia, infección y algunos trastornos sanguíneos.",
         },
         {
           title: "Colesterol y perfil de lípidos",
           content:
-            "Las pruebas de colesterol miden las grasas en tu sangre:\r\n\r\n- **Colesterol total** — suma de los tipos de colesterol\r\n- **LDL (colesterol «malo»)** — puede acumularse en las paredes arteriales\r\n- **HDL (colesterol «bueno»)** — ayuda a eliminar el LDL\r\n- **Triglicéridos** — energía almacenada de los alimentos; niveles altos aumentan el riesgo cardíaco\r\n\r\n:::warning\r\nTener LDL alto y HDL bajo aumenta el riesgo de enfermedad cardíaca y accidente cerebrovascular con el tiempo. El estilo de vida y, a veces, la medicina pueden mejorar estos números.\r\n:::\r\n\r\nLos niveles objetivo dependen de tu edad, si tienes diabetes y tu riesgo cardíaco general. Pregunta a tu médico qué metas aplican para ti.",
+            "Las pruebas de colesterol miden las grasas en tu sangre:\n\n- **Colesterol total** — suma de los tipos de colesterol\n- **LDL (colesterol «malo»)** — puede acumularse en las paredes arteriales\n- **HDL (colesterol «bueno»)** — ayuda a eliminar el LDL\n- **Triglicéridos** — energía almacenada de los alimentos; niveles altos aumentan el riesgo cardíaco\n\n\n\nLos niveles objetivo dependen de tu edad, si tienes diabetes y tu riesgo cardíaco general. Pregunta a tu médico qué metas aplican para ti.",
+          callouts: [
+            {
+              type: "warning",
+              content:
+                "Tener LDL alto y HDL bajo aumenta el riesgo de enfermedad cardíaca y accidente cerebrovascular con el tiempo. El estilo de vida y, a veces, la medicina pueden mejorar estos números.",
+            },
+          ],
         },
         {
           title: "Pruebas de azúcar en sangre",
           content:
-            "Las pruebas de azúcar detectan diabetes y prediabetes:\r\n\r\n- **Glucosa en ayunas** — azúcar en sangre después de no comer durante 8 horas o más\r\n- **Hemoglobina A1C** — promedio de azúcar en sangre de los últimos 2 a 3 meses; no requiere ayuno\r\n- **Prueba de tolerancia a la glucosa oral** — cómo maneja tu cuerpo el azúcar después de una bebida dulce\r\n\r\nLa prediabetes a menudo no tiene síntomas. La detección temprana permite cambios en el estilo de vida que pueden prevenir la diabetes.",
+            "Las pruebas de azúcar detectan diabetes y prediabetes:\n\n- **Glucosa en ayunas** — azúcar en sangre después de no comer durante 8 horas o más\n- **Hemoglobina A1C** — promedio de azúcar en sangre de los últimos 2 a 3 meses; no requiere ayuno\n- **Prueba de tolerancia a la glucosa oral** — cómo maneja tu cuerpo el azúcar después de una bebida dulce\n\nLa prediabetes a menudo no tiene síntomas. La detección temprana permite cambios en el estilo de vida que pueden prevenir la diabetes.",
         },
         {
           title: "Función renal (BMP/CMP)",
           content:
-            "La **creatinina** y la **BUN** (nitrógeno ureico en sangre) reflejan qué tan bien los riñones filtran los desechos. Niveles altos pueden indicar estrés renal por deshidratación, medicinas o enfermedad renal crónica.\r\n\r\nLos **electrolitos** (sodio, potasio, cloruro) equilibran los líquidos y los nervios. Niveles anormales requieren atención médica — especialmente el potasio.",
+            "La **creatinina** y la **BUN** (nitrógeno ureico en sangre) reflejan qué tan bien los riñones filtran los desechos. Niveles altos pueden indicar estrés renal por deshidratación, medicinas o enfermedad renal crónica.\n\nLos **electrolitos** (sodio, potasio, cloruro) equilibran los líquidos y los nervios. Niveles anormales requieren atención médica — especialmente el potasio.",
         },
         {
           title: "Enzimas hepáticas",
@@ -420,7 +526,14 @@ export const lessons: Lesson[] = [
         {
           title: "Preguntas para hacer sobre tus resultados",
           content:
-            "- ¿Este resultado es normal para mí?\r\n- ¿Debemos repetir la prueba?\r\n- ¿Necesito tratamiento o cambios en el estilo de vida?\r\n- ¿Cómo se relaciona esto con mis síntomas o medicinas?\r\n\r\n:::info\r\nGuarda tus informes de laboratorio. Comparar el colesterol de este año con el del año pasado suele importar más que un solo número aislado.\r\n:::",
+            "- ¿Este resultado es normal para mí?\n- ¿Debemos repetir la prueba?\n- ¿Necesito tratamiento o cambios en el estilo de vida?\n- ¿Cómo se relaciona esto con mis síntomas o medicinas?",
+          callouts: [
+            {
+              type: "info",
+              content:
+                "Guarda tus informes de laboratorio. Comparar el colesterol de este año con el del año pasado suele importar más que un solo número aislado.",
+            },
+          ],
         },
       ],
     },
@@ -448,32 +561,51 @@ export const lessons: Lesson[] = [
         {
           title: "No entres en pánico — busca contexto",
           content:
-            "Los portales de laboratorio en línea a menudo marcan resultados en rojo antes de que tu médico los revise. Un resultado marcado significa «fuera del rango de referencia» — no siempre «peligroso». Espera la explicación de tu médico a menos que tengas síntomas urgentes.\r\n\r\nAprende qué situaciones requieren acción rápida y cuáles pueden esperar a una cita de seguimiento programada.",
+            "Los portales de laboratorio en línea a menudo marcan resultados en rojo antes de que tu médico los revise. Un resultado marcado significa «fuera del rango de referencia» — no siempre «peligroso». Espera la explicación de tu médico a menos que tengas síntomas urgentes.\n\nAprende qué situaciones requieren acción rápida y cuáles pueden esperar a una cita de seguimiento programada.",
         },
         {
           title: "Resultados que necesitan atención rápida",
           content:
-            "Contacta a tu médico el mismo día (o busca atención de emergencia si estás muy enfermo) si los resultados muestran:\r\n\r\n- **Azúcar en sangre muy alta o muy baja** — especialmente con confusión, vómito o sed extrema\r\n- **Potasio críticamente alto** — puede afectar el ritmo cardíaco; puede sentirse como debilidad o palpitaciones\r\n- **Anemia severa** — hemoglobina muy baja con falta de aire, dolor en el pecho o desmayo\r\n- **Signos de infección grave** — recuento de glóbulos blancos muy alto con fiebre y sensación de enfermedad severa\r\n- **Lesión renal aguda** — creatinina que sube bruscamente con poca orina o hinchazón\r\n- **Elevación severa de enzimas hepáticas** — con piel u ojos amarillos, dolor abdominal intenso o confusión\r\n\r\nTu informe de laboratorio puede marcar valores críticos como «pánico» o «crítico» — esos requieren contacto médico inmediato.\r\n\r\n:::warning\r\nSi no puedes localizar a tu médico y te sientes muy mal (dificultad para respirar, dolor en el pecho, confusión, debilidad severa), ve a atención de urgencia o a la sala de emergencias.\r\n:::",
+            "Contacta a tu médico el mismo día (o busca atención de emergencia si estás muy enfermo) si los resultados muestran:\n\n- **Azúcar en sangre muy alta o muy baja** — especialmente con confusión, vómito o sed extrema\n- **Potasio críticamente alto** — puede afectar el ritmo cardíaco; puede sentirse como debilidad o palpitaciones\n- **Anemia severa** — hemoglobina muy baja con falta de aire, dolor en el pecho o desmayo\n- **Signos de infección grave** — recuento de glóbulos blancos muy alto con fiebre y sensación de enfermedad severa\n- **Lesión renal aguda** — creatinina que sube bruscamente con poca orina o hinchazón\n- **Elevación severa de enzimas hepáticas** — con piel u ojos amarillos, dolor abdominal intenso o confusión\n\nTu informe de laboratorio puede marcar valores críticos como «pánico» o «crítico» — esos requieren contacto médico inmediato.",
+          callouts: [
+            {
+              type: "warning",
+              content:
+                "Si no puedes localizar a tu médico y te sientes muy mal (dificultad para respirar, dolor en el pecho, confusión, debilidad severa), ve a atención de urgencia o a la sala de emergencias.",
+            },
+          ],
         },
         {
           title: "Resultados para vigilar (generalmente no son emergencias)",
           content:
-            "Estos a menudo requieren seguimiento pero rara vez atención de emergencia el mismo día:\r\n\r\n- Colesterol ligeramente alto\r\n- A1C o glucosa en rango de prediabetes\r\n- Niveles tiroideos ligeramente bajos o altos\r\n- Anemia leve sin síntomas severos\r\n- Niveles de vitamina D o B12 en el límite\r\n- Cambios pequeños respecto a tus resultados anteriores\r\n\r\nTu médico puede recomendar repetir la prueba en semanas o meses, cambios en el estilo de vida o iniciar tratamiento.",
+            "Estos a menudo requieren seguimiento pero rara vez atención de emergencia el mismo día:\n\n- Colesterol ligeramente alto\n- A1C o glucosa en rango de prediabetes\n- Niveles tiroideos ligeramente bajos o altos\n- Anemia leve sin síntomas severos\n- Niveles de vitamina D o B12 en el límite\n- Cambios pequeños respecto a tus resultados anteriores\n\nTu médico puede recomendar repetir la prueba en semanas o meses, cambios en el estilo de vida o iniciar tratamiento.",
         },
         {
           title: "Cuando los síntomas importan más que los números",
           content:
-            "Un valor de laboratorio «normal» no descarta una enfermedad si te sientes mal. Por el contrario, anomalías leves en una persona sana pueden requerir solo observación. Siempre informa:\r\n\r\n- Síntomas nuevos o que empeoran\r\n- Cambios en medicamentos\r\n- Enfermedad, cirugía o deshidratación reciente\r\n- Embarazo o estrés importante en la vida",
+            "Un valor de laboratorio «normal» no descarta una enfermedad si te sientes mal. Por el contrario, anomalías leves en una persona sana pueden requerir solo observación. Siempre informa:\n\n- Síntomas nuevos o que empeoran\n- Cambios en medicamentos\n- Enfermedad, cirugía o deshidratación reciente\n- Embarazo o estrés importante en la vida",
         },
         {
           title: "Señales de alerta en el informe de laboratorio",
           content:
-            "Busca notas como:\r\n\r\n- **Valor crítico / de pánico** — llama a tu médico de inmediato\r\n- **Muestra hemolizada** — la prueba puede necesitar repetirse\r\n- **Muestra insuficiente** — puede ser necesario volver a tomar la muestra\r\n\r\nSi el laboratorio indica que la muestra fue inadecuada, los resultados pueden no ser confiables.",
+            "Busca notas como:\n\n- **Valor crítico / de pánico** — llama a tu médico de inmediato\n- **Muestra hemolizada** — la prueba puede necesitar repetirse\n- **Muestra insuficiente** — puede ser necesario volver a tomar la muestra\n\nSi el laboratorio indica que la muestra fue inadecuada, los resultados pueden no ser confiables.",
         },
         {
           title: "Preguntas para tu médico",
           content:
-            "Al hablar de resultados anormales, pregunta:\r\n\r\n- ¿Qué tan serio es este resultado para mí personalmente?\r\n- ¿Qué podría estar causándolo?\r\n- ¿Necesito más pruebas antes de decidir el tratamiento?\r\n- ¿Qué opciones de tratamiento tengo?\r\n- ¿Cómo vamos a monitorear esto con el tiempo?\r\n- ¿Qué cambios en el estilo de vida debo hacer ahora?\r\n- ¿Qué síntomas deberían hacerme llamar antes?\r\n\r\n:::info\r\nLleva resultados de laboratorio anteriores a tus citas. Una sola glucosa alta importa menos que una tendencia al alza en tres visitas.\r\n:::\r\n\r\n:::success\r\nEntender la urgencia te ayuda a responder con calma y de forma apropiada — sin ignorar problemas reales ni perder el sueño por variaciones menores.\r\n:::",
+            "Al hablar de resultados anormales, pregunta:\n\n- ¿Qué tan serio es este resultado para mí personalmente?\n- ¿Qué podría estar causándolo?\n- ¿Necesito más pruebas antes de decidir el tratamiento?\n- ¿Qué opciones de tratamiento tengo?\n- ¿Cómo vamos a monitorear esto con el tiempo?\n- ¿Qué cambios en el estilo de vida debo hacer ahora?\n- ¿Qué síntomas deberían hacerme llamar antes?",
+          callouts: [
+            {
+              type: "info",
+              content:
+                "Lleva resultados de laboratorio anteriores a tus citas. Una sola glucosa alta importa menos que una tendencia al alza en tres visitas.",
+            },
+            {
+              type: "success",
+              content:
+                "Entender la urgencia te ayuda a responder con calma y de forma apropiada — sin ignorar problemas reales ni perder el sueño por variaciones menores.",
+            },
+          ],
         },
       ],
     },
@@ -500,27 +632,48 @@ export const lessons: Lesson[] = [
         {
           title: "¿Qué es la atención preventiva?",
           content:
-            "La atención preventiva incluye servicios de salud que te ayudan a mantenerte saludable y detectar problemas a tiempo. En lugar de esperar a enfermarte, la atención preventiva te ayuda a:\r\n\r\n- Encontrar problemas de salud antes de que sean graves\r\n- Recibir vacunas que te protegen de enfermedades\r\n- Aprender hábitos saludables que previenen enfermedades\r\n- Ahorrar dinero al evitar tratamientos costosos después",
+            "La atención preventiva incluye servicios de salud que te ayudan a mantenerte saludable y detectar problemas a tiempo. En lugar de esperar a enfermarte, la atención preventiva te ayuda a:\n\n- Encontrar problemas de salud antes de que sean graves\n- Recibir vacunas que te protegen de enfermedades\n- Aprender hábitos saludables que previenen enfermedades\n- Ahorrar dinero al evitar tratamientos costosos después",
         },
         {
           title: "Tipos de atención preventiva",
           content:
-            "### Pruebas de detección\r\n\r\nLas pruebas de detección buscan enfermedades antes de tener síntomas. Las más comunes incluyen:\r\n\r\n- Control de presión arterial\r\n- Pruebas de colesterol\r\n- Detección de cáncer (mamografías, colonoscopías, pruebas de Papanicolaou)\r\n- Detección de diabetes\r\n- Detección de depresión\r\n\r\n### Vacunas (inmunizaciones)\r\n\r\nLas vacunas te protegen de enfermedades graves. Entrenan a tu sistema inmunológico para combatir infecciones. Vacunas comunes para adultos:\r\n\r\n- Vacuna contra la gripe (cada año)\r\n- Tdap (tétanos, difteria, tos ferina) - cada 10 años\r\n- Vacuna contra el herpes zóster (a partir de los 50)\r\n- Vacuna contra la neumonía (a partir de los 65)\r\n- Vacunas contra el COVID-19 (según recomendación)\r\n\r\n### Visitas de bienestar\r\n\r\nUna visita de bienestar es un chequeo enfocado en la prevención. Tu médico:\r\n\r\n- Revisará tu historial médico\r\n- Controlará tus signos vitales\r\n- Discutirá qué pruebas de detección necesitas\r\n- Hablará sobre opciones de estilo de vida saludable\r\n- Actualizará tus vacunas\r\n\r\n:::info\r\nSegún la Ley de Cuidado de Salud Asequible, la mayoría de los seguros deben cubrir servicios preventivos sin costo para ti. Esto significa sin copago, sin coseguro y sin deducible.\r\n:::",
+            "### Pruebas de detección\n\nLas pruebas de detección buscan enfermedades antes de tener síntomas. Las más comunes incluyen:\n\n- Control de presión arterial\n- Pruebas de colesterol\n- Detección de cáncer (mamografías, colonoscopías, pruebas de Papanicolaou)\n- Detección de diabetes\n- Detección de depresión\n\n### Vacunas (inmunizaciones)\n\nLas vacunas te protegen de enfermedades graves. Entrenan a tu sistema inmunológico para combatir infecciones. Vacunas comunes para adultos:\n\n- Vacuna contra la gripe (cada año)\n- Tdap (tétanos, difteria, tos ferina) - cada 10 años\n- Vacuna contra el herpes zóster (a partir de los 50)\n- Vacuna contra la neumonía (a partir de los 65)\n- Vacunas contra el COVID-19 (según recomendación)\n\n### Visitas de bienestar\n\nUna visita de bienestar es un chequeo enfocado en la prevención. Tu médico:\n\n- Revisará tu historial médico\n- Controlará tus signos vitales\n- Discutirá qué pruebas de detección necesitas\n- Hablará sobre opciones de estilo de vida saludable\n- Actualizará tus vacunas",
+          callouts: [
+            {
+              type: "info",
+              content:
+                "Según la Ley de Cuidado de Salud Asequible, la mayoría de los seguros deben cubrir servicios preventivos sin costo para ti. Esto significa sin copago, sin coseguro y sin deducible.",
+            },
+          ],
         },
         {
           title: "Por qué es importante",
           content:
-            "Muchas enfermedades graves comienzan en silencio. La presión arterial alta, el colesterol alto y el cáncer temprano a menudo no tienen síntomas. Cuando te sientes enfermo, la enfermedad puede ser más difícil de tratar.\r\n\r\n:::warning\r\nEvitar la atención preventiva no ahorra dinero. Tratar una enfermedad avanzada cuesta mucho más que prevenirla.\r\n:::",
+            "Muchas enfermedades graves comienzan en silencio. La presión arterial alta, el colesterol alto y el cáncer temprano a menudo no tienen síntomas. Cuando te sientes enfermo, la enfermedad puede ser más difícil de tratar.",
+          callouts: [
+            {
+              type: "warning",
+              content:
+                "Evitar la atención preventiva no ahorra dinero. Tratar una enfermedad avanzada cuesta mucho más que prevenirla.",
+            },
+          ],
         },
         {
           title: "Los hábitos saludables también son prevención",
           content:
-            "La prevención no son solo visitas médicas. Las decisiones diarias importan:\r\n\r\n- Come una dieta balanceada con frutas, verduras y granos integrales\r\n- Muévete 150 minutos por semana\r\n- Duerme 7-9 horas\r\n- No fumes; limita el alcohol\r\n- Maneja el estrés\r\n\r\n:::success\r\nLos pequeños cambios se acumulan. Una caminata de 10 minutos al día es mejor que ninguna.\r\n:::",
+            "La prevención no son solo visitas médicas. Las decisiones diarias importan:\n\n- Come una dieta balanceada con frutas, verduras y granos integrales\n- Muévete 150 minutos por semana\n- Duerme 7-9 horas\n- No fumes; limita el alcohol\n- Maneja el estrés",
+          callouts: [
+            {
+              type: "success",
+              content:
+                "Los pequeños cambios se acumulan. Una caminata de 10 minutos al día es mejor que ninguna.",
+            },
+          ],
         },
         {
           title: "Habla con tu médico",
           content:
-            "Pregunta a tu médico:\r\n\r\n- ¿Qué pruebas de detección necesito para mi edad?\r\n- ¿Estoy al día con mis vacunas?\r\n- ¿Qué cambios de estilo de vida me ayudarían más?\r\n- ¿Cuándo debo regresar?",
+            "Pregunta a tu médico:\n\n- ¿Qué pruebas de detección necesito para mi edad?\n- ¿Estoy al día con mis vacunas?\n- ¿Qué cambios de estilo de vida me ayudarían más?\n- ¿Cuándo debo regresar?",
         },
       ],
     },
@@ -551,32 +704,53 @@ export const lessons: Lesson[] = [
         {
           title: "Por qué varían los calendarios de detección",
           content:
-            "Las recomendaciones de detección dependen de:\r\n\r\n- Edad\r\n- Sexo asignado al nacer\r\n- Antecedentes familiares\r\n- Historial de salud personal\r\n- Factores de estilo de vida (tabaquismo, peso, etc.)\r\n\r\nLas guías siguientes provienen del Grupo de Trabajo de Servicios Preventivos de EE. UU. (USPSTF). **Siempre habla con tu médico** — puede recomendar un calendario distinto según tu situación.",
+            "Las recomendaciones de detección dependen de:\n\n- Edad\n- Sexo asignado al nacer\n- Antecedentes familiares\n- Historial de salud personal\n- Factores de estilo de vida (tabaquismo, peso, etc.)\n\nLas guías siguientes provienen del Grupo de Trabajo de Servicios Preventivos de EE. UU. (USPSTF). **Siempre habla con tu médico** — puede recomendar un calendario distinto según tu situación.",
         },
         {
           title: "De 18 a 39 años",
           content:
-            "| Prueba de detección        | Frecuencia          | Notas                                                        |\r\n| -------------------------- | ------------------- | ------------------------------------------------------------ |\r\n| Presión arterial           | Cada 1-2 años       | Más seguido si está alta                                     |\r\n| Colesterol                 | Cada 4-6 años       | Desde los 20 si hay factores de riesgo                       |\r\n| Revisión de cáncer de piel | Habla con tu médico | Especialmente si tienes piel clara o antecedentes familiares |\r\n| Detección de ITS           | Según recomendación | Según actividad sexual                                       |\r\n| Examen dental              | Cada 6 meses        |                                                              |\r\n| Examen de la vista         | Cada 2-4 años       |                                                              |\r\n\r\n:::info\r\nLas mujeres también deben hablar sobre: prueba de Papanicolaou (cáncer de cuello uterino) a partir de los 21, examen clínico de mama y detección de clamidia/gonorrea si son sexualmente activas.\r\n:::",
+            "| Prueba de detección        | Frecuencia          | Notas                                                        |\n| -------------------------- | ------------------- | ------------------------------------------------------------ |\n| Presión arterial           | Cada 1-2 años       | Más seguido si está alta                                     |\n| Colesterol                 | Cada 4-6 años       | Desde los 20 si hay factores de riesgo                       |\n| Revisión de cáncer de piel | Habla con tu médico | Especialmente si tienes piel clara o antecedentes familiares |\n| Detección de ITS           | Según recomendación | Según actividad sexual                                       |\n| Examen dental              | Cada 6 meses        |                                                              |\n| Examen de la vista         | Cada 2-4 años       |                                                              |",
+          callouts: [
+            {
+              type: "info",
+              content:
+                "Las mujeres también deben hablar sobre: prueba de Papanicolaou (cáncer de cuello uterino) a partir de los 21, examen clínico de mama y detección de clamidia/gonorrea si son sexualmente activas.",
+            },
+          ],
         },
         {
           title: "De 40 a 49 años",
           content:
-            "| Prueba de detección        | Frecuencia               | Notas                                      |\r\n| -------------------------- | ------------------------ | ------------------------------------------ |\r\n| Presión arterial           | Cada año                 |                                            |\r\n| Colesterol                 | Cada 4-6 años            | Más seguido si hay factores de riesgo      |\r\n| Detección de diabetes      | Cada 3 años              | Desde los 35 si hay sobrepeso              |\r\n| Cáncer colorrectal         | **Empezar a los 45**     | Colonoscopia cada 10 años u otras pruebas  |\r\n| Mamografía (mujeres)       | Cada 1-2 años            | Habla con tu médico sobre empezar a los 40 |\r\n| Revisión de cáncer de piel | Anual si hay alto riesgo |                                            |\r\n| Examen dental              | Cada 6 meses             |                                            |\r\n| Examen de la vista         | Cada 2-4 años            |                                            |\r\n\r\n:::warning\r\nLa detección de cáncer colorrectal ahora empieza a los **45 años** (cambió de 50 en 2021). No la pospongas — la detección temprana salva vidas.\r\n:::",
+            "| Prueba de detección        | Frecuencia               | Notas                                      |\n| -------------------------- | ------------------------ | ------------------------------------------ |\n| Presión arterial           | Cada año                 |                                            |\n| Colesterol                 | Cada 4-6 años            | Más seguido si hay factores de riesgo      |\n| Detección de diabetes      | Cada 3 años              | Desde los 35 si hay sobrepeso              |\n| Cáncer colorrectal         | **Empezar a los 45**     | Colonoscopia cada 10 años u otras pruebas  |\n| Mamografía (mujeres)       | Cada 1-2 años            | Habla con tu médico sobre empezar a los 40 |\n| Revisión de cáncer de piel | Anual si hay alto riesgo |                                            |\n| Examen dental              | Cada 6 meses             |                                            |\n| Examen de la vista         | Cada 2-4 años            |                                            |",
+          callouts: [
+            {
+              type: "warning",
+              content:
+                "La detección de cáncer colorrectal ahora empieza a los **45 años** (cambió de 50 en 2021). No la pospongas — la detección temprana salva vidas.",
+            },
+          ],
         },
         {
           title: "De 50 a 64 años",
           content:
-            "| Prueba de detección            | Frecuencia                                 | Notas                                                 |\r\n| ------------------------------ | ------------------------------------------ | ----------------------------------------------------- |\r\n| Presión arterial               | Cada año                                   |                                                       |\r\n| Colesterol                     | Cada 4-6 años                              |                                                       |\r\n| Diabetes                       | Cada 3 años                                |                                                       |\r\n| Cáncer colorrectal             | Cada 10 años (colonoscopia)                | O prueba FIT anual                                    |\r\n| Mamografía (mujeres)           | Cada 1-2 años                              |                                                       |\r\n| Cáncer de pulmón (TAC)         | Anual                                      | De 50 a 80 con historial de 20 paquetes-año de tabaco |\r\n| Osteoporosis (mujeres)         | A los 65 o antes si hay factores de riesgo | Densitometría ósea                                    |\r\n| Cáncer de próstata (hombres)   | Habla con tu médico                        | De 55 a 69, decisión individual                       |\r\n| Vacuna contra el herpes zóster | Dos dosis                                  | A partir de los 50                                    |\r\n| Examen dental                  | Cada 6 meses                               |                                                       |\r\n| Examen de la vista             | Cada 1-2 años                              |                                                       |",
+            "| Prueba de detección            | Frecuencia                                 | Notas                                                 |\n| ------------------------------ | ------------------------------------------ | ----------------------------------------------------- |\n| Presión arterial               | Cada año                                   |                                                       |\n| Colesterol                     | Cada 4-6 años                              |                                                       |\n| Diabetes                       | Cada 3 años                                |                                                       |\n| Cáncer colorrectal             | Cada 10 años (colonoscopia)                | O prueba FIT anual                                    |\n| Mamografía (mujeres)           | Cada 1-2 años                              |                                                       |\n| Cáncer de pulmón (TAC)         | Anual                                      | De 50 a 80 con historial de 20 paquetes-año de tabaco |\n| Osteoporosis (mujeres)         | A los 65 o antes si hay factores de riesgo | Densitometría ósea                                    |\n| Cáncer de próstata (hombres)   | Habla con tu médico                        | De 55 a 69, decisión individual                       |\n| Vacuna contra el herpes zóster | Dos dosis                                  | A partir de los 50                                    |\n| Examen dental                  | Cada 6 meses                               |                                                       |\n| Examen de la vista             | Cada 1-2 años                              |                                                       |",
         },
         {
           title: "De 65 años en adelante",
           content:
-            "| Prueba de detección            | Frecuencia      | Notas                                    |\r\n| ------------------------------ | --------------- | ---------------------------------------- |\r\n| Presión arterial               | Cada año        |                                          |\r\n| Colesterol                     | Cada 4-6 años   |                                          |\r\n| Cáncer colorrectal             | Hasta los 75    | Hablar después de los 75                 |\r\n| Mamografía (mujeres)           | Cada 1-2 años   | Hasta los 74, luego hablar con el médico |\r\n| Cáncer de pulmón (TAC)         | Anual           | Hasta los 80 si hay historial de tabaco  |\r\n| Osteoporosis                   | Cada 2 años     |                                          |\r\n| Evaluación de riesgo de caídas | Anual           |                                          |\r\n| Detección cognitiva            | Anual           |                                          |\r\n| Vacuna contra la neumonía      | Una o dos dosis | A partir de los 65                       |\r\n| Vacuna contra la gripe         | Cada año        |                                          |\r\n| Examen dental                  | Cada 6 meses    |                                          |\r\n| Examen de la vista             | Cada año        |                                          |",
+            "| Prueba de detección            | Frecuencia      | Notas                                    |\n| ------------------------------ | --------------- | ---------------------------------------- |\n| Presión arterial               | Cada año        |                                          |\n| Colesterol                     | Cada 4-6 años   |                                          |\n| Cáncer colorrectal             | Hasta los 75    | Hablar después de los 75                 |\n| Mamografía (mujeres)           | Cada 1-2 años   | Hasta los 74, luego hablar con el médico |\n| Cáncer de pulmón (TAC)         | Anual           | Hasta los 80 si hay historial de tabaco  |\n| Osteoporosis                   | Cada 2 años     |                                          |\n| Evaluación de riesgo de caídas | Anual           |                                          |\n| Detección cognitiva            | Anual           |                                          |\n| Vacuna contra la neumonía      | Una o dos dosis | A partir de los 65                       |\n| Vacuna contra la gripe         | Cada año        |                                          |\n| Examen dental                  | Cada 6 meses    |                                          |\n| Examen de la vista             | Cada año        |                                          |",
         },
         {
           title: "Cómo prepararte para las pruebas de detección",
           content:
-            "1. **Conoce tus antecedentes familiares** — anota qué condiciones hay en tu familia\r\n2. **Lleva tus registros** — resultados previos de detección, registros de vacunas\r\n3. **Pregunta sobre el ayuno** — algunas pruebas de sangre requieren 8-12 horas sin comer\r\n4. **Usa ropa cómoda** — fácil de quitar para los exámenes\r\n5. **Escribe tus preguntas** — no confíes solo en la memoria\r\n\r\n:::success\r\nPon recordatorios de detección en tu calendario. Trátalos como cualquier otra cita importante.\r\n:::",
+            "1. **Conoce tus antecedentes familiares** — anota qué condiciones hay en tu familia\n2. **Lleva tus registros** — resultados previos de detección, registros de vacunas\n3. **Pregunta sobre el ayuno** — algunas pruebas de sangre requieren 8-12 horas sin comer\n4. **Usa ropa cómoda** — fácil de quitar para los exámenes\n5. **Escribe tus preguntas** — no confíes solo en la memoria",
+          callouts: [
+            {
+              type: "success",
+              content:
+                "Pon recordatorios de detección en tu calendario. Trátalos como cualquier otra cita importante.",
+            },
+          ],
         },
       ],
     },
@@ -604,32 +778,53 @@ export const lessons: Lesson[] = [
         {
           title: "Cómo funcionan las vacunas",
           content:
-            'Las vacunas entrenan a tu sistema inmunológico para reconocer y combatir gérmenes específicos (virus o bacterias) sin enfermarte. Contienen:\r\n\r\n- Un germen debilitado o muerto\r\n- O solo una parte del germen (como una proteína)\r\n- O instrucciones (ARNm) para que tus células produzcan una pieza inofensiva\r\n\r\nTu sistema inmune aprende a reconocer el germen y produce anticuerpos. Si te expones más adelante, tu cuerpo lo combate rápidamente — a menudo antes de que te enfermes.\r\n\r\n:::info\r\nPiensa en una vacuna como un "cartel de se busca" para tu sistema inmune. Le muestra a tu cuerpo cómo se ve el enemigo para que esté listo para atacar.\r\n:::',
+            "Las vacunas entrenan a tu sistema inmunológico para reconocer y combatir gérmenes específicos (virus o bacterias) sin enfermarte. Contienen:\n\n- Un germen debilitado o muerto\n- O solo una parte del germen (como una proteína)\n- O instrucciones (ARNm) para que tus células produzcan una pieza inofensiva\n\nTu sistema inmune aprende a reconocer el germen y produce anticuerpos. Si te expones más adelante, tu cuerpo lo combate rápidamente — a menudo antes de que te enfermes.",
+          callouts: [
+            {
+              type: "info",
+              content:
+                'Piensa en una vacuna como un "cartel de se busca" para tu sistema inmune. Le muestra a tu cuerpo cómo se ve el enemigo para que esté listo para atacar.',
+            },
+          ],
         },
         {
           title: "Tipos de vacunas",
           content:
-            "| Tipo                | Cómo funciona                              | Ejemplos                                   |\r\n| ------------------- | ------------------------------------------ | ------------------------------------------ |\r\n| Atenuada viva       | Germen debilitado                          | Triple viral, varicela, gripe nasal        |\r\n| Inactivada          | Germen muerto                              | Vacuna contra la gripe, polio, hepatitis A |\r\n| Subunidad/Conjugada | Parte del germen                           | VPH, hepatitis B, herpes zóster (Shingrix) |\r\n| ARNm                | Instrucciones para producir proteína       | COVID-19 (Pfizer, Moderna)                 |\r\n| Vector viral        | Virus inofensivo que entrega instrucciones | COVID-19 (J&J)                             |",
+            "| Tipo                | Cómo funciona                              | Ejemplos                                   |\n| ------------------- | ------------------------------------------ | ------------------------------------------ |\n| Atenuada viva       | Germen debilitado                          | Triple viral, varicela, gripe nasal        |\n| Inactivada          | Germen muerto                              | Vacuna contra la gripe, polio, hepatitis A |\n| Subunidad/Conjugada | Parte del germen                           | VPH, hepatitis B, herpes zóster (Shingrix) |\n| ARNm                | Instrucciones para producir proteína       | COVID-19 (Pfizer, Moderna)                 |\n| Vector viral        | Virus inofensivo que entrega instrucciones | COVID-19 (J&J)                             |",
         },
         {
           title: "Vacunas recomendadas para adultos",
           content:
-            "### Todos (anuales)\r\n\r\n- **Gripe (influenza)** — Cada otoño, protege contra las cepas de ese año\r\n- **COVID-19** — Según lo recomendado por los CDC (refuerzos actualizados)\r\n\r\n### Cada 10 años\r\n\r\n- **Tdap o Td** — Tétanos, difteria, tos ferina (pertussis)\r\n\r\n### A partir de 50 años\r\n\r\n- **Herpes zóster (Shingrix)** — Dos dosis, con 2-6 meses de diferencia\r\n- **VRS** — Dosis única (60+ años, consulta con tu médico)\r\n\r\n### A partir de 65 años\r\n\r\n- **Neumocócica** — Protege contra neumonía, meningitis e infecciones del torrente sanguíneo\r\n  - PCV20 (una dosis) O\r\n  - PCV15 seguida de PPSV23 (un año después)\r\n\r\n### Según factores de riesgo\r\n\r\n- **Hepatitis A** — Viajes, enfermedad hepática, hombres que tienen relaciones sexuales con hombres\r\n- **Hepatitis B** — Trabajadores de la salud, diabetes, múltiples parejas sexuales\r\n- **VPH** — Hasta los 26 años (o 27-45 después de consultar con el médico)\r\n- **Meningocócica** — Residencias universitarias, militares, ciertas condiciones médicas\r\n- **Triple viral** — Si naciste después de 1957 y no hay evidencia de inmunidad",
+            "### Todos (anuales)\n\n- **Gripe (influenza)** — Cada otoño, protege contra las cepas de ese año\n- **COVID-19** — Según lo recomendado por los CDC (refuerzos actualizados)\n\n### Cada 10 años\n\n- **Tdap o Td** — Tétanos, difteria, tos ferina (pertussis)\n\n### A partir de 50 años\n\n- **Herpes zóster (Shingrix)** — Dos dosis, con 2-6 meses de diferencia\n- **VRS** — Dosis única (60+ años, consulta con tu médico)\n\n### A partir de 65 años\n\n- **Neumocócica** — Protege contra neumonía, meningitis e infecciones del torrente sanguíneo\n  - PCV20 (una dosis) O\n  - PCV15 seguida de PPSV23 (un año después)\n\n### Según factores de riesgo\n\n- **Hepatitis A** — Viajes, enfermedad hepática, hombres que tienen relaciones sexuales con hombres\n- **Hepatitis B** — Trabajadores de la salud, diabetes, múltiples parejas sexuales\n- **VPH** — Hasta los 26 años (o 27-45 después de consultar con el médico)\n- **Meningocócica** — Residencias universitarias, militares, ciertas condiciones médicas\n- **Triple viral** — Si naciste después de 1957 y no hay evidencia de inmunidad",
         },
         {
           title: "Mitos comunes frente a hechos",
           content:
-            '| Mito                                        | Hecho                                                                                                                  |\r\n| ------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |\r\n| "Las vacunas causan autismo"                | **Falso.** Estudios grandes no encontraron vínculo. El estudio original fue retractado.                                |\r\n| "La inmunidad natural es mejor"             | **Arriesgado.** Contraer la enfermedad puede causar complicaciones graves o la muerte.                                 |\r\n| "Las vacunas contienen toxinas peligrosas"  | **Falso.** Los ingredientes están en cantidades mínimas y seguras. El aluminio en vacunas < aluminio en leche materna. |\r\n| "No necesito vacunas si estoy sano"         | **Falso.** Las personas sanas pueden enfermarse gravemente y transmitir la enfermedad a personas vulnerables.          |\r\n| "Las vacunas sobrecargan el sistema inmune" | **Falso.** Tu sistema inmune maneja miles de gérmenes al día. Las vacunas son una fracción mínima.                     |\r\n\r\n:::warning\r\nLos efectos secundarios de las vacunas (dolor en el brazo, fiebre baja, cansancio) son normales y suelen durar 1-2 días. Significan que tu sistema inmune está respondiendo. Las reacciones graves son extremadamente raras.\r\n:::',
+            '| Mito                                        | Hecho                                                                                                                  |\n| ------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |\n| "Las vacunas causan autismo"                | **Falso.** Estudios grandes no encontraron vínculo. El estudio original fue retractado.                                |\n| "La inmunidad natural es mejor"             | **Arriesgado.** Contraer la enfermedad puede causar complicaciones graves o la muerte.                                 |\n| "Las vacunas contienen toxinas peligrosas"  | **Falso.** Los ingredientes están en cantidades mínimas y seguras. El aluminio en vacunas < aluminio en leche materna. |\n| "No necesito vacunas si estoy sano"         | **Falso.** Las personas sanas pueden enfermarse gravemente y transmitir la enfermedad a personas vulnerables.          |\n| "Las vacunas sobrecargan el sistema inmune" | **Falso.** Tu sistema inmune maneja miles de gérmenes al día. Las vacunas son una fracción mínima.                     |',
+          callouts: [
+            {
+              type: "warning",
+              content:
+                "Los efectos secundarios de las vacunas (dolor en el brazo, fiebre baja, cansancio) son normales y suelen durar 1-2 días. Significan que tu sistema inmune está respondiendo. Las reacciones graves son extremadamente raras.",
+            },
+          ],
         },
         {
           title: "Qué esperar al vacunarte",
           content:
-            "1. **Antes** — Informa al proveedor sobre alergias, reacciones previas y si estás enfermo\r\n2. **Durante** — Inyección rápida en la parte superior del brazo (o nasal para la gripe nasal)\r\n3. **Después** — Espera 15 minutos (30 si tienes antecedentes de alergias graves)\r\n4. **En casa** — Mueve el brazo, mantente hidratado, usa compresas frías si hay dolor\r\n\r\n:::success\r\nMantén un registro de vacunas. Pide una copia a tu farmacia o médico. Muchos estados tienen registros de inmunización.\r\n:::",
+            "1. **Antes** — Informa al proveedor sobre alergias, reacciones previas y si estás enfermo\n2. **Durante** — Inyección rápida en la parte superior del brazo (o nasal para la gripe nasal)\n3. **Después** — Espera 15 minutos (30 si tienes antecedentes de alergias graves)\n4. **En casa** — Mueve el brazo, mantente hidratado, usa compresas frías si hay dolor",
+          callouts: [
+            {
+              type: "success",
+              content:
+                "Mantén un registro de vacunas. Pide una copia a tu farmacia o médico. Muchos estados tienen registros de inmunización.",
+            },
+          ],
         },
         {
           title: "Preguntas para hacerle a tu proveedor",
           content:
-            "1. ¿Qué vacunas necesito ahora mismo?\r\n2. ¿Hay alguna que deba evitar por mis condiciones de salud?\r\n3. ¿Qué efectos secundarios son normales?\r\n4. ¿Cuándo debo recibir la siguiente dosis?\r\n5. ¿Tiene algún costo? (La mayoría están cubiertas por el seguro)",
+            "1. ¿Qué vacunas necesito ahora mismo?\n2. ¿Hay alguna que deba evitar por mis condiciones de salud?\n3. ¿Qué efectos secundarios son normales?\n4. ¿Cuándo debo recibir la siguiente dosis?\n5. ¿Tiene algún costo? (La mayoría están cubiertas por el seguro)",
         },
       ],
     },
@@ -657,32 +852,46 @@ export const lessons: Lesson[] = [
         {
           title: "¿Qué es la hipertensión?",
           content:
-            "La hipertensión (presión arterial alta) significa que la fuerza de la sangre contra las paredes de tus arterias es constantemente demasiado alta. Con el tiempo, esto daña las arterias y aumenta el riesgo de:\r\n\r\n- Ataque cardíaco e insuficiencia cardíaca\r\n- Accidente cerebrovascular\r\n- Enfermedad renal\r\n- Pérdida de visión\r\n- Demencia",
+            "La hipertensión (presión arterial alta) significa que la fuerza de la sangre contra las paredes de tus arterias es constantemente demasiado alta. Con el tiempo, esto daña las arterias y aumenta el riesgo de:\n\n- Ataque cardíaco e insuficiencia cardíaca\n- Accidente cerebrovascular\n- Enfermedad renal\n- Pérdida de visión\n- Demencia",
         },
         {
           title: "Entendiendo tus números",
           content:
-            "La presión arterial tiene dos números:\r\n\r\n- **Sistólica (superior)** — Presión cuando el corazón late\r\n- **Diastólica (inferior)** — Presión cuando el corazón descansa\r\n\r\n| Categoría | Sistólica | Diastólica |\r\n| --------- | --------- | ---------- |\r\n| Normal    | < 120     | < 80       |\r\n| Elevada   | 120-129   | < 80       |\r\n| Etapa 1   | 130-139   | 80-89      |\r\n| Etapa 2   | ≥ 140     | ≥ 90       |\r\n| Crisis    | > 180     | > 120      |",
+            "La presión arterial tiene dos números:\n\n- **Sistólica (superior)** — Presión cuando el corazón late\n- **Diastólica (inferior)** — Presión cuando el corazón descansa\n\n| Categoría | Sistólica | Diastólica |\n| --------- | --------- | ---------- |\n| Normal    | < 120     | < 80       |\n| Elevada   | 120-129   | < 80       |\n| Etapa 1   | 130-139   | 80-89      |\n| Etapa 2   | ≥ 140     | ≥ 90       |\n| Crisis    | > 180     | > 120      |",
         },
         {
           title: "Causas de la presión alta",
           content:
-            "### Modificables\r\n\r\n- Dieta alta en sodio\r\n- Inactividad física\r\n- Exceso de peso\r\n- Consumo excesivo de alcohol\r\n- Tabaquismo\r\n- Estrés crónico\r\n\r\n### No modificables\r\n\r\n- Edad (mayor riesgo después de 65)\r\n- Antecedentes familiares\r\n- Raza (adultos negros tienen tasas más altas)",
+            "### Modificables\n\n- Dieta alta en sodio\n- Inactividad física\n- Exceso de peso\n- Consumo excesivo de alcohol\n- Tabaquismo\n- Estrés crónico\n\n### No modificables\n\n- Edad (mayor riesgo después de 65)\n- Antecedentes familiares\n- Raza (adultos negros tienen tasas más altas)",
         },
         {
           title: "Cambios de estilo de vida",
           content:
-            "### Dieta DASH\r\n\r\n- Frutas y verduras: 4-5 porciones cada una al día\r\n- Granos integrales: 6-8 porciones\r\n- Lácteos bajos en grasa: 2-3 porciones\r\n- Proteína magra: máximo 170g al día\r\n- **Limitar sodio a 1,500-2,300 mg/día**\r\n\r\n### Ejercicio\r\n\r\n- 150 minutos de actividad moderada por semana\r\n- Caminar 30 minutos, 5 días a la semana\r\n\r\n### Otros cambios clave\r\n\r\n- **Pérdida de peso:** Perder 5-10% del peso corporal puede reducir la presión significativamente\r\n- **Alcohol:** Máximo 1 trago/día (mujeres), 2 tragos/día (hombres)\r\n- **Dejar de fumar:** Cada cigarrillo eleva la presión temporalmente",
+            "### Dieta DASH\n\n- Frutas y verduras: 4-5 porciones cada una al día\n- Granos integrales: 6-8 porciones\n- Lácteos bajos en grasa: 2-3 porciones\n- Proteína magra: máximo 170g al día\n- **Limitar sodio a 1,500-2,300 mg/día**\n\n### Ejercicio\n\n- 150 minutos de actividad moderada por semana\n- Caminar 30 minutos, 5 días a la semana\n\n### Otros cambios clave\n\n- **Pérdida de peso:** Perder 5-10% del peso corporal puede reducir la presión significativamente\n- **Alcohol:** Máximo 1 trago/día (mujeres), 2 tragos/día (hombres)\n- **Dejar de fumar:** Cada cigarrillo eleva la presión temporalmente",
         },
         {
           title: "Medicamentos para la hipertensión",
           content:
-            "Si los cambios de estilo de vida no son suficientes, tu médico puede recetar medicamentos. Clases comunes:\r\n\r\n| Clase                  | Cómo funciona                 | Ejemplos comunes      |\r\n| ---------------------- | ----------------------------- | --------------------- |\r\n| Inhibidores ACE        | Relajan vasos sanguíneos      | Lisinopril, enalapril |\r\n| BRA                    | Bloquean angiotensina II      | Losartán, valsartán   |\r\n| Bloqueadores de calcio | Relajan músculos de vasos     | Amlodipino, diltiazem |\r\n| Diuréticos             | Eliminan exceso de sodio/agua | Hidroclorotiazida     |\r\n\r\n:::info\r\nLa mayoría de las personas necesitan 2+ medicamentos para alcanzar la presión objetivo. Esto es normal.\r\n:::",
+            "Si los cambios de estilo de vida no son suficientes, tu médico puede recetar medicamentos. Clases comunes:\n\n| Clase                  | Cómo funciona                 | Ejemplos comunes      |\n| ---------------------- | ----------------------------- | --------------------- |\n| Inhibidores ACE        | Relajan vasos sanguíneos      | Lisinopril, enalapril |\n| BRA                    | Bloquean angiotensina II      | Losartán, valsartán   |\n| Bloqueadores de calcio | Relajan músculos de vasos     | Amlodipino, diltiazem |\n| Diuréticos             | Eliminan exceso de sodio/agua | Hidroclorotiazida     |",
+          callouts: [
+            {
+              type: "info",
+              content:
+                "La mayoría de las personas necesitan 2+ medicamentos para alcanzar la presión objetivo. Esto es normal.",
+            },
+          ],
         },
         {
           title: "Monitoreo en casa",
           content:
-            '- Usa un brazalete validado para la parte superior del brazo\r\n- Mide dos veces al día (mañana y noche)\r\n- Siéntate tranquilo 5 minutos antes de medir\r\n- Toma 2 lecturas, con 1 minuto de diferencia\r\n\r\n:::success\r\nLa hipertensión es un "asesino silencioso" — generalmente te sientes bien. Por eso es importante medirla y tratarla, incluso cuando te sientes bien.\r\n:::',
+            "- Usa un brazalete validado para la parte superior del brazo\n- Mide dos veces al día (mañana y noche)\n- Siéntate tranquilo 5 minutos antes de medir\n- Toma 2 lecturas, con 1 minuto de diferencia",
+          callouts: [
+            {
+              type: "success",
+              content:
+                'La hipertensión es un "asesino silencioso" — generalmente te sientes bien. Por eso es importante medirla y tratarla, incluso cuando te sientes bien.',
+            },
+          ],
         },
       ],
     },
@@ -711,37 +920,63 @@ export const lessons: Lesson[] = [
         {
           title: "¿Qué es la diabetes tipo 2?",
           content:
-            "La diabetes tipo 2 significa que tu cuerpo no usa la insulina adecuadamente. La insulina es una hormona que ayuda a que la glucosa (azúcar) entre en tus células para obtener energía. Cuando la insulina no funciona bien:\r\n\r\n- La glucosa se acumula en la sangre (azúcar alta)\r\n- Tus células no reciben la energía que necesitan\r\n- Con el tiempo, el azúcar alta daña los nervios, los vasos sanguíneos y los órganos",
+            "La diabetes tipo 2 significa que tu cuerpo no usa la insulina adecuadamente. La insulina es una hormona que ayuda a que la glucosa (azúcar) entre en tus células para obtener energía. Cuando la insulina no funciona bien:\n\n- La glucosa se acumula en la sangre (azúcar alta)\n- Tus células no reciben la energía que necesitan\n- Con el tiempo, el azúcar alta daña los nervios, los vasos sanguíneos y los órganos",
         },
         {
           title: "¿Cómo se diagnostica?",
           content:
-            "| Prueba            | Normal      | Prediabetes | Diabetes             |\r\n| ----------------- | ----------- | ----------- | -------------------- |\r\n| A1C               | < 5.7%      | 5.7-6.4%    | ≥ 6.5%               |\r\n| Glucosa en ayunas | < 100 mg/dL | 100-125     | ≥ 126                |\r\n| Glucosa aleatoria | < 140       | —           | ≥ 200 (con síntomas) |\r\n\r\n:::info\r\n**La A1C** mide tu promedio de azúcar en sangre durante 2-3 meses. No requiere ayuno.\r\n:::",
+            "| Prueba            | Normal      | Prediabetes | Diabetes             |\n| ----------------- | ----------- | ----------- | -------------------- |\n| A1C               | < 5.7%      | 5.7-6.4%    | ≥ 6.5%               |\n| Glucosa en ayunas | < 100 mg/dL | 100-125     | ≥ 126                |\n| Glucosa aleatoria | < 140       | —           | ≥ 200 (con síntomas) |",
+          callouts: [
+            {
+              type: "info",
+              content:
+                "**La A1C** mide tu promedio de azúcar en sangre durante 2-3 meses. No requiere ayuno.",
+            },
+          ],
         },
         {
           title: "Factores de riesgo",
           content:
-            "### Puedes cambiarlos\r\n\r\n- Sobrepeso u obesidad (especialmente grasa abdominal)\r\n- Inactividad física\r\n- Dieta poco saludable (alta en alimentos procesados y bebidas azucaradas)\r\n- Tabaquismo\r\n\r\n### No puedes cambiarlos\r\n\r\n- Edad 45+\r\n- Antecedentes familiares (padre o hermano con diabetes tipo 2)\r\n- Raza/etnia (adultos negros, hispanos, nativos americanos, asiático-americanos y isleños del Pacífico con mayor riesgo)\r\n- Antecedentes de diabetes gestacional\r\n- SOP (síndrome de ovario poliquístico)",
+            "### Puedes cambiarlos\n\n- Sobrepeso u obesidad (especialmente grasa abdominal)\n- Inactividad física\n- Dieta poco saludable (alta en alimentos procesados y bebidas azucaradas)\n- Tabaquismo\n\n### No puedes cambiarlos\n\n- Edad 45+\n- Antecedentes familiares (padre o hermano con diabetes tipo 2)\n- Raza/etnia (adultos negros, hispanos, nativos americanos, asiático-americanos y isleños del Pacífico con mayor riesgo)\n- Antecedentes de diabetes gestacional\n- SOP (síndrome de ovario poliquístico)",
         },
         {
           title: "Control del azúcar en sangre",
           content:
-            '### Los ABC de la diabetes\r\n\r\n- **A** — **A1C** (objetivo generalmente < 7%, individualizado)\r\n- **B** — **Presión arterial** (objetivo < 130/80)\r\n- **C** — **Colesterol** (LDL < 70 o < 100 según el riesgo)\r\n\r\n### Elecciones alimentarias\r\n\r\n- Los **carbohidratos** elevan más el azúcar. Elige:\r\n  - Carbohidratos complejos: granos integrales, frijoles, verduras\r\n  - Limita: pan blanco, pasta, arroz, dulces, bebidas azucaradas\r\n- Las **proteínas y las grasas saludables** tienen un efecto mínimo en el azúcar\r\n- La **fibra** retarda la absorción de azúcar — busca 25-30 g al día\r\n\r\n:::success\r\nEl "método del plato": 1/2 plato de verduras sin almidón, 1/4 de proteína magra, 1/4 de carbohidratos complejos.\r\n:::\r\n\r\n### Actividad física\r\n\r\n- 150 minutos de actividad moderada por semana\r\n- **Entrenamiento de resistencia** 2-3 veces/semana desarrolla músculo, que usa glucosa\r\n- **Interrumpe el sedentarismo** — levántate o camina cada 30 minutos\r\n\r\n### Medicamentos\r\n\r\nExisten muchas opciones. Tu médico elige según:\r\n\r\n- Tu A1C\r\n- Otras condiciones de salud\r\n- Costo y seguro\r\n- Perfil de efectos secundarios\r\n\r\n| Clase             | Cómo funciona                                 | Ejemplos comunes               |\r\n| ----------------- | --------------------------------------------- | ------------------------------ |\r\n| Metformina        | Reduce la producción de glucosa en el hígado  | Primera línea para la mayoría  |\r\n| Inhibidores SGLT2 | Excretan glucosa en la orina                  | Empagliflozina, dapagliflozina |\r\n| Agonistas GLP-1   | Aumentan la insulina, ralentizan la digestión | Semaglutida, dulaglutida       |\r\n| Inhibidores DPP-4 | Aumentan la insulina después de las comidas   | Sitagliptina, linagliptina     |\r\n| Sulfonilureas     | Estimulan el páncreas a liberar insulina      | Glipizida, glimepirida         |\r\n| Insulina          | Reemplaza la insulina faltante                | Varios tipos                   |\r\n\r\n:::warning\r\nAlgunos medicamentos para la diabetes pueden causar **azúcar baja (hipoglucemia)**. Conoce las señales: temblores, sudoración, confusión, latido rápido. Trátala con 15 g de carbohidratos de acción rápida (jugo, tabletas de glucosa).\r\n:::',
+            "### Los ABC de la diabetes\n\n- **A** — **A1C** (objetivo generalmente < 7%, individualizado)\n- **B** — **Presión arterial** (objetivo < 130/80)\n- **C** — **Colesterol** (LDL < 70 o < 100 según el riesgo)\n\n### Elecciones alimentarias\n\n- Los **carbohidratos** elevan más el azúcar. Elige:\n  - Carbohidratos complejos: granos integrales, frijoles, verduras\n  - Limita: pan blanco, pasta, arroz, dulces, bebidas azucaradas\n- Las **proteínas y las grasas saludables** tienen un efecto mínimo en el azúcar\n- La **fibra** retarda la absorción de azúcar — busca 25-30 g al día\n\n\n\n### Actividad física\n\n- 150 minutos de actividad moderada por semana\n- **Entrenamiento de resistencia** 2-3 veces/semana desarrolla músculo, que usa glucosa\n- **Interrumpe el sedentarismo** — levántate o camina cada 30 minutos\n\n### Medicamentos\n\nExisten muchas opciones. Tu médico elige según:\n\n- Tu A1C\n- Otras condiciones de salud\n- Costo y seguro\n- Perfil de efectos secundarios\n\n| Clase             | Cómo funciona                                 | Ejemplos comunes               |\n| ----------------- | --------------------------------------------- | ------------------------------ |\n| Metformina        | Reduce la producción de glucosa en el hígado  | Primera línea para la mayoría  |\n| Inhibidores SGLT2 | Excretan glucosa en la orina                  | Empagliflozina, dapagliflozina |\n| Agonistas GLP-1   | Aumentan la insulina, ralentizan la digestión | Semaglutida, dulaglutida       |\n| Inhibidores DPP-4 | Aumentan la insulina después de las comidas   | Sitagliptina, linagliptina     |\n| Sulfonilureas     | Estimulan el páncreas a liberar insulina      | Glipizida, glimepirida         |\n| Insulina          | Reemplaza la insulina faltante                | Varios tipos                   |",
+          callouts: [
+            {
+              type: "success",
+              content:
+                'El "método del plato": 1/2 plato de verduras sin almidón, 1/4 de proteína magra, 1/4 de carbohidratos complejos.',
+            },
+            {
+              type: "warning",
+              content:
+                "Algunos medicamentos para la diabetes pueden causar **azúcar baja (hipoglucemia)**. Conoce las señales: temblores, sudoración, confusión, latido rápido. Trátala con 15 g de carbohidratos de acción rápida (jugo, tabletas de glucosa).",
+            },
+          ],
         },
         {
           title: "Monitoreo del azúcar en sangre",
           content:
-            "- **A1C:** Cada 3-6 meses\r\n- **Automonitoreo:** Según las indicaciones (antes de las comidas, al acostarte o después de comer)\r\n- **Monitor continuo de glucosa (MCG):** Lecturas en tiempo real, alertas de niveles altos/bajos",
+            "- **A1C:** Cada 3-6 meses\n- **Automonitoreo:** Según las indicaciones (antes de las comidas, al acostarte o después de comer)\n- **Monitor continuo de glucosa (MCG):** Lecturas en tiempo real, alertas de niveles altos/bajos",
         },
         {
           title: "Prevención de complicaciones",
           content:
-            "El azúcar alta con el tiempo daña:\r\n\r\n- **Ojos** (retinopatía) — Examen anual de ojos con dilatación\r\n- **Riñones** (nefropatía) — Prueba anual de albúmina en orina\r\n- **Nervios** (neuropatía) — Examen anual de pies, revisión diaria de pies\r\n- **Corazón y vasos** — Controla la presión arterial, el colesterol; no fumes\r\n- **Pies** — Mala circulación + daño nervioso = riesgo de infección\r\n\r\n:::success\r\nUn buen control reduce drásticamente el riesgo de complicaciones. Pequeñas mejoras en la A1C hacen una gran diferencia.\r\n:::",
+            "El azúcar alta con el tiempo daña:\n\n- **Ojos** (retinopatía) — Examen anual de ojos con dilatación\n- **Riñones** (nefropatía) — Prueba anual de albúmina en orina\n- **Nervios** (neuropatía) — Examen anual de pies, revisión diaria de pies\n- **Corazón y vasos** — Controla la presión arterial, el colesterol; no fumes\n- **Pies** — Mala circulación + daño nervioso = riesgo de infección",
+          callouts: [
+            {
+              type: "success",
+              content:
+                "Un buen control reduce drásticamente el riesgo de complicaciones. Pequeñas mejoras en la A1C hacen una gran diferencia.",
+            },
+          ],
         },
         {
           title: "Cuándo llamar a tu médico",
           content:
-            "- Azúcar en sangre consistentemente por encima del objetivo\r\n- Síntomas de azúcar alta: sed extrema, orinar con frecuencia, visión borrosa, fatiga\r\n- Síntomas de azúcar baja: temblores, sudoración, confusión, mareos\r\n- Enfermedad (el azúcar en sangre a menudo sube cuando estás enfermo)\r\n- Síntomas nuevos: llagas en los pies, cambios en la visión, entumecimiento",
+            "- Azúcar en sangre consistentemente por encima del objetivo\n- Síntomas de azúcar alta: sed extrema, orinar con frecuencia, visión borrosa, fatiga\n- Síntomas de azúcar baja: temblores, sudoración, confusión, mareos\n- Enfermedad (el azúcar en sangre a menudo sube cuando estás enfermo)\n- Síntomas nuevos: llagas en los pies, cambios en la visión, entumecimiento",
         },
       ],
     },
@@ -770,42 +1005,63 @@ export const lessons: Lesson[] = [
         {
           title: "¿Qué es el asma?",
           content:
-            "El asma es una enfermedad pulmonar crónica en la que las vías respiratorias se inflaman, se estrechan y producen moco adicional. Esto dificulta la respiración. Los síntomas incluyen:\r\n\r\n- Sibilancias (silbido al respirar)\r\n- Falta de aire\r\n- Opresión en el pecho\r\n- Tos (especialmente de noche o temprano en la mañana)",
+            "El asma es una enfermedad pulmonar crónica en la que las vías respiratorias se inflaman, se estrechan y producen moco adicional. Esto dificulta la respiración. Los síntomas incluyen:\n\n- Sibilancias (silbido al respirar)\n- Falta de aire\n- Opresión en el pecho\n- Tos (especialmente de noche o temprano en la mañana)",
         },
         {
           title: "¿Qué ocurre durante un ataque de asma?",
           content:
-            "1. Un **desencadenante** irrita las vías respiratorias\r\n2. **Inflamación** — el revestimiento de las vías respiratorias se hincha\r\n3. **Broncoconstricción** — los músculos alrededor de las vías respiratorias se tensan\r\n4. **Moco** — el moco espeso obstruye las vías respiratorias\r\n5. **Resultado** — el aire no puede entrar y salir con facilidad\r\n\r\n:::warning\r\n**Un ataque de asma grave es una emergencia médica.** Llama al 911 si: el inhalador de rescate no ayuda, no puedes hablar en frases completas, los labios o las uñas se ponen azules, la piel del pecho o el cuello se hunde al respirar.\r\n:::",
+            "1. Un **desencadenante** irrita las vías respiratorias\n2. **Inflamación** — el revestimiento de las vías respiratorias se hincha\n3. **Broncoconstricción** — los músculos alrededor de las vías respiratorias se tensan\n4. **Moco** — el moco espeso obstruye las vías respiratorias\n5. **Resultado** — el aire no puede entrar y salir con facilidad",
+          callouts: [
+            {
+              type: "warning",
+              content:
+                "**Un ataque de asma grave es una emergencia médica.** Llama al 911 si: el inhalador de rescate no ayuda, no puedes hablar en frases completas, los labios o las uñas se ponen azules, la piel del pecho o el cuello se hunde al respirar.",
+            },
+          ],
         },
         {
           title: "Desencadenantes comunes",
           content:
-            "| Categoría    | Ejemplos                                                                            |\r\n| ------------ | ----------------------------------------------------------------------------------- |\r\n| Alérgenos    | Polen, ácaros del polvo, moho, caspa de mascotas, cucarachas                        |\r\n| Irritantes   | Humo (tabaco, leña, incendios forestales), olores fuertes, contaminación, aire frío |\r\n| Ejercicio    | Especialmente en aire frío y seco                                                   |\r\n| Infecciones  | Resfriados, gripe, COVID-19, infecciones sinusales                                  |\r\n| Emociones    | Risa fuerte, llanto, estrés                                                         |\r\n| Medicamentos | Aspirina, AINE (ibuprofeno), betabloqueantes (en algunas personas)                  |",
+            "| Categoría    | Ejemplos                                                                            |\n| ------------ | ----------------------------------------------------------------------------------- |\n| Alérgenos    | Polen, ácaros del polvo, moho, caspa de mascotas, cucarachas                        |\n| Irritantes   | Humo (tabaco, leña, incendios forestales), olores fuertes, contaminación, aire frío |\n| Ejercicio    | Especialmente en aire frío y seco                                                   |\n| Infecciones  | Resfriados, gripe, COVID-19, infecciones sinusales                                  |\n| Emociones    | Risa fuerte, llanto, estrés                                                         |\n| Medicamentos | Aspirina, AINE (ibuprofeno), betabloqueantes (en algunas personas)                  |",
         },
         {
           title: "Dos tipos de inhaladores",
           content:
-            "### 1. Inhalador de alivio rápido (rescate)\r\n\r\n- **Agonista beta de acción corta (SABA):** Albuterol, levalbuterol\r\n- **Uso:** Para síntomas repentinos o antes del ejercicio (si te lo recetaron)\r\n- **Funciona en:** Minutos\r\n- **Dura:** 4-6 horas\r\n- **Código de color:** A menudo **rojo** o azul\r\n\r\n:::info\r\nSi usas tu inhalador de rescate más de 2 veces por semana (sin contar el uso previo al ejercicio), tu asma no está bien controlada. Habla con tu médico.\r\n:::\r\n\r\n### 2. Inhalador de control (mantenimiento)\r\n\r\n- **Corticosteroides inhalados (ICS):** Fluticasona, budesonida, beclometasona\r\n- **Uso:** A diario, incluso cuando te sientas bien\r\n- **Funciona en:** Días a semanas\r\n- **Previene:** Inflamación y ataques\r\n- **Código de color:** A menudo **naranja**, marrón o morado\r\n\r\n### Inhaladores combinados\r\n\r\n- **ICS + Agonista beta de acción prolongada (LABA):** Fluticasona/salmeterol, budesonida/formoterol\r\n- **Se usan como:** Controlador diario (algunos también están aprobados para rescate)",
+            "### 1. Inhalador de alivio rápido (rescate)\n\n- **Agonista beta de acción corta (SABA):** Albuterol, levalbuterol\n- **Uso:** Para síntomas repentinos o antes del ejercicio (si te lo recetaron)\n- **Funciona en:** Minutos\n- **Dura:** 4-6 horas\n- **Código de color:** A menudo **rojo** o azul\n\n\n\n### 2. Inhalador de control (mantenimiento)\n\n- **Corticosteroides inhalados (ICS):** Fluticasona, budesonida, beclometasona\n- **Uso:** A diario, incluso cuando te sientas bien\n- **Funciona en:** Días a semanas\n- **Previene:** Inflamación y ataques\n- **Código de color:** A menudo **naranja**, marrón o morado\n\n### Inhaladores combinados\n\n- **ICS + Agonista beta de acción prolongada (LABA):** Fluticasona/salmeterol, budesonida/formoterol\n- **Se usan como:** Controlador diario (algunos también están aprobados para rescate)",
+          callouts: [
+            {
+              type: "info",
+              content:
+                "Si usas tu inhalador de rescate más de 2 veces por semana (sin contar el uso previo al ejercicio), tu asma no está bien controlada. Habla con tu médico.",
+            },
+          ],
         },
         {
           title: "Cómo usar un inhalador de dosis medida (IDM) con espaciador",
           content:
-            "1. **Agita** bien el inhalador (5-10 segundos)\r\n2. **Conecta** el espaciador al inhalador\r\n3. **Exhala** por completo, alejándote del espaciador\r\n4. **Coloca** la boquilla del espaciador en la boca y sella los labios\r\n5. **Presiona** el inhalador **una vez**\r\n6. **Inhala** lenta y profundamente (3-5 segundos)\r\n7. **Aguanta la respiración** 10 segundos (o el tiempo que puedas)\r\n8. **Exhala** lentamente\r\n9. **Espera** 1 minuto entre inhalaciones si te recetaron 2\r\n10. **Enjuaga la boca** con agua después de los inhaladores con esteroides\r\n\r\n:::success\r\nUn espaciador (cámara de retención) duplica la cantidad de medicamento que llega a tus pulmones. Úsalo siempre con los IDM.\r\n:::",
+            "1. **Agita** bien el inhalador (5-10 segundos)\n2. **Conecta** el espaciador al inhalador\n3. **Exhala** por completo, alejándote del espaciador\n4. **Coloca** la boquilla del espaciador en la boca y sella los labios\n5. **Presiona** el inhalador **una vez**\n6. **Inhala** lenta y profundamente (3-5 segundos)\n7. **Aguanta la respiración** 10 segundos (o el tiempo que puedas)\n8. **Exhala** lentamente\n9. **Espera** 1 minuto entre inhalaciones si te recetaron 2\n10. **Enjuaga la boca** con agua después de los inhaladores con esteroides",
+          callouts: [
+            {
+              type: "success",
+              content:
+                "Un espaciador (cámara de retención) duplica la cantidad de medicamento que llega a tus pulmones. Úsalo siempre con los IDM.",
+            },
+          ],
         },
         {
           title: "Plan de acción para el asma",
           content:
-            "Un plan por escrito de tu médico con tres zonas:\r\n\r\n### Zona verde (te va bien)\r\n\r\n- Sin síntomas\r\n- Flujo máximo al 80-100% de tu mejor marca personal\r\n- **Acción:** Toma los medicamentos de control diarios según lo recetado\r\n\r\n### Zona amarilla (precaución)\r\n\r\n- Síntomas: tos, sibilancias, opresión en el pecho, despertares nocturnos\r\n- Flujo máximo al 50-79% de tu mejor marca personal\r\n- **Acción:** Añade el inhalador de alivio rápido (2-4 inhalaciones cada 20 min hasta 1 hora). Llama al médico si no mejoras.\r\n\r\n### Zona roja (emergencia)\r\n\r\n- Síntomas graves: no puedes hablar, el inhalador de rescate no ayuda\r\n- Flujo máximo < 50% de tu mejor marca personal\r\n- **Acción:** Usa el inhalador de alivio rápido (4-6 inhalaciones). **Llama al 911 o ve a urgencias.**",
+            "Un plan por escrito de tu médico con tres zonas:\n\n### Zona verde (te va bien)\n\n- Sin síntomas\n- Flujo máximo al 80-100% de tu mejor marca personal\n- **Acción:** Toma los medicamentos de control diarios según lo recetado\n\n### Zona amarilla (precaución)\n\n- Síntomas: tos, sibilancias, opresión en el pecho, despertares nocturnos\n- Flujo máximo al 50-79% de tu mejor marca personal\n- **Acción:** Añade el inhalador de alivio rápido (2-4 inhalaciones cada 20 min hasta 1 hora). Llama al médico si no mejoras.\n\n### Zona roja (emergencia)\n\n- Síntomas graves: no puedes hablar, el inhalador de rescate no ayuda\n- Flujo máximo < 50% de tu mejor marca personal\n- **Acción:** Usa el inhalador de alivio rápido (4-6 inhalaciones). **Llama al 911 o ve a urgencias.**",
         },
         {
           title: "Manejo diario del asma",
           content:
-            "- **Toma los medicamentos de control a diario** — incluso cuando te sientas bien\r\n- **Identifica y evita los desencadenantes** — las pruebas de alergia pueden ayudar\r\n- **Controla el flujo máximo** — si tu médico lo recomienda\r\n- **Mantente activo** — el ejercicio es bueno para el asma; usa el inhalador previo al ejercicio si te lo recetaron\r\n- **Vacúnate** — vacunas contra la gripe, COVID-19 y neumonía\r\n- **Deja de fumar** — el humo es un desencadenante importante\r\n- **Trata las alergias** — los aerosoles nasales y los antihistamínicos ayudan",
+            "- **Toma los medicamentos de control a diario** — incluso cuando te sientas bien\n- **Identifica y evita los desencadenantes** — las pruebas de alergia pueden ayudar\n- **Controla el flujo máximo** — si tu médico lo recomienda\n- **Mantente activo** — el ejercicio es bueno para el asma; usa el inhalador previo al ejercicio si te lo recetaron\n- **Vacúnate** — vacunas contra la gripe, COVID-19 y neumonía\n- **Deja de fumar** — el humo es un desencadenante importante\n- **Trata las alergias** — los aerosoles nasales y los antihistamínicos ayudan",
         },
         {
           title: "Cuándo consultar a tu médico",
           content:
-            "- Síntomas más de 2 días por semana\r\n- Despertares nocturnos más de 2 veces al mes\r\n- Uso del inhalador de rescate más de 2 días por semana\r\n- Limitación de actividades por el asma\r\n- Flujo máximo en zona amarilla o roja\r\n- Necesidad de rellenar el inhalador de rescate más de dos veces al año",
+            "- Síntomas más de 2 días por semana\n- Despertares nocturnos más de 2 veces al mes\n- Uso del inhalador de rescate más de 2 días por semana\n- Limitación de actividades por el asma\n- Flujo máximo en zona amarilla o roja\n- Necesidad de rellenar el inhalador de rescate más de dos veces al año",
         },
       ],
     },
@@ -839,32 +1095,45 @@ export const lessons: Lesson[] = [
         {
           title: "Principales tipos de enfermedad cardíaca",
           content:
-            '### Enfermedad de las arterias coronarias (EAC)\r\n\r\nLa placa (colesterol, grasa, calcio) estrecha las arterias coronarias. Reduce el flujo sanguíneo al músculo cardíaco.\r\n\r\n- **Angina:** Dolor o molestia en el pecho por flujo sanguíneo reducido\r\n- **Ataque cardíaco:** Flujo sanguíneo completamente bloqueado — el músculo cardíaco muere\r\n\r\n### Insuficiencia cardíaca\r\n\r\nEl corazón no puede bombear suficiente sangre para satisfacer las necesidades del cuerpo. No significa que el corazón "se detenga" — significa que no funciona con eficiencia.\r\n\r\n- Síntomas: falta de aire, fatiga, hinchazón en piernas/tobillos, aumento rápido de peso\r\n\r\n### Arritmia\r\n\r\nLatido irregular — demasiado rápido, demasiado lento o irregular.\r\n\r\n- **Fibrilación auricular (FA):** La más común; aumenta el riesgo de accidente cerebrovascular 5 veces\r\n- Síntomas: palpitaciones, mareos, fatiga, falta de aire\r\n\r\n### Enfermedad valvular\r\n\r\nLas válvulas cardíacas no se abren ni se cierran correctamente. Puede estar presente desde el nacimiento o desarrollarse más adelante.',
+            '### Enfermedad de las arterias coronarias (EAC)\n\nLa placa (colesterol, grasa, calcio) estrecha las arterias coronarias. Reduce el flujo sanguíneo al músculo cardíaco.\n\n- **Angina:** Dolor o molestia en el pecho por flujo sanguíneo reducido\n- **Ataque cardíaco:** Flujo sanguíneo completamente bloqueado — el músculo cardíaco muere\n\n### Insuficiencia cardíaca\n\nEl corazón no puede bombear suficiente sangre para satisfacer las necesidades del cuerpo. No significa que el corazón "se detenga" — significa que no funciona con eficiencia.\n\n- Síntomas: falta de aire, fatiga, hinchazón en piernas/tobillos, aumento rápido de peso\n\n### Arritmia\n\nLatido irregular — demasiado rápido, demasiado lento o irregular.\n\n- **Fibrilación auricular (FA):** La más común; aumenta el riesgo de accidente cerebrovascular 5 veces\n- Síntomas: palpitaciones, mareos, fatiga, falta de aire\n\n### Enfermedad valvular\n\nLas válvulas cardíacas no se abren ni se cierran correctamente. Puede estar presente desde el nacimiento o desarrollarse más adelante.',
         },
         {
           title: "Factores de riesgo principales",
           content:
-            "### Modificables (puedes cambiarlos)\r\n\r\n- **Presión arterial alta** — factor de riesgo número 1\r\n- **Colesterol LDL alto** — forma placa\r\n- **Diabetes** — daña los vasos sanguíneos\r\n- **Tabaquismo** — daña los vasos, eleva la presión arterial, reduce el oxígeno\r\n- **Obesidad** — especialmente la grasa abdominal\r\n- **Inactividad física**\r\n- **Dieta poco saludable** — alto contenido de sodio, grasas saturadas y azúcar añadida\r\n- **Consumo excesivo de alcohol**\r\n- **Estrés y sueño deficiente**\r\n\r\n### No modificables\r\n\r\n- Edad (hombres 45+, mujeres 55+)\r\n- Antecedentes familiares de enfermedad cardíaca temprana\r\n- Sexo (los hombres tienen mayor riesgo antes; las mujeres lo igualan después de la menopausia)\r\n- Raza/etnia (adultos negros con tasas más altas)",
+            "### Modificables (puedes cambiarlos)\n\n- **Presión arterial alta** — factor de riesgo número 1\n- **Colesterol LDL alto** — forma placa\n- **Diabetes** — daña los vasos sanguíneos\n- **Tabaquismo** — daña los vasos, eleva la presión arterial, reduce el oxígeno\n- **Obesidad** — especialmente la grasa abdominal\n- **Inactividad física**\n- **Dieta poco saludable** — alto contenido de sodio, grasas saturadas y azúcar añadida\n- **Consumo excesivo de alcohol**\n- **Estrés y sueño deficiente**\n\n### No modificables\n\n- Edad (hombres 45+, mujeres 55+)\n- Antecedentes familiares de enfermedad cardíaca temprana\n- Sexo (los hombres tienen mayor riesgo antes; las mujeres lo igualan después de la menopausia)\n- Raza/etnia (adultos negros con tasas más altas)",
         },
         {
           title: "Señales de advertencia de ataque cardíaco",
           content:
-            "| Síntoma                               | Descripción                                                                                            |\r\n| ------------------------------------- | ------------------------------------------------------------------------------------------------------ |\r\n| Molestia en el pecho                  | Presión, opresión, plenitud, dolor en el centro/izquierdo del pecho — dura > unos minutos o va y viene |\r\n| Dolor en la parte superior del cuerpo | Brazos, espalda, cuello, mandíbula, estómago                                                           |\r\n| Falta de aire                         | Con o sin molestia en el pecho                                                                         |\r\n| Sudor frío                            | Sudoración inexplicable                                                                                |\r\n| Náuseas/mareos                        | Especialmente en mujeres                                                                               |\r\n\r\n:::warning\r\n**Las mujeres a menudo tienen síntomas diferentes:** fatiga inusual, alteraciones del sueño, indigestión, ansiedad, falta de aire sin dolor en el pecho. No ignores las señales sutiles.\r\n:::",
+            "| Síntoma                               | Descripción                                                                                            |\n| ------------------------------------- | ------------------------------------------------------------------------------------------------------ |\n| Molestia en el pecho                  | Presión, opresión, plenitud, dolor en el centro/izquierdo del pecho — dura > unos minutos o va y viene |\n| Dolor en la parte superior del cuerpo | Brazos, espalda, cuello, mandíbula, estómago                                                           |\n| Falta de aire                         | Con o sin molestia en el pecho                                                                         |\n| Sudor frío                            | Sudoración inexplicable                                                                                |\n| Náuseas/mareos                        | Especialmente en mujeres                                                                               |",
+          callouts: [
+            {
+              type: "warning",
+              content:
+                "**Las mujeres a menudo tienen síntomas diferentes:** fatiga inusual, alteraciones del sueño, indigestión, ansiedad, falta de aire sin dolor en el pecho. No ignores las señales sutiles.",
+            },
+          ],
         },
         {
           title: "Señales de advertencia de accidente cerebrovascular (BE FAST)",
           content:
-            "- **B**alance (equilibrio) — pérdida repentina\r\n- **E**yes (ojos) — cambios en la visión\r\n- **F**ace (cara) — caída de un lado\r\n- **A**rm (brazo) — debilidad u hormigueo\r\n- **S**peech (habla) — arrastrada o confusa\r\n- **T**ime (tiempo) — llama al 911 de inmediato",
+            "- **B**alance (equilibrio) — pérdida repentina\n- **E**yes (ojos) — cambios en la visión\n- **F**ace (cara) — caída de un lado\n- **A**rm (brazo) — debilidad u hormigueo\n- **S**peech (habla) — arrastrada o confusa\n- **T**ime (tiempo) — llama al 911 de inmediato",
         },
         {
           title: "Protegiendo tu corazón",
           content:
-            '### Los 8 esenciales para la vida (Asociación Americana del Corazón)\r\n\r\n1. **Come mejor** — Dieta mediterránea o DASH\r\n2. **Sé activo** — 150 min moderados o 75 min vigorosos/semana\r\n3. **Deja el tabaco** — incluido el vapeo\r\n4. **Duerme bien** — 7-9 horas/noche\r\n5. **Controla tu peso** — IMC 18.5-24.9\r\n6. **Controla el colesterol** — LDL < 100 (o < 70 si tienes alto riesgo)\r\n7. **Controla el azúcar en sangre** — A1C < 5.7%\r\n8. **Controla la presión arterial** — < 120/80\r\n\r\n:::success\r\nNo tienes que ser perfecto. Cada elección saludable suma. Progreso, no perfección.\r\n:::\r\n\r\n### Alimentación saludable para el corazón\r\n\r\n- **Más:** verduras, frutas, granos integrales, frijoles, nueces, pescado, aceite de oliva\r\n- **Menos:** carne roja, carnes procesadas, granos refinados, azúcar añadida, sodio\r\n- **Limita las grasas saturadas** a < 10% de las calorías\r\n- **Sin grasas trans** (aceites parcialmente hidrogenados)\r\n\r\n### Conoce tus números (hazte revisar)\r\n\r\n| Prueba            | Objetivo                      |\r\n| ----------------- | ----------------------------- |\r\n| Presión arterial  | < 120/80                      |\r\n| Colesterol total  | < 200 mg/dL                   |\r\n| LDL ("malo")      | < 100 (o < 70 si alto riesgo) |\r\n| HDL ("bueno")     | > 40 hombres, > 50 mujeres    |\r\n| Triglicéridos     | < 150                         |\r\n| Glucosa en ayunas | < 100                         |\r\n| A1C               | < 5.7%                        |',
+            '### Los 8 esenciales para la vida (Asociación Americana del Corazón)\n\n1. **Come mejor** — Dieta mediterránea o DASH\n2. **Sé activo** — 150 min moderados o 75 min vigorosos/semana\n3. **Deja el tabaco** — incluido el vapeo\n4. **Duerme bien** — 7-9 horas/noche\n5. **Controla tu peso** — IMC 18.5-24.9\n6. **Controla el colesterol** — LDL < 100 (o < 70 si tienes alto riesgo)\n7. **Controla el azúcar en sangre** — A1C < 5.7%\n8. **Controla la presión arterial** — < 120/80\n\n\n\n### Alimentación saludable para el corazón\n\n- **Más:** verduras, frutas, granos integrales, frijoles, nueces, pescado, aceite de oliva\n- **Menos:** carne roja, carnes procesadas, granos refinados, azúcar añadida, sodio\n- **Limita las grasas saturadas** a < 10% de las calorías\n- **Sin grasas trans** (aceites parcialmente hidrogenados)\n\n### Conoce tus números (hazte revisar)\n\n| Prueba            | Objetivo                      |\n| ----------------- | ----------------------------- |\n| Presión arterial  | < 120/80                      |\n| Colesterol total  | < 200 mg/dL                   |\n| LDL ("malo")      | < 100 (o < 70 si alto riesgo) |\n| HDL ("bueno")     | > 40 hombres, > 50 mujeres    |\n| Triglicéridos     | < 150                         |\n| Glucosa en ayunas | < 100                         |\n| A1C               | < 5.7%                        |',
+          callouts: [
+            {
+              type: "success",
+              content: "No tienes que ser perfecto. Cada elección saludable suma. Progreso, no perfección.",
+            },
+          ],
         },
         {
           title: "Cuándo llamar a tu médico",
           content:
-            "- Molestia en el pecho nueva o que empeora\r\n- Falta de aire con actividad o en reposo\r\n- Latido irregular (palpitaciones, acelerado, saltos)\r\n- Hinchazón en piernas, tobillos, pies\r\n- Fatiga inexplicable o incapacidad para hacer las actividades habituales\r\n- Mareos, desmayos o casi desmayos",
+            "- Molestia en el pecho nueva o que empeora\n- Falta de aire con actividad o en reposo\n- Latido irregular (palpitaciones, acelerado, saltos)\n- Hinchazón en piernas, tobillos, pies\n- Fatiga inexplicable o incapacidad para hacer las actividades habituales\n- Mareos, desmayos o casi desmayos",
         },
       ],
     },
@@ -897,32 +1166,53 @@ export const lessons: Lesson[] = [
         {
           title: "Síntomas comunes",
           content:
-            "- **Emocionales:** Tristeza persistente, vacío o desesperanza; pérdida de interés en pasatiempos; irritabilidad\r\n- **Físicos:** Fatiga, cambios en el sueño (demasiado o muy poco), cambio significativo de peso/apetito, movimientos lentos\r\n- **Cognitivos:** Dificultad para concentrarse, tomar decisiones o recordar; autocrítica negativa; culpa excesiva\r\n- **Conductuales:** Aislamiento de amigos y actividades; dificultad para hacer el trabajo o las tareas del hogar\r\n\r\nNo todas las personas experimentan todos los síntomas. El diagnóstico requiere 5 o más síntomas durante 2 o más semanas, con al menos uno siendo estado de ánimo deprimido o pérdida de interés.",
+            "- **Emocionales:** Tristeza persistente, vacío o desesperanza; pérdida de interés en pasatiempos; irritabilidad\n- **Físicos:** Fatiga, cambios en el sueño (demasiado o muy poco), cambio significativo de peso/apetito, movimientos lentos\n- **Cognitivos:** Dificultad para concentrarse, tomar decisiones o recordar; autocrítica negativa; culpa excesiva\n- **Conductuales:** Aislamiento de amigos y actividades; dificultad para hacer el trabajo o las tareas del hogar\n\nNo todas las personas experimentan todos los síntomas. El diagnóstico requiere 5 o más síntomas durante 2 o más semanas, con al menos uno siendo estado de ánimo deprimido o pérdida de interés.",
         },
         {
           title: "Cuándo buscar ayuda",
           content:
-            "Busca ayuda profesional si los síntomas:\r\n\r\n- Duran más de 2 semanas\r\n- Interfieren con el trabajo, la escuela o las relaciones\r\n- Causan angustia significativa\r\n- Incluyen pensamientos de autolesión\r\n\r\n### Emergencia médica — llama al 988 (Línea de Prevención del Suicidio y Crisis) si:\r\n\r\n- Tienes pensamientos de suicidio\r\n- Planeas hacerte daño\r\n- Sientes que no puedes mantenerte a salvo\r\n\r\n:::warning\r\nSi tú o alguien que conoces está en crisis, llama o envía un mensaje de texto al **988** (EE.UU.). Importas. Hay ayuda disponible 24/7.\r\n:::",
+            "Busca ayuda profesional si los síntomas:\n\n- Duran más de 2 semanas\n- Interfieren con el trabajo, la escuela o las relaciones\n- Causan angustia significativa\n- Incluyen pensamientos de autolesión\n\n### Emergencia médica — llama al 988 (Línea de Prevención del Suicidio y Crisis) si:\n\n- Tienes pensamientos de suicidio\n- Planeas hacerte daño\n- Sientes que no puedes mantenerte a salvo",
+          callouts: [
+            {
+              type: "warning",
+              content:
+                "Si tú o alguien que conoces está en crisis, llama o envía un mensaje de texto al **988** (EE.UU.). Importas. Hay ayuda disponible 24/7.",
+            },
+          ],
         },
         {
           title: "¿Qué causa la depresión?",
           content:
-            '- **Genética:** Se presenta en familias (pero no hay un solo "gen de la depresión")\r\n- **Eventos de la vida:** Trauma, pérdida, estrés financiero, divorcio\r\n- **Condiciones médicas:** Dolor crónico, trastornos de tiroides, enfermedad cardíaca, cáncer\r\n- **Medicamentos:** Algunos fármacos pueden desencadenar depresión\r\n- **Química cerebral:** Desequilibrio en neurotransmisores (serotonina, norepinefrina, dopamina)',
+            '- **Genética:** Se presenta en familias (pero no hay un solo "gen de la depresión")\n- **Eventos de la vida:** Trauma, pérdida, estrés financiero, divorcio\n- **Condiciones médicas:** Dolor crónico, trastornos de tiroides, enfermedad cardíaca, cáncer\n- **Medicamentos:** Algunos fármacos pueden desencadenar depresión\n- **Química cerebral:** Desequilibrio en neurotransmisores (serotonina, norepinefrina, dopamina)',
         },
         {
           title: "Opciones de tratamiento",
           content:
-            "### Psicoterapia (terapia de conversación)\r\n\r\n- **Terapia Cognitivo-Conductual (TCC)** — La más investigada; se enfoca en cambiar patrones de pensamiento negativos\r\n- **Terapia Interpersonal (TIP)** — Se enfoca en las relaciones y los cambios de vida\r\n- **Duración:** Generalmente 12-20 sesiones en 3-4 meses\r\n- **Efectividad:** 50-70% de mejora\r\n\r\n### Medicamentos (antidepresivos)\r\n\r\n| Clase    | Cómo funciona                       | Ejemplos                                                         |\r\n| -------- | ----------------------------------- | ---------------------------------------------------------------- |\r\n| ISRS     | Aumentan la serotonina              | Fluoxetina (Prozac), sertralina (Zoloft), escitalopram (Lexapro) |\r\n| IRSN     | Aumentan serotonina + norepinefrina | Venlafaxina (Effexor), duloxetina (Cymbalta)                     |\r\n| IRND     | Aumentan norepinefrina + dopamina   | Bupropión (Wellbutrin)                                           |\r\n| Atípicos | Varios mecanismos                   | Mirtazapina, trazodona                                           |\r\n\r\n:::info\r\nLos antidepresivos tardan 2-4 semanas en empezar a hacer efecto y 6-8 semanas para el efecto completo. Los efectos secundarios (náuseas, insomnio, cambios sexuales) a menudo mejoran en 2 semanas.\r\n:::\r\n\r\n### Apoyo de estilo de vida\r\n\r\n- **Ejercicio:** 30 minutos de actividad moderada 5 veces/semana — tan efectivo como los medicamentos para depresión leve a moderada\r\n- **Sueño:** Horarios consistentes para acostarte y levantarte\r\n- **Dieta:** La dieta mediterránea se asocia con menor riesgo\r\n- **Conexión social:** Incluso 1 relación de apoyo importa",
+            "### Psicoterapia (terapia de conversación)\n\n- **Terapia Cognitivo-Conductual (TCC)** — La más investigada; se enfoca en cambiar patrones de pensamiento negativos\n- **Terapia Interpersonal (TIP)** — Se enfoca en las relaciones y los cambios de vida\n- **Duración:** Generalmente 12-20 sesiones en 3-4 meses\n- **Efectividad:** 50-70% de mejora\n\n### Medicamentos (antidepresivos)\n\n| Clase    | Cómo funciona                       | Ejemplos                                                         |\n| -------- | ----------------------------------- | ---------------------------------------------------------------- |\n| ISRS     | Aumentan la serotonina              | Fluoxetina (Prozac), sertralina (Zoloft), escitalopram (Lexapro) |\n| IRSN     | Aumentan serotonina + norepinefrina | Venlafaxina (Effexor), duloxetina (Cymbalta)                     |\n| IRND     | Aumentan norepinefrina + dopamina   | Bupropión (Wellbutrin)                                           |\n| Atípicos | Varios mecanismos                   | Mirtazapina, trazodona                                           |\n\n\n\n### Apoyo de estilo de vida\n\n- **Ejercicio:** 30 minutos de actividad moderada 5 veces/semana — tan efectivo como los medicamentos para depresión leve a moderada\n- **Sueño:** Horarios consistentes para acostarte y levantarte\n- **Dieta:** La dieta mediterránea se asocia con menor riesgo\n- **Conexión social:** Incluso 1 relación de apoyo importa",
+          callouts: [
+            {
+              type: "info",
+              content:
+                "Los antidepresivos tardan 2-4 semanas en empezar a hacer efecto y 6-8 semanas para el efecto completo. Los efectos secundarios (náuseas, insomnio, cambios sexuales) a menudo mejoran en 2 semanas.",
+            },
+          ],
         },
         {
           title: "Cómo es la recuperación",
           content:
-            "- **Fase aguda (6-12 semanas):** Los síntomas comienzan a mejorar\r\n- **Fase de continuación (4-9 meses):** El tratamiento continúa para prevenir recaídas\r\n- **Fase de mantenimiento (1+ año):** Para depresión crónica o recurrente\r\n\r\nLa mayoría de las personas mejoran con tratamiento. Aproximadamente el 70% responde al primer antidepresivo. Si uno no funciona, es probable que otro sí lo haga.",
+            "- **Fase aguda (6-12 semanas):** Los síntomas comienzan a mejorar\n- **Fase de continuación (4-9 meses):** El tratamiento continúa para prevenir recaídas\n- **Fase de mantenimiento (1+ año):** Para depresión crónica o recurrente\n\nLa mayoría de las personas mejoran con tratamiento. Aproximadamente el 70% responde al primer antidepresivo. Si uno no funciona, es probable que otro sí lo haga.",
         },
         {
           title: "Cómo apoyar a alguien con depresión",
           content:
-            '- **Escucha, no arregles.** "Suena difícil" es mejor que "Solo alégrate"\r\n- **Ofrece ayuda específica:** "Traeré la cena el martes" en lugar de "Avísame si necesitas algo"\r\n- **Anima a buscar ayuda profesional** sin presionar\r\n- **Comunícate con regularidad** — la depresión aísla\r\n- **Tómate el suicidio en serio** — pregunta directamente si tiene pensamientos de autolesión\r\n\r\n:::success\r\nLa recuperación de la depresión es la regla, no la excepción. Con tratamiento, la mayoría de las personas vuelven a su nivel habitual de funcionamiento.\r\n:::',
+            '- **Escucha, no arregles.** "Suena difícil" es mejor que "Solo alégrate"\n- **Ofrece ayuda específica:** "Traeré la cena el martes" en lugar de "Avísame si necesitas algo"\n- **Anima a buscar ayuda profesional** sin presionar\n- **Comunícate con regularidad** — la depresión aísla\n- **Tómate el suicidio en serio** — pregunta directamente si tiene pensamientos de autolesión',
+          callouts: [
+            {
+              type: "success",
+              content:
+                "La recuperación de la depresión es la regla, no la excepción. Con tratamiento, la mayoría de las personas vuelven a su nivel habitual de funcionamiento.",
+            },
+          ],
         },
       ],
     },
@@ -956,32 +1246,46 @@ export const lessons: Lesson[] = [
         {
           title: "Ansiedad normal frente a trastorno de ansiedad",
           content:
-            "| Ansiedad normal              | Trastorno de ansiedad                                          |\r\n| ---------------------------- | -------------------------------------------------------------- |\r\n| Temporal, pasa rápidamente   | Persistente (semanas/meses)                                    |\r\n| Proporcionada a la situación | Desproporcionada                                               |\r\n| No interfiere con la vida    | Interfiere con el trabajo, las relaciones y las tareas diarias |\r\n| Puedes redirigir la atención | Es difícil controlarla o detenerla                             |",
+            "| Ansiedad normal              | Trastorno de ansiedad                                          |\n| ---------------------------- | -------------------------------------------------------------- |\n| Temporal, pasa rápidamente   | Persistente (semanas/meses)                                    |\n| Proporcionada a la situación | Desproporcionada                                               |\n| No interfiere con la vida    | Interfiere con el trabajo, las relaciones y las tareas diarias |\n| Puedes redirigir la atención | Es difícil controlarla o detenerla                             |",
         },
         {
           title: "Tipos comunes de trastornos de ansiedad",
           content:
-            "### Trastorno de ansiedad generalizada (TAG)\r\n\r\n- Preocupación excesiva por muchas cosas (salud, dinero, familia, trabajo)\r\n- Síntomas físicos: tensión muscular, fatiga, inquietud, dificultad para dormir\r\n- Dificultad para controlar la preocupación\r\n\r\n### Trastorno de pánico\r\n\r\n- Ataques de pánico recurrentes e inesperados\r\n- Miedo a tener otro ataque\r\n- Evitación de lugares donde ocurrieron ataques\r\n\r\n### Trastorno de ansiedad social\r\n\r\n- Miedo intenso a situaciones sociales\r\n- Miedo a ser juzgado, avergonzado o humillado\r\n- Evitación de eventos sociales, hablar en público, comer en público\r\n\r\n### Fobias específicas\r\n\r\n- Miedo intenso a un objeto o situación específica (agujas, alturas, volar, espacios cerrados)\r\n- Respuesta de ansiedad inmediata al exponerse",
+            "### Trastorno de ansiedad generalizada (TAG)\n\n- Preocupación excesiva por muchas cosas (salud, dinero, familia, trabajo)\n- Síntomas físicos: tensión muscular, fatiga, inquietud, dificultad para dormir\n- Dificultad para controlar la preocupación\n\n### Trastorno de pánico\n\n- Ataques de pánico recurrentes e inesperados\n- Miedo a tener otro ataque\n- Evitación de lugares donde ocurrieron ataques\n\n### Trastorno de ansiedad social\n\n- Miedo intenso a situaciones sociales\n- Miedo a ser juzgado, avergonzado o humillado\n- Evitación de eventos sociales, hablar en público, comer en público\n\n### Fobias específicas\n\n- Miedo intenso a un objeto o situación específica (agujas, alturas, volar, espacios cerrados)\n- Respuesta de ansiedad inmediata al exponerse",
         },
         {
           title: "¿Qué es un ataque de pánico?",
           content:
-            'Un ataque de pánico es una oleada repentina de miedo intenso que alcanza su punto máximo en minutos. Los síntomas incluyen:\r\n\r\n- Corazón acelerado o palpitaciones\r\n- Sudoración, temblores, sacudidas\r\n- Falta de aire o sensación de asfixia\r\n- Dolor o molestia en el pecho\r\n- Náuseas o malestar estomacal\r\n- Mareos, aturdimiento, sensación de desmayo\r\n- Escalofríos o sensación de calor\r\n- Entumecimiento u hormigueo\r\n- Sensación de desconexión de ti mismo o de la realidad\r\n- Miedo a perder el control, "volverse loco" o morir\r\n\r\n:::warning\r\nLos síntomas de un ataque de pánico pueden parecerse a los de un ataque cardíaco. Si no estás seguro, busca atención de emergencia. Una vez diagnosticados, puedes aprender a reconocerlos.\r\n:::',
+            'Un ataque de pánico es una oleada repentina de miedo intenso que alcanza su punto máximo en minutos. Los síntomas incluyen:\n\n- Corazón acelerado o palpitaciones\n- Sudoración, temblores, sacudidas\n- Falta de aire o sensación de asfixia\n- Dolor o molestia en el pecho\n- Náuseas o malestar estomacal\n- Mareos, aturdimiento, sensación de desmayo\n- Escalofríos o sensación de calor\n- Entumecimiento u hormigueo\n- Sensación de desconexión de ti mismo o de la realidad\n- Miedo a perder el control, "volverse loco" o morir',
+          callouts: [
+            {
+              type: "warning",
+              content:
+                "Los síntomas de un ataque de pánico pueden parecerse a los de un ataque cardíaco. Si no estás seguro, busca atención de emergencia. Una vez diagnosticados, puedes aprender a reconocerlos.",
+            },
+          ],
         },
         {
           title: "¿Qué causa los trastornos de ansiedad?",
           content:
-            "- **Genética:** 30-40% de heredabilidad\r\n- **Química cerebral:** Desequilibrio en serotonina, GABA, norepinefrina\r\n- **Personalidad:** Alto neuroticismo, inhibición conductual\r\n- **Trauma:** Adversidad en la infancia, abuso, negligencia\r\n- **Estrés:** Cambios importantes en la vida, estrés crónico, presión financiera\r\n- **Causas médicas:** Problemas de tiroides, arritmia cardíaca, cafeína, medicamentos",
+            "- **Genética:** 30-40% de heredabilidad\n- **Química cerebral:** Desequilibrio en serotonina, GABA, norepinefrina\n- **Personalidad:** Alto neuroticismo, inhibición conductual\n- **Trauma:** Adversidad en la infancia, abuso, negligencia\n- **Estrés:** Cambios importantes en la vida, estrés crónico, presión financiera\n- **Causas médicas:** Problemas de tiroides, arritmia cardíaca, cafeína, medicamentos",
         },
         {
           title: "Manejo de la ansiedad",
           content:
-            '### Técnicas de conexión a tierra (para ansiedad o pánico agudo)\r\n\r\n1. **5-4-3-2-1:** Nombra 5 cosas que ves, 4 que puedes tocar, 3 que oyes, 2 que hueles, 1 que saboreas\r\n2. **Respiración profunda:** Inhala 4 segundos, mantén 4, exhala 6 — activa el sistema nervioso parasimpático\r\n3. **Agua fría:** Rocía agua fría en tu cara — activa el reflejo de inmersión y reduce la frecuencia cardíaca\r\n4. **Diálogo interno:** "Esto es incómodo, pero no es peligroso. Pasará."\r\n\r\n### Estilo de vida\r\n\r\n- **Limita la cafeína:** Aumenta la frecuencia cardíaca e imita los síntomas de ansiedad\r\n- **Ejercicio regular:** Quema las hormonas del estrés y produce endorfinas\r\n- **Sueño:** 7-9 horas — la privación de sueño empeora la ansiedad\r\n- **Reduce el alcohol:** Alivio a corto plazo, empeoramiento a largo plazo\r\n- **Meditación de atención plena:** 10 minutos al día reducen la reactividad de la amígdala\r\n\r\n### Tratamientos profesionales\r\n\r\n- **TCC (Terapia Cognitivo-Conductual)** — Estándar de oro para todos los trastornos de ansiedad. Te enseña a cuestionar los pensamientos ansiosos y enfrentar los miedos gradualmente\r\n- **Terapia de exposición** — Enfrentar situaciones temidas de forma gradual y segura\r\n- **Terapia de Aceptación y Compromiso (ACT)** — Acepta la ansiedad y se compromete con acciones valiosas\r\n- **Medicamentos:**\r\n  - ISRS/IRSN (los mismos que para la depresión) — diarios, a largo plazo\r\n  - Buspirona — para el TAG\r\n  - Benzodiazepinas (p. ej., clonazepam, lorazepam) — solo a corto plazo o según necesidad\r\n\r\n:::success\r\nLos trastornos de ansiedad son altamente tratables. El 70-90% de las personas mejoran con tratamiento basado en evidencia. No tienes que vivir con miedo constante.\r\n:::',
+            '### Técnicas de conexión a tierra (para ansiedad o pánico agudo)\n\n1. **5-4-3-2-1:** Nombra 5 cosas que ves, 4 que puedes tocar, 3 que oyes, 2 que hueles, 1 que saboreas\n2. **Respiración profunda:** Inhala 4 segundos, mantén 4, exhala 6 — activa el sistema nervioso parasimpático\n3. **Agua fría:** Rocía agua fría en tu cara — activa el reflejo de inmersión y reduce la frecuencia cardíaca\n4. **Diálogo interno:** "Esto es incómodo, pero no es peligroso. Pasará."\n\n### Estilo de vida\n\n- **Limita la cafeína:** Aumenta la frecuencia cardíaca e imita los síntomas de ansiedad\n- **Ejercicio regular:** Quema las hormonas del estrés y produce endorfinas\n- **Sueño:** 7-9 horas — la privación de sueño empeora la ansiedad\n- **Reduce el alcohol:** Alivio a corto plazo, empeoramiento a largo plazo\n- **Meditación de atención plena:** 10 minutos al día reducen la reactividad de la amígdala\n\n### Tratamientos profesionales\n\n- **TCC (Terapia Cognitivo-Conductual)** — Estándar de oro para todos los trastornos de ansiedad. Te enseña a cuestionar los pensamientos ansiosos y enfrentar los miedos gradualmente\n- **Terapia de exposición** — Enfrentar situaciones temidas de forma gradual y segura\n- **Terapia de Aceptación y Compromiso (ACT)** — Acepta la ansiedad y se compromete con acciones valiosas\n- **Medicamentos:**\n  - ISRS/IRSN (los mismos que para la depresión) — diarios, a largo plazo\n  - Buspirona — para el TAG\n  - Benzodiazepinas (p. ej., clonazepam, lorazepam) — solo a corto plazo o según necesidad',
+          callouts: [
+            {
+              type: "success",
+              content:
+                "Los trastornos de ansiedad son altamente tratables. El 70-90% de las personas mejoran con tratamiento basado en evidencia. No tienes que vivir con miedo constante.",
+            },
+          ],
         },
         {
           title: "Cuándo buscar ayuda profesional",
           content:
-            "- La ansiedad te impide hacer cosas que quieres hacer\r\n- Evitas el trabajo, la escuela o situaciones sociales\r\n- La ansiedad ha durado meses y no mejora\r\n- Dependes del alcohol o las drogas para afrontarla\r\n- Tienes pensamientos de autolesión\r\n\r\nLlama al **988** (Línea de Prevención del Suicidio y Crisis) si la ansiedad es abrumadora y sientes que no puedes afrontarla.",
+            "- La ansiedad te impide hacer cosas que quieres hacer\n- Evitas el trabajo, la escuela o situaciones sociales\n- La ansiedad ha durado meses y no mejora\n- Dependes del alcohol o las drogas para afrontarla\n- Tienes pensamientos de autolesión\n\nLlama al **988** (Línea de Prevención del Suicidio y Crisis) si la ansiedad es abrumadora y sientes que no puedes afrontarla.",
         },
       ],
     },
@@ -1009,37 +1313,58 @@ export const lessons: Lesson[] = [
         {
           title: "Por qué el sueño es importante",
           content:
-            "El sueño es esencial para la salud física y mental. Durante el sueño, tu cuerpo:\r\n\r\n- Repara músculos y tejidos\r\n- Consolida recuerdos y aprendizaje\r\n- Regula el estado de ánimo y las emociones\r\n- Apoya la función inmunológica\r\n- Regula las hormonas del hambre y el metabolismo",
+            "El sueño es esencial para la salud física y mental. Durante el sueño, tu cuerpo:\n\n- Repara músculos y tejidos\n- Consolida recuerdos y aprendizaje\n- Regula el estado de ánimo y las emociones\n- Apoya la función inmunológica\n- Regula las hormonas del hambre y el metabolismo",
         },
         {
           title: "¿Cuánto sueño necesitas?",
           content:
-            "| Edad               | Horas recomendadas |\r\n| ------------------ | ------------------ |\r\n| Adultos 18-60      | 7+ horas           |\r\n| Adultos 61-64      | 7-9 horas          |\r\n| Adultos 65+        | 7-8 horas          |\r\n| Adolescentes 14-17 | 8-10 horas         |\r\n| Niños 6-12         | 9-12 horas         |",
+            "| Edad               | Horas recomendadas |\n| ------------------ | ------------------ |\n| Adultos 18-60      | 7+ horas           |\n| Adultos 61-64      | 7-9 horas          |\n| Adultos 65+        | 7-8 horas          |\n| Adolescentes 14-17 | 8-10 horas         |\n| Niños 6-12         | 9-12 horas         |",
         },
         {
           title: "¿Qué ocurre cuando no duermes lo suficiente?",
           content:
-            "### Efectos a corto plazo (1-2 noches):\r\n\r\n- Irritabilidad y cambios de humor\r\n- Dificultad para concentrarse y tomar decisiones\r\n- Tiempo de reacción más lento (similar a la intoxicación por alcohol)\r\n- Mayor apetito, especialmente por alimentos con mucho azúcar\r\n\r\n### Efectos a largo plazo (privación crónica de sueño):\r\n\r\n- Mayor riesgo: obesidad, diabetes, enfermedad cardíaca, presión arterial alta\r\n- Sistema inmunológico debilitado (más resfriados, recuperación más lenta)\r\n- Mayor riesgo de depresión y ansiedad\r\n- Problemas de memoria y deterioro cognitivo\r\n- Esperanza de vida reducida\r\n\r\n:::warning\r\nConducir con privación de sueño es tan peligroso como conducir ebrio. Después de 18+ horas despierto, tu deterioro equivale a una concentración de alcohol en sangre de 0.05%.\r\n:::",
+            "### Efectos a corto plazo (1-2 noches):\n\n- Irritabilidad y cambios de humor\n- Dificultad para concentrarse y tomar decisiones\n- Tiempo de reacción más lento (similar a la intoxicación por alcohol)\n- Mayor apetito, especialmente por alimentos con mucho azúcar\n\n### Efectos a largo plazo (privación crónica de sueño):\n\n- Mayor riesgo: obesidad, diabetes, enfermedad cardíaca, presión arterial alta\n- Sistema inmunológico debilitado (más resfriados, recuperación más lenta)\n- Mayor riesgo de depresión y ansiedad\n- Problemas de memoria y deterioro cognitivo\n- Esperanza de vida reducida",
+          callouts: [
+            {
+              type: "warning",
+              content:
+                "Conducir con privación de sueño es tan peligroso como conducir ebrio. Después de 18+ horas despierto, tu deterioro equivale a una concentración de alcohol en sangre de 0.05%.",
+            },
+          ],
         },
         {
           title: "Trastornos del sueño comunes",
           content:
-            '### Insomnio\r\n\r\n- Dificultad para conciliar el sueño, mantenerlo o despertar demasiado temprano\r\n- Afecta al 30% de los adultos (10% crónico)\r\n- Tratamiento: TCC-I (terapia cognitivo-conductual para el insomnio) es la primera línea\r\n\r\n### Apnea del sueño\r\n\r\n- La respiración se detiene y reinicia durante el sueño\r\n- Ronquidos fuertes, jadeos, sensación de ahogo\r\n- Somnolencia diurna a pesar de "dormir toda la noche"\r\n- Aumenta el riesgo de enfermedad cardíaca y accidente cerebrovascular\r\n- Tratamiento: máquina CPAP, aparato oral, pérdida de peso\r\n\r\n### Síndrome de piernas inquietas (SPI)\r\n\r\n- Impulso incontrolable de mover las piernas, especialmente en reposo\r\n- Empeora por la noche — interrumpe el sueño\r\n- Tratamiento: suplementos de hierro (si hay deficiencia), medicamentos, cambios de estilo de vida',
+            '### Insomnio\n\n- Dificultad para conciliar el sueño, mantenerlo o despertar demasiado temprano\n- Afecta al 30% de los adultos (10% crónico)\n- Tratamiento: TCC-I (terapia cognitivo-conductual para el insomnio) es la primera línea\n\n### Apnea del sueño\n\n- La respiración se detiene y reinicia durante el sueño\n- Ronquidos fuertes, jadeos, sensación de ahogo\n- Somnolencia diurna a pesar de "dormir toda la noche"\n- Aumenta el riesgo de enfermedad cardíaca y accidente cerebrovascular\n- Tratamiento: máquina CPAP, aparato oral, pérdida de peso\n\n### Síndrome de piernas inquietas (SPI)\n\n- Impulso incontrolable de mover las piernas, especialmente en reposo\n- Empeora por la noche — interrumpe el sueño\n- Tratamiento: suplementos de hierro (si hay deficiencia), medicamentos, cambios de estilo de vida',
         },
         {
           title: "Higiene del sueño: tus hábitos diarios",
           content:
-            "### Haz\r\n\r\n- **Levántate a la misma hora todos los días** — lo más importante para regular el ritmo circadiano\r\n- **Toma luz solar matutina** — 10-15 minutos dentro de la primera hora al despertar\r\n- **Ejercítate regularmente** — pero no dentro de 2-3 horas antes de acostarte\r\n- **Crea una rutina relajante** — 30-60 minutos antes de dormir (leer, estirar, baño caliente)\r\n- **Usa la cama solo para dormir y relaciones sexuales** — entrena al cerebro a asociar la cama con el sueño\r\n- **Mantén el dormitorio fresco** — 18-20°C es óptimo\r\n\r\n### No hagas\r\n\r\n- **Sin pantallas antes de dormir** — la luz azul suprime la melatonina y el contenido estimula el cerebro\r\n- **Sin cafeína después del mediodía** — su vida media es de 5-6 horas\r\n- **Sin alcohol 3 horas antes de acostarte** — interrumpe el sueño REM y causa despertares nocturnos\r\n- **Sin comidas grandes 2-3 horas antes** — la digestión interfiere con el sueño\r\n- **Sin mirar el reloj** — la ansiedad por la hora empeora el insomnio\r\n\r\n:::info\r\nLa TCC-I (Terapia Cognitivo-Conductual para el Insomnio) es el tratamiento más efectivo para el insomnio crónico — más efectivo que los medicamentos para dormir a largo plazo.\r\n:::",
+            "### Haz\n\n- **Levántate a la misma hora todos los días** — lo más importante para regular el ritmo circadiano\n- **Toma luz solar matutina** — 10-15 minutos dentro de la primera hora al despertar\n- **Ejercítate regularmente** — pero no dentro de 2-3 horas antes de acostarte\n- **Crea una rutina relajante** — 30-60 minutos antes de dormir (leer, estirar, baño caliente)\n- **Usa la cama solo para dormir y relaciones sexuales** — entrena al cerebro a asociar la cama con el sueño\n- **Mantén el dormitorio fresco** — 18-20°C es óptimo\n\n### No hagas\n\n- **Sin pantallas antes de dormir** — la luz azul suprime la melatonina y el contenido estimula el cerebro\n- **Sin cafeína después del mediodía** — su vida media es de 5-6 horas\n- **Sin alcohol 3 horas antes de acostarte** — interrumpe el sueño REM y causa despertares nocturnos\n- **Sin comidas grandes 2-3 horas antes** — la digestión interfiere con el sueño\n- **Sin mirar el reloj** — la ansiedad por la hora empeora el insomnio",
+          callouts: [
+            {
+              type: "info",
+              content:
+                "La TCC-I (Terapia Cognitivo-Conductual para el Insomnio) es el tratamiento más efectivo para el insomnio crónico — más efectivo que los medicamentos para dormir a largo plazo.",
+            },
+          ],
         },
         {
           title: "Cuándo consultar a un médico sobre el sueño",
           content:
-            "- Dificultad para dormir 3+ noches/semana durante 3+ meses\r\n- Ronquidos fuertes con jadeos o sensación de ahogo\r\n- Quedarte dormido durante actividades diurnas (conducir, trabajar)\r\n- Sensaciones en las piernas que impiden dormir\r\n- Despertar sin sentirte descansado a pesar de 7-8 horas en la cama",
+            "- Dificultad para dormir 3+ noches/semana durante 3+ meses\n- Ronquidos fuertes con jadeos o sensación de ahogo\n- Quedarte dormido durante actividades diurnas (conducir, trabajar)\n- Sensaciones en las piernas que impiden dormir\n- Despertar sin sentirte descansado a pesar de 7-8 horas en la cama",
         },
         {
           title: "Mitos comunes sobre el sueño",
           content:
-            '| Mito                                                   | Realidad                                                                          |\r\n| ------------------------------------------------------ | --------------------------------------------------------------------------------- |\r\n| "Puedes recuperar el sueño los fines de semana"        | Recuperación parcial, pero la alteración del ritmo circadiano permanece           |\r\n| "Los mayores necesitan menos sueño"                    | La necesidad sigue siendo 7-8 horas; la capacidad de obtenerlo a menudo cambia    |\r\n| "El alcohol te ayuda a dormir mejor"                   | Ayuda a conciliar el sueño más rápido, pero arruina la calidad del sueño          |\r\n| "Tu cuerpo se adapta a dormir menos"                   | No — el rendimiento disminuye aunque te sientas bien                              |\r\n| "La melatonina soluciona todos los problemas de sueño" | Buena para el jet lag y el trabajo por turnos; uso limitado para insomnio crónico |\r\n\r\n:::success\r\nUn mejor sueño es alcanzable. Comienza con un cambio — hora constante para despertarte — y construye a partir de ahí.\r\n:::',
+            '| Mito                                                   | Realidad                                                                          |\n| ------------------------------------------------------ | --------------------------------------------------------------------------------- |\n| "Puedes recuperar el sueño los fines de semana"        | Recuperación parcial, pero la alteración del ritmo circadiano permanece           |\n| "Los mayores necesitan menos sueño"                    | La necesidad sigue siendo 7-8 horas; la capacidad de obtenerlo a menudo cambia    |\n| "El alcohol te ayuda a dormir mejor"                   | Ayuda a conciliar el sueño más rápido, pero arruina la calidad del sueño          |\n| "Tu cuerpo se adapta a dormir menos"                   | No — el rendimiento disminuye aunque te sientas bien                              |\n| "La melatonina soluciona todos los problemas de sueño" | Buena para el jet lag y el trabajo por turnos; uso limitado para insomnio crónico |',
+          callouts: [
+            {
+              type: "success",
+              content:
+                "Un mejor sueño es alcanzable. Comienza con un cambio — hora constante para despertarte — y construye a partir de ahí.",
+            },
+          ],
         },
       ],
     },
@@ -1068,32 +1393,53 @@ export const lessons: Lesson[] = [
         {
           title: "Términos clave que debes conocer",
           content:
-            "### Prima\r\n\r\nLa cantidad que pagas cada mes por el seguro de salud. La pagas aunque no uses ningún servicio de salud.\r\n\r\n### Deducible\r\n\r\nLa cantidad que pagas por servicios cubiertos antes de que tu seguro empiece a pagar. Por ejemplo: si el deducible es $1.500, pagas los primeros $1.500 de atención cubierta (excepto los servicios preventivos gratuitos).\r\n\r\n### Copago\r\n\r\nUn monto fijo en dólares que pagas al momento del servicio ($20-$50 por visita al médico, $10 por medicamentos genéricos).\r\n\r\n### Coseguro\r\n\r\nUn porcentaje que pagas después de cumplir tu deducible (p. ej., 20 % de una factura). Si tu coseguro es 20 %, pagas 20 % y el seguro paga 80 %.\r\n\r\n### Máximo de gastos de bolsillo\r\n\r\nLo máximo que pagas en un año. Una vez alcanzado, el seguro paga el 100 % de los servicios cubiertos. Incluye deducible + copagos + coseguro.\r\n\r\n| Término                      | Tú pagas                | Ejemplo    |\r\n| ---------------------------- | ----------------------- | ---------- |\r\n| Prima                        | Mensual                 | $450/mes   |\r\n| Deducible                    | Primeros $X de atención | $1.500/año |\r\n| Copago                       | Por visita              | $30/visita |\r\n| Coseguro                     | % después del deducible | 20 %       |\r\n| Máximo de gastos de bolsillo | Tope anual              | $6.000/año |",
+            "### Prima\n\nLa cantidad que pagas cada mes por el seguro de salud. La pagas aunque no uses ningún servicio de salud.\n\n### Deducible\n\nLa cantidad que pagas por servicios cubiertos antes de que tu seguro empiece a pagar. Por ejemplo: si el deducible es $1.500, pagas los primeros $1.500 de atención cubierta (excepto los servicios preventivos gratuitos).\n\n### Copago\n\nUn monto fijo en dólares que pagas al momento del servicio ($20-$50 por visita al médico, $10 por medicamentos genéricos).\n\n### Coseguro\n\nUn porcentaje que pagas después de cumplir tu deducible (p. ej., 20 % de una factura). Si tu coseguro es 20 %, pagas 20 % y el seguro paga 80 %.\n\n### Máximo de gastos de bolsillo\n\nLo máximo que pagas en un año. Una vez alcanzado, el seguro paga el 100 % de los servicios cubiertos. Incluye deducible + copagos + coseguro.\n\n| Término                      | Tú pagas                | Ejemplo    |\n| ---------------------------- | ----------------------- | ---------- |\n| Prima                        | Mensual                 | $450/mes   |\n| Deducible                    | Primeros $X de atención | $1.500/año |\n| Copago                       | Por visita              | $30/visita |\n| Coseguro                     | % después del deducible | 20 %       |\n| Máximo de gastos de bolsillo | Tope anual              | $6.000/año |",
         },
         {
           title: "Cómo funcionan las redes",
           content:
-            "- **Dentro de la red:** Proveedores y hospitales con contrato con tu seguro. Costos más bajos.\r\n- **Fuera de la red:** Sin contrato. Pagas más — posiblemente mucho más.\r\n- **HMO:** Eliges un médico de atención primaria (PCP). Te refiere a especialistas. Fuera de la red no está cubierto (excepto emergencias).\r\n- **PPO:** Puedes ver cualquier proveedor, dentro o fuera de la red. Más flexibilidad, primas más altas.\r\n- **EPO:** Solo dentro de la red (como HMO) pero puedes ver especialistas sin referencia (como PPO).\r\n\r\n:::warning\r\n**La atención fuera de la red puede ser extremadamente costosa.** Siempre verifica si un médico u hospital está en tu red antes de hacer una cita. La atención de emergencia suele cubrirse a tarifas dentro de la red.\r\n:::",
+            "- **Dentro de la red:** Proveedores y hospitales con contrato con tu seguro. Costos más bajos.\n- **Fuera de la red:** Sin contrato. Pagas más — posiblemente mucho más.\n- **HMO:** Eliges un médico de atención primaria (PCP). Te refiere a especialistas. Fuera de la red no está cubierto (excepto emergencias).\n- **PPO:** Puedes ver cualquier proveedor, dentro o fuera de la red. Más flexibilidad, primas más altas.\n- **EPO:** Solo dentro de la red (como HMO) pero puedes ver especialistas sin referencia (como PPO).",
+          callouts: [
+            {
+              type: "warning",
+              content:
+                "**La atención fuera de la red puede ser extremadamente costosa.** Siempre verifica si un médico u hospital está en tu red antes de hacer una cita. La atención de emergencia suele cubrirse a tarifas dentro de la red.",
+            },
+          ],
         },
         {
           title: "Tipos de planes",
           content:
-            "### Seguro patrocinado por el empleador\r\n\r\n- El más común (49 % de los estadounidenses)\r\n- El empleador suele pagar ~70 % de la prima\r\n- Inscríbete durante la inscripción abierta o después de un evento de vida calificado\r\n\r\n### Mercado (ACA / Obamacare)\r\n\r\n- Healthcare.gov o equivalente estatal\r\n- Subsidios según ingresos (créditos fiscales para primas) disponibles\r\n- Inscripción abierta: 1 de noviembre - 15 de enero (varía según el estado)\r\n- Cuatro niveles: Bronce (prima más baja, costos más altos) → Platino (prima más alta, costos más bajos)\r\n\r\n| Nivel metálico | El plan paga | Tú pagas (prom.) | Mejor para                               |\r\n| -------------- | ------------ | ---------------- | ---------------------------------------- |\r\n| Bronce         | 60 %         | 40 %             | Jóvenes, saludables, pocas visitas       |\r\n| Plata          | 70 %         | 30 %             | La mayoría; subsidio disponible          |\r\n| Oro            | 80 %         | 20 %             | Visitas regulares al médico, recetas     |\r\n| Platino        | 90 %         | 10 %             | Atención frecuente, condiciones crónicas |\r\n\r\n### Medicare\r\n\r\n- Programa federal para mayores de 65 y ciertas discapacidades\r\n- Parte A (hospital) — gratuita si trabajaste 10+ años\r\n- Parte B (médica) — ~$175/mes (2026)\r\n- Parte D (medicamentos) — varía\r\n- Medigap (complementario) — cubre lo que Medicare Original no cubre\r\n\r\n### Medicaid\r\n\r\n- Programa estatal + federal para personas de bajos ingresos\r\n- Elegibilidad varía según el estado (ampliado en la mayoría bajo la ACA)\r\n- Bajo costo o sin costo",
+            "### Seguro patrocinado por el empleador\n\n- El más común (49 % de los estadounidenses)\n- El empleador suele pagar ~70 % de la prima\n- Inscríbete durante la inscripción abierta o después de un evento de vida calificado\n\n### Mercado (ACA / Obamacare)\n\n- Healthcare.gov o equivalente estatal\n- Subsidios según ingresos (créditos fiscales para primas) disponibles\n- Inscripción abierta: 1 de noviembre - 15 de enero (varía según el estado)\n- Cuatro niveles: Bronce (prima más baja, costos más altos) → Platino (prima más alta, costos más bajos)\n\n| Nivel metálico | El plan paga | Tú pagas (prom.) | Mejor para                               |\n| -------------- | ------------ | ---------------- | ---------------------------------------- |\n| Bronce         | 60 %         | 40 %             | Jóvenes, saludables, pocas visitas       |\n| Plata          | 70 %         | 30 %             | La mayoría; subsidio disponible          |\n| Oro            | 80 %         | 20 %             | Visitas regulares al médico, recetas     |\n| Platino        | 90 %         | 10 %             | Atención frecuente, condiciones crónicas |\n\n### Medicare\n\n- Programa federal para mayores de 65 y ciertas discapacidades\n- Parte A (hospital) — gratuita si trabajaste 10+ años\n- Parte B (médica) — ~$175/mes (2026)\n- Parte D (medicamentos) — varía\n- Medigap (complementario) — cubre lo que Medicare Original no cubre\n\n### Medicaid\n\n- Programa estatal + federal para personas de bajos ingresos\n- Elegibilidad varía según el estado (ampliado en la mayoría bajo la ACA)\n- Bajo costo o sin costo",
         },
         {
           title: "Cómo elegir un plan",
           content:
-            "Al comparar planes, pregunta:\r\n\r\n1. **¿Mis médicos y hospital están en la red?**\r\n2. **¿Qué medicamentos están cubiertos?** (Revisa el formulario)\r\n3. **¿Cuál es el costo total estimado?** Prima + costos esperados de atención\r\n4. **¿Tengo condiciones crónicas?** Los planes con deducible alto cuestan más a largo plazo para atención regular\r\n5. **¿Cuál es el máximo de gastos de bolsillo?** Escenario del peor caso\r\n\r\n:::info\r\nLa prima más barata no siempre es el plan más barato. Si tienes visitas regulares al médico o recetas, un plan Plata u Oro puede costar menos en total que uno Bronce.\r\n:::",
+            "Al comparar planes, pregunta:\n\n1. **¿Mis médicos y hospital están en la red?**\n2. **¿Qué medicamentos están cubiertos?** (Revisa el formulario)\n3. **¿Cuál es el costo total estimado?** Prima + costos esperados de atención\n4. **¿Tengo condiciones crónicas?** Los planes con deducible alto cuestan más a largo plazo para atención regular\n5. **¿Cuál es el máximo de gastos de bolsillo?** Escenario del peor caso",
+          callouts: [
+            {
+              type: "info",
+              content:
+                "La prima más barata no siempre es el plan más barato. Si tienes visitas regulares al médico o recetas, un plan Plata u Oro puede costar menos en total que uno Bronce.",
+            },
+          ],
         },
         {
           title: "Cómo usar tu seguro",
           content:
-            "- **Obtén una tarjeta de identificación** — llévala en la cartera y en el teléfono\r\n- **Encuentra proveedores dentro de la red** — busca en el directorio en línea o llama a servicios al miembro\r\n- **Conoce tus copagos** — $ por atención primaria, especialista, urgencias, sala de emergencias\r\n- **Obtén autorización previa** — algunas pruebas y cirugías requieren aprobación\r\n- **Verifica terapia escalonada** — puede que debas probar primero un medicamento más barato\r\n- **Apela si te niegan cobertura** — tienes derecho a impugnar negaciones de cobertura",
+            "- **Obtén una tarjeta de identificación** — llévala en la cartera y en el teléfono\n- **Encuentra proveedores dentro de la red** — busca en el directorio en línea o llama a servicios al miembro\n- **Conoce tus copagos** — $ por atención primaria, especialista, urgencias, sala de emergencias\n- **Obtén autorización previa** — algunas pruebas y cirugías requieren aprobación\n- **Verifica terapia escalonada** — puede que debas probar primero un medicamento más barato\n- **Apela si te niegan cobertura** — tienes derecho a impugnar negaciones de cobertura",
         },
         {
           title: "¿Qué hacer si pierdes o no puedes pagar el seguro?",
           content:
-            "- **COBRA:** Continúa el plan del empleador por 18 meses (pagas la prima completa)\r\n- **Mercado:** Período especial de inscripción (60 días después de perder cobertura)\r\n- **Medicaid:** Solicita en cualquier momento (si eres elegible en tu estado)\r\n- **Centros de salud comunitarios:** Tarifas escalonadas según ingresos\r\n- **Asistencia financiera del hospital:** Muchos hospitales ofrecen atención caritativa\r\n\r\n:::success\r\nEntender tu seguro ahorra dinero y estrés. Si los términos te confunden, llama a la línea de servicios al miembro de tu aseguradora — deben explicar los beneficios con claridad.\r\n:::",
+            "- **COBRA:** Continúa el plan del empleador por 18 meses (pagas la prima completa)\n- **Mercado:** Período especial de inscripción (60 días después de perder cobertura)\n- **Medicaid:** Solicita en cualquier momento (si eres elegible en tu estado)\n- **Centros de salud comunitarios:** Tarifas escalonadas según ingresos\n- **Asistencia financiera del hospital:** Muchos hospitales ofrecen atención caritativa",
+          callouts: [
+            {
+              type: "success",
+              content:
+                "Entender tu seguro ahorra dinero y estrés. Si los términos te confunden, llama a la línea de servicios al miembro de tu aseguradora — deben explicar los beneficios con claridad.",
+            },
+          ],
         },
       ],
     },
@@ -1125,42 +1471,63 @@ export const lessons: Lesson[] = [
         {
           title: "Tres documentos que recibirás",
           content:
-            "### 1. La factura\r\n\r\nLa envía el hospital o el consultorio médico. Muestra los cargos totales. **No pagues de inmediato** — espera la EOB.\r\n\r\n### 2. Explicación de Beneficios (EOB)\r\n\r\nLa envía la compañía de seguros. Muestra lo que pagó y lo que debes. **No es una factura.** Consérvala para comparar.\r\n\r\n### 3. Resumen de Beneficios y Cobertura (SBC)\r\n\r\nSe envía con los planes nuevos. Muestra qué cubre el plan, deducibles, copagos y el máximo de gastos de bolsillo.",
+            "### 1. La factura\n\nLa envía el hospital o el consultorio médico. Muestra los cargos totales. **No pagues de inmediato** — espera la EOB.\n\n### 2. Explicación de Beneficios (EOB)\n\nLa envía la compañía de seguros. Muestra lo que pagó y lo que debes. **No es una factura.** Consérvala para comparar.\n\n### 3. Resumen de Beneficios y Cobertura (SBC)\n\nSe envía con los planes nuevos. Muestra qué cubre el plan, deducibles, copagos y el máximo de gastos de bolsillo.",
         },
         {
           title: "Partes de una factura médica",
           content:
-            "### Encabezado\r\n\r\n- Nombre y dirección del proveedor\r\n- Nombre del paciente y número de cuenta\r\n- Fecha del servicio\r\n- Número de historial médico\r\n\r\n### Sección de cargos\r\n\r\n| Término                        | Significado                                           |\r\n| ------------------------------ | ----------------------------------------------------- |\r\n| Fecha del servicio             | Cuándo recibiste la atención                          |\r\n| Código CPT                     | Código del procedimiento/prueba (definido por la AMA) |\r\n| Código de diagnóstico (ICD-10) | Código de por qué se necesitó la atención             |\r\n| Cargo                          | Lo que facturó el proveedor (precio completo)         |\r\n| Ajustes                        | Descuentos negociados con el seguro                   |\r\n| Pagado por el seguro           | Lo que el seguro ya pagó                              |\r\n| Responsabilidad del paciente   | Lo que debes                                          |\r\n\r\n### Sección de saldo\r\n\r\nMuestra los cargos totales, ajustes totales, pagos totales y el monto final que debes.",
+            "### Encabezado\n\n- Nombre y dirección del proveedor\n- Nombre del paciente y número de cuenta\n- Fecha del servicio\n- Número de historial médico\n\n### Sección de cargos\n\n| Término                        | Significado                                           |\n| ------------------------------ | ----------------------------------------------------- |\n| Fecha del servicio             | Cuándo recibiste la atención                          |\n| Código CPT                     | Código del procedimiento/prueba (definido por la AMA) |\n| Código de diagnóstico (ICD-10) | Código de por qué se necesitó la atención             |\n| Cargo                          | Lo que facturó el proveedor (precio completo)         |\n| Ajustes                        | Descuentos negociados con el seguro                   |\n| Pagado por el seguro           | Lo que el seguro ya pagó                              |\n| Responsabilidad del paciente   | Lo que debes                                          |\n\n### Sección de saldo\n\nMuestra los cargos totales, ajustes totales, pagos totales y el monto final que debes.",
         },
         {
           title: "Errores comunes de facturación",
           content:
-            "- **Cargos duplicados** — facturado dos veces por el mismo servicio\r\n- **Sobrecodificación (upcoding)** — facturado por un servicio más caro del recibido (p. ej., visita integral vs. revisión breve)\r\n- **Desglose indebido (unbundling)** — servicios que deberían ser un solo paquete facturados por separado\r\n- **Seguro incorrecto** — seguro aplicado de forma incorrecta\r\n- **Facturación de saldo (balance billing)** — proveedor fuera de la red cobra la diferencia entre su cargo y el pago del seguro (a veces es ilegal)\r\n- **Fechas que no coinciden** — las fechas del servicio no coinciden con tu visita\r\n- **Servicios que no recibiste** — paciente o procedimiento incorrecto\r\n\r\n:::warning\r\nHasta el 80 % de las facturas médicas contienen errores. Nunca asumas que una factura es correcta.\r\n:::",
+            "- **Cargos duplicados** — facturado dos veces por el mismo servicio\n- **Sobrecodificación (upcoding)** — facturado por un servicio más caro del recibido (p. ej., visita integral vs. revisión breve)\n- **Desglose indebido (unbundling)** — servicios que deberían ser un solo paquete facturados por separado\n- **Seguro incorrecto** — seguro aplicado de forma incorrecta\n- **Facturación de saldo (balance billing)** — proveedor fuera de la red cobra la diferencia entre su cargo y el pago del seguro (a veces es ilegal)\n- **Fechas que no coinciden** — las fechas del servicio no coinciden con tu visita\n- **Servicios que no recibiste** — paciente o procedimiento incorrecto",
+          callouts: [
+            {
+              type: "warning",
+              content:
+                "Hasta el 80 % de las facturas médicas contienen errores. Nunca asumas que una factura es correcta.",
+            },
+          ],
         },
         {
           title: "Paso a paso: cómo revisar una factura",
           content:
-            '### Paso 1: Comparar con la EOB\r\n\r\nAlinea la factura con tu Explicación de Beneficios. Todo en la factura debe coincidir — fechas del servicio, códigos, nombre del proveedor. Si la EOB dice que debes $150 y la factura dice $500, algo está mal.\r\n\r\n### Paso 2: Verificar los cargos conocidos\r\n\r\n- ¿Recibiste esta prueba o procedimiento?\r\n- ¿Fue en la fecha correcta?\r\n- ¿El proveedor estaba dentro de la red?\r\n\r\n### Paso 3: Solicitar una factura detallada\r\n\r\nSi la factura muestra solo un total, llama a facturación y pide un estado detallado. Por ley, tienes derecho a recibirlo.\r\n\r\n### Paso 4: Hacer preguntas\r\n\r\nLlama al departamento de facturación. Sé cortés pero firme:\r\n\r\n- "¿Puede explicar este cargo?"\r\n- "¿Por qué no esto estuvo cubierto?"\r\n- "Este código CPT no coincide con lo que recibí."',
+            '### Paso 1: Comparar con la EOB\n\nAlinea la factura con tu Explicación de Beneficios. Todo en la factura debe coincidir — fechas del servicio, códigos, nombre del proveedor. Si la EOB dice que debes $150 y la factura dice $500, algo está mal.\n\n### Paso 2: Verificar los cargos conocidos\n\n- ¿Recibiste esta prueba o procedimiento?\n- ¿Fue en la fecha correcta?\n- ¿El proveedor estaba dentro de la red?\n\n### Paso 3: Solicitar una factura detallada\n\nSi la factura muestra solo un total, llama a facturación y pide un estado detallado. Por ley, tienes derecho a recibirlo.\n\n### Paso 4: Hacer preguntas\n\nLlama al departamento de facturación. Sé cortés pero firme:\n\n- "¿Puede explicar este cargo?"\n- "¿Por qué no esto estuvo cubierto?"\n- "Este código CPT no coincide con lo que recibí."',
         },
         {
           title: "Cómo disputar un cargo",
           content:
-            "1. **Documenta todo** — guarda copias de facturas, EOB, tarjetas del seguro\r\n2. **Llama primero a facturación del proveedor** — la mayoría de errores se resuelven en este nivel\r\n3. **Llama al seguro** — tu aseguradora puede ayudar si la facturación del proveedor es incorrecta\r\n4. **Ponlo por escrito** — envía una disputa escrita por correo certificado\r\n5. **Solicita una factura corregida** — obtén una factura revisada antes de pagar cualquier cosa",
+            "1. **Documenta todo** — guarda copias de facturas, EOB, tarjetas del seguro\n2. **Llama primero a facturación del proveedor** — la mayoría de errores se resuelven en este nivel\n3. **Llama al seguro** — tu aseguradora puede ayudar si la facturación del proveedor es incorrecta\n4. **Ponlo por escrito** — envía una disputa escrita por correo certificado\n5. **Solicita una factura corregida** — obtén una factura revisada antes de pagar cualquier cosa",
         },
         {
           title: "Asistencia financiera",
           content:
-            '### Atención caritativa del hospital\r\n\r\n- Los hospitales sin fines de lucro deben ofrecer asistencia financiera por ley\r\n- Ingresos de hasta el 200-400 % del nivel de pobreza pueden calificar para atención gratuita o con descuento\r\n- **Debes solicitarla** — los hospitales no la ofrecen automáticamente\r\n\r\n### Planes de pago\r\n\r\n- La mayoría de los hospitales ofrecen planes de pago sin intereses\r\n- Pide $25-50 al mes, no un pago único\r\n\r\n### Negociación\r\n\r\n- Ofrece el 50-60 % de la factura en efectivo para saldar\r\n- Los hospitales a menudo aceptan menos del monto total\r\n- Usa frases como: "No puedo pagar esto. ¿Hay descuento por pagar hoy?"',
+            '### Atención caritativa del hospital\n\n- Los hospitales sin fines de lucro deben ofrecer asistencia financiera por ley\n- Ingresos de hasta el 200-400 % del nivel de pobreza pueden calificar para atención gratuita o con descuento\n- **Debes solicitarla** — los hospitales no la ofrecen automáticamente\n\n### Planes de pago\n\n- La mayoría de los hospitales ofrecen planes de pago sin intereses\n- Pide $25-50 al mes, no un pago único\n\n### Negociación\n\n- Ofrece el 50-60 % de la factura en efectivo para saldar\n- Los hospitales a menudo aceptan menos del monto total\n- Usa frases como: "No puedo pagar esto. ¿Hay descuento por pagar hoy?"',
         },
         {
           title: "Señales de alerta",
           content:
-            '| Señal                                                                             | Qué hacer                                              |\r\n| --------------------------------------------------------------------------------- | ------------------------------------------------------ |\r\n| La factura dice "vencida" pero acabas de recibirla                                | Disputar — facturación prematura                       |\r\n| Una agencia de cobranza te contacta                                               | No pagues aún — verifica la deuda primero              |\r\n| Facturación de saldo de hospital dentro de la red                                 | Puede violar la Ley de Sin Sorpresas — reportar al CMS |\r\n| Factura por servicios que el seguro debería cubrir al 100 % (atención preventiva) | Llamar al seguro — la atención preventiva es gratuita  |\r\n\r\n:::info\r\nLa **Ley de Sin Sorpresas** (vigente desde 2022) te protege de facturas sorpresa fuera de la red por atención de emergencia y ciertos servicios no urgentes en centros dentro de la red. No pueden facturarte el saldo en estos casos.\r\n:::',
+            '| Señal                                                                             | Qué hacer                                              |\n| --------------------------------------------------------------------------------- | ------------------------------------------------------ |\n| La factura dice "vencida" pero acabas de recibirla                                | Disputar — facturación prematura                       |\n| Una agencia de cobranza te contacta                                               | No pagues aún — verifica la deuda primero              |\n| Facturación de saldo de hospital dentro de la red                                 | Puede violar la Ley de Sin Sorpresas — reportar al CMS |\n| Factura por servicios que el seguro debería cubrir al 100 % (atención preventiva) | Llamar al seguro — la atención preventiva es gratuita  |',
+          callouts: [
+            {
+              type: "info",
+              content:
+                "La **Ley de Sin Sorpresas** (vigente desde 2022) te protege de facturas sorpresa fuera de la red por atención de emergencia y ciertos servicios no urgentes en centros dentro de la red. No pueden facturarte el saldo en estos casos.",
+            },
+          ],
         },
         {
           title: "Cuándo buscar ayuda",
           content:
-            "- **Departamento de seguros:** presenta una queja en tu estado\r\n- **Defensor del paciente:** muchos hospitales tienen defensores del paciente\r\n- **Programa de asistencia al consumidor:** algunos estados ofrecen ayuda gratuita con facturación\r\n- **Asistencia legal:** si enfrentas embargo de salario o gravámenes\r\n- **Asesoría crediticia sin fines de lucro:** para deudas médicas grandes\r\n\r\n:::success\r\nTienes derechos como paciente. Una factura correcta suele ser menor que la primera. Siempre revisa, pregunta y negocia.\r\n:::",
+            "- **Departamento de seguros:** presenta una queja en tu estado\n- **Defensor del paciente:** muchos hospitales tienen defensores del paciente\n- **Programa de asistencia al consumidor:** algunos estados ofrecen ayuda gratuita con facturación\n- **Asistencia legal:** si enfrentas embargo de salario o gravámenes\n- **Asesoría crediticia sin fines de lucro:** para deudas médicas grandes",
+          callouts: [
+            {
+              type: "success",
+              content:
+                "Tienes derechos como paciente. Una factura correcta suele ser menor que la primera. Siempre revisa, pregunta y negocia.",
+            },
+          ],
         },
       ],
     },
@@ -1192,42 +1559,63 @@ export const lessons: Lesson[] = [
         {
           title: "Matriz de decisión",
           content:
-            "| Situación                                                                          | Dónde ir                            | Por qué                                              |\r\n| ---------------------------------------------------------------------------------- | ----------------------------------- | ---------------------------------------------------- |\r\n| Dolor en el pecho, dificultad para respirar, síntomas de accidente cerebrovascular | **Llamar al 911**                   | Son emergencias que requieren tratamiento en minutos |\r\n| Hueso roto (sin hueso atravesando la piel)                                         | **Urgencias o sala de emergencias** |                                                      |\r\n| Fiebre 38,3 °C+, te sientes mal pero puedes caminar/hablar                         | **Urgencias**                       |                                                      |\r\n| Fiebre 39,4 °C+ o confusión                                                        | **Sala de emergencias**             | Podría ser una infección grave                       |\r\n| Corte profundo con sangrado                                                        | **Sala de emergencias**             | Puede necesitar puntos de sutura                     |\r\n| Infección de piel (roja, caliente, hinchada)                                       | **Urgencias**                       |                                                      |\r\n| Migraña, dolor ocular, cambios en la visión                                        | **Sala de emergencias**             | Podría ser algo grave                                |\r\n| Corte pequeño, resfriado leve, chequeo de rutina                                   | **Consultorio del médico**          |                                                      |\r\n| Reacción alérgica con dificultad para respirar                                     | **Llamar al 911**                   |                                                      |",
+            "| Situación                                                                          | Dónde ir                            | Por qué                                              |\n| ---------------------------------------------------------------------------------- | ----------------------------------- | ---------------------------------------------------- |\n| Dolor en el pecho, dificultad para respirar, síntomas de accidente cerebrovascular | **Llamar al 911**                   | Son emergencias que requieren tratamiento en minutos |\n| Hueso roto (sin hueso atravesando la piel)                                         | **Urgencias o sala de emergencias** |                                                      |\n| Fiebre 38,3 °C+, te sientes mal pero puedes caminar/hablar                         | **Urgencias**                       |                                                      |\n| Fiebre 39,4 °C+ o confusión                                                        | **Sala de emergencias**             | Podría ser una infección grave                       |\n| Corte profundo con sangrado                                                        | **Sala de emergencias**             | Puede necesitar puntos de sutura                     |\n| Infección de piel (roja, caliente, hinchada)                                       | **Urgencias**                       |                                                      |\n| Migraña, dolor ocular, cambios en la visión                                        | **Sala de emergencias**             | Podría ser algo grave                                |\n| Corte pequeño, resfriado leve, chequeo de rutina                                   | **Consultorio del médico**          |                                                      |\n| Reacción alérgica con dificultad para respirar                                     | **Llamar al 911**                   |                                                      |",
         },
         {
           title: "Llama al 911 (emergencia) por",
           content:
-            "### Signos de infarto\r\n\r\n- Molestia en el pecho (presión, opresión, plenitud)\r\n- Dolor que se extiende a brazos, espalda, cuello, mandíbula o estómago\r\n- Falta de aire — con o sin dolor en el pecho\r\n- Sudor frío, náuseas, mareo\r\n\r\n### Signos de accidente cerebrovascular (BE FAST)\r\n\r\n- **B**alance (equilibrio) — mareo repentino o pérdida del equilibrio\r\n- **E**yes (ojos) — cambios repentinos en la visión o pérdida de visión\r\n- **F**ace (cara) — caída de un lado de la cara\r\n- **A**rms (brazos) — debilidad en un brazo que se desvía hacia abajo\r\n- **S**peech (habla) — dificultad para hablar o habla arrastrada\r\n- **T**ime (tiempo) — llama al 911 de inmediato\r\n\r\n### Otras emergencias del 911\r\n\r\n- Dificultad para respirar (no solo un poco de fatiga)\r\n- Reacción alérgica grave (hinchazón de cara/labios, dificultad para respirar)\r\n- Sangrado grave (sangre a chorros, no se detiene con presión)\r\n- Convulsión (especialmente la primera, que dura >5 minutos o en el agua)\r\n- Lesión en la cabeza con confusión o pérdida de conocimiento\r\n- Envenenamiento o sobredosis\r\n- Ahogamiento o casi ahogamiento\r\n- Quemadura grave (área grande, profunda, eléctrica o en cara/manos/genitales)\r\n- Pensamientos suicidas con plan o medios\r\n\r\n:::warning\r\nSi no estás seguro de si es una emergencia, **llama al 911 de todos modos.** Los operadores pueden ayudar a evaluar. Es mejor cancelar una ambulancia innecesaria que retrasar atención de emergencia.\r\n:::",
+            "### Signos de infarto\n\n- Molestia en el pecho (presión, opresión, plenitud)\n- Dolor que se extiende a brazos, espalda, cuello, mandíbula o estómago\n- Falta de aire — con o sin dolor en el pecho\n- Sudor frío, náuseas, mareo\n\n### Signos de accidente cerebrovascular (BE FAST)\n\n- **B**alance (equilibrio) — mareo repentino o pérdida del equilibrio\n- **E**yes (ojos) — cambios repentinos en la visión o pérdida de visión\n- **F**ace (cara) — caída de un lado de la cara\n- **A**rms (brazos) — debilidad en un brazo que se desvía hacia abajo\n- **S**peech (habla) — dificultad para hablar o habla arrastrada\n- **T**ime (tiempo) — llama al 911 de inmediato\n\n### Otras emergencias del 911\n\n- Dificultad para respirar (no solo un poco de fatiga)\n- Reacción alérgica grave (hinchazón de cara/labios, dificultad para respirar)\n- Sangrado grave (sangre a chorros, no se detiene con presión)\n- Convulsión (especialmente la primera, que dura >5 minutos o en el agua)\n- Lesión en la cabeza con confusión o pérdida de conocimiento\n- Envenenamiento o sobredosis\n- Ahogamiento o casi ahogamiento\n- Quemadura grave (área grande, profunda, eléctrica o en cara/manos/genitales)\n- Pensamientos suicidas con plan o medios",
+          callouts: [
+            {
+              type: "warning",
+              content:
+                "Si no estás seguro de si es una emergencia, **llama al 911 de todos modos.** Los operadores pueden ayudar a evaluar. Es mejor cancelar una ambulancia innecesaria que retrasar atención de emergencia.",
+            },
+          ],
         },
         {
           title: "Ve a la sala de emergencias por",
           content:
-            "- Hueso roto o articulación dislocada\r\n- Corte profundo que puede necesitar puntos de sutura\r\n- Dolor abdominal intenso\r\n- Vómito con sangre o sangre en las heces\r\n- Quemadura grave\r\n- Dolor de cabeza intenso (el peor de tu vida)\r\n- Confusión o cambio repentino de comportamiento\r\n- Fiebre >39,4 °C en adulto (o >38 °C en lactante menor de 3 meses)\r\n- Deshidratación (no puedes retener líquidos)\r\n- Reacción alérgica sin dificultad para respirar pero con urticaria/hinchazón\r\n- Complicaciones del embarazo (sangrado, dolor intenso)",
+            "- Hueso roto o articulación dislocada\n- Corte profundo que puede necesitar puntos de sutura\n- Dolor abdominal intenso\n- Vómito con sangre o sangre en las heces\n- Quemadura grave\n- Dolor de cabeza intenso (el peor de tu vida)\n- Confusión o cambio repentino de comportamiento\n- Fiebre >39,4 °C en adulto (o >38 °C en lactante menor de 3 meses)\n- Deshidratación (no puedes retener líquidos)\n- Reacción alérgica sin dificultad para respirar pero con urticaria/hinchazón\n- Complicaciones del embarazo (sangrado, dolor intenso)",
         },
         {
           title: "Ve a atención de urgencia por",
           content:
-            "- Resfriado, gripe, dolor de garganta, dolor de oído, dolor sinusal\r\n- Cortes menores (pueden necesitar puntos pero no son profundos ni sangran mucho)\r\n- Esguinces, distensiones, fracturas menores (dedos de manos o pies)\r\n- Infección del tracto urinario (ITU)\r\n- Reacción alérgica leve a moderada (sarpullido, urticaria)\r\n- Conjuntivitis (ojo rojo)\r\n- Quemaduras menores (pequeñas, de primer grado)\r\n- Sarpullido o infección de piel (roja, caliente, pero sin fiebre ni propagación rápida)\r\n- Fiebre <39,4 °C y por lo demás bien",
+            "- Resfriado, gripe, dolor de garganta, dolor de oído, dolor sinusal\n- Cortes menores (pueden necesitar puntos pero no son profundos ni sangran mucho)\n- Esguinces, distensiones, fracturas menores (dedos de manos o pies)\n- Infección del tracto urinario (ITU)\n- Reacción alérgica leve a moderada (sarpullido, urticaria)\n- Conjuntivitis (ojo rojo)\n- Quemaduras menores (pequeñas, de primer grado)\n- Sarpullido o infección de piel (roja, caliente, pero sin fiebre ni propagación rápida)\n- Fiebre <39,4 °C y por lo demás bien",
         },
         {
           title: "Ve a tu médico por",
           content:
-            "- Chequeos de rutina y exámenes físicos\r\n- Manejo continuo de condiciones crónicas\r\n- Vacunas\r\n- Renovación de recetas\r\n- Preocupaciones no urgentes (síntomas leves que duran semanas)\r\n- Salud mental (terapia, manejo de medicamentos)",
+            "- Chequeos de rutina y exámenes físicos\n- Manejo continuo de condiciones crónicas\n- Vacunas\n- Renovación de recetas\n- Preocupaciones no urgentes (síntomas leves que duran semanas)\n- Salud mental (terapia, manejo de medicamentos)",
         },
         {
           title: "Qué tener listo cuando llames al 911",
           content:
-            "- Tu ubicación exacta (dirección, calles de referencia, edificio, piso, apartamento)\r\n- Número de teléfono desde el que llamas\r\n- Qué pasó (descripción breve)\r\n- Quién está afectado (edad, sexo, ¿está consciente? ¿respira?)\r\n- Condiciones médicas, alergias y medicamentos conocidos\r\n- No cuelgues hasta que el operador lo indique\r\n\r\n:::info\r\nConoce tu ubicación incluso si estás de viaje. Usa la app What3Words o comparte las coordenadas GPS de tu teléfono.\r\n:::",
+            "- Tu ubicación exacta (dirección, calles de referencia, edificio, piso, apartamento)\n- Número de teléfono desde el que llamas\n- Qué pasó (descripción breve)\n- Quién está afectado (edad, sexo, ¿está consciente? ¿respira?)\n- Condiciones médicas, alergias y medicamentos conocidos\n- No cuelgues hasta que el operador lo indique",
+          callouts: [
+            {
+              type: "info",
+              content:
+                "Conoce tu ubicación incluso si estás de viaje. Usa la app What3Words o comparte las coordenadas GPS de tu teléfono.",
+            },
+          ],
         },
         {
           title: "Qué llevar a la sala de emergencias",
           content:
-            "- Identificación con foto y tarjeta del seguro\r\n- Lista de medicamentos y dosis\r\n- Lista de alergias\r\n- Nombre y teléfono de contacto de emergencia\r\n- Cargador de teléfono\r\n- Algo para tu comodidad (lentes, audífonos, inhalador)\r\n- No lleves objetos de valor ni grandes cantidades de efectivo",
+            "- Identificación con foto y tarjeta del seguro\n- Lista de medicamentos y dosis\n- Lista de alergias\n- Nombre y teléfono de contacto de emergencia\n- Cargador de teléfono\n- Algo para tu comodidad (lentes, audífonos, inhalador)\n- No lleves objetos de valor ni grandes cantidades de efectivo",
         },
         {
           title: "Antes de ir a atención de urgencia",
           content:
-            '- Llama antes — algunos aceptan sin cita, otros prefieren cita\r\n- Verifica si aceptan tu seguro\r\n- Conoce sus horarios — muchos cierran antes de las 9 PM\r\n- Lleva identificación y tarjeta del seguro\r\n\r\n:::success\r\nLa mayoría de las emergencias no son dramáticas. Confía en tu instinto. Si algo se siente mal o "raro", busca atención.\r\n:::',
+            "- Llama antes — algunos aceptan sin cita, otros prefieren cita\n- Verifica si aceptan tu seguro\n- Conoce sus horarios — muchos cierran antes de las 9 PM\n- Lleva identificación y tarjeta del seguro",
+          callouts: [
+            {
+              type: "success",
+              content:
+                'La mayoría de las emergencias no son dramáticas. Confía en tu instinto. Si algo se siente mal o "raro", busca atención.',
+            },
+          ],
         },
       ],
     },
@@ -1256,32 +1644,53 @@ export const lessons: Lesson[] = [
         {
           title: "Cómo elegir el contenedor del botiquín",
           content:
-            '- **Caja de plástico** con tapa — impermeable y fácil de transportar\r\n- **Transparente** — puedes ver el contenido sin abrirlo\r\n- **Etiquétalo claramente** — "PRIMEROS AUXILIOS" con una cruz roja\r\n- **Tamaño:** lo suficientemente grande para los suministros, lo suficientemente pequeño para transportarlo',
+            '- **Caja de plástico** con tapa — impermeable y fácil de transportar\n- **Transparente** — puedes ver el contenido sin abrirlo\n- **Etiquétalo claramente** — "PRIMEROS AUXILIOS" con una cruz roja\n- **Tamaño:** lo suficientemente grande para los suministros, lo suficientemente pequeño para transportarlo',
         },
         {
           title: "Suministros esenciales",
           content:
-            "### Cuidado de heridas\r\n\r\n- **Curitas adhesivas** — varios tamaños (incluidas tiras en forma de mariposa para cortes pequeños)\r\n- **Gasas estériles** — 4x4 pulgadas (paquete de 10-20)\r\n- **Cinta médica** — cinta de tela para fijar la gasa (cinta de papel para piel sensible)\r\n- **Toallitas antisépticas** — envueltas individualmente (alcohol o clorhexidina)\r\n- **Pomada antibiótica** — bacitracina o antibiótico triple (Neosporin)\r\n- **Crema de hidrocortisona** — 1 % para picazón y reacciones alérgicas\r\n- **Peróxido de hidrógeno** — para limpiar heridas menores (no usar en heridas profundas)\r\n\r\n### Herramientas\r\n\r\n- **Tijeras** — resistentes, de punta roma para cortar cinta, gasa o ropa\r\n- **Pinzas** — de punta fina para astillas, garrapatas o fragmentos de vidrio\r\n- **Imperdibles de seguridad** — para cabestrillos o fijar vendajes\r\n- **Compresa fría instantánea** — se activa al presionar (no requiere refrigerador)\r\n- **Guantes desechables** — de nitrilo o vinilo (riesgo de alergia al látex)\r\n- **Barrera facial para RCP** — para dar respiraciones de rescate con seguridad\r\n- **Linterna** — LED pequeña con baterías de repuesto\r\n- **Termómetro** — digital (sin mercurio de vidrio)\r\n\r\n### Medicamentos\r\n\r\n- **Analgésicos/antipiréticos:**\r\n  - Acetaminofén (Tylenol) — seguro para la mayoría de las personas, no irrita el estómago\r\n  - Ibuprofeno (Advil, Motrin) — antiinflamatorio, bueno para esguinces\r\n- **Antihistamínico** — difenhidramina (Benadryl) para reacciones alérgicas\r\n- **Antidiarreico** — loperamida (Imodium)\r\n- **Antiácidos** — carbonato de calcio (Tums) o famotidina (Pepcid)\r\n- **Sales de rehidratación oral** — o sobres de polvo para bebidas deportivas\r\n\r\n### Documentación\r\n\r\n- **Manual de primeros auxilios** — imprime una guía sencilla del sitio web de la Cruz Roja\r\n- **Números de contacto de emergencia:**\r\n  - 911 (emergencias)\r\n  - Control de Envenenamientos: 1-800-222-1222\r\n  - Consultorio del médico\r\n  - Urgencias y sala de emergencias locales\r\n  - Farmacia\r\n- **Lista de alergias y condiciones médicas** de cada miembro de la familia\r\n- **Tarjetas del seguro** (copias)",
+            "### Cuidado de heridas\n\n- **Curitas adhesivas** — varios tamaños (incluidas tiras en forma de mariposa para cortes pequeños)\n- **Gasas estériles** — 4x4 pulgadas (paquete de 10-20)\n- **Cinta médica** — cinta de tela para fijar la gasa (cinta de papel para piel sensible)\n- **Toallitas antisépticas** — envueltas individualmente (alcohol o clorhexidina)\n- **Pomada antibiótica** — bacitracina o antibiótico triple (Neosporin)\n- **Crema de hidrocortisona** — 1 % para picazón y reacciones alérgicas\n- **Peróxido de hidrógeno** — para limpiar heridas menores (no usar en heridas profundas)\n\n### Herramientas\n\n- **Tijeras** — resistentes, de punta roma para cortar cinta, gasa o ropa\n- **Pinzas** — de punta fina para astillas, garrapatas o fragmentos de vidrio\n- **Imperdibles de seguridad** — para cabestrillos o fijar vendajes\n- **Compresa fría instantánea** — se activa al presionar (no requiere refrigerador)\n- **Guantes desechables** — de nitrilo o vinilo (riesgo de alergia al látex)\n- **Barrera facial para RCP** — para dar respiraciones de rescate con seguridad\n- **Linterna** — LED pequeña con baterías de repuesto\n- **Termómetro** — digital (sin mercurio de vidrio)\n\n### Medicamentos\n\n- **Analgésicos/antipiréticos:**\n  - Acetaminofén (Tylenol) — seguro para la mayoría de las personas, no irrita el estómago\n  - Ibuprofeno (Advil, Motrin) — antiinflamatorio, bueno para esguinces\n- **Antihistamínico** — difenhidramina (Benadryl) para reacciones alérgicas\n- **Antidiarreico** — loperamida (Imodium)\n- **Antiácidos** — carbonato de calcio (Tums) o famotidina (Pepcid)\n- **Sales de rehidratación oral** — o sobres de polvo para bebidas deportivas\n\n### Documentación\n\n- **Manual de primeros auxilios** — imprime una guía sencilla del sitio web de la Cruz Roja\n- **Números de contacto de emergencia:**\n  - 911 (emergencias)\n  - Control de Envenenamientos: 1-800-222-1222\n  - Consultorio del médico\n  - Urgencias y sala de emergencias locales\n  - Farmacia\n- **Lista de alergias y condiciones médicas** de cada miembro de la familia\n- **Tarjetas del seguro** (copias)",
         },
         {
           title: "Cómo usar los artículos clave",
           content:
-            "### Limpiar una herida menor\r\n\r\n1. Lávate las manos (o usa guantes)\r\n2. Limpia la herida con agua fría y jabón suave\r\n3. Seca con gasa estéril\r\n4. Aplica pomada antibiótica\r\n5. Cubre con curita adhesiva o gasa + cinta\r\n6. Cambia el vendaje a diario o cuando esté mojado o sucio\r\n\r\n### Tratar un esguince (método RICE)\r\n\r\n- **R**eposo — deja de usar la zona lesionada\r\n- **I**elo — aplica compresa fría 20 minutos encendida, 20 apagada\r\n- **C**ompresión — envuelve con vendaje elástico (vendaje ACE)\r\n- **E**levación — eleva por encima del nivel del corazón\r\n\r\n:::info\r\nUn vendaje de compresión debe quedar ajustado pero no apretado. Si los dedos de manos o pies se ponen azules o hormiguean, afloja el vendaje.\r\n:::\r\n\r\n### Extracción de astilla o garrapata\r\n\r\n1. Limpia la zona con toallita antiséptica\r\n2. Usa pinzas para agarrar lo más cerca posible de la piel\r\n3. Tira hacia afuera en línea recta (no gires para astillas; gira suavemente para garrapatas)\r\n4. Limpia de nuevo y aplica pomada antibiótica",
+            "### Limpiar una herida menor\n\n1. Lávate las manos (o usa guantes)\n2. Limpia la herida con agua fría y jabón suave\n3. Seca con gasa estéril\n4. Aplica pomada antibiótica\n5. Cubre con curita adhesiva o gasa + cinta\n6. Cambia el vendaje a diario o cuando esté mojado o sucio\n\n### Tratar un esguince (método RICE)\n\n- **R**eposo — deja de usar la zona lesionada\n- **I**elo — aplica compresa fría 20 minutos encendida, 20 apagada\n- **C**ompresión — envuelve con vendaje elástico (vendaje ACE)\n- **E**levación — eleva por encima del nivel del corazón\n\n\n\n### Extracción de astilla o garrapata\n\n1. Limpia la zona con toallita antiséptica\n2. Usa pinzas para agarrar lo más cerca posible de la piel\n3. Tira hacia afuera en línea recta (no gires para astillas; gira suavemente para garrapatas)\n4. Limpia de nuevo y aplica pomada antibiótica",
+          callouts: [
+            {
+              type: "info",
+              content:
+                "Un vendaje de compresión debe quedar ajustado pero no apretado. Si los dedos de manos o pies se ponen azules o hormiguean, afloja el vendaje.",
+            },
+          ],
         },
         {
           title: "Qué NO poner en tu botiquín",
           content:
-            "- **Torniquetes** (a menos que estés capacitado) — pueden causar más daño\r\n- **Aspirina para niños** — riesgo de síndrome de Reye\r\n- **Jarabe de ipecacuana** — ya no se recomienda para envenenamientos; llama a Control de Envenenamientos\r\n- **Suministros abiertos** — una vez abiertos, dejan de ser estériles\r\n- **Medicamentos vencidos** — revisa las fechas cada 6 meses",
+            "- **Torniquetes** (a menos que estés capacitado) — pueden causar más daño\n- **Aspirina para niños** — riesgo de síndrome de Reye\n- **Jarabe de ipecacuana** — ya no se recomienda para envenenamientos; llama a Control de Envenenamientos\n- **Suministros abiertos** — una vez abiertos, dejan de ser estériles\n- **Medicamentos vencidos** — revisa las fechas cada 6 meses",
         },
         {
           title: "Artículos estacionales y especiales",
           content:
-            "### Verano\r\n\r\n- Gel de aloe vera (quemaduras solares)\r\n- Repelente de insectos (DEET o picaridina)\r\n- Protector solar SPF 30+\r\n- EpiPen si hay alergia a picaduras\r\n\r\n### Invierno\r\n\r\n- Calentadores de manos\r\n- Manta extra en el botiquín del auto\r\n- Sobres de sal o deshielo en el botiquín del auto\r\n\r\n### Para bebés y niños\r\n\r\n- Acetaminofén/ibuprofeno infantil (dosis según peso)\r\n- Jeringa oral o vaso dosificador\r\n- Termómetro seguro para bebés (rectal para lactantes)\r\n- Orajel o gel para la dentición\r\n- Benadryl infantil\r\n\r\n### Para adultos mayores\r\n\r\n- Monitor de presión arterial (si hay hipertensión)\r\n- Tabletas de glucosa (si hay diabetes)\r\n- Organizador de pastillas para medicación diaria\r\n- Copia del poder notarial médico o directiva anticipada\r\n\r\n:::warning\r\nSi alguien está inconsciente, no respira, sangra gravemente o se sospecha lesión en la columna, **no lo muevas** — llama al 911 de inmediato.\r\n:::",
+            "### Verano\n\n- Gel de aloe vera (quemaduras solares)\n- Repelente de insectos (DEET o picaridina)\n- Protector solar SPF 30+\n- EpiPen si hay alergia a picaduras\n\n### Invierno\n\n- Calentadores de manos\n- Manta extra en el botiquín del auto\n- Sobres de sal o deshielo en el botiquín del auto\n\n### Para bebés y niños\n\n- Acetaminofén/ibuprofeno infantil (dosis según peso)\n- Jeringa oral o vaso dosificador\n- Termómetro seguro para bebés (rectal para lactantes)\n- Orajel o gel para la dentición\n- Benadryl infantil\n\n### Para adultos mayores\n\n- Monitor de presión arterial (si hay hipertensión)\n- Tabletas de glucosa (si hay diabetes)\n- Organizador de pastillas para medicación diaria\n- Copia del poder notarial médico o directiva anticipada",
+          callouts: [
+            {
+              type: "warning",
+              content:
+                "Si alguien está inconsciente, no respira, sangra gravemente o se sospecha lesión en la columna, **no lo muevas** — llama al 911 de inmediato.",
+            },
+          ],
         },
         {
           title: "Cuándo reabastecer",
           content:
-            "- **Cada 6 meses:** revisa las fechas de vencimiento de todos los suministros\r\n- **Después de cada uso:** reemplaza los artículos usados en 24 horas\r\n- **Cambio de horario (primavera/otoño):** buen recordatorio para revisar el botiquín\r\n- **Después de abrir el botiquín:** reemplaza los artículos estériles\r\n\r\n:::success\r\nTu botiquín de primeros auxilios solo es útil si sabes dónde está, qué contiene y cómo usarlo. Revisa el contenido una vez al año con todos en tu hogar.\r\n:::",
+            "- **Cada 6 meses:** revisa las fechas de vencimiento de todos los suministros\n- **Después de cada uso:** reemplaza los artículos usados en 24 horas\n- **Cambio de horario (primavera/otoño):** buen recordatorio para revisar el botiquín\n- **Después de abrir el botiquín:** reemplaza los artículos estériles",
+          callouts: [
+            {
+              type: "success",
+              content:
+                "Tu botiquín de primeros auxilios solo es útil si sabes dónde está, qué contiene y cómo usarlo. Revisa el contenido una vez al año con todos en tu hogar.",
+            },
+          ],
         },
       ],
     },
@@ -1313,47 +1722,68 @@ export const lessons: Lesson[] = [
         {
           title: "La etiqueta nutricional actualizada",
           content:
-            'En 2020, la FDA actualizó la etiqueta para facilitar su lectura. Cambios clave:\r\n\r\n- Tamaños de porción actualizados a cantidades realistas\r\n- "Azúcares añadidos" listados por separado\r\n- Tipo más grande para las calorías\r\n- Vitamina D y potasio añadidos; vitaminas A y C eliminadas',
+            'En 2020, la FDA actualizó la etiqueta para facilitar su lectura. Cambios clave:\n\n- Tamaños de porción actualizados a cantidades realistas\n- "Azúcares añadidos" listados por separado\n- Tipo más grande para las calorías\n- Vitamina D y potasio añadidos; vitaminas A y C eliminadas',
         },
         {
           title: "Sección 1: Tamaño de la porción",
           content:
-            "**El número más importante de la etiqueta.** Todos los demás números son por porción.\r\n\r\n- Porciones por envase: cuántas porciones hay en el paquete\r\n- Tamaño de la porción: cantidad considerada una porción\r\n\r\nEjemplo: una bolsa de papas fritas con 3 porciones por envase. Si te comes la bolsa entera, multiplica todo por 3.\r\n\r\n:::info\r\nLos tamaños de porción están estandarizados por la FDA para que puedas comparar productos similares. Se basan en lo que la gente realmente come, no en lo que debería comer.\r\n:::",
+            "**El número más importante de la etiqueta.** Todos los demás números son por porción.\n\n- Porciones por envase: cuántas porciones hay en el paquete\n- Tamaño de la porción: cantidad considerada una porción\n\nEjemplo: una bolsa de papas fritas con 3 porciones por envase. Si te comes la bolsa entera, multiplica todo por 3.",
+          callouts: [
+            {
+              type: "info",
+              content:
+                "Los tamaños de porción están estandarizados por la FDA para que puedas comparar productos similares. Se basan en lo que la gente realmente come, no en lo que debería comer.",
+            },
+          ],
         },
         {
           title: "Sección 2: Calorías",
           content:
-            "- Calorías por porción\r\n- 400+ calorías por porción = alto (revisa el tamaño de la porción)",
+            "- Calorías por porción\n- 400+ calorías por porción = alto (revisa el tamaño de la porción)",
         },
         {
           title: "Sección 3: Nutrientes a limitar",
           content:
-            '### Grasa saturada\r\n\r\n- **Meta:** Menos del 10 % de las calorías diarias (unos 20 g/día en una dieta de 2.000 calorías)\r\n- **Se encuentra en:** Carnes grasas, mantequilla, queso, lácteos enteros, aceite de coco, aceite de palma\r\n- **Por qué limitarla:** Eleva el colesterol LDL ("malo")\r\n\r\n### Grasa trans\r\n\r\n- **Meta:** Lo menos posible (idealmente 0 g)\r\n- **Se encuentra en:** Aceites parcialmente hidrogenados (ya prohibidos en el suministro alimentario de EE. UU., pero aún hay cantidades mínimas)\r\n- **Por qué limitarla:** Eleva el LDL y reduce el HDL — no hay cantidad segura\r\n\r\n### Sodio\r\n\r\n- **Meta:** Menos de 2.300 mg/día (idealmente 1.500 mg)\r\n- **Se encuentra en:** Alimentos procesados, comidas de restaurante, sopas enlatadas, panes, carnes de delicatessen, cenas congeladas\r\n- **Por qué limitarlo:** Eleva la presión arterial\r\n\r\n### Azúcares añadidos\r\n\r\n- **Meta:** Menos de 50 g/día (200 calorías, 10 % del total)\r\n- **Se encuentra en:** Refrescos, dulces, productos horneados, yogur saborizado, barras de granola, cereales, ketchup, salsa para pasta\r\n- **Por qué limitarlos:** Calorías vacías asociadas con obesidad, diabetes y enfermedades cardíacas\r\n\r\n:::warning\r\nLos "azúcares añadidos" son distintos de los azúcares que ocurren de forma natural en frutas y leche. Los azúcares añadidos son los que debes limitar.\r\n:::',
+            '### Grasa saturada\n\n- **Meta:** Menos del 10 % de las calorías diarias (unos 20 g/día en una dieta de 2.000 calorías)\n- **Se encuentra en:** Carnes grasas, mantequilla, queso, lácteos enteros, aceite de coco, aceite de palma\n- **Por qué limitarla:** Eleva el colesterol LDL ("malo")\n\n### Grasa trans\n\n- **Meta:** Lo menos posible (idealmente 0 g)\n- **Se encuentra en:** Aceites parcialmente hidrogenados (ya prohibidos en el suministro alimentario de EE. UU., pero aún hay cantidades mínimas)\n- **Por qué limitarla:** Eleva el LDL y reduce el HDL — no hay cantidad segura\n\n### Sodio\n\n- **Meta:** Menos de 2.300 mg/día (idealmente 1.500 mg)\n- **Se encuentra en:** Alimentos procesados, comidas de restaurante, sopas enlatadas, panes, carnes de delicatessen, cenas congeladas\n- **Por qué limitarlo:** Eleva la presión arterial\n\n### Azúcares añadidos\n\n- **Meta:** Menos de 50 g/día (200 calorías, 10 % del total)\n- **Se encuentra en:** Refrescos, dulces, productos horneados, yogur saborizado, barras de granola, cereales, ketchup, salsa para pasta\n- **Por qué limitarlos:** Calorías vacías asociadas con obesidad, diabetes y enfermedades cardíacas',
+          callouts: [
+            {
+              type: "warning",
+              content:
+                'Los "azúcares añadidos" son distintos de los azúcares que ocurren de forma natural en frutas y leche. Los azúcares añadidos son los que debes limitar.',
+            },
+          ],
         },
         {
           title: "Sección 4: Nutrientes que conviene consumir más",
           content:
-            "### Fibra dietética\r\n\r\n- **Meta:** 25 g/día (mujeres), 38 g/día (hombres); los estadounidenses promedian solo 15 g\r\n- **Se encuentra en:** Frijoles, lentejas, verduras, frutas, granos integrales, nueces, semillas\r\n- **Por qué:** Reduce el colesterol, controla el azúcar en sangre y mantiene la saciedad\r\n\r\n### Vitamina D\r\n\r\n- **Meta:** 20 mcg (800 UI)/día\r\n- **Se encuentra en:** Pescado graso (salmón, atún), leche fortificada, yemas de huevo\r\n- **Por qué:** Salud ósea, función inmune; la mayoría de los estadounidenses tienen niveles bajos\r\n\r\n### Calcio\r\n\r\n- **Meta:** 1.000-1.200 mg/día\r\n- **Se encuentra en:** Lácteos, leches vegetales fortificadas, verduras de hoja verde, tofu con calcio\r\n- **Por qué:** Densidad ósea, función muscular, señalización nerviosa\r\n\r\n### Potasio\r\n\r\n- **Meta:** 4.700 mg/día\r\n- **Se encuentra en:** Plátanos, papas, frijoles, verduras de hoja verde, aguacates, yogur\r\n- **Por qué:** Reduce la presión arterial y contrarresta el sodio\r\n\r\n### Hierro\r\n\r\n- **Meta:** 8 mg (hombres), 18 mg (mujeres), 27 mg (embarazo)\r\n- **Se encuentra en:** Carne roja, frijoles, espinaca, cereales fortificados\r\n- **Por qué:** Transporte de oxígeno en la sangre",
+            "### Fibra dietética\n\n- **Meta:** 25 g/día (mujeres), 38 g/día (hombres); los estadounidenses promedian solo 15 g\n- **Se encuentra en:** Frijoles, lentejas, verduras, frutas, granos integrales, nueces, semillas\n- **Por qué:** Reduce el colesterol, controla el azúcar en sangre y mantiene la saciedad\n\n### Vitamina D\n\n- **Meta:** 20 mcg (800 UI)/día\n- **Se encuentra en:** Pescado graso (salmón, atún), leche fortificada, yemas de huevo\n- **Por qué:** Salud ósea, función inmune; la mayoría de los estadounidenses tienen niveles bajos\n\n### Calcio\n\n- **Meta:** 1.000-1.200 mg/día\n- **Se encuentra en:** Lácteos, leches vegetales fortificadas, verduras de hoja verde, tofu con calcio\n- **Por qué:** Densidad ósea, función muscular, señalización nerviosa\n\n### Potasio\n\n- **Meta:** 4.700 mg/día\n- **Se encuentra en:** Plátanos, papas, frijoles, verduras de hoja verde, aguacates, yogur\n- **Por qué:** Reduce la presión arterial y contrarresta el sodio\n\n### Hierro\n\n- **Meta:** 8 mg (hombres), 18 mg (mujeres), 27 mg (embarazo)\n- **Se encuentra en:** Carne roja, frijoles, espinaca, cereales fortificados\n- **Por qué:** Transporte de oxígeno en la sangre",
         },
         {
           title: "Sección 5: El % Valor Diario (%VD)",
           content:
-            "Indica cuánto aporta un nutriente a una dieta diaria (basada en 2.000 calorías/día).\r\n\r\n- **5 % VD o menos = Bajo** — úsalo para nutrientes a limitar (grasa saturada, sodio, azúcar añadido)\r\n- **20 % VD o más = Alto** — úsalo para nutrientes que conviene consumir más (fibra, vitaminas, minerales)",
+            "Indica cuánto aporta un nutriente a una dieta diaria (basada en 2.000 calorías/día).\n\n- **5 % VD o menos = Bajo** — úsalo para nutrientes a limitar (grasa saturada, sodio, azúcar añadido)\n- **20 % VD o más = Alto** — úsalo para nutrientes que conviene consumir más (fibra, vitaminas, minerales)",
         },
         {
           title: "Sección 6: Lista de ingredientes",
           content:
-            "Los ingredientes se listan en **orden descendente por peso.** El primer ingrediente es el más abundante.\r\n\r\n- **Presta atención a:** el azúcar bajo muchos nombres (sacarosa, jarabe de maíz de alta fructosa, dextrosa, maltosa, miel, agave, azúcar de caña, concentrado de jugo de fruta)\r\n- **Lista corta = mejor** — menos ingredientes suele significar menos procesamiento\r\n- **Busca:** alimentos integrales como primeros ingredientes (avena, pollo, frijoles, manzanas)",
+            "Los ingredientes se listan en **orden descendente por peso.** El primer ingrediente es el más abundante.\n\n- **Presta atención a:** el azúcar bajo muchos nombres (sacarosa, jarabe de maíz de alta fructosa, dextrosa, maltosa, miel, agave, azúcar de caña, concentrado de jugo de fruta)\n- **Lista corta = mejor** — menos ingredientes suele significar menos procesamiento\n- **Busca:** alimentos integrales como primeros ingredientes (avena, pollo, frijoles, manzanas)",
         },
         {
           title: "Ejemplo de comparación rápida",
           content:
-            "| Nutriente      | Mejor opción   | Peor opción     |\r\n| -------------- | -------------- | --------------- |\r\n| Calorías       | 150            | 300             |\r\n| Grasa saturada | 1 g (5 %VD)    | 8 g (40 %VD)    |\r\n| Sodio          | 140 mg (6 %VD) | 700 mg (30 %VD) |\r\n| Azúcar añadido | 5 g (10 %VD)   | 25 g (50 %VD)   |\r\n| Fibra          | 6 g (21 %VD)   | 0 g (0 %VD)     |",
+            "| Nutriente      | Mejor opción   | Peor opción     |\n| -------------- | -------------- | --------------- |\n| Calorías       | 150            | 300             |\n| Grasa saturada | 1 g (5 %VD)    | 8 g (40 %VD)    |\n| Sodio          | 140 mg (6 %VD) | 700 mg (30 %VD) |\n| Azúcar añadido | 5 g (10 %VD)   | 25 g (50 %VD)   |\n| Fibra          | 6 g (21 %VD)   | 0 g (0 %VD)     |",
         },
         {
           title: "Trucos comunes en las etiquetas",
           content:
-            '- **"Hecho con granos integrales"** — puede ser mayormente harina blanca\r\n- **"Natural"** — no está regulado; no significa saludable\r\n- **"Bajo en grasa"** — a menudo tiene azúcar extra para compensar el sabor\r\n- **"Sin azúcar añadido"** — puede seguir siendo alto en azúcar natural (jugo de fruta)\r\n- **"Sin gluten"** — más saludable si tienes enfermedad celíaca; no es inherentemente más saludable en otros casos\r\n- **"Orgánico"** — menos pesticidas, no menos calorías\r\n\r\n:::success\r\nNo necesitas leer cada etiqueta a la perfección. Concéntrate en la primera revisión: tamaño de porción, calorías, grasa saturada, sodio y azúcar añadido. Eso captura el 90 % de la información importante.\r\n:::',
+            '- **"Hecho con granos integrales"** — puede ser mayormente harina blanca\n- **"Natural"** — no está regulado; no significa saludable\n- **"Bajo en grasa"** — a menudo tiene azúcar extra para compensar el sabor\n- **"Sin azúcar añadido"** — puede seguir siendo alto en azúcar natural (jugo de fruta)\n- **"Sin gluten"** — más saludable si tienes enfermedad celíaca; no es inherentemente más saludable en otros casos\n- **"Orgánico"** — menos pesticidas, no menos calorías',
+          callouts: [
+            {
+              type: "success",
+              content:
+                "No necesitas leer cada etiqueta a la perfección. Concéntrate en la primera revisión: tamaño de porción, calorías, grasa saturada, sodio y azúcar añadido. Eso captura el 90 % de la información importante.",
+            },
+          ],
         },
       ],
     },
@@ -1386,47 +1816,61 @@ export const lessons: Lesson[] = [
         {
           title: "El método del plato",
           content:
-            "La forma más sencilla de preparar una comida saludable es el método del plato. Divide tu plato así:\r\n\r\n| Sección                 | Porción       | Ejemplos                                                        |\r\n| ----------------------- | ------------- | --------------------------------------------------------------- |\r\n| Verduras + Frutas       | **1/2 plato** | Ensalada, brócoli asado, bayas, pimientos, zanahorias           |\r\n| Proteína magra          | **1/4 plato** | Pechuga de pollo, pescado, tofu, frijoles, huevos, yogur griego |\r\n| Carbohidratos complejos | **1/4 plato** | Arroz integral, quinoa, pasta integral, camote, avena           |\r\n\r\nAgrega: grasa saludable (aceite de oliva, aguacate, nueces) y agua para beber.",
+            "La forma más sencilla de preparar una comida saludable es el método del plato. Divide tu plato así:\n\n| Sección                 | Porción       | Ejemplos                                                        |\n| ----------------------- | ------------- | --------------------------------------------------------------- |\n| Verduras + Frutas       | **1/2 plato** | Ensalada, brócoli asado, bayas, pimientos, zanahorias           |\n| Proteína magra          | **1/4 plato** | Pechuga de pollo, pescado, tofu, frijoles, huevos, yogur griego |\n| Carbohidratos complejos | **1/4 plato** | Arroz integral, quinoa, pasta integral, camote, avena           |\n\nAgrega: grasa saludable (aceite de oliva, aguacate, nueces) y agua para beber.",
         },
         {
           title: "Qué va en cada sección",
           content:
-            "### Verduras y frutas (la mitad del plato)\r\n\r\n- **Busca variedad de colores:** distintos colores = distintos nutrientes\r\n  - **Verde:** brócoli, espinaca, col rizada, calabacín — folato, vitamina K, fibra\r\n  - **Rojo:** tomates, pimientos rojos, fresas — licopeno, vitamina C\r\n  - **Naranja/Amarillo:** zanahorias, camotes, calabaza — betacaroteno, vitamina A\r\n  - **Azul/Morado:** arándanos, berenjena, col morada — antocianinas (antioxidantes)\r\n- **Frescas, congeladas o enlatadas (sin sal o azúcar añadidos) — todas cuentan**\r\n\r\n### Proteínas magras (un cuarto del plato)\r\n\r\n- **Opciones animales:** pechuga de pollo/pavo (sin piel), pescado, carne de res magra, huevos, yogur griego, requesón\r\n- **Opciones vegetales:** frijoles (negros, rojos, garbanzos), lentejas, tofu, tempeh, edamame, seitán\r\n- **Pescado dos veces por semana:** salmón, sardinas, caballa, trucha (ácidos grasos omega-3)\r\n\r\n:::info\r\nLas proteínas vegetales (frijoles, lentejas) cuentan como verduras Y como proteína. También son excelentes fuentes de fibra; intenta incluir algunas comidas a base de plantas cada semana.\r\n:::\r\n\r\n### Carbohidratos complejos (un cuarto del plato)\r\n\r\n- **Elige granos integrales:** arroz integral, quinoa, avena, cebada, pan integral, pasta integral\r\n- **Verduras con almidón:** camotes, guisantes, maíz, calabaza de invierno\r\n- **Legumbres:** frijoles, lentejas, garbanzos (también pueden ser proteína)",
+            "### Verduras y frutas (la mitad del plato)\n\n- **Busca variedad de colores:** distintos colores = distintos nutrientes\n  - **Verde:** brócoli, espinaca, col rizada, calabacín — folato, vitamina K, fibra\n  - **Rojo:** tomates, pimientos rojos, fresas — licopeno, vitamina C\n  - **Naranja/Amarillo:** zanahorias, camotes, calabaza — betacaroteno, vitamina A\n  - **Azul/Morado:** arándanos, berenjena, col morada — antocianinas (antioxidantes)\n- **Frescas, congeladas o enlatadas (sin sal o azúcar añadidos) — todas cuentan**\n\n### Proteínas magras (un cuarto del plato)\n\n- **Opciones animales:** pechuga de pollo/pavo (sin piel), pescado, carne de res magra, huevos, yogur griego, requesón\n- **Opciones vegetales:** frijoles (negros, rojos, garbanzos), lentejas, tofu, tempeh, edamame, seitán\n- **Pescado dos veces por semana:** salmón, sardinas, caballa, trucha (ácidos grasos omega-3)\n\n\n\n### Carbohidratos complejos (un cuarto del plato)\n\n- **Elige granos integrales:** arroz integral, quinoa, avena, cebada, pan integral, pasta integral\n- **Verduras con almidón:** camotes, guisantes, maíz, calabaza de invierno\n- **Legumbres:** frijoles, lentejas, garbanzos (también pueden ser proteína)",
+          callouts: [
+            {
+              type: "info",
+              content:
+                "Las proteínas vegetales (frijoles, lentejas) cuentan como verduras Y como proteína. También son excelentes fuentes de fibra; intenta incluir algunas comidas a base de plantas cada semana.",
+            },
+          ],
         },
         {
           title: "Grasas saludables (añadidas a las comidas)",
           content:
-            "| Grasa                        | Uso                             | Nutriente                             |\r\n| ---------------------------- | ------------------------------- | ------------------------------------- |\r\n| Aceite de oliva              | Cocinar, aderezos               | Grasa monoinsaturada, antioxidantes   |\r\n| Aguacate                     | Sándwiches, ensaladas, tostadas | Fibra, potasio, grasa saludable       |\r\n| Nueces y semillas            | Bocadillos, toppings            | Vitamina E, magnesio, grasa saludable |\r\n| Mantequillas de frutos secos | Sándwiches, avena               | Proteína, grasa saludable             |",
+            "| Grasa                        | Uso                             | Nutriente                             |\n| ---------------------------- | ------------------------------- | ------------------------------------- |\n| Aceite de oliva              | Cocinar, aderezos               | Grasa monoinsaturada, antioxidantes   |\n| Aguacate                     | Sándwiches, ensaladas, tostadas | Fibra, potasio, grasa saludable       |\n| Nueces y semillas            | Bocadillos, toppings            | Vitamina E, magnesio, grasa saludable |\n| Mantequillas de frutos secos | Sándwiches, avena               | Proteína, grasa saludable             |",
         },
         {
           title: "¿Y los lácteos?",
           content:
-            "- **Mejores opciones:** yogur natural (griego o regular), leche (de vaca o vegetal sin azúcar), requesón, queso con moderación\r\n- **Meta:** 2-3 porciones al día para calcio y vitamina D\r\n- **Cuidado:** los yogures saborizados suelen tener mucho azúcar añadido. Elige natural.",
+            "- **Mejores opciones:** yogur natural (griego o regular), leche (de vaca o vegetal sin azúcar), requesón, queso con moderación\n- **Meta:** 2-3 porciones al día para calcio y vitamina D\n- **Cuidado:** los yogures saborizados suelen tener mucho azúcar añadido. Elige natural.",
         },
         {
           title: "Ejemplos de comidas balanceadas",
           content:
-            "### Desayuno\r\n\r\n- **Avena** (1/4 plato) con **bayas** (1/2 plato) y **nueces** (proteína/grasa)\r\n- **Huevos revueltos** (1/4) con **espinacas y pimientos salteados** (1/2) y **tostada integral** (1/4)\r\n\r\n### Almuerzo\r\n\r\n- **Pechuga de pollo a la parrilla** (1/4) sobre una **ensalada grande** (1/2) con **quinoa** (1/4) y **aderezo de aceite de oliva** (grasa)\r\n- **Sopa de lentejas** (proteína + carbohidratos) con **ensalada de acompañamiento** (1/2 plato) y un **panecillo integral**\r\n\r\n### Cena\r\n\r\n- **Salmón al horno** (1/4) con **brócoli asado** (1/2) y **arroz integral** (1/4)\r\n- **Salteado con tofu** (1/4), **verduras mixtas** (1/2) y **fideos de arroz integral** (1/4)",
+            "### Desayuno\n\n- **Avena** (1/4 plato) con **bayas** (1/2 plato) y **nueces** (proteína/grasa)\n- **Huevos revueltos** (1/4) con **espinacas y pimientos salteados** (1/2) y **tostada integral** (1/4)\n\n### Almuerzo\n\n- **Pechuga de pollo a la parrilla** (1/4) sobre una **ensalada grande** (1/2) con **quinoa** (1/4) y **aderezo de aceite de oliva** (grasa)\n- **Sopa de lentejas** (proteína + carbohidratos) con **ensalada de acompañamiento** (1/2 plato) y un **panecillo integral**\n\n### Cena\n\n- **Salmón al horno** (1/4) con **brócoli asado** (1/2) y **arroz integral** (1/4)\n- **Salteado con tofu** (1/4), **verduras mixtas** (1/2) y **fideos de arroz integral** (1/4)",
         },
         {
           title: "Consejos para comer bien con presupuesto limitado",
           content:
-            "- **Las verduras congeladas** son tan nutritivas como las frescas y a menudo más baratas\r\n- **Frijoles enlatados** — enjuágalos para reducir el sodio hasta en un 40 %\r\n- **Compra a granel** — arroz, avena, frijoles, lentejas\r\n- **Productos de temporada** — más baratos y más frescos\r\n- **Fruta congelada** — buena para batidos, avena y yogur",
+            "- **Las verduras congeladas** son tan nutritivas como las frescas y a menudo más baratas\n- **Frijoles enlatados** — enjuágalos para reducir el sodio hasta en un 40 %\n- **Compra a granel** — arroz, avena, frijoles, lentejas\n- **Productos de temporada** — más baratos y más frescos\n- **Fruta congelada** — buena para batidos, avena y yogur",
         },
         {
           title: "Alimentos a limitar",
           content:
-            '- **Bebidas azucaradas** — refrescos, té dulce, ponche de frutas, bebidas energéticas (la mayor fuente de azúcar añadido en la dieta estadounidense)\r\n- **Alimentos ultraprocesados** — bocadillos empacados, comida rápida, comidas congeladas, cereales azucarados, carnes procesadas (tocino, salchichas, hot dogs)\r\n- **No es una lista de "nunca"** — un enfoque balanceado significa con menos frecuencia, no nunca\r\n\r\n:::success\r\nUn plato balanceado no tiene que ser perfecto. Empieza con un cambio: agrega una porción extra de verduras a una comida al día.\r\n:::',
+            '- **Bebidas azucaradas** — refrescos, té dulce, ponche de frutas, bebidas energéticas (la mayor fuente de azúcar añadido en la dieta estadounidense)\n- **Alimentos ultraprocesados** — bocadillos empacados, comida rápida, comidas congeladas, cereales azucarados, carnes procesadas (tocino, salchichas, hot dogs)\n- **No es una lista de "nunca"** — un enfoque balanceado significa con menos frecuencia, no nunca',
+          callouts: [
+            {
+              type: "success",
+              content:
+                "Un plato balanceado no tiene que ser perfecto. Empieza con un cambio: agrega una porción extra de verduras a una comida al día.",
+            },
+          ],
         },
         {
           title: "Errores comunes",
           content:
-            '1. **Distorsión de porciones** — las porciones en restaurantes suelen ser 2-3 veces el tamaño real de una porción\r\n2. **Saltarse comidas** — lleva a comer en exceso después\r\n3. **Beber demasiadas calorías** — refrescos, jugos, bebidas deportivas, café endulzado\r\n4. **Etiquetas "saludables" en alimentos empacados** — granola, barras de proteína y fruta deshidratada pueden tener mucho azúcar\r\n5. **Poca fibra** — la mayoría de los estadounidenses consume la mitad de la cantidad recomendada',
+            '1. **Distorsión de porciones** — las porciones en restaurantes suelen ser 2-3 veces el tamaño real de una porción\n2. **Saltarse comidas** — lleva a comer en exceso después\n3. **Beber demasiadas calorías** — refrescos, jugos, bebidas deportivas, café endulzado\n4. **Etiquetas "saludables" en alimentos empacados** — granola, barras de proteína y fruta deshidratada pueden tener mucho azúcar\n5. **Poca fibra** — la mayoría de los estadounidenses consume la mitad de la cantidad recomendada',
         },
         {
           title: "Escucha a tu cuerpo",
           content:
-            "- **Come cuando tengas hambre** — no esperes hasta estar famélico (comerás de más)\r\n- **Deja de comer cuando estés cómodo** — no lleno\r\n- **Come lentamente** — el cerebro tarda 20 minutos en registrar la saciedad\r\n- **No comas distraído** — la televisión, el teléfono o la computadora hacen que comas más",
+            "- **Come cuando tengas hambre** — no esperes hasta estar famélico (comerás de más)\n- **Deja de comer cuando estés cómodo** — no lleno\n- **Come lentamente** — el cerebro tarda 20 minutos en registrar la saciedad\n- **No comas distraído** — la televisión, el teléfono o la computadora hacen que comas más",
         },
       ],
     },
@@ -1460,12 +1904,19 @@ export const lessons: Lesson[] = [
         {
           title: "Desencadenantes comunes",
           content:
-            "- **Alimentos** — cacahuates, nueces, leche, huevos, mariscos, trigo, soya\r\n- **Ambientales** — polen, ácaros, moho, caspa de mascotas\r\n- **Picaduras** — abejas, avispas, hormigas de fuego\r\n- **Medicamentos** — antibióticos, aspirina, medio de contraste\r\n- **Contacto** — látex, níquel, fragancias",
+            "- **Alimentos** — cacahuates, nueces, leche, huevos, mariscos, trigo, soya\n- **Ambientales** — polen, ácaros, moho, caspa de mascotas\n- **Picaduras** — abejas, avispas, hormigas de fuego\n- **Medicamentos** — antibióticos, aspirina, medio de contraste\n- **Contacto** — látex, níquel, fragancias",
         },
         {
           title: "Reacciones leves vs graves",
           content:
-            "Los síntomas leves pueden incluir estornudos, picazón en ojos, urticaria o secreción nasal. Las reacciones graves (anafilaxia) incluyen dificultad para respirar, hinchazón de cara o garganta, pulso rápido, mareo o vómitos. La anafilaxia es una emergencia — use epinefrina si se la recetaron y llame al 911.\r\n\r\n:::warning\r\nSi tuvo una reacción alérgica grave antes, use pulsera de alerta médica y lleve medicamento de emergencia según indicación.\r\n:::",
+            "Los síntomas leves pueden incluir estornudos, picazón en ojos, urticaria o secreción nasal. Las reacciones graves (anafilaxia) incluyen dificultad para respirar, hinchazón de cara o garganta, pulso rápido, mareo o vómitos. La anafilaxia es una emergencia — use epinefrina si se la recetaron y llame al 911.",
+          callouts: [
+            {
+              type: "warning",
+              content:
+                "Si tuvo una reacción alérgica grave antes, use pulsera de alerta médica y lleve medicamento de emergencia según indicación.",
+            },
+          ],
         },
         {
           title: "Pruebas y diagnóstico",
@@ -1475,12 +1926,26 @@ export const lessons: Lesson[] = [
         {
           title: "Manejo diario",
           content:
-            "- Evite desencadenantes conocidos\r\n- Tome antihistamínicos u otros medicamentos según receta\r\n- Mantenga un plan de acción para escuela, trabajo o viajes\r\n- Revise alergias en cada visita médica\r\n\r\n:::info\r\nLas alergias pueden desarrollarse a cualquier edad. Una reacción pasada no predice la gravedad de la siguiente — tome los síntomas en serio.\r\n:::",
+            "- Evite desencadenantes conocidos\n- Tome antihistamínicos u otros medicamentos según receta\n- Mantenga un plan de acción para escuela, trabajo o viajes\n- Revise alergias en cada visita médica",
+          callouts: [
+            {
+              type: "info",
+              content:
+                "Las alergias pueden desarrollarse a cualquier edad. Una reacción pasada no predice la gravedad de la siguiente — tome los síntomas en serio.",
+            },
+          ],
         },
         {
           title: "Plan de acción para anafilaxia",
           content:
-            "Si está en riesgo de reacciones graves, elabore con su médico un plan escrito que incluya:\r\n\r\n1. **Reconocer síntomas** — opresión de garganta, sibilancias, urticaria generalizada, mareo\r\n2. **Usar epinefrina primero** — autoinyector en muslo externo; no espere solo antihistamínicos\r\n3. **Llamar al 911** — puede haber segunda reacción tras mejoría inicial\r\n4. **Ir a emergencias** — aunque se sienta mejor tras epinefrina\r\n\r\n:::warning\r\nLleve siempre dos autoinyectores si se los recetaron — una dosis puede no bastar y un dispositivo puede fallar.\r\n:::",
+            "Si está en riesgo de reacciones graves, elabore con su médico un plan escrito que incluya:\n\n1. **Reconocer síntomas** — opresión de garganta, sibilancias, urticaria generalizada, mareo\n2. **Usar epinefrina primero** — autoinyector en muslo externo; no espere solo antihistamínicos\n3. **Llamar al 911** — puede haber segunda reacción tras mejoría inicial\n4. **Ir a emergencias** — aunque se sienta mejor tras epinefrina",
+          callouts: [
+            {
+              type: "warning",
+              content:
+                "Lleve siempre dos autoinyectores si se los recetaron — una dosis puede no bastar y un dispositivo puede fallar.",
+            },
+          ],
         },
         {
           title: "Leer etiquetas de alimentos (EE.UU.)",
@@ -1490,7 +1955,7 @@ export const lessons: Lesson[] = [
         {
           title: "Alergias en escuela y trabajo",
           content:
-            "Comparta su plan con enfermería, maestros o RR.HH. Sepa dónde está la epinefrina y quién está capacitado. Para alergias alimentarias, hable de áreas seguras y riesgo de contaminación cruzada en cocinas compartidas.\r\n\r\n<!-- lesson-depth-added -->",
+            "Comparta su plan con enfermería, maestros o RR.HH. Sepa dónde está la epinefrina y quién está capacitado. Para alergias alimentarias, hable de áreas seguras y riesgo de contaminación cruzada en cocinas compartidas.\n\n<!-- lesson-depth-added -->",
         },
       ],
     },
@@ -1518,12 +1983,19 @@ export const lessons: Lesson[] = [
         {
           title: "Dos analgésicos comunes",
           content:
-            "Muchos hogares usan **acetaminofén** (Tylenol) o **ibuprofeno** (Advil, Motrin). Actúan de forma distinta:\r\n\r\n- **Acetaminofén** reduce dolor y fiebre pero no es antiinflamatorio. El exceso puede dañar el hígado.\r\n- **Ibuprofeno** (AINE) reduce dolor, fiebre e inflamación pero puede irritar el estómago y afectar riñones.",
+            "Muchos hogares usan **acetaminofén** (Tylenol) o **ibuprofeno** (Advil, Motrin). Actúan de forma distinta:\n\n- **Acetaminofén** reduce dolor y fiebre pero no es antiinflamatorio. El exceso puede dañar el hígado.\n- **Ibuprofeno** (AINE) reduce dolor, fiebre e inflamación pero puede irritar el estómago y afectar riñones.",
         },
         {
           title: "Los límites diarios importan",
           content:
-            "Lea etiquetas — muchos productos para resfriado también contienen acetaminofén o ibuprofeno. Combinar productos puede superar límites seguros sin darse cuenta.\r\n\r\n:::warning\r\nLa etiqueta de la FDA permite hasta 4,000 mg de acetaminofén al día para la mayoría de adultos sanos de todas las fuentes. Muchos médicos recomiendan no superar 3,000 mg al día en uso crónico, o menos si consume alcohol con frecuencia, tiene enfermedad hepática o toma otros medicamentos que afectan el hígado. Siga siempre la etiqueta y la orientación de su médico.\r\n:::",
+            "Lea etiquetas — muchos productos para resfriado también contienen acetaminofén o ibuprofeno. Combinar productos puede superar límites seguros sin darse cuenta.",
+          callouts: [
+            {
+              type: "warning",
+              content:
+                "La etiqueta de la FDA permite hasta 4,000 mg de acetaminofén al día para la mayoría de adultos sanos de todas las fuentes. Muchos médicos recomiendan no superar 3,000 mg al día en uso crónico, o menos si consume alcohol con frecuencia, tiene enfermedad hepática o toma otros medicamentos que afectan el hígado. Siga siempre la etiqueta y la orientación de su médico.",
+            },
+          ],
         },
         {
           title: "Alcohol y otros medicamentos",
@@ -1533,22 +2005,36 @@ export const lessons: Lesson[] = [
         {
           title: "Cuándo el dolor requiere atención médica",
           content:
-            "Consulte pronto si hay:\r\n\r\n- Dolor de pecho o dificultad para respirar\r\n- Dolor de cabeza severo con rigidez de cuello o confusión\r\n- Dolor tras lesión con deformidad o incapacidad para apoyar peso\r\n- Dolor que dura más de unos días sin mejorar\r\n\r\n:::info\r\nEl dolor es una señal, no solo una molestia. Tratar síntomas está bien a corto plazo, pero el dolor persistente merece evaluación de la causa.\r\n:::",
+            "Consulte pronto si hay:\n\n- Dolor de pecho o dificultad para respirar\n- Dolor de cabeza severo con rigidez de cuello o confusión\n- Dolor tras lesión con deformidad o incapacidad para apoyar peso\n- Dolor que dura más de unos días sin mejorar",
+          callouts: [
+            {
+              type: "info",
+              content:
+                "El dolor es una señal, no solo una molestia. Tratar síntomas está bien a corto plazo, pero el dolor persistente merece evaluación de la causa.",
+            },
+          ],
         },
         {
           title: "Tabla de interacciones",
           content:
-            "| Si toma…                              | Antes de ibuprofeno o naproxeno, pregunte por… |\r\n| ------------------------------------- | ---------------------------------------------- |\r\n| Anticoagulantes (warfarina, apixaban) | Riesgo de sangrado — los AINE lo aumentan      |\r\n| Medicamentos para presión             | Los AINE pueden reducir eficacia               |\r\n| Esteroides (prednisona)               | Mayor riesgo de sangrado estomacal             |\r\n| Aspirina diaria (protección cardíaca) | Si otro AINE es seguro                         |\r\n\r\nEl acetaminofén no diluye la sangre, pero cuenta hacia el límite diario hepático de todas las fuentes.",
+            "| Si toma…                              | Antes de ibuprofeno o naproxeno, pregunte por… |\n| ------------------------------------- | ---------------------------------------------- |\n| Anticoagulantes (warfarina, apixaban) | Riesgo de sangrado — los AINE lo aumentan      |\n| Medicamentos para presión             | Los AINE pueden reducir eficacia               |\n| Esteroides (prednisona)               | Mayor riesgo de sangrado estomacal             |\n| Aspirina diaria (protección cardíaca) | Si otro AINE es seguro                         |\n\nEl acetaminofén no diluye la sangre, pero cuenta hacia el límite diario hepático de todas las fuentes.",
         },
         {
           title: "Poblaciones especiales",
           content:
-            "- **Adultos mayores** — riñones y estómago más vulnerables; use la dosis efectiva más baja por el menor tiempo\r\n- **Niños** — use dosis por peso en la etiqueta; nunca dé tabletas de adulto sin verificar\r\n- **Embarazo** — pregunte antes de cualquier analgésico; algunas opciones son más seguras según trimestre\r\n\r\n:::warning\r\nNunca dé aspirina a niños o adolescentes con enfermedad viral — se asocia con síndrome de Reye, condición grave aunque rara.\r\n:::",
+            "- **Adultos mayores** — riñones y estómago más vulnerables; use la dosis efectiva más baja por el menor tiempo\n- **Niños** — use dosis por peso en la etiqueta; nunca dé tabletas de adulto sin verificar\n- **Embarazo** — pregunte antes de cualquier analgésico; algunas opciones son más seguras según trimestre",
+          callouts: [
+            {
+              type: "warning",
+              content:
+                "Nunca dé aspirina a niños o adolescentes con enfermedad viral — se asocia con síndrome de Reye, condición grave aunque rara.",
+            },
+          ],
         },
         {
           title: "Signos de sobredosis",
           content:
-            "Demasiado acetaminofén puede causar náusea, vómito, confusión o piel amarillenta (ictericia) — a veces con retraso de 24–48 horas. Demasiado AINE puede causar dolor estomacal, heces negras o menos orina. Si sospecha sobredosis, llame a Control de Envenenamientos (1-800-222-1222 en EE.UU.) o busque emergencias de inmediato.\r\n\r\n<!-- lesson-depth-added -->",
+            "Demasiado acetaminofén puede causar náusea, vómito, confusión o piel amarillenta (ictericia) — a veces con retraso de 24–48 horas. Demasiado AINE puede causar dolor estomacal, heces negras o menos orina. Si sospecha sobredosis, llame a Control de Envenenamientos (1-800-222-1222 en EE.UU.) o busque emergencias de inmediato.\n\n<!-- lesson-depth-added -->",
         },
       ],
     },
@@ -1582,32 +2068,53 @@ export const lessons: Lesson[] = [
         {
           title: "Cómo funcionan",
           content:
-            "- **Tarjetas de copago** — reducen lo que paga en farmacia por un medicamento específico\r\n- **Programas de asistencia al paciente** — pueden dar medicamento gratis o a bajo costo según ingresos\r\n- **Becas de fundaciones** — ayudan a personas con diagnósticos específicos\r\n\r\nLas reglas del seguro varían: algunos planes no permiten que las tarjetas cuenten hacia el deducible.",
+            "- **Tarjetas de copago** — reducen lo que paga en farmacia por un medicamento específico\n- **Programas de asistencia al paciente** — pueden dar medicamento gratis o a bajo costo según ingresos\n- **Becas de fundaciones** — ayudan a personas con diagnósticos específicos\n\nLas reglas del seguro varían: algunos planes no permiten que las tarjetas cuenten hacia el deducible.",
         },
         {
           title: "Pasos para explorar opciones",
           content:
-            "1. Pregunte si existe genérico o alternativa más barata\r\n2. Diga al farmacéutico que compara precios y ayuda\r\n3. Visite el sitio de apoyo al paciente del fabricante\r\n4. Busque fundaciones confiables\r\n5. Lea reglas de elegibilidad — ingresos, seguro y diagnóstico suelen importar\r\n\r\n:::warning\r\nNo comparta su número de Seguro Social con llamadas no solicitadas. Use sitios oficiales o un consejero financiero de la clínica.\r\n:::",
+            "1. Pregunte si existe genérico o alternativa más barata\n2. Diga al farmacéutico que compara precios y ayuda\n3. Visite el sitio de apoyo al paciente del fabricante\n4. Busque fundaciones confiables\n5. Lea reglas de elegibilidad — ingresos, seguro y diagnóstico suelen importar",
+          callouts: [
+            {
+              type: "warning",
+              content:
+                "No comparta su número de Seguro Social con llamadas no solicitadas. Use sitios oficiales o un consejero financiero de la clínica.",
+            },
+          ],
         },
         {
           title: "Si aún no puede pagar",
           content:
-            "Hable con su médico antes de suspender tratamiento. Las clínicas pueden tener muestras, otras formulaciones o referencia a trabajador social.\r\n\r\n:::info\r\nLos programas pueden cambiar o terminar. Revise elegibilidad cada año y cuando cambie su seguro.\r\n:::",
+            "Hable con su médico antes de suspender tratamiento. Las clínicas pueden tener muestras, otras formulaciones o referencia a trabajador social.",
+          callouts: [
+            {
+              type: "info",
+              content:
+                "Los programas pueden cambiar o terminar. Revise elegibilidad cada año y cuando cambie su seguro.",
+            },
+          ],
         },
         {
           title: "Solicitud paso a paso",
           content:
-            "1. **Tenga el diagnóstico registrado** — la mayoría de programas lo exigen\r\n2. **Reúna documentos** — declaración de impuestos, comprobante de pago, tarjeta de seguro, detalles de receta\r\n3. **Solicite por canales oficiales** — sitio del fabricante o consejero financiero de la clínica\r\n4. **Active la tarjeta** antes de surtir en farmacia — algunas requieren registro previo\r\n5. **Guarde confirmación** — IDs de programa, fechas de renovación y teléfonos de servicio\r\n\r\n:::info\r\nMantenga una carpeta (papel o digital) por cada programa. La renovación suele pedir comprobante de ingresos actualizado.\r\n:::",
+            "1. **Tenga el diagnóstico registrado** — la mayoría de programas lo exigen\n2. **Reúna documentos** — declaración de impuestos, comprobante de pago, tarjeta de seguro, detalles de receta\n3. **Solicite por canales oficiales** — sitio del fabricante o consejero financiero de la clínica\n4. **Active la tarjeta** antes de surtir en farmacia — algunas requieren registro previo\n5. **Guarde confirmación** — IDs de programa, fechas de renovación y teléfonos de servicio",
+          callouts: [
+            {
+              type: "info",
+              content:
+                "Mantenga una carpeta (papel o digital) por cada programa. La renovación suele pedir comprobante de ingresos actualizado.",
+            },
+          ],
         },
         {
           title: "Programas del fabricante vs sin fines de lucro",
           content:
-            "| Tipo                                     | Ayuda típica                                               | Precaución                        |\r\n| ---------------------------------------- | ---------------------------------------------------------- | --------------------------------- |\r\n| Tarjeta de copago del fabricante         | Baja copago en farmacia por un medicamento de marca        | Puede no contar al deducible      |\r\n| Programa de asistencia al paciente (PAP) | Medicamento gratis o a bajo costo si califica por ingresos | La solicitud puede tardar semanas |\r\n| Beca de fundación                        | Ayuda con varios medicamentos para un diagnóstico          | Ciclos de fondos limitados        |",
+            "| Tipo                                     | Ayuda típica                                               | Precaución                        |\n| ---------------------------------------- | ---------------------------------------------------------- | --------------------------------- |\n| Tarjeta de copago del fabricante         | Baja copago en farmacia por un medicamento de marca        | Puede no contar al deducible      |\n| Programa de asistencia al paciente (PAP) | Medicamento gratis o a bajo costo si califica por ingresos | La solicitud puede tardar semanas |\n| Beca de fundación                        | Ayuda con varios medicamentos para un diagnóstico          | Ciclos de fondos limitados        |",
         },
         {
           title: "Si termina la ayuda",
           content:
-            "Los programas pueden acabar cuando se agotan fondos o cambia el seguro. Antes de que expire su tarjeta:\r\n\r\n- Pregunte al médico por alternativas terapéuticas\r\n- Pida suministro de 90 días si está permitido mientras vuelve a solicitar\r\n- Revise NeedyMeds, PAN Foundation o programas estatales\r\n\r\nNunca compre en vendedores en línea sin licencia cuando un programa termina — el medicamento falsificado es un riesgo real.\r\n\r\n<!-- lesson-depth-added -->",
+            "Los programas pueden acabar cuando se agotan fondos o cambia el seguro. Antes de que expire su tarjeta:\n\n- Pregunte al médico por alternativas terapéuticas\n- Pida suministro de 90 días si está permitido mientras vuelve a solicitar\n- Revise NeedyMeds, PAN Foundation o programas estatales\n\nNunca compre en vendedores en línea sin licencia cuando un programa termina — el medicamento falsificado es un riesgo real.\n\n<!-- lesson-depth-added -->",
         },
       ],
     },
@@ -1641,27 +2148,48 @@ export const lessons: Lesson[] = [
         {
           title: "Pruebas comunes en adultos",
           content:
-            "| Prueba                         | Para quién (guías generales)                     | Notas                                                |\r\n| ------------------------------ | ------------------------------------------------ | ---------------------------------------------------- |\r\n| Mamografía                     | Mujeres en riesgo promedio, a menudo desde 40–50 | Antes si hay historial familiar fuerte               |\r\n| Colonoscopia o prueba de heces | Adultos 45+                                      | Colonoscopia cada 10 años o heces con más frecuencia |\r\n| Cervical (Pap/VPH)             | Personas con cuello uterino, 21–65               | Intervalo según prueba y resultados                  |\r\n| TC de pulmón                   | Fumadores intensos 50–80                         | Discutir riesgos y beneficios                        |\r\n| Piel                           | Quienes tienen muchos lunares o melanoma previo  | Autoexamen y dermatología                            |\r\n\r\nLas guías cambian — su médico personaliza recomendaciones.",
+            "| Prueba                         | Para quién (guías generales)                     | Notas                                                |\n| ------------------------------ | ------------------------------------------------ | ---------------------------------------------------- |\n| Mamografía                     | Mujeres en riesgo promedio, a menudo desde 40–50 | Antes si hay historial familiar fuerte               |\n| Colonoscopia o prueba de heces | Adultos 45+                                      | Colonoscopia cada 10 años o heces con más frecuencia |\n| Cervical (Pap/VPH)             | Personas con cuello uterino, 21–65               | Intervalo según prueba y resultados                  |\n| TC de pulmón                   | Fumadores intensos 50–80                         | Discutir riesgos y beneficios                        |\n| Piel                           | Quienes tienen muchos lunares o melanoma previo  | Autoexamen y dermatología                            |\n\nLas guías cambian — su médico personaliza recomendaciones.",
         },
         {
           title: "Preparación",
           content:
-            "- Actualice historial familiar de cáncer\r\n- Liste medicamentos y cirugías previas\r\n- Para colonoscopia: siga preparación intestinal al pie de la letra\r\n- Organice transporte si hay sedación\r\n\r\n:::warning\r\nLa detección no es perfecta. Puede haber falsos positivos o negativos. Reporte síntomas nuevos aunque una prueba reciente fue normal.\r\n:::",
+            "- Actualice historial familiar de cáncer\n- Liste medicamentos y cirugías previas\n- Para colonoscopia: siga preparación intestinal al pie de la letra\n- Organice transporte si hay sedación",
+          callouts: [
+            {
+              type: "warning",
+              content:
+                "La detección no es perfecta. Puede haber falsos positivos o negativos. Reporte síntomas nuevos aunque una prueba reciente fue normal.",
+            },
+          ],
         },
         {
           title: "Tras los resultados",
           content:
-            "Si son anormales, pregunte qué significa, cuál es la siguiente prueba y si familiares deben detectarse antes.\r\n\r\n:::info\r\nVacunas como VPH reducen riesgo de varios cánceres. Detección y prevención van juntas.\r\n:::",
+            "Si son anormales, pregunte qué significa, cuál es la siguiente prueba y si familiares deben detectarse antes.",
+          callouts: [
+            {
+              type: "info",
+              content:
+                "Vacunas como VPH reducen riesgo de varios cánceres. Detección y prevención van juntas.",
+            },
+          ],
         },
         {
           title: "Seguro y costos",
           content:
-            "La mayoría de detecciones preventivas se cubren sin copago en planes ACA de EE.UU. en intervalos recomendados — pero las reglas varían. Pregunte:\r\n\r\n- ¿Esta detección se codifica como preventiva para mi edad y riesgo?\r\n- ¿Un resultado positivo llevará a pruebas diagnósticas con otro costo?\r\n- ¿Necesito referencia o centro en red?\r\n\r\n:::info\r\nTraiga su tarjeta de seguro y pida confirmar facturación preventiva al programar cuando sea posible.\r\n:::",
+            "La mayoría de detecciones preventivas se cubren sin copago en planes ACA de EE.UU. en intervalos recomendados — pero las reglas varían. Pregunte:\n\n- ¿Esta detección se codifica como preventiva para mi edad y riesgo?\n- ¿Un resultado positivo llevará a pruebas diagnósticas con otro costo?\n- ¿Necesito referencia o centro en red?",
+          callouts: [
+            {
+              type: "info",
+              content:
+                "Traiga su tarjeta de seguro y pida confirmar facturación preventiva al programar cuando sea posible.",
+            },
+          ],
         },
         {
           title: "Barreras y adaptaciones",
           content:
-            "La detección no es igual para todos. Hable con su médico si tiene:\r\n\r\n- **Limitaciones de movilidad** — pregunte por pruebas de heces en lugar de colonoscopia cuando corresponda\r\n- **Ansiedad o historial de trauma** — pida más tiempo, sedación o acompañante\r\n- **Necesidad de idioma** — solicite intérprete con anticipación\r\n- **Falta de transporte** — algunos departamentos de salud ofrecen viajes",
+            "La detección no es igual para todos. Hable con su médico si tiene:\n\n- **Limitaciones de movilidad** — pregunte por pruebas de heces en lugar de colonoscopia cuando corresponda\n- **Ansiedad o historial de trauma** — pida más tiempo, sedación o acompañante\n- **Necesidad de idioma** — solicite intérprete con anticipación\n- **Falta de transporte** — algunos departamentos de salud ofrecen viajes",
         },
         {
           title: "Comunicación familiar",
@@ -1671,7 +2199,7 @@ export const lessons: Lesson[] = [
         {
           title: "Cuando las guías difieren",
           content:
-            "Las sociedades médicas actualizan recomendaciones según evidencia. Su edad de inicio puede ser antes o después que la de un amigo. Confíe en decisión compartida con su clínico, no en tablas de redes sociales.\r\n\r\n<!-- lesson-depth-added -->",
+            "Las sociedades médicas actualizan recomendaciones según evidencia. Su edad de inicio puede ser antes o después que la de un amigo. Confíe en decisión compartida con su clínico, no en tablas de redes sociales.\n\n<!-- lesson-depth-added -->",
         },
       ],
     },
@@ -1704,27 +2232,48 @@ export const lessons: Lesson[] = [
         {
           title: "Estrategias cotidianas",
           content:
-            "- **Respiración** — exhale más lento que inhale por 2–5 minutos\r\n- **Movimiento** — caminar, estirar o actividad que disfrute\r\n- **Rutina de sueño** — hora fija, limite pantallas antes de dormir\r\n- **Límites** — diga no a compromisos no esenciales\r\n- **Conexión** — hable con alguien de confianza\r\n\r\n:::info\r\nNo necesita meditación perfecta. Hábitos pequeños y repetibles importan más que sesiones largas ocasionales.\r\n:::",
+            "- **Respiración** — exhale más lento que inhale por 2–5 minutos\n- **Movimiento** — caminar, estirar o actividad que disfrute\n- **Rutina de sueño** — hora fija, limite pantallas antes de dormir\n- **Límites** — diga no a compromisos no esenciales\n- **Conexión** — hable con alguien de confianza",
+          callouts: [
+            {
+              type: "info",
+              content:
+                "No necesita meditación perfecta. Hábitos pequeños y repetibles importan más que sesiones largas ocasionales.",
+            },
+          ],
         },
         {
           title: "Cuándo el estrés se cruza con salud mental",
           content:
-            "Busque ayuda profesional si tiene:\r\n\r\n- Ataques de pánico o preocupación constante\r\n- Ánimo bajo la mayoría de los días por dos semanas o más\r\n- Pensamientos de hacerse daño o dañar a otros\r\n- Estrés que le hace faltar trabajo, escuela o autocuidado\r\n\r\nTerapia, grupos de apoyo y a veces medicamentos ayudan. Hay líneas de crisis 24/7 en muchos países.",
+            "Busque ayuda profesional si tiene:\n\n- Ataques de pánico o preocupación constante\n- Ánimo bajo la mayoría de los días por dos semanas o más\n- Pensamientos de hacerse daño o dañar a otros\n- Estrés que le hace faltar trabajo, escuela o autocuidado\n\nTerapia, grupos de apoyo y a veces medicamentos ayudan. Hay líneas de crisis 24/7 en muchos países.",
         },
         {
           title: "Estrés relacionado con la salud",
           content:
-            "Facturas médicas, enfermedad crónica y cuidar a otros son grandes estresores. Use trabajadores sociales y navegadores de pacientes — no tiene que resolver todo solo.\r\n\r\n:::warning\r\nSi está en peligro inmediato, llame a emergencias o línea de crisis. Los consejos de manejo no sustituyen atención de emergencia en salud mental.\r\n:::",
+            "Facturas médicas, enfermedad crónica y cuidar a otros son grandes estresores. Use trabajadores sociales y navegadores de pacientes — no tiene que resolver todo solo.",
+          callouts: [
+            {
+              type: "warning",
+              content:
+                "Si está en peligro inmediato, llame a emergencias o línea de crisis. Los consejos de manejo no sustituyen atención de emergencia en salud mental.",
+            },
+          ],
         },
         {
           title: "Estrés laboral y de cuidador",
           content:
-            "Presión en el trabajo, turnos y cuidar a un familiar enfermo son estresores crónicos comunes. Pasos prácticos:\r\n\r\n- **Micro-pausas** — caminatas o estiramientos de 2 minutos entre tareas\r\n- **Delegar** — una tarea menos por semana cuando sea posible\r\n- **Respiro** — pida ayuda a familia, amigos o programas comunitarios\r\n- **Programas de asistencia al empleado (EAP)** — a menudo consejería corta gratis por el trabajo\r\n\r\n:::info\r\nEl agotamiento del cuidador es real. Tomar un descanso no es egoísta — protege su capacidad de cuidar a largo plazo.\r\n:::",
+            "Presión en el trabajo, turnos y cuidar a un familiar enfermo son estresores crónicos comunes. Pasos prácticos:\n\n- **Micro-pausas** — caminatas o estiramientos de 2 minutos entre tareas\n- **Delegar** — una tarea menos por semana cuando sea posible\n- **Respiro** — pida ayuda a familia, amigos o programas comunitarios\n- **Programas de asistencia al empleado (EAP)** — a menudo consejería corta gratis por el trabajo",
+          callouts: [
+            {
+              type: "info",
+              content:
+                "El agotamiento del cuidador es real. Tomar un descanso no es egoísta — protege su capacidad de cuidar a largo plazo.",
+            },
+          ],
         },
         {
           title: "Ciclo sueño y estrés",
           content:
-            "Dormir mal sube hormonas de estrés; mucho estrés altera el sueño. Rompa el ciclo con:\r\n\r\n- Hora fija de despertar (incluso fines de semana)\r\n- Sin cafeína después de media tarde\r\n- Rutina de relajación sin pantallas 30–60 minutos antes de dormir",
+            "Dormir mal sube hormonas de estrés; mucho estrés altera el sueño. Rompa el ciclo con:\n\n- Hora fija de despertar (incluso fines de semana)\n- Sin cafeína después de media tarde\n- Rutina de relajación sin pantallas 30–60 minutos antes de dormir",
         },
         {
           title: "Plan personal",
@@ -1734,7 +2283,7 @@ export const lessons: Lesson[] = [
         {
           title: "Recursos de crisis (EE.UU.)",
           content:
-            "- **988 Línea de crisis** — llame o envíe texto al 988\r\n- **Crisis Text Line** — texto HOME al 741741\r\n- **911** — peligro inmediato\r\n\r\nFuera de EE.UU., busque “línea de crisis” más su país.\r\n\r\n<!-- lesson-depth-added -->",
+            "- **988 Línea de crisis** — llame o envíe texto al 988\n- **Crisis Text Line** — texto HOME al 741741\n- **911** — peligro inmediato\n\nFuera de EE.UU., busque “línea de crisis” más su país.\n\n<!-- lesson-depth-added -->",
         },
       ],
     },
@@ -1772,7 +2321,14 @@ export const lessons: Lesson[] = [
         {
           title: "Signos de deshidratación",
           content:
-            "- Sed, boca seca\r\n- Orina amarillo oscuro o orinar menos\r\n- Mareo al levantarse\r\n- Confusión en adultos mayores (busque atención pronto)\r\n\r\n:::warning\r\nDeshidratación grave — confusión, desmayo, sin orina por muchas horas — requiere atención urgente.\r\n:::",
+            "- Sed, boca seca\n- Orina amarillo oscuro o orinar menos\n- Mareo al levantarse\n- Confusión en adultos mayores (busque atención pronto)",
+          callouts: [
+            {
+              type: "warning",
+              content:
+                "Deshidratación grave — confusión, desmayo, sin orina por muchas horas — requiere atención urgente.",
+            },
+          ],
         },
         {
           title: "Quién necesita más cuidado",
@@ -1782,12 +2338,26 @@ export const lessons: Lesson[] = [
         {
           title: "Mejores opciones",
           content:
-            "El agua es la mejor opción base. Té sin azúcar o leche también. Limite refrescos azucarados — añaden calorías sin hidratación duradera.\r\n\r\n:::info\r\nLa cafeína en cantidades moderadas aún aporta líquidos para la mayoría, pero no sustituye agua en ejercicio intenso.\r\n:::",
+            "El agua es la mejor opción base. Té sin azúcar o leche también. Limite refrescos azucarados — añaden calorías sin hidratación duradera.",
+          callouts: [
+            {
+              type: "info",
+              content:
+                "La cafeína en cantidades moderadas aún aporta líquidos para la mayoría, pero no sustituye agua en ejercicio intenso.",
+            },
+          ],
         },
         {
           title: "Electrolitos y enfermedad",
           content:
-            "Con vómito, diarrea o sudor intenso pierde sodio y potasio — no solo agua. En enfermedad leve:\r\n\r\n- Soluciones de rehidratación oral (comerciales o receta OMS) superan solo agua\r\n- Caldo puede ayudar si lo tolera\r\n- Evite bebidas deportivas azucaradas como único líquido — pueden empeorar diarrea\r\n\r\n:::warning\r\nBebés, adultos mayores y personas con enfermedad cardíaca o renal se deshidratan más rápido. Busque atención antes si no retienen líquidos.\r\n:::",
+            "Con vómito, diarrea o sudor intenso pierde sodio y potasio — no solo agua. En enfermedad leve:\n\n- Soluciones de rehidratación oral (comerciales o receta OMS) superan solo agua\n- Caldo puede ayudar si lo tolera\n- Evite bebidas deportivas azucaradas como único líquido — pueden empeorar diarrea",
+          callouts: [
+            {
+              type: "warning",
+              content:
+                "Bebés, adultos mayores y personas con enfermedad cardíaca o renal se deshidratan más rápido. Busque atención antes si no retienen líquidos.",
+            },
+          ],
         },
         {
           title: "Ejercicio y calor",
@@ -1802,7 +2372,7 @@ export const lessons: Lesson[] = [
         {
           title: "Mitos vs hechos",
           content:
-            "| Mito                              | Hecho                                                       |\r\n| --------------------------------- | ----------------------------------------------------------- |\r\n| “8 vasos para todos”              | Las necesidades varían por tamaño, actividad, clima y salud |\r\n| “Orina clara siempre mejor”       | Orina muy clara puede indicar sobrehidratación              |\r\n| “El café deshidrata por completo” | Café moderado aún aporta líquidos                           |\r\n\r\n<!-- lesson-depth-added -->",
+            "| Mito                              | Hecho                                                       |\n| --------------------------------- | ----------------------------------------------------------- |\n| “8 vasos para todos”              | Las necesidades varían por tamaño, actividad, clima y salud |\n| “Orina clara siempre mejor”       | Orina muy clara puede indicar sobrehidratación              |\n| “El café deshidrata por completo” | Café moderado aún aporta líquidos                           |\n\n<!-- lesson-depth-added -->",
         },
       ],
     },
@@ -1830,42 +2400,62 @@ export const lessons: Lesson[] = [
         {
           title: "Tres niveles de atención",
           content:
-            "- **Atención primaria** — salud continua, resurtidos, prevención (a menudo espera de días o semanas)\r\n- **Atención urgente** — problemas el mismo día que no son mortales\r\n- **Emergencias (ER)** — condiciones graves o potencialmente mortales\r\n\r\nElegir el lugar correcto ahorra tiempo, dinero y deja la ER para verdaderas emergencias.",
+            "- **Atención primaria** — salud continua, resurtidos, prevención (a menudo espera de días o semanas)\n- **Atención urgente** — problemas el mismo día que no son mortales\n- **Emergencias (ER)** — condiciones graves o potencialmente mortales\n\nElegir el lugar correcto ahorra tiempo, dinero y deja la ER para verdaderas emergencias.",
         },
         {
           title: "Buenas razones para atención urgente",
           content:
-            "- Esguinces, cortes menores que necesitan puntos\r\n- Fiebre sin angustia severa (según guía local)\r\n- Síntomas de infección urinaria\r\n- Brote leve de asma que responde al inhalador habitual\r\n- Erupción sin problemas respiratorios\r\n- Dolor de oído o garganta cuando el consultorio está cerrado",
+            "- Esguinces, cortes menores que necesitan puntos\n- Fiebre sin angustia severa (según guía local)\n- Síntomas de infección urinaria\n- Brote leve de asma que responde al inhalador habitual\n- Erupción sin problemas respiratorios\n- Dolor de oído o garganta cuando el consultorio está cerrado",
         },
         {
           title: "Vaya a emergencias en su lugar",
           content:
-            "Llame al 911 o vaya a ER por dolor de pecho, signos de derrame (FAST), dificultad respiratoria severa, sangrado abundante, intoxicación, pensamientos suicidas con plan o trauma mayor.\r\n\r\n:::warning\r\nSi duda de la gravedad, priorice atención de emergencia. La urgencia no maneja toda complicación.\r\n:::",
+            "Llame al 911 o vaya a ER por dolor de pecho, signos de derrame (FAST), dificultad respiratoria severa, sangrado abundante, intoxicación, pensamientos suicidas con plan o trauma mayor.",
+          callouts: [
+            {
+              type: "warning",
+              content:
+                "Si duda de la gravedad, priorice atención de emergencia. La urgencia no maneja toda complicación.",
+            },
+          ],
         },
         {
           title: "Antes de ir",
           content:
-            "- Lleve ID, seguro, lista de medicamentos\r\n- Conozca horarios — algunas cierran de noche\r\n- Pregunte si hacen pruebas necesarias (rayos X, estreptococo)\r\n- Planee seguimiento con su médico de cabecera\r\n\r\n:::info\r\nLa factura de urgencia puede ser costosa. Pregunte precios y qué requiere su seguro (copago, red).\r\n:::",
+            "- Lleve ID, seguro, lista de medicamentos\n- Conozca horarios — algunas cierran de noche\n- Pregunte si hacen pruebas necesarias (rayos X, estreptococo)\n- Planee seguimiento con su médico de cabecera",
+          callouts: [
+            {
+              type: "info",
+              content:
+                "La factura de urgencia puede ser costosa. Pregunte precios y qué requiere su seguro (copago, red).",
+            },
+          ],
         },
         {
           title: "Costos y facturación",
           content:
-            "La atención urgente suele costar menos que emergencias pero más que consultorio. Puede deber:\r\n\r\n- Copago al registrarse\r\n- Cargos por laboratorios o rayos X en el sitio\r\n- Facturación balanceada si el centro está fuera de red\r\n\r\nTraiga tarjeta de seguro e identificación. Pregunte si pueden enviar registros a su médico de cabecera.",
+            "La atención urgente suele costar menos que emergencias pero más que consultorio. Puede deber:\n\n- Copago al registrarse\n- Cargos por laboratorios o rayos X en el sitio\n- Facturación balanceada si el centro está fuera de red\n\nTraiga tarjeta de seguro e identificación. Pregunte si pueden enviar registros a su médico de cabecera.",
         },
         {
           title: "Telesalud vs urgencias vs emergencias",
           content:
-            "| Opción           | Bueno para                                 | No para                                        |\r\n| ---------------- | ------------------------------------------ | ---------------------------------------------- |\r\n| Telesalud        | Sarpullido leve, resurtido, resfriado      | Dolor de pecho, dificultad respiratoria severa |\r\n| Atención urgente | Esguinces, puntos, síntomas de ITU, fiebre | ACV, trauma mayor, inconsciencia               |\r\n| ER / 911         | Emergencias mortales                       | Resurtidos de rutina                           |\r\n\r\n:::info\r\nMuchos seguros ofrecen línea de enfermería 24/7 — úsela cuando no sepa a dónde ir.\r\n:::",
+            "| Opción           | Bueno para                                 | No para                                        |\n| ---------------- | ------------------------------------------ | ---------------------------------------------- |\n| Telesalud        | Sarpullido leve, resurtido, resfriado      | Dolor de pecho, dificultad respiratoria severa |\n| Atención urgente | Esguinces, puntos, síntomas de ITU, fiebre | ACV, trauma mayor, inconsciencia               |\n| ER / 911         | Emergencias mortales                       | Resurtidos de rutina                           |",
+          callouts: [
+            {
+              type: "info",
+              content: "Muchos seguros ofrecen línea de enfermería 24/7 — úsela cuando no sepa a dónde ir.",
+            },
+          ],
         },
         {
           title: "Después de la visita",
           content:
-            "- Recoja recetas el mismo día si es posible\r\n- Siga cuidado de heridas o restricciones de actividad\r\n- Programe seguimiento con PCP en una semana para problemas persistentes\r\n- Vaya a emergencias si empeora pese al tratamiento urgente",
+            "- Recoja recetas el mismo día si es posible\n- Siga cuidado de heridas o restricciones de actividad\n- Programe seguimiento con PCP en una semana para problemas persistentes\n- Vaya a emergencias si empeora pese al tratamiento urgente",
         },
         {
           title: "Prepare un kit rápido",
           content:
-            "Tenga tarjeta de seguro, lista de medicamentos y contactos de emergencia en cartera o teléfono. Ahorra tiempo cuando hay estrés.\r\n\r\n<!-- lesson-depth-added -->",
+            "Tenga tarjeta de seguro, lista de medicamentos y contactos de emergencia en cartera o teléfono. Ahorra tiempo cuando hay estrés.\n\n<!-- lesson-depth-added -->",
         },
       ],
     },
@@ -1893,7 +2483,7 @@ export const lessons: Lesson[] = [
         {
           title: "Partes de un informe",
           content:
-            "La mayoría lista:\r\n\r\n- **Nombre de prueba** — qué se midió (glucosa, hemoglobina, etc.)\r\n- **Resultado** — su número\r\n- **Unidades** — mg/dL, mmol/L, etc.\r\n- **Rango de referencia** — valores típicos de ese laboratorio\r\n- **Bandera** — H (alto), L (bajo) o alertas críticas",
+            "La mayoría lista:\n\n- **Nombre de prueba** — qué se midió (glucosa, hemoglobina, etc.)\n- **Resultado** — su número\n- **Unidades** — mg/dL, mmol/L, etc.\n- **Rango de referencia** — valores típicos de ese laboratorio\n- **Bandera** — H (alto), L (bajo) o alertas críticas",
         },
         {
           title: "Los rangos no son diagnósticos",
@@ -1903,17 +2493,38 @@ export const lessons: Lesson[] = [
         {
           title: "Banderas comunes",
           content:
-            "- **Glucosa alta** — puede sugerir riesgo de diabetes; importa si ayunó\r\n- **Hemoglobina baja** — puede sugerir anemia; causas variadas\r\n- **Colesterol alto** — factor de riesgo cardiovascular\r\n- **Enzimas hepáticas altas** — muchas causas incluyendo medicamentos\r\n\r\n:::info\r\nCompare resultados nuevos con los suyos previos cuando sea posible. Una tendencia — A1C subiendo años — puede importar más que un valor límite único.\r\n:::",
+            "- **Glucosa alta** — puede sugerir riesgo de diabetes; importa si ayunó\n- **Hemoglobina baja** — puede sugerir anemia; causas variadas\n- **Colesterol alto** — factor de riesgo cardiovascular\n- **Enzimas hepáticas altas** — muchas causas incluyendo medicamentos",
+          callouts: [
+            {
+              type: "info",
+              content:
+                "Compare resultados nuevos con los suyos previos cuando sea posible. Una tendencia — A1C subiendo años — puede importar más que un valor límite único.",
+            },
+          ],
         },
         {
           title: "Preguntas para su médico",
           content:
-            '- ¿Es anormal para mí específicamente?\r\n- ¿Debemos repetir la prueba?\r\n- ¿Algún medicamento o suplemento lo afecta?\r\n- ¿Cuál es el plan si sigue alto o bajo?\r\n\r\n:::warning\r\nValores críticos suelen provocar contacto directo del laboratorio o clínica. Si ve "crítico" en un portal y nadie llamó, contacte a su equipo pronto.\r\n:::',
+            "- ¿Es anormal para mí específicamente?\n- ¿Debemos repetir la prueba?\n- ¿Algún medicamento o suplemento lo afecta?\n- ¿Cuál es el plan si sigue alto o bajo?",
+          callouts: [
+            {
+              type: "warning",
+              content:
+                'Valores críticos suelen provocar contacto directo del laboratorio o clínica. Si ve "crítico" en un portal y nadie llamó, contacte a su equipo pronto.',
+            },
+          ],
         },
         {
           title: "Navegar el portal del paciente",
           content:
-            "La mayoría de laboratorios publican resultados antes de que el médico los revise. Cuando vea un resultado nuevo:\r\n\r\n1. Lea nombre de prueba y fecha\r\n2. Note la bandera (H/L) si hay\r\n3. Anote preguntas — no entre en pánico por un número\r\n4. Espere mensaje o cita del clínico salvo que diga crítico\r\n\r\n:::warning\r\nValores “críticos” o de pánico requieren contacto pronto — no espere visita de rutina.\r\n:::",
+            "La mayoría de laboratorios publican resultados antes de que el médico los revise. Cuando vea un resultado nuevo:\n\n1. Lea nombre de prueba y fecha\n2. Note la bandera (H/L) si hay\n3. Anote preguntas — no entre en pánico por un número\n4. Espere mensaje o cita del clínico salvo que diga crítico",
+          callouts: [
+            {
+              type: "warning",
+              content:
+                "Valores “críticos” o de pánico requieren contacto pronto — no espere visita de rutina.",
+            },
+          ],
         },
         {
           title: "Pruebas en ayunas vs no",
@@ -1928,7 +2539,7 @@ export const lessons: Lesson[] = [
         {
           title: "Preguntas comunes del paciente",
           content:
-            "- “¿Este cambio es por mi medicamento nuevo?”\r\n- “¿Repetimos en 3 o 6 meses?”\r\n- “¿Necesito especialista por este resultado?”\r\n- “¿Qué síntomas debo vigilar?”\r\n<!-- lesson-depth-added -->",
+            "- “¿Este cambio es por mi medicamento nuevo?”\n- “¿Repetimos en 3 o 6 meses?”\n- “¿Necesito especialista por este resultado?”\n- “¿Qué síntomas debo vigilar?”\n<!-- lesson-depth-added -->",
         },
       ],
     },
@@ -1971,17 +2582,37 @@ export const lessons: Lesson[] = [
         {
           title: "Cuándo puede preferirse la marca",
           content:
-            'En algunos casos — medicamentos con índice terapéutico estrecho como algunos anticonvulsivos o tiroides — el médico puede preferir un fabricante consistente. No alterne sin orientación.\r\n\r\n:::info\r\n"Bioequivalente" significa que el genérico entrega el fármaco activo al torrente sanguíneo en rango aceptable comparado con la marca.\r\n:::',
+            "En algunos casos — medicamentos con índice terapéutico estrecho como algunos anticonvulsivos o tiroides — el médico puede preferir un fabricante consistente. No alterne sin orientación.",
+          callouts: [
+            {
+              type: "info",
+              content:
+                '"Bioequivalente" significa que el genérico entrega el fármaco activo al torrente sanguíneo en rango aceptable comparado con la marca.',
+            },
+          ],
         },
         {
           title: "En la farmacia",
           content:
-            "- Pregunte si hay genérico\r\n- Confirme que recibió lo recetado si tiene dudas\r\n- Use una farmacia cuando sea posible para historial completo\r\n\r\n:::warning\r\nNo compre medicamentos con receta de vendedores en línea no verificados — los falsificados son un riesgo real.\r\n:::",
+            "- Pregunte si hay genérico\n- Confirme que recibió lo recetado si tiene dudas\n- Use una farmacia cuando sea posible para historial completo",
+          callouts: [
+            {
+              type: "warning",
+              content:
+                "No compre medicamentos con receta de vendedores en línea no verificados — los falsificados son un riesgo real.",
+            },
+          ],
         },
         {
           title: "Medicamentos de índice terapéutico estrecho",
           content:
-            "La mayoría de genéricos funcionan igual que las marcas. Algunas clases requieren más monitoreo al cambiar — p. ej. ciertos anticonvulsivos, levotiroxina y warfarina. Su médico o farmacéutico puede recomendar un solo fabricante por consistencia.\r\n\r\n:::info\r\nSi la farmacia cambia proveedor genérico, pregunte si necesita laboratorios extra.\r\n:::",
+            "La mayoría de genéricos funcionan igual que las marcas. Algunas clases requieren más monitoreo al cambiar — p. ej. ciertos anticonvulsivos, levotiroxina y warfarina. Su médico o farmacéutico puede recomendar un solo fabricante por consistencia.",
+          callouts: [
+            {
+              type: "info",
+              content: "Si la farmacia cambia proveedor genérico, pregunte si necesita laboratorios extra.",
+            },
+          ],
         },
         {
           title: "Leyes de sustitución",
@@ -1991,12 +2622,12 @@ export const lessons: Lesson[] = [
         {
           title: "Leer la etiqueta surtida",
           content:
-            "Verifique:\r\n\r\n- **Ingrediente activo** — debe coincidir con lo esperado\r\n- **Fabricante** — puede cambiar entre resurtidos\r\n- **Apariencia** — color o forma pueden variar; confirme con farmacéutico si duda",
+            "Verifique:\n\n- **Ingrediente activo** — debe coincidir con lo esperado\n- **Fabricante** — puede cambiar entre resurtidos\n- **Apariencia** — color o forma pueden variar; confirme con farmacéutico si duda",
         },
         {
           title: "Reportar problemas",
           content:
-            "Use FDA MedWatch para efectos inesperados tras un cambio. Su reporte ayuda a rastrear problemas de calidad entre fabricantes.\r\n\r\n<!-- lesson-depth-added -->",
+            "Use FDA MedWatch para efectos inesperados tras un cambio. Su reporte ayuda a rastrear problemas de calidad entre fabricantes.\n\n<!-- lesson-depth-added -->",
         },
       ],
     },
@@ -2029,7 +2660,7 @@ export const lessons: Lesson[] = [
         {
           title: "Síntomas comunes",
           content:
-            "- Ronquidos fuertes con jadeos o ahogos\r\n- Somnolencia diurna pese a tiempo en cama\r\n- Dolores de cabeza matutinos\r\n- Dificultad para concentrarse\r\n- Pareja nota que deja de respirar\r\n\r\nNo todos los que roncan tienen apnea, pero señales de alerta merecen evaluación.",
+            "- Ronquidos fuertes con jadeos o ahogos\n- Somnolencia diurna pese a tiempo en cama\n- Dolores de cabeza matutinos\n- Dificultad para concentrarse\n- Pareja nota que deja de respirar\n\nNo todos los que roncan tienen apnea, pero señales de alerta merecen evaluación.",
         },
         {
           title: "Por qué importa",
@@ -2044,17 +2675,36 @@ export const lessons: Lesson[] = [
         {
           title: "Tratamiento",
           content:
-            "- **CPAP** — máquina que entrega presión de aire para mantener abierta la vía aérea\r\n- **Aparatos orales** — casos leves o intolerancia a CPAP\r\n- **Pérdida de peso** — puede mejorar AOS leve\r\n- **Cirugía** — casos seleccionados\r\n\r\n:::warning\r\nNo suspenda CPAP sin hablar con su médico del sueño. Manejar somnoliento es peligroso.\r\n:::\r\n\r\n:::info\r\nLas mascarillas CPAP tienen muchos estilos. Un técnico del sueño puede ayudar a encontrar ajuste cómodo.\r\n:::",
+            "- **CPAP** — máquina que entrega presión de aire para mantener abierta la vía aérea\n- **Aparatos orales** — casos leves o intolerancia a CPAP\n- **Pérdida de peso** — puede mejorar AOS leve\n- **Cirugía** — casos seleccionados",
+          callouts: [
+            {
+              type: "warning",
+              content:
+                "No suspenda CPAP sin hablar con su médico del sueño. Manejar somnoliento es peligroso.",
+            },
+            {
+              type: "info",
+              content:
+                "Las mascarillas CPAP tienen muchos estilos. Un técnico del sueño puede ayudar a encontrar ajuste cómodo.",
+            },
+          ],
         },
         {
           title: "Prueba en casa vs estudio en laboratorio",
           content:
-            "| Prueba                         | Dónde                        | Mejor para                                  |\r\n| ------------------------------ | ---------------------------- | ------------------------------------------- |\r\n| Prueba casera de apnea         | Su cama, sensores portátiles | Muchos adultos con riesgo moderado-alto     |\r\n| Polisomnografía en laboratorio | Centro del sueño             | Casos complejos, otros trastornos del sueño |\r\n\r\nEl especialista elige según síntomas e historial.",
+            "| Prueba                         | Dónde                        | Mejor para                                  |\n| ------------------------------ | ---------------------------- | ------------------------------------------- |\n| Prueba casera de apnea         | Su cama, sensores portátiles | Muchos adultos con riesgo moderado-alto     |\n| Polisomnografía en laboratorio | Centro del sueño             | Casos complejos, otros trastornos del sueño |\n\nEl especialista elige según síntomas e historial.",
         },
         {
           title: "Cambios de estilo de vida",
           content:
-            "Incluso con CPAP, esto ayuda:\r\n\r\n- **Pérdida de peso** — incluso modesta puede reducir severidad en algunas personas\r\n- **Dormir de lado** — almohadas posicionales o técnicas para evitar boca arriba\r\n- **Evitar alcohol antes de dormir** — relaja músculos de la vía aérea\r\n- **Tratar congestión nasal** — alergias y desviación septal empeoran obstrucción\r\n\r\n:::info\r\nCPAP y cambios de estilo van juntos — ninguno sustituye al otro con apnea moderada a severa.\r\n:::",
+            "Incluso con CPAP, esto ayuda:\n\n- **Pérdida de peso** — incluso modesta puede reducir severidad en algunas personas\n- **Dormir de lado** — almohadas posicionales o técnicas para evitar boca arriba\n- **Evitar alcohol antes de dormir** — relaja músculos de la vía aérea\n- **Tratar congestión nasal** — alergias y desviación septal empeoran obstrucción",
+          callouts: [
+            {
+              type: "info",
+              content:
+                "CPAP y cambios de estilo van juntos — ninguno sustituye al otro con apnea moderada a severa.",
+            },
+          ],
         },
         {
           title: "Impacto en pareja y familia",
@@ -2064,7 +2714,7 @@ export const lessons: Lesson[] = [
         {
           title: "Seguimiento esperado",
           content:
-            "Espere visitas de ajuste de mascarilla, presión y descargas periódicas de datos de la máquina. El seguro a menudo exige prueba de uso para continuar cobertura.\r\n\r\n<!-- lesson-depth-added -->",
+            "Espere visitas de ajuste de mascarilla, presión y descargas periódicas de datos de la máquina. El seguro a menudo exige prueba de uso para continuar cobertura.\n\n<!-- lesson-depth-added -->",
         },
       ],
     },

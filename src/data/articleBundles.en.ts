@@ -28,17 +28,24 @@ export const articles: Article[] = [
         {
           title: "Consider Logistics",
           content:
-            "- **Location** — reasonable travel for sick visits and labs\r\n- **Hours** — evenings or weekends if you work standard hours\r\n- **Hospital affiliation** — matters if you may need inpatient care\r\n- **Telehealth** — useful for follow-ups and minor issues",
+            "- **Location** — reasonable travel for sick visits and labs\n- **Hours** — evenings or weekends if you work standard hours\n- **Hospital affiliation** — matters if you may need inpatient care\n- **Telehealth** — useful for follow-ups and minor issues",
         },
         {
           title: "Evaluate Fit at the First Visit",
           content:
-            "Ask yourself:\r\n\r\n- Did the doctor listen without rushing?\r\n- Were explanations clear?\r\n- Did you feel respected?\r\n- Was the staff helpful with scheduling and billing questions?\r\n\r\n:::info\r\nIt is okay to switch PCPs if the relationship is not working. Your comfort affects how honestly you share symptoms.\r\n:::",
+            "Ask yourself:\n\n- Did the doctor listen without rushing?\n- Were explanations clear?\n- Did you feel respected?\n- Was the staff helpful with scheduling and billing questions?",
+          callouts: [
+            {
+              type: "info",
+              content:
+                "It is okay to switch PCPs if the relationship is not working. Your comfort affects how honestly you share symptoms.",
+            },
+          ],
         },
         {
           title: "Questions to Ask",
           content:
-            "- Who covers for my doctor when they are away?\r\n- How do I reach someone after hours?\r\n- How are test results communicated?\r\n- Can I use the patient portal for refills and messages?",
+            "- Who covers for my doctor when they are away?\n- How do I reach someone after hours?\n- How are test results communicated?\n- Can I use the patient portal for refills and messages?",
         },
       ],
     },
@@ -62,17 +69,31 @@ export const articles: Article[] = [
         {
           title: "Typical Components",
           content:
-            "- Height, weight, blood pressure, heart and lung exam\r\n- Review of medications and allergies\r\n- Age-appropriate cancer and chronic disease screening orders\r\n- Vaccine updates\r\n- Lifestyle counseling (sleep, activity, nutrition, tobacco)",
+            "- Height, weight, blood pressure, heart and lung exam\n- Review of medications and allergies\n- Age-appropriate cancer and chronic disease screening orders\n- Vaccine updates\n- Lifestyle counseling (sleep, activity, nutrition, tobacco)",
         },
         {
           title: "How to Prepare",
           content:
-            "Bring your medication list, recent test results, and questions. Mention new symptoms even if they seem minor.\r\n\r\n:::warning\r\nA wellness visit is not the same as an urgent care visit for acute illness. Book separately if you are sick and need same-day treatment.\r\n:::",
+            "Bring your medication list, recent test results, and questions. Mention new symptoms even if they seem minor.",
+          callouts: [
+            {
+              type: "warning",
+              content:
+                "A wellness visit is not the same as an urgent care visit for acute illness. Book separately if you are sick and need same-day treatment.",
+            },
+          ],
         },
         {
           title: "After the Visit",
           content:
-            "You may receive orders for blood work or referrals. Ask when results will be ready and how you will be notified.\r\n\r\n:::success\r\nUse preventive benefits your insurance covers — many screenings have no out-of-pocket cost when in-network.\r\n:::",
+            "You may receive orders for blood work or referrals. Ask when results will be ready and how you will be notified.",
+          callouts: [
+            {
+              type: "success",
+              content:
+                "Use preventive benefits your insurance covers — many screenings have no out-of-pocket cost when in-network.",
+            },
+          ],
         },
       ],
     },
@@ -91,7 +112,7 @@ export const articles: Article[] = [
         {
           title: "Key Terms",
           content:
-            "- **Formulary** — list of drugs your plan covers\r\n- **Tier** — cost level (generic tier 1 is usually cheapest)\r\n- **Prior authorization** — insurer approval before they pay for certain drugs\r\n- **Step therapy** — try a preferred drug before a more expensive one",
+            "- **Formulary** — list of drugs your plan covers\n- **Tier** — cost level (generic tier 1 is usually cheapest)\n- **Prior authorization** — insurer approval before they pay for certain drugs\n- **Step therapy** — try a preferred drug before a more expensive one",
         },
         {
           title: "Reading Your Drug Card",
@@ -101,7 +122,14 @@ export const articles: Article[] = [
         {
           title: "Saving Money",
           content:
-            "- Ask for generics when appropriate\r\n- Use in-network pharmacies\r\n- Compare 90-day mail-order prices\r\n- Ask about copay assistance for brand drugs\r\n\r\n:::info\r\nPharmacists can often suggest covered alternatives — bring your insurance card every visit.\r\n:::",
+            "- Ask for generics when appropriate\n- Use in-network pharmacies\n- Compare 90-day mail-order prices\n- Ask about copay assistance for brand drugs",
+          callouts: [
+            {
+              type: "info",
+              content:
+                "Pharmacists can often suggest covered alternatives — bring your insurance card every visit.",
+            },
+          ],
         },
         {
           title: "If a Claim Is Denied",
@@ -130,12 +158,19 @@ export const articles: Article[] = [
         {
           title: "Phrases That Work",
           content:
-            '- "Can you explain that in everyday language?"\r\n- "What is the most important thing I should do next?"\r\n- "What would you do if this were your family member?"\r\n- "Can I get written instructions?"\r\n- "What symptoms should prompt me to call you?"',
+            '- "Can you explain that in everyday language?"\n- "What is the most important thing I should do next?"\n- "What would you do if this were your family member?"\n- "Can I get written instructions?"\n- "What symptoms should prompt me to call you?"',
         },
         {
           title: "Teach-Back Technique",
           content:
-            'Repeat what you heard: "So I will take this twice daily with food and call if I get a rash — is that right?" This catches misunderstandings early.\r\n\r\n:::info\r\nBring a friend or use your phone\'s recorder **only if** your clinic allows recording.\r\n:::',
+            'Repeat what you heard: "So I will take this twice daily with food and call if I get a rash — is that right?" This catches misunderstandings early.',
+          callouts: [
+            {
+              type: "info",
+              content:
+                "Bring a friend or use your phone's recorder **only if** your clinic allows recording.",
+            },
+          ],
         },
         {
           title: "When You Feel Rushed",
@@ -164,12 +199,19 @@ export const articles: Article[] = [
         {
           title: "Red Flags",
           content:
-            "- Cure-all claims with no evidence\r\n- Pressure to buy supplements immediately\r\n- Anonymous authors with no credentials\r\n- Stories that contradict your care team's advice without discussion\r\n- Content designed to spread fear",
+            "- Cure-all claims with no evidence\n- Pressure to buy supplements immediately\n- Anonymous authors with no credentials\n- Stories that contradict your care team's advice without discussion\n- Content designed to spread fear",
         },
         {
           title: "Check Dates and Sources",
           content:
-            "Medical guidance changes. Prefer pages updated in the last few years with cited studies or expert review.\r\n\r\n:::warning\r\nSocial media anecdotes are not medical evidence. One person's experience may not apply to you.\r\n:::",
+            "Medical guidance changes. Prefer pages updated in the last few years with cited studies or expert review.",
+          callouts: [
+            {
+              type: "warning",
+              content:
+                "Social media anecdotes are not medical evidence. One person's experience may not apply to you.",
+            },
+          ],
         },
         {
           title: "Bring What You Find to Your Visit",
@@ -198,17 +240,24 @@ export const articles: Article[] = [
         {
           title: "Key Lines on an EOB",
           content:
-            "- **Billed amount** — what the provider charged\r\n- **Allowed amount** — negotiated rate your plan accepts\r\n- **Plan paid** — what insurance covered\r\n- **Patient responsibility** — deductible, copay, coinsurance, or non-covered charges",
+            "- **Billed amount** — what the provider charged\n- **Allowed amount** — negotiated rate your plan accepts\n- **Plan paid** — what insurance covered\n- **Patient responsibility** — deductible, copay, coinsurance, or non-covered charges",
         },
         {
           title: "Matching EOB to Bills",
           content:
-            "Compare date of service, provider name, and procedure codes. If the bill total does not match the EOB patient responsibility, call billing before paying.\r\n\r\n:::info\r\nKeep EOBs for at least one plan year — you may need them for taxes (HSA/FSA) or appeals.\r\n:::",
+            "Compare date of service, provider name, and procedure codes. If the bill total does not match the EOB patient responsibility, call billing before paying.",
+          callouts: [
+            {
+              type: "info",
+              content:
+                "Keep EOBs for at least one plan year — you may need them for taxes (HSA/FSA) or appeals.",
+            },
+          ],
         },
         {
           title: "Common Confusion",
           content:
-            '- **Duplicate EOBs** for one visit — one per service line is normal\r\n- **"You may owe"** — verify against the actual bill\r\n- **Out-of-network** — allowed amount and balance billing rules differ',
+            '- **Duplicate EOBs** for one visit — one per service line is normal\n- **"You may owe"** — verify against the actual bill\n- **Out-of-network** — allowed amount and balance billing rules differ',
         },
         {
           title: "When to Call Your Insurer",
@@ -237,12 +286,19 @@ export const articles: Article[] = [
         {
           title: "Steps to Find Care",
           content:
-            "1. Log into your insurer's website or app\r\n2. Search by specialty, location, and language\r\n3. Confirm the **specific doctor** is in network — not just the clinic name\r\n4. Call the office to verify they still accept your plan",
+            "1. Log into your insurer's website or app\n2. Search by specialty, location, and language\n3. Confirm the **specific doctor** is in network — not just the clinic name\n4. Call the office to verify they still accept your plan",
         },
         {
           title: "Hospital vs Doctor Network",
           content:
-            "Hospitals and individual doctors negotiate separately. A surgeon may be out of network even at an in-network hospital — ask before scheduled procedures.\r\n\r\n:::warning\r\nEmergency room care is often covered as in-network by law, but follow-up and ambulance rides may not be — verify after stabilization.\r\n:::",
+            "Hospitals and individual doctors negotiate separately. A surgeon may be out of network even at an in-network hospital — ask before scheduled procedures.",
+          callouts: [
+            {
+              type: "warning",
+              content:
+                "Emergency room care is often covered as in-network by law, but follow-up and ambulance rides may not be — verify after stabilization.",
+            },
+          ],
         },
         {
           title: "Telehealth and Urgent Care",
@@ -271,7 +327,7 @@ export const articles: Article[] = [
         {
           title: "Before You Go",
           content:
-            "- Confirm **fasting** requirements (often 8–12 hours for glucose and lipids; water is usually OK)\r\n- Take prescribed morning medicines unless told otherwise\r\n- Wear sleeves that roll up easily\r\n- Bring your order form or show the lab your electronic order",
+            "- Confirm **fasting** requirements (often 8–12 hours for glucose and lipids; water is usually OK)\n- Take prescribed morning medicines unless told otherwise\n- Wear sleeves that roll up easily\n- Bring your order form or show the lab your electronic order",
         },
         {
           title: "At the Lab",
@@ -281,7 +337,13 @@ export const articles: Article[] = [
         {
           title: "After the Draw",
           content:
-            "Press gauze firmly for several minutes to reduce bruising. Avoid heavy lifting with that arm for the rest of the day.\r\n\r\n:::info\r\nMild bruising is common and not dangerous. Apply a cold pack if sore.\r\n:::",
+            "Press gauze firmly for several minutes to reduce bruising. Avoid heavy lifting with that arm for the rest of the day.",
+          callouts: [
+            {
+              type: "info",
+              content: "Mild bruising is common and not dangerous. Apply a cold pack if sore.",
+            },
+          ],
         },
         {
           title: "Results Timeline",
@@ -315,12 +377,19 @@ export const articles: Article[] = [
         {
           title: "When to Consider One",
           content:
-            "- Serious or unclear diagnosis (cancer, rare disease)\r\n- Recommended surgery with significant risk\r\n- Symptoms not improving on treatment\r\n- You feel rushed or unheard",
+            "- Serious or unclear diagnosis (cancer, rare disease)\n- Recommended surgery with significant risk\n- Symptoms not improving on treatment\n- You feel rushed or unheard",
         },
         {
           title: "How to Request Records",
           content:
-            'Ask your clinic for copies of imaging, pathology, and visit notes — or authorize transfer to the second physician. Many systems share via electronic health records.\r\n\r\n:::info\r\nYou do not need to tell your current doctor a negative reason — "I want to confirm the plan" is enough.\r\n:::',
+            "Ask your clinic for copies of imaging, pathology, and visit notes — or authorize transfer to the second physician. Many systems share via electronic health records.",
+          callouts: [
+            {
+              type: "info",
+              content:
+                'You do not need to tell your current doctor a negative reason — "I want to confirm the plan" is enough.',
+            },
+          ],
         },
         {
           title: "Insurance Coverage",
@@ -349,7 +418,7 @@ export const articles: Article[] = [
         {
           title: "Before the Visit",
           content:
-            "- Test camera, microphone, and app login 15 minutes early\r\n- Sit in a quiet, well-lit space\r\n- Have medication list, thermometer readings, and photos of rashes ready\r\n- Know your pharmacy name and address for e-prescriptions",
+            "- Test camera, microphone, and app login 15 minutes early\n- Sit in a quiet, well-lit space\n- Have medication list, thermometer readings, and photos of rashes ready\n- Know your pharmacy name and address for e-prescriptions",
         },
         {
           title: "During the Call",
@@ -359,7 +428,14 @@ export const articles: Article[] = [
         {
           title: "Limitations",
           content:
-            "Emergencies, hands-on exams, and some diagnostic tests still need in-person care. Ask what cannot be done virtually.\r\n\r\n:::warning\r\nIf symptoms worsen during a video visit, the clinician may direct you to urgent care or ER — have transport plans ready.\r\n:::",
+            "Emergencies, hands-on exams, and some diagnostic tests still need in-person care. Ask what cannot be done virtually.",
+          callouts: [
+            {
+              type: "warning",
+              content:
+                "If symptoms worsen during a video visit, the clinician may direct you to urgent care or ER — have transport plans ready.",
+            },
+          ],
         },
         {
           title: "Privacy",
@@ -392,12 +468,18 @@ export const articles: Article[] = [
         {
           title: "Practical Tools",
           content:
-            "- **Pill organizer** — weekly boxes with AM/PM slots\r\n- **Phone alarms** — label each with drug name\r\n- **Pharmacy auto-refill** — reduces gaps\r\n- **Blister packs** — some pharmacies pre-sort by dose time",
+            "- **Pill organizer** — weekly boxes with AM/PM slots\n- **Phone alarms** — label each with drug name\n- **Pharmacy auto-refill** — reduces gaps\n- **Blister packs** — some pharmacies pre-sort by dose time",
         },
         {
           title: "Tie to Daily Routines",
           content:
-            "Link medicines to brushing teeth, meals, or bedtime so the habit stacks on something you already do.\r\n\r\n:::info\r\nIf cost or side effects block adherence, tell your clinician — alternatives exist.\r\n:::",
+            "Link medicines to brushing teeth, meals, or bedtime so the habit stacks on something you already do.",
+          callouts: [
+            {
+              type: "info",
+              content: "If cost or side effects block adherence, tell your clinician — alternatives exist.",
+            },
+          ],
         },
         {
           title: "Travel and Sick Days",
@@ -425,17 +507,23 @@ export const articles: Article[] = [
         {
           title: "Call 911 or Go to ER",
           content:
-            "- Chest pain or pressure\r\n- Trouble breathing\r\n- Stroke signs (FAST: face, arm, speech, time)\r\n- Severe bleeding or unconsciousness\r\n- Suicidal thoughts with a plan",
+            "- Chest pain or pressure\n- Trouble breathing\n- Stroke signs (FAST: face, arm, speech, time)\n- Severe bleeding or unconsciousness\n- Suicidal thoughts with a plan",
         },
         {
           title: "Urgent Care (Same Day)",
           content:
-            "- Sprains, minor cuts needing stitches\r\n- Fever without severe distress in otherwise healthy adults\r\n- Urinary burning if you cannot reach your doctor\r\n- Mild asthma flare with inhaler not helping after one hour",
+            "- Sprains, minor cuts needing stitches\n- Fever without severe distress in otherwise healthy adults\n- Urinary burning if you cannot reach your doctor\n- Mild asthma flare with inhaler not helping after one hour",
         },
         {
           title: "Call Your Doctor's Office",
           content:
-            "- Medication side effects\r\n- Worsening chronic condition\r\n- Test result questions\r\n- Referrals and preventive scheduling\r\n\r\n:::info\r\nMany clinics offer nurse triage lines — describe symptoms and they advise timing.\r\n:::",
+            "- Medication side effects\n- Worsening chronic condition\n- Test result questions\n- Referrals and preventive scheduling",
+          callouts: [
+            {
+              type: "info",
+              content: "Many clinics offer nurse triage lines — describe symptoms and they advise timing.",
+            },
+          ],
         },
         {
           title: "When Unsure",
@@ -458,7 +546,7 @@ export const articles: Article[] = [
         {
           title: "What Portals Do",
           content:
-            "Most clinics offer secure websites or apps to:\r\n\r\n- View lab and imaging results\r\n- Message your care team\r\n- Request prescription refills\r\n- Schedule appointments\r\n- Download visit summaries",
+            "Most clinics offer secure websites or apps to:\n\n- View lab and imaging results\n- Message your care team\n- Request prescription refills\n- Schedule appointments\n- Download visit summaries",
         },
         {
           title: "Getting Started",
@@ -468,7 +556,13 @@ export const articles: Article[] = [
         {
           title: "Reading Results Early",
           content:
-            "Results may appear before your doctor reviews them. Abnormal flags are not always urgent — but note questions for your follow-up.\r\n\r\n:::warning\r\nPortals are not for emergencies. Call 911 or go to ER for immediate danger.\r\n:::",
+            "Results may appear before your doctor reviews them. Abnormal flags are not always urgent — but note questions for your follow-up.",
+          callouts: [
+            {
+              type: "warning",
+              content: "Portals are not for emergencies. Call 911 or go to ER for immediate danger.",
+            },
+          ],
         },
         {
           title: "Messaging Etiquette",
@@ -502,12 +596,19 @@ export const articles: Article[] = [
         {
           title: "Prepare for Appointments Together",
           content:
-            "- List current medicines and allergies\r\n- Write top three concerns in the patient's words\r\n- Take notes or ask permission to record",
+            "- List current medicines and allergies\n- Write top three concerns in the patient's words\n- Take notes or ask permission to record",
         },
         {
           title: "Proxy Access",
           content:
-            "Hospitals require HIPAA authorization for you to receive medical information. Complete forms before emergencies when possible.\r\n\r\n:::info\r\nBring durable power of attorney for healthcare documents to major visits if you are the decision-maker.\r\n:::",
+            "Hospitals require HIPAA authorization for you to receive medical information. Complete forms before emergencies when possible.",
+          callouts: [
+            {
+              type: "info",
+              content:
+                "Bring durable power of attorney for healthcare documents to major visits if you are the decision-maker.",
+            },
+          ],
         },
         {
           title: "Avoid Burnout",
@@ -540,12 +641,18 @@ export const articles: Article[] = [
         {
           title: "Common Triggers",
           content:
-            "- Expensive brand drugs with generic alternatives\r\n- Advanced imaging (MRI, PET)\r\n- Elective surgeries\r\n- Durable medical equipment",
+            "- Expensive brand drugs with generic alternatives\n- Advanced imaging (MRI, PET)\n- Elective surgeries\n- Durable medical equipment",
         },
         {
           title: "Timeline",
           content:
-            "Decisions can take days to two weeks. Start early — ask your doctor's office to submit the same day they order the service.\r\n\r\n:::warning\r\nStarting treatment before approval may leave you with full cost if denied.\r\n:::",
+            "Decisions can take days to two weeks. Start early — ask your doctor's office to submit the same day they order the service.",
+          callouts: [
+            {
+              type: "warning",
+              content: "Starting treatment before approval may leave you with full cost if denied.",
+            },
+          ],
         },
         {
           title: "If Denied",
