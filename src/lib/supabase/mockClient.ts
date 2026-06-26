@@ -1,5 +1,6 @@
 import type { AuthChangeEvent, Session, SupabaseClient } from "@supabase/supabase-js";
 import type { ReadonlyRequestCookies } from "next/dist/server/web/spec-extension/adapters/request-cookies";
+import type { Database } from "@/types/database";
 
 export interface MockCookieStore {
   get(name: string): { name: string; value: string } | undefined | null;
@@ -129,7 +130,7 @@ export interface SelectOptions {
   head?: boolean;
   count?: "exact" | "planned" | "estimated";
 }
-export function getMockSupabaseClient(cookieStore?: CookieStore): SupabaseClient<any, "public", any> {
+export function getMockSupabaseClient(cookieStore?: CookieStore): SupabaseClient<Database, "public", any> {
   const mockUser = {
     id: "00000000-0000-0000-0000-000000000000",
     email: "guest@example.com",
@@ -297,5 +298,5 @@ export function getMockSupabaseClient(cookieStore?: CookieStore): SupabaseClient
         },
       };
     },
-  } as unknown as SupabaseClient<any, "public", any>;
+  } as unknown as SupabaseClient<Database, "public", any>;
 }
