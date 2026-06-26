@@ -110,6 +110,7 @@ describe("achievements", () => {
         ],
         {
           onConflict: "user_id,achievement_id",
+          ignoreDuplicates: true,
         }
       );
       expect(createNotifications).toHaveBeenCalled();

@@ -141,6 +141,7 @@ export async function checkAndAwardAchievements(
       .from("achievements")
       .upsert(achievementsToInsert, {
         onConflict: "user_id,achievement_id",
+        ignoreDuplicates: true,
       })
       .select("achievement_id");
     if (error) {
