@@ -45,7 +45,7 @@ describe("updateStreak", () => {
   });
 
   it("should create a new streak for a first-time user", async () => {
-    vi.setSystemTime(new Date(2023, 9, 15, 12));
+    vi.setSystemTime(new Date("2023-10-15T12:00:00Z"));
 
     mockSingle.mockResolvedValueOnce({ data: null, error: null });
     mockUpsertSingle.mockResolvedValueOnce({ data: {}, error: null });
@@ -69,16 +69,16 @@ describe("updateStreak", () => {
   });
 
   it("should not increment streak if returning on the same day", async () => {
-    vi.setSystemTime(new Date(2023, 9, 15, 12));
+    vi.setSystemTime(new Date("2023-10-15T12:00:00Z"));
 
     mockSingle.mockResolvedValueOnce({
       data: {
         user_id: "user1",
         current_streak: 5,
         longest_streak: 10,
-        last_activity_date: "2023-10-15"
+        last_activity_date: "2023-10-15",
       },
-      error: null
+      error: null,
     });
 
     // For the second upsert which doesn't use .select().single()
@@ -99,16 +99,16 @@ describe("updateStreak", () => {
   });
 
   it("should increment current streak and possibly longest streak if returning consecutive day", async () => {
-    vi.setSystemTime(new Date(2023, 9, 16, 12)); // Today
+    vi.setSystemTime(new Date("2023-10-16T12:00:00Z")); // Today
 
     mockSingle.mockResolvedValueOnce({
       data: {
         user_id: "user1",
         current_streak: 5,
         longest_streak: 5,
-        last_activity_date: "2023-10-15" // Yesterday
+        last_activity_date: "2023-10-15", // Yesterday
       },
-      error: null
+      error: null,
     });
 
     mockUpsert.mockResolvedValueOnce({ error: null });
@@ -128,16 +128,16 @@ describe("updateStreak", () => {
   });
 
   it("should reset streak to 1 if user missed a day", async () => {
-    vi.setSystemTime(new Date(2023, 9, 18, 12)); // Today
+    vi.setSystemTime(new Date("2023-10-18T12:00:00Z")); // Today
 
     mockSingle.mockResolvedValueOnce({
       data: {
         user_id: "user1",
         current_streak: 5,
         longest_streak: 10,
-        last_activity_date: "2023-10-15" // Missed days
+        last_activity_date: "2023-10-15", // Missed days
       },
-      error: null
+      error: null,
     });
 
     mockUpsert.mockResolvedValueOnce({ error: null });
@@ -157,16 +157,16 @@ describe("updateStreak", () => {
   });
 
   it("should trigger notification on streak milestones (e.g. 3)", async () => {
-    vi.setSystemTime(new Date(2023, 9, 16, 12)); // Today
+    vi.setSystemTime(new Date("2023-10-16T12:00:00Z")); // Today
 
     mockSingle.mockResolvedValueOnce({
       data: {
         user_id: "user1",
         current_streak: 2,
         longest_streak: 10,
-        last_activity_date: "2023-10-15" // Yesterday
+        last_activity_date: "2023-10-15", // Yesterday
       },
-      error: null
+      error: null,
     });
 
     mockUpsert.mockResolvedValueOnce({ error: null });
@@ -175,19 +175,15 @@ describe("updateStreak", () => {
 
     expect(result).toEqual({ currentStreak: 3, longestStreak: 10, isNewDay: true });
 
-    expect(createNotification).toHaveBeenCalledWith(
-      mockSupabase,
-      "user1",
-      {
-        type: "streak",
-        title: "3-Day Streak!",
-        body: "You're on a 3-day learning streak. Keep it up!",
-      }
-    );
+    expect(createNotification).toHaveBeenCalledWith(mockSupabase, "user1", {
+      type: "streak",
+      title: "3-Day Streak!",
+      body: "You're on a 3-day learning streak. Keep it up!",
+    });
   });
 
   it("should not trigger notification on streak milestones if returning on the same day", async () => {
-    vi.setSystemTime(new Date(2023, 9, 15, 12)); // Today
+    vi.setSystemTime(new Date("2023-10-15T12:00:00Z")); // Today
 
     // User already at milestone 3 today
     mockSingle.mockResolvedValueOnce({
@@ -195,9 +191,9 @@ describe("updateStreak", () => {
         user_id: "user1",
         current_streak: 3,
         longest_streak: 10,
-        last_activity_date: "2023-10-15" // Same day
+        last_activity_date: "2023-10-15", // Same day
       },
-      error: null
+      error: null,
     });
 
     mockUpsert.mockResolvedValueOnce({ error: null });
