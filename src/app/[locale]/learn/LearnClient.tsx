@@ -55,8 +55,15 @@ export default function LearnClient({ lessons }: LearnClientProps) {
     });
   }, [activeCategory, activeDifficulty, lessons, locale, query]);
 
-  const featuredLessons = filteredLessons.length <= 2 ? filteredLessons : filteredLessons.slice(0, 2);
-  const libraryLessons = filteredLessons.length <= 2 ? [] : filteredLessons.slice(2);
+  const featuredLessons = useMemo(
+    () => (filteredLessons.length <= 2 ? filteredLessons : filteredLessons.slice(0, 2)),
+    [filteredLessons]
+  );
+
+  const libraryLessons = useMemo(
+    () => (filteredLessons.length <= 2 ? [] : filteredLessons.slice(2)),
+    [filteredLessons]
+  );
 
   const groupedLibraryLessons = useMemo(() => {
     if (activeCategory !== ALL) {
