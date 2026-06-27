@@ -40,14 +40,20 @@ function writeLesson(locale: "en" | "es", lesson: Lesson) {
   fs.writeFileSync(path.join(dir, `${lesson.id}.mdx`), lessonToMdx(lesson), "utf8");
 }
 
-const lessons = getAllLessonsFromMdx("en");
-for (const lesson of lessons) {
-  writeLesson("en", lesson);
-}
+async function main() {
+  const lessons = await getAllLessonsFromMdx("en");
+  for (const lesson of lessons) {
+    writeLesson("en", lesson);
+  }
 
-const esLessons = getAllLessonsFromMdx("es");
-for (const lesson of esLessons) {
-  writeLesson("es", lesson);
-}
+  const esLessons = await getAllLessonsFromMdx("es");
+  for (const lesson of esLessons) {
+    writeLesson("es", lesson);
+  }
 
-console.log(`Generated ${lessons.length} EN and ${esLessons.length} ES lesson MDX files.`);
+  console.log(`Generated ${lessons.length} EN and ${esLessons.length} ES lesson MDX files.`);
+}
+main().catch((e) => {
+  console.error(e);
+  process.exit(1);
+});

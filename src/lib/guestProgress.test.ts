@@ -17,6 +17,11 @@ describe("guestProgress", () => {
     expect(getGuestProgress().completedLessons).toEqual(["lesson-1"]);
   });
 
+  it("returns fallback value when storage contains malformed JSON", () => {
+    sessionStorage.setItem("hmc_guest_completedLessons", "{invalid-json]");
+    expect(getGuestProgress().completedLessons).toEqual([]);
+  });
+
   it("clears progress only after successful migration", async () => {
     markLessonComplete("lesson-1");
 
@@ -51,5 +56,17 @@ describe("guestProgress", () => {
     markLessonComplete("lesson-1");
     clearGuestProgress();
     expect(getGuestProgress().completedLessons).toEqual([]);
+  });
+
+  it("early-exits without making Supabase calls if there is no guest progress", async () => {
+    // sessionStorage is empty, getGuestProgress returns empty arrays
+    const supabase = {
+      from: vi.fn(),
+    };
+
+    const result = await migrateGuestProgressToSupabase(supabase as never, "user-1");
+
+    expect(result.ok).toBe(true);
+    expect(supabase.from).not.toHaveBeenCalled();
   });
 });

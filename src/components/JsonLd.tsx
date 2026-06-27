@@ -3,8 +3,8 @@ type JsonLdProps = {
 };
 
 export default function JsonLd({ data }: JsonLdProps) {
-  // Serialize JSON-LD safely. We must use dangerouslySetInnerHTML to prevent React from HTML-encoding
-  // the double quotes (which would break JSON parsing) while avoiding XSS.
+  // Serialize JSON-LD safely. We avoid dangerouslySetInnerHTML to prevent XSS.
+  // React safely treats `<script>` tags as raw text elements without HTML-encoding double quotes.
   const jsonLdData = JSON.stringify(data)
     .replace(/</g, "\\u003c")
     .replace(/>/g, "\\u003e")
@@ -12,5 +12,5 @@ export default function JsonLd({ data }: JsonLdProps) {
     .replace(/\u2028/g, "\\u2028")
     .replace(/\u2029/g, "\\u2029");
 
-  return <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdData }} />;
+  return <script type="application/ld+json">{jsonLdData}</script>;
 }
