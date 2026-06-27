@@ -400,7 +400,7 @@ export default function ProgressClient({
         ) : (
           <Card padding="sm">
             <EmptyState
-              icon={<BookOpen size={40} aria-hidden="true" />}
+              variant="learning"
               title={t("completedLessons")}
               description={t("noCompletedLessons")}
               action={{ label: t("startLearningCta"), href: "/learn", onClick: () => {} }}
