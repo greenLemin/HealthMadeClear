@@ -23,14 +23,18 @@ function writeTerm(locale: "en" | "es", term: GlossaryTerm) {
   fs.writeFileSync(path.join(dir, `${term.id}.mdx`), termToMdx(term), "utf8");
 }
 
-const glossaryTerms = getAllGlossaryFromMdx("en");
-for (const term of glossaryTerms) {
-  writeTerm("en", term);
+async function main() {
+  const glossaryTerms = await getAllGlossaryFromMdx("en");
+  for (const term of glossaryTerms) {
+    writeTerm("en", term);
+  }
+
+  const esTerms = await getAllGlossaryFromMdx("es");
+  for (const term of esTerms) {
+    writeTerm("es", term);
+  }
+
+  console.log(`Generated ${glossaryTerms.length} EN and ${esTerms.length} ES glossary MDX files.`);
 }
 
-const esTerms = getAllGlossaryFromMdx("es");
-for (const term of esTerms) {
-  writeTerm("es", term);
-}
-
-console.log(`Generated ${glossaryTerms.length} EN and ${esTerms.length} ES glossary MDX files.`);
+main().catch(console.error);
