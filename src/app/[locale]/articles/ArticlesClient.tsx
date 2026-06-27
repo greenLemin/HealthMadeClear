@@ -74,7 +74,7 @@ export default function ArticlesClient() {
           </div>
         ) : (
           <EmptyState
-            icon={<Search size={40} aria-hidden="true" />}
+            variant="search"
             title={t("noResults")}
             description={t("noResultsHint")}
             action={{ label: t("clearSearch"), onClick: () => setQuery("") }}

@@ -1,15 +1,15 @@
 export const logger = {
-  log: (...args: unknown[]) => {
+  log: (...args: Parameters<typeof console.log>) => {
     if (process.env.NODE_ENV === "development") {
       console.log(...args);
     }
   },
-  warn: (...args: unknown[]) => {
+  warn: (...args: Parameters<typeof console.warn>) => {
     if (process.env.NODE_ENV === "development") {
       console.warn(...args);
     }
   },
-  error: (...args: unknown[]) => {
+  error: (...args: Parameters<typeof console.error>) => {
     if (process.env.NODE_ENV === "development") {
       console.error(...args);
     }

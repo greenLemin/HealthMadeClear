@@ -399,7 +399,7 @@ export default function DashboardClient({
           </div>
         ) : (
           <EmptyState
-            icon={<BookOpen size={32} aria-hidden="true" />}
+            variant="learning"
             title={t("noPathsStarted")}
             description={t("noPathsStartedDesc")}
             action={{
@@ -458,7 +458,7 @@ export default function DashboardClient({
           </div>
         ) : (
           <EmptyState
-            icon={<TrendingUp size={32} aria-hidden="true" />}
+            variant="activity"
             title={t("noActivity")}
             description={t("noActivityDesc")}
             action={{

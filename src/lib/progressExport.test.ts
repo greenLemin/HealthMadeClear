@@ -35,6 +35,10 @@ describe("progressExport", () => {
       expect(parseProgressImport("{}")).toBeNull();
     });
 
+    it("returns null on invalid JSON string", () => {
+      expect(parseProgressImport("not a json string")).toBeNull();
+    });
+
     it("imports legacy v1 exports without quiz scores", () => {
       const legacy = {
         version: 1,
