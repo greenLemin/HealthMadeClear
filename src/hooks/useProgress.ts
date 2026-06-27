@@ -96,7 +96,7 @@ export function useProgress(): ProgressState & ProgressActions {
       ]);
 
       if (lessonResult.data) {
-        setSupabaseCompletedLessonIds(lessonResult.data.map((r: any) => r.lesson_id));
+        setSupabaseCompletedLessonIds(lessonResult.data.map((r: { lesson_id: string }) => r.lesson_id));
       }
       if (quizResult.data) {
         const attempts: Record<string, { score: number; maxScore: number; passed: boolean }> = {};
