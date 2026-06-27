@@ -14,6 +14,7 @@ import {
 } from "@/lib/guestProgress";
 import { ACHIEVEMENTS, checkAndAwardAchievements } from "@/lib/achievements";
 import type { AchievementId } from "@/lib/achievements";
+import type { Locale } from "@/lib/i18n";
 import { updateStreak } from "@/lib/streaks";
 import { updateDailyLog } from "@/lib/dashboard";
 import { createNotification } from "@/lib/notifications";
@@ -95,7 +96,7 @@ export function useProgress(): ProgressState & ProgressActions {
       ]);
 
       if (lessonResult.data) {
-        setSupabaseCompletedLessonIds(lessonResult.data.map((r: any) => r.lesson_id));
+        setSupabaseCompletedLessonIds(lessonResult.data.map((r: { lesson_id: string }) => r.lesson_id));
       }
       if (quizResult.data) {
         const attempts: Record<string, { score: number; maxScore: number; passed: boolean }> = {};
@@ -166,7 +167,7 @@ export function useProgress(): ProgressState & ProgressActions {
 
           // Check for close-to-completion notifications on learning paths
           const allCompletedSet = new Set(allCompleted);
-          const allPaths = (await import("@/lib/paths/loadPaths")).getAllLearningPaths(locale as any);
+          const allPaths = (await import("@/lib/paths/loadPaths")).getAllLearningPaths(locale as Locale);
           const notificationPromises = [];
           for (const path of allPaths) {
             const remaining = path.lessons.filter((id) => !allCompletedSet.has(id));
