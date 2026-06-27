@@ -18,6 +18,7 @@ import type { Locale } from "@/lib/i18n";
 import { updateStreak } from "@/lib/streaks";
 import { updateDailyLog } from "@/lib/dashboard";
 import { createNotification } from "@/lib/notifications";
+import { reportClientError } from "@/lib/errorReporting";
 
 export interface ProgressState {
   completedLessonIds: string[];
@@ -167,21 +168,25 @@ export function useProgress(): ProgressState & ProgressActions {
 
           // Check for close-to-completion notifications on learning paths
           const allCompletedSet = new Set(allCompleted);
-          const allPaths = (await import("@/lib/paths/loadPaths")).getAllLearningPaths(locale as Locale);
-          const notificationPromises = [];
-          for (const path of allPaths) {
-            const remaining = path.lessons.filter((id) => !allCompletedSet.has(id));
-            if (remaining.length === 1 && allCompletedSet.has(lessonId)) {
-              notificationPromises.push(
-                createNotification(supabase, user.id, {
-                  type: "close-to-completion",
-                  title: "Almost there!",
-                  body: `You're one lesson away from completing "${path.title}".`,
-                })
-              );
+          try {
+            const allPaths = (await import("@/lib/paths/loadPaths")).getAllLearningPaths(locale as Locale);
+            const notificationPromises = [];
+            for (const path of allPaths) {
+              const remaining = path.lessons.filter((id) => !allCompletedSet.has(id));
+              if (remaining.length === 1 && allCompletedSet.has(lessonId)) {
+                notificationPromises.push(
+                  createNotification(supabase, user.id, {
+                    type: "close-to-completion",
+                    title: "Almost there!",
+                    body: `You're one lesson away from completing "${path.title}".`,
+                  })
+                );
+              }
             }
+            await Promise.all(notificationPromises);
+          } catch (error) {
+            reportClientError(error, { context: "Failed to load paths for progress calculation" });
           }
-          await Promise.all(notificationPromises);
         }
       } else {
         guestMarkLessonComplete(lessonId);
