@@ -46,9 +46,9 @@ export default function EmptyState({
       className={["flex flex-col items-center justify-center px-6 py-16 text-center", className].join(" ")}
       role="status"
     >
-      {icon ? (
+      {displayIcon ? (
         <div className="mb-4 text-on-surface-variant" aria-hidden="true">
-          {icon}
+          {displayIcon}
         </div>
       ) : null}
       <h3 className="mb-2 text-headline-md text-on-surface">{title}</h3>
