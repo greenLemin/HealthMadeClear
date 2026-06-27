@@ -2,6 +2,7 @@ import { expect, test, waitForAppReady } from "./setup";
 
 test("home loads and navigates to learn library", async ({ page }) => {
   await page.goto("/en");
+  await waitForAppReady(page);
   await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
   await page.locator('header a[href="/en/learn"]').first().click();
   await expect(page).toHaveURL(/\/en\/learn$/);
