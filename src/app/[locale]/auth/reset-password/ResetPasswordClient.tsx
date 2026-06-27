@@ -33,7 +33,7 @@ export default function ResetPasswordClient() {
 
     supabase.auth
       .exchangeCodeForSession(code)
-      .then(({ error: exchangeError }: any) => {
+      .then(({ error: exchangeError }) => {
         if (exchangeError) {
           setError(t("errorGeneric"));
         }

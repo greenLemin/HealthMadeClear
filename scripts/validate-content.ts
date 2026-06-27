@@ -6,8 +6,8 @@ import { getAllArticlesFromMdx } from "../src/lib/articles/mdxParser";
 import { assertLocaleIdParity } from "./lib/validateLocaleParity";
 
 async function main() {
-  const enLessons = getAllLessonsFromMdx("en");
-  const esLessons = getAllLessonsFromMdx("es");
+  const enLessons = await getAllLessonsFromMdx("en");
+  const esLessons = await getAllLessonsFromMdx("es");
   assertLocaleIdParity(enLessons, esLessons, "lessons");
 
   const MAX_REVIEW_AGE_MS = 365 * 24 * 60 * 60 * 1000;
@@ -84,4 +84,7 @@ async function main() {
   console.log("Content validation passed.");
 }
 
-main().catch(console.error);
+main().catch((e) => {
+  console.error(e);
+  process.exit(1);
+});

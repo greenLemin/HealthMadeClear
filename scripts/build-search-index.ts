@@ -53,7 +53,7 @@ const locales = ["en", "es"] as const;
 
 async function main() {
   for (const locale of locales) {
-    const lessons = getAllLessonsFromMdx(locale);
+    const lessons = await getAllLessonsFromMdx(locale);
     const articles = getAllArticlesFromMdx(locale);
     const glossary = await getAllGlossaryFromMdx(locale);
     const paths = getAllPathsFromMdx(locale);
@@ -120,5 +120,7 @@ async function main() {
     console.log(`Wrote search index (${entries.length} entries) for ${locale}.`);
   }
 }
-
-main().catch(console.error);
+main().catch((e) => {
+  console.error(e);
+  process.exit(1);
+});
