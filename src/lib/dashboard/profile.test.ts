@@ -67,7 +67,7 @@ describe("getUserProfile", () => {
     const profile = await getUserProfile(mockSupabase, "user123");
 
     expect(profile).toBeNull();
-    expect(consoleSpy).toHaveBeenCalledWith("[dashboard:getUserProfile]", "Not found");
+    expect(consoleSpy).toHaveBeenCalledWith("Query error in getUserProfile:", { message: "Not found" });
     expect(mockSupabase.auth.getUser).not.toHaveBeenCalled();
 
     consoleSpy.mockRestore();
@@ -142,7 +142,9 @@ describe("getUserProfile", () => {
       createdAt: "2023-01-01T00:00:00Z",
     });
 
-    expect(consoleSpy).toHaveBeenCalledWith("[dashboard:getUserProfile:auth]", "Auth failed");
+    expect(consoleSpy).toHaveBeenCalledWith("Query error in getUserProfile:auth:", {
+      message: "Auth failed",
+    });
 
     consoleSpy.mockRestore();
   });
