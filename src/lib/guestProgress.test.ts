@@ -17,6 +17,11 @@ describe("guestProgress", () => {
     expect(getGuestProgress().completedLessons).toEqual(["lesson-1"]);
   });
 
+  it("returns fallback value when storage contains malformed JSON", () => {
+    sessionStorage.setItem("hmc_guest_completedLessons", "{invalid-json]");
+    expect(getGuestProgress().completedLessons).toEqual([]);
+  });
+
   it("clears progress only after successful migration", async () => {
     markLessonComplete("lesson-1");
 
