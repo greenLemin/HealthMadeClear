@@ -1,6 +1,7 @@
 // @vitest-environment jsdom
 import { describe, expect, it, beforeEach } from "vitest";
 import { getMockSupabaseClient } from "./mockClient";
+import { AuthChangeEvent, Session } from "@supabase/supabase-js";
 
 describe("mockClient", () => {
   beforeEach(() => {
@@ -33,10 +34,10 @@ describe("mockClient", () => {
     let fired = false;
     const {
       data: { subscription },
-    } = client.auth.onAuthStateChange((event: string, session: any) => {
+    } = client.auth.onAuthStateChange((event: AuthChangeEvent, session: Session | null) => {
       fired = true;
       expect(event).toBe("SIGNED_IN");
-      expect(session.access_token).toBe("mock-access-token");
+      expect(session?.access_token).toBe("mock-access-token");
     });
 
     // Wait for the timeout callback
