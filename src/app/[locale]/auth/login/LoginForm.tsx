@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useTranslations } from "next-intl";
 import { useRouter, useSearchParams } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
+import { sanitizeRedirectPath } from "@/lib/auth/sanitizeRedirect";
 import Button from "@/components/ui/Button";
 import Input from "@/components/ui/Input";
 import { Link } from "@/i18n/navigation";
@@ -53,9 +54,7 @@ export default function LoginForm() {
     }
 
     // Validate redirect param — only allow relative paths to prevent open redirect attacks
-    const redirectParam = searchParams.get("redirect");
-    const safeRedirect =
-      redirectParam?.startsWith("/") && !redirectParam.startsWith("//") ? redirectParam : "/dashboard";
+    const safeRedirect = sanitizeRedirectPath(searchParams.get("redirect"));
     router.push(safeRedirect);
   }
 
