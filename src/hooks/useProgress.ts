@@ -128,6 +128,8 @@ export function useProgress(): ProgressState & ProgressActions {
     return attempts;
   }, [user, supabaseQuizAttempts, quizScores]);
 
+  const completedLessonIdsSet = useMemo(() => new Set(completedLessonIds), [completedLessonIds]);
+
   const markLessonComplete = useCallback(
     async (lessonId: string) => {
       if (user) {
@@ -186,7 +188,7 @@ export function useProgress(): ProgressState & ProgressActions {
         appStateMarkLessonComplete(lessonId);
       }
     },
-    [user, supabase, showToast, supabaseCompletedLessonIds, appStateMarkLessonComplete]
+    [user, supabase, showToast, supabaseCompletedLessonIds, appStateMarkLessonComplete, locale]
   );
 
   const saveQuizAttempt = useCallback(
@@ -241,8 +243,8 @@ export function useProgress(): ProgressState & ProgressActions {
   );
 
   const isLessonComplete = useCallback(
-    (lessonId: string) => completedLessonIds.includes(lessonId),
-    [completedLessonIds]
+    (lessonId: string) => completedLessonIdsSet.has(lessonId),
+    [completedLessonIdsSet]
   );
 
   const getQuizBestScore = useCallback(
@@ -255,7 +257,7 @@ export function useProgress(): ProgressState & ProgressActions {
 
   const getLearningPathProgress = useCallback(
     (lessonIds: string[]) => {
-      const completed = lessonIds.filter((id) => completedLessonIds.includes(id)).length;
+      const completed = lessonIds.filter((id) => completedLessonIdsSet.has(id)).length;
       const total = lessonIds.length;
       return {
         completed,
@@ -263,7 +265,7 @@ export function useProgress(): ProgressState & ProgressActions {
         percentage: total === 0 ? 0 : Math.round((completed / total) * 100),
       };
     },
-    [completedLessonIds]
+    [completedLessonIdsSet]
   );
 
   return {
