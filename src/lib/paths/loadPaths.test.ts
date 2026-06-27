@@ -7,10 +7,8 @@ vi.mock("@/data/pathBundles", () => ({
       { id: "path-1", title: "Path 1" },
       { id: "path-2", title: "Path 2" },
     ],
-    es: [
-      { id: "ruta-1", title: "Ruta 1" }
-    ]
-  }
+    es: [{ id: "ruta-1", title: "Ruta 1" }],
+  },
 }));
 
 describe("loadPaths", () => {
