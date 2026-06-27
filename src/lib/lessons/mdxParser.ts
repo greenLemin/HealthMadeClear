@@ -35,8 +35,8 @@ export function parseSections(markdown: string): Lesson["content"]["sections"] {
   });
 }
 
-function lessonFromFile(filePath: string): Lesson {
-  const raw = normalizeLineEndings(fs.readFileSync(filePath, "utf8"));
+async function lessonFromFile(filePath: string): Promise<Lesson> {
+  const raw = normalizeLineEndings(await fs.promises.readFile(filePath, "utf8"));
   const { data, content } = matter(raw);
 
   const id = data.id as LessonId;
@@ -66,20 +66,27 @@ export function getLessonMdxDir(locale: "en" | "es") {
   return path.join(process.cwd(), "content", "lessons", locale);
 }
 
-export function getAllLessonsFromMdx(locale: "en" | "es"): Lesson[] {
+export async function getAllLessonsFromMdx(locale: "en" | "es"): Promise<Lesson[]> {
   const dir = getLessonMdxDir(locale);
 
-  return LESSON_IDS.map((id) => {
+  const promises = LESSON_IDS.map(async (id) => {
     const filePath = path.join(dir, `${id}.mdx`);
-    if (!fs.existsSync(filePath)) {
+    try {
+      await fs.promises.access(filePath);
+    } catch {
       throw new Error(`Missing lesson MDX file: ${filePath}`);
     }
     return lessonFromFile(filePath);
   });
+  return Promise.all(promises);
 }
 
-export function getLessonFromMdx(id: string, locale: "en" | "es"): Lesson | undefined {
+export async function getLessonFromMdx(id: string, locale: "en" | "es"): Promise<Lesson | undefined> {
   const filePath = path.join(getLessonMdxDir(locale), `${id}.mdx`);
-  if (!fs.existsSync(filePath)) return undefined;
+  try {
+    await fs.promises.access(filePath);
+  } catch {
+    return undefined;
+  }
   return lessonFromFile(filePath);
 }
