@@ -1,13 +1,37 @@
-1. **Understand the code health issue:** `DashboardClient.tsx` is large (~500 lines) and contains multiple distinct sections (Header, Stats, Recommended Next, My Learning Paths, Recent Activity, Recently Earned Achievements). This makes it harder to maintain and read.
-2. **Design the improvement:** Refactor the file by breaking it down into smaller, focused component files in a `components` subdirectory within the dashboard folder. I've created the placeholder files.
-3. **Refactoring steps:**
-   - Create `src/app/[locale]/dashboard/components/DashboardHeader.tsx` (Welcome, export/import).
-   - Create `src/app/[locale]/dashboard/components/DashboardStats.tsx` (Summary cards).
-   - Create `src/app/[locale]/dashboard/components/RecommendedNext.tsx` (Next action or active path card).
-   - Create `src/app/[locale]/dashboard/components/LearningPaths.tsx` (In-progress paths grid).
-   - Create `src/app/[locale]/dashboard/components/RecentActivity.tsx` (Recent activity list).
-   - Create `src/app/[locale]/dashboard/components/EarnedAchievements.tsx` (Achievements grid).
-   - Update `DashboardClient.tsx` to import and use these new components, passing necessary props.
-   - Refactor the types shared between these into a new `types.ts` file or define them locally if only used by one. Better yet, we can keep the types in `DashboardClient.tsx` and export them, or create a `src/app/[locale]/dashboard/types.ts` since many components will need them. I will create a `src/app/[locale]/dashboard/types.ts` file.
-4. **Validation:** Run type check, linting, and build to ensure no functionality is broken.
-5. **Commit:** Ensure pre-commit checks run and commit with the appropriate message format.
+1. **Analyze the testing gap in `src/lib/progressExport.ts`**
+   - The file contains these exported functions:
+     - `buildProgressExport` (Tested)
+     - `parseProgressImport` (Tested)
+     - `downloadProgressExport` (Not tested)
+     - `applyProgressImport` (Not tested)
+     - `readStoredQuizScores` (Not tested)
+   - These rely on browser APIs like `URL.createObjectURL`, `document.createElement`, and `window.localStorage`.
+   - The test environment requires `jsdom` since we're manipulating DOM and localStorage.
+
+2. **Update `src/lib/progressExport.test.ts` to include missing tests**
+   - Import necessary mocking tools from `vitest` (`vi`).
+   - Mock DOM elements and `URL` methods for `downloadProgressExport`:
+     - Provide a mock for `window.URL.createObjectURL` and `window.URL.revokeObjectURL`.
+     - Spy on `document.createElement`, `document.body.appendChild`, and `document.body.removeChild`.
+   - Mock `window.localStorage` for `applyProgressImport` and `readStoredQuizScores`.
+   - Add tests for `downloadProgressExport` to verify a blob is created and click is triggered on a dynamically generated anchor.
+   - Add tests for `applyProgressImport` to verify it calls `localStorage.setItem` for completed lessons, recent lessons, started paths, and quiz scores correctly.
+   - Add tests for `readStoredQuizScores`:
+     - Test retrieving valid scores.
+     - Test retrieving empty state.
+     - Test handling invalid JSON or invalid schema in localStorage gracefully.
+   - Ensure the file starts with `// @vitest-environment jsdom`.
+
+3. **Verify Tests Pass**
+   - Run `npm run test -- src/lib/progressExport.test.ts`.
+   - Ensure `npm run typecheck` passes.
+   - Ensure `npm run lint` passes.
+
+4. **Complete Pre-Commit Steps**
+   - Call the `pre_commit_instructions` agent tool directly.
+   - Complete pre-commit steps to ensure proper testing, verification, review, and reflection are done.
+
+5. **Create PR**
+   - Use `gh pr create` via `run_in_bash_session`.
+   - Title: `🧪 [testing improvement] Add tests for progress export/import browser utilities`
+   - Describe What, Coverage, and Result.

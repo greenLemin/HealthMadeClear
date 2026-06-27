@@ -1,4 +1,4 @@
-import fs from "fs";
+import fs from "fs/promises";
 import path from "path";
 import matter from "gray-matter";
 import type { GlossaryId, LessonId } from "@/types/content";
@@ -6,8 +6,9 @@ import { GLOSSARY_IDS } from "@/types/content";
 import { normalizeLineEndings } from "@/lib/normalizeLineEndings";
 import type { GlossaryTerm } from "@/types/glossary";
 
-function termFromFile(filePath: string): GlossaryTerm {
-  const raw = normalizeLineEndings(fs.readFileSync(filePath, "utf8"));
+async function termFromFile(filePath: string): Promise<GlossaryTerm> {
+  const fileContent = await fs.readFile(filePath, "utf8");
+  const raw = normalizeLineEndings(fileContent);
   const { data, content } = matter(raw);
   const related = data.relatedTerms;
   const lessons = data.relatedLessons;
@@ -27,21 +28,32 @@ export function getGlossaryMdxDir(locale: "en" | "es") {
   return path.join(process.cwd(), "content", "glossary", locale);
 }
 
-export function getAllGlossaryFromMdx(locale: "en" | "es"): GlossaryTerm[] {
+export async function getAllGlossaryFromMdx(locale: "en" | "es"): Promise<GlossaryTerm[]> {
   const dir = getGlossaryMdxDir(locale);
 
-  return GLOSSARY_IDS.map((id) => {
+  const promises = GLOSSARY_IDS.map(async (id) => {
     const filePath = path.join(dir, `${id}.mdx`);
-    if (!fs.existsSync(filePath)) {
+    try {
+      await fs.access(filePath);
+      return termFromFile(filePath);
+    } catch {
       throw new Error(`Missing glossary MDX file: ${filePath}`);
     }
-    return termFromFile(filePath);
   });
+
+  return Promise.all(promises);
 }
 
-export function getGlossaryTermFromMdx(id: string, locale: "en" | "es"): GlossaryTerm | undefined {
+export async function getGlossaryTermFromMdx(
+  id: string,
+  locale: "en" | "es"
+): Promise<GlossaryTerm | undefined> {
   if (!(GLOSSARY_IDS as readonly string[]).includes(id)) return undefined;
   const filePath = path.join(getGlossaryMdxDir(locale), `${id}.mdx`);
-  if (!fs.existsSync(filePath)) return undefined;
-  return termFromFile(filePath);
+  try {
+    await fs.access(filePath);
+    return termFromFile(filePath);
+  } catch {
+    return undefined;
+  }
 }

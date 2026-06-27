@@ -2,9 +2,11 @@
 
 import type { ReactNode } from "react";
 import { Link } from "@/i18n/navigation";
+import { Search, BookOpen, TrendingUp } from "lucide-react";
 import Button from "@/components/ui/Button";
 
 interface EmptyStateProps {
+  variant?: "default" | "search" | "learning" | "activity";
   icon?: ReactNode;
   title: string;
   description: string;
@@ -16,15 +18,37 @@ interface EmptyStateProps {
   className?: string;
 }
 
-export default function EmptyState({ icon, title, description, action, className = "" }: EmptyStateProps) {
+export default function EmptyState({
+  variant = "default",
+  icon,
+  title,
+  description,
+  action,
+  className = "",
+}: EmptyStateProps) {
+  let displayIcon = icon;
+  if (!displayIcon) {
+    switch (variant) {
+      case "search":
+        displayIcon = <Search size={40} aria-hidden="true" />;
+        break;
+      case "learning":
+        displayIcon = <BookOpen size={40} aria-hidden="true" />;
+        break;
+      case "activity":
+        displayIcon = <TrendingUp size={40} aria-hidden="true" />;
+        break;
+    }
+  }
+
   return (
     <div
       className={["flex flex-col items-center justify-center px-6 py-16 text-center", className].join(" ")}
       role="status"
     >
-      {icon ? (
+      {displayIcon ? (
         <div className="mb-4 text-on-surface-variant" aria-hidden="true">
-          {icon}
+          {displayIcon}
         </div>
       ) : null}
       <h3 className="mb-2 text-headline-md text-on-surface">{title}</h3>
