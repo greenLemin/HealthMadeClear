@@ -3,13 +3,6 @@ import { describe, it, expect, vi, beforeEach, afterEach, Mock } from "vitest";
 import { trackPageView, trackEvent, EVENTS } from "./analytics";
 import { logger } from "./logger";
 
-declare global {
-  interface Window {
-    gtag?: ((command: string, ...args: any[]) => void) | undefined;
-    plausible?: ((event: string, options?: { props?: Record<string, any>; u?: string }) => void) | undefined;
-  }
-}
-
 describe("Analytics", () => {
   let gtagMock: Mock;
   let plausibleMock: Mock;

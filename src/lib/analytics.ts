@@ -4,12 +4,6 @@ import { logger } from "./logger";
 
 type EventProperties = Record<string, string | number | boolean>;
 
-declare global {
-  interface Window {
-    plausible?: (event: string, options?: { props?: Record<string, any>; u?: string }) => void;
-  }
-}
-
 const EVENTS = {
   LESSON_STARTED: "lesson_started",
   LESSON_COMPLETED: "lesson_completed",
