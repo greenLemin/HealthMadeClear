@@ -111,6 +111,8 @@ export default function VisitPlannerClient() {
 
   const questions = visitTypes[visitType].questions;
 
+  const selectedQuestionsSet = useMemo(() => new Set(selectedQuestions), [selectedQuestions]);
+
   useEffect(() => {
     if (!hydrated) return;
 
@@ -208,7 +210,7 @@ export default function VisitPlannerClient() {
                 <p className="mb-6 text-body-md text-on-surface-variant">{t("selectQuestionsBody")}</p>
                 <div className="grid gap-4 md:grid-cols-2">
                   {questions.map((question) => {
-                    const selected = selectedQuestions.includes(question);
+                    const selected = selectedQuestionsSet.has(question);
                     const inputId = `question-${question.slice(0, 20)}`;
                     return (
                       <label
