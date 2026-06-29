@@ -27,7 +27,7 @@ import Card from "@/components/ui/Card";
 import Button from "@/components/ui/Button";
 import ProgressBar from "@/components/ui/ProgressBar";
 import EmptyState from "@/components/ui/EmptyState";
-import { formatRelativeDate } from "@/lib/i18n";
+import { formatRelativeDate, formatDuration } from "@/lib/i18n";
 import type { LearningPath } from "@/types/learningPath";
 
 type Summary = {
@@ -86,13 +86,6 @@ type DashboardClientProps = {
   displayName: string;
   locale: string;
 };
-
-function formatTime(minutes: number): string {
-  if (minutes < 60) return `${minutes} min`;
-  const hrs = Math.floor(minutes / 60);
-  const mins = minutes % 60;
-  return mins > 0 ? `${hrs}h ${mins}m` : `${hrs}h`;
-}
 
 function getGreeting(t: (key: string) => string): string {
   const hour = new Date().getHours();
@@ -256,7 +249,9 @@ export default function DashboardClient({
               <Clock size={20} />
             </div>
             <div>
-              <p className="text-headline-md text-primary">{formatTime(summary.totalTimeSpentMinutes)}</p>
+              <p className="text-headline-md text-primary">
+                {formatDuration(summary.totalTimeSpentMinutes, locale as "en" | "es")}
+              </p>
               <p className="text-label-sm text-on-surface-variant">{t("statsTimeSpent")}</p>
             </div>
           </div>

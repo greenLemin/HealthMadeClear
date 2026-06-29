@@ -109,7 +109,9 @@
     "closeDialog": "Close dialog",
     "dismissNotification": "Dismiss notification",
     "relatedTerms": "Related terms",
-    "copyLink": "Copy link"
+    "copyLink": "Copy link",
+    "progressPercent": "Progress: {percent}%",
+    "itemsCompletedCount": "{completed} of {total} completed"
   },
   "categories": {
     "medication-safety": "Medication Safety",
@@ -194,6 +196,7 @@
     "pageTitle": "Learning Paths",
     "pageBadge": "Guided learning",
     "progressLabel": "path progress",
+    "progressForPath": "{title} progress",
     "yourProgress": "Your progress",
     "nextLesson": "Next lesson",
     "pathCompleted": "Path completed!",
@@ -366,7 +369,9 @@
     "activeDayLabel": "{date}: active",
     "inactiveDayLabel": "{date}: no activity",
     "startLearningCta": "Start learning",
-    "categoryMobileSummary": "{completed}/{total} lessons · Quizzes: {passed}/{attempts}"
+    "categoryMobileSummary": "{completed}/{total} lessons · Quizzes: {passed}/{attempts}",
+    "categoriesCount": "{count} categories",
+    "trackedAreasCount": "{count} areas tracked"
   },
   "achievements": {
     "title": "Achievements",
@@ -650,7 +655,10 @@
     "typeArticle": "Article",
     "typeGlossary": "Glossary",
     "typePath": "Learning path",
-    "typeTool": "Tool"
+    "typeTool": "Tool",
+    "escapeKey": "ESC",
+    "shortcutMac": "⌘K",
+    "shortcutWindows": "Ctrl K"
   },
   "onboarding": {
     "welcome": "Welcome to Health Made Clear",
@@ -716,6 +724,7 @@
     "dismissBanner": "Dismiss",
     "errorConfirmationFailed": "Your email confirmation link is invalid or has expired. Please try logging in or request a new link.",
     "errorAuthFailed": "Authentication failed. Please try again.",
+    "errorRateLimited": "Too many sign-in attempts. Please wait a few minutes and try again.",
     "emailRequired": "Please enter your email address.",
     "passwordRequired": "Please enter your password.",
     "showPassword": "Show password",
@@ -792,6 +801,7 @@
     "errorGeneric": "Something went wrong. Please try again later.",
     "errorRateLimit": "Too many messages sent. Please wait {minutes, plural, one {# minute} other {# minutes}} and try again.",
     "errorUnavailable": "Our contact form is temporarily unavailable. Please try again later or email us directly.",
+    "honeypotLabel": "Leave this empty",
     "supportHumanTitle": "Human response",
     "supportHumanBody": "We review general questions and content feedback within about 2 business days.",
     "supportAccessibilityTitle": "Accessibility help",

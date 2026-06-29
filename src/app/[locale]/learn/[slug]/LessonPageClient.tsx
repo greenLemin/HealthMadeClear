@@ -139,7 +139,7 @@ export default function LessonPageClient({
           <section className="section-frame px-6 py-6 md:px-8 md:py-8">
             <div className="grid gap-6 lg:grid-cols-[1.08fr_0.92fr] lg:items-center">
               <div>
-                <nav aria-label="Breadcrumb">
+                <nav aria-label={tCommon("breadcrumb")}>
                   <ol className="flex flex-wrap items-center gap-2 text-label-md text-on-surface-variant">
                     <li>
                       <Link href="/" className="transition-colors hover:text-primary">

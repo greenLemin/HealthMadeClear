@@ -109,7 +109,9 @@
     "closeDialog": "Cerrar diálogo",
     "dismissNotification": "Descartar notificación",
     "relatedTerms": "Términos relacionados",
-    "copyLink": "Copiar enlace"
+    "copyLink": "Copiar enlace",
+    "progressPercent": "Progreso: {percent}%",
+    "itemsCompletedCount": "{completed} de {total} completados"
   },
   "categories": {
     "medication-safety": "Seguridad con medicamentos",
@@ -194,6 +196,7 @@
     "pageTitle": "Rutas de aprendizaje",
     "pageBadge": "Aprendizaje guiado",
     "progressLabel": "progreso de la ruta",
+    "progressForPath": "Progreso de {title}",
     "yourProgress": "Tu progreso",
     "nextLesson": "Siguiente lección",
     "pathCompleted": "¡Ruta completada!",
@@ -366,7 +369,9 @@
     "activeDayLabel": "{date}: activo",
     "inactiveDayLabel": "{date}: sin actividad",
     "startLearningCta": "Empezar a aprender",
-    "categoryMobileSummary": "{completed}/{total} lecciones · Cuestionarios: {passed}/{attempts}"
+    "categoryMobileSummary": "{completed}/{total} lecciones · Cuestionarios: {passed}/{attempts}",
+    "categoriesCount": "{count} categorías",
+    "trackedAreasCount": "{count} áreas activas"
   },
   "achievements": {
     "title": "Logros",
@@ -659,7 +664,10 @@
     "typeArticle": "Artículo",
     "typeGlossary": "Glosario",
     "typePath": "Ruta de aprendizaje",
-    "typeTool": "Herramienta"
+    "typeTool": "Herramienta",
+    "escapeKey": "ESC",
+    "shortcutMac": "⌘K",
+    "shortcutWindows": "Ctrl K"
   },
   "onboarding": {
     "welcome": "Bienvenido a Health Made Clear",
@@ -725,6 +733,7 @@
     "dismissBanner": "Cerrar",
     "errorConfirmationFailed": "Tu enlace de confirmación de correo no es válido o ha expirado. Intenta iniciar sesión o solicita un nuevo enlace.",
     "errorAuthFailed": "La autenticación falló. Por favor, inténtalo de nuevo.",
+    "errorRateLimited": "Demasiados intentos de inicio de sesión. Espera unos minutos e inténtalo de nuevo.",
     "emailRequired": "Introduce tu correo electrónico.",
     "passwordRequired": "Introduce tu contraseña.",
     "showPassword": "Mostrar contraseña",
@@ -803,6 +812,7 @@
     "errorGeneric": "Algo salió mal. Intenta de nuevo más tarde.",
     "errorRateLimit": "Enviaste demasiados mensajes. Espera {minutes, plural, one {# minuto} other {# minutos}} e inténtalo de nuevo.",
     "errorUnavailable": "Nuestro formulario de contacto no está disponible temporalmente. Inténtalo más tarde o escríbenos directamente.",
+    "honeypotLabel": "Deja esto vacío",
     "supportHumanTitle": "Respuesta humana",
     "supportHumanBody": "Respondemos mensajes generales y comentarios de contenido en aproximadamente 2 días hábiles.",
     "supportAccessibilityTitle": "Ayuda de accesibilidad",

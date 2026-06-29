@@ -8,7 +8,7 @@ import EmptyState from "@/components/ui/EmptyState";
 import PageHeader from "@/components/PageHeader";
 import ProgressBar from "@/components/ui/ProgressBar";
 import Reveal from "@/components/ui/Reveal";
-import { formatRelativeDate, formatMemberSince, type Locale } from "@/lib/i18n";
+import { formatRelativeDate, formatMemberSince, formatDuration, type Locale } from "@/lib/i18n";
 
 type Summary = {
   totalLessonsCompleted: number;
@@ -63,13 +63,6 @@ type ProgressClientProps = {
   locale: Locale;
 };
 
-function formatTime(minutes: number): string {
-  if (minutes < 60) return `${minutes} min`;
-  const hrs = Math.floor(minutes / 60);
-  const mins = minutes % 60;
-  return mins > 0 ? `${hrs}h ${mins}m` : `${hrs}h`;
-}
-
 function clampPercent(value: number): number {
   return Math.min(100, Math.max(0, Math.round(value)));
 }
@@ -114,10 +107,6 @@ export default function ProgressClient({
     summary.totalLessonsAvailable > 0
       ? clampPercent((summary.totalLessonsCompleted / summary.totalLessonsAvailable) * 100)
       : 0;
-  const copy =
-    locale === "es"
-      ? { categoriesLabel: "categorias", trackedLabel: "areas activas" }
-      : { categoriesLabel: "categories", trackedLabel: "areas tracked" };
 
   const today = new Date().toISOString().split("T")[0];
   const activeSet = new Set(activeDays);
@@ -218,7 +207,7 @@ export default function ProgressClient({
                   className="mt-6"
                 />
                 <div className="mt-6 flex flex-wrap gap-3">
-                  <span className="metric-pill">{formatTime(summary.totalTimeSpentMinutes)}</span>
+                  <span className="metric-pill">{formatDuration(summary.totalTimeSpentMinutes, locale)}</span>
                   <span className="metric-pill bg-secondary-container/60 text-secondary">
                     {t("avgQuizScoreColumn")}: {averageScore}
                   </span>
@@ -233,7 +222,7 @@ export default function ProgressClient({
             <MetricCard
               icon={Clock}
               label={t("totalTime")}
-              value={formatTime(summary.totalTimeSpentMinutes)}
+              value={formatDuration(summary.totalTimeSpentMinutes, locale)}
               detail={memberSinceLabel}
             />
             <MetricCard
@@ -268,9 +257,7 @@ export default function ProgressClient({
                 <div className="eyebrow mb-3">{t("progressByCategory")}</div>
                 <h2 className="font-display text-headline-lg text-primary">{t("progressByCategory")}</h2>
               </div>
-              <span className="metric-pill">
-                {categoryProgress.length} {copy.categoriesLabel}
-              </span>
+              <span className="metric-pill">{t("categoriesCount", { count: categoryProgress.length })}</span>
             </div>
 
             <div className="mt-6 grid gap-4 md:grid-cols-2">
@@ -373,7 +360,7 @@ export default function ProgressClient({
                 <h2 className="font-display text-headline-lg text-primary">{t("quizPerformance")}</h2>
               </div>
               <span className="metric-pill bg-secondary-container/60 text-secondary">
-                {quizPerformance.length} {copy.trackedLabel}
+                {t("trackedAreasCount", { count: quizPerformance.length })}
               </span>
             </div>
 

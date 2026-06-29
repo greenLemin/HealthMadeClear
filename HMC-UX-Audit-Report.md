@@ -2,115 +2,131 @@
 
 ## Overview
 
-Combined audit covering passes 1-4 (June 28-29, 2026). Full app sweep — 27 routes, EN/ES locales, 375px–12800px+. All critical/high items resolved.
+Combined audit covering passes 1–5 (June 28–29, 2026). Full app sweep — 27 routes, EN/ES locales, 375px–1280px+. All critical/high items resolved.
 
-**Verification:** `npm test` — 231/231 passing. `npm run typecheck`, `lint`, `test:e2e` — all green.
+**Verification (Pass 5):** `npm test` — 234/234 passing. `npm run typecheck`, `lint`, `test:e2e` (49 non-visual specs) — all green.
 
 ---
 
 ## Findings Summary
 
-| Severity | Found | Fixed | Outstanding | Notes                                                                              |
-| -------- | ----: | ----: | ----------- | ---------------------------------------------------------------------------------- |
-| Critical |     2 |     2 | 0           | ES hardcoded strings, duplicate home CTA ID                                        |
-| High     |    10 |    10 | 0           | i18n gaps, missing loading routes, mock auth, quiz wayfinding, progress continuity |
-| Medium   |    29 |    27 | 2           | Focus-visible, empty states, overlay polish, validation clearing, i18n             |
-| Low      |    15 |    10 | 5           | Card duplication, display tooltip, nested loading                                  |
+| Severity | Found | Fixed | Outstanding | Notes                                                                  |
+| -------- | ----: | ----: | ----------- | ---------------------------------------------------------------------- |
+| Critical |     2 |     2 | 0           | ES hardcoded strings, duplicate home CTA ID                            |
+| High     |    13 |    13 | 0           | i18n gaps, loading routes, mock auth, SaveProgressBanner, rate_limited |
+| Medium   |    36 |    34 | 2           | Focus-visible, empty states, overlay polish, validation clearing       |
+| Low      |    16 |    11 | 5           | Card duplication, dual button system, nested loading                   |
 
-### Outstanding
+### Outstanding (deferred — low user impact)
 
-| Location                   | Issue                            | Notes           |
-| -------------------------- | -------------------------------- | --------------- |
-| `globals.css` `.btn-*`     | Dual button system               | Low user impact |
-| `LessonCard`/`ArticleCard` | Card component duplication       | Cosmetic        |
-| Display name               | No truncate tooltip              | Minor           |
-| Nested segments            | Auth reset/about/contact loading | Minor           |
+| Location                   | Issue                            | Notes                                         |
+| -------------------------- | -------------------------------- | --------------------------------------------- |
+| `globals.css` `.btn-*`     | Dual button system               | Cosmetic; `Button` vs utility classes coexist |
+| `LessonCard`/`ArticleCard` | Card component duplication       | Cosmetic refactor                             |
+| Display name               | No truncate tooltip              | Minor header polish                           |
+| Nested segments            | Auth reset/about/contact loading | Minor skeleton duplication                    |
+| `VisitPlannerClient.tsx`   | Large inline locale copy object  | Works but bypasses message files              |
 
 ---
 
-## Pass 1-3: UX Foundations (June 29)
+## Pass 5: Re-Audit & Polish (June 29)
+
+Fresh codebase sweep identified remaining i18n, a11y, and dead-component gaps from passes 1–4.
+
+### High (fixed)
+
+1. **`rate_limited` login error silent** — Auth callback/confirm redirect with `?error=rate_limited` showed no message. Added `auth.errorRateLimited` and wired in `LoginForm.tsx`.
+2. **`SaveProgressBanner` never mounted** — Component existed but was not rendered. Added to locale layout below `NetworkStatusBanner` so guests with progress see a save prompt.
+3. **Hardcoded English duration on ES dashboard** — `formatTime()` used `"min"`, `"h"`, `"m"` literals. Extracted shared `formatDuration()` in `lib/i18n.ts`; used in `DashboardClient` and `progress-client`.
+
+### Medium (fixed)
+
+1. **Breadcrumb `aria-label` not i18n** — `PageHeader` and `LessonPageClient` used hardcoded `"Breadcrumb"`. `PageHeader` now uses `common.breadcrumb`; lesson page updated.
+2. **`.toLowerCase()` on translated strings** — Broke Spanish capitalization in achievements and visit checklist. Removed; added `common.itemsCompletedCount` for checklist progress copy.
+3. **Home featured path progress aria** — Hardcoded English `"progress"`. Uses `paths.progressForPath`.
+4. **Home `exploreLabel` inline** — Replaced with `sectionNav.explore`.
+5. **Progress page category labels** — Inline EN/ES object replaced with `progress.categoriesCount` and `progress.trackedAreasCount`.
+6. **ProgressBar fallback aria** — English `"Progress: X%"` replaced with `common.progressPercent`.
+7. **Notification date formatting** — `toLocaleDateString()` without locale. Now passes app locale.
+8. **Contact honeypot label** — Hardcoded English. Added `contact.honeypotLabel` (EN/ES).
+9. **SearchDialog keyboard hints** — Hardcoded `ESC`, `⌘K`, `Ctrl K`. Added `search.escapeKey`, `search.shortcutMac`, `search.shortcutWindows`.
+10. **Dashboard default display name** — Server layout used hardcoded `"User"`. Uses `dashboard.defaultUser` via `getTranslations`.
+11. **ScrollToTop vs dashboard mobile nav overlap** — Scroll button now uses `bottom-20` on dashboard routes (mobile bottom nav clearance).
+12. **OnboardingDialog focus & overlap** — Added `useFocusTrap`; moved panel to bottom-left to avoid ScrollToTop collision.
+
+### Low (fixed)
+
+1. **Dead duplicate `layout/PageHeader.tsx`** — Removed unused file.
+
+---
+
+## Pass 1–4 Summary (prior work)
 
 ### Critical
 
-1. **ES learning path detail** — "Lessons in this path" etc. hardcoded → wired to `paths.*`.
-2. **Duplicate `id="cta-heading-authenticated"`** → single shared `<h2>`.
+1. ES learning path detail hardcoded strings → wired to `paths.*`.
+2. Duplicate `id="cta-heading-authenticated"` → single shared `<h2>`.
 
 ### High
 
-1. **Modal/Alert/Toast dismiss labels** hardcoded EN → `common.closeDialog/dismiss/dismissNotification`.
-2. **Breadcrumb `aria-label`** not translated → `common.breadcrumb` across 5 files.
-3. **Home inline "In Progress"** → `dashboard.inProgress`.
-4. **Dual button system** (`Button` vs `.btn-*`) — deferred.
-5. **Missing loading routes** — 19/27 routes → added learn, articles, paths, glossary, tools, lesson detail.
-6. **ForgotPasswordForm** no email validation → added regex + `errorEmailInvalid`.
+- Modal/Alert/Toast dismiss labels i18n
+- Breadcrumb aria across pages
+- Missing loading routes (19 added)
+- ForgotPasswordForm email validation
+- Quiz heading during active/result states
+- Quiz exit warning → shared Modal
+- Mock auth realism + guest progress continuity
 
-### Medium (fixed)
+### Medium
 
-- **Focus-visible** on all interactive controls (toggles, chips, steps, quiz options).
-- **Empty states** via `EmptyState` for learn, glossary, achievements, progress.
-- **Reduced motion** handling for glossary scroll, progress bar, button spinner.
-- **Layout** overflow fixes for progress tables, notification center.
-- **i18n** dashboard `formatTime`, glossary `aria-label`, ToastProvider region.
-- **Footer** heading hierarchy `h2` → `p`.
-
----
-
-## Pass 4: Polish & Auth Realism (June 28)
-
-### High
-
-1. **Quiz heading** — Dropped `h1` during active/result states → restored.
-2. **Quiz exit warning** — Custom overlay → shared `Modal` component.
-3. **Mock auth** — Started signed-in, missing core methods → reworked to start signed-out, support sign-in/sign-out, persist state.
-4. **Guest→login progress continuity** — Migrate guest progress to Supabase before dashboard redirect.
-
-### Medium (fixed)
-
-1. **SearchDialog** — Allowed background scroll, platform-shortcut always Mac → body scroll lock + platform-aware label.
-2. **Dialog dismiss controls** — Added to AccessibilityControls, NotificationCenter, InlineGlossaryTerm.
-3. **Stale form validation** — Auth + contact forms now clear errors on input change.
-4. **Settings IntlError** — Missing `dashboard.settings` key → used `dashboard.navSettings`.
-
-### Low
-
-- Spanish copy accent corrections, visit-planner dependency warning, ARIA labels.
+- Focus-visible on all interactive controls
+- EmptyState patterns for learn, glossary, achievements, progress
+- Reduced motion handling
+- Layout overflow fixes
+- Form validation clearing on input change
+- SearchDialog scroll lock + platform-aware shortcut label
 
 ---
 
 ## Routes Audited
 
-| Route                                                  | Code | Browser | Fixes     |
-| ------------------------------------------------------ | ---- | ------- | --------- |
-| `/` Home                                               | ✓    | ✓       | ✓         |
-| `/learn`, `/[slug]`, `/[slug]/quiz`                    | ✓    | ✓       | ✓         |
-| `/articles`                                            | ✓    | e2e     | ✓ loading |
-| `/glossary`                                            | ✓    | ✓       | ✓         |
-| `/learning-paths`, `/[pathId]`                         | ✓    | partial | ✓         |
-| `/dashboard/*`                                         | ✓    | partial | ✓         |
-| `/auth/*`                                              | ✓    | —       | partial   |
-| `/tools/*`                                             | ✓    | e2e     | ✓         |
-| Static (about, contact, privacy, terms, accessibility) | ✓    | —       | partial   |
+| Route                               | Code | Browser/e2e | Pass 5 fixes                                    |
+| ----------------------------------- | ---- | ----------- | ----------------------------------------------- |
+| `/` Home                            | ✓    | ✓           | explore label, path progress aria               |
+| `/learn`, `/[slug]`, `/[slug]/quiz` | ✓    | ✓           | breadcrumb aria                                 |
+| `/articles`, `/articles/[slug]`     | ✓    | ✓           | —                                               |
+| `/glossary`, `/glossary/[term]`     | ✓    | ✓           | —                                               |
+| `/learning-paths`, `/[pathId]`      | ✓    | ✓           | —                                               |
+| `/dashboard/*`                      | ✓    | ✓           | formatDuration, layout defaultUser, ScrollToTop |
+| `/auth/*`                           | ✓    | ✓           | rate_limited error, SaveProgressBanner context  |
+| `/tools/*`                          | ✓    | ✓           | checklist completed copy                        |
+| Static pages                        | ✓    | ✓           | contact honeypot                                |
+
+---
 
 ## Impact Highlights
 
-1. **ES path detail** — Fully translated progress UI replacing mixed EN strings.
-2. **Keyboard nav** — Visible WCAG focus-visible rings on all filter chips, quiz options, glossary triggers.
-3. **Empty states** — Consistent `EmptyState` patterns with CTAs across learn, glossary, achievements, progress.
-4. **Loading UX** — Shape-matched skeletons instead of blank flashes.
-5. **Auth realism** — Mock client now starts signed-out, guest progress survives login.
-6. **Dashboard console clean** — All routes verified no errors.
+1. **Guest save prompt** — Users who complete lessons anonymously now see a dismissible banner prompting account creation.
+2. **Auth rate-limit clarity** — Rate-limited sign-in attempts show a calm, actionable message instead of a blank form.
+3. **ES dashboard polish** — Time spent and progress labels fully localized.
+4. **Keyboard/a11y consistency** — Breadcrumb nav, progress bars, and search hints respect locale.
+5. **Mobile dashboard** — Scroll-to-top no longer overlaps bottom navigation.
 
-## Recommendations
+---
 
-1. E2E UX suite for ES locale, mobile 375px, keyboard-only nav.
-2. Design token audit (single source for radius, shadow, spacing).
-3. Automated axe scan in CI for WCAG AA.
-4. Display name tooltip for truncated header label.
-5. Replace deprecated `middleware` convention with `proxy`.
-6. Linux-based visual regression job for deterministic screenshots.
+## Recommendations (future)
+
+1. Migrate `VisitPlannerClient` inline copy to `tools` message namespace.
+2. Consolidate `Button` component and `.btn-*` utilities into one system.
+3. Unify `Card`, `surface-card`, and legacy `.card` styles.
+4. Automated axe scan in CI for WCAG AA regression detection.
+5. E2E suite for ES locale at 375px with keyboard-only navigation.
+6. Display name tooltip for truncated header label.
+
+---
 
 ## Human Review Needed
 
-- "Health Made Clear" hardcoded in footer (intentional vs i18n?)
+- "Health Made Clear" hardcoded in footer/onboarding (intentional brand vs i18n?)
 - Delete-account confirmation UX for ES users
 - Emergency number localization beyond US 911

@@ -4,13 +4,18 @@ import { useState, useEffect, useRef, useCallback, useMemo } from "react";
 import { Bell, BellDot, CheckCheck, Trophy, Flame, Target, X } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
+import { useAppState } from "@/components/AppProviders";
 import { getNotifications, markAsRead, markAllAsRead, getUnreadCount } from "@/lib/notifications";
 import type { Notification as DbNotification } from "@/lib/notifications";
 import { useTranslations } from "next-intl";
 import { useFocusTrap } from "@/hooks/useFocusTrap";
 import { useDismissibleOverlay } from "@/hooks/useDismissibleOverlay";
 
-function formatNotifTime(dateStr: string, tCommon: ReturnType<typeof useTranslations<"common">>): string {
+function formatNotifTime(
+  dateStr: string,
+  locale: "en" | "es",
+  tCommon: ReturnType<typeof useTranslations<"common">>
+): string {
   const date = new Date(dateStr);
   const now = new Date();
   const diffMs = now.getTime() - date.getTime();
@@ -23,7 +28,7 @@ function formatNotifTime(dateStr: string, tCommon: ReturnType<typeof useTranslat
   if (diffHours < 24) return tCommon("relativeHours", { count: diffHours });
   if (diffDays === 1) return tCommon("relativeYesterday");
   if (diffDays < 7) return tCommon("relativeDays", { count: diffDays });
-  return date.toLocaleDateString();
+  return date.toLocaleDateString(locale === "es" ? "es-ES" : "en-US");
 }
 
 function getNotifIcon(type: string) {
@@ -41,6 +46,7 @@ function getNotifIcon(type: string) {
 
 export default function NotificationCenter() {
   const { user } = useAuth();
+  const { locale } = useAppState();
   const t = useTranslations("notifications");
   const tCommon = useTranslations("common");
   const supabase = useMemo(() => createClient(), []);
@@ -185,7 +191,7 @@ export default function NotificationCenter() {
                       </p>
                       <p className="text-label-sm text-on-surface-variant">{notif.body}</p>
                       <p className="mt-0.5 text-label-sm text-on-surface-variant">
-                        {formatNotifTime(notif.created_at, tCommon)}
+                        {formatNotifTime(notif.created_at, locale, tCommon)}
                       </p>
                     </div>
                   </button>

@@ -6,6 +6,7 @@ import { BookOpen, Route, Search, X } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 import { usePathname } from "@/i18n/navigation";
 import { useDismissibleOverlay } from "@/hooks/useDismissibleOverlay";
+import { useFocusTrap } from "@/hooks/useFocusTrap";
 import { useMotionSafe } from "@/hooks/useMotionSafe";
 import { revealEase } from "@/components/ui/Reveal";
 
@@ -31,6 +32,7 @@ export default function OnboardingDialog() {
     setVisible(false);
   };
 
+  useFocusTrap(dialogRef, visible);
   useDismissibleOverlay({
     isOpen: visible,
     onClose: dismiss,
@@ -108,7 +110,7 @@ export default function OnboardingDialog() {
             ref={dialogRef}
             role="complementary"
             aria-labelledby="onboarding-title"
-            className="no-print fixed bottom-4 right-4 z-[110] w-[min(24rem,calc(100vw-2rem))]"
+            className="no-print fixed bottom-4 left-4 z-[110] w-[min(24rem,calc(100vw-2rem))]"
           >
             {onboardingContent}
           </aside>
@@ -121,7 +123,7 @@ export default function OnboardingDialog() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 20 }}
             transition={{ duration: 0.28, ease: revealEase }}
-            className="no-print fixed bottom-4 right-4 z-[110] w-[min(24rem,calc(100vw-2rem))]"
+            className="no-print fixed bottom-4 left-4 z-[110] w-[min(24rem,calc(100vw-2rem))]"
           >
             {onboardingContent}
           </motion.aside>

@@ -3,10 +3,13 @@
 import { useEffect, useState } from "react";
 import { ArrowUp } from "lucide-react";
 import { useTranslations } from "next-intl";
+import { usePathname } from "@/i18n/navigation";
 
 export default function ScrollToTop() {
   const [visible, setVisible] = useState(false);
   const t = useTranslations("common");
+  const pathname = usePathname();
+  const onDashboard = pathname.startsWith("/dashboard");
 
   useEffect(() => {
     function handleScroll() {
@@ -28,7 +31,10 @@ export default function ScrollToTop() {
     <button
       type="button"
       onClick={handleClick}
-      className="no-print fixed bottom-6 right-6 z-50 flex h-12 w-12 items-center justify-center rounded-full bg-primary text-on-primary shadow-elevation-2 transition-transform motion-safe:hover:scale-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+      className={[
+        "no-print fixed right-6 z-50 flex h-12 w-12 items-center justify-center rounded-full bg-primary text-on-primary shadow-elevation-2 transition-transform motion-safe:hover:scale-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2",
+        onDashboard ? "bottom-20 md:bottom-6" : "bottom-6",
+      ].join(" ")}
       aria-label={t("backToTop")}
     >
       <ArrowUp size={20} aria-hidden="true" />

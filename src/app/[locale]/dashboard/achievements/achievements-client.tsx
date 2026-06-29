@@ -44,7 +44,7 @@ export default function AchievementsClient({
           </span>
           <span className="metric-pill bg-secondary-container/60 text-secondary">
             <Lock size={18} aria-hidden="true" />
-            {lockedCount} {lockedLabel.toLowerCase()}
+            {lockedCount} {lockedLabel}
           </span>
         </div>
       </PageHeader>
@@ -70,11 +70,11 @@ export default function AchievementsClient({
             <div className="mt-6 flex flex-wrap gap-3">
               <span className="metric-pill">
                 <Award size={18} aria-hidden="true" />
-                {earnedCount} {copy.earnedLabel.toLowerCase()}
+                {earnedCount} {copy.earnedLabel}
               </span>
               <span className="metric-pill bg-secondary-container/60 text-secondary">
                 <Lock size={18} aria-hidden="true" />
-                {lockedCount} {lockedLabel.toLowerCase()}
+                {lockedCount} {lockedLabel}
               </span>
             </div>
           </div>

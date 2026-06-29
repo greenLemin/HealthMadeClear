@@ -30,7 +30,9 @@ export default function HomeClient({ lessons, learningPaths }: HomeClientProps) 
   const tDisclaimer = useTranslations("disclaimer");
   const tAuth = useTranslations("auth");
   const tDashboard = useTranslations("dashboard");
-  const exploreLabel = locale === "es" ? "Explorar" : "Explore";
+  const tSectionNav = useTranslations("sectionNav");
+  const tPaths = useTranslations("paths");
+  const exploreLabel = tSectionNav("explore");
 
   const lastUncompletedRecentLessonId = useMemo(() => {
     return recentLessons.find((id) => !completedLessons.has(id));
@@ -165,7 +167,7 @@ export default function HomeClient({ lessons, learningPaths }: HomeClientProps) 
                           aria-valuenow={progress.percentage}
                           aria-valuemin={0}
                           aria-valuemax={100}
-                          aria-label={`${path.title} progress`}
+                          aria-label={tPaths("progressForPath", { title: path.title })}
                         >
                           <div className="progress-fill" style={{ width: `${progress.percentage}%` }} />
                         </div>

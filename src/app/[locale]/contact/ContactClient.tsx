@@ -141,7 +141,7 @@ export default function ContactClient() {
             <div className="surface-card-glass px-6 py-6 md:px-8 md:py-8">
               <form onSubmit={handleSubmit} className="space-y-6" noValidate>
                 <div aria-hidden="true" className="absolute -left-[9999px]" tabIndex={-1}>
-                  <label htmlFor="hp-field">Leave this empty</label>
+                  <label htmlFor="hp-field">{t("honeypotLabel")}</label>
                   <input
                     id="hp-field"
                     type="text"

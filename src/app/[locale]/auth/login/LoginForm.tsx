@@ -31,7 +31,9 @@ export default function LoginForm() {
       ? t("errorConfirmationFailed")
       : errorParam === "auth_failed"
         ? t("errorAuthFailed")
-        : null;
+        : errorParam === "rate_limited"
+          ? t("errorRateLimited")
+          : null;
 
   function handleEmailChange(value: string) {
     setEmail(value);

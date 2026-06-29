@@ -10,6 +10,7 @@ import AuthProvider from "@/components/providers/AuthProvider";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import NetworkStatusBanner from "@/components/ui/NetworkStatusBanner";
+import SaveProgressBanner from "@/components/ui/SaveProgressBanner";
 import ScrollToTop from "@/components/ScrollToTop";
 import { routing } from "@/i18n/routing";
 import { requireLocale } from "@/lib/locale";
@@ -120,6 +121,7 @@ export default async function LocaleLayout({
             <AnalyticsPageViewTracker locale={validLocale} />
             <AuthProvider>
               <NetworkStatusBanner />
+              <SaveProgressBanner />
               <div className="min-h-screen bg-surface text-on-surface">
                 <Header />
                 <main id="main-content" tabIndex={-1}>

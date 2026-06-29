@@ -53,8 +53,10 @@ export default function VisitChecklistClient() {
               <div>
                 <div className="eyebrow mb-2">{t("readyBeforeGo")}</div>
                 <div className="text-body-md text-on-surface-variant">
-                  {checkedItems.length} {tCommon("of")} {checklistItems.length}{" "}
-                  {tCommon("completed").toLowerCase()}
+                  {tCommon("itemsCompletedCount", {
+                    completed: checkedItems.length,
+                    total: checklistItems.length,
+                  })}
                 </div>
               </div>
               <div className="flex items-center gap-3">
