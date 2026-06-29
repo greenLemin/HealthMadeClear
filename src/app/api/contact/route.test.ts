@@ -5,7 +5,7 @@ describe("POST /api/contact", () => {
   beforeEach(() => {
     vi.stubEnv("NEXT_PUBLIC_SUPABASE_URL", "https://test.supabase.co");
     vi.stubEnv("NEXT_PUBLIC_SUPABASE_ANON_KEY", "test_anon_key");
-    clearRateLimitStore();
+    clearRateLimitStore("contact");
   });
 
   it("returns 400 for missing fields", async () => {
@@ -45,7 +45,6 @@ describe("POST /api/contact", () => {
   it("enforces rate limits after 5 submissions", async () => {
     const ip = "192.168.1.99";
 
-    // Send 5 requests
     for (let i = 0; i < 5; i++) {
       const req = new Request("http://localhost/api/contact", {
         method: "POST",
@@ -58,7 +57,6 @@ describe("POST /api/contact", () => {
       expect(res.status).not.toBe(429);
     }
 
-    // 6th request from same IP should be rate limited (429)
     const req6 = new Request("http://localhost/api/contact", {
       method: "POST",
       headers: {
@@ -71,7 +69,6 @@ describe("POST /api/contact", () => {
     const json = await res6.json();
     expect(json.error).toContain("Too many requests");
 
-    // 7th request from a DIFFERENT IP should not be rate limited
     const reqOther = new Request("http://localhost/api/contact", {
       method: "POST",
       headers: {
@@ -81,5 +78,17 @@ describe("POST /api/contact", () => {
     });
     const resOther = await POST(reqOther);
     expect(resOther.status).not.toBe(429);
+  });
+
+  it("returns 503 when Supabase env is missing", async () => {
+    vi.stubEnv("NEXT_PUBLIC_SUPABASE_URL", "");
+    vi.stubEnv("NEXT_PUBLIC_SUPABASE_ANON_KEY", "");
+
+    const req = new Request("http://localhost/api/contact", {
+      method: "POST",
+      body: JSON.stringify({ name: "Alice", email: "alice@example.com", message: "Hi" }),
+    });
+    const res = await POST(req);
+    expect(res.status).toBe(503);
   });
 });

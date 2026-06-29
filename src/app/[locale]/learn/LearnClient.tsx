@@ -5,6 +5,7 @@ import { BookOpen, Search } from "lucide-react";
 import { useAppState } from "@/components/AppProviders";
 import LessonCard from "@/components/learn/LessonCard";
 import PageHeader from "@/components/PageHeader";
+import MedicalDisclaimer from "@/components/MedicalDisclaimer";
 import EmptyState from "@/components/ui/EmptyState";
 import Reveal from "@/components/ui/Reveal";
 import { getCategoryLabel } from "@/lib/i18n";
@@ -25,7 +26,7 @@ export default function LearnClient({ lessons }: LearnClientProps) {
   const { completedLessons, locale, markLessonViewed } = useAppState();
   const t = useTranslations("learn");
   const tCommon = useTranslations("common");
-  const difficultyLabel = locale === "es" ? "Nivel" : "Difficulty";
+  const difficultyLabel = t("difficultyLabel");
   const [activeCategory, setActiveCategory] = useState<CategoryFilter>(ALL);
   const [activeDifficulty, setActiveDifficulty] = useState<Difficulty>(ALL);
 
@@ -220,6 +221,8 @@ export default function LearnClient({ lessons }: LearnClientProps) {
             className="mt-8"
           />
         ) : null}
+
+        <MedicalDisclaimer />
       </div>
     </div>
   );

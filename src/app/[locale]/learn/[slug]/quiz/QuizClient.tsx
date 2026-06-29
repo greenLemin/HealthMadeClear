@@ -9,6 +9,7 @@ import { useProgress } from "@/hooks/useProgress";
 import QuizQuestionComponent from "@/components/quiz/QuizQuestion";
 import QuizResults from "@/components/quiz/QuizResults";
 import Modal from "@/components/ui/Modal";
+import MedicalDisclaimer from "@/components/MedicalDisclaimer";
 import Reveal from "@/components/ui/Reveal";
 import type { Quiz } from "@/types/quiz";
 import { useRouter } from "@/i18n/navigation";
@@ -181,6 +182,7 @@ export default function QuizClient({ quiz, lessonTitle, lessonId }: Props) {
               {t("backToLesson")}
             </Link>
           </div>
+          <MedicalDisclaimer />
         </div>
       </div>
     );
@@ -216,6 +218,7 @@ export default function QuizClient({ quiz, lessonTitle, lessonId }: Props) {
               {bestScore !== null ? t("retake") : t("startQuiz")}
             </button>
           </div>
+          <MedicalDisclaimer />
         </div>
       </div>
     );
@@ -235,6 +238,7 @@ export default function QuizClient({ quiz, lessonTitle, lessonId }: Props) {
               onRetake={handleReset}
               onContinue={handleContinue}
             />
+            <MedicalDisclaimer />
           </div>
         </div>
       </>
@@ -357,6 +361,8 @@ export default function QuizClient({ quiz, lessonTitle, lessonId }: Props) {
               ) : null}
             </div>
           </div>
+
+          <MedicalDisclaimer />
         </div>
       </div>
     </>

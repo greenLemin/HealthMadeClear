@@ -5,6 +5,7 @@ import { Link } from "@/i18n/navigation";
 import { Search } from "lucide-react";
 import { useAppState } from "@/components/AppProviders";
 import PageHeader from "@/components/PageHeader";
+import MedicalDisclaimer from "@/components/MedicalDisclaimer";
 import EmptyState from "@/components/ui/EmptyState";
 import Reveal from "@/components/ui/Reveal";
 import { normalizeGlossaryLetter } from "@/lib/i18n";
@@ -213,6 +214,8 @@ export default function GlossaryClient({ terms: glossaryTerms }: GlossaryClientP
             className="mt-8"
           />
         ) : null}
+
+        <MedicalDisclaimer />
       </div>
     </div>
   );

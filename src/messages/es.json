@@ -133,6 +133,7 @@
   "learn": {
     "title": "¿Qué te gustaría aprender hoy?",
     "description": "Guías claras y confiables para ayudarte a recorrer tu camino de salud con más confianza.",
+    "difficultyLabel": "Nivel",
     "notFoundTitle": "Lección no encontrada",
     "notFoundBody": "La lección que buscas no está disponible en este momento.",
     "backToLibrary": "Volver a la biblioteca",
@@ -371,6 +372,11 @@
     "title": "Logros",
     "earnedSummary": "{count} de {total} ganados",
     "keepLearning": "Sigue aprendiendo para desbloquear",
+    "lockedLabel": "Por desbloquear",
+    "galleryLabel": "Galería desbloqueada",
+    "completionLabel": "Progreso de insignias",
+    "earnedLabel": "Ganados",
+    "lockedHint": "Cada lección y cuestionario completado desbloquea más logros.",
     "noneEarnedTitle": "Aún no tienes logros",
     "startLearningCta": "Empezar a aprender",
     "earnedDate": "{date}",
@@ -794,7 +800,15 @@
     "errorEmail": "Por favor ingresa tu correo electrónico.",
     "errorEmailInvalid": "Por favor ingresa un correo electrónico válido.",
     "errorMessage": "Por favor ingresa tu mensaje.",
-    "errorGeneric": "Algo salió mal. Intenta de nuevo más tarde."
+    "errorGeneric": "Algo salió mal. Intenta de nuevo más tarde.",
+    "errorRateLimit": "Enviaste demasiados mensajes. Espera {minutes, plural, one {# minuto} other {# minutos}} e inténtalo de nuevo.",
+    "errorUnavailable": "Nuestro formulario de contacto no está disponible temporalmente. Inténtalo más tarde o escríbenos directamente.",
+    "supportHumanTitle": "Respuesta humana",
+    "supportHumanBody": "Respondemos mensajes generales y comentarios de contenido en aproximadamente 2 días hábiles.",
+    "supportAccessibilityTitle": "Ayuda de accesibilidad",
+    "supportAccessibilityBody": "Usa este formulario para reportar barreras de lectura, navegación o uso del sitio.",
+    "supportPrivacyTitle": "Solicitudes de privacidad",
+    "supportPrivacyBody": "También puedes usar este canal para preguntas sobre datos, almacenamiento local y preferencias."
   },
   "errors": {
     "title": "Algo salió mal",

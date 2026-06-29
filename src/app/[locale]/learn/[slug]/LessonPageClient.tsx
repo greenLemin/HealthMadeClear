@@ -14,7 +14,7 @@ import { ScrollSpyProvider } from "@/components/mdx/ScrollSpyProvider";
 import { useAppState } from "@/components/AppProviders";
 import { useProgress } from "@/hooks/useProgress";
 import { useTranslations } from "next-intl";
-import { formatLevel, getCategoryLabel } from "@/lib/i18n";
+import { formatLevel, formatReviewDate, getCategoryLabel } from "@/lib/i18n";
 import { getLessons } from "@/lib/localizedContent";
 import { getQuizByLessonId } from "@/lib/localizedQuiz";
 import type { Lesson } from "@/types/lesson";
@@ -81,6 +81,7 @@ export default function LessonPageClient({
   const quiz = useMemo(() => getQuizByLessonId(lesson.id, locale), [lesson.id, locale]);
   const hasQuiz = quiz !== null;
   const bestQuizScore = quiz ? getQuizBestScore(quiz.id) : null;
+  const reviewedDate = lesson.lastReviewed ? formatReviewDate(lesson.lastReviewed, locale) : null;
 
   // Reading progress bar
   useEffect(() => {
@@ -162,8 +163,8 @@ export default function LessonPageClient({
                   <span className="chip">{lesson.duration}</span>
                   <span className="chip">{formatLevel(lesson.level, locale)}</span>
                   <span className="chip">{getCategoryLabel(lesson.categoryId, locale)}</span>
-                  {lesson.lastReviewed ? (
-                    <span className="chip">{t("updatedOn", { date: lesson.lastReviewed })}</span>
+                  {reviewedDate ? (
+                    <span className="chip">{t("updatedOn", { date: reviewedDate })}</span>
                   ) : null}
                 </div>
 
@@ -272,13 +273,13 @@ export default function LessonPageClient({
                 {lesson.lastReviewed || lesson.sources?.length ? (
                   <Reveal delay={0.1} className="mt-8">
                     <div className="surface-card-muted px-6 py-6 md:px-8">
-                      {lesson.lastReviewed ? (
+                      {reviewedDate ? (
                         <p className="text-label-md text-on-surface-variant">
-                          {t("lastReviewed")}: {lesson.lastReviewed}
+                          {t("lastReviewed")}: {reviewedDate}
                         </p>
                       ) : null}
                       {lesson.sources?.length ? (
-                        <div className={lesson.lastReviewed ? "mt-4" : ""}>
+                        <div className={reviewedDate ? "mt-4" : ""}>
                           <div className="font-semibold text-primary">{t("sources")}</div>
                           <ul className="mt-2 list-disc space-y-1 pl-5 text-label-md text-on-surface-variant">
                             {lesson.sources.map((source) => (

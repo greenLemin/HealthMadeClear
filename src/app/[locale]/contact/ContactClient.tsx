@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { useTranslations } from "next-intl";
-import { useLocale } from "next-intl";
 import { Mail, User, MessageSquare, Send, Clock3, ShieldCheck, Accessibility } from "lucide-react";
 import PageHeader from "@/components/PageHeader";
 import Reveal from "@/components/ui/Reveal";
@@ -11,9 +10,14 @@ import Input from "@/components/ui/Input";
 
 const SUBJECTS = ["general", "content-feedback", "accessibility-issue", "privacy-request", "other"] as const;
 
+const SUPPORT_NOTE_KEYS = [
+  { key: "supportHuman", icon: Clock3 },
+  { key: "supportAccessibility", icon: Accessibility },
+  { key: "supportPrivacy", icon: ShieldCheck },
+] as const;
+
 export default function ContactClient() {
   const t = useTranslations("contact");
-  const locale = useLocale();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [subject, setSubject] = useState("general");
@@ -22,43 +26,6 @@ export default function ContactClient() {
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
-
-  const supportNotes =
-    locale === "es"
-      ? [
-          {
-            title: "Respuesta humana",
-            body: "Respondemos mensajes generales y comentarios de contenido en aproximadamente 2 días hábiles.",
-            icon: Clock3,
-          },
-          {
-            title: "Ayuda de accesibilidad",
-            body: "Usa este formulario para reportar barreras de lectura, navegación o uso del sitio.",
-            icon: Accessibility,
-          },
-          {
-            title: "Solicitudes de privacidad",
-            body: "También puedes usar este canal para preguntas sobre datos, almacenamiento local y preferencias.",
-            icon: ShieldCheck,
-          },
-        ]
-      : [
-          {
-            title: "Human response",
-            body: "We review general questions and content feedback within about 2 business days.",
-            icon: Clock3,
-          },
-          {
-            title: "Accessibility help",
-            body: "Use this form to report reading, navigation, or interaction barriers in the site experience.",
-            icon: Accessibility,
-          },
-          {
-            title: "Privacy requests",
-            body: "This channel also works for questions about data, local storage, and account preferences.",
-            icon: ShieldCheck,
-          },
-        ];
 
   function handleNameChange(value: string) {
     setName(value);
@@ -105,6 +72,18 @@ export default function ContactClient() {
         body: JSON.stringify({ name: name.trim(), email: email.trim(), subject, message: message.trim() }),
       });
 
+      if (res.status === 429) {
+        const retryAfter = Number(res.headers.get("Retry-After") || "600");
+        const minutes = Math.max(1, Math.ceil(retryAfter / 60));
+        setErrors({ form: t("errorRateLimit", { minutes }) });
+        return;
+      }
+
+      if (res.status === 503) {
+        setErrors({ form: t("errorUnavailable") });
+        return;
+      }
+
       if (!res.ok) throw new Error("Failed to submit");
       setSubmitted(true);
     } catch {
@@ -140,16 +119,18 @@ export default function ContactClient() {
 
         <div className="grid gap-8 lg:grid-cols-[0.88fr_1.12fr] lg:items-start">
           <div className="space-y-4">
-            {supportNotes.map((note, index) => {
+            {SUPPORT_NOTE_KEYS.map((note, index) => {
               const Icon = note.icon;
               return (
-                <Reveal key={note.title} delay={Math.min(index * 0.05, 0.12)}>
+                <Reveal key={note.key} delay={Math.min(index * 0.05, 0.12)}>
                   <article className="surface-card px-5 py-5 md:px-6">
                     <div className="flex h-11 w-11 items-center justify-center rounded-full bg-surface-container text-primary shadow-elevation-1">
                       <Icon size={18} />
                     </div>
-                    <h2 className="mt-4 font-display text-headline-sm text-primary">{note.title}</h2>
-                    <p className="mt-2 text-body-md text-on-surface-variant">{note.body}</p>
+                    <h2 className="mt-4 font-display text-headline-sm text-primary">
+                      {t(`${note.key}Title`)}
+                    </h2>
+                    <p className="mt-2 text-body-md text-on-surface-variant">{t(`${note.key}Body`)}</p>
                   </article>
                 </Reveal>
               );

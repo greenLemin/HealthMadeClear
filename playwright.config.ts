@@ -7,8 +7,8 @@ export default defineConfig({
   testIgnore: isCI ? ["**/visual.spec.ts"] : [],
   fullyParallel: !isCI,
   forbidOnly: isCI,
-  retries: isCI ? 2 : 0,
-  workers: isCI ? 1 : undefined,
+  retries: 2,
+  workers: 1,
   timeout: isCI ? 60_000 : 30_000,
   expect: {
     timeout: isCI ? 15_000 : 5_000,

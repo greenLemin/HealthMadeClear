@@ -10,6 +10,7 @@ import Callout from "@/components/Callout";
 import { useAppState } from "@/components/AppProviders";
 import { useToast } from "@/components/ui/ToastProvider";
 import Reveal from "@/components/ui/Reveal";
+import { formatReviewDate } from "@/lib/i18n";
 import { getGlossaryTerms } from "@/lib/localizedContent";
 import { useTranslations } from "next-intl";
 import type { Article } from "@/types/article";
@@ -22,6 +23,7 @@ export default function ArticlePageClient({ article }: { article: Article }) {
   const glossaryTerms = getGlossaryTerms(locale);
   const { showToast } = useToast();
   const url = typeof window !== "undefined" ? window.location.href : "";
+  const reviewedDate = article.lastReviewed ? formatReviewDate(article.lastReviewed, locale) : null;
 
   const handleCopyLink = useCallback(async () => {
     try {
@@ -61,9 +63,7 @@ export default function ArticlePageClient({ article }: { article: Article }) {
               <Clock size={14} aria-hidden="true" />
               {article.readingTime} {tCommon("read")}
             </span>
-            {article.lastReviewed ? (
-              <span className="chip">{t("lastReviewed", { date: article.lastReviewed })}</span>
-            ) : null}
+            {reviewedDate ? <span className="chip">{t("lastReviewed", { date: reviewedDate })}</span> : null}
           </div>
           <div className="mt-5 flex flex-wrap gap-3 no-print">
             <Link href="/articles" className="btn-secondary inline-flex items-center gap-2">

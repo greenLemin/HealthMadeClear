@@ -1,4 +1,5 @@
 import { getTranslations } from "next-intl/server";
+import { localeAlternates } from "@/lib/metadata";
 import AccessibilityClient from "./AccessibilityClient";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
@@ -7,6 +8,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   return {
     title: t("pageTitle"),
     description: t("pageDescription"),
+    alternates: localeAlternates(locale, "/accessibility"),
   };
 }
 

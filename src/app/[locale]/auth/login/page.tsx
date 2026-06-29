@@ -40,7 +40,7 @@ export default async function LoginPage({ params }: Props) {
         <div className="surface-card-glass p-6 md:p-8">
           <Suspense
             fallback={
-              <div className="space-y-4 animate-pulse" aria-hidden="true">
+              <div className="space-y-4 animate-pulse motion-reduce:animate-none" aria-hidden="true">
                 <div className="h-14 rounded-2xl bg-surface-container-high" />
                 <div className="h-14 rounded-2xl bg-surface-container-high" />
                 <div className="h-14 rounded-2xl bg-surface-container-high" />

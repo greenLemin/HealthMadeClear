@@ -7,6 +7,7 @@ import MarkdownRenderer from "@/components/mdx/MarkdownRenderer";
 import { getLessonsByPath, getPathProgress } from "@/lib/content";
 import { useAppState } from "@/components/AppProviders";
 import PageHeader from "@/components/PageHeader";
+import MedicalDisclaimer from "@/components/MedicalDisclaimer";
 import Reveal from "@/components/ui/Reveal";
 import ProgressBar from "@/components/ui/ProgressBar";
 import { formatLevel } from "@/lib/i18n";
@@ -159,6 +160,8 @@ export default function LearningPathsClient({
             );
           })}
         </div>
+
+        <MedicalDisclaimer />
       </div>
     </div>
   );

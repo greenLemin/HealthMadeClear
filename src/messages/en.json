@@ -133,6 +133,7 @@
   "learn": {
     "title": "What would you like to learn today?",
     "description": "Clear, reliable guides to help you navigate your health journey with confidence.",
+    "difficultyLabel": "Difficulty",
     "notFoundTitle": "Lesson not found",
     "notFoundBody": "The lesson you are looking for is not available right now.",
     "backToLibrary": "Back to library",
@@ -371,6 +372,11 @@
     "title": "Achievements",
     "earnedSummary": "{count} of {total} earned",
     "keepLearning": "Keep learning to unlock",
+    "lockedLabel": "Still locked",
+    "galleryLabel": "Gallery unlocked",
+    "completionLabel": "Badge progress",
+    "earnedLabel": "Earned",
+    "lockedHint": "Each completed lesson and quiz milestone unlocks more achievements.",
     "noneEarnedTitle": "No achievements yet",
     "startLearningCta": "Start learning",
     "earnedDate": "{date}",
@@ -783,7 +789,15 @@
     "errorEmail": "Please enter your email address.",
     "errorEmailInvalid": "Please enter a valid email address.",
     "errorMessage": "Please enter your message.",
-    "errorGeneric": "Something went wrong. Please try again later."
+    "errorGeneric": "Something went wrong. Please try again later.",
+    "errorRateLimit": "Too many messages sent. Please wait {minutes, plural, one {# minute} other {# minutes}} and try again.",
+    "errorUnavailable": "Our contact form is temporarily unavailable. Please try again later or email us directly.",
+    "supportHumanTitle": "Human response",
+    "supportHumanBody": "We review general questions and content feedback within about 2 business days.",
+    "supportAccessibilityTitle": "Accessibility help",
+    "supportAccessibilityBody": "Use this form to report reading, navigation, or interaction barriers in the site experience.",
+    "supportPrivacyTitle": "Privacy requests",
+    "supportPrivacyBody": "This channel also works for questions about data, local storage, and account preferences."
   },
   "errors": {
     "title": "Something went wrong",

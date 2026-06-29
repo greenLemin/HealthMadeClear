@@ -4,6 +4,7 @@ import { Link } from "@/i18n/navigation";
 import { ArrowLeft, GraduationCap } from "lucide-react";
 import { useAppState } from "@/components/AppProviders";
 import MarkdownRenderer from "@/components/mdx/MarkdownRenderer";
+import MedicalDisclaimer from "@/components/MedicalDisclaimer";
 import { getGlossaryLabel, getGlossaryTerms, getLessonById } from "@/lib/localizedContent";
 import { useTranslations } from "next-intl";
 import type { GlossaryTerm } from "@/types/glossary";
@@ -95,6 +96,8 @@ export default function GlossaryTermClient({ term }: { term: GlossaryTerm }) {
             </div>
           </div>
         ) : null}
+
+        <MedicalDisclaimer />
       </div>
     </div>
   );

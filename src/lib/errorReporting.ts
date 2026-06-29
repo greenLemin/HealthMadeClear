@@ -44,3 +44,10 @@ export function reportClientError(error: unknown, context?: ErrorContext) {
       /* optional monitoring */
     });
 }
+
+/** Server/API route errors — structured console logging; wire @sentry/nextjs for full capture (INF-002). */
+export function reportServerError(error: unknown, context?: ErrorContext) {
+  const normalized = error instanceof Error ? error : new Error(String(error));
+  const safeContext = sanitizeContext(context);
+  console.error("[hmc:server]", normalized.message, safeContext);
+}

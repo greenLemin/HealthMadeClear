@@ -1,6 +1,6 @@
 "use client";
 
-import { useLocale, useTranslations } from "next-intl";
+import { useTranslations } from "next-intl";
 import { Award, Lock, Sparkles } from "lucide-react";
 import AchievementCard from "@/components/dashboard/AchievementCard";
 import PageHeader from "@/components/PageHeader";
@@ -20,23 +20,14 @@ export default function AchievementsClient({
   totalCount,
 }: AchievementsClientProps) {
   const t = useTranslations("achievements");
-  const locale = useLocale();
   const lockedCount = totalCount - earnedCount;
-  const lockedLabel = locale === "es" ? "Por desbloquear" : "Still locked";
-  const copy =
-    locale === "es"
-      ? {
-          galleryLabel: "Galeria desbloqueada",
-          completionLabel: "Progreso de insignias",
-          earnedLabel: "Ganados",
-          lockedHint: "Cada leccion y cuestionario completado desbloquea mas logros.",
-        }
-      : {
-          galleryLabel: "Gallery unlocked",
-          completionLabel: "Badge progress",
-          earnedLabel: "Earned",
-          lockedHint: "Each completed lesson and quiz milestone unlocks more achievements.",
-        };
+  const lockedLabel = t("lockedLabel");
+  const copy = {
+    galleryLabel: t("galleryLabel"),
+    completionLabel: t("completionLabel"),
+    earnedLabel: t("earnedLabel"),
+    lockedHint: t("lockedHint"),
+  };
   const earnedPercent = totalCount > 0 ? Math.round((earnedCount / totalCount) * 100) : 0;
 
   return (

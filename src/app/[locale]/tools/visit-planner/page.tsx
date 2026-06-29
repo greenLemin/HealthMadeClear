@@ -1,4 +1,5 @@
 import { getTranslations } from "next-intl/server";
+import { localeAlternates } from "@/lib/metadata";
 import VisitPlannerClient from "./VisitPlannerClient";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
@@ -7,6 +8,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   return {
     title: t("plannerTitle"),
     description: t("plannerDescription"),
+    alternates: localeAlternates(locale, "/tools/visit-planner"),
   };
 }
 

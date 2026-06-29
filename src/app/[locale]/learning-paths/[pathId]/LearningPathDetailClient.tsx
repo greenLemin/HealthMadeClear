@@ -7,6 +7,7 @@ import { useAppState } from "@/components/AppProviders";
 import { useProgress } from "@/hooks/useProgress";
 import Callout from "@/components/Callout";
 import PageHeader from "@/components/PageHeader";
+import MedicalDisclaimer from "@/components/MedicalDisclaimer";
 import MarkdownRenderer from "@/components/mdx/MarkdownRenderer";
 import Reveal from "@/components/ui/Reveal";
 import ProgressBar from "@/components/ui/ProgressBar";
@@ -195,6 +196,8 @@ export default function LearningPathDetailClient({ path, lessons, glossaryTerms 
             </aside>
           </Reveal>
         </div>
+
+        <MedicalDisclaimer />
       </div>
     </div>
   );

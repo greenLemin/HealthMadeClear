@@ -4,6 +4,7 @@ import { paths } from "@/data/paths";
 import { requireLocale } from "@/lib/locale";
 import { getPathById, getGlossaryTerms } from "@/lib/localizedContent";
 import { getAllLessons } from "@/lib/lessons/loadLessons";
+import { localeAlternates } from "@/lib/metadata";
 import { getSiteUrl } from "@/lib/site";
 import JsonLd from "@/components/JsonLd";
 import LearningPathDetailClient from "./LearningPathDetailClient";
@@ -23,6 +24,7 @@ export async function generateMetadata({ params }: Props) {
   return {
     title: `${path.title} — Learning Path`,
     description: path.description,
+    alternates: localeAlternates(locale, `/learning-paths/${path.id}`),
     openGraph: {
       type: "website" as const,
       url,

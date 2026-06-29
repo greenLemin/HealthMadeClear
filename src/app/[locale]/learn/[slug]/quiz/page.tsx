@@ -4,6 +4,7 @@ import { lessons } from "@/data/lessons";
 import { getLessonById } from "@/lib/localizedContent";
 import { getQuizByLessonId } from "@/lib/localizedQuiz";
 import { requireLocale } from "@/lib/locale";
+import { localeAlternates } from "@/lib/metadata";
 import { getSiteUrl } from "@/lib/site";
 import JsonLd from "@/components/JsonLd";
 import QuizClientWrapper from "./QuizClientWrapper";
@@ -21,6 +22,7 @@ export async function generateMetadata({ params }: Props) {
   return {
     title: `${lesson.title} — Quiz`,
     description: `Test your knowledge: ${lesson.description}`,
+    alternates: localeAlternates(locale, `/learn/${slug}/quiz`),
   };
 }
 

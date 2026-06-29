@@ -5,15 +5,10 @@ import { logger } from "./logger";
 
 describe("Analytics", () => {
   let gtagMock: Mock;
-  let plausibleMock: Mock;
 
   beforeEach(() => {
     gtagMock = vi.fn();
-    plausibleMock = vi.fn();
-
     window.gtag = gtagMock;
-    window.plausible = plausibleMock;
-
     vi.spyOn(logger, "log").mockImplementation(() => {});
   });
 
@@ -21,7 +16,6 @@ describe("Analytics", () => {
     vi.unstubAllEnvs();
     vi.restoreAllMocks();
     delete window.gtag;
-    delete window.plausible;
   });
 
   describe("trackPageView", () => {
@@ -32,10 +26,9 @@ describe("Analytics", () => {
 
       expect(logger.log).toHaveBeenCalledWith("[Analytics] Page view:", "/test-path", "en");
       expect(gtagMock).not.toHaveBeenCalled();
-      expect(plausibleMock).not.toHaveBeenCalled();
     });
 
-    it("calls tracking scripts in production environment", () => {
+    it("calls gtag in production environment", () => {
       vi.stubEnv("NODE_ENV", "production");
 
       const url = "/about";
@@ -48,14 +41,11 @@ describe("Analytics", () => {
         page_path: url,
         locale: locale,
       });
-
-      expect(plausibleMock).toHaveBeenCalledWith("pageview", { u: url });
     });
 
-    it("does not throw if tracking scripts are not present on window", () => {
+    it("does not throw if gtag is not present on window", () => {
       vi.stubEnv("NODE_ENV", "production");
       delete window.gtag;
-      delete window.plausible;
 
       expect(() => trackPageView("/test", "en")).not.toThrow();
     });
@@ -70,17 +60,15 @@ describe("Analytics", () => {
 
       expect(logger.log).toHaveBeenCalledWith("[Analytics] Event:", EVENTS.LESSON_STARTED, props);
       expect(gtagMock).not.toHaveBeenCalled();
-      expect(plausibleMock).not.toHaveBeenCalled();
     });
 
-    it("calls tracking scripts in production environment", () => {
+    it("calls gtag in production environment", () => {
       vi.stubEnv("NODE_ENV", "production");
       const props = { test: true, score: 10 };
 
       trackEvent(EVENTS.QUIZ_COMPLETED, props);
 
       expect(gtagMock).toHaveBeenCalledWith("event", EVENTS.QUIZ_COMPLETED, props);
-      expect(plausibleMock).toHaveBeenCalledWith(EVENTS.QUIZ_COMPLETED, { props });
     });
 
     it("handles missing properties correctly", () => {
@@ -89,13 +77,11 @@ describe("Analytics", () => {
       trackEvent(EVENTS.AUTH_LOGIN);
 
       expect(gtagMock).toHaveBeenCalledWith("event", EVENTS.AUTH_LOGIN, {});
-      expect(plausibleMock).toHaveBeenCalledWith(EVENTS.AUTH_LOGIN, { props: undefined });
     });
 
-    it("does not throw if tracking scripts are not present on window", () => {
+    it("does not throw if gtag is not present on window", () => {
       vi.stubEnv("NODE_ENV", "production");
       delete window.gtag;
-      delete window.plausible;
 
       expect(() => trackEvent(EVENTS.LESSON_COMPLETED)).not.toThrow();
     });

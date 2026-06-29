@@ -52,7 +52,6 @@ export async function generateMetadata({
     authors: [{ name: "Health Made Clear" }],
     creator: "Health Made Clear",
     alternates: {
-      canonical: `${siteUrl}/${locale}`,
       languages: {
         en: `${siteUrl}/en`,
         es: `${siteUrl}/es`,

@@ -24,6 +24,7 @@ import ThemeToggle from "@/components/ui/ThemeToggle";
 import Skeleton from "@/components/ui/Skeleton";
 import { useDismissibleOverlay } from "@/hooks/useDismissibleOverlay";
 import { useFocusTrap } from "@/hooks/useFocusTrap";
+import { useMotionSafe } from "@/hooks/useMotionSafe";
 import { useAuth } from "@/hooks/useAuth";
 import { useTranslations } from "next-intl";
 import { revealEase } from "@/components/ui/Reveal";
@@ -38,6 +39,7 @@ export default function Header() {
   const t = useTranslations("nav");
   const authT = useTranslations("auth");
   const { user, loading, signOut } = useAuth();
+  const motionSafe = useMotionSafe();
 
   useFocusTrap(mobileMenuRef, isOpen);
   useDismissibleOverlay({
@@ -72,6 +74,74 @@ export default function Header() {
   }
 
   const displayName = user?.user_metadata?.display_name || user?.email?.split("@")[0] || "";
+
+  const mobileMenuContent = (
+    <>
+      <nav className="grid gap-2" aria-label={t("mobileNavigation")}>
+        {navItems.map((item) => (
+          <NavLink
+            key={item.href}
+            href={item.href}
+            label={item.label}
+            icon={item.icon}
+            active={
+              item.href === "/"
+                ? pathname === "/"
+                : pathname === item.href || pathname.startsWith(`${item.href}/`)
+            }
+            mobile
+            onClick={() => setIsOpen(false)}
+          />
+        ))}
+      </nav>
+
+      <div className="mt-4 rounded-[1.5rem] bg-surface-container-low/70 p-4 shadow-elevation-1 md:hidden">
+        <div className="space-y-3">
+          <SearchDialog />
+          <div className="flex items-center gap-2">
+            <LanguageToggle />
+            <ThemeToggle />
+            <AccessibilityControls />
+          </div>
+        </div>
+      </div>
+
+      <div className="mt-4 border-t border-outline-variant/70 pt-4">
+        {loading ? (
+          <Skeleton variant="button" />
+        ) : user ? (
+          <div className="space-y-3">
+            <div className="surface-card-muted flex items-center gap-3 px-4 py-4">
+              <div className="flex h-11 w-11 items-center justify-center rounded-full bg-primary text-on-primary shadow-elevation-1">
+                <User size={18} />
+              </div>
+              <div className="min-w-0">
+                <p className="truncate text-label-md font-semibold text-on-surface">{displayName}</p>
+                <p className="text-label-sm text-on-surface-variant">{t("dashboard")}</p>
+              </div>
+            </div>
+            <button
+              type="button"
+              onClick={handleSignOut}
+              className="flex w-full items-center justify-center gap-2 rounded-full border border-outline-variant bg-surface-container-lowest px-4 py-3 text-label-md font-semibold text-on-surface transition-all duration-300 ease-premium hover:bg-surface"
+            >
+              <LogOut size={18} />
+              {authT("signOut")}
+            </button>
+          </div>
+        ) : (
+          <div className="flex flex-col gap-3">
+            <Link href="/auth/login" onClick={() => setIsOpen(false)} className="btn-secondary w-full">
+              {authT("loginButton")}
+            </Link>
+            <Link href="/auth/signup" onClick={() => setIsOpen(false)} className="btn-primary w-full">
+              {authT("signupButton")}
+            </Link>
+          </div>
+        )}
+      </div>
+    </>
+  );
 
   return (
     <header className="no-print sticky top-0 z-50 px-3 pt-3 md:px-4">
@@ -176,92 +246,33 @@ export default function Header() {
 
           <AnimatePresence initial={false}>
             {isOpen ? (
-              <motion.div
-                id="mobile-menu"
-                ref={mobileMenuRef}
-                role="dialog"
-                aria-modal="true"
-                aria-label={t("mobileNavigation")}
-                initial={{ opacity: 0, y: -12 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -8 }}
-                transition={{ duration: 0.24, ease: revealEase }}
-                className="border-t border-outline-variant pb-4 pt-3 xl:hidden"
-              >
-                <nav className="grid gap-2" aria-label={t("mobileNavigation")}>
-                  {navItems.map((item) => (
-                    <NavLink
-                      key={item.href}
-                      href={item.href}
-                      label={item.label}
-                      icon={item.icon}
-                      active={
-                        item.href === "/"
-                          ? pathname === "/"
-                          : pathname === item.href || pathname.startsWith(`${item.href}/`)
-                      }
-                      mobile
-                      onClick={() => setIsOpen(false)}
-                    />
-                  ))}
-                </nav>
-
-                <div className="mt-4 rounded-[1.5rem] bg-surface-container-low/70 p-4 shadow-elevation-1 md:hidden">
-                  <div className="space-y-3">
-                    <SearchDialog />
-                    <div className="flex items-center gap-2">
-                      <LanguageToggle />
-                      <ThemeToggle />
-                      <AccessibilityControls />
-                    </div>
-                  </div>
+              motionSafe ? (
+                <div
+                  id="mobile-menu"
+                  ref={mobileMenuRef}
+                  role="dialog"
+                  aria-modal="true"
+                  aria-label={t("mobileNavigation")}
+                  className="border-t border-outline-variant pb-4 pt-3 xl:hidden"
+                >
+                  {mobileMenuContent}
                 </div>
-
-                <div className="mt-4 border-t border-outline-variant/70 pt-4">
-                  {loading ? (
-                    <Skeleton variant="button" />
-                  ) : user ? (
-                    <div className="space-y-3">
-                      <div className="surface-card-muted flex items-center gap-3 px-4 py-4">
-                        <div className="flex h-11 w-11 items-center justify-center rounded-full bg-primary text-on-primary shadow-elevation-1">
-                          <User size={18} />
-                        </div>
-                        <div className="min-w-0">
-                          <p className="truncate text-label-md font-semibold text-on-surface">
-                            {displayName}
-                          </p>
-                          <p className="text-label-sm text-on-surface-variant">{t("dashboard")}</p>
-                        </div>
-                      </div>
-                      <button
-                        type="button"
-                        onClick={handleSignOut}
-                        className="flex w-full items-center justify-center gap-2 rounded-full border border-outline-variant bg-surface-container-lowest px-4 py-3 text-label-md font-semibold text-on-surface transition-all duration-300 ease-premium hover:bg-surface"
-                      >
-                        <LogOut size={18} />
-                        {authT("signOut")}
-                      </button>
-                    </div>
-                  ) : (
-                    <div className="flex flex-col gap-3">
-                      <Link
-                        href="/auth/login"
-                        onClick={() => setIsOpen(false)}
-                        className="btn-secondary w-full"
-                      >
-                        {authT("loginButton")}
-                      </Link>
-                      <Link
-                        href="/auth/signup"
-                        onClick={() => setIsOpen(false)}
-                        className="btn-primary w-full"
-                      >
-                        {authT("signupButton")}
-                      </Link>
-                    </div>
-                  )}
-                </div>
-              </motion.div>
+              ) : (
+                <motion.div
+                  id="mobile-menu"
+                  ref={mobileMenuRef}
+                  role="dialog"
+                  aria-modal="true"
+                  aria-label={t("mobileNavigation")}
+                  initial={{ opacity: 0, y: -12 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -8 }}
+                  transition={{ duration: 0.24, ease: revealEase }}
+                  className="border-t border-outline-variant pb-4 pt-3 xl:hidden"
+                >
+                  {mobileMenuContent}
+                </motion.div>
+              )
             ) : null}
           </AnimatePresence>
         </div>

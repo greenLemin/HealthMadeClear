@@ -7,8 +7,10 @@ import { AnimatePresence, motion } from "motion/react";
 import { useAppState } from "@/components/AppProviders";
 import { useDismissibleOverlay } from "@/hooks/useDismissibleOverlay";
 import { useFocusTrap } from "@/hooks/useFocusTrap";
+import { useMotionSafe } from "@/hooks/useMotionSafe";
 import { useTranslations } from "next-intl";
 import type { SearchEntry } from "@/data/searchIndex.en";
+import EmptyState from "@/components/ui/EmptyState";
 import { modalVariants, revealEase } from "@/components/ui/Reveal";
 
 export function highlightMatches(text: string, query: string) {
@@ -50,6 +52,12 @@ export default function SearchDialog() {
   const dialogRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
   const shortcutLabel = useMemo(() => getShortcutLabel(), []);
+  const motionSafe = useMotionSafe();
+  const noResultsMessage = t("noResults");
+  const noResultsSplit = noResultsMessage.indexOf(". ");
+  const noResultsTitle =
+    noResultsSplit === -1 ? noResultsMessage : noResultsMessage.slice(0, noResultsSplit + 1);
+  const noResultsDescription = noResultsSplit === -1 ? "" : noResultsMessage.slice(noResultsSplit + 2);
 
   useEffect(() => {
     let active = true;
@@ -123,6 +131,89 @@ export default function SearchDialog() {
     if (isOpen) inputRef.current?.focus();
   }, [isOpen]);
 
+  const searchDialogContent = (
+    <>
+      <h2 id="search-dialog-title" className="sr-only">
+        {t("searchDialog")}
+      </h2>
+      <div className="border-b border-outline-variant px-5 py-4">
+        <div className="mb-3 flex items-center justify-between gap-4">
+          <div>
+            <p className="eyebrow">{t("searchDialog")}</p>
+          </div>
+          <button
+            type="button"
+            onClick={close}
+            className="flex min-h-11 min-w-11 items-center justify-center rounded-full text-on-surface-variant transition-all duration-300 ease-premium hover:bg-surface-container hover:text-on-surface focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+            aria-label={t("close")}
+          >
+            <X size={18} aria-hidden="true" />
+          </button>
+        </div>
+
+        <div className="surface-card flex items-center gap-3 px-4 py-3">
+          <Search size={20} className="shrink-0 text-on-surface-variant" aria-hidden="true" />
+          <input
+            ref={inputRef}
+            type="search"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder={t("placeholder")}
+            aria-label={t("placeholder")}
+            className="flex-1 border-0 bg-transparent text-body-md text-on-surface outline-none focus-visible:outline-none placeholder:text-on-surface-variant"
+            autoComplete="off"
+          />
+          <kbd className="hidden rounded-full border border-outline-variant bg-surface px-2 py-1 text-label-sm tracking-[0.16em] text-on-surface-variant sm:inline">
+            ESC
+          </kbd>
+        </div>
+      </div>
+
+      <div className="max-h-[62vh] overflow-y-auto px-3 pb-3 pt-3">
+        {results.length === 0 ? (
+          <EmptyState
+            variant="search"
+            title={noResultsTitle}
+            description={noResultsDescription}
+            className="mx-1"
+          />
+        ) : (
+          <ul className="space-y-2">
+            {results.map((entry) => (
+              <li key={`${entry.type}-${entry.id}`}>
+                <Link
+                  href={entry.url}
+                  onClick={close}
+                  className="surface-card group flex items-start gap-3 px-4 py-4 transition-all duration-300 ease-premium hover:-translate-y-0.5 hover:shadow-card-hover"
+                >
+                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-primary-fixed/75 text-primary shadow-elevation-1">
+                    <BookOpen size={18} aria-hidden="true" />
+                  </div>
+                  <div className="min-w-0 flex-1">
+                    <div className="text-body-md font-semibold text-on-surface">
+                      {highlightMatches(entry.title, query)}
+                    </div>
+                    <div className="mt-1 text-label-md text-on-surface-variant">
+                      {highlightMatches(entry.description, query)}
+                    </div>
+                    <div className="mt-3 flex flex-wrap gap-2">
+                      <span className="chip chip-active min-h-9 px-3 py-1 text-label-sm">
+                        {typeLabel(entry.type)}
+                      </span>
+                      <span className="chip min-h-9 px-3 py-1 text-label-sm">
+                        {highlightMatches(entry.category, query)}
+                      </span>
+                    </div>
+                  </div>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+    </>
+  );
+
   return (
     <>
       <button
@@ -142,103 +233,49 @@ export default function SearchDialog() {
       <AnimatePresence>
         {isOpen ? (
           <div className="fixed inset-0 z-[100] flex items-start justify-center px-4 pt-[10vh]">
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.2, ease: revealEase }}
-              className="fixed inset-0 bg-black/45 backdrop-blur-sm"
-              onClick={close}
-              aria-hidden="true"
-            />
-            <motion.div
-              ref={dialogRef}
-              role="dialog"
-              aria-modal="true"
-              aria-labelledby="search-dialog-title"
-              variants={modalVariants}
-              initial="hidden"
-              animate="visible"
-              exit="exit"
-              transition={{ duration: 0.26, ease: revealEase }}
-              className="surface-card-glass relative z-10 w-full max-w-2xl overflow-hidden"
-            >
-              <h2 id="search-dialog-title" className="sr-only">
-                {t("searchDialog")}
-              </h2>
-              <div className="border-b border-outline-variant px-5 py-4">
-                <div className="mb-3 flex items-center justify-between gap-4">
-                  <div>
-                    <p className="eyebrow">{t("searchDialog")}</p>
-                  </div>
-                  <button
-                    type="button"
-                    onClick={close}
-                    className="flex min-h-11 min-w-11 items-center justify-center rounded-full text-on-surface-variant transition-all duration-300 ease-premium hover:bg-surface-container hover:text-on-surface focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
-                    aria-label={t("close")}
-                  >
-                    <X size={18} aria-hidden="true" />
-                  </button>
-                </div>
-
-                <div className="surface-card flex items-center gap-3 px-4 py-3">
-                  <Search size={20} className="shrink-0 text-on-surface-variant" aria-hidden="true" />
-                  <input
-                    ref={inputRef}
-                    type="search"
-                    value={query}
-                    onChange={(e) => setQuery(e.target.value)}
-                    placeholder={t("placeholder")}
-                    aria-label={t("placeholder")}
-                    className="flex-1 border-0 bg-transparent text-body-md text-on-surface outline-none focus-visible:outline-none placeholder:text-on-surface-variant"
-                    autoComplete="off"
-                  />
-                  <kbd className="hidden rounded-full border border-outline-variant bg-surface px-2 py-1 text-label-sm tracking-[0.16em] text-on-surface-variant sm:inline">
-                    ESC
-                  </kbd>
-                </div>
+            {motionSafe ? (
+              <div
+                className="fixed inset-0 bg-black/45 backdrop-blur-sm"
+                onClick={close}
+                aria-hidden="true"
+              />
+            ) : (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.2, ease: revealEase }}
+                className="fixed inset-0 bg-black/45 backdrop-blur-sm"
+                onClick={close}
+                aria-hidden="true"
+              />
+            )}
+            {motionSafe ? (
+              <div
+                ref={dialogRef}
+                role="dialog"
+                aria-modal="true"
+                aria-labelledby="search-dialog-title"
+                className="surface-card-glass relative z-10 w-full max-w-2xl overflow-hidden"
+              >
+                {searchDialogContent}
               </div>
-
-              <div className="max-h-[62vh] overflow-y-auto px-3 pb-3 pt-3">
-                {results.length === 0 ? (
-                  <div className="px-4 py-8 text-center text-body-md text-on-surface-variant">
-                    {t("noResults")}
-                  </div>
-                ) : (
-                  <ul className="space-y-2">
-                    {results.map((entry) => (
-                      <li key={`${entry.type}-${entry.id}`}>
-                        <Link
-                          href={entry.url}
-                          onClick={close}
-                          className="surface-card group flex items-start gap-3 px-4 py-4 transition-all duration-300 ease-premium hover:-translate-y-0.5 hover:shadow-card-hover"
-                        >
-                          <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-primary-fixed/75 text-primary shadow-elevation-1">
-                            <BookOpen size={18} aria-hidden="true" />
-                          </div>
-                          <div className="min-w-0 flex-1">
-                            <div className="text-body-md font-semibold text-on-surface">
-                              {highlightMatches(entry.title, query)}
-                            </div>
-                            <div className="mt-1 text-label-md text-on-surface-variant">
-                              {highlightMatches(entry.description, query)}
-                            </div>
-                            <div className="mt-3 flex flex-wrap gap-2">
-                              <span className="chip chip-active min-h-9 px-3 py-1 text-label-sm">
-                                {typeLabel(entry.type)}
-                              </span>
-                              <span className="chip min-h-9 px-3 py-1 text-label-sm">
-                                {highlightMatches(entry.category, query)}
-                              </span>
-                            </div>
-                          </div>
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                )}
-              </div>
-            </motion.div>
+            ) : (
+              <motion.div
+                ref={dialogRef}
+                role="dialog"
+                aria-modal="true"
+                aria-labelledby="search-dialog-title"
+                variants={modalVariants}
+                initial="hidden"
+                animate="visible"
+                exit="exit"
+                transition={{ duration: 0.26, ease: revealEase }}
+                className="surface-card-glass relative z-10 w-full max-w-2xl overflow-hidden"
+              >
+                {searchDialogContent}
+              </motion.div>
+            )}
           </div>
         ) : null}
       </AnimatePresence>

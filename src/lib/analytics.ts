@@ -30,9 +30,6 @@ export function trackPageView(_url: string, _locale: string): void {
         locale: _locale,
       });
     }
-    if (typeof window.plausible === "function") {
-      window.plausible("pageview", { u: _url });
-    }
   }
 }
 
@@ -44,9 +41,6 @@ export function trackEvent(event: string, _properties?: EventProperties): void {
   if (typeof window !== "undefined") {
     if (typeof window.gtag === "function") {
       window.gtag("event", event, _properties || {});
-    }
-    if (typeof window.plausible === "function") {
-      window.plausible(event, { props: _properties });
     }
   }
 }

@@ -3,6 +3,7 @@ import { requireLocale } from "@/lib/locale";
 import { getAllLessons } from "@/lib/lessons/loadLessons";
 import { getAllLearningPaths } from "@/lib/paths/loadPaths";
 import { toLessonListItems } from "@/lib/lessonListItem";
+import { localeAlternates } from "@/lib/metadata";
 import { getSiteUrl } from "@/lib/site";
 import JsonLd from "@/components/JsonLd";
 import HomeClient from "./HomeClient";
@@ -17,14 +18,7 @@ export async function generateMetadata({ params }: Props) {
   return {
     title: t("title"),
     description: t("subtitle"),
-    alternates: {
-      canonical: `${base}/${locale}`,
-      languages: {
-        en: `${base}/en`,
-        es: `${base}/es`,
-        "x-default": `${base}/en`,
-      },
-    },
+    alternates: localeAlternates(locale, ""),
     openGraph: {
       title: t("title"),
       description: t("subtitle"),

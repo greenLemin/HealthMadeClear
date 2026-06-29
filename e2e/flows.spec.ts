@@ -11,10 +11,12 @@ test("lesson detail and mark complete", async ({ page }) => {
 
 test("visit checklist persists after reload", async ({ page }) => {
   await page.goto("/en/tools/visit-checklist");
+  await waitForAppReady(page);
   const firstCheckbox = page.locator('input[type="checkbox"]').first();
   await firstCheckbox.check();
   await expect(firstCheckbox).toBeChecked();
   await page.reload();
+  await waitForAppReady(page);
   await expect(page.locator('input[type="checkbox"]').first()).toBeChecked();
 });
 
@@ -48,10 +50,13 @@ test("progress export button exists on dashboard", async ({ page }) => {
 test("dashboard redirects guests to login and sign-in returns to dashboard", async ({ page }) => {
   await page.goto("/en/dashboard");
   await expect(page).toHaveURL(/\/en\/auth\/login\?redirect=%2Fdashboard/);
+  await waitForAppReady(page);
   await page.getByLabel(/email address/i).fill("guest@example.com");
   await page.locator('input[type="password"]').fill("password123");
-  await page.getByRole("button", { name: /sign in/i }).click();
-  await expect(page).toHaveURL(/\/en\/dashboard(?:\?|$)/);
+  await Promise.all([
+    page.waitForURL(/\/en\/dashboard(?:\?|$)/, { timeout: 15_000 }),
+    page.getByRole("button", { name: /sign in/i }).click(),
+  ]);
   await expect(page.getByRole("button", { name: /export progress/i })).toBeVisible();
 });
 
@@ -112,11 +117,13 @@ test("english quiz shows substantive explanation after wrong answer", async ({ p
 
 test("visit planner persists after reload", async ({ page }) => {
   await page.goto("/en/tools/visit-planner");
+  await waitForAppReady(page);
   await page
     .getByRole("button", { name: /continue/i })
     .first()
     .click();
   await page.reload();
+  await waitForAppReady(page);
   await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
 });
 
@@ -175,6 +182,26 @@ test("login validation clears as fields are corrected", async ({ page }) => {
 
   await page.locator('input[type="password"]').fill("password123");
   await expect(passwordError).toBeHidden();
+});
+
+test("contact form submits successfully", async ({ page }) => {
+  await page.route("**/api/contact", async (route) => {
+    await route.fulfill({
+      status: 200,
+      contentType: "application/json",
+      body: JSON.stringify({ success: true }),
+    });
+  });
+
+  await page.goto("/en/contact");
+  await waitForAppReady(page);
+
+  await page.getByLabel(/your name/i).fill("Taylor");
+  await page.getByLabel(/your email/i).fill("taylor@example.com");
+  await page.getByLabel(/your message/i).fill("Testing the contact form.");
+  await page.getByRole("button", { name: /send message/i }).click();
+
+  await expect(page.getByRole("heading", { level: 1, name: /thanks for reaching out/i })).toBeVisible();
 });
 
 test("contact form validation clears as fields are corrected", async ({ page }) => {

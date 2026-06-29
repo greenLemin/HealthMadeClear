@@ -256,7 +256,7 @@ export default function HomeClient({ lessons, learningPaths }: HomeClientProps) 
                   </h2>
                   <div className="surface-card mt-6 p-5">
                     <div className="mb-2 text-label-md font-bold uppercase tracking-wider text-secondary">
-                      {locale === "es" ? "En curso" : "In Progress"}
+                      {tDashboard("inProgress")}
                     </div>
                     <h3 className="font-display text-headline-md text-primary">{lastRecentLesson.title}</h3>
                     <p className="mt-2 text-body-md text-on-surface-variant">

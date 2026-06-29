@@ -1,4 +1,4 @@
-import { test, expect, waitForAppReady } from "./setup";
+import { test, expect, signInMockUser, waitForAppReady } from "./setup";
 
 test.describe("UI Polish & Responsiveness", () => {
   test.use({ viewport: { width: 375, height: 667 } });
@@ -14,14 +14,17 @@ test.describe("UI Polish & Responsiveness", () => {
     "/en/tools/care-guide",
     "/en/about",
     "/en/contact",
+    "/en/privacy",
+    "/en/terms",
+    "/en/accessibility",
   ];
 
   for (const route of routes) {
     test(`no horizontal overflow on ${route}`, async ({ page }) => {
       await page.goto(route);
       await waitForAppReady(page);
-
-      // Verify no horizontal overflow
+      // Allow layout animations to settle before measuring overflow
+      await page.waitForTimeout(300);
       const overflow = await page.evaluate(() => {
         const docWidth = document.documentElement.clientWidth;
         const scrollWidth = document.documentElement.scrollWidth;
@@ -48,6 +51,25 @@ test.describe("UI Polish & Responsiveness", () => {
       ).toBe(false);
     });
   }
+
+  test("no horizontal overflow on /en/dashboard", async ({ page }) => {
+    await signInMockUser(page);
+    await page.goto("/en/dashboard");
+    await waitForAppReady(page);
+
+    const overflow = await page.evaluate(() => {
+      const docWidth = document.documentElement.clientWidth;
+      const scrollWidth = document.documentElement.scrollWidth;
+      const bodyScrollWidth = document.body.scrollWidth;
+
+      if (scrollWidth > docWidth || bodyScrollWidth > docWidth) {
+        return { hasOverflow: true };
+      }
+      return { hasOverflow: false };
+    });
+
+    expect(overflow.hasOverflow).toBe(false);
+  });
 
   test("tab keyboard navigation on home page", async ({ page }) => {
     await page.goto("/en");

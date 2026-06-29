@@ -1,5 +1,9 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
+import { checkRateLimit, clearRateLimitStore, getClientIp } from "@/lib/rateLimit";
+import { reportServerError } from "@/lib/errorReporting";
+
+export { clearRateLimitStore };
 
 // Field length limits to prevent spam and DoS
 const LIMITS = {
@@ -12,47 +16,22 @@ const LIMITS = {
 // Basic email format check
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-// Simple in-memory rate limit store for IP addresses
-export const rateLimitStore = new Map<string, { count: number; resetAt: number }>();
-export function clearRateLimitStore() {
-  rateLimitStore.clear();
-}
 const RATE_LIMIT_WINDOW_MS = 10 * 60 * 1000; // 10 minutes
 const MAX_REQUESTS = 5;
 
 export async function POST(request: Request) {
   try {
-    const ip =
-      request.headers.get("x-forwarded-for")?.split(",")[0].trim() ||
-      request.headers.get("x-real-ip")?.trim() ||
-      "127.0.0.1";
+    const ip = getClientIp(request);
+    const limit = checkRateLimit("contact", ip, MAX_REQUESTS, RATE_LIMIT_WINDOW_MS);
 
-    const now = Date.now();
-    // Prune expired entries to prevent memory leak
-    for (const [key, value] of rateLimitStore.entries()) {
-      if (now >= value.resetAt) {
-        rateLimitStore.delete(key);
-      }
-    }
-
-    const limitRecord = rateLimitStore.get(ip);
-
-    if (limitRecord && now < limitRecord.resetAt) {
-      if (limitRecord.count >= MAX_REQUESTS) {
-        const retryAfter = Math.ceil((limitRecord.resetAt - now) / 1000);
-        return NextResponse.json(
-          { error: `Too many requests. Please try again in ${retryAfter} seconds.` },
-          {
-            status: 429,
-            headers: {
-              "Retry-After": String(retryAfter),
-            },
-          }
-        );
-      }
-      limitRecord.count += 1;
-    } else {
-      rateLimitStore.set(ip, { count: 1, resetAt: now + RATE_LIMIT_WINDOW_MS });
+    if (!limit.allowed) {
+      return NextResponse.json(
+        { error: `Too many requests. Please try again in ${limit.retryAfterSeconds} seconds.` },
+        {
+          status: 429,
+          headers: { "Retry-After": String(limit.retryAfterSeconds) },
+        }
+      );
     }
 
     const body = await request.json();
@@ -97,7 +76,7 @@ export async function POST(request: Request) {
     const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
     const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
     if (!supabaseUrl || !supabaseKey) {
-      console.error("[Contact] Supabase env vars not configured");
+      reportServerError(new Error("Supabase env vars not configured"), { route: "contact" });
       return NextResponse.json({ error: "Service unavailable" }, { status: 503 });
     }
 
@@ -111,13 +90,13 @@ export async function POST(request: Request) {
     });
 
     if (error) {
-      console.error("[Contact] DB insert error:", error);
+      reportServerError(error, { route: "contact", phase: "insert" });
       return NextResponse.json({ error: "Failed to save submission" }, { status: 500 });
     }
 
     return NextResponse.json({ success: true });
   } catch (err) {
-    console.error("[Contact] Error:", err);
+    reportServerError(err, { route: "contact" });
     return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
 }
