@@ -8,9 +8,10 @@ import { useAppState } from "@/components/AppProviders";
 import { useProgress } from "@/hooks/useProgress";
 import QuizQuestionComponent from "@/components/quiz/QuizQuestion";
 import QuizResults from "@/components/quiz/QuizResults";
+import Modal from "@/components/ui/Modal";
+import Reveal from "@/components/ui/Reveal";
 import type { Quiz } from "@/types/quiz";
 import { useRouter } from "@/i18n/navigation";
-import { useFocusTrap } from "@/hooks/useFocusTrap";
 
 type QuizState = "start" | "active" | "completed";
 
@@ -74,7 +75,7 @@ export default function QuizClient({ quiz, lessonTitle, lessonId }: Props) {
   const t = useTranslations("quiz");
   const { locale } = useAppState();
   const router = useRouter();
-  const { saveQuizAttempt, getQuizBestScore, isLessonComplete } = useProgress();
+  const { saveQuizAttempt, getQuizBestScore } = useProgress();
   const [state, setState] = useState<QuizState>("start");
   const recordedRef = useRef(false);
   const [current, setCurrent] = useState(0);
@@ -82,19 +83,6 @@ export default function QuizClient({ quiz, lessonTitle, lessonId }: Props) {
   const [showResult, setShowResult] = useState(false);
   const [showConfetti, setShowConfetti] = useState(false);
   const [showExitWarning, setShowExitWarning] = useState(false);
-
-  const exitWarningRef = useRef<HTMLDivElement>(null);
-  useFocusTrap(exitWarningRef, showExitWarning);
-
-  // Close exit warning on Escape key
-  useEffect(() => {
-    if (!showExitWarning) return;
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setShowExitWarning(false);
-    };
-    document.addEventListener("keydown", handleKeyDown);
-    return () => document.removeEventListener("keydown", handleKeyDown);
-  }, [showExitWarning]);
 
   const total = quiz.questions.length;
   const answered = useMemo(() => Object.keys(answers).length, [answers]);
@@ -176,7 +164,7 @@ export default function QuizClient({ quiz, lessonTitle, lessonId }: Props) {
 
   if (total === 0) {
     return (
-      <div className="py-12 md:py-16">
+      <div className="py-10 md:py-14">
         <div className="mx-auto max-w-2xl px-4 md:px-6">
           <Link
             href={`/learn/${lessonId}`}
@@ -185,8 +173,9 @@ export default function QuizClient({ quiz, lessonTitle, lessonId }: Props) {
             <ArrowLeft size={18} />
             {t("backToLesson")}
           </Link>
-          <div className="card">
-            <h1 className="mb-3 text-headline-lg text-primary">{quiz.title}</h1>
+          <div className="surface-card-glass px-6 py-6 md:px-8 md:py-8">
+            <div className="eyebrow mb-3">{t("backToLesson")}</div>
+            <h1 className="font-display text-headline-lg text-primary">{quiz.title}</h1>
             <p className="mb-6 text-body-md text-on-surface-variant">{t("noQuestions")}</p>
             <Link href={`/learn/${lessonId}`} className="btn-primary inline-flex">
               {t("backToLesson")}
@@ -200,7 +189,7 @@ export default function QuizClient({ quiz, lessonTitle, lessonId }: Props) {
   if (state === "start") {
     const bestScore = getQuizBestScore(quiz.id);
     return (
-      <div className="py-12 md:py-16">
+      <div className="py-10 md:py-14">
         <div className="mx-auto max-w-2xl px-4 md:px-6">
           <Link
             href={`/learn/${lessonId}`}
@@ -209,13 +198,14 @@ export default function QuizClient({ quiz, lessonTitle, lessonId }: Props) {
             <ArrowLeft size={18} />
             {t("backToLesson")}
           </Link>
-          <div className="card">
-            <h1 className="mb-3 text-headline-lg text-primary">{quiz.title}</h1>
+          <div className="section-frame px-6 py-6 md:px-8 md:py-8">
+            <div className="flex flex-wrap items-center gap-3">
+              <span className="chip">{total}</span>
+              <span className="chip">{t("passRequirement", { score: quiz.passScore })}</span>
+            </div>
+            <h1 className="mt-4 font-display text-headline-lg text-primary">{quiz.title}</h1>
             <p className="mb-4 text-body-md text-on-surface-variant">
               {t("description", { count: total, title: lessonTitle })}
-            </p>
-            <p className="mb-6 text-label-md text-on-surface-variant">
-              {t("passRequirement", { score: quiz.passScore })}
             </p>
             {bestScore !== null ? (
               <p className="mb-4 text-label-md font-semibold text-secondary">
@@ -235,7 +225,7 @@ export default function QuizClient({ quiz, lessonTitle, lessonId }: Props) {
     return (
       <>
         {showConfetti && <Confetti />}
-        <div className="py-12 md:py-16">
+        <div className="py-10 md:py-14">
           <div className="mx-auto max-w-2xl px-4 md:px-6">
             <QuizResults
               quiz={quiz}
@@ -260,77 +250,90 @@ export default function QuizClient({ quiz, lessonTitle, lessonId }: Props) {
     <>
       {/* Exit warning dialog */}
       {showExitWarning ? (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4">
-          <div
-            ref={exitWarningRef}
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby="exit-warning-title"
-            className="max-w-sm rounded-2xl bg-surface p-6 shadow-elevation-3"
-          >
-            <h2 id="exit-warning-title" className="mb-3 text-headline-md text-primary">
-              {t("leaveQuiz")}
-            </h2>
-            <p className="mb-6 text-body-md text-on-surface-variant">{t("progressWillBeLost")}</p>
-            <div className="flex gap-3">
-              <button
-                type="button"
-                onClick={() => setShowExitWarning(false)}
-                className="btn-secondary flex-1"
-              >
-                {t("stay")}
-              </button>
-              <Link href={`/learn/${lessonId}`} className="btn-primary flex-1 text-center">
-                {t("leave")}
-              </Link>
-            </div>
+        <Modal
+          isOpen={showExitWarning}
+          onClose={() => setShowExitWarning(false)}
+          title={t("leaveQuiz")}
+          size="sm"
+        >
+          <p className="mb-6 text-body-md text-on-surface-variant">{t("progressWillBeLost")}</p>
+          <div className="flex flex-col gap-3 sm:flex-row">
+            <button type="button" onClick={() => setShowExitWarning(false)} className="btn-secondary flex-1">
+              {t("stay")}
+            </button>
+            <Link href={`/learn/${lessonId}`} className="btn-primary flex-1 text-center">
+              {t("leave")}
+            </Link>
           </div>
-        </div>
+        </Modal>
       ) : null}
 
-      <div className="py-12 md:py-16">
+      <div className="py-10 md:py-14">
         <div className="mx-auto max-w-2xl px-4 md:px-6">
-          <div className="mb-6">
-            <div className="mb-2 flex items-center justify-between text-label-md text-on-surface-variant">
-              <span>{t("questionXofY", { current: current + 1, total })}</span>
-              <span>{t("answered", { count: answered })}</span>
+          <div className="section-frame px-6 py-6 md:px-8 md:py-8">
+            <div className="flex flex-wrap items-center justify-between gap-3">
+              <Link
+                href={`/learn/${lessonId}`}
+                onClick={(event) => {
+                  event.preventDefault();
+                  setShowExitWarning(true);
+                }}
+                className="no-print inline-flex items-center gap-2 text-label-md font-semibold text-primary"
+              >
+                <ArrowLeft size={18} />
+                {t("backToLesson")}
+              </Link>
+              <span className="chip-active">{t("answered", { count: answered })}</span>
             </div>
-            <div
-              className="progress-bar"
-              role="progressbar"
-              aria-valuenow={percent}
-              aria-valuemin={0}
-              aria-valuemax={100}
-              aria-label={t("questionXofY", { current: current + 1, total })}
-            >
-              <div className="progress-fill" style={{ width: `${percent}%` }} />
+            <div className="mt-5">
+              <div className="mb-2 flex items-center justify-between text-label-md text-on-surface-variant">
+                <span>{t("questionXofY", { current: current + 1, total })}</span>
+                <span>{percent}%</span>
+              </div>
+              <h1 className="mb-2 font-display text-headline-md text-primary">{quiz.title}</h1>
+              <p className="mb-4 max-w-readable text-body-md text-on-surface-variant">
+                {t("description", { count: total, title: lessonTitle })}
+              </p>
+              <div
+                className="progress-bar"
+                role="progressbar"
+                aria-valuenow={percent}
+                aria-valuemin={0}
+                aria-valuemax={100}
+                aria-label={t("questionXofY", { current: current + 1, total })}
+              >
+                <div className="progress-fill" style={{ width: `${percent}%` }} />
+              </div>
             </div>
           </div>
 
-          <div className="card mb-6">
-            <QuizQuestionComponent
-              question={question}
-              selectedIndex={selectedIdx >= 0 ? selectedIdx : null}
-              onSelect={(idx) => handleAnswer(current, idx)}
-            />
-          </div>
+          <Reveal delay={0.04} className="mt-6">
+            <div className="surface-card px-6 py-6 md:px-8 md:py-8">
+              <QuizQuestionComponent
+                question={question}
+                selectedIndex={selectedIdx >= 0 ? selectedIdx : null}
+                onSelect={(idx) => handleAnswer(current, idx)}
+              />
+            </div>
+          </Reveal>
 
-          {/* Per-question feedback */}
           {selectedIdx >= 0 && showResult && isCorrect !== null ? (
-            <div
-              role="alert"
-              className={`mb-6 rounded-lg border p-4 ${
-                isCorrect
-                  ? "border-secondary bg-secondary-container/30 text-on-secondary-container"
-                  : "border-tertiary bg-tertiary-container/20 text-tertiary"
-              }`}
-            >
-              <p className="mb-1 font-semibold">{isCorrect ? t("correct") : t("incorrect")}</p>
-              {question.explanation && <p className="text-label-md">{question.explanation}</p>}
-            </div>
+            <Reveal delay={0.06} className="mt-6">
+              <div
+                role="alert"
+                className={`rounded-[1.35rem] border px-5 py-5 ${
+                  isCorrect
+                    ? "border-secondary bg-secondary-container/30 text-on-secondary-container"
+                    : "border-tertiary bg-tertiary-container/20 text-tertiary"
+                }`}
+              >
+                <p className="mb-1 font-semibold">{isCorrect ? t("correct") : t("incorrect")}</p>
+                {question.explanation && <p className="text-label-md">{question.explanation}</p>}
+              </div>
+            </Reveal>
           ) : null}
 
-          <div className="flex items-center justify-between">
+          <div className="mt-6 flex items-center justify-between rounded-[1.5rem] border border-outline-variant bg-surface-container-low px-4 py-4">
             <button
               type="button"
               onClick={handlePrevious}

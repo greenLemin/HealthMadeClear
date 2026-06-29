@@ -1,20 +1,18 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { Search } from "lucide-react";
+import { BookOpen, Search } from "lucide-react";
 import { useAppState } from "@/components/AppProviders";
 import LessonCard from "@/components/learn/LessonCard";
 import PageHeader from "@/components/PageHeader";
 import EmptyState from "@/components/ui/EmptyState";
+import Reveal from "@/components/ui/Reveal";
 import { getCategoryLabel } from "@/lib/i18n";
 import { LESSON_CATEGORY_IDS } from "@/types/content";
 import type { LessonListItem } from "@/types/lesson";
 import { useTranslations } from "next-intl";
 
-const ALL = "all" as const;
-
-const CHIP_FOCUS =
-  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2";
+const ALL = "all";
 type Difficulty = "all" | "beginner" | "intermediate" | "advanced";
 type CategoryFilter = typeof ALL | (typeof LESSON_CATEGORY_IDS)[number];
 
@@ -27,6 +25,7 @@ export default function LearnClient({ lessons }: LearnClientProps) {
   const { completedLessons, locale, markLessonViewed } = useAppState();
   const t = useTranslations("learn");
   const tCommon = useTranslations("common");
+  const difficultyLabel = locale === "es" ? "Nivel" : "Difficulty";
   const [activeCategory, setActiveCategory] = useState<CategoryFilter>(ALL);
   const [activeDifficulty, setActiveDifficulty] = useState<Difficulty>(ALL);
 
@@ -84,9 +83,9 @@ export default function LearnClient({ lessons }: LearnClientProps) {
   }, [libraryLessons, activeCategory]);
 
   return (
-    <div className="py-12 md:py-16">
-      <div className="max-w-container mx-auto px-4 md:px-6">
-        <PageHeader centered title={t("title")} description={t("description")}>
+    <div className="px-4 py-10 md:px-6 md:py-14">
+      <div className="mx-auto max-w-container">
+        <PageHeader centered title={t("title")} description={t("description")} className="mb-8">
           <label className="relative mt-6 block text-left">
             <span className="sr-only">{tCommon("searchLessons")}</span>
             <Search
@@ -103,45 +102,47 @@ export default function LearnClient({ lessons }: LearnClientProps) {
           </label>
         </PageHeader>
 
-        <div className="mb-6 flex flex-wrap gap-3">
-          {categoryFilters.map((category) => (
-            <button
-              key={category.id}
-              type="button"
-              onClick={() => setActiveCategory(category.id)}
-              aria-pressed={activeCategory === category.id}
-              className={
-                activeCategory === category.id
-                  ? `rounded-full bg-secondary-container/80 px-5 py-2.5 min-h-11 text-label-md font-bold text-primary border border-secondary/25 shadow-sm transition-all duration-200 ${CHIP_FOCUS}`
-                  : `rounded-full border border-outline-variant/65 bg-surface px-5 py-2.5 min-h-11 text-label-md font-semibold text-on-surface-variant transition-all duration-200 hover:bg-surface-container hover:text-primary hover:-translate-y-0.5 active:scale-95 ${CHIP_FOCUS}`
-              }
-            >
-              {category.label}
-            </button>
-          ))}
+        <div className="surface-card-glass mb-4 p-4">
+          <div className="mb-3 text-label-md font-semibold uppercase tracking-[0.14em] text-on-surface-variant">
+            {tCommon("category")}
+          </div>
+          <div className="flex flex-wrap gap-3">
+            {categoryFilters.map((category) => (
+              <button
+                key={category.id}
+                type="button"
+                onClick={() => setActiveCategory(category.id)}
+                aria-pressed={activeCategory === category.id}
+                className={["chip px-4 py-3", activeCategory === category.id ? "chip-active" : ""].join(" ")}
+              >
+                {category.label}
+              </button>
+            ))}
+          </div>
         </div>
 
-        <div className="mb-6 flex flex-wrap gap-3">
-          {difficultyFilters.map((d) => (
-            <button
-              key={d.id}
-              type="button"
-              onClick={() => setActiveDifficulty(d.id)}
-              aria-pressed={activeDifficulty === d.id}
-              className={
-                activeDifficulty === d.id
-                  ? `rounded-full bg-primary/10 px-4 py-2 min-h-11 text-label-md font-bold text-primary border border-primary/20 shadow-sm transition-all duration-200 ${CHIP_FOCUS}`
-                  : `rounded-full border border-outline-variant/65 bg-surface px-4 py-2 min-h-11 text-label-md font-semibold text-on-surface-variant transition-all duration-200 hover:bg-surface-container hover:text-primary hover:-translate-y-0.5 active:scale-95 ${CHIP_FOCUS}`
-              }
-            >
-              {d.label}
-            </button>
-          ))}
+        <div className="surface-card-glass mb-6 p-4">
+          <div className="mb-3 text-label-md font-semibold uppercase tracking-[0.14em] text-on-surface-variant">
+            {difficultyLabel}
+          </div>
+          <div className="flex flex-wrap gap-3">
+            {difficultyFilters.map((d) => (
+              <button
+                key={d.id}
+                type="button"
+                onClick={() => setActiveDifficulty(d.id)}
+                aria-pressed={activeDifficulty === d.id}
+                className={["chip px-4 py-2", activeDifficulty === d.id ? "chip-active" : ""].join(" ")}
+              >
+                {d.label}
+              </button>
+            ))}
+          </div>
         </div>
 
         <div
           id="learn-results-count"
-          className="mb-4 text-label-md text-on-surface-variant"
+          className="mb-6 text-label-md text-on-surface-variant"
           aria-live="polite"
         >
           {filteredLessons.length > 0 ? t("showingLessons", { count: filteredLessons.length }) : ""}
@@ -149,12 +150,12 @@ export default function LearnClient({ lessons }: LearnClientProps) {
 
         {featuredLessons.length > 0 ? (
           <section className="mb-14">
-            <h2 className="mb-6 text-headline-lg text-primary">{tCommon("recommended")}</h2>
+            <h2 className="mb-6 font-display text-headline-lg text-primary">{tCommon("recommended")}</h2>
             <div className="grid gap-6 lg:grid-cols-2">
-              {featuredLessons.map((lesson) => (
-                <div key={lesson.id} onClick={() => markLessonViewed(lesson.id)}>
+              {featuredLessons.map((lesson, index) => (
+                <Reveal key={lesson.id} delay={index * 0.05} onClick={() => markLessonViewed(lesson.id)}>
                   <LessonCard lesson={lesson} isComplete={completedLessons.has(lesson.id)} />
-                </div>
+                </Reveal>
               ))}
             </div>
           </section>
@@ -162,22 +163,26 @@ export default function LearnClient({ lessons }: LearnClientProps) {
 
         {libraryLessons.length > 0 ? (
           <section>
-            <h2 className="mb-8 text-headline-lg text-primary">{tCommon("exploreLibrary")}</h2>
+            <h2 className="mb-8 font-display text-headline-lg text-primary">{tCommon("exploreLibrary")}</h2>
             {groupedLibraryLessons ? (
               <div className="space-y-12">
                 {Object.entries(groupedLibraryLessons).map(([categoryId, groupLessons]) => (
                   <div
                     key={categoryId}
-                    className="border-t border-outline-variant/30 pt-8 first:border-t-0 first:pt-0"
+                    className="border-t border-outline-variant/40 pt-8 first:border-t-0 first:pt-0"
                   >
-                    <h3 className="mb-6 text-headline-md font-bold text-primary">
+                    <h3 className="mb-6 font-display text-headline-md text-primary">
                       {getCategoryLabel(categoryId as any, locale)}
                     </h3>
                     <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-                      {groupLessons.map((lesson) => (
-                        <div key={lesson.id} onClick={() => markLessonViewed(lesson.id)}>
+                      {groupLessons.map((lesson, index) => (
+                        <Reveal
+                          key={lesson.id}
+                          delay={(index % 3) * 0.04}
+                          onClick={() => markLessonViewed(lesson.id)}
+                        >
                           <LessonCard lesson={lesson} isComplete={completedLessons.has(lesson.id)} />
-                        </div>
+                        </Reveal>
                       ))}
                     </div>
                   </div>
@@ -185,10 +190,14 @@ export default function LearnClient({ lessons }: LearnClientProps) {
               </div>
             ) : (
               <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-                {libraryLessons.map((lesson) => (
-                  <div key={lesson.id} onClick={() => markLessonViewed(lesson.id)}>
+                {libraryLessons.map((lesson, index) => (
+                  <Reveal
+                    key={lesson.id}
+                    delay={(index % 3) * 0.04}
+                    onClick={() => markLessonViewed(lesson.id)}
+                  >
                     <LessonCard lesson={lesson} isComplete={completedLessons.has(lesson.id)} />
-                  </div>
+                  </Reveal>
                 ))}
               </div>
             )}
@@ -197,7 +206,7 @@ export default function LearnClient({ lessons }: LearnClientProps) {
 
         {filteredLessons.length === 0 ? (
           <EmptyState
-            variant="search"
+            variant="learning"
             title={tCommon("noLessonsFound")}
             description={tCommon("noLessonsTryBroader")}
             action={{
@@ -208,7 +217,7 @@ export default function LearnClient({ lessons }: LearnClientProps) {
                 setActiveDifficulty(ALL);
               },
             }}
-            className="card mt-6"
+            className="mt-8"
           />
         ) : null}
       </div>

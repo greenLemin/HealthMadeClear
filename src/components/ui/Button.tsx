@@ -16,19 +16,19 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 
 const variantStyles: Record<ButtonVariant, string> = {
   primary:
-    "bg-primary text-on-primary shadow-sm hover:shadow-md hover:bg-primary-container active:bg-primary-container focus-visible:ring-primary hover:-translate-y-0.5 active:translate-y-0",
+    "border border-primary/20 bg-primary text-on-primary shadow-elevation-2 hover:-translate-y-0.5 hover:bg-primary-container hover:shadow-floating active:translate-y-0 active:scale-[0.985] focus-visible:ring-primary",
   secondary:
-    "border-2 border-primary text-primary bg-transparent hover:bg-surface-container-low active:bg-surface-container focus-visible:ring-primary hover:-translate-y-0.5 active:translate-y-0",
+    "border border-outline-variant bg-surface-container-lowest/90 text-primary shadow-elevation-1 backdrop-blur hover:-translate-y-0.5 hover:border-primary/30 hover:bg-surface hover:shadow-elevation-2 active:translate-y-0 active:scale-[0.985] focus-visible:ring-primary",
   ghost:
-    "bg-transparent text-on-surface hover:bg-surface-container active:bg-surface-container focus-visible:ring-primary hover:-translate-y-0.5 active:translate-y-0",
+    "border border-transparent bg-transparent text-on-surface hover:-translate-y-0.5 hover:bg-surface-container-low hover:text-primary active:translate-y-0 active:scale-[0.985] focus-visible:ring-primary",
   danger:
-    "bg-error text-on-error shadow-sm hover:shadow-md hover:bg-error/90 active:bg-error/80 focus-visible:ring-error hover:-translate-y-0.5 active:translate-y-0",
+    "border border-error/20 bg-error text-on-error shadow-elevation-1 hover:-translate-y-0.5 hover:bg-error/90 hover:shadow-elevation-2 active:translate-y-0 active:scale-[0.985] focus-visible:ring-error",
 };
 
 const sizeStyles: Record<ButtonSize, string> = {
-  sm: "min-h-11 px-4 py-2 text-label-md",
-  md: "min-h-[56px] px-6 py-3 text-label-lg",
-  lg: "min-h-[64px] px-8 py-4 text-label-lg",
+  sm: "min-h-11 rounded-full px-4 py-2 text-label-md",
+  md: "min-h-[56px] rounded-full px-6 py-3 text-label-lg",
+  lg: "min-h-[64px] rounded-full px-8 py-4 text-label-lg",
 };
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(
@@ -52,7 +52,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         disabled={disabled || loading}
         aria-busy={loading || undefined}
         className={[
-          "inline-flex items-center justify-center gap-2 rounded-xl font-semibold transition-all duration-200 ease-out motion-safe:active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
+          "inline-flex items-center justify-center gap-2 font-semibold transition-all duration-300 ease-premium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:translate-y-0 disabled:hover:shadow-none motion-reduce:transition-none",
           variantStyles[variant],
           sizeStyles[size],
           fullWidth ? "w-full" : "",
@@ -61,7 +61,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         {...props}
       >
         {loading ? (
-          <Loader2 size={18} className="animate-spin motion-reduce:animate-none" aria-hidden="true" />
+          <Loader2 size={18} className="animate-spin" aria-hidden="true" />
         ) : icon ? (
           <span aria-hidden="true">{icon}</span>
         ) : null}

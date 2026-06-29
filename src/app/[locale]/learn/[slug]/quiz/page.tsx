@@ -38,6 +38,7 @@ export default async function QuizPage({ params }: Props) {
   return (
     <>
       <JsonLd
+        id={`jsonld-quiz-${locale}-${quiz.lessonId}`}
         data={{
           "@context": "https://schema.org",
           "@type": "LearningResource",

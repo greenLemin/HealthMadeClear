@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import Script from "next/script";
 import { NextIntlClientProvider, hasLocale } from "next-intl";
 import { getMessages, getTranslations, setRequestLocale } from "next-intl/server";
-import { atkinson } from "@/app/fonts";
+import { atkinson, newsreader } from "@/app/fonts";
 import AppProviders from "@/components/AppProviders";
 import AuthProvider from "@/components/providers/AuthProvider";
 import Footer from "@/components/Footer";
@@ -102,7 +102,11 @@ export default async function LocaleLayout({
   const validLocale = requireLocale(locale);
 
   return (
-    <html lang={locale} suppressHydrationWarning className={atkinson.variable}>
+    <html
+      lang={locale}
+      suppressHydrationWarning
+      className={[atkinson.variable, newsreader.variable].join(" ")}
+    >
       <head>
         <GoogleAnalytics />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -111,7 +115,7 @@ export default async function LocaleLayout({
           {PREFERENCE_BOOTSTRAP_SCRIPT}
         </Script>
       </head>
-      <body className="min-h-screen bg-surface font-hyperlegible">
+      <body className="min-h-screen bg-background font-sans text-on-surface antialiased">
         <NextIntlClientProvider locale={locale} messages={messages}>
           <AppProviders locale={locale}>
             <AnalyticsPageViewTracker locale={validLocale} />

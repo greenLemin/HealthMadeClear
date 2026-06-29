@@ -3,18 +3,20 @@
 import { useEffect, useRef, useState, useCallback, useMemo } from "react";
 import { Link } from "@/i18n/navigation";
 import { Search, X, BookOpen } from "lucide-react";
+import { AnimatePresence, motion } from "motion/react";
 import { useAppState } from "@/components/AppProviders";
 import { useDismissibleOverlay } from "@/hooks/useDismissibleOverlay";
 import { useFocusTrap } from "@/hooks/useFocusTrap";
 import { useTranslations } from "next-intl";
 import type { SearchEntry } from "@/data/searchIndex.en";
+import { modalVariants, revealEase } from "@/components/ui/Reveal";
 
 export function highlightMatches(text: string, query: string) {
   if (!query) return text;
   const regex = new RegExp(`(${query.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")})`, "gi");
   const parts = text.split(regex);
   return parts.map((part, i) =>
-    regex.test(part) ? (
+    i % 2 === 1 ? (
       <mark key={i} className="rounded bg-primary-container px-0.5 text-on-primary-container">
         {part}
       </mark>
@@ -22,6 +24,20 @@ export function highlightMatches(text: string, query: string) {
       part
     )
   );
+}
+
+function getShortcutLabel() {
+  if (typeof navigator === "undefined") return "Ctrl K";
+
+  const navWithUAData = navigator as Navigator & { userAgentData?: { platform?: string } };
+  const platform = navWithUAData.userAgentData?.platform || navigator.platform || "";
+  const normalizedPlatform = platform.toLowerCase();
+
+  return normalizedPlatform.includes("mac") ||
+    normalizedPlatform.includes("iphone") ||
+    normalizedPlatform.includes("ipad")
+    ? "⌘K"
+    : "Ctrl K";
 }
 
 export default function SearchDialog() {
@@ -33,6 +49,7 @@ export default function SearchDialog() {
   const inputRef = useRef<HTMLInputElement>(null);
   const dialogRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
+  const shortcutLabel = useMemo(() => getShortcutLabel(), []);
 
   useEffect(() => {
     let active = true;
@@ -55,6 +72,8 @@ export default function SearchDialog() {
     onClose: close,
     containerRef: dialogRef,
     triggerRef,
+    lockBodyScroll: true,
+    returnFocusRef: triggerRef,
   });
 
   const typeLabel = (type: SearchEntry["type"]) => {
@@ -110,90 +129,119 @@ export default function SearchDialog() {
         ref={triggerRef}
         type="button"
         onClick={() => setIsOpen(true)}
-        className="flex min-h-11 items-center gap-3 rounded-lg border border-outline-variant bg-surface-container-lowest px-3 py-2 text-label-md text-on-surface-variant transition-colors hover:bg-surface-container hover:text-on-surface focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 md:min-w-[14rem]"
+        className="flex min-h-11 items-center gap-3 rounded-full border border-outline-variant bg-surface-container-lowest/90 px-3 py-2 text-label-md text-on-surface-variant shadow-elevation-1 transition-all duration-300 ease-premium hover:-translate-y-0.5 hover:bg-surface hover:text-on-surface hover:shadow-elevation-2 md:w-56 xl:w-11 2xl:w-56 xl:justify-center 2xl:justify-start"
         aria-label={t("openSearch")}
-        title={t("placeholder")}
       >
         <Search size={16} aria-hidden="true" />
-        <span className="hidden md:inline">{t("placeholder")}</span>
-        <kbd className="ml-auto hidden rounded border border-outline-variant bg-surface px-1.5 py-0.5 text-label-md tracking-wider text-on-surface-variant md:inline">
-          ⌘K
+        <span className="hidden md:inline xl:hidden 2xl:inline">{t("placeholder")}</span>
+        <kbd className="ml-auto hidden rounded-full border border-outline-variant bg-surface px-2 py-0.5 text-label-sm tracking-[0.16em] text-on-surface-variant md:inline xl:hidden 2xl:inline">
+          {shortcutLabel}
         </kbd>
       </button>
 
-      {isOpen ? (
-        <div className="fixed inset-0 z-[100] flex items-start justify-center pt-[15vh]">
-          <div className="fixed inset-0 bg-black/40 backdrop-blur-sm" onClick={close} aria-hidden="true" />
-          <div
-            ref={dialogRef}
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby="search-dialog-title"
-            className="relative z-10 w-full max-w-xl rounded-xl border border-outline-variant bg-surface shadow-elevation-3"
-          >
-            <h2 id="search-dialog-title" className="sr-only">
-              {t("searchDialog")}
-            </h2>
-            <div className="flex items-center gap-3 border-b border-outline-variant px-4 py-3">
-              <Search size={20} className="shrink-0 text-on-surface-variant" aria-hidden="true" />
-              <input
-                ref={inputRef}
-                type="search"
-                value={query}
-                onChange={(e) => setQuery(e.target.value)}
-                placeholder={t("placeholder")}
-                aria-label={t("placeholder")}
-                className="flex-1 border-0 bg-transparent text-body-md text-on-surface outline-none focus-visible:outline-none placeholder:text-on-surface-variant"
-                autoComplete="off"
-              />
-              <button
-                type="button"
-                onClick={close}
-                className="flex min-h-11 min-w-11 items-center justify-center rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
-                aria-label={t("close")}
-              >
-                <X size={18} aria-hidden="true" />
-              </button>
-            </div>
+      <AnimatePresence>
+        {isOpen ? (
+          <div className="fixed inset-0 z-[100] flex items-start justify-center px-4 pt-[10vh]">
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2, ease: revealEase }}
+              className="fixed inset-0 bg-black/45 backdrop-blur-sm"
+              onClick={close}
+              aria-hidden="true"
+            />
+            <motion.div
+              ref={dialogRef}
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby="search-dialog-title"
+              variants={modalVariants}
+              initial="hidden"
+              animate="visible"
+              exit="exit"
+              transition={{ duration: 0.26, ease: revealEase }}
+              className="surface-card-glass relative z-10 w-full max-w-2xl overflow-hidden"
+            >
+              <h2 id="search-dialog-title" className="sr-only">
+                {t("searchDialog")}
+              </h2>
+              <div className="border-b border-outline-variant px-5 py-4">
+                <div className="mb-3 flex items-center justify-between gap-4">
+                  <div>
+                    <p className="eyebrow">{t("searchDialog")}</p>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={close}
+                    className="flex min-h-11 min-w-11 items-center justify-center rounded-full text-on-surface-variant transition-all duration-300 ease-premium hover:bg-surface-container hover:text-on-surface focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+                    aria-label={t("close")}
+                  >
+                    <X size={18} aria-hidden="true" />
+                  </button>
+                </div>
 
-            <div className="max-h-[60vh] overflow-y-auto p-2">
-              {results.length === 0 ? (
-                <p className="p-4 text-center text-body-md text-on-surface-variant">{t("noResults")}</p>
-              ) : (
-                <ul className="space-y-1">
-                  {results.map((entry) => (
-                    <li key={`${entry.type}-${entry.id}`}>
-                      <Link
-                        href={entry.url}
-                        onClick={close}
-                        className="flex items-start gap-3 rounded-lg px-3 py-3 transition-colors hover:bg-surface-container"
-                      >
-                        <BookOpen size={18} className="mt-0.5 shrink-0 text-primary" aria-hidden="true" />
-                        <div className="min-w-0 flex-1">
-                          <div className="text-body-md font-semibold text-on-surface">
-                            {highlightMatches(entry.title, query)}
+                <div className="surface-card flex items-center gap-3 px-4 py-3">
+                  <Search size={20} className="shrink-0 text-on-surface-variant" aria-hidden="true" />
+                  <input
+                    ref={inputRef}
+                    type="search"
+                    value={query}
+                    onChange={(e) => setQuery(e.target.value)}
+                    placeholder={t("placeholder")}
+                    aria-label={t("placeholder")}
+                    className="flex-1 border-0 bg-transparent text-body-md text-on-surface outline-none focus-visible:outline-none placeholder:text-on-surface-variant"
+                    autoComplete="off"
+                  />
+                  <kbd className="hidden rounded-full border border-outline-variant bg-surface px-2 py-1 text-label-sm tracking-[0.16em] text-on-surface-variant sm:inline">
+                    ESC
+                  </kbd>
+                </div>
+              </div>
+
+              <div className="max-h-[62vh] overflow-y-auto px-3 pb-3 pt-3">
+                {results.length === 0 ? (
+                  <div className="px-4 py-8 text-center text-body-md text-on-surface-variant">
+                    {t("noResults")}
+                  </div>
+                ) : (
+                  <ul className="space-y-2">
+                    {results.map((entry) => (
+                      <li key={`${entry.type}-${entry.id}`}>
+                        <Link
+                          href={entry.url}
+                          onClick={close}
+                          className="surface-card group flex items-start gap-3 px-4 py-4 transition-all duration-300 ease-premium hover:-translate-y-0.5 hover:shadow-card-hover"
+                        >
+                          <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-primary-fixed/75 text-primary shadow-elevation-1">
+                            <BookOpen size={18} aria-hidden="true" />
                           </div>
-                          <div className="mt-0.5 truncate text-label-md text-on-surface-variant">
-                            {highlightMatches(entry.description, query)}
+                          <div className="min-w-0 flex-1">
+                            <div className="text-body-md font-semibold text-on-surface">
+                              {highlightMatches(entry.title, query)}
+                            </div>
+                            <div className="mt-1 text-label-md text-on-surface-variant">
+                              {highlightMatches(entry.description, query)}
+                            </div>
+                            <div className="mt-3 flex flex-wrap gap-2">
+                              <span className="chip chip-active min-h-9 px-3 py-1 text-label-sm">
+                                {typeLabel(entry.type)}
+                              </span>
+                              <span className="chip min-h-9 px-3 py-1 text-label-sm">
+                                {highlightMatches(entry.category, query)}
+                              </span>
+                            </div>
                           </div>
-                          <div className="mt-1 flex flex-wrap gap-1">
-                            <span className="inline-block rounded-full bg-primary-container px-2 py-0.5 text-label-md text-on-primary-container">
-                              {typeLabel(entry.type)}
-                            </span>
-                            <span className="inline-block rounded-full bg-surface-container px-2 py-0.5 text-label-md text-on-surface-variant">
-                              {highlightMatches(entry.category, query)}
-                            </span>
-                          </div>
-                        </div>
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </div>
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+            </motion.div>
           </div>
-        </div>
-      ) : null}
+        ) : null}
+      </AnimatePresence>
     </>
   );
 }

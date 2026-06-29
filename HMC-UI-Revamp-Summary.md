@@ -1,52 +1,63 @@
 # HealthMadeClear UI Revamp Summary
 
-This document summarizes the comprehensive UI/UX overhaul of the HealthMadeClear application, bringing it to a premium, world-class standard.
+## What Changed
 
-## 1. Major Design Decisions & Tokens
+- Rebuilt shared visual system around warmer surface tokens, richer elevation, stronger radius/spacing rhythm, editorial display typography, and premium motion curves.
+- Added reusable reveal/motion primitive. Upgraded modal, button, input, card, header, footer, onboarding, search, and page-header patterns.
+- Revamped major route families for cohesive product feel.
+- Tightened mobile behavior and interaction polish across navigation, cards, forms, empty states, progress views, and content detail flows.
+- Fixed brittle Playwright readiness checks, AppProviders test import-chain failure, and noisy JSON-LD dev rendering.
 
-- **Color & Surface Enhancements:**
-  - Shifted the main background from a cold gray (`#f8f9fb`) to a warm Alabaster Cream (`#FAF9F6`) to decrease reading strain and introduce empathy.
-  - Refined the primary color to Deep Teal (`#0A4D53`) and the secondary accent to Pine/Sage Green (`#2E5A44`) for high contrast legibility and trust.
-  - Revamped shadows (`--shadow-color` and `--shadow-color-heavy`) to soft teal/slate tints instead of harsh black/gray.
-  - Replaced border radii defaults with `rounded-xl` and `rounded-2xl` for soft, elegant component shapes.
-- **Premium Motion Curve & Timing:**
-  - Implemented CSS variables for animations (`--ease-spring`, `--ease-out-expo`, `--duration-normal`, etc.).
-  - Added keyframe animations (`fadeInUp`, `scaleUp`, `shimmer`) for soft, staggered page item entrances on mount.
+## Major Design Decisions
 
-## 2. Updated Components & Screens
+- **Color & Surface:** Shifted from cold gray (`#f8f9fb`) to warm Alabaster Cream (`#FAF9F6`). Primary Deep Teal (`#0A4D53`), secondary Pine Green (`#2E5A44`). Shadows tinted soft teal/slate. Replaced radii with `rounded-xl`/`rounded-2xl`.
+- **Typography:** Atkinson Hyperlegible for body + Newsreader display face for hierarchy.
+- **Motion:** Soft rise/fade choreography, elevated hover/press feedback, modal transitions, shimmer/loading patterns. CSS variables (`--ease-spring`, `--ease-out-expo`, `--duration-*`). Respects reduced-motion.
+- **Component strategy:** Moved repeated chrome to shared primitives (`PageHeader`, `Card`, reveal wrapper, surface utility classes).
+- **SEO/dev polish:** Sanitized JSON-LD injected script content.
+
+## Updated Components
 
 ### UI Primitives
 
-- **Button (`Button.tsx`):** Exposes smooth hover translation, tactile active click-down transitions (`active:scale-[0.98]`), and updated rounded corners.
-- **Card (`Card.tsx`):** Supports smooth elevation rises (`hover:-translate-y-1 hover:shadow-card-hover`) and border focus rings.
-- **Input (`Input.tsx`):** Upgraded borders and focus rings with subtle shadows for error and active states.
-- **Skeleton (`Skeleton.tsx`):** Replaced default pulse animation with a linear-gradient shimmer loop.
-- **Modal (`Modal.tsx`):** Standardized dialog layouts with high-quality scale and fade entry animations.
-- **ProgressBar (`ProgressBar.tsx`):** Swapped the fill color from container-themed light green to the high-contrast Pine Green to aid vision-impaired users.
+- **Button:** Smooth hover translation, `active:scale-[0.98]`, premium easing.
+- **Card:** Elevation rise on hover, border focus rings.
+- **Input:** Upgraded borders and focus rings with error/active shadows.
+- **Skeleton:** Linear-gradient shimmer loop instead of pulse.
+- **Modal:** Standardized scale/fade entry via `AnimatePresence`.
+- **ProgressBar:** High-contrast Pine Green fill for accessibility.
 
 ### App Shell & Routes
 
-- **Navigation Shell (`Header.tsx`):** Revamped active tab markers to a capsule-pill style and enhanced mobile layout borders.
-- **Hero Grid (`Hero.tsx`):** Soothed background gradients, rounded side widgets, and added staggered fade-in reveals.
-- **Home Client (`HomeClient.tsx`):** Grid column alignments, hover lift states, and progress bar spacing.
-- **Learn Client (`LearnClient.tsx`):** Revamped search input box and category/difficulty filter pill buttons.
-- **Learning Paths (`LearningPathsClient.tsx` / `LearningPathDetailClient.tsx`):** Redesigned path cards, nested module list cards, and progress meters.
-- **Glossary Page (`GlossaryClient.tsx`):** Refined search bar layouts, alphabetical letters grid, and definitions cards.
-- **Visit Planner (`VisitPlannerClient.tsx`):** Stepper wizard controls and choose-your-path button grids.
+- **Header:** Capsule-pill active tab markers, mobile layout borders.
+- **Hero:** Softened gradients, rounded widgets, staggered fade-in.
+- **Home/Learn/Glossary/LearningPaths/VisitPlanner:** Grid alignments, hover lifts, search/filter pill buttons, stepper controls.
+- **Detail flows:** Article, lesson, quiz, learning path detail.
+- **Auth:** Login, signup, forgot/reset password, dashboard.
+- **System states:** Locale-specific error and not-found pages.
 
-## 3. Motion System Improvements
+## Motion System
 
-- Added stagger delay utilities (`.delay-100`, `.delay-200`, etc.) to glide layout elements onto the screen.
-- Configured native CSS GPU-accelerated dialog transitions.
-- Disabled movement animations for users requesting accessibility accommodations (`prefers-reduced-motion: reduce`).
+- Added stagger delay utilities (`.delay-100`, `.delay-200`).
+- Native CSS GPU-accelerated dialog transitions.
+- Reusable `Reveal` wrapper for staged entrances.
+- Disabled movement for `prefers-reduced-motion: reduce`.
 
-## 4. Accessibility (A11y) & Performance
+## Accessibility
 
-- Maintained strict Atkinson Hyperlegible Next font sizes (minimum 18px base text) for vision safety.
-- Assured focus rings are visible on keyboard navigation (`:focus-visible` outline styles).
-- Ensured color contrast ratios conform to WCAG AA parameters.
+- Atkinson Hyperlegible 18px+ base text.
+- Visible `:focus-visible` rings on all interactive controls.
+- WCAG AA contrast ratios, semantic headings, breadcrumbs.
+- 44px-class interactive targets.
 
-## 5. Next Steps
+## Verification
 
-- Implement Playwright E2E UI visual regression tests to verify styles across multiple viewports automatically in CI.
-- Perform an AXE audit pass on both light and dark themes.
+- `npm run typecheck`, `test`, `build` — all passed.
+- `npx playwright test e2e/polish.spec.ts` — passed.
+
+## Recommended Follow-Up
+
+- Replace deprecated `middleware` convention with `proxy`.
+- Remove Tailwind config module-type warning.
+- Broader authenticated visual QA pass.
+- AXE audit pass on light/dark themes.

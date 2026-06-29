@@ -2,11 +2,12 @@
 
 import { Link } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
-import { Clock, BookOpen, CheckCircle2, Flame, TrendingUp, ArrowLeft, ArrowRight } from "lucide-react";
-import Card from "@/components/ui/Card";
+import { ArrowLeft, ArrowRight, CheckCircle2, Clock, Flame, TrendingUp, type LucideIcon } from "lucide-react";
 import Button from "@/components/ui/Button";
-import ProgressBar from "@/components/ui/ProgressBar";
 import EmptyState from "@/components/ui/EmptyState";
+import PageHeader from "@/components/PageHeader";
+import ProgressBar from "@/components/ui/ProgressBar";
+import Reveal from "@/components/ui/Reveal";
 import { formatRelativeDate, formatMemberSince, type Locale } from "@/lib/i18n";
 
 type Summary = {
@@ -69,10 +70,33 @@ function formatTime(minutes: number): string {
   return mins > 0 ? `${hrs}h ${mins}m` : `${hrs}h`;
 }
 
-function MemberSince({ date, locale }: { date: string; locale: Locale }) {
-  const t = useTranslations("progress");
-  if (!date) return null;
-  return <span>{t("memberSince", { date: formatMemberSince(date, locale) })}</span>;
+function clampPercent(value: number): number {
+  return Math.min(100, Math.max(0, Math.round(value)));
+}
+
+function MetricCard({
+  icon: Icon,
+  label,
+  value,
+  detail,
+  tone = "surface-card",
+}: {
+  icon: LucideIcon;
+  label: string;
+  value: string;
+  detail?: string | null;
+  tone?: string;
+}) {
+  return (
+    <div className={`${tone} px-5 py-5 md:px-6 md:py-6`}>
+      <div className="flex h-12 w-12 items-center justify-center rounded-full bg-surface text-primary shadow-elevation-1">
+        <Icon size={22} aria-hidden="true" />
+      </div>
+      <p className="mt-4 text-label-md text-on-surface-variant">{label}</p>
+      <p className="mt-2 font-display text-headline-md text-primary">{value}</p>
+      {detail ? <p className="mt-2 text-label-md text-on-surface-variant">{detail}</p> : null}
+    </div>
+  );
 }
 
 export default function ProgressClient({
@@ -88,11 +112,19 @@ export default function ProgressClient({
   const page = completedLessons.page;
   const overallPct =
     summary.totalLessonsAvailable > 0
-      ? Math.round((summary.totalLessonsCompleted / summary.totalLessonsAvailable) * 100)
+      ? clampPercent((summary.totalLessonsCompleted / summary.totalLessonsAvailable) * 100)
       : 0;
+  const copy =
+    locale === "es"
+      ? { categoriesLabel: "categorias", trackedLabel: "areas activas" }
+      : { categoriesLabel: "categories", trackedLabel: "areas tracked" };
 
   const today = new Date().toISOString().split("T")[0];
   const activeSet = new Set(activeDays);
+  const memberSinceLabel = memberSince
+    ? t("memberSince", { date: formatMemberSince(memberSince, locale) })
+    : null;
+  const averageScore = summary.totalQuizzesAttempted > 0 ? `${clampPercent(summary.averageQuizScore)}%` : "-";
 
   const calendarDays = Array.from({ length: 30 }, (_, i) => {
     const d = new Date();
@@ -104,341 +136,205 @@ export default function ProgressClient({
 
   return (
     <div className="space-y-10">
-      <h1 className="text-headline-lg text-primary">{t("title")}</h1>
+      <PageHeader
+        centered
+        title={t("title")}
+        description={t("lessonsCompleted", {
+          count: summary.totalLessonsCompleted,
+          total: summary.totalLessonsAvailable,
+        })}
+      >
+        <div className="flex flex-wrap justify-center gap-3">
+          {memberSinceLabel ? <span className="metric-pill">{memberSinceLabel}</span> : null}
+          <span className="metric-pill bg-secondary-container/60 text-secondary">
+            {t("quizzesPassedColumn")}: {summary.totalQuizzesPassed}/{summary.totalQuizzesAttempted}
+          </span>
+          <span className="metric-pill bg-tertiary-container/60 text-tertiary">
+            {t("currentStreak")}: {t("daysValue", { count: summary.currentStreak })}
+          </span>
+        </div>
+      </PageHeader>
 
-      {/* Section 1: Overall Progress */}
-      <section>
-        <h2 className="mb-6 text-headline-md text-primary">{t("overallProgress")}</h2>
-        <div className="grid gap-6 md:grid-cols-[1fr_2fr]">
-          <div className="flex flex-col items-center justify-center rounded-2xl border border-outline-variant bg-surface-container-lowest p-8 shadow-card">
-            <div
-              className="relative mb-4 flex h-36 w-36 items-center justify-center"
-              role="img"
-              aria-label={t("lessonsCompleted", {
-                count: summary.totalLessonsCompleted,
-                total: summary.totalLessonsAvailable,
-              })}
-            >
-              <svg className="h-full w-full -rotate-90" viewBox="0 0 100 100" aria-hidden="true">
-                <circle
-                  cx="50"
-                  cy="50"
-                  r="42"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="8"
-                  className="text-surface-container"
+      <section className="grid gap-6 xl:grid-cols-[1.08fr_0.92fr]">
+        <Reveal>
+          <div className="surface-card-strong px-6 py-6 md:px-8 md:py-8">
+            <div className="grid gap-6 md:grid-cols-[220px_1fr] md:items-center">
+              <div
+                className="mx-auto flex h-[220px] w-[220px] items-center justify-center rounded-full bg-surface shadow-elevation-2"
+                role="img"
+                aria-label={t("lessonsCompleted", {
+                  count: summary.totalLessonsCompleted,
+                  total: summary.totalLessonsAvailable,
+                })}
+              >
+                <div className="relative flex h-44 w-44 items-center justify-center">
+                  <svg className="h-full w-full -rotate-90" viewBox="0 0 100 100" aria-hidden="true">
+                    <circle
+                      cx="50"
+                      cy="50"
+                      r="42"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="8"
+                      className="text-surface-container"
+                    />
+                    <circle
+                      cx="50"
+                      cy="50"
+                      r="42"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="8"
+                      strokeDasharray={`${overallPct * 2.64} 264`}
+                      strokeLinecap="round"
+                      className="text-secondary"
+                    />
+                  </svg>
+                  <div className="absolute inset-0 flex flex-col items-center justify-center text-center">
+                    <span className="font-display text-headline-lg text-primary">{overallPct}%</span>
+                    <span className="text-label-md text-on-surface-variant">{t("overallProgress")}</span>
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <div className="eyebrow mb-4">{t("overallProgress")}</div>
+                <h2 className="font-display text-headline-lg text-primary">
+                  {t("lessonsCompleted", {
+                    count: summary.totalLessonsCompleted,
+                    total: summary.totalLessonsAvailable,
+                  })}
+                </h2>
+                <p className="mt-3 max-w-readable text-body-md text-on-surface-variant">
+                  {memberSinceLabel ?? t("streakCalendarCaption")}
+                </p>
+                <ProgressBar
+                  value={overallPct}
+                  label={t("lessonsCompleted", {
+                    count: summary.totalLessonsCompleted,
+                    total: summary.totalLessonsAvailable,
+                  })}
+                  showPercentage
+                  className="mt-6"
                 />
-                <circle
-                  cx="50"
-                  cy="50"
-                  r="42"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="8"
-                  strokeDasharray={`${overallPct * 2.64} 264`}
-                  strokeLinecap="round"
-                  className="text-secondary"
-                />
-              </svg>
-              <span className="absolute text-headline-lg font-bold text-primary" aria-hidden="true">
-                {overallPct}%
+                <div className="mt-6 flex flex-wrap gap-3">
+                  <span className="metric-pill">{formatTime(summary.totalTimeSpentMinutes)}</span>
+                  <span className="metric-pill bg-secondary-container/60 text-secondary">
+                    {t("avgQuizScoreColumn")}: {averageScore}
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </Reveal>
+
+        <Reveal delay={0.05}>
+          <div className="grid gap-4 sm:grid-cols-2">
+            <MetricCard
+              icon={Clock}
+              label={t("totalTime")}
+              value={formatTime(summary.totalTimeSpentMinutes)}
+              detail={memberSinceLabel}
+            />
+            <MetricCard
+              icon={CheckCircle2}
+              label={t("quizzesPassedColumn")}
+              value={`${summary.totalQuizzesPassed}/${summary.totalQuizzesAttempted}`}
+              detail={t("lessonsValue", { count: summary.totalLessonsCompleted })}
+              tone="surface-card-muted"
+            />
+            <MetricCard
+              icon={TrendingUp}
+              label={t("avgQuizScoreColumn")}
+              value={averageScore}
+              detail={t("attemptsLabel", { count: summary.totalQuizzesAttempted })}
+              tone="surface-card-muted"
+            />
+            <MetricCard
+              icon={Flame}
+              label={t("currentStreak")}
+              value={t("daysValue", { count: summary.currentStreak })}
+              detail={t("longestStreak", { count: summary.longestStreak })}
+            />
+          </div>
+        </Reveal>
+      </section>
+
+      <section className="grid gap-6 xl:grid-cols-[1.14fr_0.86fr]">
+        <Reveal>
+          <div className="surface-card px-6 py-6 md:px-8 md:py-8">
+            <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+              <div>
+                <div className="eyebrow mb-3">{t("progressByCategory")}</div>
+                <h2 className="font-display text-headline-lg text-primary">{t("progressByCategory")}</h2>
+              </div>
+              <span className="metric-pill">
+                {categoryProgress.length} {copy.categoriesLabel}
               </span>
             </div>
-            <p className="text-label-md text-on-surface-variant">
-              {t("lessonsCompleted", {
-                count: summary.totalLessonsCompleted,
-                total: summary.totalLessonsAvailable,
-              })}
-            </p>
-          </div>
-          <div className="space-y-4">
-            <Card padding="sm">
-              <div className="flex items-center gap-3">
-                <Clock size={20} className="text-primary" aria-hidden="true" />
-                <div>
-                  <p className="text-label-sm text-on-surface-variant">{t("totalTime")}</p>
-                  <p className="text-headline-md text-primary">{formatTime(summary.totalTimeSpentMinutes)}</p>
-                </div>
-              </div>
-            </Card>
-            <Card padding="sm">
-              <div className="flex items-center gap-3">
-                <CheckCircle2 size={20} className="text-primary" aria-hidden="true" />
-                <div>
-                  <p className="text-label-sm text-on-surface-variant">
-                    <MemberSince date={memberSince} locale={locale} />
-                  </p>
-                  <p className="text-headline-md text-primary">
-                    {t("lessonsValue", { count: summary.totalLessonsCompleted })}
-                  </p>
-                </div>
-              </div>
-            </Card>
-          </div>
-        </div>
-      </section>
 
-      {/* Section 2: Progress by Category */}
-      <section>
-        <h2 className="mb-4 text-headline-md text-primary">{t("progressByCategory")}</h2>
-        <div className="overflow-x-auto rounded-2xl border border-outline-variant">
-          <table className="w-full">
-            <caption className="sr-only">{t("categoryTableCaption")}</caption>
-            <thead>
-              <tr className="bg-surface-container text-left text-label-md font-semibold text-on-surface-variant">
-                <th scope="col" className="px-4 py-3 md:px-6">
-                  {t("category")}
-                </th>
-                <th scope="col" className="px-4 py-3 md:px-6">
-                  {t("lessonsColumn")}
-                </th>
-                <th scope="col" className="hidden px-4 py-3 md:table-cell md:px-6">
-                  {t("quizzesPassedColumn")}
-                </th>
-                <th scope="col" className="hidden px-4 py-3 md:table-cell md:px-6">
-                  {t("avgQuizScoreColumn")}
-                </th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-outline-variant">
+            <div className="mt-6 grid gap-4 md:grid-cols-2">
               {categoryProgress.map((cat) => {
-                const pct = cat.total > 0 ? Math.round((cat.completed / cat.total) * 100) : 0;
+                const pct = cat.total > 0 ? clampPercent((cat.completed / cat.total) * 100) : 0;
                 return (
-                  <tr key={cat.categoryId} className="bg-surface-container-lowest">
-                    <th
-                      scope="row"
-                      className="px-4 py-4 text-left text-label-md font-medium text-on-surface md:px-6"
-                    >
-                      {cat.label || cat.categoryId}
-                    </th>
-                    <td className="px-4 py-4 md:px-6">
-                      <div className="max-w-[160px]">
-                        <ProgressBar value={pct} size="sm" />
-                      </div>
-                      <p className="mt-1 text-label-sm text-on-surface-variant">
-                        {cat.completed}/{cat.total}
-                      </p>
-                    </td>
-                    <td className="hidden px-4 py-4 text-label-md text-on-surface-variant md:table-cell md:px-6">
-                      {cat.quizStats.passed}/{cat.quizStats.attempts}
-                    </td>
-                    <td className="hidden px-4 py-4 text-label-md text-on-surface-variant md:table-cell md:px-6">
-                      {cat.quizStats.attempts > 0
-                        ? `${Math.round((cat.quizStats.passed / cat.quizStats.attempts) * 100)}%`
-                        : "-"}
-                    </td>
-                  </tr>
+                  <article key={cat.categoryId} className="surface-card-muted px-5 py-5">
+                    <div className="flex items-start justify-between gap-3">
+                      <h3 className="font-display text-headline-md text-primary">
+                        {cat.label || cat.categoryId}
+                      </h3>
+                      <span className="chip-active">{pct}%</span>
+                    </div>
+                    <ProgressBar value={pct} label={`${cat.completed}/${cat.total}`} className="mt-4" />
+                    <div className="mt-4 flex flex-wrap gap-3">
+                      <span className="metric-pill">
+                        {t("lessonsColumn")}: {cat.completed}/{cat.total}
+                      </span>
+                      <span className="metric-pill bg-secondary-container/60 text-secondary">
+                        {t("quizzesPassedColumn")}: {cat.quizStats.passed}/{cat.quizStats.attempts}
+                      </span>
+                    </div>
+                  </article>
                 );
               })}
-            </tbody>
-          </table>
-          {/* Mobile card list fallback */}
-          <div className="divide-y divide-outline-variant md:hidden">
-            {categoryProgress.map((cat) => {
-              const pct = cat.total > 0 ? Math.round((cat.completed / cat.total) * 100) : 0;
-              return (
-                <div key={cat.categoryId} className="px-4 py-4">
-                  <p className="mb-2 text-label-md font-medium text-on-surface">
-                    {cat.label || cat.categoryId}
-                  </p>
-                  <ProgressBar value={pct} size="sm" />
-                  <p className="mt-1 text-label-sm text-on-surface-variant">
-                    {t("categoryMobileSummary", {
-                      completed: cat.completed,
-                      total: cat.total,
-                      passed: cat.quizStats.passed,
-                      attempts: cat.quizStats.attempts,
-                    })}
-                  </p>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* Section 3: Quiz Performance */}
-      {quizPerformance.length > 0 ? (
-        <section>
-          <h2 className="mb-4 text-headline-md text-primary">{t("quizPerformance")}</h2>
-          <div className="space-y-4">
-            {quizPerformance.map((item) => (
-              <Card key={item.categoryId} padding="sm">
-                <div className="flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
-                  <div className="min-w-0 flex-1">
-                    <p className="text-label-md font-medium text-on-surface">{item.category}</p>
-                    <div className="mt-2 flex items-center gap-4 text-label-sm text-on-surface-variant">
-                      <span>{t("attemptsLabel", { count: item.attemptsCount })}</span>
-                      <span>{t("passRateLabel", { rate: item.passRate })}</span>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <span className="text-label-sm text-on-surface-variant">{t("avgLabel")}</span>
-                    <div
-                      className="flex h-3 w-48 overflow-hidden rounded-full bg-surface-container md:w-64"
-                      role="progressbar"
-                      aria-valuenow={item.averageScore}
-                      aria-valuemin={0}
-                      aria-valuemax={100}
-                      aria-label={t("averageScoreValue", { score: item.averageScore })}
-                    >
-                      <div
-                        className="h-full rounded-full bg-secondary transition-all duration-500 motion-reduce:transition-none"
-                        style={{ width: `${item.averageScore}%` }}
-                      />
-                    </div>
-                    <span className="w-10 text-right text-label-md font-semibold text-primary">
-                      {item.averageScore}%
-                    </span>
-                  </div>
-                </div>
-              </Card>
-            ))}
-          </div>
-        </section>
-      ) : null}
-
-      {/* Section 4: Completed Lessons */}
-      <section>
-        <h2 className="mb-4 text-headline-md text-primary">{t("completedLessons")}</h2>
-        {completedLessons.lessons.length > 0 ? (
-          <>
-            {/* Desktop table */}
-            <div className="hidden overflow-x-auto rounded-2xl border border-outline-variant md:block">
-              <table className="w-full">
-                <caption className="sr-only">{t("completedTableCaption")}</caption>
-                <thead>
-                  <tr className="bg-surface-container text-left text-label-md font-semibold text-on-surface-variant">
-                    <th scope="col" className="px-6 py-3">
-                      {t("lessonColumn")}
-                    </th>
-                    <th scope="col" className="px-6 py-3">
-                      {t("category")}
-                    </th>
-                    <th scope="col" className="px-6 py-3">
-                      {t("completedColumn")}
-                    </th>
-                    <th scope="col" className="px-6 py-3">
-                      {t("quizScoreColumn")}
-                    </th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-outline-variant bg-surface-container-lowest">
-                  {completedLessons.lessons.map((lesson) => (
-                    <tr key={lesson.lessonId}>
-                      <td className="px-6 py-4">
-                        <Link
-                          href={`/learn/${lesson.lessonId}`}
-                          className="text-label-md font-medium text-primary underline-offset-2 hover:underline"
-                        >
-                          {lesson.title}
-                        </Link>
-                      </td>
-                      <td className="px-6 py-4 text-label-md text-on-surface-variant">
-                        {lesson.category || lesson.categoryId}
-                      </td>
-                      <td className="px-6 py-4 text-label-md text-on-surface-variant">
-                        {formatRelativeDate(lesson.completedAt, locale)}
-                      </td>
-                      <td className="px-6 py-4 text-label-md text-on-surface-variant">
-                        {lesson.quizScore !== null ? `${lesson.quizScore}%` : "-"}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
             </div>
-            {/* Mobile card list */}
-            <div className="space-y-3 md:hidden">
-              {completedLessons.lessons.map((lesson) => (
-                <Card key={lesson.lessonId} padding="sm">
-                  <Link
-                    href={`/learn/${lesson.lessonId}`}
-                    className="text-label-md font-semibold text-primary underline-offset-2 hover:underline"
-                  >
-                    {lesson.title}
-                  </Link>
-                  <p className="mt-1 text-label-sm text-on-surface-variant">
-                    {lesson.category || lesson.categoryId} &middot; {formatRelativeDate(lesson.completedAt)}
-                    {lesson.quizScore !== null ? ` &middot; ${lesson.quizScore}%` : ""}
-                  </p>
-                </Card>
-              ))}
-            </div>
-            {/* Pagination */}
-            {completedLessons.totalPages > 1 ? (
-              <div className="mt-4 flex items-center justify-center gap-4">
-                {page > 1 ? (
-                  <Link href={`?page=${page - 1}`}>
-                    <Button variant="secondary" size="sm" icon={<ArrowLeft size={16} />}>
-                      {t("previous")}
-                    </Button>
-                  </Link>
-                ) : (
-                  <Button variant="secondary" size="sm" disabled icon={<ArrowLeft size={16} />}>
-                    {t("previous")}
-                  </Button>
-                )}
-                <span className="text-label-md text-on-surface-variant">
-                  {t("pageXofY", { page, total: completedLessons.totalPages })}
-                </span>
-                {page < completedLessons.totalPages ? (
-                  <Link href={`?page=${page + 1}`}>
-                    <Button variant="secondary" size="sm" icon={<ArrowRight size={16} />}>
-                      {t("next")}
-                    </Button>
-                  </Link>
-                ) : (
-                  <Button variant="secondary" size="sm" disabled icon={<ArrowRight size={16} />}>
-                    {t("next")}
-                  </Button>
-                )}
+          </div>
+        </Reveal>
+
+        <Reveal delay={0.06}>
+          <div className="surface-card-strong px-6 py-6 md:px-8 md:py-8">
+            <div className="eyebrow mb-3">{t("streakHistory")}</div>
+            <h2 className="font-display text-headline-lg text-primary">{t("last30Days")}</h2>
+            <p className="mt-3 text-body-md text-on-surface-variant">
+              {hasActivityToday ? t("activeLabel") : t("keepStreakAlive")}
+            </p>
+
+            <div className="mt-6 flex items-center gap-4 rounded-[1.5rem] bg-surface px-5 py-5 shadow-elevation-1">
+              <div className="flex h-14 w-14 items-center justify-center rounded-full bg-tertiary-container/55 text-tertiary">
+                <Flame size={26} aria-hidden="true" />
               </div>
-            ) : null}
-          </>
-        ) : (
-          <Card padding="sm">
-            <EmptyState
-              variant="learning"
-              title={t("noCompletedLessonsTitle")}
-              description={t("noCompletedLessons")}
-              action={{ label: t("startLearningCta"), href: "/learn", onClick: () => {} }}
-            />
-          </Card>
-        )}
-      </section>
+              <div>
+                <p className="text-label-md text-on-surface-variant">{t("currentStreak")}</p>
+                <p className="font-display text-headline-md text-primary">
+                  {t("daysValue", { count: summary.currentStreak })}
+                </p>
+                <p className="text-label-md text-on-surface-variant">
+                  {t("longestStreak", { count: summary.longestStreak })}
+                </p>
+              </div>
+            </div>
 
-      {/* Section 5: Streak History */}
-      <section>
-        <h2 className="mb-4 text-headline-md text-primary">{t("streakHistory")}</h2>
-        <div className="grid gap-4 md:grid-cols-[1fr_2fr]">
-          <div className="flex items-center gap-4 rounded-2xl border border-outline-variant bg-surface-container-lowest p-6 shadow-card">
-            <div className="rounded-full bg-tertiary-container/40 p-3 text-tertiary" aria-hidden="true">
-              <Flame size={28} />
-            </div>
-            <div>
-              <p className="text-label-sm text-on-surface-variant">{t("currentStreak")}</p>
-              <p className="text-headline-md text-primary">
-                {t("daysValue", { count: summary.currentStreak })}
-              </p>
-              <p className="text-label-sm text-on-surface-variant">
-                {t("longestStreak", { count: summary.longestStreak })}
-              </p>
-            </div>
-          </div>
-          <div className="rounded-2xl border border-outline-variant bg-surface-container-lowest p-6 shadow-card">
-            <p className="mb-3 text-label-md font-semibold text-on-surface">{t("last30Days")}</p>
-            <ul className="grid grid-cols-10 gap-1.5" aria-label={t("streakCalendarCaption")}>
+            <ul className="mt-6 grid grid-cols-10 gap-1.5" aria-label={t("streakCalendarCaption")}>
               {calendarDays.map((dateStr) => {
                 const isActive = activeSet.has(dateStr);
                 const isToday = dateStr === today;
                 return (
                   <li
                     key={dateStr}
-                    className={`aspect-square rounded-md ${
-                      isActive ? "bg-secondary" : "bg-surface-container"
-                    } ${isToday ? "ring-2 ring-primary" : ""}`}
+                    className={[
+                      "aspect-square rounded-md",
+                      isActive ? "bg-secondary shadow-elevation-1" : "bg-surface-container",
+                      isToday ? "ring-2 ring-primary ring-offset-2 ring-offset-transparent" : "",
+                    ].join(" ")}
                   >
                     <span className="sr-only">
                       {isActive
@@ -449,22 +345,156 @@ export default function ProgressClient({
                 );
               })}
             </ul>
-            <div className="mt-3 flex items-center gap-3 text-label-sm text-on-surface-variant">
-              <span className="flex items-center gap-1">
+
+            <div className="mt-4 flex flex-wrap gap-3 text-label-md text-on-surface-variant">
+              <span className="metric-pill">
                 <span className="inline-block h-3 w-3 rounded-sm bg-secondary" aria-hidden="true" />{" "}
                 {t("activeLabel")}
               </span>
-              <span className="flex items-center gap-1">
+              <span className="metric-pill">
                 <span className="inline-block h-3 w-3 rounded-sm bg-surface-container" aria-hidden="true" />{" "}
                 {t("inactiveLabel")}
               </span>
             </div>
+
             {!hasActivityToday ? (
-              <p className="mt-3 text-label-sm font-medium text-primary">{t("keepStreakAlive")}</p>
+              <p className="mt-4 text-label-md font-semibold text-primary">{t("keepStreakAlive")}</p>
             ) : null}
           </div>
-        </div>
+        </Reveal>
       </section>
+
+      {quizPerformance.length > 0 ? (
+        <Reveal delay={0.08}>
+          <section className="surface-card-glass px-6 py-6 md:px-8 md:py-8">
+            <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+              <div>
+                <div className="eyebrow mb-3">{t("quizPerformance")}</div>
+                <h2 className="font-display text-headline-lg text-primary">{t("quizPerformance")}</h2>
+              </div>
+              <span className="metric-pill bg-secondary-container/60 text-secondary">
+                {quizPerformance.length} {copy.trackedLabel}
+              </span>
+            </div>
+
+            <div className="mt-6 grid gap-4">
+              {quizPerformance.map((item) => (
+                <article key={item.categoryId} className="surface-card px-5 py-5 md:px-6 md:py-6">
+                  <div className="flex flex-col gap-5 xl:flex-row xl:items-center xl:justify-between">
+                    <div className="min-w-0 flex-1">
+                      <h3 className="font-display text-headline-md text-primary">{item.category}</h3>
+                      <div className="mt-4 flex flex-wrap gap-3">
+                        <span className="metric-pill">
+                          {t("attemptsLabel", { count: item.attemptsCount })}
+                        </span>
+                        <span className="metric-pill bg-secondary-container/60 text-secondary">
+                          {t("passRateLabel", { rate: item.passRate })}
+                        </span>
+                      </div>
+                    </div>
+                    <div className="w-full max-w-sm">
+                      <ProgressBar
+                        value={clampPercent(item.averageScore)}
+                        label={t("avgQuizScoreColumn")}
+                        showPercentage
+                      />
+                    </div>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </section>
+        </Reveal>
+      ) : null}
+
+      <Reveal delay={0.1}>
+        <section className="surface-card px-6 py-6 md:px-8 md:py-8">
+          <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+            <div>
+              <div className="eyebrow mb-3">{t("completedLessons")}</div>
+              <h2 className="font-display text-headline-lg text-primary">{t("completedLessons")}</h2>
+            </div>
+            <span className="metric-pill">{t("pageXofY", { page, total: completedLessons.totalPages })}</span>
+          </div>
+
+          {completedLessons.lessons.length > 0 ? (
+            <>
+              <div className="mt-6 grid gap-4 xl:grid-cols-2">
+                {completedLessons.lessons.map((lesson, index) => (
+                  <Reveal key={lesson.lessonId} delay={Math.min(index * 0.03, 0.16)}>
+                    <article className="surface-card-glass px-5 py-5 md:px-6 md:py-6">
+                      <div className="flex flex-wrap items-start justify-between gap-3">
+                        <div className="min-w-0 flex-1">
+                          <Link
+                            href={`/learn/${lesson.lessonId}`}
+                            className="font-display text-headline-md text-primary underline-offset-4 hover:underline"
+                          >
+                            {lesson.title}
+                          </Link>
+                          <p className="mt-2 text-label-md text-on-surface-variant">
+                            {lesson.category || lesson.categoryId}
+                          </p>
+                        </div>
+                        {lesson.quizScore !== null ? (
+                          <span className="chip-active">{lesson.quizScore}%</span>
+                        ) : (
+                          <span className="chip">{t("quizScoreColumn")}: -</span>
+                        )}
+                      </div>
+
+                      <div className="mt-4 flex flex-wrap gap-3 text-label-md text-on-surface-variant">
+                        <span className="metric-pill">
+                          {t("completedColumn")}: {formatRelativeDate(lesson.completedAt, locale)}
+                        </span>
+                      </div>
+                    </article>
+                  </Reveal>
+                ))}
+              </div>
+
+              {completedLessons.totalPages > 1 ? (
+                <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
+                  {page > 1 ? (
+                    <Link href={`?page=${page - 1}`}>
+                      <Button variant="secondary" size="sm" icon={<ArrowLeft size={16} />}>
+                        {t("previous")}
+                      </Button>
+                    </Link>
+                  ) : (
+                    <Button variant="secondary" size="sm" disabled icon={<ArrowLeft size={16} />}>
+                      {t("previous")}
+                    </Button>
+                  )}
+
+                  <span className="text-label-md text-on-surface-variant">
+                    {t("pageXofY", { page, total: completedLessons.totalPages })}
+                  </span>
+
+                  {page < completedLessons.totalPages ? (
+                    <Link href={`?page=${page + 1}`}>
+                      <Button variant="secondary" size="sm" icon={<ArrowRight size={16} />}>
+                        {t("next")}
+                      </Button>
+                    </Link>
+                  ) : (
+                    <Button variant="secondary" size="sm" disabled icon={<ArrowRight size={16} />}>
+                      {t("next")}
+                    </Button>
+                  )}
+                </div>
+              ) : null}
+            </>
+          ) : (
+            <EmptyState
+              variant="learning"
+              title={t("completedLessons")}
+              description={t("noCompletedLessons")}
+              action={{ label: t("startLearningCta"), href: "/learn", onClick: () => {} }}
+              className="mt-6"
+            />
+          )}
+        </section>
+      </Reveal>
     </div>
   );
 }

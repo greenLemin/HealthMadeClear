@@ -45,6 +45,7 @@ export default async function GlossaryTermPage({ params }: Props) {
   return (
     <>
       <JsonLd
+        id={`jsonld-glossary-term-${locale}-${term.id}`}
         data={{
           "@context": "https://schema.org",
           "@type": "DefinedTerm",

@@ -3,6 +3,7 @@
 import dynamic from "next/dynamic";
 import { Link, usePathname } from "@/i18n/navigation";
 import { useRef, useState } from "react";
+import { AnimatePresence, motion } from "motion/react";
 import {
   BookOpen,
   Home,
@@ -25,6 +26,7 @@ import { useDismissibleOverlay } from "@/hooks/useDismissibleOverlay";
 import { useFocusTrap } from "@/hooks/useFocusTrap";
 import { useAuth } from "@/hooks/useAuth";
 import { useTranslations } from "next-intl";
+import { revealEase } from "@/components/ui/Reveal";
 
 const NotificationCenter = dynamic(() => import("@/components/ui/NotificationCenter"), { ssr: false });
 
@@ -72,111 +74,37 @@ export default function Header() {
   const displayName = user?.user_metadata?.display_name || user?.email?.split("@")[0] || "";
 
   return (
-    <header className="no-print sticky top-0 z-50 border-b border-outline-variant bg-surface/90 shadow-elevation-2 backdrop-blur-xl">
+    <header className="no-print sticky top-0 z-50 px-3 pt-3 md:px-4">
       <a
         href="#main-content"
         onClick={handleSkip}
-        className="fixed -top-24 left-4 z-[100] rounded-lg bg-primary px-6 py-3 text-on-primary shadow-elevation-3 transition-all duration-200 focus:top-4 focus:outline-none focus:ring-2 focus:ring-on-primary focus:ring-offset-2 motion-reduce:transition-none"
+        className="fixed -top-24 left-4 z-[100] rounded-full bg-primary px-6 py-3 text-on-primary shadow-elevation-3 transition-all duration-200 focus:top-4 focus:outline-none focus:ring-2 focus:ring-on-primary focus:ring-offset-2 motion-reduce:transition-none"
       >
         {t("skipToContent")}
       </a>
-      <div className="max-w-container mx-auto px-4 md:px-6">
-        <div className="flex min-h-16 items-center justify-between gap-4 py-3">
-          <Link href="/" className="flex items-center gap-3" onClick={() => setIsOpen(false)}>
-            <div className="logo-mark flex h-11 w-11 items-center justify-center rounded-2xl text-label-lg font-bold text-on-primary shadow-sm">
-              H
-            </div>
-            <div className="hidden sm:block xl:hidden 2xl:block">
-              <span className="block text-label-lg text-primary">Health Made Clear</span>
-              <span className="text-label-md uppercase tracking-[0.08em] text-on-surface-variant">
-                {t("taglineShort")}
-              </span>
-            </div>
-          </Link>
+      <div className="mx-auto max-w-container">
+        <div className="surface-card-glass relative overflow-hidden px-4 md:px-6">
+          <div className="absolute inset-x-8 top-0 h-px bg-gradient-to-r from-transparent via-primary/35 to-transparent" />
 
-          <nav className="hidden items-center gap-0.5 xl:flex" aria-label={t("mainNavigation")}>
-            {navItems.map((item) => (
-              <NavLink
-                key={item.href}
-                href={item.href}
-                label={item.label}
-                icon={item.icon}
-                active={
-                  item.href === "/"
-                    ? pathname === "/"
-                    : pathname === item.href || pathname.startsWith(`${item.href}/`)
-                }
-              />
-            ))}
-          </nav>
-
-          <div className="hidden items-center gap-1.5 xl:gap-2 2xl:gap-3 md:flex">
-            {loading ? (
-              <Skeleton variant="button" width="100px" />
-            ) : user ? (
-              <div className="flex items-center gap-2">
-                <NotificationCenter />
-                <Link
-                  href="/dashboard"
-                  className="flex items-center gap-2 rounded-lg bg-surface-container px-3 py-2 text-label-md text-primary transition-colors hover:bg-surface-container-high focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
-                >
-                  <User size={16} />
-                  <span className="max-w-[120px] truncate">{displayName}</span>
-                </Link>
-                <button
-                  type="button"
-                  onClick={handleSignOut}
-                  className="flex min-h-11 min-w-11 items-center justify-center rounded-lg text-on-surface-variant transition-colors hover:bg-surface-container hover:text-on-surface focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
-                  aria-label={authT("signOutAria")}
-                >
-                  <LogOut size={18} />
-                </button>
+          <div className="flex min-h-[76px] items-center justify-between gap-4 py-3">
+            <Link href="/" className="flex items-center gap-3" onClick={() => setIsOpen(false)}>
+              <div className="logo-mark flex h-12 w-12 items-center justify-center rounded-[1.25rem] text-label-lg font-bold text-on-primary shadow-elevation-1">
+                H
               </div>
-            ) : (
-              <div className="flex items-center gap-2">
-                <Link
-                  href="/auth/login"
-                  className="min-h-11 rounded-lg border-2 border-primary px-6 py-2 text-label-md font-semibold text-primary transition-colors hover:bg-surface-container-low focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
-                >
-                  {authT("loginButton")}
-                </Link>
-                <Link
-                  href="/auth/signup"
-                  className="min-h-11 rounded-lg bg-primary px-6 py-2 text-label-md font-semibold text-on-primary transition-colors hover:bg-primary-container focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
-                >
-                  {authT("signupButton")}
-                </Link>
+              <div className="min-w-0">
+                <span className="block truncate font-display text-[1.45rem] leading-none text-primary">
+                  Health Made Clear
+                </span>
+                <span className="mt-1 hidden text-label-sm uppercase tracking-[0.14em] text-on-surface-variant sm:block">
+                  {t("taglineShort")}
+                </span>
               </div>
-            )}
-            <SearchDialog />
-            <LanguageToggle />
-            <ThemeToggle />
-            <AccessibilityControls />
-          </div>
+            </Link>
 
-          <button
-            ref={toggleButtonRef}
-            type="button"
-            className="flex min-h-11 min-w-11 items-center justify-center rounded-lg border border-outline-variant p-2.5 text-primary xl:hidden"
-            onClick={() => setIsOpen((current) => !current)}
-            aria-expanded={isOpen}
-            aria-controls="mobile-menu"
-            aria-label={t("toggleNavigation")}
-          >
-            {isOpen ? <X size={20} /> : <Menu size={20} />}
-          </button>
-        </div>
-
-        {isOpen ? (
-          <div
-            id="mobile-menu"
-            ref={mobileMenuRef}
-            role="dialog"
-            aria-modal="true"
-            aria-label={t("mobileNavigation")}
-            className="border-t border-outline-variant py-4 xl:hidden"
-          >
-            <nav className="mb-4 grid gap-2" aria-label={t("mobileNavigation")}>
+            <nav
+              className="hidden items-center gap-1 rounded-full bg-surface-container-low/80 p-1.5 shadow-elevation-1 xl:flex"
+              aria-label={t("mainNavigation")}
+            >
               {navItems.map((item) => (
                 <NavLink
                   key={item.href}
@@ -188,56 +116,155 @@ export default function Header() {
                       ? pathname === "/"
                       : pathname === item.href || pathname.startsWith(`${item.href}/`)
                   }
-                  onClick={() => setIsOpen(false)}
                 />
               ))}
-              <hr className="my-2 border-outline-variant" />
+            </nav>
+
+            <div className="hidden items-center gap-3 md:flex">
               {loading ? (
-                <div className="px-4 py-2">
-                  <Skeleton variant="button" />
-                </div>
+                <Skeleton variant="button" width="110px" />
               ) : user ? (
-                <div className="space-y-2 px-4 py-2">
-                  <div className="flex items-center gap-2 text-label-md text-primary">
+                <div className="flex items-center gap-2">
+                  <NotificationCenter />
+                  <Link
+                    href="/dashboard"
+                    className="flex items-center gap-2 rounded-full bg-surface-container-lowest/85 px-4 py-2.5 text-label-md text-primary shadow-elevation-1 transition-all duration-300 ease-premium hover:-translate-y-0.5 hover:shadow-elevation-2"
+                  >
                     <User size={16} />
-                    <span className="truncate">{displayName}</span>
-                  </div>
+                    <span className="max-w-[120px] truncate">{displayName}</span>
+                  </Link>
                   <button
                     type="button"
                     onClick={handleSignOut}
-                    className="flex w-full items-center gap-2 rounded-lg px-4 py-2 text-body-md font-medium text-on-surface-variant transition-colors hover:bg-surface-container hover:text-on-surface"
+                    className="flex min-h-11 min-w-11 items-center justify-center rounded-full text-on-surface-variant transition-all duration-300 ease-premium hover:-translate-y-0.5 hover:bg-surface hover:text-on-surface"
+                    aria-label={authT("signOutAria")}
                   >
                     <LogOut size={18} />
-                    {authT("signOut")}
                   </button>
                 </div>
               ) : (
-                <div className="space-y-2 px-4 py-2">
-                  <Link
-                    href="/auth/login"
-                    onClick={() => setIsOpen(false)}
-                    className="flex min-h-12 w-full items-center justify-center rounded-lg border-2 border-primary text-label-md font-semibold text-primary"
-                  >
+                <div className="flex items-center gap-2">
+                  <Link href="/auth/login" className="btn-secondary min-h-11 px-4 text-label-md">
                     {authT("loginButton")}
                   </Link>
-                  <Link
-                    href="/auth/signup"
-                    onClick={() => setIsOpen(false)}
-                    className="flex min-h-12 w-full items-center justify-center rounded-lg bg-primary text-label-md font-semibold text-on-primary"
-                  >
+                  <Link href="/auth/signup" className="btn-primary min-h-11 px-4 text-label-md">
                     {authT("signupButton")}
                   </Link>
                 </div>
               )}
-            </nav>
-            <div className="space-y-3 md:hidden">
-              <SearchDialog />
-              <LanguageToggle />
-              <ThemeToggle />
-              <AccessibilityControls />
+
+              <div className="flex items-center gap-2 rounded-full bg-surface-container-low/80 p-1.5 shadow-elevation-1">
+                <SearchDialog />
+                <LanguageToggle />
+                <ThemeToggle />
+                <AccessibilityControls />
+              </div>
             </div>
+
+            <button
+              ref={toggleButtonRef}
+              type="button"
+              className="flex min-h-11 min-w-11 items-center justify-center rounded-full border border-outline-variant bg-surface-container-lowest/90 p-2.5 text-primary shadow-elevation-1 xl:hidden"
+              onClick={() => setIsOpen((current) => !current)}
+              aria-expanded={isOpen}
+              aria-controls="mobile-menu"
+              aria-label={t("toggleNavigation")}
+            >
+              {isOpen ? <X size={20} /> : <Menu size={20} />}
+            </button>
           </div>
-        ) : null}
+
+          <AnimatePresence initial={false}>
+            {isOpen ? (
+              <motion.div
+                id="mobile-menu"
+                ref={mobileMenuRef}
+                role="dialog"
+                aria-modal="true"
+                aria-label={t("mobileNavigation")}
+                initial={{ opacity: 0, y: -12 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -8 }}
+                transition={{ duration: 0.24, ease: revealEase }}
+                className="border-t border-outline-variant pb-4 pt-3 xl:hidden"
+              >
+                <nav className="grid gap-2" aria-label={t("mobileNavigation")}>
+                  {navItems.map((item) => (
+                    <NavLink
+                      key={item.href}
+                      href={item.href}
+                      label={item.label}
+                      icon={item.icon}
+                      active={
+                        item.href === "/"
+                          ? pathname === "/"
+                          : pathname === item.href || pathname.startsWith(`${item.href}/`)
+                      }
+                      mobile
+                      onClick={() => setIsOpen(false)}
+                    />
+                  ))}
+                </nav>
+
+                <div className="mt-4 rounded-[1.5rem] bg-surface-container-low/70 p-4 shadow-elevation-1 md:hidden">
+                  <div className="space-y-3">
+                    <SearchDialog />
+                    <div className="flex items-center gap-2">
+                      <LanguageToggle />
+                      <ThemeToggle />
+                      <AccessibilityControls />
+                    </div>
+                  </div>
+                </div>
+
+                <div className="mt-4 border-t border-outline-variant/70 pt-4">
+                  {loading ? (
+                    <Skeleton variant="button" />
+                  ) : user ? (
+                    <div className="space-y-3">
+                      <div className="surface-card-muted flex items-center gap-3 px-4 py-4">
+                        <div className="flex h-11 w-11 items-center justify-center rounded-full bg-primary text-on-primary shadow-elevation-1">
+                          <User size={18} />
+                        </div>
+                        <div className="min-w-0">
+                          <p className="truncate text-label-md font-semibold text-on-surface">
+                            {displayName}
+                          </p>
+                          <p className="text-label-sm text-on-surface-variant">{t("dashboard")}</p>
+                        </div>
+                      </div>
+                      <button
+                        type="button"
+                        onClick={handleSignOut}
+                        className="flex w-full items-center justify-center gap-2 rounded-full border border-outline-variant bg-surface-container-lowest px-4 py-3 text-label-md font-semibold text-on-surface transition-all duration-300 ease-premium hover:bg-surface"
+                      >
+                        <LogOut size={18} />
+                        {authT("signOut")}
+                      </button>
+                    </div>
+                  ) : (
+                    <div className="flex flex-col gap-3">
+                      <Link
+                        href="/auth/login"
+                        onClick={() => setIsOpen(false)}
+                        className="btn-secondary w-full"
+                      >
+                        {authT("loginButton")}
+                      </Link>
+                      <Link
+                        href="/auth/signup"
+                        onClick={() => setIsOpen(false)}
+                        className="btn-primary w-full"
+                      >
+                        {authT("signupButton")}
+                      </Link>
+                    </div>
+                  )}
+                </div>
+              </motion.div>
+            ) : null}
+          </AnimatePresence>
+        </div>
       </div>
     </header>
   );
@@ -249,12 +276,14 @@ function NavLink({
   label,
   active,
   onClick,
+  mobile = false,
 }: {
   href: string;
   icon: React.ReactNode;
   label: string;
   active: boolean;
   onClick?: () => void;
+  mobile?: boolean;
 }) {
   return (
     <Link
@@ -262,12 +291,16 @@ function NavLink({
       onClick={onClick}
       aria-current={active ? "page" : undefined}
       className={
-        active
-          ? "flex items-center gap-1.5 rounded-xl bg-primary/10 px-3.5 py-2 text-body-md font-semibold text-primary border border-primary/15 xl:px-2.5 xl:gap-1 2xl:px-4 2xl:gap-2 shadow-[inset_0_1px_1px_rgba(255,255,255,0.4)]"
-          : "flex items-center gap-1.5 rounded-xl px-3.5 py-2 text-body-md font-medium text-on-surface-variant transition-all duration-200 hover:bg-surface-container hover:text-primary border border-transparent xl:px-2.5 xl:gap-1 2xl:px-4 2xl:gap-2"
+        mobile
+          ? active
+            ? "flex items-center gap-3 rounded-[1.25rem] bg-primary px-4 py-3 text-label-md font-semibold text-on-primary shadow-elevation-1"
+            : "flex items-center gap-3 rounded-[1.25rem] bg-surface-container-lowest/75 px-4 py-3 text-label-md font-medium text-on-surface-variant transition-all duration-300 ease-premium hover:bg-surface hover:text-primary"
+          : active
+            ? "flex items-center gap-2 rounded-full bg-primary px-4 py-3 text-label-md font-semibold text-on-primary shadow-elevation-1"
+            : "flex items-center gap-2 rounded-full px-4 py-3 text-label-md font-medium text-on-surface-variant transition-all duration-300 ease-premium hover:bg-surface hover:text-primary"
       }
     >
-      <span className="xl:hidden 2xl:inline-block">{icon}</span>
+      <span>{icon}</span>
       {label}
     </Link>
   );

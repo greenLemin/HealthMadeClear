@@ -3,6 +3,7 @@
 import { Link } from "@/i18n/navigation";
 import { ArrowRight, BookOpen, GraduationCap, Search, Wrench } from "lucide-react";
 import { useTranslations } from "next-intl";
+import Reveal from "@/components/ui/Reveal";
 
 export default function SectionNav() {
   const t = useTranslations("sectionNav");
@@ -39,37 +40,38 @@ export default function SectionNav() {
   ];
 
   return (
-    <section className="py-16 md:py-20">
-      <div className="max-w-container mx-auto px-4 md:px-6">
-        <div className="mb-12 text-center">
-          <div className="mb-3 inline-flex rounded-full bg-surface-container px-4 py-2 text-label-md font-semibold text-on-surface-variant">
-            {t("exploreByGoal")}
-          </div>
-          <h2 className="text-headline-lg text-primary">{t("findRightResource")}</h2>
+    <section className="px-4 py-12 md:px-6 md:py-16">
+      <div className="mx-auto max-w-container">
+        <div className="mb-8 text-center">
+          <div className="eyebrow mb-4">{t("exploreByGoal")}</div>
+          <h2 className="font-display text-headline-lg text-primary">{t("findRightResource")}</h2>
         </div>
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-          {sections.map((section) => (
-            <Link
-              key={section.href}
-              href={section.href}
-              className="group hover-lift rounded-2xl border border-outline-variant bg-surface p-6 shadow-card hover:shadow-card-hover"
-            >
-              <div className="flex items-start gap-4">
-                <div className="p-4">{section.icon}</div>
-                <div className="flex-1">
-                  <h3 className="mb-2 text-headline-md text-primary">{section.title}</h3>
-                  <p className="mb-4 text-body-md text-on-surface-variant">{section.description}</p>
-                  <div className="inline-flex items-center gap-2 text-label-md font-semibold text-primary">
-                    {t("explore")}
-                    <ArrowRight
-                      size={16}
-                      className="transition-transform group-hover:translate-x-1 motion-reduce:transition-none"
-                      aria-hidden="true"
-                    />
+          {sections.map((section, index) => (
+            <Reveal key={section.href} delay={index * 0.05}>
+              <Link
+                href={section.href}
+                className="surface-card group block px-6 py-6 transition-all duration-300 ease-premium hover:-translate-y-1 hover:shadow-card-hover md:px-7 md:py-7"
+              >
+                <div className="flex items-start gap-4">
+                  <div className={`inline-flex rounded-[1.25rem] p-4 shadow-elevation-1 ${section.color}`}>
+                    {section.icon}
+                  </div>
+                  <div className="flex-1">
+                    <h3 className="font-display text-headline-md text-primary">{section.title}</h3>
+                    <p className="mt-2 text-body-md text-on-surface-variant">{section.description}</p>
+                    <div className="mt-5 inline-flex items-center gap-2 rounded-full bg-surface-container-low px-4 py-2 text-label-md font-semibold text-primary shadow-elevation-1">
+                      {t("explore")}
+                      <ArrowRight
+                        size={16}
+                        className="transition-transform group-hover:translate-x-1 motion-reduce:transition-none"
+                        aria-hidden="true"
+                      />
+                    </div>
                   </div>
                 </div>
-              </div>
-            </Link>
+              </Link>
+            </Reveal>
           ))}
         </div>
       </div>

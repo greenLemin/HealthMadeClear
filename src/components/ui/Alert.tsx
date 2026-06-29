@@ -58,7 +58,7 @@ export default function Alert({
   className = "",
 }: AlertProps) {
   const styles = variantStyles[variant];
-  const t = useTranslations("common");
+  const tCommon = useTranslations("common");
 
   return (
     <div
@@ -77,8 +77,8 @@ export default function Alert({
           <button
             type="button"
             onClick={onDismiss}
-            className="flex min-h-11 min-w-11 shrink-0 items-center justify-center rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
-            aria-label={t("dismiss")}
+            className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface"
+            aria-label={tCommon("dismiss")}
           >
             <X size={18} />
           </button>

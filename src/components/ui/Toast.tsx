@@ -33,9 +33,9 @@ const AUTO_DISMISS_MS = 8000;
 
 export default function ToastItem({ toast, onDismiss }: ToastProps) {
   const [visible, setVisible] = useState(false);
-  const t = useTranslations("common");
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const isError = toast.variant === "error";
+  const tCommon = useTranslations("common");
 
   useEffect(() => {
     const show = requestAnimationFrame(() => setVisible(true));
@@ -83,7 +83,7 @@ export default function ToastItem({ toast, onDismiss }: ToastProps) {
         type="button"
         onClick={() => onDismiss(toast.id)}
         className="flex min-h-11 min-w-11 shrink-0 items-center justify-center rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
-        aria-label={t("dismissNotification")}
+        aria-label={tCommon("dismiss")}
       >
         <X size={16} aria-hidden="true" />
       </button>

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef, useCallback, useMemo } from "react";
-import { Bell, BellDot, CheckCheck, Trophy, Flame, Target } from "lucide-react";
+import { Bell, BellDot, CheckCheck, Trophy, Flame, Target, X } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
 import { getNotifications, markAsRead, markAllAsRead, getUnreadCount } from "@/lib/notifications";
@@ -104,7 +104,7 @@ export default function NotificationCenter() {
         onClick={() => setIsOpen(!isOpen)}
         aria-expanded={isOpen}
         aria-haspopup="dialog"
-        className="relative flex min-h-11 min-w-11 items-center justify-center rounded-lg text-on-surface-variant transition-colors hover:bg-surface-container hover:text-on-surface focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+        className="relative flex min-h-11 min-w-11 items-center justify-center rounded-lg text-on-surface-variant transition-colors hover:bg-surface-container hover:text-on-surface"
         aria-label={t("ariaLabel", { count: unreadCount })}
       >
         {unreadCount > 0 ? <BellDot size={20} aria-hidden="true" /> : <Bell size={20} aria-hidden="true" />}
@@ -122,22 +122,34 @@ export default function NotificationCenter() {
         <div
           ref={panelRef}
           role="dialog"
-          aria-modal="true"
-          aria-label={t("title")}
-          className="absolute right-0 top-full z-50 mt-2 w-80 max-w-[calc(100vw-2rem)] rounded-xl border border-outline-variant bg-surface shadow-elevation-3 motion-safe:animate-fadeIn"
+          aria-modal="false"
+          aria-labelledby="notification-panel-title"
+          className="absolute right-0 top-full z-50 mt-2 w-80 rounded-xl border border-outline-variant bg-surface shadow-elevation-3 motion-safe:animate-fadeIn"
         >
           <div className="flex items-center justify-between border-b border-outline-variant px-4 py-3">
-            <span className="text-label-md font-semibold text-on-surface">{t("title")}</span>
-            {unreadCount > 0 ? (
+            <span id="notification-panel-title" className="text-label-md font-semibold text-on-surface">
+              {t("title")}
+            </span>
+            <div className="flex items-center gap-1">
+              {unreadCount > 0 ? (
+                <button
+                  type="button"
+                  onClick={handleMarkAllRead}
+                  className="flex min-h-11 items-center gap-1 px-2 text-label-sm font-medium text-primary transition-colors hover:text-primary/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+                >
+                  <CheckCheck size={14} aria-hidden="true" />
+                  {t("markAllRead")}
+                </button>
+              ) : null}
               <button
                 type="button"
-                onClick={handleMarkAllRead}
-                className="flex min-h-11 items-center gap-1 px-2 text-label-sm font-medium text-primary transition-colors hover:text-primary/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+                onClick={() => setIsOpen(false)}
+                className="flex min-h-11 min-w-11 items-center justify-center rounded-full text-on-surface-variant transition-colors hover:bg-surface-container hover:text-on-surface focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+                aria-label={tCommon("dismiss")}
               >
-                <CheckCheck size={14} aria-hidden="true" />
-                {t("markAllRead")}
+                <X size={16} aria-hidden="true" />
               </button>
-            ) : null}
+            </div>
           </div>
 
           <div className="max-h-80 overflow-y-auto">

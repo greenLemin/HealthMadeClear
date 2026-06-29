@@ -1,58 +1,66 @@
-# Deployment checklist
+# HealthMadeClear — Production Deployment Guide
 
-## Netlify environment variables
+This document details the configuration, build, and verification steps for deploying HealthMadeClear (HMC) to the production environments (Netlify and Supabase).
 
-Set these in **Netlify → Site configuration → Environment variables**. See [`.env.example`](../.env.example) for local development.
+---
 
-### Required (production and CI builds)
+## 1. Prerequisites & Environment Setup
 
-| Variable                        | Description                               | Where to get it                                           |
-| ------------------------------- | ----------------------------------------- | --------------------------------------------------------- |
-| `NEXT_PUBLIC_SUPABASE_URL`      | Supabase project API URL                  | Supabase Dashboard → Project Settings → API → Project URL |
-| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Publishable / anon key (safe for browser) | Supabase Dashboard → API → `anon` / publishable key       |
+HMC runs as a localized Next.js application. All configurations must be mapped before triggering the production build.
 
-Apply to **Production** at minimum. Also set for **Deploy Previews** and **Branch deploys** if auth, dashboard, or contact form should work there.
+### Netlify Environment Variables
 
-**Legacy naming:** If you previously set `SUPABASE_URL` or `SUPABASE_ANON_KEY` (without the `NEXT_PUBLIC_` prefix), the build copies them to the corresponding `NEXT_PUBLIC_*` vars automatically. You must still provide a project URL — it cannot be derived from `SUPABASE_DATABASE_URL`.
+Configure these variables in the Netlify site settings dashboard (**Site configuration > Environment variables**):
 
-**Do not** commit real keys in `netlify.toml` or the repo. Use the Netlify dashboard only.
+| Variable Name                   | Description                                             | Example / Required              |
+| ------------------------------- | ------------------------------------------------------- | ------------------------------- |
+| `NEXT_PUBLIC_SITE_URL`          | Canonical site URL (used for sitemap and metadata)      | `https://healthmadeclear.com`   |
+| `NEXT_PUBLIC_SUPABASE_URL`      | Production Supabase database endpoint                   | `https://your-proj.supabase.co` |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Production Supabase anonymous API key                   | `eyJhbGciOiJIUzI1NiIsIn...`     |
+| `NEXT_PUBLIC_SENTRY_DSN`        | (Optional) Sentry project DSN for client error tracking | `https://sentry.io/12345`       |
+| `NEXT_PUBLIC_GA_MEASUREMENT_ID` | (Optional) Google Analytics 4 Measurement ID            | `G-XXXXXXXXXX`                  |
+| `NODE_VERSION`                  | Locked Node.js version                                  | `22`                            |
+| `NPM_VERSION`                   | Locked npm package manager version                      | `10`                            |
 
-### Auto-set on Netlify
+---
 
-| Variable               | Source                                                                               |
-| ---------------------- | ------------------------------------------------------------------------------------ |
-| `NEXT_PUBLIC_SITE_URL` | Derived at build time from Netlify's `URL` or `DEPLOY_PRIME_URL` when `NETLIFY=true` |
+## 2. Supabase Production Migration
 
-### Optional
+All database tables, Row Level Security (RLS) policies, and database triggers must be pushed to the production database.
 
-| Variable                    | Description                                      |
-| --------------------------- | ------------------------------------------------ |
-| `NEXT_PUBLIC_SENTRY_DSN`    | Client error reporting                           |
-| `SUPABASE_SERVICE_ROLE_KEY` | Server-only operations (never expose to browser) |
-| `RESEND_API_KEY`            | Contact form email delivery                      |
-| `CONTACT_EMAIL`             | Inbox for contact form submissions               |
+### Workflow:
 
-### After adding or changing env vars
+1. Ensure the Supabase CLI is authenticated and linked:
+   ```bash
+   supabase login
+   supabase link --project-ref <your-production-project-ref>
+   ```
+2. Verify migrations status:
+   ```bash
+   supabase migration list --linked
+   ```
+3. Apply all local migrations to the remote database:
+   ```bash
+   supabase db push
+   ```
 
-1. **Site configuration → Build & deploy → Deploys → Trigger deploy → Clear cache and deploy site**
-2. Confirm the build log passes `check-production-env.mjs` and `next build`
+---
 
-## Build and verify
+## 3. Production Build & Deployment Pipeline
 
-1. Build: `npm run build`
-2. Verify security headers (CSP, `X-Frame-Options`, etc.) on staging.
-3. Confirm `public/og-image.svg` and `public/manifest.json` are served.
-4. Run smoke tests: `npm run test:e2e`
+Netlify automates builds when pushing to the `main` branch. The build pipeline executes the following sequence:
 
-## Post-deploy smoke checks
+1. **Pre-build check**: `check-production-env.mjs` verifies the presence of required Supabase environment variables. If missing, the build terminates to prevent a broken auth state.
+2. **Content Bundler** (`prebuild`): `npm run content:bundle` parses all MDX content, validates metadata, and builds static search indexes.
+3. **Next.js build**: Compiles TypeScript, runs static site generation (SSG) for all localized paths (`/en`, `/es`, `/en/learn`, etc.).
 
-| Area      | Check                                                                 |
-| --------- | --------------------------------------------------------------------- |
-| Auth      | Sign up / login / logout on production URL                            |
-| Dashboard | `/en/dashboard` redirects unauthenticated users; loads when logged in |
-| Contact   | Contact form submits (or returns 503 if Supabase vars missing)        |
-| CSP       | Browser console: no `connect-src` blocks to `*.supabase.co`           |
+---
 
-## Supabase database
+## 4. Post-Deployment Verification (Go/No-Go)
 
-If not already applied to the production project, run migrations in `supabase/migrations/` (including `009`–`011`) via `supabase db push`.
+After the build completes, conduct these checks on the live deployment:
+
+1. **API Rate Limiting**: Submit a contact form rapidly 6 times from a single device. The 6th request must return an HTTP 429 status code.
+2. **Locale Routing**: Toggle Spanish (`/es`) and trigger the "Forgot Password" flow. Confirm the email reset link directs back to `/es/auth/reset-password`.
+3. **Accessibility**: Tab navigation must highlight all active interactive headers and controls cleanly.
+4. **Analytics**: Navigating between learning pages must fire GA network hits.

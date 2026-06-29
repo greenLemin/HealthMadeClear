@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useMemo } from "react";
 import { useTranslations } from "next-intl";
 import { createClient } from "@/lib/supabase/client";
 import Button from "@/components/ui/Button";
@@ -23,7 +23,7 @@ function getPasswordStrength(password: string): {
 
 export default function SignupForm() {
   const t = useTranslations("auth");
-  const supabase = createClient();
+  const supabase = useMemo(() => createClient(), []);
 
   const [displayName, setDisplayName] = useState("");
   const [email, setEmail] = useState("");
@@ -42,6 +42,23 @@ export default function SignupForm() {
   useEffect(() => {
     if (submitted) successHeadingRef.current?.focus();
   }, [submitted]);
+
+  function handleDisplayNameChange(value: string) {
+    setDisplayName(value);
+    setError("");
+  }
+
+  function handleEmailChange(value: string) {
+    setEmail(value);
+    setError("");
+    setFieldErrors((prev) => ({ ...prev, email: undefined }));
+  }
+
+  function handlePasswordChange(value: string) {
+    setPassword(value);
+    setError("");
+    setFieldErrors((prev) => ({ ...prev, password: undefined }));
+  }
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -111,7 +128,7 @@ export default function SignupForm() {
           label={t("displayNameLabel")}
           type="text"
           value={displayName}
-          onChange={(e) => setDisplayName(e.target.value)}
+          onChange={(e) => handleDisplayNameChange(e.target.value)}
           icon={<User size={18} />}
           autoComplete="name"
         />
@@ -120,7 +137,7 @@ export default function SignupForm() {
           label={t("emailLabel")}
           type="email"
           value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          onChange={(e) => handleEmailChange(e.target.value)}
           icon={<Mail size={18} />}
           required
           autoComplete="email"
@@ -132,7 +149,7 @@ export default function SignupForm() {
             label={t("passwordLabel")}
             type="password"
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={(e) => handlePasswordChange(e.target.value)}
             icon={<Lock size={18} />}
             required
             autoComplete="new-password"

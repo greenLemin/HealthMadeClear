@@ -34,7 +34,8 @@
     "test:coverage": "vitest run --coverage",
     "analyze": "ANALYZE=true next build",
     "prebuild": "npm run content:bundle",
-    "prepare": "husky"
+    "prepare": "husky",
+    "postinstall": "node scripts/patch-yaml-compatibility.js"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx,mjs,cjs,json,yml,yaml,md,css,mdx}": "prettier --write"
@@ -46,6 +47,7 @@
     "gray-matter": "^4.0.3",
     "lucide-react": "^1.21.0",
     "markdown-it": "^14.2.0",
+    "motion": "^12.42.0",
     "next": "16.2.9",
     "next-intl": "^4.13.0",
     "react": "^18.3.1",
@@ -82,6 +84,7 @@
   },
   "overrides": {
     "next": "16.2.9",
-    "postcss": "^8.5.10"
+    "postcss": "^8.5.10",
+    "js-yaml": "^4.2.0"
   }
 }

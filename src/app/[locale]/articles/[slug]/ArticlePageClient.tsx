@@ -1,13 +1,15 @@
 "use client";
 
 import { useCallback } from "react";
-import { ArrowLeft, Link2, Share2 } from "lucide-react";
+import { ArrowLeft, Clock, Link2, Share2 } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import MedicalDisclaimer from "@/components/MedicalDisclaimer";
+import PageHeader from "@/components/PageHeader";
 import MarkdownRenderer from "@/components/mdx/MarkdownRenderer";
 import Callout from "@/components/Callout";
 import { useAppState } from "@/components/AppProviders";
 import { useToast } from "@/components/ui/ToastProvider";
+import Reveal from "@/components/ui/Reveal";
 import { getGlossaryTerms } from "@/lib/localizedContent";
 import { useTranslations } from "next-intl";
 import type { Article } from "@/types/article";
@@ -41,87 +43,107 @@ export default function ArticlePageClient({ article }: { article: Article }) {
   }, [article.title, url]);
 
   return (
-    <div className="py-12 md:py-16">
+    <div className="py-10 md:py-14">
       <div className="max-w-container mx-auto px-4 md:px-6">
-        <nav className="no-print mb-6" aria-label={tCommon("breadcrumb")}>
-          <ol className="flex flex-wrap items-center gap-2 text-label-md text-on-surface-variant">
-            <li>
-              <Link href="/" className="hover:text-primary transition-colors">
-                {tNav("home")}
-              </Link>
-            </li>
-            <li aria-hidden="true">/</li>
-            <li>
-              <Link href="/articles" className="hover:text-primary transition-colors">
-                {tNav("articles")}
-              </Link>
-            </li>
-            <li aria-hidden="true">/</li>
-            <li>
-              <span className="text-on-surface" aria-current="page">
-                {article.title}
-              </span>
-            </li>
-          </ol>
-        </nav>
-        <Link
-          href="/articles"
-          className="no-print mb-6 inline-flex items-center gap-2 text-label-md font-semibold text-primary"
+        <PageHeader
+          breadcrumb={[
+            { label: tNav("home"), href: "/" },
+            { label: tNav("articles"), href: "/articles" },
+            { label: article.title },
+          ]}
+          badge={article.category}
+          title={article.title}
+          description={article.description}
+          className="mb-8"
         >
-          <ArrowLeft size={18} aria-hidden="true" />
-          {t("backToArticles")}
-        </Link>
-        <div className="mb-4 flex flex-wrap gap-3 text-label-md text-on-surface-variant">
-          <span className="rounded-full bg-surface-container px-3 py-1">{article.category}</span>
-          <span className="rounded-full bg-surface-container px-3 py-1">{article.readingTime}</span>
-          {article.lastReviewed ? (
-            <span className="rounded-full bg-surface-container px-3 py-1">
-              {t("lastReviewed", { date: article.lastReviewed })}
+          <div className="flex flex-wrap items-center gap-3">
+            <span className="chip-active inline-flex items-center gap-2">
+              <Clock size={14} aria-hidden="true" />
+              {article.readingTime} {tCommon("read")}
             </span>
-          ) : null}
-        </div>
-        <h1 className="mb-4 text-headline-xl text-primary">{article.title}</h1>
-        <p className="mb-8 max-w-3xl text-body-lg text-on-surface-variant">{article.description}</p>
+            {article.lastReviewed ? (
+              <span className="chip">{t("lastReviewed", { date: article.lastReviewed })}</span>
+            ) : null}
+          </div>
+          <div className="mt-5 flex flex-wrap gap-3 no-print">
+            <Link href="/articles" className="btn-secondary inline-flex items-center gap-2">
+              <ArrowLeft size={18} aria-hidden="true" />
+              {t("backToArticles")}
+            </Link>
+            <button
+              type="button"
+              onClick={handleCopyLink}
+              className="btn-secondary inline-flex items-center gap-2"
+              aria-label={tCommon("copyLink")}
+            >
+              <Link2 size={16} aria-hidden="true" />
+              {tCommon("copyLink")}
+            </button>
+            <button
+              type="button"
+              onClick={handleShareTwitter}
+              className="btn-secondary inline-flex items-center gap-2"
+              aria-label={t("shareOnX")}
+            >
+              <Share2 size={16} aria-hidden="true" />
+              {t("shareOnX")}
+            </button>
+          </div>
+        </PageHeader>
 
-        <article className="prose-hmc max-w-3xl space-y-8">
-          {article.content.sections.map((section) => (
-            <section key={section.title}>
-              <h2 className="mb-4 text-headline-md text-primary">{section.title}</h2>
-              <MarkdownRenderer text={section.content} glossaryTerms={glossaryTerms} />
-              {section.callouts?.map((callout, i) => (
-                <Callout key={i} type={callout.type} className="mt-4">
-                  {callout.content}
-                </Callout>
+        <Reveal>
+          <article className="surface-card px-6 py-6 md:px-8 md:py-8">
+            <div className="prose-hmc max-w-3xl space-y-8">
+              {article.content.sections.map((section, index) => (
+                <section
+                  key={section.title}
+                  className={index > 0 ? "border-t border-outline-variant pt-8" : undefined}
+                >
+                  <h2 className="mb-4 font-display text-headline-md text-primary">{section.title}</h2>
+                  <MarkdownRenderer text={section.content} glossaryTerms={glossaryTerms} />
+                  {section.callouts?.map((callout, i) => (
+                    <Callout key={i} type={callout.type} className="mt-4">
+                      {callout.content}
+                    </Callout>
+                  ))}
+                </section>
               ))}
-            </section>
-          ))}
-        </article>
+            </div>
+          </article>
+        </Reveal>
 
-        <div className="no-print mt-8 flex items-center gap-4 border-t border-outline-variant pt-8">
-          <span className="text-label-md font-semibold text-on-surface-variant">{t("share")}:</span>
-          <button
-            type="button"
-            onClick={handleCopyLink}
-            className="inline-flex min-h-11 items-center gap-2 rounded-lg border border-outline-variant bg-surface px-4 py-2 text-label-md text-on-surface transition-colors hover:bg-surface-container focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
-            aria-label={tCommon("copyLink")}
-          >
-            <Link2 size={16} aria-hidden="true" />
-            {tCommon("copyLink")}
-          </button>
-          <button
-            type="button"
-            onClick={handleShareTwitter}
-            className="inline-flex min-h-11 items-center gap-2 rounded-lg border border-outline-variant bg-surface px-4 py-2 text-label-md text-on-surface transition-colors hover:bg-surface-container focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
-            aria-label={t("shareOnX")}
-          >
-            <Share2 size={16} aria-hidden="true" />
-            {t("shareOnX")}
-          </button>
-        </div>
+        <Reveal delay={0.08} className="mt-8 space-y-6">
+          <div className="surface-card-glass px-5 py-5 no-print md:px-6">
+            <div className="flex flex-wrap items-center justify-between gap-4">
+              <div>
+                <div className="eyebrow mb-2">{t("share")}</div>
+                <p className="text-body-md text-on-surface-variant">{article.category}</p>
+              </div>
+              <div className="flex flex-wrap gap-3">
+                <button
+                  type="button"
+                  onClick={handleCopyLink}
+                  className="btn-secondary inline-flex items-center gap-2"
+                  aria-label={tCommon("copyLink")}
+                >
+                  <Link2 size={16} aria-hidden="true" />
+                  {tCommon("copyLink")}
+                </button>
+                <button
+                  type="button"
+                  onClick={handleShareTwitter}
+                  className="btn-secondary inline-flex items-center gap-2"
+                  aria-label={t("shareOnX")}
+                >
+                  <Share2 size={16} aria-hidden="true" />
+                  {t("shareOnX")}
+                </button>
+              </div>
+            </div>
+          </div>
 
-        <div className="mt-10">
           <MedicalDisclaimer />
-        </div>
+        </Reveal>
       </div>
     </div>
   );

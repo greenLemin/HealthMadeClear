@@ -4,6 +4,7 @@ import type { ReactNode } from "react";
 import { Link } from "@/i18n/navigation";
 import { Search, BookOpen, TrendingUp } from "lucide-react";
 import Button from "@/components/ui/Button";
+import Card from "@/components/ui/Card";
 
 interface EmptyStateProps {
   variant?: "default" | "search" | "learning" | "activity";
@@ -42,30 +43,29 @@ export default function EmptyState({
   }
 
   return (
-    <div
-      className={["flex flex-col items-center justify-center px-6 py-16 text-center", className].join(" ")}
-      role="status"
-    >
-      {displayIcon ? (
-        <div className="mb-4 text-on-surface-variant" aria-hidden="true">
-          {displayIcon}
-        </div>
-      ) : null}
-      <h3 className="mb-2 text-headline-md text-on-surface">{title}</h3>
-      <p className="mb-6 max-w-md text-body-md text-on-surface-variant">{description}</p>
-      {action ? (
-        action.href ? (
-          <Link
-            href={action.href}
-            className="inline-flex min-h-[56px] items-center justify-center gap-2 rounded-lg bg-primary px-6 py-3 text-label-lg font-semibold text-on-primary hover:bg-primary-container transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+    <Card variant="muted" className={["px-6 py-14", className].join(" ")}>
+      <div className="flex flex-col items-center justify-center text-center" role="status">
+        {displayIcon ? (
+          <div
+            className="mb-5 inline-flex h-16 w-16 items-center justify-center rounded-full bg-surface text-on-surface-variant shadow-elevation-1"
+            aria-hidden="true"
           >
-            {action.label}
-          </Link>
-        ) : (
-          <Button onClick={action.onClick}>{action.label}</Button>
-        )
-      ) : null}
-    </div>
+            {displayIcon}
+          </div>
+        ) : null}
+        <h3 className="mb-2 max-w-xl font-display text-headline-md text-on-surface">{title}</h3>
+        <p className="mb-6 max-w-xl text-body-md text-on-surface-variant">{description}</p>
+        {action ? (
+          action.href ? (
+            <Link href={action.href} className="btn-primary">
+              {action.label}
+            </Link>
+          ) : (
+            <Button onClick={action.onClick}>{action.label}</Button>
+          )
+        ) : null}
+      </div>
+    </Card>
   );
 }
 

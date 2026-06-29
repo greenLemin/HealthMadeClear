@@ -1,14 +1,26 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { ArrowLeft, Printer } from "lucide-react";
+import {
+  ArrowLeft,
+  ClipboardList,
+  HeartPulse,
+  NotebookPen,
+  Printer,
+  Stethoscope,
+  type LucideIcon,
+} from "lucide-react";
+import { useLocale, useTranslations } from "next-intl";
+import Button from "@/components/ui/Button";
 import MedicalDisclaimer from "@/components/MedicalDisclaimer";
 import PageHeader from "@/components/PageHeader";
+import ProgressBar from "@/components/ui/ProgressBar";
+import Reveal from "@/components/ui/Reveal";
 import { STORAGE_KEYS, readStoredJson, writeStoredJson } from "@/lib/preferences";
-import { useTranslations } from "next-intl";
 
 const VISIT_TYPE_KEYS = ["new-symptom", "medication", "followup"] as const;
 type VisitTypeKey = (typeof VISIT_TYPE_KEYS)[number];
+type StepValue = 1 | 2 | 3;
 
 type CustomQuestion = { id: string; text: string };
 
@@ -17,15 +29,83 @@ type PlannerState = {
   selectedQuestions: string[];
   customQuestions?: CustomQuestion[];
   notes: string;
-  step: number;
+  step: StepValue;
 };
 
-const STEP_FOCUS =
-  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2";
-
 export default function VisitPlannerClient() {
+  const locale = useLocale();
   const t = useTranslations("tools");
   const tCommon = useTranslations("common");
+
+  const copy =
+    locale === "es"
+      ? {
+          introEyebrow: "Planifica con calma",
+          prepTitle: "Llega con enfoque claro",
+          prepBody:
+            "Elige el tipo de visita correcto y prepara solo las preguntas que te ayudarán a salir con respuestas claras.",
+          prepBullets: [
+            "Anota síntomas, fechas y cambios importantes.",
+            "Ten a mano medicinas, dosis y suplementos.",
+            "Decide la pregunta principal que quieres resolver.",
+          ],
+          stepDescriptions: {
+            1: "Empieza con el motivo de tu cita para recibir sugerencias más útiles.",
+            2: "Guarda las mejores preguntas, agrega las tuyas y deja lista una nota breve.",
+            3: "Revisa tu plan final antes de imprimirlo o mostrarlo en tu teléfono.",
+          } as Record<StepValue, string>,
+          visitTypeDescriptions: {
+            "new-symptom": "Ideal cuando necesitas explicar un problema nuevo y su evolución.",
+            medication: "Úsalo para hablar de dosis, efectos secundarios o cambios de tratamiento.",
+            followup: "Perfecto para revisar resultados, progreso y próximos pasos.",
+          } as Record<VisitTypeKey, string>,
+          selectedCount: (count: number) =>
+            `${count} pregunta${count === 1 ? "" : "s"} guardada${count === 1 ? "" : "s"}`,
+          suggestedCount: (count: number) =>
+            `${count} sugerida${count === 1 ? "" : "s"} elegida${count === 1 ? "" : "s"}`,
+          customCount: (count: number) => `${count} personalizada${count === 1 ? "" : "s"}`,
+          stepStatus: (step: StepValue) => `Paso ${step} de 3`,
+          questionHintActive: "Lista para tu plan",
+          questionHintIdle: "Toca para agregarla",
+          customEmpty: "Todavía no agregas preguntas personalizadas.",
+          reviewEyebrow: "Lista lista para imprimir",
+          reviewHint: "Llévala impresa o en tu teléfono para no olvidar nada importante.",
+          customSectionBody: "Agrega dudas personales para que tu visita refleje lo que más te preocupa.",
+          notesBody:
+            "Escribe síntomas, tiempos o cualquier detalle que quieras mencionar con tus propias palabras.",
+        }
+      : {
+          introEyebrow: "Plan with calm",
+          prepTitle: "Walk in with clear focus",
+          prepBody:
+            "Pick the right visit type, then keep only the questions that help you leave with clear answers.",
+          prepBullets: [
+            "Write down symptoms, timing, and any recent changes.",
+            "Bring medicines, doses, and supplements.",
+            "Decide the main question you want answered first.",
+          ],
+          stepDescriptions: {
+            1: "Start with why you are going so the planner can suggest better prompts.",
+            2: "Keep the best questions, add your own, and leave a short note for yourself.",
+            3: "Review the final plan before printing it or keeping it on your phone.",
+          } as Record<StepValue, string>,
+          visitTypeDescriptions: {
+            "new-symptom": "Best when you need to explain a new issue and how it has changed.",
+            medication: "Use this for side effects, dose changes, or safer medicine questions.",
+            followup: "Great for reviewing results, progress, and next steps.",
+          } as Record<VisitTypeKey, string>,
+          selectedCount: (count: number) => `${count} question${count === 1 ? "" : "s"} saved`,
+          suggestedCount: (count: number) => `${count} suggested question${count === 1 ? "" : "s"} selected`,
+          customCount: (count: number) => `${count} custom question${count === 1 ? "" : "s"}`,
+          stepStatus: (step: StepValue) => `Step ${step} of 3`,
+          questionHintActive: "Saved to your plan",
+          questionHintIdle: "Tap to add it",
+          customEmpty: "No custom questions added yet.",
+          reviewEyebrow: "Print-ready summary",
+          reviewHint: "Bring it printed or on your phone so nothing important gets missed.",
+          customSectionBody: "Add personal questions so the visit matches what matters most to you.",
+          notesBody: "Capture symptoms, timing, or anything else you want to say in your own words.",
+        };
 
   const visitTypes = useMemo(
     () =>
@@ -33,20 +113,50 @@ export default function VisitPlannerClient() {
         "new-symptom": {
           label: t("visitTypes.new-symptom"),
           questions: t.raw("plannerQuestions.new-symptom") as string[],
+          icon: HeartPulse,
         },
         medication: {
           label: t("visitTypes.medication"),
           questions: t.raw("plannerQuestions.medication") as string[],
+          icon: Stethoscope,
         },
         followup: {
           label: t("visitTypes.followup"),
           questions: t.raw("plannerQuestions.followup") as string[],
+          icon: ClipboardList,
         },
-      }) as Record<VisitTypeKey, { label: string; questions: string[] }>,
+      }) as Record<VisitTypeKey, { label: string; questions: string[]; icon: LucideIcon }>,
     [t]
   );
 
-  const [step, setStep] = useState(1);
+  const steps = useMemo(
+    () => [
+      {
+        value: 1 as StepValue,
+        label: t("visitType"),
+        title: t("chooseVisitType"),
+        description: copy.stepDescriptions[1],
+        icon: HeartPulse,
+      },
+      {
+        value: 2 as StepValue,
+        label: t("questions"),
+        title: t("selectQuestions"),
+        description: copy.stepDescriptions[2],
+        icon: NotebookPen,
+      },
+      {
+        value: 3 as StepValue,
+        label: t("review"),
+        title: t("yourVisitPlan"),
+        description: copy.stepDescriptions[3],
+        icon: ClipboardList,
+      },
+    ],
+    [copy.stepDescriptions, t]
+  );
+
+  const [step, setStep] = useState<StepValue>(1);
   const [visitType, setVisitType] = useState<VisitTypeKey>("new-symptom");
   const [selectedQuestions, setSelectedQuestions] = useState<string[]>([]);
   const [customQuestions, setCustomQuestions] = useState<CustomQuestion[]>([]);
@@ -55,16 +165,11 @@ export default function VisitPlannerClient() {
   const [hydrated, setHydrated] = useState(false);
 
   useEffect(() => {
-    if (!hydrated && selectedQuestions.length === 0) {
-      setSelectedQuestions(visitTypes[visitType].questions.slice(0, 2));
-    }
-  }, [visitType, visitTypes, hydrated, selectedQuestions]);
-
-  useEffect(() => {
     const saved = readStoredJson(STORAGE_KEYS.visitPlanner, (value): PlannerState | null => {
       if (!value || typeof value !== "object") return null;
       const parsed = value as Partial<PlannerState>;
       if (!VISIT_TYPE_KEYS.includes(parsed.visitType as VisitTypeKey)) return null;
+
       const rawCustom = parsed.customQuestions;
       const customQuestions: CustomQuestion[] = Array.isArray(rawCustom)
         ? rawCustom.filter(
@@ -74,6 +179,7 @@ export default function VisitPlannerClient() {
               typeof (q as CustomQuestion).text === "string"
           )
         : [];
+
       return {
         visitType: parsed.visitType as VisitTypeKey,
         selectedQuestions: Array.isArray(parsed.selectedQuestions)
@@ -81,27 +187,29 @@ export default function VisitPlannerClient() {
           : [],
         customQuestions,
         notes: typeof parsed.notes === "string" ? parsed.notes.slice(0, 2000) : "",
-        step: typeof parsed.step === "number" && parsed.step >= 1 && parsed.step <= 3 ? parsed.step : 1,
+        step:
+          typeof parsed.step === "number" && parsed.step >= 1 && parsed.step <= 3
+            ? (parsed.step as StepValue)
+            : 1,
       };
     });
 
     if (saved) {
       setStep(saved.step);
-
       setVisitType(saved.visitType);
-
       setSelectedQuestions(saved.selectedQuestions);
-
       setCustomQuestions(saved.customQuestions ?? []);
-
       setNotes(saved.notes);
+    } else {
+      setSelectedQuestions(visitTypes["new-symptom"].questions.slice(0, 2));
     }
 
     setHydrated(true);
-  }, []);
+  }, [visitTypes]);
 
   useEffect(() => {
     if (!hydrated) return;
+
     const state: PlannerState = {
       visitType,
       selectedQuestions,
@@ -109,23 +217,25 @@ export default function VisitPlannerClient() {
       notes: notes.slice(0, 2000),
       step,
     };
+
     writeStoredJson(STORAGE_KEYS.visitPlanner, state);
-  }, [visitType, selectedQuestions, customQuestions, notes, step, hydrated]);
+  }, [customQuestions, hydrated, notes, selectedQuestions, step, visitType]);
 
   const questions = visitTypes[visitType].questions;
-
   const selectedQuestionsSet = useMemo(() => new Set(selectedQuestions), [selectedQuestions]);
+  const totalQuestions = selectedQuestions.length + customQuestions.length;
+  const stepProgress = Math.round((step / 3) * 100);
 
-  useEffect(() => {
-    if (!hydrated) return;
-
-    setSelectedQuestions(visitTypes[visitType].questions.slice(0, 2));
-  }, [visitType, visitTypes, hydrated]);
+  const changeVisitType = (nextType: VisitTypeKey) => {
+    setVisitType(nextType);
+    setSelectedQuestions(visitTypes[nextType].questions.slice(0, 2));
+  };
 
   const addCustomQuestion = () => {
     const trimmed = customInput.trim();
     if (!trimmed) return;
-    if (customQuestions.some((q) => q.text === trimmed)) return;
+    if (customQuestions.some((q) => q.text.toLowerCase() === trimmed.toLowerCase())) return;
+
     setCustomQuestions((current) => [...current, { id: `cq-${Date.now()}`, text: trimmed }]);
     setCustomInput("");
   };
@@ -142,88 +252,176 @@ export default function VisitPlannerClient() {
 
   return (
     <div className="py-12 md:py-16">
-      <div className="max-w-container mx-auto px-4 md:px-6">
-        <PageHeader title={t("plannerTitle")} description={t("plannerDescription")} />
+      <div className="mx-auto max-w-container px-4 md:px-6">
+        <PageHeader centered title={t("plannerTitle")} description={t("plannerDescription")} className="mb-8">
+          <div className="flex flex-wrap justify-center gap-3">
+            <span className="metric-pill">{visitTypes[visitType].label}</span>
+            <span className="metric-pill bg-secondary-container/60 text-secondary">
+              {copy.selectedCount(totalQuestions)}
+            </span>
+            <span className="metric-pill bg-tertiary-container/60 text-tertiary">
+              {copy.stepStatus(step)}
+            </span>
+          </div>
+        </PageHeader>
 
-        <div className="no-print mb-8 grid gap-3 md:grid-cols-3">
-          {[1, 2, 3].map((value) => (
-            <button
-              key={value}
-              type="button"
-              aria-current={value === step ? "step" : undefined}
-              className={
-                value === step
-                  ? `rounded-xl bg-primary px-5 py-4 text-left text-on-primary shadow-md transition-all duration-300 ${STEP_FOCUS}`
-                  : `rounded-xl bg-surface-container px-5 py-4 text-left text-on-surface-variant transition-all duration-300 hover:bg-surface-container-high hover:-translate-y-0.5 active:scale-95 ${STEP_FOCUS}`
-              }
-              onClick={() => setStep(value)}
-            >
-              <div className="text-label-md font-semibold opacity-85">
-                {t("step")} {value}
+        <Reveal>
+          <section className="surface-card-glass no-print px-6 py-6 md:px-8 md:py-8">
+            <div className="flex flex-col gap-6 xl:flex-row xl:items-end xl:justify-between">
+              <div>
+                <div className="eyebrow mb-3">{copy.introEyebrow}</div>
+                <h2 className="font-display text-headline-lg text-primary">{steps[step - 1].title}</h2>
+                <p className="mt-3 max-w-readable text-body-md text-on-surface-variant">
+                  {steps[step - 1].description}
+                </p>
               </div>
-              <div className="text-label-lg font-bold">
-                {value === 1 ? t("visitType") : value === 2 ? t("questions") : t("review")}
-              </div>
-            </button>
-          ))}
-        </div>
-
-        <div className="card">
-          {step === 1 ? (
-            <div>
-              <h2 className="mb-6 text-headline-md text-primary font-bold">{t("chooseVisitType")}</h2>
-              <div className="grid gap-4 md:grid-cols-3">
-                {(Object.entries(visitTypes) as [VisitTypeKey, (typeof visitTypes)[VisitTypeKey]][]).map(
-                  ([key, value]) => (
-                    <button
-                      key={key}
-                      type="button"
-                      aria-pressed={visitType === key}
-                      className={
-                        visitType === key
-                          ? `rounded-2xl border-2 border-primary bg-primary/5 px-6 py-6 text-left shadow-sm transition-all duration-300 ${STEP_FOCUS}`
-                          : `rounded-2xl border border-outline-variant bg-surface-container-lowest px-6 py-6 text-left transition-all duration-300 hover:border-primary/20 hover:shadow-sm hover:-translate-y-0.5 ${STEP_FOCUS}`
-                      }
-                      onClick={() => {
-                        setVisitType(key);
-                        setSelectedQuestions(visitTypes[key].questions.slice(0, 2));
-                      }}
-                    >
-                      <div className="text-label-lg font-bold text-primary">{value.label}</div>
-                      <div className="mt-2 text-body-md text-on-surface-variant">
-                        {value.questions.length} {t("suggestedQuestions")}
-                      </div>
-                    </button>
-                  )
-                )}
-              </div>
-              <div className="mt-8 flex justify-end">
-                <button type="button" className="btn-primary" onClick={() => setStep(2)}>
-                  {tCommon("continue")}
-                </button>
+              <div className="w-full max-w-sm">
+                <ProgressBar value={stepProgress} label={copy.stepStatus(step)} showPercentage />
               </div>
             </div>
-          ) : null}
 
-          {step === 2 ? (
-            <div>
-              <fieldset className="border-0 p-0 m-0">
-                <legend className="sr-only">{t("selectQuestions")}</legend>
-                <h2 className="mb-3 text-headline-md text-primary">{t("selectQuestions")}</h2>
-                <p className="mb-6 text-body-md text-on-surface-variant">{t("selectQuestionsBody")}</p>
-                <div className="grid gap-4 md:grid-cols-2">
-                  {questions.map((question) => {
-                    const selected = selectedQuestionsSet.has(question);
-                    const inputId = `question-${question.slice(0, 20)}`;
+            <div className="mt-6 grid gap-3 md:grid-cols-3">
+              {steps.map((entry) => {
+                const active = entry.value === step;
+                const Icon = entry.icon;
+                return (
+                  <button
+                    key={entry.value}
+                    type="button"
+                    aria-current={active ? "step" : undefined}
+                    className={[
+                      "text-left",
+                      active
+                        ? "surface-card-strong px-5 py-5 shadow-elevation-2"
+                        : "surface-card px-5 py-5 hover:-translate-y-0.5 hover:border-primary/20",
+                    ].join(" ")}
+                    onClick={() => setStep(entry.value)}
+                  >
+                    <div className="flex items-start gap-4">
+                      <div className="flex h-12 w-12 items-center justify-center rounded-full bg-surface text-primary shadow-elevation-1">
+                        <Icon size={22} aria-hidden="true" />
+                      </div>
+                      <div className="min-w-0 flex-1">
+                        <div className="text-label-md text-on-surface-variant">
+                          {t("step")} {entry.value}
+                        </div>
+                        <div className="mt-1 font-display text-headline-md text-primary">{entry.label}</div>
+                        <p className="mt-2 text-label-md text-on-surface-variant">{entry.description}</p>
+                      </div>
+                    </div>
+                  </button>
+                );
+              })}
+            </div>
+          </section>
+        </Reveal>
+
+        {step === 1 ? (
+          <div className="mt-8">
+            <section className="grid gap-6 xl:grid-cols-[0.9fr_1.1fr]">
+              <Reveal>
+                <div className="surface-card-strong px-6 py-6 md:px-8 md:py-8">
+                  <div className="eyebrow mb-3">{copy.introEyebrow}</div>
+                  <h2 className="font-display text-headline-lg text-primary">{copy.prepTitle}</h2>
+                  <p className="mt-3 text-body-md text-on-surface-variant">{copy.prepBody}</p>
+
+                  <div className="mt-6 space-y-3">
+                    {copy.prepBullets.map((item, index) => (
+                      <div key={item} className="surface-card flex items-center gap-4 px-4 py-4">
+                        <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary-fixed text-label-md font-semibold text-primary shadow-elevation-1">
+                          {index + 1}
+                        </div>
+                        <p className="text-body-md text-on-surface">{item}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </Reveal>
+
+              <div className="grid gap-4 md:grid-cols-3 xl:grid-cols-1">
+                {(Object.entries(visitTypes) as [VisitTypeKey, (typeof visitTypes)[VisitTypeKey]][]).map(
+                  ([key, value], index) => {
+                    const active = visitType === key;
+                    const Icon = value.icon;
+
                     return (
+                      <Reveal key={key} delay={Math.min(index * 0.04, 0.12)}>
+                        <button
+                          type="button"
+                          aria-pressed={active}
+                          className={[
+                            "h-full text-left",
+                            active
+                              ? "surface-card-strong px-6 py-6 shadow-elevation-2"
+                              : "surface-card px-6 py-6 hover:-translate-y-0.5 hover:border-primary/20",
+                          ].join(" ")}
+                          onClick={() => changeVisitType(key)}
+                        >
+                          <div className="flex items-start justify-between gap-3">
+                            <div className="flex h-12 w-12 items-center justify-center rounded-full bg-surface text-primary shadow-elevation-1">
+                              <Icon size={22} aria-hidden="true" />
+                            </div>
+                            <span className={active ? "chip-active" : "chip"}>
+                              {value.questions.length} {t("suggestedQuestions")}
+                            </span>
+                          </div>
+                          <h3 className="mt-5 font-display text-headline-md text-primary">{value.label}</h3>
+                          <p className="mt-3 text-body-md text-on-surface-variant">
+                            {copy.visitTypeDescriptions[key]}
+                          </p>
+                        </button>
+                      </Reveal>
+                    );
+                  }
+                )}
+              </div>
+            </section>
+
+            <div className="no-print mt-8 flex justify-end">
+              <Button onClick={() => setStep(2)}>{tCommon("continue")}</Button>
+            </div>
+          </div>
+        ) : null}
+
+        {step === 2 ? (
+          <div className="mt-8 space-y-6">
+            <Reveal>
+              <div className="surface-card-strong px-6 py-6 md:px-8 md:py-8">
+                <div className="flex flex-col gap-4 xl:flex-row xl:items-end xl:justify-between">
+                  <div>
+                    <div className="eyebrow mb-3">{t("questions")}</div>
+                    <h2 className="font-display text-headline-lg text-primary">{t("selectQuestions")}</h2>
+                    <p className="mt-3 max-w-readable text-body-md text-on-surface-variant">
+                      {t("selectQuestionsBody")}
+                    </p>
+                  </div>
+                  <div className="flex flex-wrap gap-3">
+                    <span className="metric-pill">{copy.suggestedCount(selectedQuestions.length)}</span>
+                    <span className="metric-pill bg-secondary-container/60 text-secondary">
+                      {copy.customCount(customQuestions.length)}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </Reveal>
+
+            <fieldset className="m-0 border-0 p-0">
+              <legend className="sr-only">{t("selectQuestions")}</legend>
+              <div className="grid gap-4 md:grid-cols-2">
+                {questions.map((question, index) => {
+                  const selected = selectedQuestionsSet.has(question);
+                  const inputId = `question-${question.slice(0, 24).replace(/\s+/g, "-")}-${index}`;
+
+                  return (
+                    <Reveal key={question} delay={Math.min(index * 0.02, 0.14)}>
                       <label
-                        key={question}
                         htmlFor={inputId}
-                        className={
+                        className={[
+                          "flex cursor-pointer items-start gap-4 px-5 py-5",
                           selected
-                            ? "flex cursor-pointer items-start gap-3 rounded-lg border-2 border-primary bg-primary-fixed px-5 py-5"
-                            : "flex cursor-pointer items-start gap-3 rounded-lg border border-outline-variant bg-surface px-5 py-5"
-                        }
+                            ? "surface-card-strong border-primary/20 shadow-elevation-2"
+                            : "surface-card hover:-translate-y-0.5 hover:border-primary/20",
+                        ].join(" ")}
                       >
                         <input
                           id={inputId}
@@ -232,151 +430,211 @@ export default function VisitPlannerClient() {
                           checked={selected}
                           onChange={() => toggleQuestion(question)}
                         />
-                        <span className="text-label-lg text-on-surface">{question}</span>
+                        <div className="min-w-0 flex-1">
+                          <span className="block text-label-lg text-on-surface">{question}</span>
+                          <span className="mt-2 block text-label-md text-on-surface-variant">
+                            {selected ? copy.questionHintActive : copy.questionHintIdle}
+                          </span>
+                        </div>
                       </label>
-                    );
-                  })}
-                </div>
-              </fieldset>
-
-              {/* Custom Questions Section */}
-              <div className="mt-8 border-t border-outline-variant pt-8">
-                <h3 className="mb-4 text-headline-md text-primary">{t("customQuestionsTitle")}</h3>
-                <div className="mb-4 flex gap-3">
-                  <input
-                    type="text"
-                    className="input-field py-2"
-                    placeholder={t("customQuestionPlaceholder")}
-                    aria-label={t("customQuestionPlaceholder")}
-                    value={customInput}
-                    onChange={(e) => setCustomInput(e.target.value)}
-                    onKeyDown={(e) => {
-                      if (e.key === "Enter") {
-                        e.preventDefault();
-                        addCustomQuestion();
-                      }
-                    }}
-                  />
-                  <button
-                    type="button"
-                    className="btn-primary min-h-[48px] py-2 px-4"
-                    onClick={addCustomQuestion}
-                  >
-                    {tCommon("add")}
-                  </button>
-                </div>
-
-                {customQuestions.length > 0 && (
-                  <div className="grid gap-4 md:grid-cols-2">
-                    {customQuestions.map((cq) => (
-                      <div
-                        key={cq.id}
-                        className="flex items-center justify-between gap-4 rounded-lg border border-outline-variant bg-surface px-5 py-4"
-                      >
-                        <span className="text-body-md text-on-surface">{cq.text}</span>
-                        <button
-                          type="button"
-                          className="text-error hover:text-red-700 font-semibold text-label-md"
-                          onClick={() => removeCustomQuestion(cq.id)}
-                          aria-label={`${t("remove")} "${cq.text}"`}
-                        >
-                          {t("remove")}
-                        </button>
-                      </div>
-                    ))}
-                  </div>
-                )}
+                    </Reveal>
+                  );
+                })}
               </div>
+            </fieldset>
 
-              <label className="mt-8 block" htmlFor="visit-planner-notes">
-                <span className="input-label">{t("addNotes")}</span>
-                <textarea
-                  id="visit-planner-notes"
-                  className="input-field min-h-40"
-                  value={notes}
-                  onChange={(event) => setNotes(event.target.value)}
-                  placeholder={t("notesPlaceholder")}
-                  maxLength={2000}
-                />
-              </label>
-              <div className="mt-8 flex flex-wrap justify-between gap-3">
-                <button
-                  type="button"
-                  className="btn-secondary inline-flex items-center gap-2"
-                  onClick={() => setStep(1)}
-                >
-                  <ArrowLeft size={18} />
-                  {tCommon("back")}
-                </button>
-                <div className="flex flex-wrap gap-3">
-                  <button type="button" className="btn-secondary" onClick={() => setStep(3)}>
-                    {t("reviewList")}
-                  </button>
-                  <button
-                    type="button"
-                    className="btn-primary inline-flex items-center gap-2"
-                    onClick={() => window.print()}
-                  >
-                    <Printer size={18} />
-                    {t("printList")}
-                  </button>
+            <div className="grid gap-6 xl:grid-cols-[0.95fr_1.05fr]">
+              <Reveal>
+                <div className="surface-card px-6 py-6 md:px-8 md:py-8">
+                  <div className="mb-5 flex items-start gap-4">
+                    <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary-fixed text-primary shadow-elevation-1">
+                      <NotebookPen size={22} aria-hidden="true" />
+                    </div>
+                    <div>
+                      <h3 className="font-display text-headline-md text-primary">
+                        {t("customQuestionsTitle")}
+                      </h3>
+                      <p className="mt-2 text-body-md text-on-surface-variant">{copy.customSectionBody}</p>
+                    </div>
+                  </div>
+
+                  <div className="mb-5 flex flex-col gap-3 sm:flex-row">
+                    <input
+                      type="text"
+                      className="input-field"
+                      placeholder={t("customQuestionPlaceholder")}
+                      aria-label={t("customQuestionPlaceholder")}
+                      value={customInput}
+                      onChange={(event) => setCustomInput(event.target.value)}
+                      onKeyDown={(event) => {
+                        if (event.key === "Enter") {
+                          event.preventDefault();
+                          addCustomQuestion();
+                        }
+                      }}
+                    />
+                    <Button
+                      onClick={addCustomQuestion}
+                      disabled={!customInput.trim()}
+                      className="sm:self-start"
+                    >
+                      {tCommon("add")}
+                    </Button>
+                  </div>
+
+                  {customQuestions.length > 0 ? (
+                    <div className="space-y-3">
+                      {customQuestions.map((cq) => (
+                        <div
+                          key={cq.id}
+                          className="surface-card-muted flex items-center justify-between gap-4 px-4 py-4"
+                        >
+                          <span className="text-body-md text-on-surface">{cq.text}</span>
+                          <button
+                            type="button"
+                            className="text-label-md font-semibold text-error transition-colors hover:text-error/80"
+                            onClick={() => removeCustomQuestion(cq.id)}
+                            aria-label={`${t("remove")} "${cq.text}"`}
+                          >
+                            {t("remove")}
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    <p className="text-body-md text-on-surface-variant">{copy.customEmpty}</p>
+                  )}
                 </div>
+              </Reveal>
+
+              <Reveal delay={0.05}>
+                <div className="surface-card-glass px-6 py-6 md:px-8 md:py-8">
+                  <div className="mb-5 flex items-start gap-4">
+                    <div className="flex h-12 w-12 items-center justify-center rounded-full bg-surface text-primary shadow-elevation-1">
+                      <ClipboardList size={22} aria-hidden="true" />
+                    </div>
+                    <div>
+                      <h3 className="font-display text-headline-md text-primary">{t("addNotes")}</h3>
+                      <p className="mt-2 text-body-md text-on-surface-variant">{copy.notesBody}</p>
+                    </div>
+                  </div>
+
+                  <label className="block">
+                    <span className="input-label">{t("addNotes")}</span>
+                    <textarea
+                      className="input-field min-h-48"
+                      value={notes}
+                      onChange={(event) => setNotes(event.target.value)}
+                      placeholder={t("notesPlaceholder")}
+                      maxLength={2000}
+                    />
+                  </label>
+                  <p className="mt-3 text-label-md text-on-surface-variant">{notes.length}/2000</p>
+                </div>
+              </Reveal>
+            </div>
+
+            <div className="no-print flex flex-wrap justify-between gap-3">
+              <Button variant="secondary" icon={<ArrowLeft size={18} />} onClick={() => setStep(1)}>
+                {tCommon("back")}
+              </Button>
+              <div className="flex flex-wrap gap-3">
+                <Button variant="secondary" onClick={() => setStep(3)}>
+                  {t("reviewList")}
+                </Button>
+                <Button icon={<Printer size={18} />} onClick={() => window.print()}>
+                  {t("printList")}
+                </Button>
               </div>
             </div>
-          ) : null}
+          </div>
+        ) : null}
 
-          {step === 3 ? (
-            <div>
-              <h2 className="mb-6 text-headline-md text-primary">{t("yourVisitPlan")}</h2>
-              <div className="mb-6 rounded-lg bg-surface-container-low p-5">
-                <div className="mb-2 text-label-md font-semibold text-on-surface-variant">
-                  {t("visitType")}
+        {step === 3 ? (
+          <div className="mt-8 space-y-6">
+            <Reveal>
+              <div className="surface-card-strong px-6 py-6 md:px-8 md:py-8">
+                <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+                  <div>
+                    <div className="eyebrow mb-3">{copy.reviewEyebrow}</div>
+                    <h2 className="font-display text-headline-lg text-primary">{t("yourVisitPlan")}</h2>
+                    <p className="mt-3 max-w-readable text-body-md text-on-surface-variant">
+                      {copy.reviewHint}
+                    </p>
+                  </div>
+                  <div className="flex flex-wrap gap-3">
+                    <span className="metric-pill">{visitTypes[visitType].label}</span>
+                    <span className="metric-pill bg-secondary-container/60 text-secondary">
+                      {copy.selectedCount(totalQuestions)}
+                    </span>
+                  </div>
                 </div>
-                <div className="text-label-lg text-primary">{visitTypes[visitType].label}</div>
               </div>
-              <div className="mb-6 rounded-lg border border-outline-variant bg-surface p-5">
-                <div className="mb-4 text-label-lg text-primary">{t("questionsToAsk")}</div>
-                <ul className="space-y-3 text-body-md text-on-surface-variant">
-                  {selectedQuestions.map((question) => (
-                    <li key={question}>- {question}</li>
-                  ))}
-                  {customQuestions.map((cq) => (
-                    <li key={cq.id}>- {cq.text}</li>
-                  ))}
-                  {selectedQuestions.length === 0 && customQuestions.length === 0 && (
-                    <li>{t("noQuestionsSelected")}</li>
+            </Reveal>
+
+            <div className="grid gap-6 xl:grid-cols-[0.9fr_1.1fr]">
+              <Reveal>
+                <div className="surface-card px-6 py-6 md:px-8 md:py-8">
+                  <div className="eyebrow mb-4">{t("visitType")}</div>
+                  <h3 className="font-display text-headline-lg text-primary">
+                    {visitTypes[visitType].label}
+                  </h3>
+                  <p className="mt-3 text-body-md text-on-surface-variant">
+                    {copy.visitTypeDescriptions[visitType]}
+                  </p>
+                </div>
+              </Reveal>
+
+              <Reveal delay={0.05}>
+                <div className="surface-card-glass px-6 py-6 md:px-8 md:py-8">
+                  <div className="eyebrow mb-4">{t("questionsToAsk")}</div>
+                  {totalQuestions > 0 ? (
+                    <ul className="space-y-3">
+                      {selectedQuestions.map((question) => (
+                        <li key={question} className="surface-card flex items-start gap-3 px-4 py-4">
+                          <span className="text-primary" aria-hidden="true">
+                            •
+                          </span>
+                          <span className="text-body-md text-on-surface">{question}</span>
+                        </li>
+                      ))}
+                      {customQuestions.map((cq) => (
+                        <li key={cq.id} className="surface-card flex items-start gap-3 px-4 py-4">
+                          <span className="text-secondary" aria-hidden="true">
+                            •
+                          </span>
+                          <span className="text-body-md text-on-surface">{cq.text}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  ) : (
+                    <p className="text-body-md text-on-surface-variant">{t("noQuestionsSelected")}</p>
                   )}
-                </ul>
-              </div>
-              <div className="rounded-lg border border-outline-variant bg-surface p-5">
-                <div className="mb-4 text-label-lg text-primary">{t("yourNotes")}</div>
+                </div>
+              </Reveal>
+            </div>
+
+            <Reveal delay={0.08}>
+              <div className="surface-card px-6 py-6 md:px-8 md:py-8">
+                <div className="eyebrow mb-4">{t("yourNotes")}</div>
                 <div className="whitespace-pre-line text-body-md text-on-surface-variant">
                   {notes || t("noNotes")}
                 </div>
               </div>
-              <div className="no-print mt-8 flex flex-wrap justify-between gap-3">
-                <button
-                  type="button"
-                  className="btn-secondary inline-flex items-center gap-2"
-                  onClick={() => setStep(2)}
-                >
-                  <ArrowLeft size={18} />
-                  {t("editQuestions")}
-                </button>
-                <button
-                  type="button"
-                  className="btn-primary inline-flex items-center gap-2"
-                  onClick={() => window.print()}
-                >
-                  <Printer size={18} />
-                  {t("printList")}
-                </button>
-              </div>
-            </div>
-          ) : null}
-        </div>
+            </Reveal>
 
-        <div className="mt-8">
+            <div className="no-print flex flex-wrap justify-between gap-3">
+              <Button variant="secondary" icon={<ArrowLeft size={18} />} onClick={() => setStep(2)}>
+                {t("editQuestions")}
+              </Button>
+              <Button icon={<Printer size={18} />} onClick={() => window.print()}>
+                {t("printList")}
+              </Button>
+            </div>
+          </div>
+        ) : null}
+
+        <div className="mt-10">
           <MedicalDisclaimer />
         </div>
       </div>
