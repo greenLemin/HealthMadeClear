@@ -79,7 +79,6 @@ export default function ContactClient() {
           <form onSubmit={handleSubmit} className="space-y-6" noValidate>
             {/* Honeypot — hidden from humans */}
             <div aria-hidden="true" className="absolute -left-[9999px]" tabIndex={-1}>
-              <label htmlFor="hp-field">Leave this empty</label>
               <input
                 id="hp-field"
                 type="text"
@@ -87,6 +86,7 @@ export default function ContactClient() {
                 onChange={(e) => setHoneypot(e.target.value)}
                 tabIndex={-1}
                 autoComplete="off"
+                aria-hidden="true"
               />
             </div>
 

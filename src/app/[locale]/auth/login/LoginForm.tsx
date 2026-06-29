@@ -10,6 +10,8 @@ import { Link } from "@/i18n/navigation";
 import { Mail, Lock } from "lucide-react";
 import { sanitizeRedirectPath } from "@/lib/auth/sanitizeRedirect";
 
+const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
 export default function LoginForm() {
   const t = useTranslations("auth");
   const router = useRouter();
@@ -36,6 +38,7 @@ export default function LoginForm() {
 
     const nextFieldErrors: { email?: string; password?: string } = {};
     if (!email.trim()) nextFieldErrors.email = t("emailRequired");
+    else if (!EMAIL_REGEX.test(email.trim())) nextFieldErrors.email = t("errorEmailInvalid");
     if (!password.trim()) nextFieldErrors.password = t("passwordRequired");
     setFieldErrors(nextFieldErrors);
     if (Object.keys(nextFieldErrors).length > 0) return;

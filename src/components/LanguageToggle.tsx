@@ -48,8 +48,8 @@ export default function LanguageToggle() {
         onKeyDown={(event) => handleKeyDown(event, "en")}
         className={
           locale === "en"
-            ? "inline-flex min-h-11 items-center rounded-full bg-primary px-4 py-2 text-label-md font-semibold uppercase tracking-[0.08em] text-on-primary"
-            : "inline-flex min-h-11 items-center rounded-full px-4 py-2 text-label-md font-semibold uppercase tracking-[0.08em] text-on-surface-variant"
+            ? "inline-flex min-h-11 items-center rounded-full bg-primary px-4 py-2 text-label-md font-semibold uppercase tracking-[0.08em] text-on-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+            : "inline-flex min-h-11 items-center rounded-full px-4 py-2 text-label-md font-semibold uppercase tracking-[0.08em] text-on-surface-variant focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
         }
       >
         EN
@@ -64,8 +64,8 @@ export default function LanguageToggle() {
         onKeyDown={(event) => handleKeyDown(event, "es")}
         className={
           locale === "es"
-            ? "inline-flex min-h-11 items-center rounded-full bg-primary px-4 py-2 text-label-md font-semibold uppercase tracking-[0.08em] text-on-primary"
-            : "inline-flex min-h-11 items-center rounded-full px-4 py-2 text-label-md font-semibold uppercase tracking-[0.08em] text-on-surface-variant"
+            ? "inline-flex min-h-11 items-center rounded-full bg-primary px-4 py-2 text-label-md font-semibold uppercase tracking-[0.08em] text-on-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+            : "inline-flex min-h-11 items-center rounded-full px-4 py-2 text-label-md font-semibold uppercase tracking-[0.08em] text-on-surface-variant focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
         }
       >
         ES

@@ -14,7 +14,7 @@ const variantDefaults: Record<SkeletonVariant, { width: string; height: string; 
   heading: { width: "75%", height: "1.5em", rounded: "rounded" },
   avatar: { width: "48px", height: "48px", rounded: "rounded-full" },
   card: { width: "100%", height: "200px", rounded: "rounded-2xl" },
-  button: { width: "120px", height: "56px", rounded: "rounded-lg" },
+  button: { width: "120px", height: "56px", rounded: "rounded-xl" },
 };
 
 export default function Skeleton({
@@ -40,7 +40,7 @@ export default function Skeleton({
         {Array.from({ length: lines }).map((_, i) => (
           <div
             key={i}
-            className="mb-2 animate-pulse rounded bg-surface-container-high motion-reduce:animate-none"
+            className="mb-2 animate-shimmer rounded bg-surface-container-low motion-reduce:animate-none motion-reduce:bg-surface-container-high"
             style={{
               width: i === lines - 1 ? "60%" : "100%",
               height: defaults.height,
@@ -57,7 +57,7 @@ export default function Skeleton({
       <div
         aria-hidden="true"
         className={[
-          "animate-pulse bg-surface-container-high motion-reduce:animate-none",
+          "animate-shimmer bg-surface-container-low motion-reduce:animate-none motion-reduce:bg-surface-container-high",
           defaults.rounded,
           className,
         ].join(" ")}

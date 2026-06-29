@@ -37,6 +37,7 @@ export default function SettingsClient({
   const { theme, setTheme } = useAppState();
   const t = useTranslations("settings");
   const tDash = useTranslations("dashboard");
+  const deleteConfirmToken = t("deleteConfirmToken");
 
   const [displayName, setDisplayName] = useState(initialDisplayName);
   const [saving, setSaving] = useState(false);
@@ -70,7 +71,7 @@ export default function SettingsClient({
   }
 
   async function handleDeleteAccount() {
-    if (deleteConfirm !== "DELETE") return;
+    if (deleteConfirm !== deleteConfirmToken) return;
     setDeleting(true);
 
     const { error: deleteError } = await supabase.rpc("delete_user");
@@ -235,18 +236,20 @@ export default function SettingsClient({
           <div className="rounded-xl bg-error-container p-4 text-label-md text-on-error-container">
             {t("deleteModalWarning")}
           </div>
-          <p className="text-label-sm text-on-surface-variant">{t("deleteModalConfirm")}</p>
+          <p className="text-label-sm text-on-surface-variant">
+            {t("deleteModalConfirm", { token: deleteConfirmToken })}
+          </p>
           <Input
             label={tDash("confirmationLabel")}
             value={deleteConfirm}
             onChange={(e) => setDeleteConfirm(e.target.value)}
-            placeholder={t("deleteModalPlaceholder")}
+            placeholder={t("deleteModalPlaceholder", { token: deleteConfirmToken })}
           />
           <div className="flex gap-3">
             <Button
               variant="danger"
               onClick={handleDeleteAccount}
-              disabled={deleteConfirm !== "DELETE"}
+              disabled={deleteConfirm !== deleteConfirmToken}
               loading={deleting}
               fullWidth
             >

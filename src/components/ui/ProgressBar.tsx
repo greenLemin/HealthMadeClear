@@ -51,7 +51,7 @@ export default function ProgressBar({
         className={["w-full overflow-hidden rounded-full bg-surface-container", sizeStyles[size]].join(" ")}
       >
         <div
-          className="h-full rounded-full bg-secondary-container transition-all duration-500 ease-out motion-reduce:transition-none"
+          className="h-full rounded-full bg-secondary transition-all duration-500 ease-out motion-reduce:transition-none"
           style={{ width: `${width}%` }}
         />
       </div>

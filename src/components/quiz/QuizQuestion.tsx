@@ -42,7 +42,7 @@ export default function QuizQuestion({
           return (
             <label
               key={optionId}
-              className={`relative flex w-full cursor-pointer items-center gap-4 rounded-xl border-2 px-5 py-4 text-left text-body-md transition-all ${
+              className={`relative flex w-full cursor-pointer items-center gap-4 rounded-xl border-2 px-5 py-4 text-left text-body-md transition-all has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-primary has-[:focus-visible]:ring-offset-2 ${
                 isSelected
                   ? "border-primary bg-primary-fixed/20 text-on-primary-container"
                   : "border-outline-variant bg-surface-container-lowest text-on-surface hover:bg-surface-container"

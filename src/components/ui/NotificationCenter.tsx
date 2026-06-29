@@ -104,7 +104,7 @@ export default function NotificationCenter() {
         onClick={() => setIsOpen(!isOpen)}
         aria-expanded={isOpen}
         aria-haspopup="dialog"
-        className="relative flex min-h-11 min-w-11 items-center justify-center rounded-lg text-on-surface-variant transition-colors hover:bg-surface-container hover:text-on-surface"
+        className="relative flex min-h-11 min-w-11 items-center justify-center rounded-lg text-on-surface-variant transition-colors hover:bg-surface-container hover:text-on-surface focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
         aria-label={t("ariaLabel", { count: unreadCount })}
       >
         {unreadCount > 0 ? <BellDot size={20} aria-hidden="true" /> : <Bell size={20} aria-hidden="true" />}
@@ -124,7 +124,7 @@ export default function NotificationCenter() {
           role="dialog"
           aria-modal="true"
           aria-label={t("title")}
-          className="absolute right-0 top-full z-50 mt-2 w-80 rounded-xl border border-outline-variant bg-surface shadow-elevation-3 motion-safe:animate-fadeIn"
+          className="absolute right-0 top-full z-50 mt-2 w-80 max-w-[calc(100vw-2rem)] rounded-xl border border-outline-variant bg-surface shadow-elevation-3 motion-safe:animate-fadeIn"
         >
           <div className="flex items-center justify-between border-b border-outline-variant px-4 py-3">
             <span className="text-label-md font-semibold text-on-surface">{t("title")}</span>

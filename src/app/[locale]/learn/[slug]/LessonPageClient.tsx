@@ -134,7 +134,7 @@ export default function LessonPageClient({
       <div className="py-12 md:py-16">
         <div className="max-w-container mx-auto px-4 md:px-6">
           {/* Breadcrumbs */}
-          <nav className="mb-6" aria-label="Breadcrumb">
+          <nav className="mb-6" aria-label={tCommon("breadcrumb")}>
             <ol className="flex flex-wrap items-center gap-2 text-label-md text-on-surface-variant">
               <li>
                 <Link href="/" className="hover:text-primary transition-colors">

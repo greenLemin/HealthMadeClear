@@ -2,6 +2,7 @@
 
 import { useTranslations } from "next-intl";
 import AchievementCard from "@/components/dashboard/AchievementCard";
+import EmptyState from "@/components/ui/EmptyState";
 import type { AchievementItem } from "@/components/dashboard/AchievementCard";
 
 type AchievementsClientProps = {
@@ -25,6 +26,16 @@ export default function AchievementsClient({
           {t("earnedSummary", { count: earnedCount, total: totalCount })}
         </p>
       </div>
+
+      {earnedCount === 0 ? (
+        <EmptyState
+          variant="learning"
+          title={t("noneEarnedTitle")}
+          description={t("keepLearning")}
+          action={{ label: t("startLearningCta"), href: "/learn", onClick: () => {} }}
+          className="rounded-2xl border border-outline-variant bg-surface-container-lowest"
+        />
+      ) : null}
 
       <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
         {achievements.map((achievement) => (

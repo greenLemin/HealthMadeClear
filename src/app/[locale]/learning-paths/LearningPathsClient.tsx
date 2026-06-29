@@ -46,10 +46,10 @@ export default function LearningPathsClient({
               <section
                 key={path.id}
                 id={path.id}
-                className="scroll-mt-24 rounded-xl border border-outline-variant bg-surface p-6 shadow-elevation-2"
+                className="scroll-mt-24 rounded-2xl border border-outline-variant bg-surface-container-lowest p-6 shadow-elevation-2 md:p-8 animate-fade-in-up hover:border-primary/20 transition-all duration-300"
               >
                 <div className="mb-5 flex flex-wrap items-center gap-3">
-                  <div className="inline-flex rounded-full bg-primary px-4 py-2 text-label-md font-semibold text-on-primary">
+                  <div className="inline-flex rounded-full bg-primary px-4 py-1.5 text-label-md font-semibold text-on-primary shadow-sm">
                     {isStarted ? t("resumeJourney") : t("goodPlaceToStart")}
                   </div>
                   <div className="inline-flex items-center gap-2 text-label-md text-on-surface-variant">
@@ -63,7 +63,10 @@ export default function LearningPathsClient({
 
                 <div className="grid gap-6 lg:grid-cols-[1.2fr_0.8fr] lg:items-start">
                   <div>
-                    <div className="mb-3 text-headline-xl" aria-hidden="true">
+                    <div
+                      className="mb-3 text-headline-xl transition-transform duration-300 hover:scale-110 origin-left"
+                      aria-hidden="true"
+                    >
                       {path.icon}
                     </div>
                     <h2 className="mb-3 text-headline-lg text-primary">{path.title}</h2>
@@ -90,7 +93,7 @@ export default function LearningPathsClient({
                       </span>
                     </div>
                     <div
-                      className="progress-bar mb-6 h-3"
+                      className="progress-bar mb-6 h-2.5"
                       role="progressbar"
                       aria-valuenow={progress.percentage}
                       aria-valuemin={0}
@@ -99,16 +102,16 @@ export default function LearningPathsClient({
                     >
                       <div className="progress-fill" style={{ width: `${progress.percentage}%` }} />
                     </div>
-                    <div className="rounded-lg border border-outline-variant bg-surface-container-low p-4">
+                    <div className="rounded-xl border border-outline-variant/60 bg-surface-container-low p-4 shadow-sm">
                       <div className="mb-1 text-label-md font-semibold text-on-surface-variant">
                         {t("upNext")}
                       </div>
-                      <div className="text-label-lg text-primary">{nextLesson?.title}</div>
+                      <div className="text-label-lg font-bold text-primary">{nextLesson?.title}</div>
                     </div>
                   </div>
 
-                  <div className="rounded-lg border border-outline-variant bg-surface-container-low p-5">
-                    <div className="mb-4 flex items-center gap-2 text-label-md text-primary">
+                  <div className="rounded-xl border border-outline-variant/60 bg-surface-container-low p-5 md:p-6 shadow-sm">
+                    <div className="mb-4 flex items-center gap-2 text-label-md font-bold text-primary">
                       <ListChecks size={18} />
                       {t("includedLessons")}
                     </div>
@@ -117,11 +120,13 @@ export default function LearningPathsClient({
                         <Link
                           key={lesson.id}
                           href={`/learn/${lesson.id}`}
-                          className="flex items-start justify-between gap-4 rounded-lg bg-surface px-4 py-3 transition-colors hover:bg-surface-container"
+                          className="flex items-start justify-between gap-4 rounded-xl bg-surface-container-lowest border border-transparent px-4 py-3 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-sm hover:border-primary/10 hover:bg-surface"
                           onClick={() => markPathStarted(path.id)}
                         >
                           <div>
-                            <div className="text-label-md text-on-surface">{lesson.title}</div>
+                            <div className="text-label-md font-semibold text-on-surface group-hover:text-primary transition-colors">
+                              {lesson.title}
+                            </div>
                             <div className="text-label-md text-on-surface-variant">{lesson.duration}</div>
                           </div>
                           <div className="text-label-md font-semibold text-primary">

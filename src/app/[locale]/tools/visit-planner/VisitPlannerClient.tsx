@@ -20,6 +20,9 @@ type PlannerState = {
   step: number;
 };
 
+const STEP_FOCUS =
+  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2";
+
 export default function VisitPlannerClient() {
   const t = useTranslations("tools");
   const tCommon = useTranslations("common");
@@ -150,15 +153,15 @@ export default function VisitPlannerClient() {
               aria-current={value === step ? "step" : undefined}
               className={
                 value === step
-                  ? "rounded-lg bg-primary px-4 py-3 text-left text-on-primary"
-                  : "rounded-lg bg-surface-container px-4 py-3 text-left text-on-surface-variant"
+                  ? `rounded-xl bg-primary px-5 py-4 text-left text-on-primary shadow-md transition-all duration-300 ${STEP_FOCUS}`
+                  : `rounded-xl bg-surface-container px-5 py-4 text-left text-on-surface-variant transition-all duration-300 hover:bg-surface-container-high hover:-translate-y-0.5 active:scale-95 ${STEP_FOCUS}`
               }
               onClick={() => setStep(value)}
             >
-              <div className="text-label-md font-semibold">
+              <div className="text-label-md font-semibold opacity-85">
                 {t("step")} {value}
               </div>
-              <div className="text-label-md">
+              <div className="text-label-lg font-bold">
                 {value === 1 ? t("visitType") : value === 2 ? t("questions") : t("review")}
               </div>
             </button>
@@ -168,7 +171,7 @@ export default function VisitPlannerClient() {
         <div className="card">
           {step === 1 ? (
             <div>
-              <h2 className="mb-6 text-headline-md text-primary">{t("chooseVisitType")}</h2>
+              <h2 className="mb-6 text-headline-md text-primary font-bold">{t("chooseVisitType")}</h2>
               <div className="grid gap-4 md:grid-cols-3">
                 {(Object.entries(visitTypes) as [VisitTypeKey, (typeof visitTypes)[VisitTypeKey]][]).map(
                   ([key, value]) => (
@@ -178,15 +181,15 @@ export default function VisitPlannerClient() {
                       aria-pressed={visitType === key}
                       className={
                         visitType === key
-                          ? "rounded-lg border-2 border-primary bg-primary-fixed px-5 py-5 text-left"
-                          : "rounded-lg border border-outline-variant bg-surface px-5 py-5 text-left"
+                          ? `rounded-2xl border-2 border-primary bg-primary/5 px-6 py-6 text-left shadow-sm transition-all duration-300 ${STEP_FOCUS}`
+                          : `rounded-2xl border border-outline-variant bg-surface-container-lowest px-6 py-6 text-left transition-all duration-300 hover:border-primary/20 hover:shadow-sm hover:-translate-y-0.5 ${STEP_FOCUS}`
                       }
                       onClick={() => {
                         setVisitType(key);
                         setSelectedQuestions(visitTypes[key].questions.slice(0, 2));
                       }}
                     >
-                      <div className="text-label-lg text-primary">{value.label}</div>
+                      <div className="text-label-lg font-bold text-primary">{value.label}</div>
                       <div className="mt-2 text-body-md text-on-surface-variant">
                         {value.questions.length} {t("suggestedQuestions")}
                       </div>
@@ -285,9 +288,10 @@ export default function VisitPlannerClient() {
                 )}
               </div>
 
-              <label className="mt-8 block">
+              <label className="mt-8 block" htmlFor="visit-planner-notes">
                 <span className="input-label">{t("addNotes")}</span>
                 <textarea
+                  id="visit-planner-notes"
                   className="input-field min-h-40"
                   value={notes}
                   onChange={(event) => setNotes(event.target.value)}

@@ -13,7 +13,7 @@ export default function Hero() {
       <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent" />
       <div className="max-w-container relative mx-auto px-4 md:px-6">
         <div className="grid items-center gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:gap-10">
-          <div className="max-w-3xl">
+          <div className="max-w-3xl animate-fade-in-up">
             <div className="mb-4 inline-flex rounded-full border border-outline-variant bg-surface/80 px-4 py-2 text-label-md font-semibold text-primary shadow-sm">
               {t("badge")}
             </div>
@@ -37,7 +37,7 @@ export default function Hero() {
             </div>
           </div>
 
-          <div className="hidden overflow-hidden rounded-lg border border-outline-variant bg-surface/85 shadow-elevation-2 backdrop-blur-sm lg:block">
+          <div className="hidden overflow-hidden rounded-2xl border border-outline-variant bg-surface/85 shadow-elevation-2 backdrop-blur-sm lg:block animate-scale-up delay-200">
             <Image
               src="/stitch/home.png"
               alt={t("imageAlt")}

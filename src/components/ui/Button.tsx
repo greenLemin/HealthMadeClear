@@ -16,12 +16,13 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 
 const variantStyles: Record<ButtonVariant, string> = {
   primary:
-    "bg-primary text-on-primary hover:bg-primary-container active:bg-primary-container focus-visible:ring-primary",
+    "bg-primary text-on-primary shadow-sm hover:shadow-md hover:bg-primary-container active:bg-primary-container focus-visible:ring-primary hover:-translate-y-0.5 active:translate-y-0",
   secondary:
-    "border-2 border-primary text-primary bg-transparent hover:bg-surface-container-low active:bg-surface-container focus-visible:ring-primary",
+    "border-2 border-primary text-primary bg-transparent hover:bg-surface-container-low active:bg-surface-container focus-visible:ring-primary hover:-translate-y-0.5 active:translate-y-0",
   ghost:
-    "bg-transparent text-on-surface hover:bg-surface-container active:bg-surface-container focus-visible:ring-primary",
-  danger: "bg-error text-on-error hover:bg-error/90 active:bg-error/80 focus-visible:ring-error",
+    "bg-transparent text-on-surface hover:bg-surface-container active:bg-surface-container focus-visible:ring-primary hover:-translate-y-0.5 active:translate-y-0",
+  danger:
+    "bg-error text-on-error shadow-sm hover:shadow-md hover:bg-error/90 active:bg-error/80 focus-visible:ring-error hover:-translate-y-0.5 active:translate-y-0",
 };
 
 const sizeStyles: Record<ButtonSize, string> = {
@@ -51,7 +52,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         disabled={disabled || loading}
         aria-busy={loading || undefined}
         className={[
-          "inline-flex items-center justify-center gap-2 rounded-lg font-semibold transition-all motion-safe:active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
+          "inline-flex items-center justify-center gap-2 rounded-xl font-semibold transition-all duration-200 ease-out motion-safe:active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
           variantStyles[variant],
           sizeStyles[size],
           fullWidth ? "w-full" : "",
@@ -60,7 +61,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         {...props}
       >
         {loading ? (
-          <Loader2 size={18} className="animate-spin" aria-hidden="true" />
+          <Loader2 size={18} className="animate-spin motion-reduce:animate-none" aria-hidden="true" />
         ) : icon ? (
           <span aria-hidden="true">{icon}</span>
         ) : null}

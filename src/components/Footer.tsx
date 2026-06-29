@@ -13,11 +13,11 @@ export default function Footer() {
       <div className="max-w-container mx-auto px-4 py-12 md:px-16">
         <div className="grid gap-10 md:grid-cols-[1.4fr_1fr_1fr]">
           <div>
-            <h2 className="mb-3 text-headline-md text-on-primary font-bold">Health Made Clear</h2>
+            <p className="mb-3 text-headline-md text-on-primary font-bold">Health Made Clear</p>
             <p className="max-w-md text-body-md text-on-primary/80">{t("tagline")}</p>
           </div>
           <nav aria-label={t("platform")}>
-            <h2 className="mb-3 text-label-md text-on-primary font-semibold">{t("platform")}</h2>
+            <p className="mb-3 text-label-md text-on-primary font-semibold">{t("platform")}</p>
             <ul className="space-y-2 text-body-md text-on-primary/80">
               <li>
                 <Link
@@ -54,7 +54,7 @@ export default function Footer() {
             </ul>
           </nav>
           <nav aria-label={t("legal")}>
-            <h2 className="mb-3 text-label-md text-on-primary font-semibold">{t("legal")}</h2>
+            <p className="mb-3 text-label-md text-on-primary font-semibold">{t("legal")}</p>
             <ul className="space-y-2 text-body-md text-on-primary/80">
               <li>
                 <Link

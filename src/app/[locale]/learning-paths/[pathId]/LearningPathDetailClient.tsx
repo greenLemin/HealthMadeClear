@@ -42,7 +42,7 @@ export default function LearningPathDetailClient({ path, lessons, glossaryTerms 
       <div className="max-w-container mx-auto px-4 md:px-6">
         <nav
           className="mb-6 flex flex-wrap items-center gap-2 text-label-md text-on-surface-variant"
-          aria-label="Breadcrumb"
+          aria-label={tCommon("breadcrumb")}
         >
           <Link href="/" className="hover:text-primary transition-colors">
             {tCommon("back")}
@@ -66,7 +66,7 @@ export default function LearningPathDetailClient({ path, lessons, glossaryTerms 
 
           <div className="mb-6 flex flex-wrap items-center gap-4 text-label-md text-on-surface-variant">
             <span className="rounded-full bg-surface-container px-3 py-1">
-              {path.lessons.length} {path.lessons.length === 1 ? "lesson" : "lessons"}
+              {path.lessons.length} {path.lessons.length === 1 ? t("lesson") : t("lessons")}
             </span>
             <span className="inline-flex items-center gap-1.5">
               <Clock size={14} aria-hidden="true" />
@@ -82,7 +82,7 @@ export default function LearningPathDetailClient({ path, lessons, glossaryTerms 
             <div className="mb-8 max-w-lg">
               <ProgressBar
                 value={progress.percentage}
-                label={`${progress.completed} of ${progress.total} complete`}
+                label={t("progressOfTotal", { completed: progress.completed, total: progress.total })}
                 showPercentage
                 size="md"
               />
@@ -116,7 +116,7 @@ export default function LearningPathDetailClient({ path, lessons, glossaryTerms 
             ) : null}
 
             {/* Lesson list */}
-            <h2 className="mb-4 text-headline-lg text-primary">Lessons in this path</h2>
+            <h2 className="mb-4 text-headline-lg text-primary">{t("lessonsInPath")}</h2>
             <div className="space-y-3">
               {pathLessons.map((lesson, index) => {
                 const isCompleted = completedLessonIdsSet.has(lesson.id);
@@ -125,7 +125,7 @@ export default function LearningPathDetailClient({ path, lessons, glossaryTerms 
                   <Link
                     key={lesson.id}
                     href={`/learn/${lesson.id}`}
-                    className={`flex items-center gap-4 rounded-xl border p-4 transition-shadow hover:shadow-card-hover ${
+                    className={`flex items-center gap-4 rounded-xl border p-4 transition-all duration-300 ease-out hover:-translate-y-0.5 hover:shadow-card-hover hover:border-primary/20 ${
                       isCompleted
                         ? "border-secondary/30 bg-secondary-container/10"
                         : isNext && !allDone
@@ -134,7 +134,7 @@ export default function LearningPathDetailClient({ path, lessons, glossaryTerms 
                     }`}
                   >
                     <span
-                      className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-label-md font-bold ${
+                      className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-label-md font-bold transition-transform duration-300 group-hover:scale-105 ${
                         isCompleted
                           ? "bg-secondary text-on-secondary"
                           : isNext && !allDone
@@ -145,11 +145,15 @@ export default function LearningPathDetailClient({ path, lessons, glossaryTerms 
                       {isCompleted ? <CheckCircle2 size={20} /> : index + 1}
                     </span>
                     <div className="min-w-0 flex-1">
-                      <span className="block text-label-md text-on-surface">{lesson.title}</span>
+                      <span className="block text-label-md font-semibold text-on-surface transition-colors group-hover:text-primary">
+                        {lesson.title}
+                      </span>
                       <span className="text-label-md text-on-surface-variant">{lesson.duration}</span>
                     </div>
                     {isNext && !allDone ? (
-                      <span className="btn-primary shrink-0 px-4 py-2 text-label-md">{tCommon("start")}</span>
+                      <span className="btn-primary shrink-0 px-4 py-1.5 text-label-md flex items-center justify-center min-h-[40px]">
+                        {tCommon("start")}
+                      </span>
                     ) : isCompleted ? (
                       <span className="inline-flex items-center gap-1 text-label-md font-semibold text-secondary">
                         {tCommon("completed")}
@@ -169,17 +173,15 @@ export default function LearningPathDetailClient({ path, lessons, glossaryTerms 
           {/* Sidebar */}
           <aside className="space-y-6">
             <div className="rounded-2xl border border-outline-variant bg-surface-container-lowest p-6">
-              <h3 className="mb-3 text-headline-md text-primary">Your progress</h3>
+              <h3 className="mb-3 text-headline-md text-primary">{t("yourProgress")}</h3>
               <div className="mb-4 flex items-center gap-3 text-label-md text-on-surface-variant">
                 <ListChecks size={18} aria-hidden="true" />
-                <span>
-                  {progress.completed} of {progress.total} lessons
-                </span>
+                <span>{t("lessonsOfTotal", { completed: progress.completed, total: progress.total })}</span>
               </div>
               {!allDone ? (
                 <div className="flex items-center justify-between rounded-xl bg-surface-container p-4">
                   <div>
-                    <div className="text-label-md text-on-surface-variant">Next lesson</div>
+                    <div className="text-label-md text-on-surface-variant">{t("nextLesson")}</div>
                     <div className="text-label-lg font-semibold text-primary">{nextLesson?.title}</div>
                   </div>
                   <Link
@@ -193,7 +195,7 @@ export default function LearningPathDetailClient({ path, lessons, glossaryTerms 
               ) : (
                 <div className="flex items-center gap-2 text-label-md font-semibold text-secondary">
                   <CheckCircle2 size={20} />
-                  Path completed!
+                  {t("pathCompleted")}
                 </div>
               )}
             </div>

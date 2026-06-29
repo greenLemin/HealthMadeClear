@@ -2,6 +2,7 @@
 
 import type { ReactNode } from "react";
 import { AlertTriangle, CheckCircle2, Info, X, XCircle } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 type AlertVariant = "info" | "success" | "warning" | "error";
 
@@ -57,6 +58,7 @@ export default function Alert({
   className = "",
 }: AlertProps) {
   const styles = variantStyles[variant];
+  const t = useTranslations("common");
 
   return (
     <div
@@ -75,8 +77,8 @@ export default function Alert({
           <button
             type="button"
             onClick={onDismiss}
-            className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface"
-            aria-label="Dismiss"
+            className="flex min-h-11 min-w-11 shrink-0 items-center justify-center rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+            aria-label={t("dismiss")}
           >
             <X size={18} />
           </button>

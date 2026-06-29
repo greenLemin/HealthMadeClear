@@ -153,7 +153,7 @@ export default function SignupForm() {
                 aria-valuetext={strengthLabel}
               >
                 <div
-                  className={`h-full rounded-full transition-all ${strength.color}`}
+                  className={`h-full rounded-full transition-all motion-reduce:transition-none ${strength.color}`}
                   style={{ width: strength.width }}
                 />
               </div>

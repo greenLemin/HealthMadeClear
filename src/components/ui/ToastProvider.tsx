@@ -1,6 +1,7 @@
 "use client";
 
 import { createContext, useCallback, useContext, useMemo, useState, type ReactNode } from "react";
+import { useTranslations } from "next-intl";
 import ToastItem from "@/components/ui/Toast";
 import type { ToastVariant } from "@/components/ui/Toast";
 
@@ -18,6 +19,7 @@ const ToastContext = createContext<ToastContextValue | null>(null);
 
 export default function ToastProvider({ children }: { children: ReactNode }) {
   const [toasts, setToasts] = useState<ToastData[]>([]);
+  const t = useTranslations("notifications");
 
   const showToast = useCallback((variant: ToastVariant, message: string) => {
     const id = `toast-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`;
@@ -36,7 +38,7 @@ export default function ToastProvider({ children }: { children: ReactNode }) {
       <div
         className="fixed bottom-4 right-4 z-[120] flex w-full max-w-sm flex-col gap-3"
         role="region"
-        aria-label="Notifications"
+        aria-label={t("title")}
       >
         {toasts.map((toast) => (
           <ToastItem key={toast.id} toast={toast} onDismiss={dismissToast} />

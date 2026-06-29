@@ -39,6 +39,12 @@ export default function HomeClient({ lessons, learningPaths }: HomeClientProps) 
     return lessons.find((l) => l.id === lastUncompletedRecentLessonId);
   }, [lastUncompletedRecentLessonId, lessons]);
 
+  const authenticatedCtaTitle = lastRecentLesson
+    ? tCommon("continue")
+    : completedLessons.size === 0
+      ? tDashboard("startFirstLessonCta")
+      : tCommon("continue");
+
   return (
     <div>
       <Hero />
@@ -79,21 +85,21 @@ export default function HomeClient({ lessons, learningPaths }: HomeClientProps) 
           <p className="mb-10 max-w-3xl text-body-lg text-on-surface-variant">{t("whyMattersBody")}</p>
           <div className="grid gap-6 md:grid-cols-6">
             {/* Knowledge — spans 3 cols, teal background highlight */}
-            <div className="md:col-span-3 rounded-2xl border border-outline-variant bg-primary-container/10 p-8">
+            <div className="md:col-span-3 rounded-2xl border border-outline-variant bg-primary-container/5 hover:bg-primary-container/10 p-8 transition-all duration-300 hover:-translate-y-0.5 shadow-sm">
               <Heart size={28} className="text-primary mb-4" aria-hidden="true" />
               <h3 className="mb-3 text-headline-md text-primary">{t("valueKnowledgeTitle")}</h3>
               <p className="text-body-md text-on-surface-variant">{t("valueKnowledgeBody")}</p>
             </div>
 
             {/* Confidence — spans 3 cols, subtle surface tint */}
-            <div className="md:col-span-3 rounded-2xl border border-outline-variant bg-surface-container-low p-8">
+            <div className="md:col-span-3 rounded-2xl border border-outline-variant bg-surface-container-low hover:bg-surface-container-high p-8 transition-all duration-300 hover:-translate-y-0.5 shadow-sm">
               <Shield size={28} className="text-secondary mb-4" aria-hidden="true" />
               <h3 className="mb-3 text-headline-md text-primary">{t("valueConfidenceTitle")}</h3>
               <p className="text-body-md text-on-surface-variant">{t("valueConfidenceBody")}</p>
             </div>
 
             {/* Access — full width, simple treatment */}
-            <div className="md:col-span-6 rounded-2xl border border-outline-variant bg-surface-container-lowest p-8 shadow-card">
+            <div className="md:col-span-6 rounded-2xl border border-outline-variant bg-surface-container-lowest p-8 shadow-card hover:border-primary/20 hover:shadow-card-hover transition-all duration-300 hover:-translate-y-0.5">
               <div className="flex flex-col gap-6 md:flex-row md:items-center">
                 <BookOpen size={28} className="text-primary mb-4 shrink-0" aria-hidden="true" />
                 <div>
@@ -131,15 +137,20 @@ export default function HomeClient({ lessons, learningPaths }: HomeClientProps) 
                 <Link
                   key={path.id}
                   href={`/learning-paths#${path.id}`}
-                  className="group rounded-2xl border border-outline-variant bg-surface-container-lowest p-6 shadow-card transition-shadow hover:shadow-card-hover"
+                  className="group rounded-2xl border border-outline-variant bg-surface-container-lowest p-6 shadow-card transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-card-hover hover:border-primary/20"
                 >
                   <div className="mb-3 inline-flex rounded-full bg-surface-container px-3 py-1 text-label-md font-semibold uppercase tracking-wider text-on-surface-variant">
                     {formatLevel(path.level, locale)}
                   </div>
-                  <div className="mb-3 text-headline-xl" aria-hidden="true">
+                  <div
+                    className="mb-3 text-headline-xl transition-transform duration-300 group-hover:scale-110 origin-left"
+                    aria-hidden="true"
+                  >
                     {path.icon}
                   </div>
-                  <h3 className="mb-3 text-headline-md text-primary">{path.title}</h3>
+                  <h3 className="mb-3 text-headline-md text-primary group-hover:text-primary-container transition-colors">
+                    {path.title}
+                  </h3>
                   <p className="mb-4 text-body-md text-on-surface-variant">{path.description}</p>
                   {progress.totalCount > 0 ? (
                     <div className="mb-4">
@@ -150,15 +161,15 @@ export default function HomeClient({ lessons, learningPaths }: HomeClientProps) 
                         <span>{progress.percentage}%</span>
                       </div>
                       <div
-                        className="h-3 w-full overflow-hidden rounded-full bg-surface-container"
+                        className="h-2.5 w-full overflow-hidden rounded-full bg-surface-container"
                         role="progressbar"
                         aria-valuenow={progress.percentage}
                         aria-valuemin={0}
                         aria-valuemax={100}
-                        aria-label={`${path.title} progress`}
+                        aria-label={tDashboard("pathProgressAria", { title: path.title })}
                       >
                         <div
-                          className="h-full rounded-full bg-secondary-container transition-all duration-500"
+                          className="h-full rounded-full bg-secondary-container transition-all duration-500 motion-reduce:transition-none"
                           style={{ width: `${progress.percentage}%` }}
                         />
                       </div>
@@ -196,26 +207,44 @@ export default function HomeClient({ lessons, learningPaths }: HomeClientProps) 
           <div className="grid gap-6 md:grid-cols-3">
             <Link
               href="/learn"
-              className="group rounded-2xl border border-outline-variant bg-surface-container-lowest p-6 shadow-card transition-shadow hover:shadow-card-hover"
+              className="group rounded-2xl border border-outline-variant bg-surface-container-lowest p-6 shadow-card transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-card-hover hover:border-primary/20"
             >
-              <BookOpen size={24} className="text-primary mb-4" aria-hidden="true" />
-              <h3 className="mb-2 text-label-lg text-primary">{tCommon("exploreLibrary")}</h3>
+              <BookOpen
+                size={24}
+                className="text-primary mb-4 transition-transform duration-300 group-hover:scale-110"
+                aria-hidden="true"
+              />
+              <h3 className="mb-2 text-label-lg text-primary group-hover:text-primary-container transition-colors">
+                {tCommon("exploreLibrary")}
+              </h3>
               <p className="text-body-md text-on-surface-variant">{t("learnPreviewBody")}</p>
             </Link>
             <Link
               href="/glossary"
-              className="group rounded-2xl border border-outline-variant bg-surface-container-lowest p-6 shadow-card transition-shadow hover:shadow-card-hover"
+              className="group rounded-2xl border border-outline-variant bg-surface-container-lowest p-6 shadow-card transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-card-hover hover:border-primary/20"
             >
-              <Search size={24} className="text-secondary mb-4" aria-hidden="true" />
-              <h3 className="mb-2 text-label-lg text-primary">{t("glossaryTitle")}</h3>
+              <Search
+                size={24}
+                className="text-secondary mb-4 transition-transform duration-300 group-hover:scale-110"
+                aria-hidden="true"
+              />
+              <h3 className="mb-2 text-label-lg text-primary group-hover:text-primary-container transition-colors">
+                {t("glossaryTitle")}
+              </h3>
               <p className="text-body-md text-on-surface-variant">{t("glossaryPreviewBody")}</p>
             </Link>
             <Link
               href="/tools"
-              className="group rounded-2xl border border-outline-variant bg-surface-container-lowest p-6 shadow-card transition-shadow hover:shadow-card-hover"
+              className="group rounded-2xl border border-outline-variant bg-surface-container-lowest p-6 shadow-card transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-card-hover hover:border-primary/20"
             >
-              <Wrench size={24} className="text-primary mb-4" aria-hidden="true" />
-              <h3 className="mb-2 text-label-lg text-primary">{t("toolsSectionTitle")}</h3>
+              <Wrench
+                size={24}
+                className="text-primary mb-4 transition-transform duration-300 group-hover:scale-110"
+                aria-hidden="true"
+              />
+              <h3 className="mb-2 text-label-lg text-primary group-hover:text-primary-container transition-colors">
+                {t("toolsSectionTitle")}
+              </h3>
               <p className="text-body-md text-on-surface-variant">{t("toolsPreviewBody")}</p>
             </Link>
           </div>
@@ -229,59 +258,52 @@ export default function HomeClient({ lessons, learningPaths }: HomeClientProps) 
       >
         <div className="max-w-container mx-auto px-4 md:px-16">
           {user ? (
-            lastRecentLesson ? (
-              // Resume lesson state
-              <div className="rounded-2xl border border-outline-variant bg-surface-container-lowest p-8 md:p-10 shadow-card">
-                <h2 id="cta-heading-authenticated" className="mb-4 text-headline-md text-primary font-bold">
-                  {tCommon("continue")}
-                </h2>
-                <div className="mb-6 rounded-xl border border-outline-variant bg-surface-container-low p-5">
-                  <div className="mb-2 text-label-md font-bold uppercase tracking-wider text-secondary">
-                    {locale === "es" ? "En curso" : "In Progress"}
+            <div className="rounded-2xl border border-outline-variant bg-surface-container-lowest p-8 md:p-10 shadow-card">
+              <h2 id="cta-heading-authenticated" className="mb-4 text-headline-md text-primary font-bold">
+                {authenticatedCtaTitle}
+              </h2>
+              {lastRecentLesson ? (
+                <>
+                  <div className="mb-6 rounded-xl border border-outline-variant bg-surface-container-low p-5">
+                    <div className="mb-2 text-label-md font-bold uppercase tracking-wider text-secondary">
+                      {tDashboard("inProgress")}
+                    </div>
+                    <h3 className="mb-2 text-headline-md font-semibold text-primary">
+                      {lastRecentLesson.title}
+                    </h3>
+                    <p className="text-body-md text-on-surface-variant">{lastRecentLesson.description}</p>
                   </div>
-                  <h3 className="mb-2 text-headline-md font-semibold text-primary">
-                    {lastRecentLesson.title}
-                  </h3>
-                  <p className="text-body-md text-on-surface-variant">{lastRecentLesson.description}</p>
-                </div>
-                <Link href={`/learn/${lastRecentLesson.id}`}>
-                  <Button variant="primary" size="md">
-                    {tDashboard("continueCta")}
-                    <ArrowRight size={18} />
-                  </Button>
-                </Link>
-              </div>
-            ) : completedLessons.size === 0 ? (
-              // Brand new user empty state
-              <div className="rounded-2xl border border-outline-variant bg-surface-container-lowest p-8 md:p-10 shadow-card">
-                <h2 id="cta-heading-authenticated" className="mb-2 text-headline-md text-primary font-bold">
-                  {tDashboard("startFirstLessonCta")}
-                </h2>
-                <p className="mb-6 text-body-md text-on-surface-variant">{tDashboard("startJourney")}</p>
-                <Link href="/learn">
-                  <Button variant="primary" size="md">
-                    {tCommon("exploreLibrary")}
-                    <ArrowRight size={18} />
-                  </Button>
-                </Link>
-              </div>
-            ) : (
-              // Completed all started lessons state
-              <div className="rounded-2xl border border-outline-variant bg-surface-container-lowest p-8 md:p-10 shadow-card">
-                <h2 id="cta-heading-authenticated" className="mb-4 text-headline-md text-primary font-bold">
-                  {tCommon("continue")}
-                </h2>
-                <p className="mb-6 text-body-md text-on-surface-variant">
-                  {tCommon("completed")}: {completedLessons.size} {tCommon("modules")}
-                </p>
-                <Link href="/dashboard">
-                  <Button variant="primary" size="md">
-                    {tCommon("exploreLibrary")}
-                    <ArrowRight size={18} />
-                  </Button>
-                </Link>
-              </div>
-            )
+                  <Link href={`/learn/${lastRecentLesson.id}`}>
+                    <Button variant="primary" size="md">
+                      {tDashboard("continueCta")}
+                      <ArrowRight size={18} />
+                    </Button>
+                  </Link>
+                </>
+              ) : completedLessons.size === 0 ? (
+                <>
+                  <p className="mb-6 text-body-md text-on-surface-variant">{tDashboard("startJourney")}</p>
+                  <Link href="/learn">
+                    <Button variant="primary" size="md">
+                      {tCommon("exploreLibrary")}
+                      <ArrowRight size={18} />
+                    </Button>
+                  </Link>
+                </>
+              ) : (
+                <>
+                  <p className="mb-6 text-body-md text-on-surface-variant">
+                    {tCommon("completed")}: {completedLessons.size} {tCommon("modules")}
+                  </p>
+                  <Link href="/dashboard">
+                    <Button variant="primary" size="md">
+                      {tDashboard("title")}
+                      <ArrowRight size={18} />
+                    </Button>
+                  </Link>
+                </>
+              )}
+            </div>
           ) : (
             <div className="rounded-2xl border border-outline-variant bg-primary-container/10 p-8 md:p-10 text-center md:text-left">
               <div className="flex flex-col items-center gap-6 md:flex-row md:justify-between">

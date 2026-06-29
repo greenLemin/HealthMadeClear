@@ -110,12 +110,13 @@ export default function SearchDialog() {
         ref={triggerRef}
         type="button"
         onClick={() => setIsOpen(true)}
-        className="flex min-h-11 items-center gap-3 rounded-lg border border-outline-variant bg-surface-container-lowest px-3 py-2 text-label-md text-on-surface-variant transition-colors hover:bg-surface-container hover:text-on-surface md:w-56 xl:w-11 2xl:w-56 xl:justify-center 2xl:justify-start"
+        className="flex min-h-11 items-center gap-3 rounded-lg border border-outline-variant bg-surface-container-lowest px-3 py-2 text-label-md text-on-surface-variant transition-colors hover:bg-surface-container hover:text-on-surface focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 md:min-w-[14rem]"
         aria-label={t("openSearch")}
+        title={t("placeholder")}
       >
         <Search size={16} aria-hidden="true" />
-        <span className="hidden md:inline xl:hidden 2xl:inline">{t("placeholder")}</span>
-        <kbd className="ml-auto hidden rounded border border-outline-variant bg-surface px-1.5 py-0.5 text-label-md tracking-wider text-on-surface-variant md:inline xl:hidden 2xl:inline">
+        <span className="hidden md:inline">{t("placeholder")}</span>
+        <kbd className="ml-auto hidden rounded border border-outline-variant bg-surface px-1.5 py-0.5 text-label-md tracking-wider text-on-surface-variant md:inline">
           ⌘K
         </kbd>
       </button>

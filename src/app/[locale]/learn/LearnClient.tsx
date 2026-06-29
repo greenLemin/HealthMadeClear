@@ -1,16 +1,20 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { BookOpen, Search } from "lucide-react";
+import { Search } from "lucide-react";
 import { useAppState } from "@/components/AppProviders";
 import LessonCard from "@/components/learn/LessonCard";
 import PageHeader from "@/components/PageHeader";
+import EmptyState from "@/components/ui/EmptyState";
 import { getCategoryLabel } from "@/lib/i18n";
 import { LESSON_CATEGORY_IDS } from "@/types/content";
 import type { LessonListItem } from "@/types/lesson";
 import { useTranslations } from "next-intl";
 
-const ALL = "all";
+const ALL = "all" as const;
+
+const CHIP_FOCUS =
+  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2";
 type Difficulty = "all" | "beginner" | "intermediate" | "advanced";
 type CategoryFilter = typeof ALL | (typeof LESSON_CATEGORY_IDS)[number];
 
@@ -108,8 +112,8 @@ export default function LearnClient({ lessons }: LearnClientProps) {
               aria-pressed={activeCategory === category.id}
               className={
                 activeCategory === category.id
-                  ? "rounded-full bg-secondary-container px-4 py-3 min-h-11 text-label-md font-semibold text-primary"
-                  : "rounded-full border border-outline-variant bg-surface px-4 py-3 min-h-11 text-label-md font-semibold text-on-surface-variant"
+                  ? `rounded-full bg-secondary-container/80 px-5 py-2.5 min-h-11 text-label-md font-bold text-primary border border-secondary/25 shadow-sm transition-all duration-200 ${CHIP_FOCUS}`
+                  : `rounded-full border border-outline-variant/65 bg-surface px-5 py-2.5 min-h-11 text-label-md font-semibold text-on-surface-variant transition-all duration-200 hover:bg-surface-container hover:text-primary hover:-translate-y-0.5 active:scale-95 ${CHIP_FOCUS}`
               }
             >
               {category.label}
@@ -126,8 +130,8 @@ export default function LearnClient({ lessons }: LearnClientProps) {
               aria-pressed={activeDifficulty === d.id}
               className={
                 activeDifficulty === d.id
-                  ? "rounded-full bg-primary-container px-4 py-2 min-h-11 text-label-md font-semibold text-on-primary-container"
-                  : "rounded-full border border-outline-variant bg-surface px-4 py-2 min-h-11 text-label-md font-semibold text-on-surface-variant"
+                  ? `rounded-full bg-primary/10 px-4 py-2 min-h-11 text-label-md font-bold text-primary border border-primary/20 shadow-sm transition-all duration-200 ${CHIP_FOCUS}`
+                  : `rounded-full border border-outline-variant/65 bg-surface px-4 py-2 min-h-11 text-label-md font-semibold text-on-surface-variant transition-all duration-200 hover:bg-surface-container hover:text-primary hover:-translate-y-0.5 active:scale-95 ${CHIP_FOCUS}`
               }
             >
               {d.label}
@@ -192,26 +196,20 @@ export default function LearnClient({ lessons }: LearnClientProps) {
         ) : null}
 
         {filteredLessons.length === 0 ? (
-          <div className="card mt-6 text-center" role="status">
-            <div className="mb-4 text-on-surface-variant" aria-hidden="true">
-              <BookOpen size={48} />
-            </div>
-            <h3 className="mb-2 text-headline-md text-on-surface">{tCommon("noLessonsFound")}</h3>
-            <p className="mb-6 max-w-md mx-auto text-body-md text-on-surface-variant">
-              {tCommon("noLessonsTryBroader")}
-            </p>
-            <button
-              type="button"
-              className="btn-secondary inline-flex items-center"
-              onClick={() => {
+          <EmptyState
+            variant="search"
+            title={tCommon("noLessonsFound")}
+            description={tCommon("noLessonsTryBroader")}
+            action={{
+              label: tCommon("showAllLessons"),
+              onClick: () => {
                 setQuery("");
                 setActiveCategory(ALL);
                 setActiveDifficulty(ALL);
-              }}
-            >
-              {tCommon("showAllLessons")}
-            </button>
-          </div>
+              },
+            }}
+            className="card mt-6"
+          />
         ) : null}
       </div>
     </div>

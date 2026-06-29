@@ -8,6 +8,8 @@ import Input from "@/components/ui/Input";
 import { Link } from "@/i18n/navigation";
 import { Mail } from "lucide-react";
 
+const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
 export default function ForgotPasswordForm() {
   const t = useTranslations("auth");
   const supabase = createClient();
@@ -29,6 +31,11 @@ export default function ForgotPasswordForm() {
 
     if (!email.trim()) {
       setFieldError(t("emailRequired"));
+      return;
+    }
+
+    if (!EMAIL_REGEX.test(email.trim())) {
+      setFieldError(t("errorEmailInvalid"));
       return;
     }
 

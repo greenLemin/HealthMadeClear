@@ -154,7 +154,7 @@ export default function InlineGlossaryTerm({ term, displayText, instanceId }: In
   }, [isOpen, close]);
 
   const baseClasses =
-    "no-print cursor-help border-b-2 border-dashed border-primary-container font-semibold text-primary hover:bg-primary-container/10 focus:bg-primary-container/20 focus:outline-none transition-colors";
+    "no-print cursor-help border-b-2 border-dashed border-primary-container font-semibold text-primary hover:bg-primary-container/10 focus:bg-primary-container/20 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 transition-colors";
   const activeClasses = isActive ? "bg-primary-container/20 shadow-sm" : "";
 
   return (
@@ -174,6 +174,7 @@ export default function InlineGlossaryTerm({ term, displayText, instanceId }: In
         aria-haspopup="dialog"
         aria-expanded={isOpen}
         aria-controls={isOpen ? popoverId : undefined}
+        aria-label={t("termDefinitionAria", { term: displayText })}
       >
         {displayText}
       </button>

@@ -118,7 +118,7 @@ export default function Header() {
                 <NotificationCenter />
                 <Link
                   href="/dashboard"
-                  className="flex items-center gap-2 rounded-lg bg-surface-container px-3 py-2 text-label-md text-primary transition-colors hover:bg-surface-container-high"
+                  className="flex items-center gap-2 rounded-lg bg-surface-container px-3 py-2 text-label-md text-primary transition-colors hover:bg-surface-container-high focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
                 >
                   <User size={16} />
                   <span className="max-w-[120px] truncate">{displayName}</span>
@@ -126,7 +126,7 @@ export default function Header() {
                 <button
                   type="button"
                   onClick={handleSignOut}
-                  className="flex min-h-11 min-w-11 items-center justify-center rounded-lg text-on-surface-variant transition-colors hover:bg-surface-container hover:text-on-surface"
+                  className="flex min-h-11 min-w-11 items-center justify-center rounded-lg text-on-surface-variant transition-colors hover:bg-surface-container hover:text-on-surface focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
                   aria-label={authT("signOutAria")}
                 >
                   <LogOut size={18} />
@@ -136,13 +136,13 @@ export default function Header() {
               <div className="flex items-center gap-2">
                 <Link
                   href="/auth/login"
-                  className="min-h-11 rounded-lg border-2 border-primary px-6 py-2 text-label-md font-semibold text-primary transition-colors hover:bg-surface-container-low"
+                  className="min-h-11 rounded-lg border-2 border-primary px-6 py-2 text-label-md font-semibold text-primary transition-colors hover:bg-surface-container-low focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
                 >
                   {authT("loginButton")}
                 </Link>
                 <Link
                   href="/auth/signup"
-                  className="min-h-11 rounded-lg bg-primary px-6 py-2 text-label-md font-semibold text-on-primary transition-colors hover:bg-primary-container"
+                  className="min-h-11 rounded-lg bg-primary px-6 py-2 text-label-md font-semibold text-on-primary transition-colors hover:bg-primary-container focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
                 >
                   {authT("signupButton")}
                 </Link>
@@ -263,8 +263,8 @@ function NavLink({
       aria-current={active ? "page" : undefined}
       className={
         active
-          ? "flex items-center gap-1.5 rounded-lg bg-surface-container px-3 py-2 text-body-md font-semibold text-primary border-b-2 border-primary xl:px-2 xl:gap-1 2xl:px-4 2xl:gap-2"
-          : "flex items-center gap-1.5 rounded-lg px-3 py-2 text-body-md font-medium text-on-surface-variant transition-colors hover:bg-surface-container hover:text-primary border-b-2 border-transparent xl:px-2 xl:gap-1 2xl:px-4 2xl:gap-2"
+          ? "flex items-center gap-1.5 rounded-xl bg-primary/10 px-3.5 py-2 text-body-md font-semibold text-primary border border-primary/15 xl:px-2.5 xl:gap-1 2xl:px-4 2xl:gap-2 shadow-[inset_0_1px_1px_rgba(255,255,255,0.4)]"
+          : "flex items-center gap-1.5 rounded-xl px-3.5 py-2 text-body-md font-medium text-on-surface-variant transition-all duration-200 hover:bg-surface-container hover:text-primary border border-transparent xl:px-2.5 xl:gap-1 2xl:px-4 2xl:gap-2"
       }
     >
       <span className="xl:hidden 2xl:inline-block">{icon}</span>

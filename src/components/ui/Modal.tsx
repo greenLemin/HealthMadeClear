@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useRef, type ReactNode } from "react";
 import { X } from "lucide-react";
 import { useFocusTrap } from "@/hooks/useFocusTrap";
+import { useTranslations } from "next-intl";
 
 type ModalSize = "sm" | "md" | "lg";
 
@@ -22,6 +23,7 @@ const sizeStyles: Record<ModalSize, string> = {
 
 export default function Modal({ isOpen, onClose, title, children, size = "md" }: ModalProps) {
   const dialogRef = useRef<HTMLDivElement>(null);
+  const t = useTranslations("common");
   const titleId = `modal-${title.toLowerCase().replace(/\s+/g, "-")}`;
 
   useFocusTrap(dialogRef, isOpen);
@@ -71,7 +73,7 @@ export default function Modal({ isOpen, onClose, title, children, size = "md" }:
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
       <div
-        className="fixed inset-0 bg-black/40 backdrop-blur-sm motion-safe:animate-fadeIn"
+        className="fixed inset-0 bg-black/40 backdrop-blur-sm animate-fade-in"
         onClick={onClose}
         aria-hidden="true"
       />
@@ -82,7 +84,7 @@ export default function Modal({ isOpen, onClose, title, children, size = "md" }:
         aria-labelledby={titleId}
         tabIndex={-1}
         className={[
-          "relative z-10 w-full rounded-xl border border-outline-variant bg-surface p-6 shadow-elevation-3 motion-safe:animate-fadeIn md:p-8",
+          "relative z-10 w-full rounded-2xl border border-outline-variant bg-surface p-6 shadow-elevation-3 animate-scale-up md:p-8",
           sizeStyles[size],
         ].join(" ")}
       >
@@ -94,7 +96,7 @@ export default function Modal({ isOpen, onClose, title, children, size = "md" }:
             type="button"
             onClick={onClose}
             className="flex min-h-11 min-w-11 items-center justify-center rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
-            aria-label="Close dialog"
+            aria-label={t("closeDialog")}
           >
             <X size={20} aria-hidden="true" />
           </button>

@@ -1,4 +1,7 @@
+"use client";
+
 import type { ReactNode } from "react";
+import { useTranslations } from "next-intl";
 
 interface BreadcrumbItem {
   label: string;
@@ -26,10 +29,12 @@ export default function PageHeader({
   children,
   className = "",
 }: PageHeaderProps) {
+  const t = useTranslations("common");
+
   return (
     <div className={className}>
       {breadcrumb && breadcrumb.length > 0 ? (
-        <nav aria-label="Breadcrumb" className="mb-4">
+        <nav aria-label={t("breadcrumb")} className="mb-4">
           <ol className="flex flex-wrap items-center gap-2 text-label-md text-on-surface-variant">
             {breadcrumb.map((item, i) => (
               <li key={i} className="flex items-center gap-2">

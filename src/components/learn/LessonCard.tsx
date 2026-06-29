@@ -26,7 +26,7 @@ export default function LessonCard({ lesson, isComplete = false }: LessonCardPro
   return (
     <Link
       href={`/learn/${lesson.id}`}
-      className="group block overflow-hidden rounded-2xl border border-outline-variant bg-surface-container-lowest shadow-card transition-shadow hover:shadow-card-hover"
+      className="group block overflow-hidden rounded-2xl border border-outline-variant bg-surface-container-lowest shadow-card transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-card-hover hover:border-primary/20"
     >
       <div className="p-6 md:p-8">
         <div className="mb-3 flex flex-wrap items-center gap-2">

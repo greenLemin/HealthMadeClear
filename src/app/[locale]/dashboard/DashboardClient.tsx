@@ -87,11 +87,11 @@ type DashboardClientProps = {
   locale: string;
 };
 
-function formatTime(minutes: number): string {
-  if (minutes < 60) return `${minutes} min`;
+function formatTime(minutes: number, t: (key: string, values?: Record<string, number>) => string): string {
+  if (minutes < 60) return t("timeMinutes", { count: minutes });
   const hrs = Math.floor(minutes / 60);
   const mins = minutes % 60;
-  return mins > 0 ? `${hrs}h ${mins}m` : `${hrs}h`;
+  return mins > 0 ? t("timeHoursMinutes", { hours: hrs, minutes: mins }) : t("timeHours", { hours: hrs });
 }
 
 function getGreeting(t: (key: string) => string): string {
@@ -197,27 +197,33 @@ export default function DashboardClient({
         </div>
       </section>
 
-      <section className="grid grid-cols-2 gap-4 md:grid-cols-4">
-        <Card padding="sm">
+      <section className="grid grid-cols-2 gap-4 md:grid-cols-4 animate-fade-in-up">
+        <Card
+          padding="sm"
+          className="transition-all duration-300 hover:-translate-y-0.5 hover:shadow-card-hover hover:border-primary/20"
+        >
           <div className="flex items-center gap-3">
-            <div className="rounded-lg bg-primary-fixed p-2.5 text-primary" aria-hidden="true">
+            <div className="rounded-xl bg-primary-fixed p-2.5 text-primary" aria-hidden="true">
               <BookOpen size={20} />
             </div>
             <div>
-              <p className="text-headline-md text-primary">
+              <p className="text-headline-md font-bold text-primary">
                 {summary.totalLessonsCompleted} / {summary.totalLessonsAvailable}
               </p>
               <p className="text-label-sm text-on-surface-variant">{t("completedLessons")}</p>
             </div>
           </div>
         </Card>
-        <Card padding="sm">
+        <Card
+          padding="sm"
+          className="transition-all duration-300 hover:-translate-y-0.5 hover:shadow-card-hover hover:border-primary/20"
+        >
           <div className="flex items-center gap-3">
-            <div className="rounded-lg bg-secondary-container/60 p-2.5 text-secondary" aria-hidden="true">
+            <div className="rounded-xl bg-secondary-container/60 p-2.5 text-secondary" aria-hidden="true">
               <CheckCircle2 size={20} />
             </div>
             <div>
-              <p className="text-headline-md text-primary">{summary.totalQuizzesPassed}</p>
+              <p className="text-headline-md font-bold text-primary">{summary.totalQuizzesPassed}</p>
               <p className="text-label-sm text-on-surface-variant">
                 {summary.totalQuizzesAttempted > 0
                   ? t("statsPassRate", { rate: passRate })
@@ -226,26 +232,34 @@ export default function DashboardClient({
             </div>
           </div>
         </Card>
-        <Card padding="sm">
+        <Card
+          padding="sm"
+          className="transition-all duration-300 hover:-translate-y-0.5 hover:shadow-card-hover hover:border-primary/20"
+        >
           <div className="flex items-center gap-3">
-            <div className="rounded-lg bg-tertiary-container/30 p-2.5 text-tertiary" aria-hidden="true">
+            <div className="rounded-xl bg-tertiary-container/30 p-2.5 text-tertiary" aria-hidden="true">
               <Flame size={20} />
             </div>
             <div>
-              <p className="text-headline-md text-primary">
+              <p className="text-headline-md font-bold text-primary">
                 {t("statsStreakValue", { count: summary.currentStreak })}
               </p>
               <p className="text-label-sm text-on-surface-variant">{t("statsStreak")}</p>
             </div>
           </div>
         </Card>
-        <Card padding="sm">
+        <Card
+          padding="sm"
+          className="transition-all duration-300 hover:-translate-y-0.5 hover:shadow-card-hover hover:border-primary/20"
+        >
           <div className="flex items-center gap-3">
-            <div className="rounded-lg bg-surface-container p-2.5 text-primary" aria-hidden="true">
+            <div className="rounded-xl bg-surface-container p-2.5 text-primary" aria-hidden="true">
               <Clock size={20} />
             </div>
             <div>
-              <p className="text-headline-md text-primary">{formatTime(summary.totalTimeSpentMinutes)}</p>
+              <p className="text-headline-md font-bold text-primary">
+                {formatTime(summary.totalTimeSpentMinutes, t)}
+              </p>
               <p className="text-label-sm text-on-surface-variant">{t("statsTimeSpent")}</p>
             </div>
           </div>
@@ -347,7 +361,7 @@ export default function DashboardClient({
             {inProgressPaths.slice(0, 4).map((entry) => (
               <div
                 key={entry.path.id}
-                className="rounded-2xl border border-outline-variant bg-surface-container-lowest p-6 shadow-card md:p-8"
+                className="rounded-2xl border border-outline-variant bg-surface-container-lowest p-6 shadow-card md:p-8 transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-card-hover hover:border-primary/20"
               >
                 <div className="mb-4 flex flex-wrap items-center gap-3">
                   {entry.path.icon ? (
@@ -471,17 +485,19 @@ export default function DashboardClient({
       </section>
 
       {/* Recently Earned Achievements */}
-      {earnedAchievements.length > 0 ? (
-        <section>
-          <div className="mb-4 flex items-end justify-between gap-4">
-            <h2 className="text-headline-md text-primary">{t("recentlyEarned")}</h2>
+      <section>
+        <div className="mb-4 flex items-end justify-between gap-4">
+          <h2 className="text-headline-md text-primary">{t("recentlyEarned")}</h2>
+          {earnedAchievements.length > 0 ? (
             <Link
               href="/dashboard/achievements"
               className="text-label-md font-semibold text-primary underline underline-offset-2"
             >
               {t("viewAllAchievements")} &rarr;
             </Link>
-          </div>
+          ) : null}
+        </div>
+        {earnedAchievements.length > 0 ? (
           <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4">
             {earnedAchievements.slice(0, 4).map((achievement) => (
               <Card key={achievement.id} padding="sm" className="border-secondary/30 text-center">
@@ -497,8 +513,18 @@ export default function DashboardClient({
               </Card>
             ))}
           </div>
-        </section>
-      ) : null}
+        ) : (
+          <Card padding="sm">
+            <p className="mb-3 text-body-md text-on-surface-variant">{t("noRecentlyEarned")}</p>
+            <Link
+              href="/dashboard/achievements"
+              className="text-label-md font-semibold text-primary underline underline-offset-2"
+            >
+              {t("viewAllAchievements")} &rarr;
+            </Link>
+          </Card>
+        )}
+      </section>
     </div>
   );
 }

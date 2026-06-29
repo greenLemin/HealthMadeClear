@@ -182,7 +182,7 @@ export default function ProgressClient({
       {/* Section 2: Progress by Category */}
       <section>
         <h2 className="mb-4 text-headline-md text-primary">{t("progressByCategory")}</h2>
-        <div className="overflow-hidden rounded-2xl border border-outline-variant">
+        <div className="overflow-x-auto rounded-2xl border border-outline-variant">
           <table className="w-full">
             <caption className="sr-only">{t("categoryTableCaption")}</caption>
             <thead>
@@ -305,7 +305,7 @@ export default function ProgressClient({
         {completedLessons.lessons.length > 0 ? (
           <>
             {/* Desktop table */}
-            <div className="hidden overflow-hidden rounded-2xl border border-outline-variant md:block">
+            <div className="hidden overflow-x-auto rounded-2xl border border-outline-variant md:block">
               <table className="w-full">
                 <caption className="sr-only">{t("completedTableCaption")}</caption>
                 <thead>
@@ -401,7 +401,7 @@ export default function ProgressClient({
           <Card padding="sm">
             <EmptyState
               variant="learning"
-              title={t("completedLessons")}
+              title={t("noCompletedLessonsTitle")}
               description={t("noCompletedLessons")}
               action={{ label: t("startLearningCta"), href: "/learn", onClick: () => {} }}
             />

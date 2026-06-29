@@ -61,7 +61,7 @@ export default function AccessibilityControls() {
       <button
         ref={triggerRef}
         type="button"
-        className="flex min-h-11 items-center gap-2 rounded-full border border-outline-variant bg-surface px-4 py-2 text-label-md font-semibold text-primary"
+        className="flex min-h-11 items-center gap-2 rounded-full border border-outline-variant bg-surface px-4 py-2 text-label-md font-semibold text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
         onClick={() => setIsOpen((current) => !current)}
         aria-expanded={isOpen}
         aria-haspopup="dialog"

@@ -5,6 +5,7 @@ import { Link } from "@/i18n/navigation";
 import { Search } from "lucide-react";
 import { useAppState } from "@/components/AppProviders";
 import PageHeader from "@/components/PageHeader";
+import EmptyState from "@/components/ui/EmptyState";
 import { normalizeGlossaryLetter } from "@/lib/i18n";
 import { getGlossaryLabelFromBundle } from "@/lib/glossary/loadGlossary";
 import { getLessonById } from "@/lib/localizedContent";
@@ -13,6 +14,8 @@ import { useTranslations } from "next-intl";
 import MarkdownRenderer from "@/components/mdx/MarkdownRenderer";
 
 const alphabet = ["All", ..."ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("")];
+const CHIP_FOCUS =
+  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2";
 
 type GlossaryClientProps = {
   terms: GlossaryTerm[];
@@ -31,7 +34,8 @@ export default function GlossaryClient({ terms: glossaryTerms }: GlossaryClientP
     const hash = window.location.hash.replace("#", "");
     if (!hash) return;
     const element = document.getElementById(hash);
-    element?.scrollIntoView({ behavior: "smooth", block: "start" });
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    element?.scrollIntoView({ behavior: prefersReducedMotion ? "auto" : "smooth", block: "start" });
   }, []);
 
   const searchableTerms = useMemo(() => {
@@ -82,7 +86,7 @@ export default function GlossaryClient({ terms: glossaryTerms }: GlossaryClientP
             size={18}
           />
           <input
-            className="input-field pl-12"
+            className="w-full rounded-xl border-2 border-outline-variant bg-surface-container-lowest px-4 py-3 pl-12 text-body-md text-on-surface placeholder:text-on-surface-variant/60 focus:border-primary focus:ring-4 focus:ring-primary/15 focus:outline-none transition-all duration-200"
             value={query}
             onChange={(event) => setQuery(event.target.value)}
             placeholder={tCommon("searchTerms")}
@@ -100,8 +104,8 @@ export default function GlossaryClient({ terms: glossaryTerms }: GlossaryClientP
                 aria-pressed={activeLetter === letter}
                 className={
                   activeLetter === letter
-                    ? "flex h-11 min-w-11 items-center justify-center rounded-lg bg-primary px-3 text-label-md font-semibold text-on-primary"
-                    : "flex h-11 min-w-11 items-center justify-center rounded-lg bg-surface-container px-3 text-label-md font-semibold text-on-surface-variant"
+                    ? `flex h-11 min-w-11 items-center justify-center rounded-xl bg-primary px-3.5 text-label-md font-bold text-on-primary transition-all duration-200 shadow-sm ${CHIP_FOCUS}`
+                    : `flex h-11 min-w-11 items-center justify-center rounded-xl bg-surface-container px-3.5 text-label-md font-semibold text-on-surface-variant transition-all duration-200 hover:bg-primary/10 hover:text-primary hover:-translate-y-0.5 active:scale-95 ${CHIP_FOCUS}`
                 }
               >
                 {letter === "All" ? allLabel : letter}
@@ -121,7 +125,7 @@ export default function GlossaryClient({ terms: glossaryTerms }: GlossaryClientP
         </div>
 
         {Object.entries(groupedTerms).map(([letter, terms]) => (
-          <section key={letter} aria-labelledby={`glossary-letter-${letter}`}>
+          <section key={letter} aria-labelledby={`glossary-letter-${letter}`} className="animate-fade-in-up">
             <h2
               id={`glossary-letter-${letter}`}
               className="mb-4 mt-8 text-headline-md text-primary first:mt-0"
@@ -130,9 +134,16 @@ export default function GlossaryClient({ terms: glossaryTerms }: GlossaryClientP
             </h2>
             <div className="grid gap-6 lg:grid-cols-3">
               {terms.map((term) => (
-                <article key={term.id} id={term.id} className="card scroll-mt-24">
-                  <h3 className="mb-4 text-headline-md text-primary">
-                    <Link href={`/glossary/${term.id}`} className="underline hover:no-underline">
+                <article
+                  key={term.id}
+                  id={term.id}
+                  className="card scroll-mt-24 transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-card-hover hover:border-primary/20"
+                >
+                  <h3 className="mb-4 text-headline-md text-primary font-bold">
+                    <Link
+                      href={`/glossary/${term.id}`}
+                      className="underline hover:no-underline hover:text-primary-container transition-colors"
+                    >
                       {term.term}
                     </Link>
                   </h3>
@@ -191,25 +202,19 @@ export default function GlossaryClient({ terms: glossaryTerms }: GlossaryClientP
         ))}
 
         {filteredTerms.length === 0 ? (
-          <div className="card mt-6 text-center" role="status">
-            <div className="mb-4 text-on-surface-variant" aria-hidden="true">
-              <Search size={48} />
-            </div>
-            <h3 className="mb-2 text-headline-md text-on-surface">{tCommon("noTermsFound")}</h3>
-            <p className="mb-6 max-w-md mx-auto text-body-md text-on-surface-variant">
-              {tCommon("noResultsTryAnother")}
-            </p>
-            <button
-              type="button"
-              className="btn-secondary inline-flex items-center"
-              onClick={() => {
+          <EmptyState
+            variant="search"
+            title={tCommon("noTermsFound")}
+            description={tCommon("noResultsTryAnother")}
+            action={{
+              label: tCommon("showAllTerms"),
+              onClick: () => {
                 setQuery("");
                 setActiveLetter("All");
-              }}
-            >
-              {tCommon("showAllTerms")}
-            </button>
-          </div>
+              },
+            }}
+            className="card mt-6"
+          />
         ) : null}
       </div>
     </div>
