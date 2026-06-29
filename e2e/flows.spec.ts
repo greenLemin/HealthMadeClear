@@ -1,10 +1,11 @@
-import { expect, test, waitForAppReady } from "./setup";
+import { expect, signInMockUser, test, waitForAppReady } from "./setup";
 
 test("lesson detail and mark complete", async ({ page }) => {
   await page.goto("/en/learn/understanding-prescription-labels");
   await expect(page.getByRole("heading", { level: 1 })).toContainText(/prescription/i);
   await page.getByRole("button", { name: /mark as complete/i }).click();
-  await page.goto("/en/dashboard");
+  await signInMockUser(page);
+  await expect(page).toHaveURL(/\/en\/dashboard(?:\?|$)/);
   await expect(page.getByText(/1 \/ /)).toBeVisible();
 });
 
@@ -39,7 +40,18 @@ test("glossary term page loads", async ({ page }) => {
 });
 
 test("progress export button exists on dashboard", async ({ page }) => {
+  await signInMockUser(page);
+  await expect(page).toHaveURL(/\/en\/dashboard(?:\?|$)/);
+  await expect(page.getByRole("button", { name: /export progress/i })).toBeVisible();
+});
+
+test("dashboard redirects guests to login and sign-in returns to dashboard", async ({ page }) => {
   await page.goto("/en/dashboard");
+  await expect(page).toHaveURL(/\/en\/auth\/login\?redirect=%2Fdashboard/);
+  await page.getByLabel(/email address/i).fill("guest@example.com");
+  await page.locator('input[type="password"]').fill("password123");
+  await page.getByRole("button", { name: /sign in/i }).click();
+  await expect(page).toHaveURL(/\/en\/dashboard(?:\?|$)/);
   await expect(page.getByRole("button", { name: /export progress/i })).toBeVisible();
 });
 
@@ -113,4 +125,95 @@ test("home featured paths show progress bar when lesson completed", async ({ pag
   await page.getByRole("button", { name: /mark as complete/i }).click();
   await page.goto("/en");
   await expect(page.getByRole("progressbar").first()).toBeVisible();
+});
+
+test("quiz keeps a visible page heading during active questions and results", async ({ page }) => {
+  await page.goto("/en/learn/understanding-prescription-labels/quiz");
+  await page.getByRole("button", { name: /start quiz/i }).click();
+  await expect(page.getByRole("heading", { level: 1 })).toContainText(/prescription labels quiz/i);
+
+  const quizMain = page.getByRole("main");
+  for (let i = 0; i < 10; i++) {
+    await quizMain.getByRole("radio").first().click();
+    const checkButton = quizMain.getByRole("button", { name: /check answer/i });
+    if (await checkButton.isVisible()) {
+      await checkButton.click();
+    }
+    const nextButton = quizMain.getByRole("button", { name: /next question|see results/i });
+    await nextButton.click();
+  }
+
+  await expect(page.getByRole("heading", { level: 1 })).toContainText(/prescription labels quiz/i);
+});
+
+test("search and display overlays expose explicit dismiss controls", async ({ page }) => {
+  await page.goto("/en");
+  await waitForAppReady(page);
+
+  await page.getByRole("button", { name: /open search/i }).click();
+  const searchDialog = page.getByRole("dialog", { name: /search/i });
+  await expect(searchDialog.getByRole("button", { name: /close search/i })).toBeVisible();
+  await searchDialog.getByRole("button", { name: /close search/i }).click();
+
+  await page.getByRole("button", { name: /display/i }).click();
+  const displayDialog = page.getByRole("dialog", { name: /accessibility controls/i });
+  await expect(displayDialog.getByRole("heading", { level: 2 })).toContainText(/accessibility controls/i);
+  await expect(displayDialog.getByRole("button", { name: /dismiss/i })).toBeVisible();
+});
+
+test("login validation clears as fields are corrected", async ({ page }) => {
+  await page.goto("/en/auth/login");
+  await page.getByRole("button", { name: /sign in/i }).click();
+
+  const emailError = page.getByText(/please enter your email address\./i);
+  const passwordError = page.getByText(/please enter your password\./i);
+  await expect(emailError).toBeVisible();
+  await expect(passwordError).toBeVisible();
+
+  await page.getByLabel(/email address/i).fill("test@example.com");
+  await expect(emailError).toBeHidden();
+
+  await page.locator('input[type="password"]').fill("password123");
+  await expect(passwordError).toBeHidden();
+});
+
+test("contact form validation clears as fields are corrected", async ({ page }) => {
+  await page.goto("/en/contact");
+  await waitForAppReady(page);
+
+  await page.getByRole("button", { name: /send message/i }).click();
+
+  const nameError = page.getByText(/please enter your name\./i);
+  const emailError = page.getByText(/please enter your email address\./i);
+  const messageError = page.getByText(/please enter your message\./i);
+  await expect(nameError).toBeVisible();
+  await expect(emailError).toBeVisible();
+  await expect(messageError).toBeVisible();
+
+  await page.getByLabel(/your name/i).fill("Taylor");
+  await expect(nameError).toBeHidden();
+
+  await page.getByLabel(/your email/i).fill("taylor@example.com");
+  await expect(emailError).toBeHidden();
+
+  await page.getByLabel(/your message/i).fill("Testing the contact form.");
+  await expect(messageError).toBeHidden();
+});
+
+test("header reflects guest and signed-in states", async ({ page }) => {
+  await page.goto("/en");
+  await waitForAppReady(page);
+  const header = page.getByRole("banner");
+  await expect(header.getByRole("link", { name: /create account/i })).toBeVisible();
+  await expect(header.getByRole("link", { name: /log in|sign in/i })).toBeVisible();
+
+  await signInMockUser(page, "/");
+  await expect(page).toHaveURL(/\/en(?:\/)?$/);
+  await expect(page.getByRole("link", { name: /guest student/i })).toBeVisible();
+  await expect(page.getByRole("button", { name: /log out/i })).toBeVisible();
+
+  await page.getByRole("button", { name: /log out/i }).click();
+  await expect(page).toHaveURL(/\/en(?:\/)?$/);
+  await expect(header.getByRole("link", { name: /create account/i })).toBeVisible();
+  await expect(header.getByRole("link", { name: /log in|sign in/i })).toBeVisible();
 });

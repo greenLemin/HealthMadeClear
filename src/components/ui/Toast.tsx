@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { CheckCircle2, Info, X, XCircle } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 type ToastVariant = "success" | "error" | "info";
 
@@ -34,6 +35,7 @@ export default function ToastItem({ toast, onDismiss }: ToastProps) {
   const [visible, setVisible] = useState(false);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const isError = toast.variant === "error";
+  const tCommon = useTranslations("common");
 
   useEffect(() => {
     const show = requestAnimationFrame(() => setVisible(true));
@@ -81,7 +83,7 @@ export default function ToastItem({ toast, onDismiss }: ToastProps) {
         type="button"
         onClick={() => onDismiss(toast.id)}
         className="flex min-h-11 min-w-11 shrink-0 items-center justify-center rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
-        aria-label="Dismiss notification"
+        aria-label={tCommon("dismiss")}
       >
         <X size={16} aria-hidden="true" />
       </button>

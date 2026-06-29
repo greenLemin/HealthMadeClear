@@ -25,22 +25,25 @@ export default async function LoginPage({ params }: Props) {
 
   return (
     <div className="mx-auto max-w-container px-4 py-16 md:px-6 md:py-24">
-      <div className="mx-auto grid max-w-5xl gap-12 md:grid-cols-2 md:gap-16">
-        <div className="flex flex-col justify-center">
-          <h1 className="text-headline-lg md:text-headline-xl text-primary">{t("loginTitle")}</h1>
-          <p className="mt-4 text-body-md text-on-surface-variant">{t("loginSubtitle")}</p>
-          <div className="mt-8 rounded-2xl bg-secondary-container/30 p-6">
-            <p className="text-body-md text-on-secondary-container">{t("missionMessage")}</p>
+      <div className="mx-auto grid max-w-6xl gap-8 md:grid-cols-[1.05fr_0.95fr] md:gap-10">
+        <div className="surface-card-strong flex flex-col justify-center p-8 md:p-10">
+          <div className="eyebrow mb-4">{t("loginButton")}</div>
+          <h1 className="font-display text-headline-lg md:text-headline-xl text-primary">
+            {t("loginTitle")}
+          </h1>
+          <p className="mt-4 max-w-readable text-body-md text-on-surface-variant">{t("loginSubtitle")}</p>
+          <div className="surface-card mt-8 p-6">
+            <p className="text-body-md text-on-surface-variant">{t("missionMessage")}</p>
           </div>
         </div>
 
-        <div>
+        <div className="surface-card-glass p-6 md:p-8">
           <Suspense
             fallback={
               <div className="space-y-4 animate-pulse" aria-hidden="true">
-                <div className="h-14 rounded-lg bg-surface-container-high" />
-                <div className="h-14 rounded-lg bg-surface-container-high" />
-                <div className="h-14 rounded-lg bg-surface-container-high" />
+                <div className="h-14 rounded-2xl bg-surface-container-high" />
+                <div className="h-14 rounded-2xl bg-surface-container-high" />
+                <div className="h-14 rounded-2xl bg-surface-container-high" />
               </div>
             }
           >

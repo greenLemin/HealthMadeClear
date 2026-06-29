@@ -5,6 +5,8 @@ import { Link } from "@/i18n/navigation";
 import { Search } from "lucide-react";
 import { useAppState } from "@/components/AppProviders";
 import PageHeader from "@/components/PageHeader";
+import EmptyState from "@/components/ui/EmptyState";
+import Reveal from "@/components/ui/Reveal";
 import { normalizeGlossaryLetter } from "@/lib/i18n";
 import { getGlossaryLabelFromBundle } from "@/lib/glossary/loadGlossary";
 import { getLessonById } from "@/lib/localizedContent";
@@ -71,9 +73,9 @@ export default function GlossaryClient({ terms: glossaryTerms }: GlossaryClientP
   }, [filteredTerms]);
 
   return (
-    <div className="py-12 md:py-16">
-      <div className="max-w-container mx-auto px-4 md:px-6">
-        <PageHeader title={t("title")} description={t("description")} />
+    <div className="px-4 py-10 md:px-6 md:py-14">
+      <div className="mx-auto max-w-container">
+        <PageHeader title={t("title")} description={t("description")} className="mb-8" />
 
         <label className="relative mb-8 block max-w-xl">
           <span className="sr-only">{tCommon("searchTerms")}</span>
@@ -91,22 +93,26 @@ export default function GlossaryClient({ terms: glossaryTerms }: GlossaryClientP
         </label>
 
         {showAlphabet ? (
-          <div className="mb-8 flex flex-wrap gap-2">
-            {alphabet.map((letter) => (
-              <button
-                key={letter}
-                type="button"
-                onClick={() => setActiveLetter(letter)}
-                aria-pressed={activeLetter === letter}
-                className={
-                  activeLetter === letter
-                    ? "flex h-11 min-w-11 items-center justify-center rounded-lg bg-primary px-3 text-label-md font-semibold text-on-primary"
-                    : "flex h-11 min-w-11 items-center justify-center rounded-lg bg-surface-container px-3 text-label-md font-semibold text-on-surface-variant"
-                }
-              >
-                {letter === "All" ? allLabel : letter}
-              </button>
-            ))}
+          <div className="surface-card-glass mb-8 p-4">
+            <div className="mb-3 text-label-md font-semibold uppercase tracking-[0.14em] text-on-surface-variant">
+              A-Z
+            </div>
+            <div className="flex flex-wrap gap-2">
+              {alphabet.map((letter) => (
+                <button
+                  key={letter}
+                  type="button"
+                  onClick={() => setActiveLetter(letter)}
+                  aria-pressed={activeLetter === letter}
+                  className={[
+                    "chip flex h-11 min-w-11 items-center justify-center px-3",
+                    activeLetter === letter ? "chip-active" : "",
+                  ].join(" ")}
+                >
+                  {letter === "All" ? allLabel : letter}
+                </button>
+              ))}
+            </div>
           </div>
         ) : null}
 
@@ -124,92 +130,88 @@ export default function GlossaryClient({ terms: glossaryTerms }: GlossaryClientP
           <section key={letter} aria-labelledby={`glossary-letter-${letter}`}>
             <h2
               id={`glossary-letter-${letter}`}
-              className="mb-4 mt-8 text-headline-md text-primary first:mt-0"
+              className="mb-4 mt-8 font-display text-headline-md text-primary first:mt-0"
             >
               {letter}
             </h2>
             <div className="grid gap-6 lg:grid-cols-3">
-              {terms.map((term) => (
-                <article key={term.id} id={term.id} className="card scroll-mt-24">
-                  <h3 className="mb-4 text-headline-md text-primary">
-                    <Link href={`/glossary/${term.id}`} className="underline hover:no-underline">
-                      {term.term}
-                    </Link>
-                  </h3>
-                  <div className="mb-5">
-                    <MarkdownRenderer text={term.definition} glossaryTerms={glossaryTerms} />
-                  </div>
-                  <div className="border-t border-outline-variant pt-4">
-                    {term.relatedLessons?.length ? (
-                      <div className="mb-4">
-                        <div className="mb-2 text-label-md font-semibold uppercase tracking-wide text-on-surface-variant">
-                          {t("seenIn")}
-                        </div>
-                        <div className="flex flex-col gap-1">
-                          {term.relatedLessons.map((lessonId) => {
-                            const lesson = getLessonById(lessonId, locale);
-                            if (!lesson) return null;
-                            return (
-                              <Link
-                                key={lessonId}
-                                href={`/learn/${lessonId}`}
-                                className="text-label-md font-semibold text-primary underline hover:underline"
-                              >
-                                {lesson.title}
-                              </Link>
-                            );
-                          })}
-                        </div>
-                      </div>
-                    ) : null}
-                    <div className="mb-2 text-label-md font-semibold text-primary">
-                      {tCommon("category")}: {term.category}
+              {terms.map((term, index) => (
+                <Reveal key={term.id} delay={(index % 3) * 0.04}>
+                  <article id={term.id} className="surface-card scroll-mt-24 px-6 py-6">
+                    <h3 className="font-display text-headline-md text-primary">
+                      <Link href={`/glossary/${term.id}`} className="underline hover:no-underline">
+                        {term.term}
+                      </Link>
+                    </h3>
+                    <div className="mb-5 mt-4">
+                      <MarkdownRenderer text={term.definition} glossaryTerms={glossaryTerms} />
                     </div>
-                    {term.relatedTerms?.length ? (
-                      <div>
-                        <div className="mb-2 text-label-md font-semibold uppercase tracking-wide text-on-surface-variant">
-                          {tCommon("relatedTerms")}
+                    <div className="border-t border-outline-variant pt-4">
+                      {term.relatedLessons?.length ? (
+                        <div className="mb-4">
+                          <div className="mb-2 text-label-md font-semibold uppercase tracking-wide text-on-surface-variant">
+                            {t("seenIn")}
+                          </div>
+                          <div className="flex flex-col gap-1">
+                            {term.relatedLessons.map((lessonId) => {
+                              const lesson = getLessonById(lessonId, locale);
+                              if (!lesson) return null;
+                              return (
+                                <Link
+                                  key={lessonId}
+                                  href={`/learn/${lessonId}`}
+                                  className="text-label-md font-semibold text-primary underline hover:underline"
+                                >
+                                  {lesson.title}
+                                </Link>
+                              );
+                            })}
+                          </div>
                         </div>
-                        <div className="flex flex-wrap gap-2">
-                          {term.relatedTerms.map((related) => (
-                            <Link
-                              key={related}
-                              href={`/glossary/${related}`}
-                              className="inline-flex min-h-11 items-center rounded-full bg-surface-container px-4 py-2 text-label-md font-semibold text-primary underline hover:bg-secondary-container"
-                            >
-                              {getGlossaryLabelFromBundle(related, locale)}
-                            </Link>
-                          ))}
-                        </div>
+                      ) : null}
+                      <div className="mb-2 text-label-md font-semibold text-primary">
+                        {tCommon("category")}: {term.category}
                       </div>
-                    ) : null}
-                  </div>
-                </article>
+                      {term.relatedTerms?.length ? (
+                        <div>
+                          <div className="mb-2 text-label-md font-semibold uppercase tracking-wide text-on-surface-variant">
+                            {tCommon("relatedTerms")}
+                          </div>
+                          <div className="flex flex-wrap gap-2">
+                            {term.relatedTerms.map((related) => (
+                              <Link
+                                key={related}
+                                href={`/glossary/${related}`}
+                                className="chip min-h-11 px-4 py-2 text-label-md text-primary hover:bg-secondary-container"
+                              >
+                                {getGlossaryLabelFromBundle(related, locale)}
+                              </Link>
+                            ))}
+                          </div>
+                        </div>
+                      ) : null}
+                    </div>
+                  </article>
+                </Reveal>
               ))}
             </div>
           </section>
         ))}
 
         {filteredTerms.length === 0 ? (
-          <div className="card mt-6 text-center" role="status">
-            <div className="mb-4 text-on-surface-variant" aria-hidden="true">
-              <Search size={48} />
-            </div>
-            <h3 className="mb-2 text-headline-md text-on-surface">{tCommon("noTermsFound")}</h3>
-            <p className="mb-6 max-w-md mx-auto text-body-md text-on-surface-variant">
-              {tCommon("noResultsTryAnother")}
-            </p>
-            <button
-              type="button"
-              className="btn-secondary inline-flex items-center"
-              onClick={() => {
+          <EmptyState
+            variant="search"
+            title={tCommon("noTermsFound")}
+            description={tCommon("noResultsTryAnother")}
+            action={{
+              label: tCommon("showAllTerms"),
+              onClick: () => {
                 setQuery("");
                 setActiveLetter("All");
-              }}
-            >
-              {tCommon("showAllTerms")}
-            </button>
-          </div>
+              },
+            }}
+            className="mt-8"
+          />
         ) : null}
       </div>
     </div>

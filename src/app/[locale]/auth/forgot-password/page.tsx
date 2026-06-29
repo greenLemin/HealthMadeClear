@@ -22,7 +22,7 @@ export default async function ForgotPasswordPage({ params }: Props) {
 
   return (
     <div className="mx-auto max-w-container px-4 py-16 md:px-6 md:py-24">
-      <div className="mx-auto max-w-lg">
+      <div className="surface-card-glass mx-auto max-w-2xl p-6 md:p-8">
         <ForgotPasswordForm />
       </div>
     </div>

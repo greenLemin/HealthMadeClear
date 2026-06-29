@@ -4,6 +4,7 @@ import { useState, useRef, useEffect, useCallback } from "react";
 import { Link } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
 import { createPortal } from "react-dom";
+import { X } from "lucide-react";
 import { useFocusTrap } from "@/hooks/useFocusTrap";
 import { useOptionalScrollSpyContext } from "./ScrollSpyProvider";
 
@@ -32,6 +33,7 @@ function Popover({
   popoverId: string;
 }) {
   const t = useTranslations("glossary");
+  const tCommon = useTranslations("common");
   const popoverRef = useRef<HTMLDivElement>(null);
   const [popoverHeight, setPopoverHeight] = useState(0);
   const gap = 8;
@@ -75,7 +77,17 @@ function Popover({
         opacity: popoverHeight === 0 ? 0 : 1,
       }}
     >
-      <span className="mb-1 block text-label-md font-bold text-primary">{term.term}</span>
+      <div className="mb-3 flex items-start justify-between gap-3">
+        <span className="block text-label-md font-bold text-primary">{term.term}</span>
+        <button
+          type="button"
+          onClick={onClose}
+          className="flex min-h-11 min-w-11 items-center justify-center rounded-full text-on-surface-variant transition-colors hover:bg-surface-container hover:text-on-surface focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+          aria-label={tCommon("dismiss")}
+        >
+          <X size={16} aria-hidden="true" />
+        </button>
+      </div>
       <span className="mb-3 block text-label-md leading-relaxed text-on-surface-variant">
         {term.definition}
       </span>

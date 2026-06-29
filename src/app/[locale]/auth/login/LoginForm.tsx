@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { useTranslations } from "next-intl";
 import { useRouter, useSearchParams } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
@@ -9,12 +9,13 @@ import Input from "@/components/ui/Input";
 import { Link } from "@/i18n/navigation";
 import { Mail, Lock } from "lucide-react";
 import { sanitizeRedirectPath } from "@/lib/auth/sanitizeRedirect";
+import { migrateGuestProgressToSupabase } from "@/lib/guestProgress";
 
 export default function LoginForm() {
   const t = useTranslations("auth");
   const router = useRouter();
   const searchParams = useSearchParams();
-  const supabase = createClient();
+  const supabase = useMemo(() => createClient(), []);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -30,6 +31,18 @@ export default function LoginForm() {
         ? t("errorAuthFailed")
         : null;
 
+  function handleEmailChange(value: string) {
+    setEmail(value);
+    setError("");
+    setFieldErrors((prev) => ({ ...prev, email: undefined }));
+  }
+
+  function handlePasswordChange(value: string) {
+    setPassword(value);
+    setError("");
+    setFieldErrors((prev) => ({ ...prev, password: undefined }));
+  }
+
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setError("");
@@ -42,7 +55,7 @@ export default function LoginForm() {
 
     setLoading(true);
 
-    const { error: authError } = await supabase.auth.signInWithPassword({
+    const { data, error: authError } = await supabase.auth.signInWithPassword({
       email,
       password,
     });
@@ -56,6 +69,11 @@ export default function LoginForm() {
     // Validate redirect param — only allow relative paths to prevent open redirect attacks
     const redirectParam = searchParams.get("redirect");
     const safeRedirect = sanitizeRedirectPath(redirectParam);
+
+    if (data.user) {
+      await migrateGuestProgressToSupabase(supabase, data.user.id);
+    }
+
     router.push(safeRedirect);
   }
 
@@ -75,7 +93,7 @@ export default function LoginForm() {
         label={t("emailLabel")}
         type="email"
         value={email}
-        onChange={(e) => setEmail(e.target.value)}
+        onChange={(e) => handleEmailChange(e.target.value)}
         icon={<Mail size={18} />}
         required
         autoComplete="email"
@@ -86,7 +104,7 @@ export default function LoginForm() {
         label={t("passwordLabel")}
         type="password"
         value={password}
-        onChange={(e) => setPassword(e.target.value)}
+        onChange={(e) => handlePasswordChange(e.target.value)}
         icon={<Lock size={18} />}
         required
         autoComplete="current-password"

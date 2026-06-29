@@ -1,8 +1,11 @@
 "use client";
 
 import { useCallback, useEffect, useRef, type ReactNode } from "react";
+import { AnimatePresence, motion } from "motion/react";
 import { X } from "lucide-react";
 import { useFocusTrap } from "@/hooks/useFocusTrap";
+import { modalVariants, revealEase } from "@/components/ui/Reveal";
+import { useTranslations } from "next-intl";
 
 type ModalSize = "sm" | "md" | "lg";
 
@@ -23,6 +26,7 @@ const sizeStyles: Record<ModalSize, string> = {
 export default function Modal({ isOpen, onClose, title, children, size = "md" }: ModalProps) {
   const dialogRef = useRef<HTMLDivElement>(null);
   const titleId = `modal-${title.toLowerCase().replace(/\s+/g, "-")}`;
+  const tCommon = useTranslations("common");
 
   useFocusTrap(dialogRef, isOpen);
 
@@ -66,42 +70,50 @@ export default function Modal({ isOpen, onClose, title, children, size = "md" }:
     }
   }, [isOpen]);
 
-  if (!isOpen) return null;
-
   return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
-      <div
-        className="fixed inset-0 bg-black/40 backdrop-blur-sm motion-safe:animate-fadeIn"
-        onClick={onClose}
-        aria-hidden="true"
-      />
-      <div
-        ref={dialogRef}
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby={titleId}
-        tabIndex={-1}
-        className={[
-          "relative z-10 w-full rounded-xl border border-outline-variant bg-surface p-6 shadow-elevation-3 motion-safe:animate-fadeIn md:p-8",
-          sizeStyles[size],
-        ].join(" ")}
-      >
-        <div className="mb-4 flex items-center justify-between">
-          <h2 id={titleId} className="text-headline-md text-primary">
-            {title}
-          </h2>
-          <button
-            type="button"
+    <AnimatePresence>
+      {isOpen ? (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.22, ease: revealEase }}
+            className="fixed inset-0 bg-black/45 backdrop-blur-sm"
             onClick={onClose}
-            className="flex min-h-11 min-w-11 items-center justify-center rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
-            aria-label="Close dialog"
+            aria-hidden="true"
+          />
+          <motion.div
+            ref={dialogRef}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby={titleId}
+            tabIndex={-1}
+            variants={modalVariants}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+            transition={{ duration: 0.3, ease: revealEase }}
+            className={["surface-card-glass relative z-10 w-full p-6 md:p-8", sizeStyles[size]].join(" ")}
           >
-            <X size={20} aria-hidden="true" />
-          </button>
+            <div className="mb-5 flex items-center justify-between gap-4">
+              <h2 id={titleId} className="font-display text-headline-md text-primary">
+                {title}
+              </h2>
+              <button
+                type="button"
+                onClick={onClose}
+                className="flex min-h-11 min-w-11 items-center justify-center rounded-full text-on-surface-variant transition-all duration-300 ease-premium hover:bg-surface-container hover:text-on-surface focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+                aria-label={tCommon("dismiss")}
+              >
+                <X size={20} aria-hidden="true" />
+              </button>
+            </div>
+            {children}
+          </motion.div>
         </div>
-        {children}
-      </div>
-    </div>
+      ) : null}
+    </AnimatePresence>
   );
 }
 

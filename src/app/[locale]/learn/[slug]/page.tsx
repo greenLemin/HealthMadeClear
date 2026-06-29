@@ -74,6 +74,7 @@ export default async function LessonDetailPage({ params }: Props) {
   return (
     <>
       <JsonLd
+        id={`jsonld-lesson-${locale}-${lesson.id}`}
         data={{
           "@context": "https://schema.org",
           "@type": "Article",

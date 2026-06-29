@@ -1,10 +1,14 @@
 // @vitest-environment jsdom
 import { render, screen, act } from "@testing-library/react";
 import { NextIntlClientProvider } from "next-intl";
-import { describe, expect, it, beforeEach } from "vitest";
+import { describe, expect, it, beforeEach, vi } from "vitest";
 import en from "@/messages/en.json";
 import AppProviders, { useAppState } from "@/components/AppProviders";
 import { STORAGE_KEYS } from "@/lib/preferences";
+
+vi.mock("@/components/OnboardingDialog", () => ({
+  default: () => null,
+}));
 
 function Consumer() {
   const { completedLessons, toggleLessonComplete } = useAppState();

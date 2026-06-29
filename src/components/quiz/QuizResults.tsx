@@ -39,6 +39,7 @@ export default function QuizResults({
   return (
     <div className="mx-auto max-w-2xl">
       <div className="card mb-8 text-center" role="status" aria-live="polite">
+        <h1 className="mb-4 font-display text-headline-lg text-primary">{quiz.title}</h1>
         <div className="mx-auto mb-4 flex h-24 w-24 items-center justify-center">
           <svg className="h-24 w-24 -rotate-90" viewBox="0 0 36 36" aria-hidden="true">
             <circle

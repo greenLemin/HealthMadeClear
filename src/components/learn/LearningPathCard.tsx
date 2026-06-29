@@ -39,26 +39,24 @@ export default function LearningPathCard({ path, lessons, progress }: LearningPa
   const nextLesson = pathLessons.find((l) => !completedLessons.has(l.id)) ?? pathLessons[0];
 
   return (
-    <div className="rounded-2xl border border-outline-variant bg-surface-container-lowest p-6 shadow-card md:p-8">
+    <div className="surface-card px-6 py-6 md:px-7 md:py-7">
       <div className="mb-4 flex flex-wrap items-center gap-3">
         {path.icon ? (
           <span className="text-headline-lg" aria-hidden="true">
             {path.icon}
           </span>
         ) : null}
-        <span className="rounded-full bg-surface-container px-3 py-1 text-label-md font-semibold text-on-surface-variant">
-          {formatLevel(path.level, locale)}
-        </span>
+        <span className="chip min-h-9 px-3 py-1 text-label-sm">{formatLevel(path.level, locale)}</span>
         <span className="inline-flex items-center gap-1.5 text-label-md text-on-surface-variant">
           <Clock size={14} aria-hidden="true" />
           {path.duration}
         </span>
       </div>
 
-      <h3 className="mb-2 text-headline-lg text-primary">{path.title}</h3>
-      <p className="mb-4 text-body-md text-on-surface-variant">{path.description}</p>
+      <h3 className="font-display text-headline-lg text-primary">{path.title}</h3>
+      <p className="mt-2 text-body-md text-on-surface-variant">{path.description}</p>
 
-      <div className="mb-4 flex items-center gap-2 text-label-md text-on-surface-variant">
+      <div className="mb-4 mt-4 flex items-center gap-2 text-label-md text-on-surface-variant">
         <ListChecks size={16} aria-hidden="true" />
         <span>
           {pathLessons.length} {tCommon("modules")}
@@ -84,7 +82,7 @@ export default function LearningPathCard({ path, lessons, progress }: LearningPa
         ) : (
           <Link
             href={nextLesson ? `/learn/${nextLesson.id}` : "/learning-paths"}
-            className="btn-primary inline-flex items-center gap-2 text-label-lg"
+            className="btn-primary text-label-md"
           >
             {isStarted ? t("continue") : t("startPath")}
           </Link>

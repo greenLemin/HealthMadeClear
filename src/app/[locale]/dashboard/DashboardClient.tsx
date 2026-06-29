@@ -162,15 +162,14 @@ export default function DashboardClient({
 
   return (
     <div className="space-y-10">
-      {/* Welcome Header */}
-      <section className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
+      <section className="section-frame flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
         <div>
-          <p className="mb-1 text-label-md text-primary">{getGreeting(t)}</p>
-          <h1 className="text-headline-lg text-primary">
+          <div className="eyebrow mb-4">{getGreeting(t)}</div>
+          <h1 className="font-display text-headline-lg text-primary">
             {isFirstVisit ? t("welcomeFirstVisit") : t("welcomeBack", { name: displayName })}
           </h1>
           {summary.currentStreak > 1 ? (
-            <div className="mt-3 inline-flex items-center gap-2 rounded-full bg-secondary-container/60 px-4 py-2 text-label-md font-semibold text-secondary">
+            <div className="metric-pill mt-4 bg-secondary-container/60 text-secondary">
               <Flame size={18} aria-hidden="true" />
               {t("streakCallout", { count: summary.currentStreak })}
             </div>
@@ -198,9 +197,12 @@ export default function DashboardClient({
       </section>
 
       <section className="grid grid-cols-2 gap-4 md:grid-cols-4">
-        <Card padding="sm">
+        <Card padding="sm" variant="glass">
           <div className="flex items-center gap-3">
-            <div className="rounded-lg bg-primary-fixed p-2.5 text-primary" aria-hidden="true">
+            <div
+              className="rounded-full bg-primary-fixed p-2.5 text-primary shadow-elevation-1"
+              aria-hidden="true"
+            >
               <BookOpen size={20} />
             </div>
             <div>
@@ -211,9 +213,12 @@ export default function DashboardClient({
             </div>
           </div>
         </Card>
-        <Card padding="sm">
+        <Card padding="sm" variant="glass">
           <div className="flex items-center gap-3">
-            <div className="rounded-lg bg-secondary-container/60 p-2.5 text-secondary" aria-hidden="true">
+            <div
+              className="rounded-full bg-secondary-container/60 p-2.5 text-secondary shadow-elevation-1"
+              aria-hidden="true"
+            >
               <CheckCircle2 size={20} />
             </div>
             <div>
@@ -226,9 +231,12 @@ export default function DashboardClient({
             </div>
           </div>
         </Card>
-        <Card padding="sm">
+        <Card padding="sm" variant="glass">
           <div className="flex items-center gap-3">
-            <div className="rounded-lg bg-tertiary-container/30 p-2.5 text-tertiary" aria-hidden="true">
+            <div
+              className="rounded-full bg-tertiary-container/30 p-2.5 text-tertiary shadow-elevation-1"
+              aria-hidden="true"
+            >
               <Flame size={20} />
             </div>
             <div>
@@ -239,9 +247,12 @@ export default function DashboardClient({
             </div>
           </div>
         </Card>
-        <Card padding="sm">
+        <Card padding="sm" variant="glass">
           <div className="flex items-center gap-3">
-            <div className="rounded-lg bg-surface-container p-2.5 text-primary" aria-hidden="true">
+            <div
+              className="rounded-full bg-surface-container p-2.5 text-primary shadow-elevation-1"
+              aria-hidden="true"
+            >
               <Clock size={20} />
             </div>
             <div>
@@ -254,13 +265,13 @@ export default function DashboardClient({
 
       {/* Continue Learning */}
       <section>
-        <h2 className="mb-4 text-headline-md text-primary">{t("continueLearning")}</h2>
+        <h2 className="mb-4 font-display text-headline-md text-primary">{t("continueLearning")}</h2>
         {isFirstVisit && recommendedNext ? (
-          <Card padding="md" className="border-secondary/30 bg-secondary-container/20">
+          <Card padding="md" variant="accent" className="border-secondary/30 bg-secondary-container/20">
             <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
               <div>
                 <p className="mb-1 text-label-sm font-semibold text-secondary">{t("recommendedForYou")}</p>
-                <h3 className="text-headline-md text-primary">{recommendedNext.title}</h3>
+                <h3 className="font-display text-headline-md text-primary">{recommendedNext.title}</h3>
                 <p className="mt-1 text-body-md text-on-surface-variant">{recommendedNext.description}</p>
                 <div className="mt-2 flex items-center gap-3 text-label-sm text-on-surface-variant">
                   <span>{recommendedNext.duration}</span>
@@ -286,7 +297,7 @@ export default function DashboardClient({
                 <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
                   <div className="min-w-0 flex-1">
                     <p className="mb-1 text-label-sm font-semibold text-primary">{active.path.title}</p>
-                    <h3 className="text-headline-md text-primary">
+                    <h3 className="font-display text-headline-md text-primary">
                       {active.nextLesson?.title ?? t("allLessonsComplete")}
                     </h3>
                     <div className="mt-3 max-w-md">
@@ -318,7 +329,7 @@ export default function DashboardClient({
           <Card padding="md">
             <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
               <div>
-                <h3 className="text-headline-md text-primary">{t("allCaughtUpTitle")}</h3>
+                <h3 className="font-display text-headline-md text-primary">{t("allCaughtUpTitle")}</h3>
                 <p className="mt-1 text-body-md text-on-surface-variant">{t("allCaughtUpDesc")}</p>
               </div>
               <Link href="/learning-paths">
@@ -334,7 +345,7 @@ export default function DashboardClient({
       {/* My Learning Paths */}
       <section>
         <div className="mb-4 flex items-end justify-between gap-4">
-          <h2 className="text-headline-md text-primary">{t("myLearningPaths")}</h2>
+          <h2 className="font-display text-headline-md text-primary">{t("myLearningPaths")}</h2>
           <Link
             href="/learning-paths"
             className="text-label-md font-semibold text-primary underline underline-offset-2"
@@ -345,25 +356,20 @@ export default function DashboardClient({
         {inProgressPaths.length > 0 ? (
           <div className="grid gap-4 md:grid-cols-2">
             {inProgressPaths.slice(0, 4).map((entry) => (
-              <div
-                key={entry.path.id}
-                className="rounded-2xl border border-outline-variant bg-surface-container-lowest p-6 shadow-card md:p-8"
-              >
+              <div key={entry.path.id} className="surface-card px-6 py-6 md:px-8 md:py-8">
                 <div className="mb-4 flex flex-wrap items-center gap-3">
                   {entry.path.icon ? (
                     <span className="text-headline-lg" aria-hidden="true">
                       {entry.path.icon}
                     </span>
                   ) : null}
-                  <span className="rounded-full bg-surface-container px-3 py-1 text-label-md font-semibold text-on-surface-variant">
-                    {entry.path.level}
-                  </span>
+                  <span className="chip min-h-9 px-3 py-1 text-label-sm">{entry.path.level}</span>
                   <span className="inline-flex items-center gap-1.5 text-label-md text-on-surface-variant">
                     <Clock size={14} aria-hidden="true" />
                     {entry.path.duration}
                   </span>
                 </div>
-                <h3 className="mb-2 text-headline-lg text-primary">{entry.path.title}</h3>
+                <h3 className="mb-2 font-display text-headline-lg text-primary">{entry.path.title}</h3>
                 <p className="mb-4 text-body-md text-on-surface-variant">{entry.path.description}</p>
                 <div className="mb-4 flex items-center gap-2 text-label-md text-on-surface-variant">
                   <ListChecks size={16} aria-hidden="true" />
@@ -413,16 +419,16 @@ export default function DashboardClient({
 
       {/* Recent Activity */}
       <section>
-        <h2 className="mb-4 text-headline-md text-primary">{t("recentActivity")}</h2>
+        <h2 className="mb-4 font-display text-headline-md text-primary">{t("recentActivity")}</h2>
         {recentActivity.length > 0 ? (
           <div className="space-y-3">
             {recentActivity.map((item, i) => (
               <div
                 key={`${item.type}-${item.lessonId ?? item.quizId}-${i}`}
-                className="flex items-start gap-3 rounded-xl border border-outline-variant bg-surface-container-lowest p-4"
+                className="surface-card flex items-start gap-3 px-4 py-4"
               >
                 <div
-                  className={`mt-0.5 rounded-full p-1.5 ${
+                  className={`mt-0.5 rounded-full p-1.5 shadow-elevation-1 ${
                     item.type === "lesson"
                       ? "bg-primary-fixed text-primary"
                       : "bg-secondary-container/60 text-secondary"
@@ -474,7 +480,7 @@ export default function DashboardClient({
       {earnedAchievements.length > 0 ? (
         <section>
           <div className="mb-4 flex items-end justify-between gap-4">
-            <h2 className="text-headline-md text-primary">{t("recentlyEarned")}</h2>
+            <h2 className="font-display text-headline-md text-primary">{t("recentlyEarned")}</h2>
             <Link
               href="/dashboard/achievements"
               className="text-label-md font-semibold text-primary underline underline-offset-2"

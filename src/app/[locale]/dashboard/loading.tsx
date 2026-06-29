@@ -6,19 +6,16 @@ import ActivityFeedSkeleton from "@/components/dashboard/skeletons/ActivityFeedS
 export default function DashboardLoading() {
   return (
     <div className="space-y-10">
-      {/* Welcome Header Skeleton */}
-      <section className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
-        <div>
-          <Skeleton variant="text" width="120px" className="mb-2" />
-          <Skeleton variant="heading" width="280px" />
-        </div>
-        <div className="flex gap-3">
-          <Skeleton variant="button" width="130px" height="40px" />
-          <Skeleton variant="button" width="130px" height="40px" />
+      <section className="section-frame px-6 py-8 md:px-8 md:py-10">
+        <Skeleton variant="text" width="132px" className="mb-4" />
+        <Skeleton variant="heading" width="320px" className="max-w-full" />
+        <Skeleton variant="text" width="68%" className="mt-4 max-w-2xl" />
+        <div className="mt-6 flex flex-wrap gap-3">
+          <Skeleton variant="button" width="148px" height="44px" className="rounded-full" />
+          <Skeleton variant="button" width="128px" height="44px" className="rounded-full" />
         </div>
       </section>
 
-      {/* Stats Grid Skeleton */}
       <section className="grid grid-cols-2 gap-4 md:grid-cols-4">
         <StatCardSkeleton />
         <StatCardSkeleton />
@@ -26,26 +23,34 @@ export default function DashboardLoading() {
         <StatCardSkeleton />
       </section>
 
-      {/* Continue Learning Skeleton */}
-      <section>
-        <div className="mb-4">
-          <Skeleton variant="text" width="200px" height="24px" />
+      <section className="grid gap-6 xl:grid-cols-[1.15fr_0.85fr]">
+        <div className="surface-card-strong px-6 py-6 md:px-8 md:py-8">
+          <div className="flex flex-col gap-5 md:flex-row md:items-center md:justify-between">
+            <div className="flex-1 space-y-3">
+              <Skeleton variant="text" width="148px" />
+              <Skeleton variant="heading" width="320px" className="max-w-full" />
+              <Skeleton variant="text" lines={2} className="max-w-xl" />
+              <div className="flex flex-wrap gap-3 pt-2">
+                <Skeleton variant="button" width="126px" height="42px" className="rounded-full" />
+                <Skeleton variant="button" width="102px" height="42px" className="rounded-full" />
+              </div>
+            </div>
+            <div className="surface-card flex min-h-[180px] items-center justify-center px-6 py-6">
+              <Skeleton variant="avatar" width="156px" height="156px" className="rounded-full" />
+            </div>
+          </div>
         </div>
-        <div className="rounded-2xl border border-outline-variant bg-surface-container-lowest p-6 shadow-card">
-          <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-            <div className="flex-1 space-y-2">
-              <Skeleton variant="text" width="150px" />
-              <Skeleton variant="heading" width="300px" />
-              <Skeleton variant="text" width="450px" />
-            </div>
-            <div className="shrink-0">
-              <Skeleton variant="button" width="160px" height="48px" />
-            </div>
+        <div className="surface-card-muted px-6 py-6 md:px-8 md:py-8">
+          <Skeleton variant="text" width="160px" className="mb-4" />
+          <Skeleton variant="heading" width="220px" />
+          <Skeleton variant="text" lines={3} className="mt-4" />
+          <div className="mt-6 space-y-3">
+            <Skeleton variant="button" width="100%" height="10px" className="rounded-full" />
+            <Skeleton variant="button" width="72%" height="10px" className="rounded-full" />
           </div>
         </div>
       </section>
 
-      {/* My Learning Paths Skeleton */}
       <section>
         <div className="mb-4 flex items-end justify-between gap-4">
           <Skeleton variant="heading" width="220px" />
@@ -57,7 +62,6 @@ export default function DashboardLoading() {
         </div>
       </section>
 
-      {/* Recent Activity Skeleton */}
       <section>
         <div className="mb-4">
           <Skeleton variant="heading" width="180px" />

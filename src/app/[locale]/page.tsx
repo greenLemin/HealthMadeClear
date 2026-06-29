@@ -43,6 +43,7 @@ export default async function Home({ params }: Props) {
   return (
     <>
       <JsonLd
+        id={`jsonld-home-${locale}`}
         data={{
           "@context": "https://schema.org",
           "@type": "WebSite",

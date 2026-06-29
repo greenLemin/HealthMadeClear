@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import { useTranslations } from "next-intl";
+import { useEffect, useRef, useState, useMemo } from "react";
+import { useTranslations, useLocale } from "next-intl";
 import { createClient } from "@/lib/supabase/client";
 import Button from "@/components/ui/Button";
 import Input from "@/components/ui/Input";
@@ -10,7 +10,8 @@ import { Mail } from "lucide-react";
 
 export default function ForgotPasswordForm() {
   const t = useTranslations("auth");
-  const supabase = createClient();
+  const locale = useLocale();
+  const supabase = useMemo(() => createClient(), []);
   const [email, setEmail] = useState("");
   const [error, setError] = useState("");
   const [fieldError, setFieldError] = useState("");
@@ -21,6 +22,12 @@ export default function ForgotPasswordForm() {
   useEffect(() => {
     if (submitted) successHeadingRef.current?.focus();
   }, [submitted]);
+
+  function handleEmailChange(value: string) {
+    setEmail(value);
+    setError("");
+    setFieldError("");
+  }
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -35,7 +42,7 @@ export default function ForgotPasswordForm() {
     setLoading(true);
 
     const { error: authError } = await supabase.auth.resetPasswordForEmail(email, {
-      redirectTo: `${window.location.origin}/auth/reset-password`,
+      redirectTo: `${window.location.origin}/${locale}/auth/reset-password`,
     });
 
     if (authError) {
@@ -80,7 +87,7 @@ export default function ForgotPasswordForm() {
           label={t("emailLabel")}
           type="email"
           value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          onChange={(e) => handleEmailChange(e.target.value)}
           icon={<Mail size={18} />}
           required
           autoComplete="email"

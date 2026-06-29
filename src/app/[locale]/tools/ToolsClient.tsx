@@ -4,6 +4,7 @@ import { Link } from "@/i18n/navigation";
 import { BookOpen, ClipboardList, MapPinned, MessagesSquare } from "lucide-react";
 import MedicalDisclaimer from "@/components/MedicalDisclaimer";
 import PageHeader from "@/components/PageHeader";
+import Reveal from "@/components/ui/Reveal";
 import { useTranslations } from "next-intl";
 
 export default function ToolsClient() {
@@ -43,51 +44,62 @@ export default function ToolsClient() {
 
   const cardClass: Record<(typeof tools)[number]["variant"], string> = {
     standard:
-      "group hover-lift rounded-[24px] border border-outline-variant bg-surface p-6 shadow-card hover:shadow-card-hover",
+      "surface-card group block p-6 transition-all duration-300 ease-premium hover:-translate-y-1 hover:shadow-card-hover",
     muted:
-      "group hover-lift rounded-[24px] border border-outline-variant bg-surface-container-low p-6 shadow-card hover:shadow-card-hover",
-    dark: "group hover-lift rounded-[24px] border border-primary bg-primary p-6 text-on-primary shadow-card-hover hover:shadow-elevation-2",
+      "surface-card-muted group block p-6 transition-all duration-300 ease-premium hover:-translate-y-1 hover:shadow-card-hover",
+    dark: "group block rounded-[1.75rem] border border-primary/20 bg-primary p-6 text-on-primary shadow-elevation-3 transition-all duration-300 ease-premium hover:-translate-y-1 hover:shadow-floating",
   };
 
   return (
-    <div className="py-12 md:py-16">
-      <div className="max-w-container mx-auto px-4 md:px-6">
-        <PageHeader badge={t("pageBadge")} title={t("pageTitle")} description={t("pageDescription")} />
+    <div className="px-4 py-10 md:px-6 md:py-14">
+      <div className="mx-auto max-w-container">
+        <PageHeader
+          badge={t("pageBadge")}
+          title={t("pageTitle")}
+          description={t("pageDescription")}
+          className="mb-8"
+        />
 
         <div className="mb-10">
           <MedicalDisclaimer />
         </div>
 
         <div className="grid gap-6 md:grid-cols-2">
-          {tools.map((tool) => {
+          {tools.map((tool, index) => {
             const Icon = tool.icon;
             const isDark = tool.variant === "dark";
             return (
-              <Link key={tool.href} href={tool.href} className={cardClass[tool.variant]}>
-                <div
-                  className={`mb-6 inline-flex rounded-2xl px-4 py-4 shadow-sm ${
-                    isDark ? "bg-surface/15 text-on-primary" : "bg-surface text-primary"
-                  }`}
-                  aria-hidden="true"
-                >
-                  <Icon size={28} />
-                </div>
-                <h2 className={`mb-3 text-headline-lg ${isDark ? "text-on-primary" : "text-primary"}`}>
-                  {tool.title}
-                </h2>
-                <p
-                  className={`mb-6 text-body-md ${isDark ? "text-on-primary/90" : "text-on-surface-variant"}`}
-                >
-                  {tool.description}
-                </p>
-                <span
-                  className={`inline-flex min-h-[48px] items-center rounded-full border px-5 text-label-md font-semibold ${
-                    isDark ? "border-on-primary text-on-primary" : "border-primary text-primary"
-                  }`}
-                >
-                  {tCommon("useTool")}
-                </span>
-              </Link>
+              <Reveal key={tool.href} delay={index * 0.05}>
+                <Link href={tool.href} className={cardClass[tool.variant]}>
+                  <div
+                    className={`mb-6 inline-flex rounded-full px-4 py-4 shadow-elevation-1 ${
+                      isDark ? "bg-surface/15 text-on-primary" : "bg-surface text-primary"
+                    }`}
+                    aria-hidden="true"
+                  >
+                    <Icon size={28} />
+                  </div>
+                  <h2
+                    className={`font-display text-headline-lg ${isDark ? "text-on-primary" : "text-primary"}`}
+                  >
+                    {tool.title}
+                  </h2>
+                  <p
+                    className={`mb-6 mt-3 text-body-md ${isDark ? "text-on-primary/90" : "text-on-surface-variant"}`}
+                  >
+                    {tool.description}
+                  </p>
+                  <span
+                    className={`inline-flex min-h-[48px] items-center rounded-full border px-5 text-label-md font-semibold ${
+                      isDark
+                        ? "border-on-primary/40 bg-surface/10 text-on-primary"
+                        : "border-primary/20 bg-surface-container-low text-primary"
+                    }`}
+                  >
+                    {tCommon("useTool")}
+                  </span>
+                </Link>
+              </Reveal>
             );
           })}
         </div>

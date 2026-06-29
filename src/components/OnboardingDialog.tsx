@@ -3,115 +3,113 @@
 import { useEffect, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
 import { BookOpen, Route, Search, X } from "lucide-react";
+import { motion, AnimatePresence } from "motion/react";
+import { usePathname } from "@/i18n/navigation";
 import { useDismissibleOverlay } from "@/hooks/useDismissibleOverlay";
-import { useFocusTrap } from "@/hooks/useFocusTrap";
+import { revealEase } from "@/components/ui/Reveal";
 
 const ONBOARDING_KEY = "hmc_onboarded";
 
 export default function OnboardingDialog() {
   const t = useTranslations("onboarding");
+  const pathname = usePathname();
   const [visible, setVisible] = useState(false);
+  const dialogRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    if (pathname !== "/") {
+      setVisible(false);
+      return;
+    }
     setVisible(!localStorage.getItem(ONBOARDING_KEY));
-  }, []);
-  const dialogRef = useRef<HTMLDivElement>(null);
+  }, [pathname]);
 
   const dismiss = () => {
     localStorage.setItem(ONBOARDING_KEY, "true");
     setVisible(false);
   };
 
-  useFocusTrap(dialogRef, visible);
   useDismissibleOverlay({
     isOpen: visible,
     onClose: dismiss,
     containerRef: dialogRef,
-    lockBodyScroll: true,
+    lockBodyScroll: false,
   });
 
-  useEffect(() => {
-    if (!visible) return;
-    const handler = (event: KeyboardEvent) => {
-      if (event.key === "Escape") dismiss();
-    };
-    document.addEventListener("keydown", handler);
-    return () => document.removeEventListener("keydown", handler);
-  }, [visible]);
-
-  if (!visible) return null;
-
   return (
-    <div className="fixed inset-0 z-[110] flex items-center justify-center p-4">
-      <div
-        className="fixed inset-0 bg-black/50 backdrop-blur-sm motion-safe:animate-fadeIn"
-        onClick={dismiss}
-        aria-hidden="true"
-      />
-      <div
-        ref={dialogRef}
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby="onboarding-title"
-        className="relative z-10 w-full max-w-lg rounded-xl border border-outline-variant bg-surface p-6 shadow-elevation-3 motion-safe:animate-fadeIn md:p-8"
-      >
-        <button
-          type="button"
-          onClick={dismiss}
-          className="absolute right-3 top-3 flex min-h-11 min-w-11 items-center justify-center rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
-          aria-label={t("close")}
+    <AnimatePresence>
+      {visible ? (
+        <motion.aside
+          ref={dialogRef}
+          role="complementary"
+          aria-labelledby="onboarding-title"
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: 20 }}
+          transition={{ duration: 0.28, ease: revealEase }}
+          className="no-print fixed bottom-4 right-4 z-[110] w-[min(24rem,calc(100vw-2rem))]"
         >
-          <X size={18} aria-hidden="true" />
-        </button>
-
-        <h2 id="onboarding-title" className="mb-1 text-headline-lg text-primary">
-          {t("welcome")}
-        </h2>
-        <p className="mb-6 text-body-md text-on-surface-variant">{t("subtitle")}</p>
-
-        <div className="mb-6 space-y-4">
-          <div className="flex items-start gap-4">
-            <div
-              className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-primary-container text-primary"
-              aria-hidden="true"
+          <div className="surface-card-glass px-5 py-5 md:px-6 md:py-6">
+            <button
+              type="button"
+              onClick={dismiss}
+              className="absolute right-3 top-3 flex min-h-11 min-w-11 items-center justify-center rounded-full text-on-surface-variant transition-all duration-300 ease-premium hover:bg-surface-container hover:text-on-surface focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+              aria-label={t("close")}
             >
-              <BookOpen size={20} />
-            </div>
-            <div>
-              <p className="font-semibold text-on-surface">{t("step1Title")}</p>
-              <p className="text-label-md text-on-surface-variant">{t("step1Body")}</p>
-            </div>
-          </div>
-          <div className="flex items-start gap-4">
-            <div
-              className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-secondary-container text-on-secondary-container"
-              aria-hidden="true"
-            >
-              <Route size={20} />
-            </div>
-            <div>
-              <p className="font-semibold text-on-surface">{t("step2Title")}</p>
-              <p className="text-label-md text-on-surface-variant">{t("step2Body")}</p>
-            </div>
-          </div>
-          <div className="flex items-start gap-4">
-            <div
-              className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-surface-container text-on-surface"
-              aria-hidden="true"
-            >
-              <Search size={20} />
-            </div>
-            <div>
-              <p className="font-semibold text-on-surface">{t("step3Title")}</p>
-              <p className="text-label-md text-on-surface-variant">{t("step3Body")}</p>
-            </div>
-          </div>
-        </div>
+              <X size={18} aria-hidden="true" />
+            </button>
 
-        <button type="button" onClick={dismiss} className="btn-primary w-full">
-          {t("getStarted")}
-        </button>
-      </div>
-    </div>
+            <div className="eyebrow mb-4">{t("welcome")}</div>
+            <h2 id="onboarding-title" className="font-display text-headline-md text-primary">
+              Health Made Clear
+            </h2>
+            <p className="mt-2 text-body-md text-on-surface-variant">{t("subtitle")}</p>
+
+            <div className="mt-5 space-y-4">
+              <div className="flex items-start gap-4">
+                <div
+                  className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-primary-fixed/80 text-primary shadow-elevation-1"
+                  aria-hidden="true"
+                >
+                  <BookOpen size={18} />
+                </div>
+                <div>
+                  <p className="font-semibold text-on-surface">{t("step1Title")}</p>
+                  <p className="text-label-md text-on-surface-variant">{t("step1Body")}</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-4">
+                <div
+                  className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-secondary-container/80 text-on-secondary-container shadow-elevation-1"
+                  aria-hidden="true"
+                >
+                  <Route size={18} />
+                </div>
+                <div>
+                  <p className="font-semibold text-on-surface">{t("step2Title")}</p>
+                  <p className="text-label-md text-on-surface-variant">{t("step2Body")}</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-4">
+                <div
+                  className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-surface-container text-on-surface shadow-elevation-1"
+                  aria-hidden="true"
+                >
+                  <Search size={18} />
+                </div>
+                <div>
+                  <p className="font-semibold text-on-surface">{t("step3Title")}</p>
+                  <p className="text-label-md text-on-surface-variant">{t("step3Body")}</p>
+                </div>
+              </div>
+            </div>
+
+            <button type="button" onClick={dismiss} className="btn-primary mt-6 w-full">
+              {t("getStarted")}
+            </button>
+          </div>
+        </motion.aside>
+      ) : null}
+    </AnimatePresence>
   );
 }

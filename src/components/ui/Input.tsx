@@ -68,12 +68,12 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
               [error ? errorId : null, hint && !error ? hintId : null].filter(Boolean).join(" ") || undefined
             }
             className={[
-              "w-full rounded-lg border-[1.5px] bg-surface-container-lowest px-4 py-3 text-body-md text-on-surface placeholder:text-on-surface-variant transition-colors",
+              "w-full rounded-2xl border-[1.5px] bg-surface-container-lowest px-4 py-3.5 text-body-md text-on-surface shadow-[inset_0_1px_0_rgba(255,255,255,0.45)] placeholder:text-on-surface-variant transition-all duration-300 ease-premium",
               icon ? "pl-12" : "",
               isPassword ? "pr-12" : "",
               error
-                ? "border-error focus:border-error focus:ring-2 focus:ring-error/30"
-                : "border-outline focus:border-primary focus:ring-2 focus:ring-primary/30",
+                ? "border-error focus:border-error focus:ring-4 focus:ring-error/15"
+                : "border-outline-variant focus:border-primary focus:ring-4 focus:ring-primary/10 focus:shadow-elevation-1",
               "focus:outline-none",
               className,
             ].join(" ")}

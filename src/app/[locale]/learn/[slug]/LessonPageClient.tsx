@@ -9,6 +9,7 @@ import Callout from "@/components/Callout";
 import MedicalDisclaimer from "@/components/MedicalDisclaimer";
 import MarkdownRenderer from "@/components/mdx/MarkdownRenderer";
 import KeyTakeaway from "@/components/ui/KeyTakeaway";
+import Reveal from "@/components/ui/Reveal";
 import { ScrollSpyProvider } from "@/components/mdx/ScrollSpyProvider";
 import { useAppState } from "@/components/AppProviders";
 import { useProgress } from "@/hooks/useProgress";
@@ -66,7 +67,7 @@ export default function LessonPageClient({
   glossaryTerms: GlossaryTerm[];
   learningPaths?: LearningPath[];
 }) {
-  const { locale, completedLessons } = useAppState();
+  const { locale } = useAppState();
   const { markLessonComplete, isLessonComplete, getQuizBestScore } = useProgress();
   const t = useTranslations("learn");
   const tCommon = useTranslations("common");
@@ -77,8 +78,9 @@ export default function LessonPageClient({
   const contentRef = useRef<HTMLDivElement>(null);
   const [scrollProgress, setScrollProgress] = useState(0);
   const isComplete = isLessonComplete(lessonId);
-  const hasQuiz = useMemo(() => getQuizByLessonId(lesson.id, locale) !== null, [lesson.id, locale]);
-  const bestQuizScore = getQuizBestScore(lessonId);
+  const quiz = useMemo(() => getQuizByLessonId(lesson.id, locale), [lesson.id, locale]);
+  const hasQuiz = quiz !== null;
+  const bestQuizScore = quiz ? getQuizBestScore(quiz.id) : null;
 
   // Reading progress bar
   useEffect(() => {
@@ -133,63 +135,52 @@ export default function LessonPageClient({
 
       <div className="py-12 md:py-16">
         <div className="max-w-container mx-auto px-4 md:px-6">
-          {/* Breadcrumbs */}
-          <nav className="mb-6" aria-label="Breadcrumb">
-            <ol className="flex flex-wrap items-center gap-2 text-label-md text-on-surface-variant">
-              <li>
-                <Link href="/" className="hover:text-primary transition-colors">
-                  {tNav("home")}
-                </Link>
-              </li>
-              <li aria-hidden="true">/</li>
-              <li>
-                <Link href="/learn" className="hover:text-primary transition-colors">
-                  {tCommon("allTopics")}
-                </Link>
-              </li>
-              <li aria-hidden="true">/</li>
-              <li>
-                <span className="text-on-surface" aria-current="page">
-                  {lesson.title}
-                </span>
-              </li>
-            </ol>
-          </nav>
+          <section className="section-frame px-6 py-6 md:px-8 md:py-8">
+            <div className="grid gap-6 lg:grid-cols-[1.08fr_0.92fr] lg:items-center">
+              <div>
+                <nav aria-label="Breadcrumb">
+                  <ol className="flex flex-wrap items-center gap-2 text-label-md text-on-surface-variant">
+                    <li>
+                      <Link href="/" className="transition-colors hover:text-primary">
+                        {tNav("home")}
+                      </Link>
+                    </li>
+                    <li aria-hidden="true">/</li>
+                    <li>
+                      <Link href="/learn" className="transition-colors hover:text-primary">
+                        {tCommon("allTopics")}
+                      </Link>
+                    </li>
+                    <li aria-hidden="true">/</li>
+                    <li>
+                      <span aria-current="page">{lesson.title}</span>
+                    </li>
+                  </ol>
+                </nav>
 
-          <div className="mb-6 flex flex-wrap items-center gap-3 text-label-md text-on-surface-variant">
-            <span className="rounded-full bg-surface-container px-3 py-1">{lesson.duration}</span>
-            <span className="rounded-full bg-surface-container px-3 py-1">
-              {formatLevel(lesson.level, locale)}
-            </span>
-            <span className="rounded-full bg-surface-container px-3 py-1">
-              {getCategoryLabel(lesson.categoryId, locale)}
-            </span>
-            {lesson.lastReviewed ? (
-              <span className="rounded-full bg-surface-container px-3 py-1">
-                {t("updatedOn", { date: lesson.lastReviewed })}
-              </span>
-            ) : null}
-          </div>
+                <div className="mt-4 flex flex-wrap items-center gap-3 text-label-md">
+                  <span className="chip">{lesson.duration}</span>
+                  <span className="chip">{formatLevel(lesson.level, locale)}</span>
+                  <span className="chip">{getCategoryLabel(lesson.categoryId, locale)}</span>
+                  {lesson.lastReviewed ? (
+                    <span className="chip">{t("updatedOn", { date: lesson.lastReviewed })}</span>
+                  ) : null}
+                </div>
 
-          <div className="grid gap-8 lg:grid-cols-[1.2fr_0.55fr]">
-            <article ref={contentRef}>
-              <ScrollSpyProvider>
-                <Link
-                  href="/learn"
-                  className="no-print mb-6 inline-flex items-center gap-2 text-label-md font-semibold text-primary"
-                >
-                  <ArrowLeft size={18} />
-                  {t("backToLessons")}
-                </Link>
-                <h1 className="mb-4 text-headline-xl text-primary">{lesson.title}</h1>
-                <p className="mb-8 max-w-3xl text-body-lg text-on-surface-variant">{lesson.description}</p>
+                <h1 className="mt-5 font-display text-headline-xl text-primary">{lesson.title}</h1>
+                <p className="mt-4 max-w-readable text-body-lg text-on-surface-variant">
+                  {lesson.description}
+                </p>
 
-                {/* Mark as Complete button */}
-                <div className="no-print mb-8" aria-live="polite">
+                <div className="no-print mt-6 flex flex-wrap gap-3" aria-live="polite">
+                  <Link href="/learn" className="btn-secondary inline-flex items-center gap-2">
+                    <ArrowLeft size={18} />
+                    {t("backToLessons")}
+                  </Link>
                   {isComplete ? (
                     <span
                       role="status"
-                      className="inline-flex items-center gap-2 rounded-lg bg-secondary-container px-6 py-3 text-label-lg font-semibold text-secondary"
+                      className="inline-flex items-center gap-2 rounded-full bg-secondary-container px-5 py-3 text-label-lg font-semibold text-secondary shadow-elevation-1"
                     >
                       <CheckCircle2 size={22} aria-hidden="true" />
                       {t("lessonComplete")}
@@ -206,142 +197,175 @@ export default function LessonPageClient({
                       {isSaving ? tCommon("loading") : t("markComplete")}
                     </button>
                   )}
-                </div>
-
-                <div className="mb-8 overflow-hidden rounded-lg border border-outline-variant">
-                  <LessonThumbnail
-                    image={lesson.image}
-                    imageAlt={lesson.imageAlt}
-                    categoryId={lesson.categoryId}
-                    title={lesson.title}
-                    className="min-h-48 w-full"
-                    priority
-                  />
-                </div>
-
-                <div className="space-y-8">
-                  {lesson.content.sections.map((section, index) => (
-                    <section key={section.title}>
-                      <div className="mb-3 flex items-center gap-3">
-                        <div
-                          className="flex h-8 w-8 items-center justify-center rounded-full bg-secondary-container text-label-md font-bold text-primary"
-                          aria-hidden="true"
-                        >
-                          {index + 1}
-                        </div>
-                        <h2 className="text-headline-md text-primary">{section.title}</h2>
-                      </div>
-                      <div className="max-w-[70ch] whitespace-pre-line text-body-md text-on-surface-variant">
-                        <MarkdownRenderer text={section.content} glossaryTerms={glossaryTerms} />
-                      </div>
-                      {section.callouts?.map((callout, calloutIndex) => (
-                        <Callout
-                          key={`${section.title}-${calloutIndex}`}
-                          type={callout.type}
-                          className="mt-4"
-                        >
-                          {callout.content}
-                        </Callout>
-                      ))}
-                    </section>
-                  ))}
-                </div>
-
-                {/* Key Takeaways */}
-                {lesson.sidebarTips && lesson.sidebarTips.length > 0 ? (
-                  <div className="mt-10">
-                    <KeyTakeaway title={t("keyTakeaways")}>
-                      <ul className="list-disc space-y-2 pl-5">
-                        {lesson.sidebarTips.map((tip, i) => (
-                          <li key={i}>{tip}</li>
-                        ))}
-                      </ul>
-                    </KeyTakeaway>
-                  </div>
-                ) : null}
-
-                {lesson.lastReviewed ? (
-                  <p className="mt-8 text-label-md text-on-surface-variant">
-                    {t("lastReviewed")}: {lesson.lastReviewed}
-                  </p>
-                ) : null}
-                {lesson.sources?.length ? (
-                  <div className="mt-4 text-label-md text-on-surface-variant">
-                    <div className="font-semibold text-primary">{t("sources")}</div>
-                    <ul className="mt-2 list-disc space-y-1 pl-5">
-                      {lesson.sources.map((source) => (
-                        <li key={source}>{source}</li>
-                      ))}
-                    </ul>
-                  </div>
-                ) : null}
-
-                {/* Quiz CTA Card */}
-                {hasQuiz ? (
-                  <div className="no-print mt-10 rounded-2xl border border-primary bg-primary-fixed/20 p-6 md:p-8">
-                    <h3 className="mb-2 text-headline-md text-primary">{t("quizCta")}</h3>
-                    <p className="mb-4 text-body-md text-on-surface-variant">{t("quizSubtitle")}</p>
-                    {bestQuizScore !== null ? (
-                      <p className="mb-4 text-label-md text-on-surface-variant">
-                        {t("quizBestScore", { score: bestQuizScore })}
-                      </p>
-                    ) : null}
+                  {hasQuiz ? (
                     <Link
                       href={`/learn/${lessonId}/quiz`}
-                      className="btn-primary inline-flex items-center gap-2"
+                      className="btn-secondary inline-flex items-center gap-2"
                     >
                       {bestQuizScore !== null ? t("quizRetake") : t("takeQuiz")}
                       <ArrowRight size={18} />
                     </Link>
-                  </div>
-                ) : null}
+                  ) : null}
+                </div>
+              </div>
 
-                <div className="mt-10">
-                  <MedicalDisclaimer />
+              <div className="surface-card-strong overflow-hidden p-3 md:p-4">
+                <LessonThumbnail
+                  image={lesson.image}
+                  imageAlt={lesson.imageAlt}
+                  categoryId={lesson.categoryId}
+                  title={lesson.title}
+                  className="min-h-[18rem] w-full rounded-[1.6rem]"
+                  priority
+                />
+              </div>
+            </div>
+          </section>
+
+          <div className="mt-8 grid gap-8 lg:grid-cols-[minmax(0,1fr)_21rem]">
+            <article ref={contentRef} className="min-w-0">
+              <ScrollSpyProvider>
+                <div className="space-y-6">
+                  {lesson.content.sections.map((section, index) => (
+                    <Reveal key={section.title} delay={Math.min(index * 0.04, 0.18)}>
+                      <section className="surface-card px-6 py-6 md:px-8 md:py-8">
+                        <div className="mb-4 flex items-center gap-3">
+                          <div
+                            className="flex h-10 w-10 items-center justify-center rounded-full bg-primary-fixed text-label-md font-bold text-primary shadow-elevation-1"
+                            aria-hidden="true"
+                          >
+                            {index + 1}
+                          </div>
+                          <h2 className="font-display text-headline-md text-primary">{section.title}</h2>
+                        </div>
+                        <div className="max-w-[70ch] whitespace-pre-line text-body-md text-on-surface-variant">
+                          <MarkdownRenderer text={section.content} glossaryTerms={glossaryTerms} />
+                        </div>
+                        {section.callouts?.map((callout, calloutIndex) => (
+                          <Callout
+                            key={`${section.title}-${calloutIndex}`}
+                            type={callout.type}
+                            className="mt-4"
+                          >
+                            {callout.content}
+                          </Callout>
+                        ))}
+                      </section>
+                    </Reveal>
+                  ))}
                 </div>
 
-                {/* Previous / Next lesson navigation */}
+                {lesson.sidebarTips && lesson.sidebarTips.length > 0 ? (
+                  <Reveal delay={0.08} className="mt-8">
+                    <div className="surface-card-muted px-6 py-6 md:px-8">
+                      <KeyTakeaway title={t("keyTakeaways")}>
+                        <ul className="list-disc space-y-2 pl-5">
+                          {lesson.sidebarTips.map((tip, i) => (
+                            <li key={i}>{tip}</li>
+                          ))}
+                        </ul>
+                      </KeyTakeaway>
+                    </div>
+                  </Reveal>
+                ) : null}
+
+                {lesson.lastReviewed || lesson.sources?.length ? (
+                  <Reveal delay={0.1} className="mt-8">
+                    <div className="surface-card-muted px-6 py-6 md:px-8">
+                      {lesson.lastReviewed ? (
+                        <p className="text-label-md text-on-surface-variant">
+                          {t("lastReviewed")}: {lesson.lastReviewed}
+                        </p>
+                      ) : null}
+                      {lesson.sources?.length ? (
+                        <div className={lesson.lastReviewed ? "mt-4" : ""}>
+                          <div className="font-semibold text-primary">{t("sources")}</div>
+                          <ul className="mt-2 list-disc space-y-1 pl-5 text-label-md text-on-surface-variant">
+                            {lesson.sources.map((source) => (
+                              <li key={source}>{source}</li>
+                            ))}
+                          </ul>
+                        </div>
+                      ) : null}
+                    </div>
+                  </Reveal>
+                ) : null}
+
+                {hasQuiz ? (
+                  <Reveal delay={0.12} className="mt-8 no-print">
+                    <div className="surface-card-glass px-6 py-6 md:px-8 md:py-8">
+                      <div className="eyebrow mb-3">{t("quizCta")}</div>
+                      <h3 className="font-display text-headline-md text-primary">{t("quizSubtitle")}</h3>
+                      {bestQuizScore !== null ? (
+                        <p className="mt-3 text-label-md text-on-surface-variant">
+                          {t("quizBestScore", { score: bestQuizScore })}
+                        </p>
+                      ) : null}
+                      <Link
+                        href={`/learn/${lessonId}/quiz`}
+                        className="btn-primary mt-5 inline-flex items-center gap-2"
+                      >
+                        {bestQuizScore !== null ? t("quizRetake") : t("takeQuiz")}
+                        <ArrowRight size={18} />
+                      </Link>
+                    </div>
+                  </Reveal>
+                ) : null}
+
+                <Reveal delay={0.14} className="mt-8">
+                  <MedicalDisclaimer />
+                </Reveal>
+
                 {prevLesson || nextLesson ? (
-                  <nav className="no-print mt-12 grid grid-cols-2 gap-4" aria-label={t("lessonNavigation")}>
-                    {prevLesson ? (
-                      <Link
-                        href={`/learn/${prevLesson.id}`}
-                        className="flex flex-col gap-1 rounded-2xl border border-outline-variant bg-surface-container-lowest p-4 transition-shadow hover:shadow-card-hover"
-                      >
-                        <span className="text-label-md text-on-surface-variant">{t("previousLesson")}</span>
-                        <span className="text-headline-sm text-primary">{prevLesson.title}</span>
-                      </Link>
-                    ) : (
-                      <div />
-                    )}
-                    {nextLesson ? (
-                      <Link
-                        href={`/learn/${nextLesson.id}`}
-                        className="flex flex-col items-end gap-1 rounded-2xl border border-outline-variant bg-surface-container-lowest p-4 text-right transition-shadow hover:shadow-card-hover"
-                      >
-                        <span className="text-label-md text-on-surface-variant">{t("nextLesson")}</span>
-                        <span className="text-headline-sm text-primary">{nextLesson.title}</span>
-                      </Link>
-                    ) : null}
-                  </nav>
+                  <Reveal delay={0.16} className="mt-10 no-print">
+                    <nav className="grid grid-cols-2 gap-4" aria-label={t("lessonNavigation")}>
+                      {prevLesson ? (
+                        <Link
+                          href={`/learn/${prevLesson.id}`}
+                          className="surface-card flex flex-col gap-1 px-5 py-5 transition-all duration-300 ease-premium hover:-translate-y-0.5 hover:shadow-card-hover"
+                        >
+                          <span className="text-label-md text-on-surface-variant">{t("previousLesson")}</span>
+                          <span className="text-headline-sm text-primary">{prevLesson.title}</span>
+                        </Link>
+                      ) : (
+                        <div />
+                      )}
+                      {nextLesson ? (
+                        <Link
+                          href={`/learn/${nextLesson.id}`}
+                          className="surface-card flex flex-col items-end gap-1 px-5 py-5 text-right transition-all duration-300 ease-premium hover:-translate-y-0.5 hover:shadow-card-hover"
+                        >
+                          <span className="text-label-md text-on-surface-variant">{t("nextLesson")}</span>
+                          <span className="text-headline-sm text-primary">{nextLesson.title}</span>
+                        </Link>
+                      ) : null}
+                    </nav>
+                  </Reveal>
                 ) : null}
               </ScrollSpyProvider>
             </article>
 
-            <aside className="space-y-6">
-              <div className="card sticky top-24">
-                <h3 className="mb-3 text-headline-md text-primary">
-                  {lesson.sidebarTitle || t("stillConfused")}
-                </h3>
-                <p className="mb-4 text-body-md text-on-surface-variant">{sidebar.body}</p>
-                <ul className="space-y-3 text-body-md text-on-surface-variant">
-                  {sidebar.tips.map((tip) => (
-                    <li key={tip}>{tip}</li>
-                  ))}
-                </ul>
-                <p className="mt-4 text-label-md font-semibold text-primary">{sidebar.footer}</p>
-              </div>
-            </aside>
+            <Reveal delay={0.08}>
+              <aside className="space-y-6">
+                <div className="surface-card-glass sticky top-24 px-5 py-5 md:px-6">
+                  <h3 className="font-display text-headline-md text-primary">
+                    {lesson.sidebarTitle || t("stillConfused")}
+                  </h3>
+                  <p className="mt-3 text-body-md text-on-surface-variant">{sidebar.body}</p>
+                  <ul className="mt-5 space-y-3 text-body-md text-on-surface-variant">
+                    {sidebar.tips.map((tip, index) => (
+                      <li key={tip} className="flex items-start gap-3">
+                        <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-surface text-label-md font-semibold text-primary">
+                          {index + 1}
+                        </span>
+                        <span>{tip}</span>
+                      </li>
+                    ))}
+                  </ul>
+                  <p className="mt-5 text-label-md font-semibold text-primary">{sidebar.footer}</p>
+                </div>
+              </aside>
+            </Reveal>
           </div>
 
           <LessonRelatedClient lessonId={lessonId} categoryId={lesson.categoryId} />

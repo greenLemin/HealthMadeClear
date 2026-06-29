@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useMemo } from "react";
 import { useTranslations } from "next-intl";
 import { useRouter, Link } from "@/i18n/navigation";
 import { createClient } from "@/lib/supabase/client";
@@ -11,7 +11,7 @@ import { Lock } from "lucide-react";
 export default function ResetPasswordClient() {
   const t = useTranslations("auth");
   const router = useRouter();
-  const supabase = createClient();
+  const supabase = useMemo(() => createClient(), []);
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
@@ -48,6 +48,18 @@ export default function ResetPasswordClient() {
     return () => clearTimeout(timer);
   }, [submitted, router]);
 
+  function handlePasswordChange(value: string) {
+    setPassword(value);
+    setError("");
+    setFieldErrors((prev) => ({ ...prev, password: undefined, confirm: undefined }));
+  }
+
+  function handleConfirmPasswordChange(value: string) {
+    setConfirmPassword(value);
+    setError("");
+    setFieldErrors((prev) => ({ ...prev, confirm: undefined }));
+  }
+
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setError("");
@@ -75,7 +87,11 @@ export default function ResetPasswordClient() {
   if (loading) {
     return (
       <div className="mx-auto max-w-container px-4 py-16 md:px-6 md:py-24">
-        <div className="mx-auto max-w-lg text-center" role="status" aria-live="polite">
+        <div
+          className="surface-card-glass mx-auto max-w-2xl p-8 text-center"
+          role="status"
+          aria-live="polite"
+        >
           <div
             className="mx-auto h-8 w-8 animate-spin rounded-full border-4 border-primary border-t-transparent motion-reduce:animate-none"
             aria-hidden="true"
@@ -89,8 +105,12 @@ export default function ResetPasswordClient() {
   if (submitted) {
     return (
       <div className="mx-auto max-w-container px-4 py-16 md:px-6 md:py-24">
-        <div className="mx-auto max-w-lg text-center" role="status" aria-live="polite">
-          <h1 ref={successHeadingRef} tabIndex={-1} className="text-headline-lg text-primary">
+        <div
+          className="surface-card-glass mx-auto max-w-2xl p-8 text-center"
+          role="status"
+          aria-live="polite"
+        >
+          <h1 ref={successHeadingRef} tabIndex={-1} className="font-display text-headline-lg text-primary">
             {t("resetSuccessTitle")}
           </h1>
           <p className="mt-4 text-body-md text-on-surface-variant">{t("resetSuccessMessage")}</p>
@@ -106,8 +126,10 @@ export default function ResetPasswordClient() {
 
   return (
     <div className="mx-auto max-w-container px-4 py-16 md:px-6 md:py-24">
-      <div className="mx-auto max-w-lg">
-        <h1 className="text-headline-lg md:text-headline-xl text-primary">{t("resetPasswordTitle")}</h1>
+      <div className="surface-card-glass mx-auto max-w-2xl p-6 md:p-8">
+        <h1 className="font-display text-headline-lg md:text-headline-xl text-primary">
+          {t("resetPasswordTitle")}
+        </h1>
         <p className="mt-4 text-body-md text-on-surface-variant">{t("resetPasswordSubtitle")}</p>
 
         <form onSubmit={handleSubmit} className="mt-8 space-y-6" noValidate>
@@ -117,7 +139,7 @@ export default function ResetPasswordClient() {
               label={t("newPasswordLabel")}
               type="password"
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={(e) => handlePasswordChange(e.target.value)}
               icon={<Lock size={18} />}
               required
               autoComplete="new-password"
@@ -130,7 +152,7 @@ export default function ResetPasswordClient() {
               label={t("confirmPasswordLabel")}
               type="password"
               value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
+              onChange={(e) => handleConfirmPasswordChange(e.target.value)}
               icon={<Lock size={18} />}
               required
               autoComplete="new-password"

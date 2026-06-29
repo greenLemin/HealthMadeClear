@@ -4,65 +4,67 @@ import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 import { Link } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
+import Reveal from "@/components/ui/Reveal";
 
 export default function Hero() {
   const t = useTranslations("hero");
 
   return (
-    <section className="hero-gradient relative overflow-hidden py-8 md:py-24">
-      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent" />
-      <div className="max-w-container relative mx-auto px-4 md:px-6">
-        <div className="grid items-center gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:gap-10">
-          <div className="max-w-3xl">
-            <div className="mb-4 inline-flex rounded-full border border-outline-variant bg-surface/80 px-4 py-2 text-label-md font-semibold text-primary shadow-sm">
-              {t("badge")}
-            </div>
-            <h1 className="mb-4 text-[clamp(1.75rem,5vw,2.5rem)] md:text-headline-xl text-primary leading-[1.15]">
+    <section className="hero-gradient relative overflow-hidden px-4 pb-14 pt-6 md:px-6 md:pb-20 md:pt-10">
+      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/40 to-transparent" />
+      <div className="mx-auto max-w-container">
+        <div className="grid items-center gap-8 lg:grid-cols-[1.02fr_0.98fr] lg:gap-10">
+          <Reveal className="max-w-3xl">
+            <div className="eyebrow mb-5">{t("badge")}</div>
+            <h1 className="max-w-4xl font-display text-[clamp(3rem,7vw,5.6rem)] leading-[0.95] tracking-[-0.04em] text-primary">
               {t("title")}
             </h1>
-            <p className="mb-6 max-w-2xl text-body-md md:text-body-lg text-on-surface-variant">
-              {t("subtitle")}
-            </p>
-            <div className="flex flex-wrap items-center gap-4">
-              <Link href="/learning-paths" className="btn-primary inline-flex items-center justify-center">
+            <p className="mt-5 max-w-readable text-body-lg text-on-surface-variant">{t("subtitle")}</p>
+            <div className="mt-8 flex flex-wrap items-center gap-4">
+              <Link href="/learning-paths" className="btn-primary">
                 {t("startLearning")}
               </Link>
-              <Link
-                href="/glossary"
-                className="inline-flex items-center gap-1 text-label-md font-semibold text-primary underline-offset-2 transition-colors hover:text-primary-container hover:underline"
-              >
+              <Link href="/glossary" className="btn-secondary">
                 {t("browseGlossary")}
                 <ArrowRight size={16} />
               </Link>
             </div>
-          </div>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <div className="metric-pill">🩺 {t("preparedVisits")}</div>
+              <div className="metric-pill">📘 {t("clearLessons")}</div>
+            </div>
+          </Reveal>
 
-          <div className="hidden overflow-hidden rounded-lg border border-outline-variant bg-surface/85 shadow-elevation-2 backdrop-blur-sm lg:block">
-            <Image
-              src="/stitch/home.png"
-              alt={t("imageAlt")}
-              width={600}
-              height={400}
-              className="h-auto w-full object-cover"
-              priority
-            />
-            <div className="grid gap-4 p-5 sm:grid-cols-2">
-              <div className="rounded-2xl bg-secondary-container/70 p-5">
-                <div className="mb-2 text-2xl" aria-hidden="true">
-                  🩺
-                </div>
-                <div className="text-label-md text-primary">{t("preparedVisits")}</div>
-                <p className="mt-2 text-label-md text-on-surface-variant">{t("preparedVisitsBody")}</p>
+          <Reveal delay={0.08}>
+            <div className="surface-card-strong overflow-hidden p-4 md:p-5">
+              <div className="overflow-hidden rounded-[1.6rem] border border-outline-variant shadow-elevation-2">
+                <Image
+                  src="/stitch/home.png"
+                  alt={t("imageAlt")}
+                  width={600}
+                  height={400}
+                  className="h-auto w-full object-cover"
+                  priority
+                />
               </div>
-              <div className="rounded-2xl bg-primary-fixed/70 p-5">
-                <div className="mb-2 text-2xl" aria-hidden="true">
-                  📘
+              <div className="mt-4 grid gap-4 sm:grid-cols-2">
+                <div className="surface-card px-5 py-5">
+                  <div className="mb-2 text-2xl" aria-hidden="true">
+                    🩺
+                  </div>
+                  <div className="text-label-md text-primary">{t("preparedVisits")}</div>
+                  <p className="mt-2 text-label-md text-on-surface-variant">{t("preparedVisitsBody")}</p>
                 </div>
-                <div className="text-label-md text-primary">{t("clearLessons")}</div>
-                <p className="mt-2 text-label-md text-on-surface-variant">{t("clearLessonsBody")}</p>
+                <div className="surface-card px-5 py-5">
+                  <div className="mb-2 text-2xl" aria-hidden="true">
+                    📘
+                  </div>
+                  <div className="text-label-md text-primary">{t("clearLessons")}</div>
+                  <p className="mt-2 text-label-md text-on-surface-variant">{t("clearLessonsBody")}</p>
+                </div>
               </div>
             </div>
-          </div>
+          </Reveal>
         </div>
       </div>
     </section>

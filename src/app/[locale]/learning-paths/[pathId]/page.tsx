@@ -53,6 +53,7 @@ export default async function LearningPathDetailPage({ params }: Props) {
   return (
     <>
       <JsonLd
+        id={`jsonld-path-${locale}-${path.id}`}
         data={{
           "@context": "https://schema.org",
           "@type": "LearningResource",

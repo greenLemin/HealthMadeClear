@@ -12,8 +12,49 @@ const LIMITS = {
 // Basic email format check
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
+// Simple in-memory rate limit store for IP addresses
+export const rateLimitStore = new Map<string, { count: number; resetAt: number }>();
+export function clearRateLimitStore() {
+  rateLimitStore.clear();
+}
+const RATE_LIMIT_WINDOW_MS = 10 * 60 * 1000; // 10 minutes
+const MAX_REQUESTS = 5;
+
 export async function POST(request: Request) {
   try {
+    const ip =
+      request.headers.get("x-forwarded-for")?.split(",")[0].trim() ||
+      request.headers.get("x-real-ip")?.trim() ||
+      "127.0.0.1";
+
+    const now = Date.now();
+    // Prune expired entries to prevent memory leak
+    for (const [key, value] of rateLimitStore.entries()) {
+      if (now >= value.resetAt) {
+        rateLimitStore.delete(key);
+      }
+    }
+
+    const limitRecord = rateLimitStore.get(ip);
+
+    if (limitRecord && now < limitRecord.resetAt) {
+      if (limitRecord.count >= MAX_REQUESTS) {
+        const retryAfter = Math.ceil((limitRecord.resetAt - now) / 1000);
+        return NextResponse.json(
+          { error: `Too many requests. Please try again in ${retryAfter} seconds.` },
+          {
+            status: 429,
+            headers: {
+              "Retry-After": String(retryAfter),
+            },
+          }
+        );
+      }
+      limitRecord.count += 1;
+    } else {
+      rateLimitStore.set(ip, { count: 1, resetAt: now + RATE_LIMIT_WINDOW_MS });
+    }
+
     const body = await request.json();
     const { name, email, subject, message, website } = body;
 

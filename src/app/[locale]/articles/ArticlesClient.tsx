@@ -1,11 +1,12 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { Link } from "@/i18n/navigation";
-import { Clock, Search } from "lucide-react";
+import { Search } from "lucide-react";
 import { useAppState } from "@/components/AppProviders";
+import ArticleCard from "@/components/articles/ArticleCard";
 import PageHeader from "@/components/PageHeader";
 import EmptyState from "@/components/ui/EmptyState";
+import Reveal from "@/components/ui/Reveal";
 import { getArticles } from "@/lib/localizedContent";
 import { useTranslations } from "next-intl";
 
@@ -13,7 +14,6 @@ export default function ArticlesClient() {
   const [query, setQuery] = useState("");
   const { locale } = useAppState();
   const t = useTranslations("articles");
-  const tCommon = useTranslations("common");
   const articles = getArticles(locale);
 
   const searchIndex = useMemo(() => {
@@ -33,23 +33,35 @@ export default function ArticlesClient() {
   }, [articles, query, searchIndex]);
 
   return (
-    <div className="py-12 md:py-16">
+    <div className="py-10 md:py-14">
       <div className="max-w-container mx-auto px-4 md:px-6">
-        <PageHeader centered title={t("title")} description={t("description")}>
-          <label className="relative mt-6 block text-left">
-            <span className="sr-only">{t("searchArticles")}</span>
-            <Search
-              className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant"
-              size={18}
-            />
-            <input
-              type="search"
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              placeholder={t("searchArticles")}
-              className="input-field w-full pl-11"
-            />
-          </label>
+        <PageHeader centered title={t("title")} description={t("description")} className="mb-8">
+          <div className="mx-auto max-w-3xl">
+            <div className="surface-card-glass px-4 py-4 text-left md:px-6 md:py-5">
+              <label className="relative block">
+                <span className="sr-only">{t("searchArticles")}</span>
+                <Search
+                  className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant"
+                  size={18}
+                />
+                <input
+                  type="search"
+                  value={query}
+                  onChange={(e) => setQuery(e.target.value)}
+                  placeholder={t("searchArticles")}
+                  className="input-field w-full pl-11"
+                />
+              </label>
+              <div className="mt-4 flex flex-wrap items-center justify-between gap-3">
+                <span className="chip-active">{t("resultsCount", { count: filtered.length })}</span>
+                {query ? (
+                  <button type="button" onClick={() => setQuery("")} className="btn-secondary px-4 py-2">
+                    {t("clearSearch")}
+                  </button>
+                ) : null}
+              </div>
+            </div>
+          </div>
         </PageHeader>
 
         <p className="sr-only" role="status" aria-live="polite">
@@ -57,19 +69,11 @@ export default function ArticlesClient() {
         </p>
 
         {filtered.length > 0 ? (
-          <div className="grid gap-6 md:grid-cols-2">
-            {filtered.map((article) => (
-              <Link key={article.id} href={`/articles/${article.id}`} className="card-hover card block">
-                <div className="mb-2 text-label-md font-semibold uppercase tracking-wide text-primary">
-                  {article.category}
-                </div>
-                <h2 className="mb-2 text-headline-md text-primary">{article.title}</h2>
-                <p className="mb-4 text-body-md text-on-surface-variant">{article.description}</p>
-                <div className="flex items-center gap-2 text-label-md text-on-surface-variant">
-                  <Clock size={16} aria-hidden="true" />
-                  {article.readingTime} {tCommon("read")}
-                </div>
-              </Link>
+          <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+            {filtered.map((article, index) => (
+              <Reveal key={article.id} delay={Math.min(index * 0.05, 0.25)}>
+                <ArticleCard article={article} />
+              </Reveal>
             ))}
           </div>
         ) : (
