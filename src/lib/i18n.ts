@@ -62,3 +62,14 @@ export function formatReviewDate(dateStr: string, locale: Locale): string {
     year: "numeric",
   });
 }
+
+export function formatDuration(minutes: number, locale: Locale): string {
+  const copy = getMessages(locale).dashboard;
+  if (minutes < 60) return copy.timeMinutes.replace("{count}", String(minutes));
+  const hrs = Math.floor(minutes / 60);
+  const mins = minutes % 60;
+  if (mins > 0) {
+    return copy.timeHoursMinutes.replace("{hours}", String(hrs)).replace("{minutes}", String(mins));
+  }
+  return copy.timeHours.replace("{hours}", String(hrs));
+}

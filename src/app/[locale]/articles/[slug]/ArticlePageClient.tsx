@@ -2,7 +2,8 @@
 
 import { useCallback } from "react";
 import { ArrowLeft, Clock, Link2, Share2 } from "lucide-react";
-import { Link } from "@/i18n/navigation";
+import Button from "@/components/ui/Button";
+import ButtonLink from "@/components/ui/ButtonLink";
 import MedicalDisclaimer from "@/components/MedicalDisclaimer";
 import PageHeader from "@/components/PageHeader";
 import MarkdownRenderer from "@/components/mdx/MarkdownRenderer";
@@ -66,28 +67,27 @@ export default function ArticlePageClient({ article }: { article: Article }) {
             {reviewedDate ? <span className="chip">{t("lastReviewed", { date: reviewedDate })}</span> : null}
           </div>
           <div className="mt-5 flex flex-wrap gap-3 no-print">
-            <Link href="/articles" className="btn-secondary inline-flex items-center gap-2">
-              <ArrowLeft size={18} aria-hidden="true" />
+            <ButtonLink href="/articles" variant="secondary" icon={<ArrowLeft size={18} />}>
               {t("backToArticles")}
-            </Link>
-            <button
+            </ButtonLink>
+            <Button
               type="button"
+              variant="secondary"
+              icon={<Link2 size={16} />}
               onClick={handleCopyLink}
-              className="btn-secondary inline-flex items-center gap-2"
               aria-label={tCommon("copyLink")}
             >
-              <Link2 size={16} aria-hidden="true" />
               {tCommon("copyLink")}
-            </button>
-            <button
+            </Button>
+            <Button
               type="button"
+              variant="secondary"
+              icon={<Share2 size={16} />}
               onClick={handleShareTwitter}
-              className="btn-secondary inline-flex items-center gap-2"
               aria-label={t("shareOnX")}
             >
-              <Share2 size={16} aria-hidden="true" />
               {t("shareOnX")}
-            </button>
+            </Button>
           </div>
         </PageHeader>
 
@@ -120,24 +120,24 @@ export default function ArticlePageClient({ article }: { article: Article }) {
                 <p className="text-body-md text-on-surface-variant">{article.category}</p>
               </div>
               <div className="flex flex-wrap gap-3">
-                <button
+                <Button
                   type="button"
+                  variant="secondary"
+                  icon={<Link2 size={16} />}
                   onClick={handleCopyLink}
-                  className="btn-secondary inline-flex items-center gap-2"
                   aria-label={tCommon("copyLink")}
                 >
-                  <Link2 size={16} aria-hidden="true" />
                   {tCommon("copyLink")}
-                </button>
-                <button
+                </Button>
+                <Button
                   type="button"
+                  variant="secondary"
+                  icon={<Share2 size={16} />}
                   onClick={handleShareTwitter}
-                  className="btn-secondary inline-flex items-center gap-2"
                   aria-label={t("shareOnX")}
                 >
-                  <Share2 size={16} aria-hidden="true" />
                   {t("shareOnX")}
-                </button>
+                </Button>
               </div>
             </div>
           </div>

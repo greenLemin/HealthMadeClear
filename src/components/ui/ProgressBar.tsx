@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useTranslations } from "next-intl";
 
 type ProgressBarSize = "sm" | "md" | "lg";
 
@@ -25,6 +26,7 @@ export default function ProgressBar({
   size = "md",
   className = "",
 }: ProgressBarProps) {
+  const tCommon = useTranslations("common");
   const [width, setWidth] = useState(0);
 
   useEffect(() => {
@@ -47,7 +49,7 @@ export default function ProgressBar({
         aria-valuenow={clamped}
         aria-valuemin={0}
         aria-valuemax={100}
-        aria-label={label || `Progress: ${clamped}%`}
+        aria-label={label || tCommon("progressPercent", { percent: clamped })}
         className={["w-full overflow-hidden rounded-full bg-surface-container", sizeStyles[size]].join(" ")}
       >
         <div

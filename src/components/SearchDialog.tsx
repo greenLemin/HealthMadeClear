@@ -28,8 +28,8 @@ export function highlightMatches(text: string, query: string) {
   );
 }
 
-function getShortcutLabel() {
-  if (typeof navigator === "undefined") return "Ctrl K";
+function getShortcutLabel(t: ReturnType<typeof useTranslations<"search">>) {
+  if (typeof navigator === "undefined") return t("shortcutWindows");
 
   const navWithUAData = navigator as Navigator & { userAgentData?: { platform?: string } };
   const platform = navWithUAData.userAgentData?.platform || navigator.platform || "";
@@ -38,8 +38,8 @@ function getShortcutLabel() {
   return normalizedPlatform.includes("mac") ||
     normalizedPlatform.includes("iphone") ||
     normalizedPlatform.includes("ipad")
-    ? "⌘K"
-    : "Ctrl K";
+    ? t("shortcutMac")
+    : t("shortcutWindows");
 }
 
 export default function SearchDialog() {
@@ -51,7 +51,7 @@ export default function SearchDialog() {
   const inputRef = useRef<HTMLInputElement>(null);
   const dialogRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
-  const shortcutLabel = useMemo(() => getShortcutLabel(), []);
+  const shortcutLabel = useMemo(() => getShortcutLabel(t), [t]);
   const motionSafe = useMotionSafe();
   const noResultsMessage = t("noResults");
   const noResultsSplit = noResultsMessage.indexOf(". ");
@@ -164,7 +164,7 @@ export default function SearchDialog() {
             autoComplete="off"
           />
           <kbd className="hidden rounded-full border border-outline-variant bg-surface px-2 py-1 text-label-sm tracking-[0.16em] text-on-surface-variant sm:inline">
-            ESC
+            {t("escapeKey")}
           </kbd>
         </div>
       </div>

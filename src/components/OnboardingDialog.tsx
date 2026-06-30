@@ -8,6 +8,7 @@ import { usePathname } from "@/i18n/navigation";
 import { useDismissibleOverlay } from "@/hooks/useDismissibleOverlay";
 import { useMotionSafe } from "@/hooks/useMotionSafe";
 import { revealEase } from "@/components/ui/Reveal";
+import Button from "@/components/ui/Button";
 
 const ONBOARDING_KEY = "hmc_onboarded";
 
@@ -94,9 +95,9 @@ export default function OnboardingDialog() {
         </div>
       </div>
 
-      <button type="button" onClick={dismiss} className="btn-primary mt-6 w-full">
+      <Button type="button" onClick={dismiss} fullWidth className="mt-6">
         {t("getStarted")}
-      </button>
+      </Button>
     </div>
   );
 
@@ -108,7 +109,7 @@ export default function OnboardingDialog() {
             ref={dialogRef}
             role="complementary"
             aria-labelledby="onboarding-title"
-            className="no-print fixed bottom-4 right-4 z-[110] w-[min(24rem,calc(100vw-2rem))]"
+            className="no-print fixed bottom-4 left-4 z-[110] w-[min(24rem,calc(100vw-2rem))]"
           >
             {onboardingContent}
           </aside>
@@ -121,7 +122,7 @@ export default function OnboardingDialog() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 20 }}
             transition={{ duration: 0.28, ease: revealEase }}
-            className="no-print fixed bottom-4 right-4 z-[110] w-[min(24rem,calc(100vw-2rem))]"
+            className="no-print fixed bottom-4 left-4 z-[110] w-[min(24rem,calc(100vw-2rem))]"
           >
             {onboardingContent}
           </motion.aside>

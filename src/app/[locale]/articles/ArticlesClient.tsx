@@ -5,6 +5,7 @@ import { Search } from "lucide-react";
 import { useAppState } from "@/components/AppProviders";
 import ArticleCard from "@/components/articles/ArticleCard";
 import PageHeader from "@/components/PageHeader";
+import Button from "@/components/ui/Button";
 import EmptyState from "@/components/ui/EmptyState";
 import Reveal from "@/components/ui/Reveal";
 import { getArticles } from "@/lib/localizedContent";
@@ -55,9 +56,9 @@ export default function ArticlesClient() {
               <div className="mt-4 flex flex-wrap items-center justify-between gap-3">
                 <span className="chip-active">{t("resultsCount", { count: filtered.length })}</span>
                 {query ? (
-                  <button type="button" onClick={() => setQuery("")} className="btn-secondary px-4 py-2">
+                  <Button type="button" variant="secondary" size="sm" onClick={() => setQuery("")}>
                     {t("clearSearch")}
-                  </button>
+                  </Button>
                 ) : null}
               </div>
             </div>

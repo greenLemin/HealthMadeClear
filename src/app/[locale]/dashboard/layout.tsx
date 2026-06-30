@@ -1,6 +1,7 @@
 import { createClient } from "@/lib/supabase/server";
 import { requireAuth } from "@/lib/auth/requireAuth";
 import { requireLocale } from "@/lib/locale";
+import { getTranslations } from "next-intl/server";
 import DashboardSidebar from "@/components/dashboard/DashboardSidebar";
 
 type Props = {
@@ -10,15 +11,17 @@ type Props = {
 
 export default async function DashboardLayout({ children, params }: Props) {
   const { locale } = await params;
-  const user = await requireAuth(locale, "/dashboard");
+  const validLocale = requireLocale(locale);
+  const user = await requireAuth(validLocale, "/dashboard");
   const supabase = await createClient();
+  const t = await getTranslations({ locale: validLocale, namespace: "dashboard" });
 
   const [profileResult, streakResult] = await Promise.all([
     supabase.from("profiles").select("display_name").eq("id", user.id).single(),
     supabase.from("streaks").select("current_streak").eq("user_id", user.id).single(),
   ]);
 
-  const displayName = profileResult.data?.display_name ?? user.email?.split("@")[0] ?? "User";
+  const displayName = profileResult.data?.display_name ?? user.email?.split("@")[0] ?? t("defaultUser");
   const email = user.email ?? undefined;
   const streak = streakResult.data?.current_streak ?? 0;
 

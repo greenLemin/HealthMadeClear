@@ -1,6 +1,7 @@
 "use client";
 
 import { Link } from "@/i18n/navigation";
+import Card from "@/components/ui/Card";
 import { ArrowLeft, GraduationCap } from "lucide-react";
 import { useAppState } from "@/components/AppProviders";
 import MarkdownRenderer from "@/components/mdx/MarkdownRenderer";
@@ -49,12 +50,12 @@ export default function GlossaryTermClient({ term }: { term: GlossaryTerm }) {
         </Link>
         <h1 className="mb-4 text-headline-xl text-primary">{term.term}</h1>
         <p className="mb-6 text-label-md text-on-surface-variant">{term.category}</p>
-        <div className="card prose-hmc mb-6 max-w-3xl text-body-md text-on-surface-variant">
+        <Card className="prose-hmc mb-6 max-w-3xl text-body-md text-on-surface-variant">
           <MarkdownRenderer text={term.definition} glossaryTerms={glossaryTerms} />
-        </div>
+        </Card>
 
         {term.relatedLessons?.length ? (
-          <div className="card mb-6">
+          <Card className="mb-6">
             <h2 className="mb-3 flex items-center gap-2 text-label-md text-primary">
               <GraduationCap size={20} aria-hidden="true" />
               {t("seenIn")}
@@ -75,11 +76,11 @@ export default function GlossaryTermClient({ term }: { term: GlossaryTerm }) {
                 );
               })}
             </ul>
-          </div>
+          </Card>
         ) : null}
 
         {term.relatedTerms?.length ? (
-          <div className="card">
+          <Card>
             <h2 className="mb-3 text-label-md font-semibold uppercase tracking-wide text-on-surface-variant">
               {tCommon("relatedTerms")}
             </h2>
@@ -94,7 +95,7 @@ export default function GlossaryTermClient({ term }: { term: GlossaryTerm }) {
                 </Link>
               ))}
             </div>
-          </div>
+          </Card>
         ) : null}
 
         <MedicalDisclaimer />

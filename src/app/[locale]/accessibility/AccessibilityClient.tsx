@@ -1,6 +1,7 @@
 "use client";
 
 import PageHeader from "@/components/PageHeader";
+import ButtonLink from "@/components/ui/ButtonLink";
 import Reveal from "@/components/ui/Reveal";
 import { Link } from "@/i18n/navigation";
 import { Eye, Keyboard, MessageSquareWarning, Send } from "lucide-react";
@@ -70,10 +71,9 @@ export default function AccessibilityClient() {
                     </Link>
                   </p>
                 </div>
-                <Link href="/about#contact" className="btn-primary inline-flex items-center gap-2">
-                  <Send size={18} />
+                <ButtonLink href="/about#contact" icon={<Send size={18} />}>
                   {tNav("about")}
-                </Link>
+                </ButtonLink>
               </div>
             </section>
           </Reveal>

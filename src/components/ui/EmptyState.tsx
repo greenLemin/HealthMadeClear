@@ -4,6 +4,7 @@ import type { ReactNode } from "react";
 import { Link } from "@/i18n/navigation";
 import { Search, BookOpen, TrendingUp } from "lucide-react";
 import Button from "@/components/ui/Button";
+import ButtonLink from "@/components/ui/ButtonLink";
 import Card from "@/components/ui/Card";
 
 interface EmptyStateProps {
@@ -57,9 +58,7 @@ export default function EmptyState({
         <p className="mb-6 max-w-xl text-body-md text-on-surface-variant">{description}</p>
         {action ? (
           action.href ? (
-            <Link href={action.href} className="btn-primary">
-              {action.label}
-            </Link>
+            <ButtonLink href={action.href}>{action.label}</ButtonLink>
           ) : (
             <Button onClick={action.onClick}>{action.label}</Button>
           )

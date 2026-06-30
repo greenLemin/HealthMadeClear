@@ -10,7 +10,7 @@ import {
   Stethoscope,
   type LucideIcon,
 } from "lucide-react";
-import { useLocale, useTranslations } from "next-intl";
+import { useTranslations } from "next-intl";
 import Button from "@/components/ui/Button";
 import MedicalDisclaimer from "@/components/MedicalDisclaimer";
 import PageHeader from "@/components/PageHeader";
@@ -33,79 +33,24 @@ type PlannerState = {
 };
 
 export default function VisitPlannerClient() {
-  const locale = useLocale();
   const t = useTranslations("tools");
+  const tPlanner = useTranslations("tools.visitPlanner");
   const tCommon = useTranslations("common");
 
-  const copy =
-    locale === "es"
-      ? {
-          introEyebrow: "Planifica con calma",
-          prepTitle: "Llega con enfoque claro",
-          prepBody:
-            "Elige el tipo de visita correcto y prepara solo las preguntas que te ayudarán a salir con respuestas claras.",
-          prepBullets: [
-            "Anota síntomas, fechas y cambios importantes.",
-            "Ten a mano medicinas, dosis y suplementos.",
-            "Decide la pregunta principal que quieres resolver.",
-          ],
-          stepDescriptions: {
-            1: "Empieza con el motivo de tu cita para recibir sugerencias más útiles.",
-            2: "Guarda las mejores preguntas, agrega las tuyas y deja lista una nota breve.",
-            3: "Revisa tu plan final antes de imprimirlo o mostrarlo en tu teléfono.",
-          } as Record<StepValue, string>,
-          visitTypeDescriptions: {
-            "new-symptom": "Ideal cuando necesitas explicar un problema nuevo y su evolución.",
-            medication: "Úsalo para hablar de dosis, efectos secundarios o cambios de tratamiento.",
-            followup: "Perfecto para revisar resultados, progreso y próximos pasos.",
-          } as Record<VisitTypeKey, string>,
-          selectedCount: (count: number) =>
-            `${count} pregunta${count === 1 ? "" : "s"} guardada${count === 1 ? "" : "s"}`,
-          suggestedCount: (count: number) =>
-            `${count} sugerida${count === 1 ? "" : "s"} elegida${count === 1 ? "" : "s"}`,
-          customCount: (count: number) => `${count} personalizada${count === 1 ? "" : "s"}`,
-          stepStatus: (step: StepValue) => `Paso ${step} de 3`,
-          questionHintActive: "Lista para tu plan",
-          questionHintIdle: "Toca para agregarla",
-          customEmpty: "Todavía no agregas preguntas personalizadas.",
-          reviewEyebrow: "Lista lista para imprimir",
-          reviewHint: "Llévala impresa o en tu teléfono para no olvidar nada importante.",
-          customSectionBody: "Agrega dudas personales para que tu visita refleje lo que más te preocupa.",
-          notesBody:
-            "Escribe síntomas, tiempos o cualquier detalle que quieras mencionar con tus propias palabras.",
-        }
-      : {
-          introEyebrow: "Plan with calm",
-          prepTitle: "Walk in with clear focus",
-          prepBody:
-            "Pick the right visit type, then keep only the questions that help you leave with clear answers.",
-          prepBullets: [
-            "Write down symptoms, timing, and any recent changes.",
-            "Bring medicines, doses, and supplements.",
-            "Decide the main question you want answered first.",
-          ],
-          stepDescriptions: {
-            1: "Start with why you are going so the planner can suggest better prompts.",
-            2: "Keep the best questions, add your own, and leave a short note for yourself.",
-            3: "Review the final plan before printing it or keeping it on your phone.",
-          } as Record<StepValue, string>,
-          visitTypeDescriptions: {
-            "new-symptom": "Best when you need to explain a new issue and how it has changed.",
-            medication: "Use this for side effects, dose changes, or safer medicine questions.",
-            followup: "Great for reviewing results, progress, and next steps.",
-          } as Record<VisitTypeKey, string>,
-          selectedCount: (count: number) => `${count} question${count === 1 ? "" : "s"} saved`,
-          suggestedCount: (count: number) => `${count} suggested question${count === 1 ? "" : "s"} selected`,
-          customCount: (count: number) => `${count} custom question${count === 1 ? "" : "s"}`,
-          stepStatus: (step: StepValue) => `Step ${step} of 3`,
-          questionHintActive: "Saved to your plan",
-          questionHintIdle: "Tap to add it",
-          customEmpty: "No custom questions added yet.",
-          reviewEyebrow: "Print-ready summary",
-          reviewHint: "Bring it printed or on your phone so nothing important gets missed.",
-          customSectionBody: "Add personal questions so the visit matches what matters most to you.",
-          notesBody: "Capture symptoms, timing, or anything else you want to say in your own words.",
-        };
+  const prepBullets = useMemo(() => tPlanner.raw("prepBullets") as string[], [tPlanner]);
+  const stepDescriptions = useMemo(
+    () =>
+      ({
+        1: tPlanner("stepDescription1"),
+        2: tPlanner("stepDescription2"),
+        3: tPlanner("stepDescription3"),
+      }) as Record<StepValue, string>,
+    [tPlanner]
+  );
+  const visitTypeDescriptions = useMemo(
+    () => tPlanner.raw("visitTypeDescriptions") as Record<VisitTypeKey, string>,
+    [tPlanner]
+  );
 
   const visitTypes = useMemo(
     () =>
@@ -135,25 +80,25 @@ export default function VisitPlannerClient() {
         value: 1 as StepValue,
         label: t("visitType"),
         title: t("chooseVisitType"),
-        description: copy.stepDescriptions[1],
+        description: stepDescriptions[1],
         icon: HeartPulse,
       },
       {
         value: 2 as StepValue,
         label: t("questions"),
         title: t("selectQuestions"),
-        description: copy.stepDescriptions[2],
+        description: stepDescriptions[2],
         icon: NotebookPen,
       },
       {
         value: 3 as StepValue,
         label: t("review"),
         title: t("yourVisitPlan"),
-        description: copy.stepDescriptions[3],
+        description: stepDescriptions[3],
         icon: ClipboardList,
       },
     ],
-    [copy.stepDescriptions, t]
+    [stepDescriptions, t]
   );
 
   const [step, setStep] = useState<StepValue>(1);
@@ -257,10 +202,10 @@ export default function VisitPlannerClient() {
           <div className="flex flex-wrap justify-center gap-3">
             <span className="metric-pill">{visitTypes[visitType].label}</span>
             <span className="metric-pill bg-secondary-container/60 text-secondary">
-              {copy.selectedCount(totalQuestions)}
+              {tPlanner("selectedCount", { count: totalQuestions })}
             </span>
             <span className="metric-pill bg-tertiary-container/60 text-tertiary">
-              {copy.stepStatus(step)}
+              {tPlanner("stepStatus", { step })}
             </span>
           </div>
         </PageHeader>
@@ -269,14 +214,14 @@ export default function VisitPlannerClient() {
           <section className="surface-card-glass no-print px-6 py-6 md:px-8 md:py-8">
             <div className="flex flex-col gap-6 xl:flex-row xl:items-end xl:justify-between">
               <div>
-                <div className="eyebrow mb-3">{copy.introEyebrow}</div>
+                <div className="eyebrow mb-3">{tPlanner("introEyebrow")}</div>
                 <h2 className="font-display text-headline-lg text-primary">{steps[step - 1].title}</h2>
                 <p className="mt-3 max-w-readable text-body-md text-on-surface-variant">
                   {steps[step - 1].description}
                 </p>
               </div>
               <div className="w-full max-w-sm">
-                <ProgressBar value={stepProgress} label={copy.stepStatus(step)} showPercentage />
+                <ProgressBar value={stepProgress} label={tPlanner("stepStatus", { step })} showPercentage />
               </div>
             </div>
 
@@ -321,12 +266,12 @@ export default function VisitPlannerClient() {
             <section className="grid gap-6 xl:grid-cols-[0.9fr_1.1fr]">
               <Reveal>
                 <div className="surface-card-strong px-6 py-6 md:px-8 md:py-8">
-                  <div className="eyebrow mb-3">{copy.introEyebrow}</div>
-                  <h2 className="font-display text-headline-lg text-primary">{copy.prepTitle}</h2>
-                  <p className="mt-3 text-body-md text-on-surface-variant">{copy.prepBody}</p>
+                  <div className="eyebrow mb-3">{tPlanner("introEyebrow")}</div>
+                  <h2 className="font-display text-headline-lg text-primary">{tPlanner("prepTitle")}</h2>
+                  <p className="mt-3 text-body-md text-on-surface-variant">{tPlanner("prepBody")}</p>
 
                   <div className="mt-6 space-y-3">
-                    {copy.prepBullets.map((item, index) => (
+                    {prepBullets.map((item, index) => (
                       <div key={item} className="surface-card flex items-center gap-4 px-4 py-4">
                         <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary-fixed text-label-md font-semibold text-primary shadow-elevation-1">
                           {index + 1}
@@ -367,7 +312,7 @@ export default function VisitPlannerClient() {
                           </div>
                           <h3 className="mt-5 font-display text-headline-md text-primary">{value.label}</h3>
                           <p className="mt-3 text-body-md text-on-surface-variant">
-                            {copy.visitTypeDescriptions[key]}
+                            {visitTypeDescriptions[key]}
                           </p>
                         </button>
                       </Reveal>
@@ -396,9 +341,11 @@ export default function VisitPlannerClient() {
                     </p>
                   </div>
                   <div className="flex flex-wrap gap-3">
-                    <span className="metric-pill">{copy.suggestedCount(selectedQuestions.length)}</span>
+                    <span className="metric-pill">
+                      {tPlanner("suggestedCount", { count: selectedQuestions.length })}
+                    </span>
                     <span className="metric-pill bg-secondary-container/60 text-secondary">
-                      {copy.customCount(customQuestions.length)}
+                      {tPlanner("customCount", { count: customQuestions.length })}
                     </span>
                   </div>
                 </div>
@@ -433,7 +380,7 @@ export default function VisitPlannerClient() {
                         <div className="min-w-0 flex-1">
                           <span className="block text-label-lg text-on-surface">{question}</span>
                           <span className="mt-2 block text-label-md text-on-surface-variant">
-                            {selected ? copy.questionHintActive : copy.questionHintIdle}
+                            {selected ? tPlanner("questionHintActive") : tPlanner("questionHintIdle")}
                           </span>
                         </div>
                       </label>
@@ -454,7 +401,9 @@ export default function VisitPlannerClient() {
                       <h3 className="font-display text-headline-md text-primary">
                         {t("customQuestionsTitle")}
                       </h3>
-                      <p className="mt-2 text-body-md text-on-surface-variant">{copy.customSectionBody}</p>
+                      <p className="mt-2 text-body-md text-on-surface-variant">
+                        {tPlanner("customSectionBody")}
+                      </p>
                     </div>
                   </div>
 
@@ -502,7 +451,7 @@ export default function VisitPlannerClient() {
                       ))}
                     </div>
                   ) : (
-                    <p className="text-body-md text-on-surface-variant">{copy.customEmpty}</p>
+                    <p className="text-body-md text-on-surface-variant">{tPlanner("customEmpty")}</p>
                   )}
                 </div>
               </Reveal>
@@ -515,7 +464,7 @@ export default function VisitPlannerClient() {
                     </div>
                     <div>
                       <h3 className="font-display text-headline-md text-primary">{t("addNotes")}</h3>
-                      <p className="mt-2 text-body-md text-on-surface-variant">{copy.notesBody}</p>
+                      <p className="mt-2 text-body-md text-on-surface-variant">{tPlanner("notesBody")}</p>
                     </div>
                   </div>
 
@@ -556,16 +505,16 @@ export default function VisitPlannerClient() {
               <div className="surface-card-strong px-6 py-6 md:px-8 md:py-8">
                 <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
                   <div>
-                    <div className="eyebrow mb-3">{copy.reviewEyebrow}</div>
+                    <div className="eyebrow mb-3">{tPlanner("reviewEyebrow")}</div>
                     <h2 className="font-display text-headline-lg text-primary">{t("yourVisitPlan")}</h2>
                     <p className="mt-3 max-w-readable text-body-md text-on-surface-variant">
-                      {copy.reviewHint}
+                      {tPlanner("reviewHint")}
                     </p>
                   </div>
                   <div className="flex flex-wrap gap-3">
                     <span className="metric-pill">{visitTypes[visitType].label}</span>
                     <span className="metric-pill bg-secondary-container/60 text-secondary">
-                      {copy.selectedCount(totalQuestions)}
+                      {tPlanner("selectedCount", { count: totalQuestions })}
                     </span>
                   </div>
                 </div>
@@ -580,7 +529,7 @@ export default function VisitPlannerClient() {
                     {visitTypes[visitType].label}
                   </h3>
                   <p className="mt-3 text-body-md text-on-surface-variant">
-                    {copy.visitTypeDescriptions[visitType]}
+                    {visitTypeDescriptions[visitType]}
                   </p>
                 </div>
               </Reveal>

@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import Button from "@/components/ui/Button";
 import { reportClientError } from "@/lib/errorReporting";
 
 const COPY = {
@@ -42,9 +43,9 @@ export default function GlobalError({
         <main className="mx-auto max-w-lg">
           <h1 className="mb-3 text-2xl font-bold text-primary">{t.title}</h1>
           <p className="mb-6 text-on-surface-variant">{t.body}</p>
-          <button type="button" className="btn-primary" onClick={() => reset()}>
+          <Button type="button" onClick={() => reset()}>
             {t.retry}
-          </button>
+          </Button>
         </main>
       </body>
     </html>

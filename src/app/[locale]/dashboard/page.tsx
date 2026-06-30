@@ -39,7 +39,8 @@ export default async function Dashboard({ params }: Props) {
     getRecommendedNextLesson(supabase, user.id, locale),
   ]);
 
-  const displayName = user.user_metadata?.display_name ?? user.email?.split("@")[0] ?? "User";
+  const t = await getTranslations({ locale, namespace: "dashboard" });
+  const displayName = user.user_metadata?.display_name ?? user.email?.split("@")[0] ?? t("defaultUser");
 
   return (
     <DashboardClient

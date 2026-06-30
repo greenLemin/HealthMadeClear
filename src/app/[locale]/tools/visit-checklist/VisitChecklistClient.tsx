@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { Printer } from "lucide-react";
+import Button from "@/components/ui/Button";
 import MedicalDisclaimer from "@/components/MedicalDisclaimer";
 import PageHeader from "@/components/PageHeader";
 import ProgressBar from "@/components/ui/ProgressBar";
@@ -53,20 +54,23 @@ export default function VisitChecklistClient() {
               <div>
                 <div className="eyebrow mb-2">{t("readyBeforeGo")}</div>
                 <div className="text-body-md text-on-surface-variant">
-                  {checkedItems.length} {tCommon("of")} {checklistItems.length}{" "}
-                  {tCommon("completed").toLowerCase()}
+                  {tCommon("itemsCompletedCount", {
+                    completed: checkedItems.length,
+                    total: checklistItems.length,
+                  })}
                 </div>
               </div>
               <div className="flex items-center gap-3">
                 <span className="chip-active">{progress}%</span>
-                <button
+                <Button
                   type="button"
-                  className="btn-secondary no-print inline-flex items-center gap-2"
+                  variant="secondary"
+                  className="no-print"
+                  icon={<Printer size={18} />}
                   onClick={() => window.print()}
                 >
-                  <Printer size={18} />
                   {t("printChecklist")}
-                </button>
+                </Button>
               </div>
             </div>
 

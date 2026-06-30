@@ -2,7 +2,7 @@
 
 import { ArrowRight } from "lucide-react";
 import Image from "next/image";
-import { Link } from "@/i18n/navigation";
+import ButtonLink from "@/components/ui/ButtonLink";
 import { useTranslations } from "next-intl";
 import Reveal from "@/components/ui/Reveal";
 
@@ -21,13 +21,10 @@ export default function Hero() {
             </h1>
             <p className="mt-5 max-w-readable text-body-lg text-on-surface-variant">{t("subtitle")}</p>
             <div className="mt-8 flex flex-wrap items-center gap-4">
-              <Link href="/learning-paths" className="btn-primary">
-                {t("startLearning")}
-              </Link>
-              <Link href="/glossary" className="btn-secondary">
+              <ButtonLink href="/learning-paths">{t("startLearning")}</ButtonLink>
+              <ButtonLink href="/glossary" variant="secondary" icon={<ArrowRight size={16} />}>
                 {t("browseGlossary")}
-                <ArrowRight size={16} />
-              </Link>
+              </ButtonLink>
             </div>
             <div className="mt-8 flex flex-wrap gap-3">
               <div className="metric-pill">🩺 {t("preparedVisits")}</div>

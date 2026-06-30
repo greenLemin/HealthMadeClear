@@ -1,4 +1,7 @@
+"use client";
+
 import type { ReactNode } from "react";
+import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 
 interface PageHeaderProps {
@@ -22,6 +25,8 @@ export default function PageHeader({
   children,
   className = "",
 }: PageHeaderProps) {
+  const tCommon = useTranslations("common");
+
   return (
     <div className={className}>
       <div
@@ -31,7 +36,7 @@ export default function PageHeader({
         ].join(" ")}
       >
         {breadcrumb && breadcrumb.length > 0 ? (
-          <nav aria-label="Breadcrumb" className={centered ? "mb-5" : "mb-4"}>
+          <nav aria-label={tCommon("breadcrumb")} className={centered ? "mb-5" : "mb-4"}>
             <ol
               className={[
                 "flex flex-wrap items-center gap-2 text-label-md text-on-surface-variant",

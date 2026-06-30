@@ -1,6 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
+import { getButtonClasses } from "@/components/ui/buttonStyles";
 
 type Variant = "inline" | "emergency";
 
@@ -24,7 +25,7 @@ export default function MedicalDisclaimer({
         </div>
         <a
           href="tel:911"
-          className="btn-primary mt-4 inline-flex items-center justify-center md:mt-0"
+          className={getButtonClasses({ className: "mt-4 inline-flex items-center justify-center md:mt-0" })}
           aria-label={t("emergencyCallAria")}
         >
           {t("emergencyCall")}

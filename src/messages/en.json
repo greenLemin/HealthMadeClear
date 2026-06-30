@@ -109,7 +109,9 @@
     "closeDialog": "Close dialog",
     "dismissNotification": "Dismiss notification",
     "relatedTerms": "Related terms",
-    "copyLink": "Copy link"
+    "copyLink": "Copy link",
+    "progressPercent": "Progress: {percent}%",
+    "itemsCompletedCount": "{completed} of {total} completed"
   },
   "categories": {
     "medication-safety": "Medication Safety",
@@ -194,6 +196,7 @@
     "pageTitle": "Learning Paths",
     "pageBadge": "Guided learning",
     "progressLabel": "path progress",
+    "progressForPath": "{title} progress",
     "yourProgress": "Your progress",
     "nextLesson": "Next lesson",
     "pathCompleted": "Path completed!",
@@ -366,7 +369,9 @@
     "activeDayLabel": "{date}: active",
     "inactiveDayLabel": "{date}: no activity",
     "startLearningCta": "Start learning",
-    "categoryMobileSummary": "{completed}/{total} lessons · Quizzes: {passed}/{attempts}"
+    "categoryMobileSummary": "{completed}/{total} lessons · Quizzes: {passed}/{attempts}",
+    "categoriesCount": "{count} categories",
+    "trackedAreasCount": "{count} areas tracked"
   },
   "achievements": {
     "title": "Achievements",
@@ -555,6 +560,35 @@
       "A notebook or phone for notes",
       "Water and any comfort items you need"
     ],
+    "visitPlanner": {
+      "introEyebrow": "Plan with calm",
+      "prepTitle": "Walk in with clear focus",
+      "prepBody": "Pick the right visit type, then keep only the questions that help you leave with clear answers.",
+      "prepBullets": [
+        "Write down symptoms, timing, and any recent changes.",
+        "Bring medicines, doses, and supplements.",
+        "Decide the main question you want answered first."
+      ],
+      "stepDescription1": "Start with why you are going so the planner can suggest better prompts.",
+      "stepDescription2": "Keep the best questions, add your own, and leave a short note for yourself.",
+      "stepDescription3": "Review the final plan before printing it or keeping it on your phone.",
+      "visitTypeDescriptions": {
+        "new-symptom": "Best when you need to explain a new issue and how it has changed.",
+        "medication": "Use this for side effects, dose changes, or safer medicine questions.",
+        "followup": "Great for reviewing results, progress, and next steps."
+      },
+      "selectedCount": "{count, plural, one {# question saved} other {# questions saved}}",
+      "suggestedCount": "{count, plural, one {# suggested question selected} other {# suggested questions selected}}",
+      "customCount": "{count, plural, one {# custom question} other {# custom questions}}",
+      "stepStatus": "Step {step} of 3",
+      "questionHintActive": "Saved to your plan",
+      "questionHintIdle": "Tap to add it",
+      "customEmpty": "No custom questions added yet.",
+      "reviewEyebrow": "Print-ready summary",
+      "reviewHint": "Bring it printed or on your phone so nothing important gets missed.",
+      "customSectionBody": "Add personal questions so the visit matches what matters most to you.",
+      "notesBody": "Capture symptoms, timing, or anything else you want to say in your own words."
+    },
     "careGuideTitle": "Where should I go for care?",
     "careGuideDescription": "Choosing the right place for care can save time, money, and stress. Use this guide to compare common options.",
     "homeCare": "Home care",
@@ -650,7 +684,10 @@
     "typeArticle": "Article",
     "typeGlossary": "Glossary",
     "typePath": "Learning path",
-    "typeTool": "Tool"
+    "typeTool": "Tool",
+    "escapeKey": "ESC",
+    "shortcutMac": "⌘K",
+    "shortcutWindows": "Ctrl K"
   },
   "onboarding": {
     "welcome": "Welcome to Health Made Clear",
@@ -716,6 +753,7 @@
     "dismissBanner": "Dismiss",
     "errorConfirmationFailed": "Your email confirmation link is invalid or has expired. Please try logging in or request a new link.",
     "errorAuthFailed": "Authentication failed. Please try again.",
+    "errorRateLimited": "Too many sign-in attempts. Please wait a few minutes and try again.",
     "emailRequired": "Please enter your email address.",
     "passwordRequired": "Please enter your password.",
     "showPassword": "Show password",
@@ -792,6 +830,7 @@
     "errorGeneric": "Something went wrong. Please try again later.",
     "errorRateLimit": "Too many messages sent. Please wait {minutes, plural, one {# minute} other {# minutes}} and try again.",
     "errorUnavailable": "Our contact form is temporarily unavailable. Please try again later or email us directly.",
+    "honeypotLabel": "Leave this empty",
     "supportHumanTitle": "Human response",
     "supportHumanBody": "We review general questions and content feedback within about 2 business days.",
     "supportAccessibilityTitle": "Accessibility help",

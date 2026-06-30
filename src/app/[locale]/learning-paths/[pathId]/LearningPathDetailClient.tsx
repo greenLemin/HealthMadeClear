@@ -4,6 +4,8 @@ import { useMemo } from "react";
 import { ArrowRight, CheckCircle2, Clock, ListChecks, BookOpen } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import { useAppState } from "@/components/AppProviders";
+import ButtonLink from "@/components/ui/ButtonLink";
+import { getButtonClasses } from "@/components/ui/buttonStyles";
 import { useProgress } from "@/hooks/useProgress";
 import Callout from "@/components/Callout";
 import PageHeader from "@/components/PageHeader";
@@ -143,7 +145,9 @@ export default function LearningPathDetailClient({ path, lessons, glossaryTerms 
                           </span>
                         </div>
                         {isNext && !allDone ? (
-                          <span className="btn-primary shrink-0 px-4 py-2 text-label-md">
+                          <span
+                            className={getButtonClasses({ size: "sm", className: "shrink-0 text-label-md" })}
+                          >
                             {tCommon("start")}
                           </span>
                         ) : isCompleted ? (
@@ -178,13 +182,13 @@ export default function LearningPathDetailClient({ path, lessons, glossaryTerms 
                   <div className="mt-5 rounded-[1.2rem] border border-outline-variant bg-surface px-4 py-4">
                     <div className="text-label-md text-on-surface-variant">{t("upNext")}</div>
                     <div className="mt-2 text-label-lg font-semibold text-primary">{nextLesson?.title}</div>
-                    <Link
+                    <ButtonLink
                       href={nextLesson ? `/learn/${nextLesson.id}` : "/learning-paths"}
-                      className="btn-primary mt-4 inline-flex items-center gap-2"
+                      className="mt-4"
+                      icon={<ArrowRight size={18} />}
                     >
                       {progress.completed > 0 ? t("continue") : t("startPath")}
-                      <ArrowRight size={18} />
-                    </Link>
+                    </ButtonLink>
                   </div>
                 ) : (
                   <div className="mt-5 flex items-center gap-2 rounded-[1.2rem] bg-secondary-container/30 px-4 py-4 text-label-md font-semibold text-secondary">

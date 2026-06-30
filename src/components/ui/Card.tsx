@@ -1,16 +1,19 @@
-import type { ReactNode, ElementType } from "react";
+import type { ComponentPropsWithoutRef, ElementType, ReactNode } from "react";
 
 type CardPadding = "sm" | "md" | "lg";
 type CardVariant = "default" | "muted" | "accent" | "glass";
 
-interface CardProps {
+type CardOwnProps = {
   children: ReactNode;
   className?: string;
-  as?: ElementType;
   clickable?: boolean;
   padding?: CardPadding;
   variant?: CardVariant;
-}
+};
+
+type CardProps<C extends ElementType = "div"> = CardOwnProps & {
+  as?: C;
+} & Omit<ComponentPropsWithoutRef<C>, keyof CardOwnProps | "as">;
 
 const paddingStyles: Record<CardPadding, string> = {
   sm: "p-4",
@@ -25,14 +28,17 @@ const variantStyles: Record<CardVariant, string> = {
   glass: "surface-card-glass",
 };
 
-export default function Card({
+export default function Card<C extends ElementType = "div">({
   children,
   className = "",
-  as: Component = "div",
+  as,
   clickable = false,
   padding = "md",
   variant = "default",
-}: CardProps) {
+  ...rest
+}: CardProps<C>) {
+  const Component = as ?? "div";
+
   return (
     <Component
       className={[
@@ -43,6 +49,7 @@ export default function Card({
           : "",
         className,
       ].join(" ")}
+      {...rest}
     >
       {children}
     </Component>

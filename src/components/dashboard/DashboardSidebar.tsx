@@ -4,6 +4,7 @@ import { usePathname } from "@/i18n/navigation";
 import { Link } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
 import { LayoutDashboard, BarChart3, Award, Settings, Flame } from "lucide-react";
+import TruncatedText from "@/components/ui/TruncatedText";
 
 interface DashboardSidebarProps {
   displayName: string;
@@ -37,10 +38,14 @@ export default function DashboardSidebar({ displayName, email, streak }: Dashboa
               {initials}
             </div>
             <div className="min-w-0 flex-1">
-              <p className="truncate text-label-md font-semibold text-on-surface">
+              <TruncatedText as="p" className="truncate text-label-md font-semibold text-on-surface">
                 {displayName ?? t("defaultUser")}
-              </p>
-              {email ? <p className="truncate text-label-sm text-on-surface-variant">{email}</p> : null}
+              </TruncatedText>
+              {email ? (
+                <TruncatedText as="p" className="truncate text-label-sm text-on-surface-variant">
+                  {email}
+                </TruncatedText>
+              ) : null}
             </div>
           </div>
 

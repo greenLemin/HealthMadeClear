@@ -3,6 +3,8 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { ArrowLeft, ArrowRight, CheckCircle2 } from "lucide-react";
 import LessonThumbnail from "@/components/LessonThumbnail";
+import Button from "@/components/ui/Button";
+import ButtonLink from "@/components/ui/ButtonLink";
 import { Link } from "@/i18n/navigation";
 import LessonRelatedClient from "@/components/lesson/LessonRelatedClient";
 import Callout from "@/components/Callout";
@@ -139,7 +141,7 @@ export default function LessonPageClient({
           <section className="section-frame px-6 py-6 md:px-8 md:py-8">
             <div className="grid gap-6 lg:grid-cols-[1.08fr_0.92fr] lg:items-center">
               <div>
-                <nav aria-label="Breadcrumb">
+                <nav aria-label={tCommon("breadcrumb")}>
                   <ol className="flex flex-wrap items-center gap-2 text-label-md text-on-surface-variant">
                     <li>
                       <Link href="/" className="transition-colors hover:text-primary">
@@ -174,10 +176,9 @@ export default function LessonPageClient({
                 </p>
 
                 <div className="no-print mt-6 flex flex-wrap gap-3" aria-live="polite">
-                  <Link href="/learn" className="btn-secondary inline-flex items-center gap-2">
-                    <ArrowLeft size={18} />
+                  <ButtonLink href="/learn" variant="secondary" icon={<ArrowLeft size={18} />}>
                     {t("backToLessons")}
-                  </Link>
+                  </ButtonLink>
                   {isComplete ? (
                     <span
                       role="status"
@@ -187,25 +188,24 @@ export default function LessonPageClient({
                       {t("lessonComplete")}
                     </span>
                   ) : (
-                    <button
+                    <Button
                       type="button"
+                      icon={<CheckCircle2 size={18} />}
+                      loading={isSaving}
                       onClick={handleMarkComplete}
-                      disabled={isSaving}
-                      aria-busy={isSaving || undefined}
-                      className="btn-primary inline-flex items-center gap-2 disabled:cursor-not-allowed disabled:opacity-60"
+                      className="disabled:cursor-not-allowed disabled:opacity-60"
                     >
-                      <CheckCircle2 size={18} aria-hidden="true" />
                       {isSaving ? tCommon("loading") : t("markComplete")}
-                    </button>
+                    </Button>
                   )}
                   {hasQuiz ? (
-                    <Link
+                    <ButtonLink
                       href={`/learn/${lessonId}/quiz`}
-                      className="btn-secondary inline-flex items-center gap-2"
+                      variant="secondary"
+                      icon={<ArrowRight size={18} />}
                     >
                       {bestQuizScore !== null ? t("quizRetake") : t("takeQuiz")}
-                      <ArrowRight size={18} />
-                    </Link>
+                    </ButtonLink>
                   ) : null}
                 </div>
               </div>
@@ -302,13 +302,13 @@ export default function LessonPageClient({
                           {t("quizBestScore", { score: bestQuizScore })}
                         </p>
                       ) : null}
-                      <Link
+                      <ButtonLink
                         href={`/learn/${lessonId}/quiz`}
-                        className="btn-primary mt-5 inline-flex items-center gap-2"
+                        className="mt-5"
+                        icon={<ArrowRight size={18} />}
                       >
                         {bestQuizScore !== null ? t("quizRetake") : t("takeQuiz")}
-                        <ArrowRight size={18} />
-                      </Link>
+                      </ButtonLink>
                     </div>
                   </Reveal>
                 ) : null}
