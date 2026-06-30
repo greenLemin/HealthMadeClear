@@ -23,6 +23,7 @@ import SearchDialog from "@/components/SearchDialog";
 import ButtonLink from "@/components/ui/ButtonLink";
 import ThemeToggle from "@/components/ui/ThemeToggle";
 import Skeleton from "@/components/ui/Skeleton";
+import TruncatedText from "@/components/ui/TruncatedText";
 import { useDismissibleOverlay } from "@/hooks/useDismissibleOverlay";
 import { useFocusTrap } from "@/hooks/useFocusTrap";
 import { useMotionSafe } from "@/hooks/useMotionSafe";
@@ -117,7 +118,9 @@ export default function Header() {
                 <User size={18} />
               </div>
               <div className="min-w-0">
-                <p className="truncate text-label-md font-semibold text-on-surface">{displayName}</p>
+                <TruncatedText as="p" className="truncate text-label-md font-semibold text-on-surface">
+                  {displayName}
+                </TruncatedText>
                 <p className="text-label-sm text-on-surface-variant">{t("dashboard")}</p>
               </div>
             </div>
@@ -202,7 +205,7 @@ export default function Header() {
                     className="flex items-center gap-2 rounded-full bg-surface-container-lowest/85 px-4 py-2.5 text-label-md text-primary shadow-elevation-1 transition-all duration-300 ease-premium hover:-translate-y-0.5 hover:shadow-elevation-2"
                   >
                     <User size={16} />
-                    <span className="max-w-[120px] truncate">{displayName}</span>
+                    <TruncatedText className="max-w-[120px] truncate">{displayName}</TruncatedText>
                   </Link>
                   <button
                     type="button"

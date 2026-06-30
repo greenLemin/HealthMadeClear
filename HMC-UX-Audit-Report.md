@@ -2,9 +2,30 @@
 
 ## Overview
 
-Combined audit covering passes 1–6 (June 28–29, 2026). Full app sweep — 27 routes, EN/ES locales, 375px–1280px+. All critical/high/deferred items resolved.
+Combined audit covering passes 1–7 (June 28–29, 2026). Full app sweep — 27 routes, EN/ES locales, 375px–1280px+. All audit items resolved.
 
 **Verification (Pass 6):** `npm test` — 234/234 passing. `npm run typecheck`, `test:e2e` (49 non-visual specs) — all green.
+
+**Verification (Pass 7):** Optional polish items resolved — display name tooltip, shared loading skeletons.
+
+---
+
+## Pass 7: Optional Polish (June 29)
+
+### Display name truncate tooltip
+
+- Added `TruncatedText` component — sets native `title` only when text is actually truncated (via `ResizeObserver`)
+- Applied in `Header` (desktop user chip + mobile menu) and `DashboardSidebar` (display name + email)
+
+### Shared loading skeletons
+
+- Added `StaticPageLoading` for static content pages (about, contact, privacy, terms, accessibility)
+- Added `AuthFormLoading` with `split` / `narrow` / `compact` variants for auth routes
+- Replaced duplicated inline skeleton markup in 9 nested `loading.tsx` files
+
+### Remaining optional polish
+
+None — all audit items resolved.
 
 ---
 
