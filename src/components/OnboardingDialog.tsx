@@ -6,7 +6,6 @@ import { BookOpen, Route, Search, X } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 import { usePathname } from "@/i18n/navigation";
 import { useDismissibleOverlay } from "@/hooks/useDismissibleOverlay";
-import { useFocusTrap } from "@/hooks/useFocusTrap";
 import { useMotionSafe } from "@/hooks/useMotionSafe";
 import { revealEase } from "@/components/ui/Reveal";
 
@@ -32,7 +31,6 @@ export default function OnboardingDialog() {
     setVisible(false);
   };
 
-  useFocusTrap(dialogRef, visible);
   useDismissibleOverlay({
     isOpen: visible,
     onClose: dismiss,
