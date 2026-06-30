@@ -36,14 +36,7 @@ None — all audit items resolved.
 | Critical |     2 |     2 | 0           | ES hardcoded strings, duplicate home CTA ID                            |
 | High     |    13 |    13 | 0           | i18n gaps, loading routes, mock auth, SaveProgressBanner, rate_limited |
 | Medium   |    36 |    34 | 2           | Focus-visible, empty states, overlay polish, validation clearing       |
-| Low      |    16 |    14 | 2           | Display name tooltip, nested loading skeletons                         |
-
-### Remaining optional polish
-
-| Location        | Issue                            | Notes                      |
-| --------------- | -------------------------------- | -------------------------- |
-| Display name    | No truncate tooltip              | Minor header polish        |
-| Nested segments | Auth reset/about/contact loading | Minor skeleton duplication |
+| Low      |    16 |    16 | 0           | Display name tooltip, shared loading skeletons                         |
 
 ---
 
