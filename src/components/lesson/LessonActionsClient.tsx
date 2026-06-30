@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import { CheckCircle2, Printer } from "lucide-react";
+import Button from "@/components/ui/Button";
 import { useAppState } from "@/components/AppProviders";
 import type { LessonId } from "@/types/content";
 import { useTranslations } from "next-intl";
@@ -17,26 +18,17 @@ export default function LessonActionsClient({ lessonId }: { lessonId: LessonId }
 
   return (
     <div className="no-print mb-8 flex flex-wrap gap-3">
-      <button
+      <Button
         type="button"
-        className={
-          isCompleted
-            ? "btn-secondary inline-flex items-center gap-2"
-            : "btn-primary inline-flex items-center gap-2"
-        }
+        variant={isCompleted ? "secondary" : "primary"}
+        icon={<CheckCircle2 size={18} />}
         onClick={() => toggleLessonComplete(lessonId)}
       >
-        <CheckCircle2 size={18} />
         {isCompleted ? t("markIncomplete") : t("markComplete")}
-      </button>
-      <button
-        type="button"
-        className="btn-secondary inline-flex items-center gap-2"
-        onClick={() => window.print()}
-      >
-        <Printer size={18} />
+      </Button>
+      <Button type="button" variant="secondary" icon={<Printer size={18} />} onClick={() => window.print()}>
         {t("printLesson")}
-      </button>
+      </Button>
     </div>
   );
 }

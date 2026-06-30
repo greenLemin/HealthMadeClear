@@ -8,6 +8,7 @@ import SectionNav from "@/components/SectionNav";
 import Callout from "@/components/Callout";
 import MedicalDisclaimer from "@/components/MedicalDisclaimer";
 import Button from "@/components/ui/Button";
+import ButtonLink from "@/components/ui/ButtonLink";
 import Reveal from "@/components/ui/Reveal";
 import { useAppState } from "@/components/AppProviders";
 import { useAuth } from "@/hooks/useAuth";
@@ -59,10 +60,10 @@ export default function HomeClient({ lessons, learningPaths }: HomeClientProps) 
                 </h2>
                 <p className="mt-3 max-w-readable text-body-md text-on-surface-variant">{t("introBody")}</p>
               </div>
-              <Link href="/learning-paths" className="btn-primary shrink-0">
+              <ButtonLink href="/learning-paths" className="shrink-0">
                 {t("takeTour")}
                 <ArrowRight size={18} />
-              </Link>
+              </ButtonLink>
             </div>
           </Reveal>
         </div>
@@ -125,10 +126,10 @@ export default function HomeClient({ lessons, learningPaths }: HomeClientProps) 
                 {t("featuredPathsBody")}
               </p>
             </div>
-            <Link href="/learning-paths" className="btn-secondary hidden sm:inline-flex">
+            <ButtonLink href="/learning-paths" variant="secondary" className="hidden sm:inline-flex">
               {t("viewAllPaths")}
               <ArrowRight size={16} aria-hidden="true" />
-            </Link>
+            </ButtonLink>
           </div>
           <div className="grid gap-6 md:grid-cols-2">
             {learningPaths.slice(0, 2).map((path, index) => {
@@ -186,10 +187,10 @@ export default function HomeClient({ lessons, learningPaths }: HomeClientProps) 
             })}
           </div>
           <div className="mt-6 text-center sm:hidden">
-            <Link href="/learning-paths" className="btn-secondary">
+            <ButtonLink href="/learning-paths" variant="secondary">
               {t("viewAllPaths")}
               <ArrowRight size={16} aria-hidden="true" />
-            </Link>
+            </ButtonLink>
           </div>
         </div>
       </section>

@@ -1,4 +1,4 @@
-import { Link } from "@/i18n/navigation";
+import ButtonLink from "@/components/ui/ButtonLink";
 import Card from "@/components/ui/Card";
 import { ArrowLeft } from "lucide-react";
 import { getLocale, getTranslations } from "next-intl/server";
@@ -13,10 +13,9 @@ export default async function LessonNotFound() {
         <Card className="text-center">
           <h1 className="mb-3 text-headline-lg text-primary">{t("notFoundTitle")}</h1>
           <p className="mb-6 text-body-md text-on-surface-variant">{t("notFoundBody")}</p>
-          <Link href="/learn" className="btn-primary inline-flex items-center gap-2">
-            <ArrowLeft size={18} />
+          <ButtonLink href="/learn" icon={<ArrowLeft size={18} />}>
             {t("backToLibrary")}
-          </Link>
+          </ButtonLink>
         </Card>
       </div>
     </div>

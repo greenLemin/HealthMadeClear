@@ -1,7 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { Link } from "@/i18n/navigation";
+import ButtonLink from "@/components/ui/ButtonLink";
 
 export default function LocaleNotFound() {
   const t = useTranslations("errors");
@@ -13,9 +13,9 @@ export default function LocaleNotFound() {
           <div className="eyebrow mb-4">Health Made Clear</div>
           <h1 className="mb-3 font-display text-headline-lg text-primary">{t("notFoundTitle")}</h1>
           <p className="mb-6 max-w-readable text-body-md text-on-surface-variant">{t("notFoundBody")}</p>
-          <Link href="/" className="btn-primary inline-flex items-center justify-center">
+          <ButtonLink href="/" className="justify-center">
             {t("goHome")}
-          </Link>
+          </ButtonLink>
         </div>
       </div>
     </div>

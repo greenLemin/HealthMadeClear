@@ -1,8 +1,8 @@
 "use client";
 
-import { Link } from "@/i18n/navigation";
 import { BookOpen, HeartHandshake, Mail, ShieldCheck, Users } from "lucide-react";
 import PageHeader from "@/components/PageHeader";
+import ButtonLink from "@/components/ui/ButtonLink";
 import Callout from "@/components/Callout";
 import Reveal from "@/components/ui/Reveal";
 import { useTranslations } from "next-intl";
@@ -75,13 +75,12 @@ export default function AboutClient() {
             <h2 className="font-display text-headline-lg text-primary">{t("joinTitle")}</h2>
             <p className="mx-auto mt-4 max-w-3xl text-body-md text-on-surface-variant">{t("joinBody")}</p>
             <div className="mt-8 flex flex-wrap justify-center gap-4">
-              <Link href="/learn" className="btn-primary inline-flex items-center gap-2">
-                <HeartHandshake size={18} />
+              <ButtonLink href="/learn" icon={<HeartHandshake size={18} />}>
                 {t("exploreLibrary")}
-              </Link>
-              <Link href="/tools" className="btn-secondary inline-flex items-center gap-2">
+              </ButtonLink>
+              <ButtonLink href="/tools" variant="secondary">
                 {t("learnWithTools")}
-              </Link>
+              </ButtonLink>
             </div>
           </section>
         </Reveal>

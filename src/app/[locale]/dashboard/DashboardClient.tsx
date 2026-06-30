@@ -25,6 +25,7 @@ import {
 } from "@/lib/progressExport";
 import Card from "@/components/ui/Card";
 import Button from "@/components/ui/Button";
+import ButtonLink from "@/components/ui/ButtonLink";
 import ProgressBar from "@/components/ui/ProgressBar";
 import EmptyState from "@/components/ui/EmptyState";
 import { formatRelativeDate, formatDuration } from "@/lib/i18n";
@@ -387,12 +388,9 @@ export default function DashboardClient({
                       {t("completedLabel")} ✓
                     </span>
                   ) : entry.nextLesson ? (
-                    <Link
-                      href={`/learn/${entry.nextLesson.id}`}
-                      className="btn-primary inline-flex items-center gap-2 text-label-lg"
-                    >
+                    <ButtonLink href={`/learn/${entry.nextLesson.id}`} className="text-label-lg">
                       {t("continueCta")}
-                    </Link>
+                    </ButtonLink>
                   ) : null}
                 </div>
               </div>

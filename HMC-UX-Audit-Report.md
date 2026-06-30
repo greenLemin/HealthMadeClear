@@ -2,9 +2,9 @@
 
 ## Overview
 
-Combined audit covering passes 1–5 (June 28–29, 2026). Full app sweep — 27 routes, EN/ES locales, 375px–1280px+. All critical/high items resolved.
+Combined audit covering passes 1–6 (June 28–29, 2026). Full app sweep — 27 routes, EN/ES locales, 375px–1280px+. All critical/high/deferred items resolved.
 
-**Verification (Pass 5):** `npm test` — 234/234 passing. `npm run typecheck`, `lint`, `test:e2e` (49 non-visual specs) — all green.
+**Verification (Pass 6):** `npm test` — 234/234 passing. `npm run typecheck`, `test:e2e` (49 non-visual specs) — all green.
 
 ---
 
@@ -15,17 +15,37 @@ Combined audit covering passes 1–5 (June 28–29, 2026). Full app sweep — 27
 | Critical |     2 |     2 | 0           | ES hardcoded strings, duplicate home CTA ID                            |
 | High     |    13 |    13 | 0           | i18n gaps, loading routes, mock auth, SaveProgressBanner, rate_limited |
 | Medium   |    36 |    34 | 2           | Focus-visible, empty states, overlay polish, validation clearing       |
-| Low      |    16 |    11 | 5           | Card duplication, dual button system, nested loading                   |
+| Low      |    16 |    14 | 2           | Display name tooltip, nested loading skeletons                         |
 
-### Outstanding (deferred — low user impact)
+### Remaining optional polish
 
-| Location                   | Issue                            | Notes                                         |
-| -------------------------- | -------------------------------- | --------------------------------------------- |
-| `globals.css` `.btn-*`     | Dual button system               | Cosmetic; `Button` vs utility classes coexist |
-| `LessonCard`/`ArticleCard` | Card component duplication       | Cosmetic refactor                             |
-| Display name               | No truncate tooltip              | Minor header polish                           |
-| Nested segments            | Auth reset/about/contact loading | Minor skeleton duplication                    |
-| `VisitPlannerClient.tsx`   | Large inline locale copy object  | Works but bypasses message files              |
+| Location        | Issue                            | Notes                      |
+| --------------- | -------------------------------- | -------------------------- |
+| Display name    | No truncate tooltip              | Minor header polish        |
+| Nested segments | Auth reset/about/contact loading | Minor skeleton duplication |
+
+---
+
+## Pass 6: Deferred Item Resolution (June 29)
+
+### Unified button system
+
+- Added `buttonStyles.ts` with shared `getButtonClasses()` used by `Button` and `ButtonLink`
+- Created `ButtonLink` for i18n-aware navigation buttons
+- Migrated all 50+ `btn-primary` / `btn-secondary` class usages across 19 components to `Button`, `ButtonLink`, or `getButtonClasses()` (for `tel:` and root not-found edge cases)
+- CSS `.btn-primary` / `.btn-secondary` retained as the single styling source in `globals.css`
+
+### Card consolidation
+
+- Extended `Card` component with generic `as` prop forwarding (supports `Card as={Link}`)
+- Created shared `ResourceCard` used by `LessonCard` and `ArticleCard`
+- Migrated legacy `.card` / `.card-hover` usages in glossary, quiz results, lesson related, and not-found pages
+- Removed `.card` and `.card-hover` from `globals.css`
+
+### Visit planner i18n
+
+- Moved ~70 lines of inline EN/ES copy from `VisitPlannerClient.tsx` to `tools.visitPlanner` namespace in message files
+- Uses ICU plurals for count strings (`selectedCount`, `suggestedCount`, `customCount`)
 
 ---
 

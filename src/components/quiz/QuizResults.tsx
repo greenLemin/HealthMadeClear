@@ -2,6 +2,7 @@
 
 import { useMemo } from "react";
 import { CheckCircle2, XCircle, ArrowRight, RefreshCw } from "lucide-react";
+import Button from "@/components/ui/Button";
 import { useTranslations } from "next-intl";
 import Card from "@/components/ui/Card";
 import type { Quiz } from "@/types/quiz";
@@ -76,15 +77,13 @@ export default function QuizResults({
         )}
         <div className="flex flex-wrap items-center justify-center gap-4">
           {passed ? (
-            <button type="button" onClick={onContinue} className="btn-primary inline-flex items-center gap-2">
+            <Button type="button" icon={<ArrowRight size={18} />} onClick={onContinue}>
               {tCommon("continue")}
-              <ArrowRight size={18} />
-            </button>
+            </Button>
           ) : null}
-          <button type="button" onClick={onRetake} className="btn-secondary inline-flex items-center gap-2">
-            <RefreshCw size={18} />
+          <Button type="button" variant="secondary" icon={<RefreshCw size={18} />} onClick={onRetake}>
             {t("retake")}
-          </button>
+          </Button>
         </div>
       </Card>
 

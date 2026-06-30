@@ -215,8 +215,11 @@
   input,
   select,
   textarea,
-  .card,
-  .card-hover {
+  .surface-card,
+  .surface-card-muted,
+  .surface-card-strong,
+  .surface-card-glass,
+  .section-frame {
     transition:
       background-color var(--motion-duration-fast) var(--motion-ease-standard),
       border-color var(--motion-duration-fast) var(--motion-ease-standard),
@@ -288,12 +291,11 @@
       page-break-after: avoid;
     }
 
-    .card,
-    .section-frame,
     .surface-card,
     .surface-card-muted,
     .surface-card-strong,
     .surface-card-glass,
+    .section-frame,
     .rounded-2xl,
     .rounded-xl,
     .rounded-lg {
@@ -410,8 +412,6 @@
     transform: translateY(0) scale(0.985);
   }
 
-  .card,
-  .card-hover,
   .surface-card,
   .surface-card-muted,
   .surface-card-strong,
@@ -424,24 +424,9 @@
       0 10px 22px -24px var(--shadow-color);
   }
 
-  .card,
   .surface-card {
     background: var(--surface-highlight);
     backdrop-filter: blur(18px);
-  }
-
-  .card-hover {
-    background: var(--surface-highlight);
-    backdrop-filter: blur(18px);
-    cursor: pointer;
-  }
-
-  .card-hover:hover {
-    transform: translateY(-4px);
-    box-shadow:
-      0 30px 54px -34px var(--shadow-color-heavy),
-      0 14px 24px -22px var(--shadow-color);
-    border-color: rgba(15, 92, 99, 0.24);
   }
 
   .surface-card-muted {
@@ -597,7 +582,6 @@
   @media (prefers-reduced-motion: reduce) {
     .hover-lift,
     .hover-lift:hover,
-    .card-hover:hover,
     .btn-primary:hover,
     .btn-secondary:hover {
       transform: none !important;
@@ -674,8 +658,6 @@
 :root[data-simple-mode="true"] .shadow-card-hover,
 :root[data-simple-mode="true"] .shadow-elevation-2,
 :root[data-simple-mode="true"] .shadow-elevation-3,
-:root[data-simple-mode="true"] .card,
-:root[data-simple-mode="true"] .card-hover,
 :root[data-simple-mode="true"] .surface-card,
 :root[data-simple-mode="true"] .surface-card-muted,
 :root[data-simple-mode="true"] .surface-card-strong,

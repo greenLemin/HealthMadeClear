@@ -2,7 +2,8 @@
 
 import { useEffect } from "react";
 import { useTranslations } from "next-intl";
-import { Link } from "@/i18n/navigation";
+import Button from "@/components/ui/Button";
+import ButtonLink from "@/components/ui/ButtonLink";
 import { reportClientError } from "@/lib/errorReporting";
 
 export default function LocaleError({
@@ -26,12 +27,12 @@ export default function LocaleError({
           <h1 className="mb-3 font-display text-headline-lg text-primary">{t("title")}</h1>
           <p className="mb-6 max-w-readable text-body-md text-on-surface-variant">{t("body")}</p>
           <div className="flex flex-wrap gap-3">
-            <button type="button" className="btn-primary" onClick={() => reset()}>
+            <Button type="button" onClick={() => reset()}>
               {t("retry")}
-            </button>
-            <Link href="/" className="btn-secondary">
+            </Button>
+            <ButtonLink href="/" variant="secondary">
               {t("home")}
-            </Link>
+            </ButtonLink>
           </div>
         </div>
       </div>

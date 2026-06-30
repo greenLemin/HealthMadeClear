@@ -2,6 +2,7 @@
 
 import { Link } from "@/i18n/navigation";
 import { ArrowRight, Clock, ListChecks } from "lucide-react";
+import ButtonLink from "@/components/ui/ButtonLink";
 import Callout from "@/components/Callout";
 import MarkdownRenderer from "@/components/mdx/MarkdownRenderer";
 import { getLessonsByPath, getPathProgress } from "@/lib/content";
@@ -77,14 +78,13 @@ export default function LearningPathsClient({
                       </p>
                     </div>
 
-                    <Link
+                    <ButtonLink
                       href={nextLesson ? `/learn/${nextLesson.id}` : "/learn"}
-                      className="btn-primary inline-flex items-center gap-2"
+                      icon={<ArrowRight size={18} />}
                       onClick={() => markPathStarted(path.id)}
                     >
                       {isStarted ? t("continue") : t("startPath")}
-                      <ArrowRight size={18} />
-                    </Link>
+                    </ButtonLink>
                   </div>
 
                   <div className="mt-8 grid gap-6 lg:grid-cols-[1.08fr_0.92fr] lg:items-start">

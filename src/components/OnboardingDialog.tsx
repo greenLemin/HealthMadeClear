@@ -8,6 +8,7 @@ import { usePathname } from "@/i18n/navigation";
 import { useDismissibleOverlay } from "@/hooks/useDismissibleOverlay";
 import { useMotionSafe } from "@/hooks/useMotionSafe";
 import { revealEase } from "@/components/ui/Reveal";
+import Button from "@/components/ui/Button";
 
 const ONBOARDING_KEY = "hmc_onboarded";
 
@@ -94,9 +95,9 @@ export default function OnboardingDialog() {
         </div>
       </div>
 
-      <button type="button" onClick={dismiss} className="btn-primary mt-6 w-full">
+      <Button type="button" onClick={dismiss} fullWidth className="mt-6">
         {t("getStarted")}
-      </button>
+      </Button>
     </div>
   );
 

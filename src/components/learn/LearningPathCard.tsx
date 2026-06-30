@@ -1,7 +1,7 @@
 "use client";
 
 import { Clock, ListChecks } from "lucide-react";
-import { Link } from "@/i18n/navigation";
+import ButtonLink from "@/components/ui/ButtonLink";
 import { useAppState } from "@/components/AppProviders";
 import { formatLevel } from "@/lib/i18n";
 import ProgressBar from "@/components/ui/ProgressBar";
@@ -80,12 +80,13 @@ export default function LearningPathCard({ path, lessons, progress }: LearningPa
             {tCommon("completed")} ✓
           </span>
         ) : (
-          <Link
+          <ButtonLink
             href={nextLesson ? `/learn/${nextLesson.id}` : "/learning-paths"}
-            className="btn-primary text-label-md"
+            size="sm"
+            className="text-label-md"
           >
             {isStarted ? t("continue") : t("startPath")}
-          </Link>
+          </ButtonLink>
         )}
       </div>
     </div>

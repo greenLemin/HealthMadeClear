@@ -569,6 +569,35 @@
       "Cuaderno o teléfono para notas",
       "Agua y artículos de comodidad"
     ],
+    "visitPlanner": {
+      "introEyebrow": "Planifica con calma",
+      "prepTitle": "Llega con enfoque claro",
+      "prepBody": "Elige el tipo de visita correcto y prepara solo las preguntas que te ayudarán a salir con respuestas claras.",
+      "prepBullets": [
+        "Anota síntomas, fechas y cambios importantes.",
+        "Ten a mano medicinas, dosis y suplementos.",
+        "Decide la pregunta principal que quieres resolver."
+      ],
+      "stepDescription1": "Empieza con el motivo de tu cita para recibir sugerencias más útiles.",
+      "stepDescription2": "Guarda las mejores preguntas, agrega las tuyas y deja lista una nota breve.",
+      "stepDescription3": "Revisa tu plan final antes de imprimirlo o mostrarlo en tu teléfono.",
+      "visitTypeDescriptions": {
+        "new-symptom": "Ideal cuando necesitas explicar un problema nuevo y su evolución.",
+        "medication": "Úsalo para hablar de dosis, efectos secundarios o cambios de tratamiento.",
+        "followup": "Perfecto para revisar resultados, progreso y próximos pasos."
+      },
+      "selectedCount": "{count, plural, one {# pregunta guardada} other {# preguntas guardadas}}",
+      "suggestedCount": "{count, plural, one {# sugerida elegida} other {# sugeridas elegidas}}",
+      "customCount": "{count, plural, one {# personalizada} other {# personalizadas}}",
+      "stepStatus": "Paso {step} de 3",
+      "questionHintActive": "Lista para tu plan",
+      "questionHintIdle": "Toca para agregarla",
+      "customEmpty": "Todavía no agregas preguntas personalizadas.",
+      "reviewEyebrow": "Lista lista para imprimir",
+      "reviewHint": "Llévala impresa o en tu teléfono para no olvidar nada importante.",
+      "customSectionBody": "Agrega dudas personales para que tu visita refleje lo que más te preocupa.",
+      "notesBody": "Escribe síntomas, tiempos o cualquier detalle que quieras mencionar con tus propias palabras."
+    },
     "careGuideTitle": "¿Dónde debo ir para recibir atención?",
     "careGuideDescription": "Elegir el lugar correcto puede ahorrar tiempo, dinero y estrés. Usa esta guía para comparar opciones comunes.",
     "homeCare": "Cuidado en casa",

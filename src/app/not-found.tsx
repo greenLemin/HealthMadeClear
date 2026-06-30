@@ -1,5 +1,6 @@
 import { cookies, headers } from "next/headers";
 import Link from "next/link";
+import { getButtonClasses } from "@/components/ui/buttonStyles";
 import Card from "@/components/ui/Card";
 
 const COPY = {
@@ -39,7 +40,10 @@ export default async function RootNotFound() {
             <Card className="max-w-xl">
               <h1 className="mb-3 text-headline-lg text-primary">{t.title}</h1>
               <p className="mb-6 text-body-md text-on-surface-variant">{t.body}</p>
-              <Link href={`/${t.locale}`} className="btn-primary inline-flex items-center justify-center">
+              <Link
+                href={`/${t.locale}`}
+                className={getButtonClasses({ className: "inline-flex items-center justify-center" })}
+              >
                 {t.home}
               </Link>
             </Card>

@@ -38,6 +38,7 @@ export default function Card<C extends ElementType = "div">({
   ...rest
 }: CardProps<C>) {
   const Component = as ?? "div";
+
   return (
     <Component
       className={[

@@ -4,6 +4,8 @@ import { useState, useCallback, useMemo, useEffect, useRef } from "react";
 import { Link } from "@/i18n/navigation";
 import { ArrowLeft } from "lucide-react";
 import { useTranslations } from "next-intl";
+import Button from "@/components/ui/Button";
+import ButtonLink from "@/components/ui/ButtonLink";
 import { useAppState } from "@/components/AppProviders";
 import { useProgress } from "@/hooks/useProgress";
 import QuizQuestionComponent from "@/components/quiz/QuizQuestion";
@@ -178,9 +180,7 @@ export default function QuizClient({ quiz, lessonTitle, lessonId }: Props) {
             <div className="eyebrow mb-3">{t("backToLesson")}</div>
             <h1 className="font-display text-headline-lg text-primary">{quiz.title}</h1>
             <p className="mb-6 text-body-md text-on-surface-variant">{t("noQuestions")}</p>
-            <Link href={`/learn/${lessonId}`} className="btn-primary inline-flex">
-              {t("backToLesson")}
-            </Link>
+            <ButtonLink href={`/learn/${lessonId}`}>{t("backToLesson")}</ButtonLink>
           </div>
           <MedicalDisclaimer />
         </div>
@@ -214,9 +214,9 @@ export default function QuizClient({ quiz, lessonTitle, lessonId }: Props) {
                 {t("bestScore", { score: bestScore })}
               </p>
             ) : null}
-            <button type="button" onClick={() => setState("active")} className="btn-primary">
+            <Button type="button" onClick={() => setState("active")}>
               {bestScore !== null ? t("retake") : t("startQuiz")}
-            </button>
+            </Button>
           </div>
           <MedicalDisclaimer />
         </div>
@@ -262,12 +262,17 @@ export default function QuizClient({ quiz, lessonTitle, lessonId }: Props) {
         >
           <p className="mb-6 text-body-md text-on-surface-variant">{t("progressWillBeLost")}</p>
           <div className="flex flex-col gap-3 sm:flex-row">
-            <button type="button" onClick={() => setShowExitWarning(false)} className="btn-secondary flex-1">
+            <Button
+              type="button"
+              variant="secondary"
+              className="flex-1"
+              onClick={() => setShowExitWarning(false)}
+            >
               {t("stay")}
-            </button>
-            <Link href={`/learn/${lessonId}`} className="btn-primary flex-1 text-center">
+            </Button>
+            <ButtonLink href={`/learn/${lessonId}`} className="flex-1 text-center">
               {t("leave")}
-            </Link>
+            </ButtonLink>
           </div>
         </Modal>
       ) : null}
@@ -338,26 +343,27 @@ export default function QuizClient({ quiz, lessonTitle, lessonId }: Props) {
           ) : null}
 
           <div className="mt-6 flex items-center justify-between rounded-[1.5rem] border border-outline-variant bg-surface-container-low px-4 py-4">
-            <button
+            <Button
               type="button"
-              onClick={handlePrevious}
+              variant="secondary"
               disabled={current === 0}
-              className="btn-secondary disabled:opacity-30"
+              onClick={handlePrevious}
+              className="disabled:opacity-30"
             >
               {t("previous")}
-            </button>
+            </Button>
 
             <div className="flex gap-3">
               {selectedIdx >= 0 && !showResult ? (
-                <button type="button" onClick={handleCheckAnswer} className="btn-primary">
+                <Button type="button" onClick={handleCheckAnswer}>
                   {t("checkAnswer")}
-                </button>
+                </Button>
               ) : null}
 
               {selectedIdx >= 0 && showResult ? (
-                <button type="button" onClick={handleNext} className="btn-primary">
+                <Button type="button" onClick={handleNext}>
                   {current < total - 1 ? t("next") : t("seeResults")}
-                </button>
+                </Button>
               ) : null}
             </div>
           </div>

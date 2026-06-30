@@ -20,6 +20,7 @@ import {
 import AccessibilityControls from "@/components/AccessibilityControls";
 import LanguageToggle from "@/components/LanguageToggle";
 import SearchDialog from "@/components/SearchDialog";
+import ButtonLink from "@/components/ui/ButtonLink";
 import ThemeToggle from "@/components/ui/ThemeToggle";
 import Skeleton from "@/components/ui/Skeleton";
 import { useDismissibleOverlay } from "@/hooks/useDismissibleOverlay";
@@ -131,12 +132,12 @@ export default function Header() {
           </div>
         ) : (
           <div className="flex flex-col gap-3">
-            <Link href="/auth/login" onClick={() => setIsOpen(false)} className="btn-secondary w-full">
+            <ButtonLink href="/auth/login" onClick={() => setIsOpen(false)} variant="secondary" fullWidth>
               {authT("loginButton")}
-            </Link>
-            <Link href="/auth/signup" onClick={() => setIsOpen(false)} className="btn-primary w-full">
+            </ButtonLink>
+            <ButtonLink href="/auth/signup" onClick={() => setIsOpen(false)} fullWidth>
               {authT("signupButton")}
-            </Link>
+            </ButtonLink>
           </div>
         )}
       </div>
@@ -214,12 +215,17 @@ export default function Header() {
                 </div>
               ) : (
                 <div className="flex items-center gap-2">
-                  <Link href="/auth/login" className="btn-secondary min-h-11 px-4 text-label-md">
+                  <ButtonLink
+                    href="/auth/login"
+                    variant="secondary"
+                    size="sm"
+                    className="min-h-11 px-4 text-label-md"
+                  >
                     {authT("loginButton")}
-                  </Link>
-                  <Link href="/auth/signup" className="btn-primary min-h-11 px-4 text-label-md">
+                  </ButtonLink>
+                  <ButtonLink href="/auth/signup" size="sm" className="min-h-11 px-4 text-label-md">
                     {authT("signupButton")}
-                  </Link>
+                  </ButtonLink>
                 </div>
               )}
 
