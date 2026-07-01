@@ -47,7 +47,7 @@
     "gray-matter": "^4.0.3",
     "lucide-react": "^1.21.0",
     "markdown-it": "^14.2.0",
-    "motion": "^12.42.0",
+    "motion": "^12.42.2",
     "next": "16.2.9",
     "next-intl": "^4.13.0",
     "react": "^18.3.1",
