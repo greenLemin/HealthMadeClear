@@ -76,7 +76,9 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
                 : "border-outline-variant focus:border-primary focus:ring-4 focus:ring-primary/10 focus:shadow-elevation-1",
               "focus:outline-none",
               className,
-            ].join(" ")}
+            ]
+              .filter(Boolean)
+              .join(" ")}
             {...props}
           />
           {isPassword ? (
