@@ -26,14 +26,12 @@ export default function LoginForm() {
 
   // Display errors passed via URL params (e.g. from email confirmation or OAuth)
   const errorParam = searchParams.get("error");
-  const urlError =
-    errorParam === "confirmation_failed"
-      ? t("errorConfirmationFailed")
-      : errorParam === "auth_failed"
-        ? t("errorAuthFailed")
-        : errorParam === "rate_limited"
-          ? t("errorRateLimited")
-          : null;
+  const errorMessages: Record<string, string> = {
+    confirmation_failed: t("errorConfirmationFailed"),
+    auth_failed: t("errorAuthFailed"),
+    rate_limited: t("errorRateLimited"),
+  };
+  const urlError = errorParam ? errorMessages[errorParam] || null : null;
 
   function handleEmailChange(value: string) {
     setEmail(value);
