@@ -190,9 +190,13 @@ export default function VisitPlannerClient() {
   };
 
   const toggleQuestion = (question: string) => {
-    setSelectedQuestions((current) =>
-      current.includes(question) ? current.filter((item) => item !== question) : [...current, question]
-    );
+    setSelectedQuestions((current) => {
+      const index = current.indexOf(question);
+      if (index === -1) return [...current, question];
+      const next = [...current];
+      next.splice(index, 1);
+      return next;
+    });
   };
 
   return (
