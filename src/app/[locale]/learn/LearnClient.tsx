@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { BookOpen, Search } from "lucide-react";
+import { Search } from "lucide-react";
 import { useAppState } from "@/components/AppProviders";
 import LessonCard from "@/components/learn/LessonCard";
 import PageHeader from "@/components/PageHeader";
