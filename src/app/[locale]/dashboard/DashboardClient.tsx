@@ -7,7 +7,6 @@ import {
   CheckCircle2,
   Flame,
   Clock,
-  TrendingUp,
   ArrowRight,
   Sparkles,
   ListChecks,
