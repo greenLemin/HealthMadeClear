@@ -53,6 +53,11 @@ describe("getQuizFromMdx", () => {
     expect(await getQuizFromMdx("non-existent", "en")).toBeUndefined();
   });
 
+  it("returns undefined if file access fails", async () => {
+    mockAccess.mockRejectedValue(new Error("EACCES"));
+    expect(await getQuizFromMdx("no-access", "en")).toBeUndefined();
+  });
+
   it("returns parsed quiz when file exists", async () => {
     mockAccess.mockResolvedValue(undefined);
     mockReadFile.mockResolvedValue(`---
@@ -182,5 +187,23 @@ explanation: 2 is correct.
     const quizzes = await getAllQuizzesFromMdx("en");
 
     expect(quizzes).toHaveLength(0);
+  });
+
+  it("returns null for quiz if file access fails in getAllQuizzesFromMdx mapped promises", async () => {
+    mockAccess.mockImplementation((path) => {
+      if (typeof path === "string") {
+        if (path.includes("understanding-prescription-labels")) return Promise.reject(new Error("EACCES"));
+      }
+      return Promise.reject(new Error("ENOENT"));
+    });
+
+    const quizzes = await getAllQuizzesFromMdx("en");
+    expect(quizzes).toEqual([]);
+  });
+
+  it("returns undefined if file access fails in getAllQuizzesFromMdx", async () => {
+    mockAccess.mockRejectedValue(new Error("EACCES"));
+    const quizzes = await getAllQuizzesFromMdx("en");
+    expect(quizzes).toEqual([]);
   });
 });
