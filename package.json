@@ -43,7 +43,7 @@
   "dependencies": {
     "@sentry/browser": "^10.60.0",
     "@supabase/ssr": "^0.12.0",
-    "@supabase/supabase-js": "^2.108.2",
+    "@supabase/supabase-js": "^2.110.0",
     "gray-matter": "^4.0.3",
     "lucide-react": "^1.21.0",
     "markdown-it": "^14.2.0",
