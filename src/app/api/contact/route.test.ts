@@ -45,7 +45,7 @@ describe("POST /api/contact", () => {
   it("enforces rate limits after 5 submissions", async () => {
     const ip = "192.168.1.99";
 
-    for (let i = 0; i < 5; i++) {
+    const promises = Array.from({ length: 5 }, () => {
       const req = new Request("http://localhost/api/contact", {
         method: "POST",
         headers: {
@@ -53,7 +53,11 @@ describe("POST /api/contact", () => {
         },
         body: JSON.stringify({ name: "Alice", email: "alice@example.com", message: "Hi" }),
       });
-      const res = await POST(req);
+      return POST(req);
+    });
+
+    const responses = await Promise.all(promises);
+    for (const res of responses) {
       expect(res.status).not.toBe(429);
     }
 
