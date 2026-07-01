@@ -40,6 +40,10 @@ export interface ProgressActions {
   getLearningPathProgress: (lessonIds: string[]) => { completed: number; total: number; percentage: number };
 }
 
+
+// Cache the dynamic import to improve performance
+let loadPathsPromise: Promise<typeof import("@/lib/paths/loadPaths")> | null = null;
+
 export function useProgress(): ProgressState & ProgressActions {
   const { user, loading: authLoading } = useAuth();
   const locale = useLocale();
@@ -169,7 +173,10 @@ export function useProgress(): ProgressState & ProgressActions {
           // Check for close-to-completion notifications on learning paths
           const allCompletedSet = new Set(allCompleted);
           try {
-            const allPaths = (await import("@/lib/paths/loadPaths")).getAllLearningPaths(locale as Locale);
+            if (!loadPathsPromise) {
+              loadPathsPromise = import("@/lib/paths/loadPaths");
+            }
+            const allPaths = (await loadPathsPromise).getAllLearningPaths(locale as Locale);
             const notificationPromises = [];
             for (const path of allPaths) {
               const remaining = path.lessons.filter((id) => !allCompletedSet.has(id));
