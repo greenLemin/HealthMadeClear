@@ -40,7 +40,6 @@ export interface ProgressActions {
   getLearningPathProgress: (lessonIds: string[]) => { completed: number; total: number; percentage: number };
 }
 
-
 // Cache the dynamic import to improve performance
 let loadPathsPromise: Promise<typeof import("@/lib/paths/loadPaths")> | null = null;
 
