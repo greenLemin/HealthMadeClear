@@ -22,7 +22,7 @@ export default function ToastProvider({ children }: { children: ReactNode }) {
   const t = useTranslations("notifications");
 
   const showToast = useCallback((variant: ToastVariant, message: string) => {
-    const id = `toast-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`;
+    const id = `toast-${crypto.randomUUID()}`;
     setToasts((current) => [...current, { id, variant, message }]);
   }, []);
 
