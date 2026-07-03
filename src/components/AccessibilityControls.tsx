@@ -11,6 +11,11 @@ import { useTranslations } from "next-intl";
 import { modalVariants, revealEase } from "@/components/ui/Reveal";
 
 const TEXT_SIZES: TextSize[] = ["standard", "large", "largest"];
+const TEXT_SIZE_DISPLAY: Record<TextSize, string> = {
+  standard: "A",
+  large: "A+",
+  largest: "A++",
+};
 const THEMES: ThemeMode[] = ["light", "dark"];
 
 function handleArrowSelection<T extends string>(
@@ -99,7 +104,7 @@ export default function AccessibilityControls() {
                   : "min-h-11 rounded-lg border border-outline-variant bg-surface-container-low px-3 py-3 text-label-md font-semibold text-on-surface"
               }
             >
-              {value === "standard" ? "A" : value === "large" ? "A+" : "A++"}
+              {TEXT_SIZE_DISPLAY[value]}
             </button>
           ))}
         </div>
