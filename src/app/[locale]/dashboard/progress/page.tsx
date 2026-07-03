@@ -43,33 +43,6 @@ export default async function ProgressPage({ params, searchParams }: Props) {
 
   const totalBeginnerLessons = allLessons.filter((l) => l.level === "beginner").length;
 
-  const categoryProgress = allLessons.reduce(
-    (acc, lesson) => {
-      const catId = lesson.categoryId;
-      if (!acc[catId]) {
-        acc[catId] = {
-          categoryId: catId,
-          label: lesson.category,
-          total: 0,
-          completed: 0,
-          quizStats: { attempts: 0, passed: 0 },
-        };
-      }
-      acc[catId].total += 1;
-      return acc;
-    },
-    {} as Record<
-      string,
-      {
-        categoryId: string;
-        label: string;
-        total: number;
-        completed: number;
-        quizStats: { attempts: number; passed: number };
-      }
-    >
-  );
-
   const { data: lessonProgressData } = await supabase
     .from("lesson_progress")
     .select("lesson_id")
@@ -77,9 +50,33 @@ export default async function ProgressPage({ params, searchParams }: Props) {
     .eq("completed", true);
 
   const completedSet = new Set((lessonProgressData ?? []).map((p: { lesson_id: string }) => p.lesson_id));
+
+  const categoryProgress: Record<
+    string,
+    {
+      categoryId: string;
+      label: string;
+      total: number;
+      completed: number;
+      quizStats: { attempts: number; passed: number };
+    }
+  > = {};
+
   for (const lesson of allLessons) {
-    if (completedSet.has(lesson.id) && categoryProgress[lesson.categoryId]) {
-      categoryProgress[lesson.categoryId].completed += 1;
+    const catId = lesson.categoryId;
+    let catProg = categoryProgress[catId];
+    if (!catProg) {
+      catProg = categoryProgress[catId] = {
+        categoryId: catId,
+        label: lesson.category,
+        total: 0,
+        completed: 0,
+        quizStats: { attempts: 0, passed: 0 },
+      };
+    }
+    catProg.total += 1;
+    if (completedSet.has(lesson.id)) {
+      catProg.completed += 1;
     }
   }
 
