@@ -13,7 +13,7 @@ describe("getGlossaryRegexAndMap", () => {
     const terms: GlossaryTerm[] = [
       { id: "1", term: "JavaScript", definition: "A language", category: "lang" },
       { id: "2", term: "C++", definition: "Another language", category: "lang" },
-      { id: "3", term: "JS", definition: "Short for JavaScript", category: "lang" }
+      { id: "3", term: "JS", definition: "Short for JavaScript", category: "lang" },
     ];
 
     const result = getGlossaryRegexAndMap(terms);
@@ -40,9 +40,7 @@ describe("getGlossaryRegexAndMap", () => {
   });
 
   it("caches the result for the same array reference in WeakMap", () => {
-    const terms: GlossaryTerm[] = [
-      { id: "1", term: "Test", definition: "A test", category: "test" }
-    ];
+    const terms: GlossaryTerm[] = [{ id: "1", term: "Test", definition: "A test", category: "test" }];
 
     const result1 = getGlossaryRegexAndMap(terms);
     const result2 = getGlossaryRegexAndMap(terms);
@@ -51,12 +49,8 @@ describe("getGlossaryRegexAndMap", () => {
   });
 
   it("recomputes if a new array reference is provided", () => {
-    const terms1: GlossaryTerm[] = [
-      { id: "1", term: "Test", definition: "A test", category: "test" }
-    ];
-    const terms2: GlossaryTerm[] = [
-      { id: "1", term: "Test", definition: "A test", category: "test" }
-    ];
+    const terms1: GlossaryTerm[] = [{ id: "1", term: "Test", definition: "A test", category: "test" }];
+    const terms2: GlossaryTerm[] = [{ id: "1", term: "Test", definition: "A test", category: "test" }];
 
     const result1 = getGlossaryRegexAndMap(terms1);
     const result2 = getGlossaryRegexAndMap(terms2);
