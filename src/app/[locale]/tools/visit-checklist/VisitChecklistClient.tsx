@@ -32,9 +32,15 @@ export default function VisitChecklistClient() {
   }, [checkedItems, hydrated]);
 
   const toggleItem = (item: string) => {
-    setCheckedItems((current) =>
-      current.includes(item) ? current.filter((value) => value !== item) : [...current, item]
-    );
+    setCheckedItems((current) => {
+      const index = current.indexOf(item);
+      if (index > -1) {
+        const next = [...current];
+        next.splice(index, 1);
+        return next;
+      }
+      return [...current, item];
+    });
   };
   const progress =
     checklistItems.length === 0 ? 0 : Math.round((checkedItems.length / checklistItems.length) * 100);
