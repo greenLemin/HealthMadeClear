@@ -22,7 +22,7 @@ export default function ResetPasswordClient() {
   const successHeadingRef = useRef<HTMLHeadingElement>(null);
 
   useEffect(() => {
-    const params = new URLSearchParams(window.location.hash.replace("#", "?"));
+    const params = new URLSearchParams(window.location.hash.substring(1));
     const code = params.get("code");
 
     if (!code) {
