@@ -32,7 +32,7 @@ export default function GlossaryClient({ terms: glossaryTerms }: GlossaryClientP
 
   useEffect(() => {
     const hash = window.location.hash.replace("#", "");
-    if (!hash) return;
+    if (!hash || !/^[a-zA-Z0-9-]+$/.test(hash)) return;
     const element = document.getElementById(hash);
     element?.scrollIntoView({ behavior: "smooth", block: "start" });
   }, []);
