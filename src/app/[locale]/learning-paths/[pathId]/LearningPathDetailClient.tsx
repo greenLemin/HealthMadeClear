@@ -32,10 +32,10 @@ export default function LearningPathDetailClient({ path, lessons, glossaryTerms 
   const tCommon = useTranslations("common");
   const tNav = useTranslations("nav");
 
-  const pathLessons = useMemo(
-    () => path.lessons.map((id) => lessons.find((l) => l.id === id)).filter(Boolean) as Lesson[],
-    [path.lessons, lessons]
-  );
+  const pathLessons = useMemo(() => {
+    const lessonMap = new Map(lessons.map((l) => [l.id as string, l]));
+    return path.lessons.map((id) => lessonMap.get(id as string)).filter(Boolean) as Lesson[];
+  }, [path.lessons, lessons]);
 
   const progress = getLearningPathProgress(path.lessons);
   const completedLessonIdsSet = new Set(completedLessonIds);
