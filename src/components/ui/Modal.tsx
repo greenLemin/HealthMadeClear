@@ -24,10 +24,91 @@ const sizeStyles: Record<ModalSize, string> = {
   lg: "max-w-2xl",
 };
 
+function ModalHeader({ title, titleId, onClose }: { title: string; titleId: string; onClose: () => void }) {
+  const tCommon = useTranslations("common");
+  return (
+    <div className="mb-5 flex items-center justify-between gap-4">
+      <h2 id={titleId} className="font-display text-headline-md text-primary">
+        {title}
+      </h2>
+      <button
+        type="button"
+        onClick={onClose}
+        className="flex min-h-11 min-w-11 items-center justify-center rounded-full text-on-surface-variant transition-all duration-300 ease-premium hover:bg-surface-container hover:text-on-surface focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+        aria-label={tCommon("dismiss")}
+      >
+        <X size={20} aria-hidden="true" />
+      </button>
+    </div>
+  );
+}
+
+function ModalBackdrop({ onClick, motionSafe }: { onClick: () => void; motionSafe: boolean }) {
+  const className = "fixed inset-0 bg-black/45 backdrop-blur-sm";
+  if (motionSafe) {
+    return <div className={className} onClick={onClick} aria-hidden="true" />;
+  }
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.22, ease: revealEase }}
+      className={className}
+      onClick={onClick}
+      aria-hidden="true"
+    />
+  );
+}
+
+interface ModalPanelProps {
+  dialogRef: React.RefObject<HTMLDivElement | null>;
+  titleId: string;
+  size: ModalSize;
+  motionSafe: boolean;
+  children: ReactNode;
+}
+
+function ModalPanel({ dialogRef, titleId, size, motionSafe, children }: ModalPanelProps) {
+  const className = ["surface-card-glass relative z-10 w-full p-6 md:p-8", sizeStyles[size]].join(" ");
+
+  if (motionSafe) {
+    return (
+      <div
+        ref={dialogRef as React.RefObject<HTMLDivElement>}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby={titleId}
+        tabIndex={-1}
+        className={className}
+      >
+        {children}
+      </div>
+    );
+  }
+
+  return (
+    <motion.div
+      ref={dialogRef as React.RefObject<HTMLDivElement>}
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby={titleId}
+      tabIndex={-1}
+      variants={modalVariants}
+      initial="hidden"
+      animate="visible"
+      exit="exit"
+      transition={{ duration: 0.3, ease: revealEase }}
+      className={className}
+    >
+      {children}
+    </motion.div>
+  );
+}
+
 export default function Modal({ isOpen, onClose, title, children, size = "md" }: ModalProps) {
   const dialogRef = useRef<HTMLDivElement>(null);
   const titleId = `modal-${title.toLowerCase().replace(/\s+/g, "-")}`;
-  const tCommon = useTranslations("common");
   const motionSafe = useMotionSafe();
 
   useFocusTrap(dialogRef, isOpen);
@@ -76,77 +157,11 @@ export default function Modal({ isOpen, onClose, title, children, size = "md" }:
     <AnimatePresence>
       {isOpen ? (
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
-          {motionSafe ? (
-            <div
-              className="fixed inset-0 bg-black/45 backdrop-blur-sm"
-              onClick={onClose}
-              aria-hidden="true"
-            />
-          ) : (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.22, ease: revealEase }}
-              className="fixed inset-0 bg-black/45 backdrop-blur-sm"
-              onClick={onClose}
-              aria-hidden="true"
-            />
-          )}
-          {motionSafe ? (
-            <div
-              ref={dialogRef}
-              role="dialog"
-              aria-modal="true"
-              aria-labelledby={titleId}
-              tabIndex={-1}
-              className={["surface-card-glass relative z-10 w-full p-6 md:p-8", sizeStyles[size]].join(" ")}
-            >
-              <div className="mb-5 flex items-center justify-between gap-4">
-                <h2 id={titleId} className="font-display text-headline-md text-primary">
-                  {title}
-                </h2>
-                <button
-                  type="button"
-                  onClick={onClose}
-                  className="flex min-h-11 min-w-11 items-center justify-center rounded-full text-on-surface-variant transition-all duration-300 ease-premium hover:bg-surface-container hover:text-on-surface focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
-                  aria-label={tCommon("dismiss")}
-                >
-                  <X size={20} aria-hidden="true" />
-                </button>
-              </div>
-              {children}
-            </div>
-          ) : (
-            <motion.div
-              ref={dialogRef}
-              role="dialog"
-              aria-modal="true"
-              aria-labelledby={titleId}
-              tabIndex={-1}
-              variants={modalVariants}
-              initial="hidden"
-              animate="visible"
-              exit="exit"
-              transition={{ duration: 0.3, ease: revealEase }}
-              className={["surface-card-glass relative z-10 w-full p-6 md:p-8", sizeStyles[size]].join(" ")}
-            >
-              <div className="mb-5 flex items-center justify-between gap-4">
-                <h2 id={titleId} className="font-display text-headline-md text-primary">
-                  {title}
-                </h2>
-                <button
-                  type="button"
-                  onClick={onClose}
-                  className="flex min-h-11 min-w-11 items-center justify-center rounded-full text-on-surface-variant transition-all duration-300 ease-premium hover:bg-surface-container hover:text-on-surface focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
-                  aria-label={tCommon("dismiss")}
-                >
-                  <X size={20} aria-hidden="true" />
-                </button>
-              </div>
-              {children}
-            </motion.div>
-          )}
+          <ModalBackdrop onClick={onClose} motionSafe={motionSafe} />
+          <ModalPanel dialogRef={dialogRef} titleId={titleId} size={size} motionSafe={motionSafe}>
+            <ModalHeader title={title} titleId={titleId} onClose={onClose} />
+            {children}
+          </ModalPanel>
         </div>
       ) : null}
     </AnimatePresence>
