@@ -102,28 +102,34 @@ function Popover({
   );
 }
 
-export default function InlineGlossaryTerm({ term, displayText, instanceId }: InlineGlossaryTermProps) {
-  const [isOpen, setIsOpen] = useState(false);
-  const [triggerRect, setTriggerRect] = useState<DOMRect | null>(null);
-  const t = useTranslations("glossary");
-  const containerRef = useRef<HTMLSpanElement>(null);
-  const buttonRef = useRef<HTMLButtonElement>(null);
+function useScrollSpyRegistration(
+  instanceId: string | undefined,
+  buttonRef: React.RefObject<HTMLButtonElement | null>
+) {
   const scrollSpy = useOptionalScrollSpyContext();
-
-  const isActive = instanceId && scrollSpy?.activeTermIds.has(instanceId);
-  const popoverId = `glossary-popover-${term.id}${instanceId ? `-${instanceId}` : ""}`;
+  const isActive = instanceId ? scrollSpy?.activeTermIds.has(instanceId) : false;
 
   useEffect(() => {
-    if (!instanceId || !scrollSpy) return;
+    if (!instanceId || !scrollSpy || !buttonRef.current) return;
     scrollSpy.registerTerm(instanceId, buttonRef.current);
     return () => scrollSpy.unregisterTerm(instanceId);
-  }, [instanceId, scrollSpy]);
+  }, [instanceId, scrollSpy, buttonRef]);
+
+  return { isActive };
+}
+
+function usePopoverInteraction(
+  containerRef: React.RefObject<HTMLSpanElement | null>,
+  buttonRef: React.RefObject<HTMLButtonElement | null>
+) {
+  const [isOpen, setIsOpen] = useState(false);
+  const [triggerRect, setTriggerRect] = useState<DOMRect | null>(null);
 
   const close = useCallback(() => {
     setIsOpen(false);
     setTriggerRect(null);
     buttonRef.current?.focus();
-  }, []);
+  }, [buttonRef]);
 
   const toggle = useCallback(() => {
     setIsOpen((prev) => {
@@ -134,7 +140,7 @@ export default function InlineGlossaryTerm({ term, displayText, instanceId }: In
       }
       return !prev;
     });
-  }, []);
+  }, [buttonRef]);
 
   useEffect(() => {
     if (!isOpen) return;
@@ -163,7 +169,20 @@ export default function InlineGlossaryTerm({ term, displayText, instanceId }: In
       document.removeEventListener("keydown", handleKeyDown);
       window.removeEventListener("scroll", handleScroll, true);
     };
-  }, [isOpen, close]);
+  }, [isOpen, close, containerRef]);
+
+  return { isOpen, triggerRect, toggle, close };
+}
+
+export default function InlineGlossaryTerm({ term, displayText, instanceId }: InlineGlossaryTermProps) {
+  const t = useTranslations("glossary");
+  const containerRef = useRef<HTMLSpanElement>(null);
+  const buttonRef = useRef<HTMLButtonElement>(null);
+
+  const { isActive } = useScrollSpyRegistration(instanceId, buttonRef);
+  const { isOpen, triggerRect, toggle, close } = usePopoverInteraction(containerRef, buttonRef);
+
+  const popoverId = `glossary-popover-${term.id}${instanceId ? `-${instanceId}` : ""}`;
 
   const baseClasses =
     "no-print cursor-help border-b-2 border-dashed border-primary-container font-semibold text-primary hover:bg-primary-container/10 focus:bg-primary-container/20 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 transition-colors";
