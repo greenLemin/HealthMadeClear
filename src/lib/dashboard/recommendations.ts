@@ -54,30 +54,33 @@ export async function getRecommendedNextLesson(
     }
   }
 
-  for (let i = 0; i < allLessons.length; i++) {
-    const l = allLessons[i];
-    if (l.level === "beginner" && !completedSet.has(l.id)) {
-      return {
-        id: l.id,
-        title: l.title,
-        description: l.description,
-        duration: l.duration,
-        level: l.level,
-      };
-    }
-  }
-
+  let firstUncompleted: (typeof allLessons)[0] | null = null;
   for (let i = 0; i < allLessons.length; i++) {
     const l = allLessons[i];
     if (!completedSet.has(l.id)) {
-      return {
-        id: l.id,
-        title: l.title,
-        description: l.description,
-        duration: l.duration,
-        level: l.level,
-      };
+      if (l.level === "beginner") {
+        return {
+          id: l.id,
+          title: l.title,
+          description: l.description,
+          duration: l.duration,
+          level: l.level,
+        };
+      }
+      if (!firstUncompleted) {
+        firstUncompleted = l;
+      }
     }
+  }
+
+  if (firstUncompleted) {
+    return {
+      id: firstUncompleted.id,
+      title: firstUncompleted.title,
+      description: firstUncompleted.description,
+      duration: firstUncompleted.duration,
+      level: firstUncompleted.level,
+    };
   }
 
   return null;
