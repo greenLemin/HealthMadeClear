@@ -1,10 +1,9 @@
 // @vitest-environment jsdom
-import { render, screen, act, waitFor } from "@testing-library/react";
+import { render, screen, act, waitFor, fireEvent } from "@testing-library/react";
 import { describe, expect, it, beforeEach, vi, afterEach } from "vitest";
 import AuthProvider, { AuthContext } from "./AuthProvider";
 import { useContext } from "react";
 import type { Session, User } from "@supabase/supabase-js";
-import userEvent from "@testing-library/user-event";
 
 const mockPush = vi.fn();
 vi.mock("@/i18n/navigation", () => ({
@@ -77,6 +76,9 @@ describe("AuthProvider", () => {
     expect(mockGetSession).toHaveBeenCalled();
     expect(mockOnAuthStateChange).toHaveBeenCalled();
 
+    await act(async () => {
+      await new Promise((resolve) => setTimeout(resolve, 0));
+    });
     await waitFor(() => {
       expect(screen.getByTestId("loading")).toHaveTextContent("false");
     });
@@ -103,6 +105,9 @@ describe("AuthProvider", () => {
       </AuthProvider>
     );
 
+    await act(async () => {
+      await new Promise((resolve) => setTimeout(resolve, 0));
+    });
     await waitFor(() => {
       expect(screen.getByTestId("loading")).toHaveTextContent("false");
     });
@@ -120,19 +125,24 @@ describe("AuthProvider", () => {
   });
 
   it("handles signOut which calls supabase auth sign out and routes to '/'", async () => {
-    const user = userEvent.setup();
     render(
       <AuthProvider>
         <TestConsumer />
       </AuthProvider>
     );
 
+    await act(async () => {
+      await new Promise((resolve) => setTimeout(resolve, 0));
+    });
     await waitFor(() => {
       expect(screen.getByTestId("loading")).toHaveTextContent("false");
     });
 
     const signOutBtn = screen.getByTestId("signout-btn");
-    await user.click(signOutBtn);
+    await act(async () => {
+      fireEvent.click(signOutBtn);
+      await new Promise((resolve) => setTimeout(resolve, 0));
+    });
 
     expect(mockSignOut).toHaveBeenCalled();
     expect(mockPush).toHaveBeenCalledWith("/");
