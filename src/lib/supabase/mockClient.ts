@@ -427,7 +427,7 @@ function normalizeMockDb(value: unknown): MockDb {
   return db;
 }
 
-function parseFirstJsonObject<T = unknown>(str: string): T {
+export function parseFirstJsonObject<T = unknown>(str: string): T {
   try {
     return JSON.parse(str) as T;
   } catch (err) {
