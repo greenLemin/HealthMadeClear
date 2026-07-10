@@ -1,4 +1,5 @@
 import fs from "fs";
+import { promises as fsPromises } from "fs";
 import path from "path";
 import matter from "gray-matter";
 import { ARTICLE_IDS, type ArticleId } from "@/types/content";
@@ -31,8 +32,8 @@ function parseSections(markdown: string): Article["content"]["sections"] {
   });
 }
 
-function articleFromFile(filePath: string): Article {
-  const raw = normalizeLineEndings(fs.readFileSync(filePath, "utf8"));
+async function articleFromFile(filePath: string): Promise<Article> {
+  const raw = normalizeLineEndings(await fsPromises.readFile(filePath, "utf8"));
   const { data, content } = matter(raw);
   return {
     id: data.id as ArticleId,
@@ -51,20 +52,22 @@ export function getArticleMdxDir(locale: "en" | "es") {
   return path.join(process.cwd(), "content", "articles", locale);
 }
 
-export function getAllArticlesFromMdx(locale: "en" | "es"): Article[] {
+export async function getAllArticlesFromMdx(locale: "en" | "es"): Promise<Article[]> {
   const dir = getArticleMdxDir(locale);
-  return ARTICLE_IDS.map((id) => {
-    const filePath = path.join(dir, `${id}.mdx`);
-    if (!fs.existsSync(filePath)) {
-      throw new Error(`Missing article MDX file: ${filePath}`);
-    }
-    return articleFromFile(filePath);
-  });
+  return Promise.all(
+    ARTICLE_IDS.map(async (id) => {
+      const filePath = path.join(dir, `${id}.mdx`);
+      if (!fs.existsSync(filePath)) {
+        throw new Error(`Missing article MDX file: ${filePath}`);
+      }
+      return await articleFromFile(filePath);
+    })
+  );
 }
 
-export function getArticleFromMdx(id: string, locale: "en" | "es"): Article | undefined {
+export async function getArticleFromMdx(id: string, locale: "en" | "es"): Promise<Article | undefined> {
   if (!(ARTICLE_IDS as readonly string[]).includes(id)) return undefined;
   const filePath = path.join(getArticleMdxDir(locale), `${id}.mdx`);
   if (!fs.existsSync(filePath)) return undefined;
-  return articleFromFile(filePath);
+  return await articleFromFile(filePath);
 }
