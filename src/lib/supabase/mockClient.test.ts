@@ -32,35 +32,6 @@ describe("parseFirstJsonObject", () => {
   });
 });
 
-describe("parseFirstJsonObject", () => {
-  it("parses valid JSON without falling back to character parsing", () => {
-    expect(parseFirstJsonObject('{"a": 1}')).toEqual({ a: 1 });
-  });
-
-  it("extracts the first complete JSON object from a string", () => {
-    expect(parseFirstJsonObject('{"a": 1}GARBAGE')).toEqual({ a: 1 });
-    expect(parseFirstJsonObject('{"a": {"b": 2}}{"c": 3}')).toEqual({ a: { b: 2 } });
-  });
-
-  it("handles strings with escaped quotes correctly", () => {
-    expect(parseFirstJsonObject('{"a": "val\\\"ue"}GARBAGE')).toEqual({ a: 'val\"ue' });
-  });
-
-  it("ignores curly braces inside strings", () => {
-    expect(parseFirstJsonObject('{"a": "val{ue}"}GARBAGE')).toEqual({ a: "val{ue}" });
-  });
-
-  it("throws the original error if no complete JSON object can be extracted", () => {
-    expect(() => parseFirstJsonObject('{"a": 1')).toThrow();
-    expect(() => parseFirstJsonObject("{")).toThrow();
-    expect(() => parseFirstJsonObject("GARBAGE")).toThrow();
-  });
-
-  it("ignores objects that look complete but are invalid JSON", () => {
-    expect(() => parseFirstJsonObject("{invalid}GARBAGE")).toThrow();
-  });
-});
-
 describe("mockClient", () => {
   beforeEach(() => {
     if (typeof document !== "undefined") {
@@ -294,41 +265,6 @@ describe("mockClient", () => {
     const client2 = getMockSupabaseClient(mockCookieStore2);
     const lessonsRes2 = await client2.from("lesson_progress").select("lesson_id");
     expect(lessonsRes2.data).toEqual([]);
-  });
-
-  it("robustly handles malformed json recovering concatenated and escaped strings", async () => {
-    const store = new Map<string, any>();
-    // Unmatched closing brace, unclosed strings, escaped quotes, etc. to exercise parser depth/escape recovery
-    store.set("hmc_mock_db", { value: '{"lessons":["test\\\"concatenated"]}GARBAGE' });
-
-    const mockCookieStore = {
-      get(name: string) {
-        return store.get(name);
-      },
-      set() {},
-    };
-
-    const client = getMockSupabaseClient(mockCookieStore);
-    const lessonsRes = await client.from("lesson_progress").select("lesson_id");
-    expect(lessonsRes.data).toEqual([{ lesson_id: 'test\"concatenated' }]);
-  });
-
-  it("falls back gracefully when parseFirstJsonObject completely fails to recover", async () => {
-    const store = new Map<string, any>();
-    // No closing brace, completely unrecoverable by the depth tracker
-    store.set("hmc_mock_db", { value: '{"lessons": ["incomplete"' });
-
-    const mockCookieStore = {
-      get(name: string) {
-        return store.get(name);
-      },
-      set() {},
-    };
-
-    const client = getMockSupabaseClient(mockCookieStore);
-    const lessonsRes = await client.from("lesson_progress").select("lesson_id");
-    // Should fallback to default DB (empty array for lessons)
-    expect(lessonsRes.data).toEqual([]);
   });
 
   it("robustly handles malformed json recovering concatenated and escaped strings", async () => {
