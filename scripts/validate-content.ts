@@ -67,8 +67,8 @@ async function main() {
     }
   }
 
-  const enArticles = getAllArticlesFromMdx("en");
-  const esArticles = getAllArticlesFromMdx("es");
+  const enArticles = await getAllArticlesFromMdx("en");
+  const esArticles = await getAllArticlesFromMdx("es");
   assertLocaleIdParity(enArticles, esArticles, "articles");
 
   for (const article of [...enArticles, ...esArticles]) {

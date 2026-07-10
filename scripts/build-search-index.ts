@@ -54,7 +54,7 @@ const locales = ["en", "es"] as const;
 async function main() {
   for (const locale of locales) {
     const lessons = await getAllLessonsFromMdx(locale);
-    const articles = getAllArticlesFromMdx(locale);
+    const articles = await getAllArticlesFromMdx(locale);
     const glossary = await getAllGlossaryFromMdx(locale);
     const paths = getAllPathsFromMdx(locale);
 
