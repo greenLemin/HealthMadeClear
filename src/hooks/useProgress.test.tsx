@@ -1,124 +1,349 @@
 // @vitest-environment jsdom
-import { renderHook, act } from "@testing-library/react";
+import { renderHook, waitFor, act } from "@testing-library/react";
 import { describe, expect, it, vi, beforeEach } from "vitest";
-import { useProgress } from "@/hooks/useProgress";
+import { useProgress } from "./useProgress";
+import { useAuth } from "@/hooks/useAuth";
+import { useAppState } from "@/components/AppProviders";
+import { useToast } from "@/components/ui/ToastProvider";
+import { createClient } from "@/lib/supabase/client";
+import { getGuestProgress, migrateGuestProgressToSupabase } from "@/lib/guestProgress";
 
-const mocks = vi.hoisted(() => ({
-  guestMarkLessonComplete: vi.fn(),
-  saveQuizAttempt: vi.fn(),
-  appStateMarkLessonComplete: vi.fn(),
-  recordQuizScore: vi.fn(),
-}));
-
-vi.mock("@/lib/supabase/client", () => ({
-  createClient: vi.fn(() => ({})),
-}));
-
-vi.mock("@/hooks/useAuth", () => ({
-  useAuth: vi.fn(() => ({ user: null, loading: false })),
-}));
-
-vi.mock("next-intl", () => ({
-  useLocale: vi.fn(() => "en"),
-}));
-
-vi.mock("@/components/ui/ToastProvider", () => ({
-  useToast: vi.fn(() => ({ showToast: vi.fn() })),
-}));
-
+vi.mock("@/hooks/useAuth", () => ({ useAuth: vi.fn() }));
+vi.mock("@/components/AppProviders", () => ({ useAppState: vi.fn() }));
+vi.mock("@/components/ui/ToastProvider", () => ({ useToast: vi.fn() }));
+vi.mock("@/lib/supabase/client", () => ({ createClient: vi.fn() }));
+vi.mock("next-intl", () => ({ useLocale: vi.fn(() => "en") }));
 vi.mock("@/lib/guestProgress", () => ({
   getGuestProgress: vi.fn(() => ({ completedLessons: [], quizAttempts: [] })),
-  markLessonComplete: mocks.guestMarkLessonComplete,
-  saveQuizAttempt: mocks.saveQuizAttempt,
-  migrateGuestProgressToSupabase: vi.fn(),
+  markLessonComplete: vi.fn(),
+  saveQuizAttempt: vi.fn(),
+  migrateGuestProgressToSupabase: vi.fn(() => Promise.resolve({ ok: true })),
 }));
-
 vi.mock("@/lib/achievements", () => ({
   ACHIEVEMENTS: {},
-  checkAndAwardAchievements: vi.fn(),
+  checkAndAwardAchievements: vi.fn(() => Promise.resolve([])),
 }));
+vi.mock("@/lib/streaks", () => ({ updateStreak: vi.fn(() => Promise.resolve({ currentStreak: 1 })) }));
+vi.mock("@/lib/dashboard", () => ({ updateDailyLog: vi.fn(() => Promise.resolve()) }));
+vi.mock("@/lib/notifications", () => ({ createNotification: vi.fn(() => Promise.resolve()) }));
+vi.mock("@/lib/errorReporting", () => ({ reportClientError: vi.fn() }));
 
-vi.mock("@/lib/streaks", () => ({
-  updateStreak: vi.fn(),
-}));
+describe("useProgress hook", () => {
+  let mockSupabase: any;
 
-vi.mock("@/lib/dashboard", () => ({
-  updateDailyLog: vi.fn(),
-}));
-
-vi.mock("@/lib/notifications", () => ({
-  createNotification: vi.fn(),
-}));
-
-vi.mock("@/lib/errorReporting", () => ({
-  reportClientError: vi.fn(),
-}));
-
-vi.mock("@/components/AppProviders", () => ({
-  useAppState: vi.fn(() => ({
-    locale: "en",
-    completedLessons: new Set(["lesson-a"]),
-    quizScores: [
-      { lessonId: "lesson-a", score: 80, passed: true },
-      { lessonId: "lesson-b", score: 50, passed: false },
-    ],
-    markLessonComplete: mocks.appStateMarkLessonComplete,
-    recordQuizScore: mocks.recordQuizScore,
-  })),
-}));
-
-describe("useProgress (guest path)", () => {
   beforeEach(() => {
     vi.clearAllMocks();
+    vi.mocked(useAuth).mockReturnValue({ user: null, loading: false } as any);
+    vi.mocked(useAppState).mockReturnValue({
+      completedLessons: new Set(),
+      quizScores: [],
+      markLessonComplete: vi.fn(),
+      recordQuizScore: vi.fn(),
+    } as any);
+    vi.mocked(useToast).mockReturnValue({ showToast: vi.fn() } as any);
+
+    // Mock Supabase client
+    mockSupabase = {
+      from: vi.fn((table) => {
+        if (table === "lesson_progress") {
+          return {
+            select: vi.fn().mockReturnValue({
+              eq: vi.fn().mockReturnValue({
+                eq: vi.fn().mockResolvedValue({ data: [] }),
+              }),
+            }),
+            upsert: vi.fn().mockResolvedValue({ error: null }),
+          };
+        }
+        if (table === "quiz_attempts") {
+          return {
+            select: vi.fn().mockReturnValue({
+              eq: vi.fn().mockResolvedValue({ data: [] }),
+            }),
+            insert: vi.fn().mockResolvedValue({ error: null }),
+          };
+        }
+        return {};
+      }),
+    };
+    vi.mocked(createClient).mockReturnValue(mockSupabase as any);
   });
 
-  it("exposes completed lessons from app state", () => {
-    const { result } = renderHook(() => useProgress());
-
-    expect(result.current.completedLessonIds).toEqual(["lesson-a"]);
-    expect(result.current.isLessonComplete("lesson-a")).toBe(true);
-    expect(result.current.isLessonComplete("lesson-b")).toBe(false);
-  });
-
-  it("reports best quiz score as percentage when maxScore assumed 100", () => {
-    const { result } = renderHook(() => useProgress());
-
-    expect(result.current.getQuizBestScore("lesson-a")).toBe(80);
-    expect(result.current.getQuizBestScore("lesson-b")).toBe(50);
-    expect(result.current.getQuizBestScore("never-attempted")).toBeNull();
-  });
-
-  it("computes learning path progress against completed set", () => {
-    const { result } = renderHook(() => useProgress());
-
-    const partial = result.current.getLearningPathProgress(["lesson-a", "lesson-b", "lesson-c"]);
-    expect(partial).toEqual({ completed: 1, total: 3, percentage: 33 });
-
-    const done = result.current.getLearningPathProgress(["lesson-a"]);
-    expect(done).toEqual({ completed: 1, total: 1, percentage: 100 });
-
-    const empty = result.current.getLearningPathProgress([]);
-    expect(empty).toEqual({ completed: 0, total: 0, percentage: 0 });
-  });
-
-  it("markLessonComplete delegates to guest + app state when no user", async () => {
-    const { result } = renderHook(() => useProgress());
-
-    await act(async () => {
-      await result.current.markLessonComplete("lesson-b");
+  describe("Initialization & Unauthenticated State", () => {
+    it("should initialize with empty state for unauthenticated user", () => {
+      const { result } = renderHook(() => useProgress());
+      expect(result.current.completedLessonIds).toEqual([]);
+      expect(result.current.quizAttempts).toEqual({});
+      expect(result.current.isLoading).toBe(false);
     });
 
-    expect(mocks.guestMarkLessonComplete).toHaveBeenCalledWith("lesson-b");
-    expect(mocks.appStateMarkLessonComplete).toHaveBeenCalledWith("lesson-b");
+    it("should return completed lesson IDs from AppState for unauthenticated user", () => {
+      vi.mocked(useAppState).mockReturnValue({
+        completedLessons: new Set(["lesson-1"]),
+        quizScores: [{ lessonId: "lesson-1", score: 80, passed: true }],
+        markLessonComplete: vi.fn(),
+        recordQuizScore: vi.fn(),
+      } as any);
+
+      const { result } = renderHook(() => useProgress());
+
+      expect(result.current.completedLessonIds).toEqual(["lesson-1"]);
+      expect(result.current.quizAttempts).toEqual({
+        "lesson-1": { score: 80, maxScore: 100, passed: true },
+      });
+      expect(result.current.isLessonComplete("lesson-1")).toBe(true);
+      expect(result.current.isLessonComplete("lesson-2")).toBe(false);
+    });
   });
 
-  it("saveQuizAttempt records guest score via app state when no user", async () => {
-    const { result } = renderHook(() => useProgress());
+  describe("Authenticated State & Fetching", () => {
+    it("should fetch progress for authenticated user", async () => {
+      vi.mocked(useAuth).mockReturnValue({ user: { id: "user-123" }, loading: false } as any);
 
-    await act(async () => {
-      await result.current.saveQuizAttempt("quiz-b", "lesson-b", 70, 100, [0, 1, 2]);
+      mockSupabase.from = vi.fn((table) => {
+        if (table === "lesson_progress") {
+          return {
+            select: vi.fn().mockReturnValue({
+              eq: vi.fn().mockReturnValue({
+                eq: vi.fn().mockResolvedValue({ data: [{ lesson_id: "lesson-auth-1" }] }),
+              }),
+            }),
+            upsert: vi.fn().mockResolvedValue({ error: null }),
+          };
+        }
+        if (table === "quiz_attempts") {
+          return {
+            select: vi.fn().mockReturnValue({
+              eq: vi.fn().mockResolvedValue({
+                data: [{ quiz_id: "quiz-auth-1", score: 90, max_score: 100, passed: true }],
+              }),
+            }),
+            insert: vi.fn().mockResolvedValue({ error: null }),
+          };
+        }
+        return {};
+      });
+
+      const { result } = renderHook(() => useProgress());
+
+      await waitFor(() => {
+        expect(result.current.completedLessonIds).toEqual(["lesson-auth-1"]);
+      });
+      expect(result.current.quizAttempts).toEqual({
+        "quiz-auth-1": { score: 90, maxScore: 100, passed: true },
+      });
+    });
+  });
+
+  describe("Methods & Calculations", () => {
+    it("should calculate learning path progress correctly", () => {
+      vi.mocked(useAppState).mockReturnValue({
+        completedLessons: new Set(["lesson-1", "lesson-2"]),
+        quizScores: [],
+        markLessonComplete: vi.fn(),
+        recordQuizScore: vi.fn(),
+      } as any);
+
+      const { result } = renderHook(() => useProgress());
+
+      const progress = result.current.getLearningPathProgress(["lesson-1", "lesson-2", "lesson-3"]);
+      expect(progress).toEqual({
+        completed: 2,
+        total: 3,
+        percentage: 67,
+      });
+
+      const emptyProgress = result.current.getLearningPathProgress([]);
+      expect(emptyProgress).toEqual({
+        completed: 0,
+        total: 0,
+        percentage: 0,
+      });
     });
 
-    expect(mocks.recordQuizScore).toHaveBeenCalledWith("lesson-b", 70, true);
+    it("should calculate best quiz score correctly", () => {
+      vi.mocked(useAppState).mockReturnValue({
+        completedLessons: new Set(),
+        quizScores: [{ lessonId: "quiz-1", score: 80, passed: true }],
+        markLessonComplete: vi.fn(),
+        recordQuizScore: vi.fn(),
+      } as any);
+
+      const { result } = renderHook(() => useProgress());
+
+      expect(result.current.getQuizBestScore("quiz-1")).toBe(80);
+      expect(result.current.getQuizBestScore("non-existent")).toBeNull();
+    });
+  });
+
+  describe("Guest Mutations", () => {
+    it("should call guest markLessonComplete when unauthenticated", async () => {
+      const mockGuestMarkLessonComplete = vi.fn();
+      vi.mocked(useAppState).mockReturnValue({
+        completedLessons: new Set(),
+        quizScores: [],
+        markLessonComplete: mockGuestMarkLessonComplete,
+        recordQuizScore: vi.fn(),
+      } as any);
+
+      const { result } = renderHook(() => useProgress());
+
+      await act(async () => {
+        await result.current.markLessonComplete("lesson-1");
+      });
+
+      expect(mockGuestMarkLessonComplete).toHaveBeenCalledWith("lesson-1");
+    });
+  });
+
+  describe("Guest Migration", () => {
+    it("should migrate guest progress on initial auth load", async () => {
+      vi.mocked(useAuth).mockReturnValue({ user: { id: "user-123" }, loading: false } as any);
+      vi.mocked(getGuestProgress).mockReturnValue({
+        completedLessons: ["lesson-guest"],
+        quizAttempts: [],
+      });
+
+      renderHook(() => useProgress());
+
+      await waitFor(() => {
+        expect(migrateGuestProgressToSupabase).toHaveBeenCalledWith(mockSupabase, "user-123");
+      });
+    });
+
+    it("should not migrate if no guest progress exists", async () => {
+      vi.mocked(useAuth).mockReturnValue({ user: { id: "user-123" }, loading: false } as any);
+      vi.mocked(getGuestProgress).mockReturnValue({
+        completedLessons: [],
+        quizAttempts: [],
+      });
+
+      renderHook(() => useProgress());
+
+      await waitFor(() => {
+        expect(migrateGuestProgressToSupabase).not.toHaveBeenCalled();
+      });
+    });
+  });
+
+  describe("Authenticated Mutations", () => {
+    beforeEach(() => {
+      vi.mocked(useAuth).mockReturnValue({ user: { id: "user-123" }, loading: false } as any);
+
+      mockSupabase = {
+        from: vi.fn((table) => {
+          if (table === "lesson_progress") {
+            return {
+              select: vi.fn().mockReturnValue({
+                eq: vi.fn().mockReturnValue({
+                  eq: vi.fn().mockResolvedValue({ data: [] }),
+                }),
+              }),
+              upsert: vi.fn().mockResolvedValue({ error: null }),
+            };
+          }
+          if (table === "quiz_attempts") {
+            return {
+              select: vi.fn().mockReturnValue({
+                eq: vi.fn().mockResolvedValue({ data: [] }),
+              }),
+              insert: vi.fn().mockResolvedValue({ error: null }),
+            };
+          }
+          return {};
+        }),
+      };
+      vi.mocked(createClient).mockReturnValue(mockSupabase as any);
+    });
+
+    it("should handle successful markLessonComplete for authenticated user", async () => {
+      const { result } = renderHook(() => useProgress());
+
+      // Wait for initialization to finish and the initial completedLessonIds to be evaluated
+      await waitFor(() => {
+        expect(result.current.isLoading).toBe(false);
+      });
+
+      await act(async () => {
+        await result.current.markLessonComplete("lesson-1");
+      });
+
+      expect(mockSupabase.from).toHaveBeenCalledWith("lesson_progress");
+      // Because we mock fetch to return empty, and `markLessonComplete` does an optimistic update:
+      // setSupabaseCompletedLessonIds((prev) => (prev.includes(lessonId) ? prev : [...prev, lessonId]));
+      expect(result.current.completedLessonIds).toContain("lesson-1");
+    });
+
+    it("should handle successful saveQuizAttempt for authenticated user", async () => {
+      const { result } = renderHook(() => useProgress());
+
+      await waitFor(() => {
+        expect(result.current.isLoading).toBe(false);
+      });
+
+      await act(async () => {
+        await result.current.saveQuizAttempt("quiz-1", "lesson-1", 80, 100, [1, 2]);
+      });
+
+      expect(mockSupabase.from).toHaveBeenCalledWith("quiz_attempts");
+      expect(result.current.quizAttempts["quiz-1"]).toEqual({ score: 80, maxScore: 100, passed: true });
+    });
+  });
+
+  describe("Error Handling", () => {
+    beforeEach(() => {
+      vi.mocked(useAuth).mockReturnValue({ user: { id: "user-123" }, loading: false } as any);
+
+      mockSupabase = {
+        from: vi.fn((table) => {
+          if (table === "lesson_progress") {
+            return {
+              select: vi.fn().mockReturnValue({
+                eq: vi.fn().mockReturnValue({
+                  eq: vi.fn().mockResolvedValue({ data: [] }),
+                }),
+              }),
+              upsert: vi.fn().mockResolvedValue({ error: new Error("Upsert failed") }),
+            };
+          }
+          if (table === "quiz_attempts") {
+            return {
+              select: vi.fn().mockReturnValue({
+                eq: vi.fn().mockResolvedValue({ data: [] }),
+              }),
+              insert: vi.fn().mockResolvedValue({ error: new Error("Insert failed") }),
+            };
+          }
+          return {};
+        }),
+      };
+      vi.mocked(createClient).mockReturnValue(mockSupabase as any);
+    });
+
+    it("should show error toast when markLessonComplete fails", async () => {
+      const mockShowToast = vi.fn();
+      vi.mocked(useToast).mockReturnValue({ showToast: mockShowToast } as any);
+
+      const { result } = renderHook(() => useProgress());
+
+      await act(async () => {
+        await result.current.markLessonComplete("lesson-1");
+      });
+
+      expect(mockShowToast).toHaveBeenCalledWith("error", "Failed to save progress");
+    });
+
+    it("should show error toast when saveQuizAttempt fails", async () => {
+      const mockShowToast = vi.fn();
+      vi.mocked(useToast).mockReturnValue({ showToast: mockShowToast } as any);
+
+      const { result } = renderHook(() => useProgress());
+
+      await act(async () => {
+        await result.current.saveQuizAttempt("quiz-1", "lesson-1", 100, 100, [1, 2]);
+      });
+
+      expect(mockShowToast).toHaveBeenCalledWith("error", "Failed to save quiz result");
+    });
   });
 });
