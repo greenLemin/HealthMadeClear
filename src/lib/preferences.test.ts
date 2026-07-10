@@ -14,6 +14,60 @@ describe("preferences", () => {
     vi.restoreAllMocks();
   });
 
+  describe("setPreferenceCookie", () => {
+    let originalLocation: Location;
+    let originalCookieDesc: PropertyDescriptor | undefined;
+
+    beforeEach(() => {
+      originalLocation = window.location;
+      Object.defineProperty(window, "location", {
+        value: { ...originalLocation, protocol: "https:" },
+        writable: true,
+        configurable: true,
+      });
+
+      // jsdom document.cookie setter does not save 'Secure' in the cookie string
+      // so we need to mock it to actually be able to test if it was set
+      originalCookieDesc = Object.getOwnPropertyDescriptor(Document.prototype, "cookie");
+      let cookieStore = "";
+      Object.defineProperty(document, "cookie", {
+        get: () => cookieStore,
+        set: (val) => {
+          cookieStore = val;
+        },
+        configurable: true,
+      });
+    });
+
+    afterEach(() => {
+      Object.defineProperty(window, "location", {
+        value: originalLocation,
+        writable: true,
+        configurable: true,
+      });
+      if (originalCookieDesc) {
+        Object.defineProperty(document, "cookie", originalCookieDesc);
+      } else {
+        // @ts-ignore
+        delete document.cookie;
+      }
+    });
+
+    it("sets Secure flag when protocol is https:", async () => {
+      window.location.protocol = "https:";
+      const { setPreferenceCookie } = await import("@/lib/preferences");
+      setPreferenceCookie("test-cookie", "value");
+      expect(document.cookie).toContain("Secure");
+    });
+
+    it("does not set Secure flag when protocol is http:", async () => {
+      window.location.protocol = "http:";
+      const { setPreferenceCookie } = await import("@/lib/preferences");
+      setPreferenceCookie("test-cookie", "value");
+      expect(document.cookie).not.toContain("Secure");
+    });
+  });
+
   describe("readStoredJson", () => {
     it("returns null if window is undefined", () => {
       try {
