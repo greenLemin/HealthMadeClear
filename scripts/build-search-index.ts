@@ -56,7 +56,7 @@ async function main() {
     const lessons = await getAllLessonsFromMdx(locale);
     const articles = getAllArticlesFromMdx(locale);
     const glossary = await getAllGlossaryFromMdx(locale);
-    const paths = getAllPathsFromMdx(locale);
+    const paths = await getAllPathsFromMdx(locale);
 
     const lessonEntries: SearchEntry[] = lessons.map((l) => ({
       id: l.id,

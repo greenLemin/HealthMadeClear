@@ -27,14 +27,17 @@ function writePath(locale: "en" | "es", pathItem: LearningPath) {
   fs.writeFileSync(path.join(dir, `${pathItem.id}.mdx`), pathToMdx(pathItem), "utf8");
 }
 
-const learningPaths = getAllPathsFromMdx("en");
-for (const pathItem of learningPaths) {
-  writePath("en", pathItem);
-}
+async function main() {
+  const learningPaths = await getAllPathsFromMdx("en");
+  for (const pathItem of learningPaths) {
+    writePath("en", pathItem);
+  }
 
-const esPaths = getAllPathsFromMdx("es");
-for (const pathItem of esPaths) {
-  writePath("es", pathItem);
-}
+  const esPaths = await getAllPathsFromMdx("es");
+  for (const pathItem of esPaths) {
+    writePath("es", pathItem);
+  }
 
-console.log(`Generated ${learningPaths.length} EN and ${esPaths.length} ES path MDX files.`);
+  console.log(`Generated ${learningPaths.length} EN and ${esPaths.length} ES path MDX files.`);
+}
+main().catch(console.error);

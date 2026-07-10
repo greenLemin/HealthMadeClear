@@ -7,8 +7,9 @@ import type { PathId } from "@/types/content";
 import { PATH_IDS } from "@/types/content";
 import type { LearningPath } from "@/types/learningPath";
 
-function pathFromFile(filePath: string): LearningPath {
-  const { data, content } = matter(normalizeLineEndings(fs.readFileSync(filePath, "utf8")));
+async function pathFromFile(filePath: string): Promise<LearningPath> {
+  const raw = await fs.promises.readFile(filePath, "utf8");
+  const { data, content } = matter(normalizeLineEndings(raw));
   const trimmed = content.trim();
   const sections = trimmed ? parseSections(trimmed) : [];
 
@@ -28,14 +29,17 @@ export function getPathMdxDir(locale: "en" | "es") {
   return path.join(process.cwd(), "content", "paths", locale);
 }
 
-export function getAllPathsFromMdx(locale: "en" | "es"): LearningPath[] {
+export async function getAllPathsFromMdx(locale: "en" | "es"): Promise<LearningPath[]> {
   const dir = getPathMdxDir(locale);
 
-  return PATH_IDS.map((id) => {
+  const promises = PATH_IDS.map(async (id) => {
     const filePath = path.join(dir, `${id}.mdx`);
-    if (!fs.existsSync(filePath)) {
+    try {
+      await fs.promises.access(filePath);
+    } catch {
       throw new Error(`Missing path MDX file: ${filePath}`);
     }
     return pathFromFile(filePath);
   });
+  return Promise.all(promises);
 }
