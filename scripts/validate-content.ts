@@ -35,8 +35,8 @@ async function main() {
     assertFreshReview(`Lesson ${lesson.id}`, lesson.lastReviewed);
   }
 
-  const enPaths = getAllPathsFromMdx("en");
-  const esPaths = getAllPathsFromMdx("es");
+  const enPaths = await getAllPathsFromMdx("en");
+  const esPaths = await getAllPathsFromMdx("es");
   assertLocaleIdParity(enPaths, esPaths, "paths");
 
   const enGlossary = await getAllGlossaryFromMdx("en");
