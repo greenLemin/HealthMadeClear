@@ -27,7 +27,7 @@ const COOKIE_MAX_AGE = 60 * 60 * 24 * 365;
 
 export function setPreferenceCookie(name: string, value: string) {
   if (typeof document === "undefined") return;
-  const secure = process.env.NODE_ENV === "production" ? ";Secure" : "";
+  const secure = window.location.protocol === "https:" ? ";Secure" : "";
   document.cookie = `${name}=${encodeURIComponent(value)};path=/;max-age=${COOKIE_MAX_AGE};SameSite=Lax${secure}`;
 }
 
