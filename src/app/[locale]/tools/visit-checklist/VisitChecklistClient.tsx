@@ -10,10 +10,7 @@ import Reveal from "@/components/ui/Reveal";
 import { STORAGE_KEYS, readStoredStringArray, writeStoredJson } from "@/lib/preferences";
 import { useTranslations } from "next-intl";
 
-export default function VisitChecklistClient() {
-  const t = useTranslations("tools");
-  const tCommon = useTranslations("common");
-  const checklistItems = useMemo(() => t.raw("checklistItems") as string[], [t]);
+function useChecklistState() {
   const [checkedItems, setCheckedItems] = useState<string[]>([]);
   const [hydrated, setHydrated] = useState(false);
 
@@ -42,6 +39,94 @@ export default function VisitChecklistClient() {
       return [...current, item];
     });
   };
+
+  return { checkedItems, toggleItem };
+}
+
+function ChecklistHeader({
+  progress,
+  readyText,
+  itemsCompletedText,
+  printText,
+}: {
+  progress: number;
+  readyText: string;
+  itemsCompletedText: string;
+  printText: string;
+}) {
+  return (
+    <div className="mb-6 flex flex-wrap items-center justify-between gap-4">
+      <div>
+        <div className="eyebrow mb-2">{readyText}</div>
+        <div className="text-body-md text-on-surface-variant">{itemsCompletedText}</div>
+      </div>
+      <div className="flex items-center gap-3">
+        <span className="chip-active">{progress}%</span>
+        <Button
+          type="button"
+          variant="secondary"
+          className="no-print"
+          icon={<Printer size={18} />}
+          onClick={() => window.print()}
+        >
+          {printText}
+        </Button>
+      </div>
+    </div>
+  );
+}
+
+function ChecklistItems({
+  checklistItems,
+  checkedItems,
+  toggleItem,
+  pageTitle,
+}: {
+  checklistItems: string[];
+  checkedItems: string[];
+  toggleItem: (item: string) => void;
+  pageTitle: string;
+}) {
+  return (
+    <fieldset className="m-0 border-0 p-0">
+      <legend className="sr-only">{pageTitle}</legend>
+      <div className="space-y-3">
+        {checklistItems.map((item) => {
+          const checked = checkedItems.includes(item);
+          const inputId = `checklist-${item.replace(/\s+/g, "-")}`;
+          return (
+            <label
+              key={item}
+              htmlFor={inputId}
+              className={
+                checked
+                  ? "flex w-full cursor-pointer items-center gap-4 rounded-[1.2rem] border-2 border-primary bg-primary-fixed px-5 py-4 text-left shadow-elevation-1"
+                  : "flex w-full cursor-pointer items-center gap-4 rounded-[1.2rem] border border-outline-variant bg-surface px-5 py-4 text-left transition-all duration-300 ease-premium hover:-translate-y-0.5 hover:bg-surface-container"
+              }
+            >
+              <input
+                id={inputId}
+                type="checkbox"
+                className="h-5 w-5 rounded border-outline text-primary focus:ring-primary"
+                checked={checked}
+                onChange={() => toggleItem(item)}
+              />
+              <span className="text-body-md text-on-surface">{item}</span>
+            </label>
+          );
+        })}
+      </div>
+    </fieldset>
+  );
+}
+
+export default function VisitChecklistClient() {
+  const t = useTranslations("tools");
+  const tCommon = useTranslations("common");
+  const checklistItems = useMemo(() => t.raw("checklistItems") as string[], [t]);
+
+  const { checkedItems, toggleItem } = useChecklistState();
+
   const progress =
     checklistItems.length === 0 ? 0 : Math.round((checkedItems.length / checklistItems.length) * 100);
 
@@ -56,29 +141,15 @@ export default function VisitChecklistClient() {
 
         <Reveal>
           <div className="surface-card-strong max-w-4xl px-5 py-5 md:px-6">
-            <div className="mb-6 flex flex-wrap items-center justify-between gap-4">
-              <div>
-                <div className="eyebrow mb-2">{t("readyBeforeGo")}</div>
-                <div className="text-body-md text-on-surface-variant">
-                  {tCommon("itemsCompletedCount", {
-                    completed: checkedItems.length,
-                    total: checklistItems.length,
-                  })}
-                </div>
-              </div>
-              <div className="flex items-center gap-3">
-                <span className="chip-active">{progress}%</span>
-                <Button
-                  type="button"
-                  variant="secondary"
-                  className="no-print"
-                  icon={<Printer size={18} />}
-                  onClick={() => window.print()}
-                >
-                  {t("printChecklist")}
-                </Button>
-              </div>
-            </div>
+            <ChecklistHeader
+              progress={progress}
+              readyText={t("readyBeforeGo")}
+              itemsCompletedText={tCommon("itemsCompletedCount", {
+                completed: checkedItems.length,
+                total: checklistItems.length,
+              })}
+              printText={t("printChecklist")}
+            />
 
             <div className="mb-8 rounded-[1.2rem] bg-surface px-4 py-4">
               <ProgressBar
@@ -89,35 +160,12 @@ export default function VisitChecklistClient() {
               />
             </div>
 
-            <fieldset className="border-0 p-0 m-0">
-              <legend className="sr-only">{t("checklistPageTitle")}</legend>
-              <div className="space-y-3">
-                {checklistItems.map((item) => {
-                  const checked = checkedItems.includes(item);
-                  const inputId = `checklist-${item.replace(/\s+/g, "-")}`;
-                  return (
-                    <label
-                      key={item}
-                      htmlFor={inputId}
-                      className={
-                        checked
-                          ? "flex w-full cursor-pointer items-center gap-4 rounded-[1.2rem] border-2 border-primary bg-primary-fixed px-5 py-4 text-left shadow-elevation-1"
-                          : "flex w-full cursor-pointer items-center gap-4 rounded-[1.2rem] border border-outline-variant bg-surface px-5 py-4 text-left transition-all duration-300 ease-premium hover:-translate-y-0.5 hover:bg-surface-container"
-                      }
-                    >
-                      <input
-                        id={inputId}
-                        type="checkbox"
-                        className="h-5 w-5 rounded border-outline text-primary focus:ring-primary"
-                        checked={checked}
-                        onChange={() => toggleItem(item)}
-                      />
-                      <span className="text-body-md text-on-surface">{item}</span>
-                    </label>
-                  );
-                })}
-              </div>
-            </fieldset>
+            <ChecklistItems
+              checklistItems={checklistItems}
+              checkedItems={checkedItems}
+              toggleItem={toggleItem}
+              pageTitle={t("checklistPageTitle")}
+            />
           </div>
         </Reveal>
 
