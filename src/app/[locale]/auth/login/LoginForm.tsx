@@ -13,11 +13,30 @@ import { migrateGuestProgressToSupabase } from "@/lib/guestProgress";
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-export default function LoginForm() {
+function getUrlError(errorParam: string | null, t: (key: string) => string) {
+  if (!errorParam) return null;
+  const errorMessages: Record<string, string> = {
+    confirmation_failed: t("errorConfirmationFailed"),
+    auth_failed: t("errorAuthFailed"),
+    rate_limited: t("errorRateLimited"),
+  };
+  return errorMessages[errorParam] || null;
+}
+
+function validateFields(email: string, password: string, t: (key: string) => string) {
+  const errors: { email?: string; password?: string } = {};
+  if (!email.trim()) errors.email = t("emailRequired");
+  else if (!EMAIL_REGEX.test(email.trim())) errors.email = t("errorEmailInvalid");
+  if (!password.trim()) errors.password = t("passwordRequired");
+  return errors;
+}
+
+function useLoginFormLogic() {
   const t = useTranslations("auth");
   const router = useRouter();
   const searchParams = useSearchParams();
   const supabase = useMemo(() => createClient(), []);
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -25,13 +44,7 @@ export default function LoginForm() {
   const [loading, setLoading] = useState(false);
 
   // Display errors passed via URL params (e.g. from email confirmation or OAuth)
-  const errorParam = searchParams.get("error");
-  const errorMessages: Record<string, string> = {
-    confirmation_failed: t("errorConfirmationFailed"),
-    auth_failed: t("errorAuthFailed"),
-    rate_limited: t("errorRateLimited"),
-  };
-  const urlError = errorParam ? errorMessages[errorParam] || null : null;
+  const urlError = getUrlError(searchParams.get("error"), t);
 
   function handleEmailChange(value: string) {
     setEmail(value);
@@ -49,10 +62,7 @@ export default function LoginForm() {
     e.preventDefault();
     setError("");
 
-    const nextFieldErrors: { email?: string; password?: string } = {};
-    if (!email.trim()) nextFieldErrors.email = t("emailRequired");
-    else if (!EMAIL_REGEX.test(email.trim())) nextFieldErrors.email = t("errorEmailInvalid");
-    if (!password.trim()) nextFieldErrors.password = t("passwordRequired");
+    const nextFieldErrors = validateFields(email, password, t);
     setFieldErrors(nextFieldErrors);
     if (Object.keys(nextFieldErrors).length > 0) return;
 
@@ -79,6 +89,34 @@ export default function LoginForm() {
 
     router.push(safeRedirect);
   }
+
+  return {
+    t,
+    email,
+    password,
+    error,
+    urlError,
+    fieldErrors,
+    loading,
+    handleEmailChange,
+    handlePasswordChange,
+    handleSubmit,
+  };
+}
+
+export default function LoginForm() {
+  const {
+    t,
+    email,
+    password,
+    error,
+    urlError,
+    fieldErrors,
+    loading,
+    handleEmailChange,
+    handlePasswordChange,
+    handleSubmit,
+  } = useLoginFormLogic();
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6" noValidate>
