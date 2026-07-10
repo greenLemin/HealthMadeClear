@@ -13,6 +13,7 @@ vi.mock("@/i18n/navigation", () => ({
 }));
 
 const mockGetSession = vi.fn();
+const mockGetUser = vi.fn();
 const mockOnAuthStateChange = vi.fn();
 const mockSignOut = vi.fn();
 const mockUnsubscribe = vi.fn();
@@ -21,6 +22,7 @@ vi.mock("@/lib/supabase/client", () => ({
   createClient: () => ({
     auth: {
       getSession: mockGetSession,
+      getUser: mockGetUser,
       onAuthStateChange: mockOnAuthStateChange,
       signOut: mockSignOut,
     },
@@ -48,6 +50,7 @@ describe("AuthProvider", () => {
     vi.clearAllMocks();
 
     mockGetSession.mockResolvedValue({ data: { session: null } });
+    mockGetUser.mockResolvedValue({ data: { user: null } });
     mockOnAuthStateChange.mockReturnValue({
       data: {
         subscription: {
@@ -66,6 +69,7 @@ describe("AuthProvider", () => {
     const mockUser = { id: "test-user-id" } as User;
     const mockSession = { access_token: "test-token", user: mockUser } as Session;
     mockGetSession.mockResolvedValue({ data: { session: mockSession } });
+    mockGetUser.mockResolvedValue({ data: { user: mockUser } });
 
     render(
       <AuthProvider>
@@ -73,7 +77,7 @@ describe("AuthProvider", () => {
       </AuthProvider>
     );
 
-    expect(mockGetSession).toHaveBeenCalled();
+    expect(mockGetUser).toHaveBeenCalled();
     expect(mockOnAuthStateChange).toHaveBeenCalled();
 
     await act(async () => {
@@ -83,7 +87,7 @@ describe("AuthProvider", () => {
       expect(screen.getByTestId("loading")).toHaveTextContent("false");
     });
     expect(screen.getByTestId("user")).toHaveTextContent("test-user-id");
-    expect(screen.getByTestId("session")).toHaveTextContent("test-token");
+    expect(screen.getByTestId("session")).toHaveTextContent("null");
   });
 
   it("updates state when onAuthStateChange triggers", async () => {
