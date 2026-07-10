@@ -35,6 +35,97 @@ async function loadFont(): Promise<ArrayBuffer> {
   return fontCache;
 }
 
+function Header() {
+  return (
+    <div
+      style={{
+        display: "flex",
+        alignItems: "center",
+        gap: "16px",
+        marginBottom: "24px",
+      }}
+    >
+      <div
+        style={{
+          width: "60px",
+          height: "60px",
+          borderRadius: "16px",
+          background: "rgba(255,255,255,0.15)",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          fontSize: "32px",
+          fontWeight: 700,
+          color: "#FFFFFF",
+          fontFamily: "'Atkinson Hyperlegible'",
+        }}
+      >
+        H
+      </div>
+      <span
+        style={{
+          fontSize: "36px",
+          fontWeight: 700,
+          color: "#FFFFFF",
+          opacity: 0.9,
+          fontFamily: "'Atkinson Hyperlegible'",
+          letterSpacing: "-0.02em",
+        }}
+      >
+        Health Made Clear
+      </span>
+    </div>
+  );
+}
+
+function Title({ title }: { title: string }) {
+  return (
+    <h1
+      style={{
+        fontSize: "64px",
+        fontWeight: 700,
+        color: "#FFFFFF",
+        lineHeight: 1.2,
+        maxWidth: "900px",
+        fontFamily: "'Atkinson Hyperlegible'",
+        margin: 0,
+        padding: 0,
+      }}
+    >
+      {title}
+    </h1>
+  );
+}
+
+function Category({ category }: { category: string }) {
+  if (!category) return null;
+
+  return (
+    <div
+      style={{
+        marginTop: "32px",
+        display: "flex",
+        alignItems: "center",
+        gap: "12px",
+      }}
+    >
+      <span
+        style={{
+          fontSize: "24px",
+          fontWeight: 400,
+          color: "rgba(255,255,255,0.8)",
+          fontFamily: "'Atkinson Hyperlegible'",
+          background: "rgba(255,255,255,0.1)",
+          padding: "8px 20px",
+          borderRadius: "100px",
+        }}
+      >
+        {category}
+      </span>
+    </div>
+  );
+}
+
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const title = searchParams.get("title") || "Health Education for Everyone";
@@ -55,84 +146,9 @@ export async function GET(request: Request) {
         padding: "80px 100px",
       }}
     >
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          gap: "16px",
-          marginBottom: "24px",
-        }}
-      >
-        <div
-          style={{
-            width: "60px",
-            height: "60px",
-            borderRadius: "16px",
-            background: "rgba(255,255,255,0.15)",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            fontSize: "32px",
-            fontWeight: 700,
-            color: "#FFFFFF",
-            fontFamily: "'Atkinson Hyperlegible'",
-          }}
-        >
-          H
-        </div>
-        <span
-          style={{
-            fontSize: "36px",
-            fontWeight: 700,
-            color: "#FFFFFF",
-            opacity: 0.9,
-            fontFamily: "'Atkinson Hyperlegible'",
-            letterSpacing: "-0.02em",
-          }}
-        >
-          Health Made Clear
-        </span>
-      </div>
-
-      <h1
-        style={{
-          fontSize: "64px",
-          fontWeight: 700,
-          color: "#FFFFFF",
-          lineHeight: 1.2,
-          maxWidth: "900px",
-          fontFamily: "'Atkinson Hyperlegible'",
-          margin: 0,
-          padding: 0,
-        }}
-      >
-        {title}
-      </h1>
-
-      {category ? (
-        <div
-          style={{
-            marginTop: "32px",
-            display: "flex",
-            alignItems: "center",
-            gap: "12px",
-          }}
-        >
-          <span
-            style={{
-              fontSize: "24px",
-              fontWeight: 400,
-              color: "rgba(255,255,255,0.8)",
-              fontFamily: "'Atkinson Hyperlegible'",
-              background: "rgba(255,255,255,0.1)",
-              padding: "8px 20px",
-              borderRadius: "100px",
-            }}
-          >
-            {category}
-          </span>
-        </div>
-      ) : null}
+      <Header />
+      <Title title={title} />
+      <Category category={category} />
     </div>,
     {
       width: 1200,
