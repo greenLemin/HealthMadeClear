@@ -22,10 +22,8 @@ function ChecklistItems({ items, textColor }: { items: string; textColor?: strin
   );
 }
 
-export default function CareGuideClient() {
+function CareOptionsSection() {
   const t = useTranslations("tools");
-  const tDisclaimer = useTranslations("disclaimer");
-
   const careOptions = [
     {
       title: t("homeCare"),
@@ -64,6 +62,43 @@ export default function CareGuideClient() {
     },
   ];
 
+  return (
+    <section className="mb-12">
+      <h2 className="sr-only">{t("careOptionsHeading")}</h2>
+      <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+        {careOptions.map((option, index) => {
+          const Icon = option.icon;
+          return (
+            <Reveal key={option.title} delay={Math.min(index * 0.04, 0.16)}>
+              <article className={`rounded-[1.45rem] border p-6 shadow-elevation-1 ${option.tone}`}>
+                <div className="mb-3 flex items-start justify-between gap-2">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-full bg-surface/80 shadow-elevation-1">
+                    <Icon size={22} className={option.iconColor || "text-primary"} aria-hidden />
+                  </div>
+                  {option.badge ? (
+                    <span className="rounded-full bg-error px-2 py-1 text-label-md font-semibold text-on-error">
+                      {option.badge}
+                    </span>
+                  ) : null}
+                </div>
+                <h3 className={`font-display text-headline-md ${option.titleColor || "text-primary"}`}>
+                  {option.title}
+                </h3>
+                <p className={`mt-3 text-body-md ${option.textColor || "text-on-surface-variant"}`}>
+                  {option.description}
+                </p>
+                <ChecklistItems items={option.checklist} textColor={option.textColor} />
+              </article>
+            </Reveal>
+          );
+        })}
+      </div>
+    </section>
+  );
+}
+
+function ScenariosSection() {
+  const t = useTranslations("tools");
   const scenarios = [
     {
       title: t("scenarioSoreThroatTitle"),
@@ -78,6 +113,32 @@ export default function CareGuideClient() {
       urgent: true,
     },
   ];
+
+  return (
+    <section className="mb-12">
+      <h2 className="mb-6 font-display text-headline-lg text-primary">{t("scenariosHeading")}</h2>
+      <div className="grid gap-6 md:grid-cols-2">
+        {scenarios.map((scenario, index) => (
+          <Reveal key={scenario.title} delay={Math.min(index * 0.05, 0.1)}>
+            <article
+              className={`surface-card px-6 py-6 ${scenario.urgent ? "border-error bg-error-container/20" : ""}`}
+            >
+              <div className="mb-2 inline-flex rounded-full bg-surface-container px-3 py-1 text-label-md font-semibold text-primary">
+                {scenario.level}
+              </div>
+              <h3 className="font-display text-headline-md text-primary">{scenario.title}</h3>
+              <p className="mt-3 text-body-md text-on-surface-variant">{scenario.body}</p>
+            </article>
+          </Reveal>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+export default function CareGuideClient() {
+  const t = useTranslations("tools");
+  const tDisclaimer = useTranslations("disclaimer");
 
   return (
     <div className="pb-16">
@@ -95,56 +156,9 @@ export default function CareGuideClient() {
           className="mb-8"
         />
 
-        <section className="mb-12">
-          <h2 className="sr-only">{t("careOptionsHeading")}</h2>
-          <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-            {careOptions.map((option, index) => {
-              const Icon = option.icon;
-              return (
-                <Reveal key={option.title} delay={Math.min(index * 0.04, 0.16)}>
-                  <article className={`rounded-[1.45rem] border p-6 shadow-elevation-1 ${option.tone}`}>
-                    <div className="mb-3 flex items-start justify-between gap-2">
-                      <div className="flex h-12 w-12 items-center justify-center rounded-full bg-surface/80 shadow-elevation-1">
-                        <Icon size={22} className={option.iconColor || "text-primary"} aria-hidden />
-                      </div>
-                      {option.badge ? (
-                        <span className="rounded-full bg-error px-2 py-1 text-label-md font-semibold text-on-error">
-                          {option.badge}
-                        </span>
-                      ) : null}
-                    </div>
-                    <h3 className={`font-display text-headline-md ${option.titleColor || "text-primary"}`}>
-                      {option.title}
-                    </h3>
-                    <p className={`mt-3 text-body-md ${option.textColor || "text-on-surface-variant"}`}>
-                      {option.description}
-                    </p>
-                    <ChecklistItems items={option.checklist} textColor={option.textColor} />
-                  </article>
-                </Reveal>
-              );
-            })}
-          </div>
-        </section>
+        <CareOptionsSection />
 
-        <section className="mb-12">
-          <h2 className="mb-6 font-display text-headline-lg text-primary">{t("scenariosHeading")}</h2>
-          <div className="grid gap-6 md:grid-cols-2">
-            {scenarios.map((scenario, index) => (
-              <Reveal key={scenario.title} delay={Math.min(index * 0.05, 0.1)}>
-                <article
-                  className={`surface-card px-6 py-6 ${scenario.urgent ? "border-error bg-error-container/20" : ""}`}
-                >
-                  <div className="mb-2 inline-flex rounded-full bg-surface-container px-3 py-1 text-label-md font-semibold text-primary">
-                    {scenario.level}
-                  </div>
-                  <h3 className="font-display text-headline-md text-primary">{scenario.title}</h3>
-                  <p className="mt-3 text-body-md text-on-surface-variant">{scenario.body}</p>
-                </article>
-              </Reveal>
-            ))}
-          </div>
-        </section>
+        <ScenariosSection />
 
         <Reveal delay={0.1}>
           <div className="mb-10 rounded-[1.5rem] border border-secondary bg-secondary-container/40 p-6">
