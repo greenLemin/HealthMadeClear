@@ -1,4 +1,4 @@
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import { getGlossaryRegexAndMap } from "./highlighterCache";
 import type { GlossaryTerm } from "@/types/glossary";
 
@@ -56,5 +56,25 @@ describe("getGlossaryRegexAndMap", () => {
     const result2 = getGlossaryRegexAndMap(terms2);
 
     expect(result1).not.toBe(result2);
+  });
+
+  it("ignores caching errors when saving to WeakMap", () => {
+    const terms: GlossaryTerm[] = [{ id: "1", term: "ErrorTest", definition: "Test", category: "test" }];
+    const originalSet = WeakMap.prototype.set;
+    const spy = vi.spyOn(WeakMap.prototype, "set").mockImplementation(function (
+      this: any,
+      key: any,
+      value: any
+    ) {
+      if (key === terms) {
+        throw new Error("Simulated WeakMap.set error");
+      }
+      return originalSet.call(this, key, value);
+    });
+
+    const result = getGlossaryRegexAndMap(terms);
+    expect(result.regex.source).toBe("\\b(ErrorTest)\\b");
+
+    spy.mockRestore();
   });
 });
