@@ -94,10 +94,10 @@ export default function AboutClient() {
             <p className="mt-3 text-body-md text-on-surface-variant">
               {t("contactBody")}{" "}
               <a
-                href="mailto:hello@healthmadeclear.org"
+                href="mailto:hello@healthmadeclear.com"
                 className="font-semibold text-primary underline underline-offset-2"
               >
-                hello@healthmadeclear.org
+                hello@healthmadeclear.com
               </a>
             </p>
           </section>

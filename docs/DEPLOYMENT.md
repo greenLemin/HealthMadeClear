@@ -12,15 +12,15 @@ HMC runs as a localized Next.js application. All configurations must be mapped b
 
 Configure these variables in the Netlify site settings dashboard (**Site configuration > Environment variables**):
 
-| Variable Name                   | Description                                             | Example / Required              |
-| ------------------------------- | ------------------------------------------------------- | ------------------------------- |
-| `NEXT_PUBLIC_SITE_URL`          | Canonical site URL (used for sitemap and metadata)      | `https://healthmadeclear.com`   |
-| `NEXT_PUBLIC_SUPABASE_URL`      | Production Supabase database endpoint                   | `https://your-proj.supabase.co` |
-| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Production Supabase anonymous API key                   | `eyJhbGciOiJIUzI1NiIsIn...`     |
-| `NEXT_PUBLIC_SENTRY_DSN`        | (Optional) Sentry project DSN for client error tracking | `https://sentry.io/12345`       |
-| `NEXT_PUBLIC_GA_MEASUREMENT_ID` | (Optional) Google Analytics 4 Measurement ID            | `G-XXXXXXXXXX`                  |
-| `NODE_VERSION`                  | Locked Node.js version                                  | `22`                            |
-| `NPM_VERSION`                   | Locked npm package manager version                      | `10`                            |
+| Variable Name                   | Description                                             | Example / Required                    |
+| ------------------------------- | ------------------------------------------------------- | ------------------------------------- |
+| `NEXT_PUBLIC_SITE_URL`          | Canonical site URL (used for sitemap and metadata)      | `https://healthmadeclear.netlify.app` |
+| `NEXT_PUBLIC_SUPABASE_URL`      | Production Supabase database endpoint                   | `https://your-proj.supabase.co`       |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Production Supabase anonymous API key                   | `eyJhbGciOiJIUzI1NiIsIn...`           |
+| `NEXT_PUBLIC_SENTRY_DSN`        | (Optional) Sentry project DSN for client error tracking | `https://sentry.io/12345`             |
+| `NEXT_PUBLIC_GA_MEASUREMENT_ID` | (Optional) Google Analytics 4 Measurement ID            | `G-XXXXXXXXXX`                        |
+| `NODE_VERSION`                  | Locked Node.js version                                  | `22`                                  |
+| `NPM_VERSION`                   | Locked npm package manager version                      | `10`                                  |
 
 ---
 
@@ -87,11 +87,11 @@ Configure an external uptime monitor to ping production on a fixed interval (rec
 
 ### Recommended checks
 
-| Check       | URL                                    | Expected |
-| ----------- | -------------------------------------- | -------- |
-| Home (EN)   | `https://healthmadeclear.com/en`       | HTTP 200 |
-| Home (ES)   | `https://healthmadeclear.com/es`       | HTTP 200 |
-| Learn index | `https://healthmadeclear.com/en/learn` | HTTP 200 |
+| Check       | URL                                            | Expected |
+| ----------- | ---------------------------------------------- | -------- |
+| Home (EN)   | `https://healthmadeclear.netlify.app/en`       | HTTP 200 |
+| Home (ES)   | `https://healthmadeclear.netlify.app/es`       | HTTP 200 |
+| Learn index | `https://healthmadeclear.netlify.app/en/learn` | HTTP 200 |
 
 ### Provider options
 
@@ -113,7 +113,7 @@ CSP headers are defined in `next.config.mjs` and applied to all routes. After ea
 ### Manual check
 
 ```bash
-curl -sI https://healthmadeclear.com/en | grep -i content-security-policy
+curl -sI https://healthmadeclear.netlify.app/en | grep -i content-security-policy
 ```
 
 Confirm the response includes a `Content-Security-Policy` header with the expected directives (e.g. `default-src 'self'`, Supabase connect-src entries, analytics domains if enabled).

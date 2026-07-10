@@ -48,16 +48,21 @@ export default function SearchDialog() {
   const [isOpen, setIsOpen] = useState(false);
   const [query, setQuery] = useState("");
   const [entries, setEntries] = useState<SearchEntry[]>([]);
+  const [mounted, setMounted] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
   const dialogRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
-  const shortcutLabel = useMemo(() => getShortcutLabel(t), [t]);
+  const shortcutLabel = useMemo(() => (mounted ? getShortcutLabel(t) : null), [t, mounted]);
   const motionSafe = useMotionSafe();
   const noResultsMessage = t("noResults");
   const noResultsSplit = noResultsMessage.indexOf(". ");
   const noResultsTitle =
     noResultsSplit === -1 ? noResultsMessage : noResultsMessage.slice(0, noResultsSplit + 1);
   const noResultsDescription = noResultsSplit === -1 ? "" : noResultsMessage.slice(noResultsSplit + 2);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
     let active = true;
@@ -225,9 +230,11 @@ export default function SearchDialog() {
       >
         <Search size={16} aria-hidden="true" />
         <span className="hidden md:inline xl:hidden 2xl:inline">{t("placeholder")}</span>
-        <kbd className="ml-auto hidden rounded-full border border-outline-variant bg-surface px-2 py-0.5 text-label-sm tracking-[0.16em] text-on-surface-variant md:inline xl:hidden 2xl:inline">
-          {shortcutLabel}
-        </kbd>
+        {shortcutLabel ? (
+          <kbd className="ml-auto hidden rounded-full border border-outline-variant bg-surface px-2 py-0.5 text-label-sm tracking-[0.16em] text-on-surface-variant md:inline xl:hidden 2xl:inline">
+            {shortcutLabel}
+          </kbd>
+        ) : null}
       </button>
 
       <AnimatePresence>

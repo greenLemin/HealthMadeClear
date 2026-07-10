@@ -32,7 +32,7 @@ function Confetti() {
       left: `${Math.random() * 100}%`,
       delay: `${Math.random() * 0.5}s`,
       duration: `${0.5 + Math.random() * 1}s`,
-      color: ["#14b8a6", "#0d9488", "#0f766e", "#115e59", "#134e4a"][Math.floor(Math.random() * 5)],
+      color: ["#004349", "#20686f", "#0d5c63", "#5c310d", "#3e6658"][Math.floor(Math.random() * 5)],
       size: 4 + Math.random() * 8,
     }))
   );

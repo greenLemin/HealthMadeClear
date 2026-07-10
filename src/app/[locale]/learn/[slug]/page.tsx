@@ -84,7 +84,7 @@ export default async function LessonDetailPage({ params }: Props) {
           publisher: {
             "@type": "Organization",
             name: "Health Made Clear",
-            url: "https://healthmadeclear.com",
+            url: base,
           },
           datePublished: lesson.publishedAt || lesson.lastReviewed,
           dateModified: lesson.updatedAt || lesson.lastReviewed,

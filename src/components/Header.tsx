@@ -19,7 +19,6 @@ import {
 } from "lucide-react";
 import AccessibilityControls from "@/components/AccessibilityControls";
 import LanguageToggle from "@/components/LanguageToggle";
-import SearchDialog from "@/components/SearchDialog";
 import ButtonLink from "@/components/ui/ButtonLink";
 import ThemeToggle from "@/components/ui/ThemeToggle";
 import Skeleton from "@/components/ui/Skeleton";
@@ -32,6 +31,10 @@ import { useTranslations } from "next-intl";
 import { revealEase } from "@/components/ui/Reveal";
 
 const NotificationCenter = dynamic(() => import("@/components/ui/NotificationCenter"), { ssr: false });
+const SearchDialog = dynamic(() => import("@/components/SearchDialog"), {
+  ssr: false,
+  loading: () => <Skeleton variant="button" width="44px" />,
+});
 
 export default function Header() {
   const pathname = usePathname();

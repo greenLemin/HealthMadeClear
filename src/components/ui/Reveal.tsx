@@ -1,6 +1,6 @@
 "use client";
 
-import type { CSSProperties, MouseEventHandler, ReactNode } from "react";
+import type { CSSProperties, ReactNode } from "react";
 import { motion, useReducedMotion } from "motion/react";
 
 type RevealProps = {
@@ -11,7 +11,6 @@ type RevealProps = {
   className?: string;
   id?: string;
   style?: CSSProperties;
-  onClick?: MouseEventHandler<HTMLDivElement>;
 };
 
 export const revealEase = [0.22, 1, 0.36, 1] as const;
@@ -30,13 +29,12 @@ export default function Reveal({
   className,
   id,
   style,
-  onClick,
 }: RevealProps) {
   const prefersReducedMotion = useReducedMotion();
 
   if (prefersReducedMotion) {
     return (
-      <div className={className} id={id} style={style} onClick={onClick}>
+      <div className={className} id={id} style={style}>
         {children}
       </div>
     );
@@ -47,7 +45,6 @@ export default function Reveal({
       className={className}
       id={id}
       style={style}
-      onClick={onClick}
       initial={{ opacity: 0, y: distance }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once, amount: 0.2 }}

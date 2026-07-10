@@ -154,8 +154,12 @@ export default function LearnClient({ lessons }: LearnClientProps) {
             <h2 className="mb-6 font-display text-headline-lg text-primary">{tCommon("recommended")}</h2>
             <div className="grid gap-6 lg:grid-cols-2">
               {featuredLessons.map((lesson, index) => (
-                <Reveal key={lesson.id} delay={index * 0.05} onClick={() => markLessonViewed(lesson.id)}>
-                  <LessonCard lesson={lesson} isComplete={completedLessons.has(lesson.id)} />
+                <Reveal key={lesson.id} delay={index * 0.05}>
+                  <LessonCard
+                    lesson={lesson}
+                    isComplete={completedLessons.has(lesson.id)}
+                    onNavigate={() => markLessonViewed(lesson.id)}
+                  />
                 </Reveal>
               ))}
             </div>
@@ -177,12 +181,12 @@ export default function LearnClient({ lessons }: LearnClientProps) {
                     </h3>
                     <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
                       {groupLessons.map((lesson, index) => (
-                        <Reveal
-                          key={lesson.id}
-                          delay={(index % 3) * 0.04}
-                          onClick={() => markLessonViewed(lesson.id)}
-                        >
-                          <LessonCard lesson={lesson} isComplete={completedLessons.has(lesson.id)} />
+                        <Reveal key={lesson.id} delay={(index % 3) * 0.04}>
+                          <LessonCard
+                            lesson={lesson}
+                            isComplete={completedLessons.has(lesson.id)}
+                            onNavigate={() => markLessonViewed(lesson.id)}
+                          />
                         </Reveal>
                       ))}
                     </div>
@@ -192,12 +196,12 @@ export default function LearnClient({ lessons }: LearnClientProps) {
             ) : (
               <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
                 {libraryLessons.map((lesson, index) => (
-                  <Reveal
-                    key={lesson.id}
-                    delay={(index % 3) * 0.04}
-                    onClick={() => markLessonViewed(lesson.id)}
-                  >
-                    <LessonCard lesson={lesson} isComplete={completedLessons.has(lesson.id)} />
+                  <Reveal key={lesson.id} delay={(index % 3) * 0.04}>
+                    <LessonCard
+                      lesson={lesson}
+                      isComplete={completedLessons.has(lesson.id)}
+                      onNavigate={() => markLessonViewed(lesson.id)}
+                    />
                   </Reveal>
                 ))}
               </div>

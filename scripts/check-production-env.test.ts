@@ -34,7 +34,7 @@ describe("check-production-env.mjs", () => {
     const result = runCheck({
       CI: "true",
       NETLIFY: "true",
-      URL: "https://healthmadeclear.org",
+      URL: "https://healthmadeclear.netlify.app",
       NEXT_PUBLIC_SUPABASE_URL: undefined,
       NEXT_PUBLIC_SUPABASE_ANON_KEY: undefined,
       SUPABASE_ANON_KEY: undefined,
@@ -48,7 +48,7 @@ describe("check-production-env.mjs", () => {
     const result = runCheck({
       CI: "true",
       NETLIFY: "true",
-      URL: "https://healthmadeclear.org",
+      URL: "https://healthmadeclear.netlify.app",
       SUPABASE_URL: "https://example.supabase.co",
       SUPABASE_ANON_KEY: "legacy_anon_key_value",
     });

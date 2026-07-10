@@ -30,9 +30,8 @@ export default function AuthProvider({ children }: { children: React.ReactNode }
       setLoading(false);
     });
 
-    supabase.auth.getSession().then(({ data: { session: currentSession } }) => {
-      setSession(currentSession);
-      setUser(currentSession?.user ?? null);
+    supabase.auth.getUser().then(({ data: { user: currentUser } }) => {
+      setUser(currentUser ?? null);
       setLoading(false);
     });
 

@@ -10,6 +10,7 @@ import { useTranslations } from "next-intl";
 interface LessonCardProps {
   lesson: LessonListItem;
   isComplete?: boolean;
+  onNavigate?: () => void;
 }
 
 const difficultyColors: Record<string, string> = {
@@ -18,7 +19,7 @@ const difficultyColors: Record<string, string> = {
   advanced: "bg-primary-container text-on-primary-container",
 };
 
-export default function LessonCard({ lesson, isComplete = false }: LessonCardProps) {
+export default function LessonCard({ lesson, isComplete = false, onNavigate }: LessonCardProps) {
   const { locale } = useAppState();
   const t = useTranslations("common");
 
@@ -27,6 +28,7 @@ export default function LessonCard({ lesson, isComplete = false }: LessonCardPro
       href={`/learn/${lesson.id}`}
       title={lesson.title}
       description={lesson.description}
+      onNavigate={onNavigate}
       header={
         <div className="flex flex-wrap items-center gap-2">
           <span className="chip min-h-9 px-3 py-1 text-label-sm">

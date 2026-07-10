@@ -217,7 +217,7 @@ export function useProgress(): ProgressState & ProgressActions {
           score,
           max_score: maxScore,
           passed,
-          answers: JSON.stringify(answers),
+          answers,
         });
         if (error) {
           showToast("error", "Failed to save quiz result");

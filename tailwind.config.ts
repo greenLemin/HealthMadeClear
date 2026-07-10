@@ -65,7 +65,7 @@ const config: Config = {
         "headline-lg": ["34px", { lineHeight: "1.12", letterSpacing: "-0.025em", fontWeight: "600" }],
         "headline-md": ["24px", { lineHeight: "1.3", fontWeight: "600" }],
         "body-lg": ["20px", { lineHeight: "1.6", fontWeight: "400" }],
-        "body-md": ["17px", { lineHeight: "1.65", fontWeight: "400" }],
+        "body-md": ["18px", { lineHeight: "1.65", fontWeight: "400" }],
         "label-lg": ["18px", { lineHeight: "1.4", fontWeight: "600" }],
         "label-md": ["16px", { lineHeight: "1.4", fontWeight: "600", letterSpacing: "0.02em" }],
         "label-sm": ["12px", { lineHeight: "1.4", fontWeight: "600" }],
@@ -86,7 +86,7 @@ const config: Config = {
         "margin-desktop": "64px",
       },
       maxWidth: {
-        container: "1280px",
+        container: "1100px",
         readable: "72ch",
       },
       boxShadow: {

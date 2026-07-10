@@ -39,8 +39,6 @@ export default function ToastProvider({ children }: { children: ReactNode }) {
         className="fixed bottom-4 right-4 z-[120] flex w-full max-w-sm flex-col gap-3"
         role="region"
         aria-label={t("title")}
-        aria-live="polite"
-        aria-atomic="false"
       >
         {toasts.map((toast) => (
           <ToastItem key={toast.id} toast={toast} onDismiss={dismissToast} />
