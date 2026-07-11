@@ -10,6 +10,7 @@ const SUPABASE_ENV_KEYS = [
   "NEXT_PUBLIC_SUPABASE_ANON_KEY",
   "SUPABASE_ANON_KEY",
   "SUPABASE_URL",
+  "SUPABASE_DATABASE_URL",
 ] as const;
 
 function runCheck(env: Record<string, string | undefined>) {
@@ -51,6 +52,17 @@ describe("check-production-env.mjs", () => {
       URL: "https://healthmadeclear.netlify.app",
       SUPABASE_URL: "https://example.supabase.co",
       SUPABASE_ANON_KEY: "legacy_anon_key_value",
+    });
+    expect(result.status).toBe(0);
+  });
+
+  it("derives NEXT_PUBLIC_SUPABASE_URL from SUPABASE_DATABASE_URL", () => {
+    const result = runCheck({
+      CI: "true",
+      NETLIFY: "true",
+      URL: "https://healthmadeclear.netlify.app",
+      SUPABASE_DATABASE_URL: "postgresql://postgres.abc123:pw@db.abc123.supabase.co:5432/postgres",
+      SUPABASE_ANON_KEY: "real_anon_key_value",
     });
     expect(result.status).toBe(0);
   });
