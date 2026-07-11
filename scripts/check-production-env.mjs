@@ -11,11 +11,18 @@ if (!process.env.NEXT_PUBLIC_SUPABASE_URL?.trim() && process.env.SUPABASE_URL?.t
   process.env.NEXT_PUBLIC_SUPABASE_URL = process.env.SUPABASE_URL.trim();
 }
 if (!process.env.NEXT_PUBLIC_SUPABASE_URL?.trim() && process.env.SUPABASE_DATABASE_URL?.trim()) {
-  // Netlify Supabase integration auto-provisions SUPABASE_DATABASE_URL as
-  // "postgresql://postgres.[ref]:[pw]@db.[ref].supabase.co:5432/postgres".
-  // Extract [ref] and derive the REST endpoint.
-  const m = process.env.SUPABASE_DATABASE_URL.match(/postgres\.([a-z0-9]+):/);
-  if (m) process.env.NEXT_PUBLIC_SUPABASE_URL = `https://${m[1]}.supabase.co`;
+  const dbUrl = process.env.SUPABASE_DATABASE_URL.trim();
+  // Netlify Supabase integration provisions SUPABASE_DATABASE_URL as the
+  // project REST endpoint (e.g. "https://[ref].supabase.co") — despite the
+  // misleading name, it is NOT a postgres connection string. Use it directly.
+  if (/^https:\/\/[a-z0-9-]+\.supabase\.co\/?$/i.test(dbUrl)) {
+    process.env.NEXT_PUBLIC_SUPABASE_URL = dbUrl.replace(/\/$/, "");
+  } else {
+    // Fallback: older integrations may provision a postgres connection string.
+    // Extract [ref] and derive the REST endpoint.
+    const m = dbUrl.match(/postgres\.([a-z0-9]+):/);
+    if (m) process.env.NEXT_PUBLIC_SUPABASE_URL = `https://${m[1]}.supabase.co`;
+  }
 }
 if (!process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY?.trim() && process.env.SUPABASE_ANON_KEY?.trim()) {
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY = process.env.SUPABASE_ANON_KEY.trim();

@@ -56,7 +56,18 @@ describe("check-production-env.mjs", () => {
     expect(result.status).toBe(0);
   });
 
-  it("derives NEXT_PUBLIC_SUPABASE_URL from SUPABASE_DATABASE_URL", () => {
+  it("derives NEXT_PUBLIC_SUPABASE_URL from SUPABASE_DATABASE_URL (REST URL)", () => {
+    const result = runCheck({
+      CI: "true",
+      NETLIFY: "true",
+      URL: "https://healthmadeclear.netlify.app",
+      SUPABASE_DATABASE_URL: "https://xdmbyadosmzixsxqullj.supabase.co",
+      SUPABASE_ANON_KEY: "real_anon_key_value",
+    });
+    expect(result.status).toBe(0);
+  });
+
+  it("derives NEXT_PUBLIC_SUPABASE_URL from SUPABASE_DATABASE_URL (postgres fallback)", () => {
     const result = runCheck({
       CI: "true",
       NETLIFY: "true",
