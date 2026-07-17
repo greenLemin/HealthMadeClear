@@ -129,6 +129,32 @@ describe("useDismissibleOverlay", () => {
     expect(document.body.style.overflow).toBe("");
   });
 
+  it("does not call onClose when a key other than Escape is pressed", () => {
+    const onClose = vi.fn();
+    render(<Fixture onClose={onClose} />);
+
+    fireEvent.keyDown(document, { key: "Enter" });
+
+    expect(onClose).not.toHaveBeenCalled();
+  });
+
+  it("handles multiple instances locking and unlocking body scroll correctly", () => {
+    const onClose1 = vi.fn();
+    const onClose2 = vi.fn();
+
+    const { unmount: unmount1 } = render(<Fixture onClose={onClose1} lockBodyScroll />);
+    expect(document.body.style.overflow).toBe("hidden");
+
+    const { unmount: unmount2 } = render(<Fixture onClose={onClose2} lockBodyScroll />);
+    expect(document.body.style.overflow).toBe("hidden");
+
+    unmount2();
+    expect(document.body.style.overflow).toBe("hidden"); // Still locked by the first instance
+
+    unmount1();
+    expect(document.body.style.overflow).toBe(""); // Unlocked after both are unmounted
+  });
+
   it("does not lock body scroll when lockBodyScroll is false", () => {
     const onClose = vi.fn();
     render(<Fixture onClose={onClose} lockBodyScroll={false} />);
