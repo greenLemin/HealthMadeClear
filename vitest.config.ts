@@ -12,7 +12,7 @@ export default defineConfig({
     coverage: {
       provider: "v8",
       reporter: ["text", "lcov"],
-      include: ["src/lib/**/*.{ts,tsx}", "src/hooks/**/*.{ts,tsx}"],
+      include: ["src/lib/**/*.{ts,tsx}", "src/hooks/**/*.{ts,tsx}", "src/components/ui/buttonStyles.ts"],
       exclude: ["**/*.test.{ts,tsx}", "**/*.d.ts", "**/*.md"],
       thresholds: {
         lines: 35,
