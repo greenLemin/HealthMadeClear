@@ -27,6 +27,9 @@ vi.mock("@/lib/streaks", () => ({ updateStreak: vi.fn(() => Promise.resolve({ cu
 vi.mock("@/lib/dashboard", () => ({ updateDailyLog: vi.fn(() => Promise.resolve()) }));
 vi.mock("@/lib/notifications", () => ({ createNotification: vi.fn(() => Promise.resolve()) }));
 vi.mock("@/lib/errorReporting", () => ({ reportClientError: vi.fn() }));
+vi.mock("@/lib/paths/loadPaths", () => ({
+  getAllLearningPaths: vi.fn(() => []),
+}));
 
 describe("useProgress hook", () => {
   let mockSupabase: any;
@@ -291,6 +294,60 @@ describe("useProgress hook", () => {
   });
 
   describe("Error Handling", () => {
+    it("should report client error when path loading fails during progress calculation", async () => {
+      const { reportClientError } = await import("@/lib/errorReporting");
+      const { getAllLearningPaths } = await import("@/lib/paths/loadPaths");
+
+      vi.mocked(getAllLearningPaths).mockImplementationOnce(() => {
+        throw new Error("Test path loading error");
+      });
+
+      // Override the mockSupabase for this test so upsert succeeds!
+      const successSupabase = {
+        from: vi.fn((table) => {
+          if (table === "lesson_progress") {
+            return {
+              select: vi.fn().mockReturnValue({
+                eq: vi.fn().mockReturnValue({
+                  eq: vi.fn().mockResolvedValue({ data: [] }),
+                }),
+              }),
+              upsert: vi.fn().mockResolvedValue({ error: null }),
+            };
+          }
+          if (table === "quiz_attempts") {
+            return {
+              select: vi.fn().mockReturnValue({
+                eq: vi.fn().mockResolvedValue({ data: [] }),
+              }),
+            };
+          }
+          return {};
+        }),
+      };
+
+      // I should just use the global import
+      const { createClient } = await import("@/lib/supabase/client");
+      vi.mocked(createClient).mockReturnValue(successSupabase as any);
+
+      const { result } = renderHook(() => useProgress());
+
+      await waitFor(() => {
+        expect(result.current.isLoading).toBe(false);
+      });
+
+      await act(async () => {
+        await result.current.markLessonComplete("lesson-1");
+      });
+
+      // markLessonComplete is async, wait for the error to be reported
+      await waitFor(() => {
+        expect(reportClientError).toHaveBeenCalledWith(expect.any(Error), {
+          context: "Failed to load paths for progress calculation",
+        });
+      });
+    });
+
     beforeEach(() => {
       vi.mocked(useAuth).mockReturnValue({ user: { id: "user-123" }, loading: false } as any);
 
