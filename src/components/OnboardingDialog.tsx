@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
-import { BookOpen, Route, Search, X } from "lucide-react";
+import { BookOpen, Route, Search, X, type LucideIcon } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 import { usePathname } from "@/i18n/navigation";
 import { useDismissibleOverlay } from "@/hooks/useDismissibleOverlay";
@@ -19,7 +19,7 @@ function StepItem({
   title,
   body,
 }: {
-  icon: any;
+  icon: LucideIcon;
   iconBg: string;
   iconText: string;
   title: string;
@@ -41,7 +41,13 @@ function StepItem({
   );
 }
 
-function OnboardingContent({ dismiss, t }: { dismiss: () => void; t: any }) {
+function OnboardingContent({
+  dismiss,
+  t,
+}: {
+  dismiss: () => void;
+  t: ReturnType<typeof useTranslations<"onboarding">>;
+}) {
   return (
     <div className="surface-card-glass px-5 py-5 md:px-6 md:py-6">
       <button
