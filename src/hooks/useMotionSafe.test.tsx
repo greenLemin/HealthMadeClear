@@ -1,6 +1,6 @@
 // @vitest-environment jsdom
 import { renderHook } from "@testing-library/react";
-import { describe, expect, it, vi } from "vitest";
+import { describe, expect, it, vi, afterEach } from "vitest";
 import { useMotionSafe } from "@/hooks/useMotionSafe";
 import * as motionReact from "motion/react";
 
@@ -9,6 +9,10 @@ vi.mock("motion/react", () => ({
 }));
 
 describe("useMotionSafe", () => {
+  afterEach(() => {
+    vi.restoreAllMocks();
+  });
+
   it("returns true when useReducedMotion is true", () => {
     vi.mocked(motionReact.useReducedMotion).mockReturnValue(true);
     const { result } = renderHook(() => useMotionSafe());
@@ -21,7 +25,13 @@ describe("useMotionSafe", () => {
     expect(result.current).toBe(false);
   });
 
-  it("returns false when useReducedMotion returns null/undefined", () => {
+  it("returns false when useReducedMotion returns undefined", () => {
+    vi.mocked(motionReact.useReducedMotion).mockReturnValue(undefined as any);
+    const { result } = renderHook(() => useMotionSafe());
+    expect(result.current).toBe(false);
+  });
+
+  it("returns false when useReducedMotion returns null", () => {
     vi.mocked(motionReact.useReducedMotion).mockReturnValue(null as any);
     const { result } = renderHook(() => useMotionSafe());
     expect(result.current).toBe(false);
