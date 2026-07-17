@@ -95,4 +95,54 @@ describe("POST /api/contact", () => {
     const res = await POST(req);
     expect(res.status).toBe(503);
   });
+
+  it("returns 400 for invalid field types", async () => {
+    const req = new Request("http://localhost/api/contact", {
+      method: "POST",
+      body: JSON.stringify({ name: 123, email: "test@example.com", message: "Hi" }),
+    });
+    const res = await POST(req);
+    expect(res.status).toBe(400);
+  });
+
+  it("returns 400 for name exceeding length limit", async () => {
+    const req = new Request("http://localhost/api/contact", {
+      method: "POST",
+      body: JSON.stringify({ name: "A".repeat(101), email: "test@example.com", message: "Hi" }),
+    });
+    const res = await POST(req);
+    expect(res.status).toBe(400);
+  });
+
+  it("returns 400 for email exceeding length limit", async () => {
+    const req = new Request("http://localhost/api/contact", {
+      method: "POST",
+      body: JSON.stringify({ name: "Alice", email: "A".repeat(201) + "@test.com", message: "Hi" }),
+    });
+    const res = await POST(req);
+    expect(res.status).toBe(400);
+  });
+
+  it("returns 400 for message exceeding length limit", async () => {
+    const req = new Request("http://localhost/api/contact", {
+      method: "POST",
+      body: JSON.stringify({ name: "Alice", email: "test@example.com", message: "A".repeat(5001) }),
+    });
+    const res = await POST(req);
+    expect(res.status).toBe(400);
+  });
+
+  it("returns 400 for subject exceeding length limit", async () => {
+    const req = new Request("http://localhost/api/contact", {
+      method: "POST",
+      body: JSON.stringify({
+        name: "Alice",
+        email: "test@example.com",
+        message: "Hi",
+        subject: "A".repeat(101),
+      }),
+    });
+    const res = await POST(req);
+    expect(res.status).toBe(400);
+  });
 });
