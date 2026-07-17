@@ -1,23 +1,26 @@
-// @vitest-environment jsdom
-import { render, fireEvent, screen } from "@testing-library/react";
-import { useRef } from "react";
-import { describe, expect, it, beforeAll, afterAll } from "vitest";
-import { useFocusTrap } from "@/hooks/useFocusTrap";
+import React, { useRef } from "react";
+import { render, screen, fireEvent } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
+import { describe, it, expect, beforeEach, afterEach } from "vitest";
+import { useFocusTrap } from "./useFocusTrap";
 
-function TrapFixture({ active }: { active: boolean }) {
-  const ref = useRef<HTMLDivElement>(null);
-  useFocusTrap(ref, active);
+// We need a wrapper component to test the hook
+function TestComponent({ active }: { active: boolean }) {
+  const containerRef = useRef<HTMLDivElement>(null);
+  useFocusTrap(containerRef, active);
+
   return (
-    <div ref={ref}>
-      <button type="button" data-testid="first">
-        First
-      </button>
-      <button type="button" data-testid="middle">
-        Middle
-      </button>
-      <button type="button" data-testid="last">
-        Last
-      </button>
+    <div>
+      <button data-testid="outside-1">Outside 1</button>
+      <div ref={containerRef} data-testid="trap-container">
+        <button data-testid="inside-1">Inside 1</button>
+        <button data-testid="inside-2">Inside 2</button>
+        <button data-testid="inside-3">Inside 3</button>
+        <button data-testid="inside-disabled" disabled>
+          Inside Disabled
+        </button>
+      </div>
+      <button data-testid="outside-2">Outside 2</button>
     </div>
   );
 }
@@ -29,97 +32,94 @@ function EmptyTrapFixture({ active }: { active: boolean }) {
 }
 
 describe("useFocusTrap", () => {
-  let originalOffsetParent: PropertyDescriptor | undefined;
-
-  beforeAll(() => {
-    originalOffsetParent = Object.getOwnPropertyDescriptor(HTMLElement.prototype, "offsetParent");
+  beforeEach(() => {
+    // JSDOM doesn't implement offsetParent, which is used to check visibility.
+    // We mock it so our elements appear "visible".
     Object.defineProperty(HTMLElement.prototype, "offsetParent", {
       get() {
         return this.parentNode;
       },
+      configurable: true,
     });
   });
 
-  afterAll(() => {
-    if (originalOffsetParent) {
-      Object.defineProperty(HTMLElement.prototype, "offsetParent", originalOffsetParent);
-    } else {
-      // @ts-ignore
-      delete HTMLElement.prototype.offsetParent;
-    }
+  afterEach(() => {
+    delete (HTMLElement.prototype as any).offsetParent;
   });
 
-  it("mounts with active and inactive states", () => {
-    const { rerender } = render(<TrapFixture active={false} />);
-    rerender(<TrapFixture active />);
-    expect(document.querySelectorAll("button").length).toBe(3);
+  it("does nothing when inactive", () => {
+    render(<TestComponent active={false} />);
+    const outside1 = screen.getByTestId("outside-1");
+    outside1.focus();
+    expect(document.activeElement).toBe(outside1);
   });
 
   it("focuses the first focusable element when activated", () => {
-    render(<TrapFixture active={true} />);
-    expect(document.activeElement).toBe(screen.getByTestId("first"));
+    render(<TestComponent active={true} />);
+    const inside1 = screen.getByTestId("inside-1");
+    expect(document.activeElement).toBe(inside1);
   });
 
-  it("does nothing if active is false", () => {
-    render(<TrapFixture active={false} />);
-    expect(document.activeElement).not.toBe(screen.getByTestId("first"));
+  it("traps focus when tabbing forward from the last element", async () => {
+    const user = userEvent.setup();
+    render(<TestComponent active={true} />);
+    const inside1 = screen.getByTestId("inside-1");
+    const inside3 = screen.getByTestId("inside-3");
+
+    // Focus the last element
+    inside3.focus();
+    expect(document.activeElement).toBe(inside3);
+
+    // Tab forward
+    await user.tab();
+
+    // Should wrap around to the first element
+    expect(document.activeElement).toBe(inside1);
   });
 
-  it("wraps focus to the last element when Shift+Tab is pressed on the first element", () => {
-    render(<TrapFixture active={true} />);
-    const first = screen.getByTestId("first");
-    const last = screen.getByTestId("last");
+  it("traps focus when tabbing backward from the first element", async () => {
+    const user = userEvent.setup();
+    render(<TestComponent active={true} />);
+    const inside1 = screen.getByTestId("inside-1");
+    const inside3 = screen.getByTestId("inside-3");
 
-    // Ensure first element is focused initially
-    expect(document.activeElement).toBe(first);
+    // Focus should be on the first element initially
+    expect(document.activeElement).toBe(inside1);
 
-    // Simulate Shift+Tab
-    fireEvent.keyDown(document, { key: "Tab", shiftKey: true });
+    // Tab backward
+    await user.tab({ shift: true });
 
-    expect(document.activeElement).toBe(last);
+    // Should wrap around to the last element
+    expect(document.activeElement).toBe(inside3);
   });
 
-  it("wraps focus to the first element when Tab is pressed on the last element", () => {
-    render(<TrapFixture active={true} />);
-    const first = screen.getByTestId("first");
-    const last = screen.getByTestId("last");
+  it("allows normal tab flow when not on first or last element", async () => {
+    const user = userEvent.setup();
+    render(<TestComponent active={true} />);
+    const inside2 = screen.getByTestId("inside-2");
+    const inside3 = screen.getByTestId("inside-3");
 
-    // Manually focus the last element
-    last.focus();
-    expect(document.activeElement).toBe(last);
+    inside2.focus();
+    expect(document.activeElement).toBe(inside2);
 
     // Simulate Tab
-    fireEvent.keyDown(document, { key: "Tab", shiftKey: false });
+    await user.tab();
 
-    expect(document.activeElement).toBe(first);
-  });
-
-  it("allows normal tab flow when not on first or last element", () => {
-    render(<TrapFixture active={true} />);
-    const middle = screen.getByTestId("middle");
-
-    middle.focus();
-    expect(document.activeElement).toBe(middle);
-
-    // Simulate Tab
-    fireEvent.keyDown(document, { key: "Tab", shiftKey: false });
-
-    // Focus should remain or flow normally, handled by browser not JS
-    // We just verify it doesn't wrap to first/last forcefully
-    expect(document.activeElement).toBe(middle);
+    // Focus should flow normally to the next element
+    expect(document.activeElement).toBe(inside3);
   });
 
   it("ignores non-Tab key events", () => {
-    render(<TrapFixture active={true} />);
-    const first = screen.getByTestId("first");
+    render(<TestComponent active={true} />);
+    const inside1 = screen.getByTestId("inside-1");
 
-    expect(document.activeElement).toBe(first);
+    expect(document.activeElement).toBe(inside1);
 
     // Simulate another key
     fireEvent.keyDown(document, { key: "Enter" });
 
     // Focus should remain on the first element
-    expect(document.activeElement).toBe(first);
+    expect(document.activeElement).toBe(inside1);
   });
 
   it("handles empty container without throwing", () => {
@@ -127,5 +127,23 @@ describe("useFocusTrap", () => {
 
     // Try pressing Tab, should not crash
     expect(() => fireEvent.keyDown(document, { key: "Tab" })).not.toThrow();
+  });
+
+  it("returns focus to previously focused element when deactivated", () => {
+    const { rerender } = render(<TestComponent active={false} />);
+
+    // Focus an outside element before trapping
+    const outside1 = screen.getByTestId("outside-1");
+    outside1.focus();
+    expect(document.activeElement).toBe(outside1);
+
+    // Activate the trap
+    rerender(<TestComponent active={true} />);
+    const inside1 = screen.getByTestId("inside-1");
+    expect(document.activeElement).toBe(inside1);
+
+    // Deactivate the trap
+    rerender(<TestComponent active={false} />);
+    expect(document.activeElement).toBe(outside1);
   });
 });
