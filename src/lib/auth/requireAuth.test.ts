@@ -1,19 +1,20 @@
 import { describe, expect, it, vi, beforeEach } from "vitest";
 import { requireAuth } from "./requireAuth";
 import { createClient } from "@/lib/supabase/server";
-import { redirect } from "@/i18n/navigation";
+
+const mockRedirect = vi.fn();
+vi.mock("@/i18n/navigation", () => ({
+  redirect: (...args) => mockRedirect(...args),
+}));
 
 vi.mock("@/lib/supabase/server", () => ({
   createClient: vi.fn(),
 }));
 
-vi.mock("@/i18n/navigation", () => ({
-  redirect: vi.fn(),
-}));
-
 describe("requireAuth", () => {
   beforeEach(() => {
     vi.clearAllMocks();
+    mockRedirect.mockClear();
   });
 
   it("returns user when authenticated", async () => {
@@ -29,7 +30,7 @@ describe("requireAuth", () => {
     const user = await requireAuth("en");
 
     expect(user).toEqual(mockUser);
-    expect(redirect).not.toHaveBeenCalled();
+    expect(mockRedirect).not.toHaveBeenCalled();
   });
 
   it("redirects to login when not authenticated", async () => {
@@ -42,7 +43,7 @@ describe("requireAuth", () => {
 
     await requireAuth("es");
 
-    expect(redirect).toHaveBeenCalledWith({ href: "/auth/login", locale: "es" });
+    expect(mockRedirect).toHaveBeenCalledWith({ href: "/auth/login", locale: "es" });
   });
 
   it("includes redirect URL when redirectTo is provided", async () => {
@@ -55,7 +56,7 @@ describe("requireAuth", () => {
 
     await requireAuth("en", "/dashboard");
 
-    expect(redirect).toHaveBeenCalledWith({
+    expect(mockRedirect).toHaveBeenCalledWith({
       href: "/auth/login?redirect=%2Fdashboard",
       locale: "en",
     });
