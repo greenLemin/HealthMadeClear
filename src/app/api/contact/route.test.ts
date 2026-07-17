@@ -1,11 +1,22 @@
 import { describe, expect, it, vi, beforeEach } from "vitest";
 import { POST, clearRateLimitStore } from "./route";
+import { createClient } from "@supabase/supabase-js";
+
+vi.mock("@supabase/supabase-js", () => ({
+  createClient: vi.fn(),
+}));
 
 describe("POST /api/contact", () => {
   beforeEach(() => {
     vi.stubEnv("NEXT_PUBLIC_SUPABASE_URL", "https://test.supabase.co");
     vi.stubEnv("NEXT_PUBLIC_SUPABASE_ANON_KEY", "test_anon_key");
     clearRateLimitStore("contact");
+    vi.clearAllMocks();
+    (createClient as any).mockReturnValue({
+      from: vi.fn().mockReturnValue({
+        insert: vi.fn().mockResolvedValue({ error: null }),
+      }),
+    });
   });
 
   it("returns 400 for missing fields", async () => {
@@ -94,5 +105,22 @@ describe("POST /api/contact", () => {
     });
     const res = await POST(req);
     expect(res.status).toBe(503);
+  });
+
+  it("returns 500 when Supabase insertion fails", async () => {
+    (createClient as any).mockReturnValue({
+      from: vi.fn().mockReturnValue({
+        insert: vi.fn().mockResolvedValue({ error: new Error("Insertion failed") }),
+      }),
+    });
+
+    const req = new Request("http://localhost/api/contact", {
+      method: "POST",
+      body: JSON.stringify({ name: "Alice", email: "alice@example.com", message: "Hi" }),
+    });
+    const res = await POST(req);
+    expect(res.status).toBe(500);
+    const json = await res.json();
+    expect(json.error).toBe("Failed to save submission");
   });
 });
