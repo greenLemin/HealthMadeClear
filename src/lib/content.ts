@@ -104,10 +104,13 @@ export function getStartedPathCount(
 ) {
   const completedLessonIdsSet = new Set(completedLessonIds);
   const startedPathIdsSet = new Set(startedPathIds);
+
+  const validLessonIdsSet = new Set(lessonItems.map((l) => l.id as string));
+
   return pathItems.filter((path) => {
     if (startedPathIdsSet.has(path.id)) return true;
-    return getLessonsByPath(path.id, lessonItems, pathItems).some((lesson) =>
-      completedLessonIdsSet.has(lesson.id)
+    return path.lessons.some(
+      (lessonId) => validLessonIdsSet.has(lessonId as string) && completedLessonIdsSet.has(lessonId as string)
     );
   }).length;
 }
@@ -118,8 +121,22 @@ export function getCompletedPathCount(
   pathItems: LearningPath[]
 ) {
   const completedLessonIdsSet = new Set(completedLessonIds);
+  const validLessonIdsSet = new Set(lessonItems.map((l) => l.id as string));
+
   return pathItems.filter((path) => {
-    const pathLessons = getLessonsByPath(path.id, lessonItems, pathItems);
-    return pathLessons.length > 0 && pathLessons.every((lesson) => completedLessonIdsSet.has(lesson.id));
+    let hasValidLessons = false;
+    let allValidCompleted = true;
+
+    for (const lessonId of path.lessons) {
+      if (validLessonIdsSet.has(lessonId as string)) {
+        hasValidLessons = true;
+        if (!completedLessonIdsSet.has(lessonId as string)) {
+          allValidCompleted = false;
+          break;
+        }
+      }
+    }
+
+    return hasValidLessons && allValidCompleted;
   }).length;
 }
