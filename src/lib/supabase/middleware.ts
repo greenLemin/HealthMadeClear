@@ -1,5 +1,6 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
+import { sanitizeRedirectPath } from "@/lib/auth/sanitizeRedirect";
 import { getSupabaseAnonKey, getSupabaseUrl, isSupabaseConfigured, shouldUseMockClient } from "./env";
 
 export async function updateSession(request: NextRequest, response?: NextResponse) {
@@ -33,8 +34,9 @@ export async function updateSession(request: NextRequest, response?: NextRespons
 
   if (isDashboardRoute && !user) {
     const locale = pathname.split("/")[1] ?? "en";
-    const loginUrl = new URL(`/${locale}/auth/login`, request.url);
-    loginUrl.searchParams.set("redirect", pathname);
+    const loginUrl = request.nextUrl.clone();
+    loginUrl.pathname = `/${locale}/auth/login`;
+    loginUrl.searchParams.set("redirect", sanitizeRedirectPath(pathname));
     return NextResponse.redirect(loginUrl);
   }
 
