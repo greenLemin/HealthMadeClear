@@ -25,7 +25,38 @@
   <circle cx="1100" cy="550" r="140" fill="none" stroke="rgba(255,255,255,0.02)" stroke-width="30"/>
   <!-- Logo mark -->
   <rect x="80" y="72" width="60" height="60" rx="16" fill="rgba(255,255,255,0.12)"/>
-  <text x="110" y="114" font-size="32" text-anchor="middle" class="title">H</text>
+  <g transform="translate(85, 77) scale(0.5)">
+    <!-- 1. Outer Cover Layer (Darkest Teal) -->
+    <path
+      d="M 50 36 C 42 26 28 26 12 32 C 12 32 10 32 10 34 L 10 66 C 10 68 12 68 12 68 C 28 62 42 70 50 76 C 58 70 72 62 88 68 C 88 68 90 68 90 66 L 90 34 C 90 32 88 32 88 32 C 72 26 58 26 50 36 Z"
+      fill="#00353a"
+    />
+    <!-- 2. Middle Page Thickness Layer (Medium Teal) -->
+    <path
+      d="M 50 38 C 42 29 29 29 14 34 C 14 34 12 34 12 36 L 12 64 C 12 66 14 66 14 66 C 29 61 42 68 50 74 C 58 68 71 61 86 66 C 86 66 88 66 88 64 L 88 36 C 88 34 86 34 86 34 C 71 29 58 29 50 38 Z"
+      fill="#0c4f55"
+    />
+    <!-- 3. Front Page Layer (Brand Teal) -->
+    <path
+      d="M 50 40 C 42 32 30 32 16 36 C 16 36 14 36 14 38 L 14 62 C 14 64 16 64 16 64 C 30 60 42 66 50 72 C 58 66 70 60 84 64 C 84 64 86 64 86 62 L 86 38 C 86 36 84 36 84 36 C 70 32 58 32 50 40 Z"
+      fill="#004349"
+    />
+    <!-- Heartbeat / ECG pulse line (White) -->
+    <path
+      d="M 24 48 L 38 48 L 41 42 L 44 54 L 47 34 L 50 58 L 53 46 L 56 51 L 59 48 L 76 48"
+      stroke="#ffffff"
+      stroke-width="2.5"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
+    <!-- Plus Symbol below ECG (White) -->
+    <path
+      d="M 50 61 L 50 67 M 47 64 L 53 64"
+      stroke="#ffffff"
+      stroke-width="2"
+      stroke-linecap="round"
+    />
+  </g>
   <!-- Wordmark -->
   <text x="160" y="114" font-size="36" class="wordmark">Health Made Clear</text>
   <!-- Title -->
