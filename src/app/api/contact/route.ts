@@ -71,10 +71,10 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Invalid email address format" }, { status: 400 });
     }
 
-    // Use anon key — the contact_submissions INSERT policy uses WITH CHECK (true),
-    // so the anon role can insert without needing the service role.
+    // Use service role key to insert, so we can lock down the table
+    // and prevent attackers from bypassing the rate limits by using the anon key directly.
     const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-    const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+    const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
     if (!supabaseUrl || !supabaseKey) {
       reportServerError(new Error("Supabase env vars not configured"), { route: "contact" });
       return NextResponse.json({ error: "Service unavailable" }, { status: 503 });
