@@ -152,6 +152,17 @@ describe("useProgress hook", () => {
         total: 3,
         percentage: 67,
       });
+    });
+
+    it("should handle empty lesson sets without dividing by zero for getLearningPathProgress", () => {
+      vi.mocked(useAppState).mockReturnValue({
+        completedLessons: new Set(),
+        quizScores: [],
+        markLessonComplete: vi.fn(),
+        recordQuizScore: vi.fn(),
+      } as any);
+
+      const { result } = renderHook(() => useProgress());
 
       const emptyProgress = result.current.getLearningPathProgress([]);
       expect(emptyProgress).toEqual({
