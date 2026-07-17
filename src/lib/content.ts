@@ -33,10 +33,17 @@ export async function getCategories(
   locale: Locale = "en"
 ): Promise<{ id: string; label: string; count: number }[]> {
   const lessons = loadAllLessons(locale);
+  const categoryCounts = new Map<string, number>();
+
+  for (let i = 0; i < lessons.length; i++) {
+    const categoryId = lessons[i].categoryId;
+    categoryCounts.set(categoryId, (categoryCounts.get(categoryId) || 0) + 1);
+  }
+
   return LESSON_CATEGORY_IDS.map((id) => ({
     id,
     label: id,
-    count: lessons.filter((l) => l.categoryId === id).length,
+    count: categoryCounts.get(id) || 0,
   }));
 }
 
