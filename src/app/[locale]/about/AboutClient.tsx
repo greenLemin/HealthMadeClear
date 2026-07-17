@@ -24,7 +24,7 @@ export default function AboutClient() {
   );
 }
 
-function EducationMission({ t }: { t: any }) {
+function EducationMission({ t }: { t: ReturnType<typeof useTranslations<"about">> }) {
   return (
     <Reveal>
       <div className="section-frame px-6 py-6 md:px-8 md:py-8">
@@ -38,7 +38,7 @@ function EducationMission({ t }: { t: any }) {
   );
 }
 
-function EducationCallouts({ t }: { t: any }) {
+function EducationCallouts({ t }: { t: ReturnType<typeof useTranslations<"about">> }) {
   return (
     <div className="mt-8 grid gap-6 lg:grid-cols-[1.08fr_0.92fr]">
       <Reveal>
@@ -58,7 +58,7 @@ function EducationCallouts({ t }: { t: any }) {
   );
 }
 
-function CoreValues({ t }: { t: any }) {
+function CoreValues({ t }: { t: ReturnType<typeof useTranslations<"about">> }) {
   const values = [
     { title: t("valueEducationTitle"), description: t("valueEducationBody"), icon: ShieldCheck },
     { title: t("valueEveryoneTitle"), description: t("valueEveryoneBody"), icon: Users },
@@ -88,7 +88,7 @@ function CoreValues({ t }: { t: any }) {
   );
 }
 
-function JoinCommunity({ t }: { t: any }) {
+function JoinCommunity({ t }: { t: ReturnType<typeof useTranslations<"about">> }) {
   return (
     <Reveal delay={0.1} className="mt-12">
       <section className="surface-card-strong px-6 py-8 text-center md:px-10 md:py-10">
@@ -110,7 +110,7 @@ function JoinCommunity({ t }: { t: any }) {
   );
 }
 
-function ContactInfo({ t }: { t: any }) {
+function ContactInfo({ t }: { t: ReturnType<typeof useTranslations<"about">> }) {
   return (
     <Reveal delay={0.14} className="mt-8">
       <section className="surface-card-glass px-6 py-6 text-center md:px-8" id="contact">
