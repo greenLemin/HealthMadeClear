@@ -38,8 +38,22 @@ export async function getRecommendedNextLesson(
   );
 
   for (const path of allPaths) {
-    const nextIncomplete = path.lessons.find((id) => !completedSet.has(id));
-    if (nextIncomplete && path.lessons.some((id) => completedSet.has(id))) {
+    let nextIncomplete: string | undefined;
+    let hasCompleted = false;
+
+    for (const id of path.lessons) {
+      if (completedSet.has(id)) {
+        hasCompleted = true;
+      } else if (nextIncomplete === undefined) {
+        nextIncomplete = id;
+      }
+
+      if (hasCompleted && nextIncomplete !== undefined) {
+        break;
+      }
+    }
+
+    if (hasCompleted && nextIncomplete !== undefined) {
       const lesson = lessonRecord[nextIncomplete];
       if (lesson) {
         return {
