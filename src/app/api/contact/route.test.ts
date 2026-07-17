@@ -4,7 +4,7 @@ import { POST, clearRateLimitStore } from "./route";
 describe("POST /api/contact", () => {
   beforeEach(() => {
     vi.stubEnv("NEXT_PUBLIC_SUPABASE_URL", "https://test.supabase.co");
-    vi.stubEnv("NEXT_PUBLIC_SUPABASE_ANON_KEY", "test_anon_key");
+    vi.stubEnv("SUPABASE_SERVICE_ROLE_KEY", "test_service_key");
     clearRateLimitStore("contact");
   });
 
@@ -86,7 +86,7 @@ describe("POST /api/contact", () => {
 
   it("returns 503 when Supabase env is missing", async () => {
     vi.stubEnv("NEXT_PUBLIC_SUPABASE_URL", "");
-    vi.stubEnv("NEXT_PUBLIC_SUPABASE_ANON_KEY", "");
+    vi.stubEnv("SUPABASE_SERVICE_ROLE_KEY", "");
 
     const req = new Request("http://localhost/api/contact", {
       method: "POST",
