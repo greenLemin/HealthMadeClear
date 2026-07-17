@@ -45,7 +45,7 @@
     "@supabase/ssr": "^0.12.0",
     "@supabase/supabase-js": "^2.110.6",
     "gray-matter": "^4.0.3",
-    "lucide-react": "^1.23.0",
+    "lucide-react": "^1.24.0",
     "markdown-it": "^14.3.0",
     "motion": "^12.42.2",
     "next": "16.2.10",
