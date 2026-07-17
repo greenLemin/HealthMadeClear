@@ -77,7 +77,7 @@ function createTimestamp(offsetMs = 0) {
 }
 
 function createMockId(prefix: string) {
-  return `${prefix}-${Math.random().toString(36).slice(2, 10)}-${Date.now().toString(36)}`;
+  return `${prefix}-${crypto.randomUUID()}`;
 }
 
 function createMockAuthError(message: string) {
