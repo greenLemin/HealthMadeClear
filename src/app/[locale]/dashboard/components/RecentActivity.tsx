@@ -27,7 +27,7 @@ export default function RecentActivity({ recentActivity, recommendedNext, locale
               <div
                 className={`mt-0.5 rounded-full p-1.5 shadow-elevation-1 ${
                   item.type === "lesson"
-                    ? "bg-primary-fixed text-primary"
+                    ? "bg-primary-container text-on-primary-container"
                     : "bg-secondary-container/60 text-secondary"
                 }`}
                 aria-hidden="true"

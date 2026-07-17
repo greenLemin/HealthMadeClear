@@ -37,7 +37,7 @@ export default function Step1ChooseVisitType({
             <div className="mt-6 space-y-3">
               {prepBullets.map((item, index) => (
                 <div key={item} className="surface-card flex items-center gap-4 px-4 py-4">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary-fixed text-label-md font-semibold text-primary shadow-elevation-1">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary-container text-label-md font-semibold text-on-primary-container shadow-elevation-1">
                     {index + 1}
                   </div>
                   <p className="text-body-md text-on-surface">{item}</p>

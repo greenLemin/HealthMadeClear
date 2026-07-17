@@ -7,7 +7,6 @@ import Hero from "@/components/Hero";
 import SectionNav from "@/components/SectionNav";
 import Callout from "@/components/Callout";
 import MedicalDisclaimer from "@/components/MedicalDisclaimer";
-import Button from "@/components/ui/Button";
 import ButtonLink from "@/components/ui/ButtonLink";
 import Reveal from "@/components/ui/Reveal";
 import { useAppState } from "@/components/AppProviders";
@@ -46,6 +45,9 @@ export default function HomeClient({ lessons, learningPaths }: HomeClientProps) 
 
   return (
     <div className="pb-14">
+      <div className="w-full overflow-hidden">
+        <video src="/HMC_Video.mp4" autoPlay loop muted playsInline className="block h-auto w-full" />
+      </div>
       <Hero />
       <SectionNav />
 
@@ -99,7 +101,7 @@ export default function HomeClient({ lessons, learningPaths }: HomeClientProps) 
 
             <Reveal className="md:col-span-6" delay={0.1}>
               <div className="surface-card flex flex-col gap-6 p-8 md:flex-row md:items-center">
-                <div className="inline-flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-primary-fixed/80 text-primary shadow-elevation-1">
+                <div className="inline-flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-primary-container text-on-primary-container shadow-elevation-1">
                   <BookOpen size={28} aria-hidden="true" />
                 </div>
                 <div>
@@ -267,12 +269,10 @@ export default function HomeClient({ lessons, learningPaths }: HomeClientProps) 
                     </p>
                   </div>
                   <div className="mt-6">
-                    <Link href={`/learn/${lastRecentLesson.id}`}>
-                      <Button variant="primary" size="md">
-                        {tDashboard("continueCta")}
-                        <ArrowRight size={18} />
-                      </Button>
-                    </Link>
+                    <ButtonLink href={`/learn/${lastRecentLesson.id}`} variant="primary" size="md">
+                      {tDashboard("continueCta")}
+                      <ArrowRight size={18} />
+                    </ButtonLink>
                   </div>
                 </div>
               ) : completedLessons.size === 0 ? (
@@ -285,12 +285,10 @@ export default function HomeClient({ lessons, learningPaths }: HomeClientProps) 
                     {tDashboard("startJourney")}
                   </p>
                   <div className="mt-6">
-                    <Link href="/learn">
-                      <Button variant="primary" size="md">
-                        {tCommon("exploreLibrary")}
-                        <ArrowRight size={18} />
-                      </Button>
-                    </Link>
+                    <ButtonLink href="/learn" variant="primary" size="md">
+                      {tCommon("exploreLibrary")}
+                      <ArrowRight size={18} />
+                    </ButtonLink>
                   </div>
                 </div>
               ) : (
@@ -303,12 +301,10 @@ export default function HomeClient({ lessons, learningPaths }: HomeClientProps) 
                     {tCommon("completed")}: {completedLessons.size} {tCommon("modules")}
                   </p>
                   <div className="mt-6">
-                    <Link href="/dashboard">
-                      <Button variant="primary" size="md">
-                        {tCommon("exploreLibrary")}
-                        <ArrowRight size={18} />
-                      </Button>
-                    </Link>
+                    <ButtonLink href="/dashboard" variant="primary" size="md">
+                      {tCommon("exploreLibrary")}
+                      <ArrowRight size={18} />
+                    </ButtonLink>
                   </div>
                 </div>
               )
@@ -326,16 +322,12 @@ export default function HomeClient({ lessons, learningPaths }: HomeClientProps) 
                     <p className="mt-3 text-body-md text-on-surface-variant">{tAuth("signupSubtitle")}</p>
                   </div>
                   <div className="flex shrink-0 flex-wrap justify-center gap-4">
-                    <Link href="/auth/login">
-                      <Button variant="secondary" size="md">
-                        {tAuth("loginButton")}
-                      </Button>
-                    </Link>
-                    <Link href="/auth/signup">
-                      <Button variant="primary" size="md">
-                        {tAuth("signupButton")}
-                      </Button>
-                    </Link>
+                    <ButtonLink href="/auth/login" variant="secondary" size="md">
+                      {tAuth("loginButton")}
+                    </ButtonLink>
+                    <ButtonLink href="/auth/signup" variant="primary" size="md">
+                      {tAuth("signupButton")}
+                    </ButtonLink>
                   </div>
                 </div>
               </div>

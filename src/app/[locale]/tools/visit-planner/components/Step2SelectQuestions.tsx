@@ -105,7 +105,7 @@ export default function Step2SelectQuestions({
         <Reveal>
           <div className="surface-card px-6 py-6 md:px-8 md:py-8">
             <div className="mb-5 flex items-start gap-4">
-              <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary-fixed text-primary shadow-elevation-1">
+              <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary-container text-on-primary-container shadow-elevation-1">
                 <NotebookPen size={22} aria-hidden="true" />
               </div>
               <div>

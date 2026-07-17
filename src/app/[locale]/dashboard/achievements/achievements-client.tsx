@@ -157,7 +157,7 @@ function AchievementsStats({
     <div className="grid gap-4 sm:grid-cols-2">
       <Reveal delay={0.05}>
         <div className="surface-card px-6 py-6">
-          <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-primary-fixed text-primary shadow-elevation-1">
+          <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-primary-container text-on-primary-container shadow-elevation-1">
             <Award size={22} aria-hidden="true" />
           </div>
           <div className="eyebrow mb-3">{copy.earnedLabel}</div>

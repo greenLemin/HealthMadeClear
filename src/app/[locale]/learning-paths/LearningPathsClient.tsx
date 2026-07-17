@@ -48,7 +48,7 @@ function PathItem({ path, index, lessons, learningPaths, glossaryTerms }: PathIt
           <div className="max-w-3xl">
             <div className="mb-4 flex flex-wrap items-center gap-3">
               <div
-                className="flex h-14 w-14 items-center justify-center rounded-[1.4rem] bg-primary-fixed text-2xl shadow-elevation-1"
+                className="flex h-14 w-14 items-center justify-center rounded-[1.4rem] bg-primary-container text-2xl shadow-elevation-1"
                 aria-hidden="true"
               >
                 {path.icon}

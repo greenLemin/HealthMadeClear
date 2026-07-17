@@ -92,7 +92,7 @@ function JoinCommunity({ t }: { t: ReturnType<typeof useTranslations<"about">> }
   return (
     <Reveal delay={0.1} className="mt-12">
       <section className="surface-card-strong px-6 py-8 text-center md:px-10 md:py-10">
-        <div className="mb-4 inline-flex rounded-full bg-primary-fixed px-4 py-2 text-label-md font-semibold text-primary">
+        <div className="mb-4 inline-flex rounded-full bg-primary-container px-4 py-2 text-label-md font-semibold text-on-primary-container">
           {t("joinBadge")}
         </div>
         <h2 className="font-display text-headline-lg text-primary">{t("joinTitle")}</h2>

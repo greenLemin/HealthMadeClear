@@ -9,6 +9,7 @@ import {
   Home,
   Info,
   LayoutDashboard,
+  LogIn,
   LogOut,
   Menu,
   Route,
@@ -22,6 +23,7 @@ import LanguageToggle from "@/components/LanguageToggle";
 import ButtonLink from "@/components/ui/ButtonLink";
 import ThemeToggle from "@/components/ui/ThemeToggle";
 import Skeleton from "@/components/ui/Skeleton";
+import Logo from "@/components/Logo";
 import TruncatedText from "@/components/ui/TruncatedText";
 import { useDismissibleOverlay } from "@/hooks/useDismissibleOverlay";
 import { useFocusTrap } from "@/hooks/useFocusTrap";
@@ -100,7 +102,7 @@ export default function Header() {
         ))}
       </nav>
 
-      <div className="mt-4 rounded-[1.5rem] bg-surface-container-low/70 p-4 shadow-elevation-1 md:hidden">
+      <div className="mt-4 rounded-[1.5rem] bg-surface-container-low/70 p-4 shadow-elevation-1 lg:hidden">
         <div className="space-y-3">
           <SearchDialog />
           <div className="flex items-center gap-2">
@@ -165,9 +167,7 @@ export default function Header() {
 
           <div className="flex min-h-[76px] items-center justify-between gap-4 py-3">
             <Link href="/" className="flex items-center gap-3" onClick={() => setIsOpen(false)}>
-              <div className="logo-mark flex h-12 w-12 items-center justify-center rounded-[1.25rem] text-label-lg font-bold text-on-primary shadow-elevation-1">
-                H
-              </div>
+              <Logo className="h-12 w-12 shadow-elevation-1 rounded-[1.25rem]" />
               <div className="min-w-0">
                 <span className="block truncate font-display text-[1.45rem] leading-none text-primary">
                   Health Made Clear
@@ -179,7 +179,7 @@ export default function Header() {
             </Link>
 
             <nav
-              className="hidden items-center gap-1 rounded-full bg-surface-container-low/80 p-1.5 shadow-elevation-1 xl:flex"
+              className="hidden items-center gap-0.5 rounded-full bg-surface-container-low/80 p-1.5 shadow-elevation-1 2xl:flex 2xl:gap-0 2xl:p-1"
               aria-label={t("mainNavigation")}
             >
               {navItems.map((item) => (
@@ -197,7 +197,7 @@ export default function Header() {
               ))}
             </nav>
 
-            <div className="hidden items-center gap-3 md:flex">
+            <div className="hidden items-center gap-2 lg:gap-3 lg:flex 2xl:gap-1.5">
               {loading ? (
                 <Skeleton variant="button" width="110px" />
               ) : user ? (
@@ -208,7 +208,9 @@ export default function Header() {
                     className="flex items-center gap-2 rounded-full bg-surface-container-lowest/85 px-4 py-2.5 text-label-md text-primary shadow-elevation-1 transition-all duration-300 ease-premium hover:-translate-y-0.5 hover:shadow-elevation-2"
                   >
                     <User size={16} />
-                    <TruncatedText className="max-w-[120px] truncate">{displayName}</TruncatedText>
+                    <TruncatedText className="max-w-[120px] truncate 2xl:max-w-[80px]">
+                      {displayName}
+                    </TruncatedText>
                   </Link>
                   <button
                     type="button"
@@ -225,17 +227,23 @@ export default function Header() {
                     href="/auth/login"
                     variant="secondary"
                     size="sm"
-                    className="min-h-11 px-4 text-label-md"
+                    className="min-h-11 px-4 text-label-md 2xl:flex 2xl:w-11 2xl:px-0 2xl:justify-center"
+                    aria-label={authT("loginButton")}
                   >
-                    {authT("loginButton")}
+                    <LogIn size={18} aria-hidden="true" className="hidden 2xl:block" />
+                    <span className="2xl:hidden">{authT("loginButton")}</span>
                   </ButtonLink>
-                  <ButtonLink href="/auth/signup" size="sm" className="min-h-11 px-4 text-label-md">
+                  <ButtonLink
+                    href="/auth/signup"
+                    size="sm"
+                    className="min-h-11 px-4 text-label-md 2xl:hidden"
+                  >
                     {authT("signupButton")}
                   </ButtonLink>
                 </div>
               )}
 
-              <div className="flex items-center gap-2 rounded-full bg-surface-container-low/80 p-1.5 shadow-elevation-1">
+              <div className="flex items-center gap-2 rounded-full bg-surface-container-low/80 p-1.5 shadow-elevation-1 2xl:p-1">
                 <SearchDialog />
                 <LanguageToggle />
                 <ThemeToggle />
@@ -246,7 +254,7 @@ export default function Header() {
             <button
               ref={toggleButtonRef}
               type="button"
-              className="flex min-h-11 min-w-11 items-center justify-center rounded-full border border-outline-variant bg-surface-container-lowest/90 p-2.5 text-primary shadow-elevation-1 xl:hidden"
+              className="flex min-h-11 min-w-11 items-center justify-center rounded-full border border-outline-variant bg-surface-container-lowest/90 p-2.5 text-primary shadow-elevation-1 2xl:hidden"
               onClick={() => setIsOpen((current) => !current)}
               aria-expanded={isOpen}
               aria-controls="mobile-menu"
@@ -265,7 +273,7 @@ export default function Header() {
                   role="dialog"
                   aria-modal="true"
                   aria-label={t("mobileNavigation")}
-                  className="border-t border-outline-variant pb-4 pt-3 xl:hidden"
+                  className="border-t border-outline-variant pb-4 pt-3 2xl:hidden"
                 >
                   {mobileMenuContent}
                 </div>
@@ -280,7 +288,7 @@ export default function Header() {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -8 }}
                   transition={{ duration: 0.24, ease: revealEase }}
-                  className="border-t border-outline-variant pb-4 pt-3 xl:hidden"
+                  className="border-t border-outline-variant pb-4 pt-3 2xl:hidden"
                 >
                   {mobileMenuContent}
                 </motion.div>
@@ -319,8 +327,8 @@ function NavLink({
             ? "flex items-center gap-3 rounded-[1.25rem] bg-primary px-4 py-3 text-label-md font-semibold text-on-primary shadow-elevation-1"
             : "flex items-center gap-3 rounded-[1.25rem] bg-surface-container-lowest/75 px-4 py-3 text-label-md font-medium text-on-surface-variant transition-all duration-300 ease-premium hover:bg-surface hover:text-primary"
           : active
-            ? "flex items-center gap-2 rounded-full bg-primary px-4 py-3 text-label-md font-semibold text-on-primary shadow-elevation-1"
-            : "flex items-center gap-2 rounded-full px-4 py-3 text-label-md font-medium text-on-surface-variant transition-all duration-300 ease-premium hover:bg-surface hover:text-primary"
+            ? "flex items-center gap-2 rounded-full bg-primary px-3 py-2.5 text-label-md font-semibold text-on-primary shadow-elevation-1 2xl:px-2.5 2xl:gap-1"
+            : "flex items-center gap-2 rounded-full px-3 py-2.5 text-label-md font-medium text-on-surface-variant transition-all duration-300 ease-premium hover:bg-surface hover:text-primary 2xl:px-2.5 2xl:gap-1"
       }
     >
       <span>{icon}</span>

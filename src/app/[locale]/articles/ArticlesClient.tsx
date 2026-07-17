@@ -54,7 +54,7 @@ export default function ArticlesClient() {
                 />
               </label>
               <div className="mt-4 flex flex-wrap items-center justify-between gap-3">
-                <span className="chip-active">{t("resultsCount", { count: filtered.length })}</span>
+                <span className="chip chip-active">{t("resultsCount", { count: filtered.length })}</span>
                 {query ? (
                   <Button type="button" variant="secondary" size="sm" onClick={() => setQuery("")}>
                     {t("clearSearch")}

@@ -232,7 +232,7 @@ export default function LessonPageClient({
                       <section className="surface-card px-6 py-6 md:px-8 md:py-8">
                         <div className="mb-4 flex items-center gap-3">
                           <div
-                            className="flex h-10 w-10 items-center justify-center rounded-full bg-primary-fixed text-label-md font-bold text-primary shadow-elevation-1"
+                            className="flex h-10 w-10 items-center justify-center rounded-full bg-primary-container text-label-md font-bold text-on-primary-container shadow-elevation-1"
                             aria-hidden="true"
                           >
                             {index + 1}

@@ -68,8 +68,8 @@ function OnboardingContent({
       <div className="mt-5 space-y-4">
         <StepItem
           icon={BookOpen}
-          iconBg="bg-primary-fixed/80"
-          iconText="text-primary"
+          iconBg="bg-primary-container"
+          iconText="text-on-primary-container"
           title={t("step1Title")}
           body={t("step1Body")}
         />

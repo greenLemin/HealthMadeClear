@@ -98,6 +98,7 @@ export function useVisitPlanner(defaultQuestions: string[]) {
   } = useCustomQuestions();
   const [notes, setNotes] = useState("");
   const [hydrated, setHydrated] = useState(false);
+  const defaultQuestionsStr = JSON.stringify(defaultQuestions);
 
   useEffect(() => {
     const saved = readStoredJson(STORAGE_KEYS.visitPlanner, parsePlannerState);
@@ -109,11 +110,11 @@ export function useVisitPlanner(defaultQuestions: string[]) {
       setCustomQuestions(saved.customQuestions ?? []);
       setNotes(saved.notes);
     } else {
-      setSelectedQuestions(defaultQuestions);
+      setSelectedQuestions(JSON.parse(defaultQuestionsStr));
     }
 
     setHydrated(true);
-  }, [defaultQuestions, setSelectedQuestions, setCustomQuestions]);
+  }, [defaultQuestionsStr, setSelectedQuestions, setCustomQuestions]);
 
   useEffect(() => {
     if (!hydrated) return;

@@ -22,7 +22,7 @@ export default function DashboardStats({ summary, locale }: DashboardStatsProps)
       <Card padding="sm" variant="glass">
         <div className="flex items-center gap-3">
           <div
-            className="rounded-full bg-primary-fixed p-2.5 text-primary shadow-elevation-1"
+            className="rounded-full bg-primary-container p-2.5 text-on-primary-container shadow-elevation-1"
             aria-hidden="true"
           >
             <BookOpen size={20} />

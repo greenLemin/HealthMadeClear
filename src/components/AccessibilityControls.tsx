@@ -183,7 +183,7 @@ export default function AccessibilityControls() {
         aria-controls="accessibility-panel"
       >
         <Settings2 size={18} aria-hidden="true" />
-        {t("display")}
+        <span className="hidden 2xl:inline">{t("display")}</span>
       </button>
 
       <AnimatePresence>

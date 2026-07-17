@@ -86,7 +86,7 @@ const config: Config = {
         "margin-desktop": "64px",
       },
       maxWidth: {
-        container: "1100px",
+        container: "1440px",
         readable: "72ch",
       },
       boxShadow: {

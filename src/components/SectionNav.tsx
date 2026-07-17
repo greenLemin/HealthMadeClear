@@ -19,9 +19,9 @@ export default function SectionNav() {
     {
       title: t("learnTitle"),
       description: t("learnDescription"),
-      icon: <GraduationCap size={32} className="text-primary" aria-hidden="true" />,
+      icon: <GraduationCap size={32} className="text-on-primary-container" aria-hidden="true" />,
       href: "/learn",
-      color: "bg-primary-fixed/70",
+      color: "bg-primary-container",
     },
     {
       title: t("glossaryTitle"),

@@ -47,6 +47,16 @@ export default function GlossaryClient({ terms: glossaryTerms }: GlossaryClientP
     }));
   }, [glossaryTerms]);
 
+  const populatedLetters = useMemo(() => {
+    const set = new Set<string>();
+    for (const term of searchableTerms) {
+      if (term.normalized) {
+        set.add(term.normalized);
+      }
+    }
+    return set;
+  }, [searchableTerms]);
+
   const filteredTerms = useMemo(() => {
     const lowerQuery = query.toLowerCase();
     return searchableTerms.filter((term) => {
@@ -99,20 +109,27 @@ export default function GlossaryClient({ terms: glossaryTerms }: GlossaryClientP
               A-Z
             </div>
             <div className="flex flex-wrap gap-2">
-              {alphabet.map((letter) => (
-                <button
-                  key={letter}
-                  type="button"
-                  onClick={() => setActiveLetter(letter)}
-                  aria-pressed={activeLetter === letter}
-                  className={[
-                    "chip flex h-11 min-w-11 items-center justify-center px-3",
-                    activeLetter === letter ? "chip-active" : "",
-                  ].join(" ")}
-                >
-                  {letter === "All" ? allLabel : letter}
-                </button>
-              ))}
+              {alphabet.map((letter) => {
+                const isAll = letter === "All";
+                const hasTerms = isAll || populatedLetters.has(letter);
+                const active = activeLetter === letter;
+                return (
+                  <button
+                    key={letter}
+                    type="button"
+                    disabled={!hasTerms}
+                    onClick={() => setActiveLetter(letter)}
+                    aria-pressed={active}
+                    className={[
+                      "chip flex h-11 min-w-11 items-center justify-center px-3",
+                      active ? "chip-active" : "",
+                      !hasTerms ? "opacity-35 cursor-not-allowed pointer-events-none" : "",
+                    ].join(" ")}
+                  >
+                    {isAll ? allLabel : letter}
+                  </button>
+                );
+              })}
             </div>
           </div>
         ) : null}

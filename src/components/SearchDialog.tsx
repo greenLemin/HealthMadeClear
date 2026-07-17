@@ -191,7 +191,7 @@ export default function SearchDialog() {
                   onClick={close}
                   className="surface-card group flex items-start gap-3 px-4 py-4 transition-all duration-300 ease-premium hover:-translate-y-0.5 hover:shadow-card-hover"
                 >
-                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-primary-fixed/75 text-primary shadow-elevation-1">
+                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-primary-container text-on-primary-container shadow-elevation-1">
                     <BookOpen size={18} aria-hidden="true" />
                   </div>
                   <div className="min-w-0 flex-1">
@@ -225,13 +225,13 @@ export default function SearchDialog() {
         ref={triggerRef}
         type="button"
         onClick={() => setIsOpen(true)}
-        className="flex min-h-11 items-center gap-3 rounded-full border border-outline-variant bg-surface-container-lowest/90 px-3 py-2 text-label-md text-on-surface-variant shadow-elevation-1 transition-all duration-300 ease-premium hover:-translate-y-0.5 hover:bg-surface hover:text-on-surface hover:shadow-elevation-2 md:w-56 xl:w-11 2xl:w-56 xl:justify-center 2xl:justify-start"
+        className="flex min-h-11 items-center gap-3 rounded-full border border-outline-variant bg-surface-container-lowest/90 px-3 py-2 text-label-md text-on-surface-variant shadow-elevation-1 transition-all duration-300 ease-premium hover:-translate-y-0.5 hover:bg-surface hover:text-on-surface hover:shadow-elevation-2 md:w-56 lg:w-11 xl:w-11 2xl:w-11 xl:justify-center 2xl:justify-center"
         aria-label={t("openSearch")}
       >
         <Search size={16} aria-hidden="true" />
-        <span className="hidden md:inline xl:hidden 2xl:inline">{t("placeholder")}</span>
+        <span className="hidden md:inline lg:hidden">{t("placeholder")}</span>
         {shortcutLabel ? (
-          <kbd className="ml-auto hidden rounded-full border border-outline-variant bg-surface px-2 py-0.5 text-label-sm tracking-[0.16em] text-on-surface-variant md:inline xl:hidden 2xl:inline">
+          <kbd className="ml-auto hidden rounded-full border border-outline-variant bg-surface px-2 py-0.5 text-label-sm tracking-[0.16em] text-on-surface-variant md:inline lg:hidden">
             {shortcutLabel}
           </kbd>
         ) : null}

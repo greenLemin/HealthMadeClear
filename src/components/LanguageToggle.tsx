@@ -34,10 +34,6 @@ export default function LanguageToggle() {
       role="radiogroup"
       aria-label={t("language")}
     >
-      <div className="hidden items-center gap-2 pl-2 text-label-md font-semibold uppercase tracking-[0.08em] text-on-surface-variant sm:flex xl:hidden 2xl:flex">
-        <Languages size={14} aria-hidden="true" />
-        {t("language")}
-      </div>
       <button
         type="button"
         role="radio"
