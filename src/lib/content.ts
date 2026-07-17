@@ -86,7 +86,7 @@ export function getPathProgress(
   pathItems: LearningPath[]
 ) {
   const pathLessons = getLessonsByPath(pathId, lessonItems, pathItems);
-  const completedLessonIdsSet = new Set(completedLessonIds);
+  const completedLessonIdsSet = new Set<string>(completedLessonIds);
   const completedCount = pathLessons.filter((lesson) => completedLessonIdsSet.has(lesson.id)).length;
   const totalCount = pathLessons.length;
   return {
@@ -102,12 +102,13 @@ export function getStartedPathCount(
   lessonItems: LessonListItem[],
   pathItems: LearningPath[]
 ) {
-  const completedLessonIdsSet = new Set(completedLessonIds);
+  const completedLessonIdsSet = new Set<string>(completedLessonIds);
   const startedPathIdsSet = new Set(startedPathIds);
+  const validLessonIds = new Set<string>(lessonItems.map((l) => l.id));
   return pathItems.filter((path) => {
     if (startedPathIdsSet.has(path.id)) return true;
-    return getLessonsByPath(path.id, lessonItems, pathItems).some((lesson) =>
-      completedLessonIdsSet.has(lesson.id)
+    return path.lessons.some(
+      (lessonId) => validLessonIds.has(lessonId as string) && completedLessonIdsSet.has(lessonId)
     );
   }).length;
 }
@@ -117,9 +118,12 @@ export function getCompletedPathCount(
   lessonItems: LessonListItem[],
   pathItems: LearningPath[]
 ) {
-  const completedLessonIdsSet = new Set(completedLessonIds);
+  const completedLessonIdsSet = new Set<string>(completedLessonIds);
+  const validLessonIds = new Set<string>(lessonItems.map((l) => l.id));
   return pathItems.filter((path) => {
-    const pathLessons = getLessonsByPath(path.id, lessonItems, pathItems);
-    return pathLessons.length > 0 && pathLessons.every((lesson) => completedLessonIdsSet.has(lesson.id));
+    const validPathLessons = path.lessons.filter((lessonId) => validLessonIds.has(lessonId));
+    return (
+      validPathLessons.length > 0 && validPathLessons.every((lessonId) => completedLessonIdsSet.has(lessonId))
+    );
   }).length;
 }
