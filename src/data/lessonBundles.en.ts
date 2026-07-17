@@ -746,12 +746,12 @@ export const lessons: Lesson[] = [
         {
           title: "Ages 50-64",
           content:
-            "| Screening             | Frequency                        | Notes                                        |\n| --------------------- | -------------------------------- | -------------------------------------------- |\n| Blood pressure        | Every year                       |                                              |\n| Cholesterol           | Every 4-6 years                  |                                              |\n| Diabetes              | Every 3 years                    |                                              |\n| Colorectal cancer     | Every 10 years (colonoscopy)     | Or yearly FIT test                           |\n| Mammogram (women)     | Every 1-2 years                  |                                              |\n| Lung cancer (CT scan) | Yearly                           | Ages 50-80 with 20 pack-year smoking history |\n| Osteoporosis (women)  | At 65 or earlier if risk factors | Bone density scan                            |\n| Prostate cancer (men) | Talk to doctor                   | Ages 55-69, individual decision              |\n| Shingles vaccine      | Two doses                        | Age 50+                                      |\n| Dental exam           | Every 6 months                   |                                              |\n| Eye exam              | Every 1-2 years                  |                                              |",
+            "| Screening             | Frequency                        | Notes                                                                                            |\n| --------------------- | -------------------------------- | ------------------------------------------------------------------------------------------------ |\n| Blood pressure        | Every year                       |                                                                                                  |\n| Cholesterol           | Every 4-6 years                  |                                                                                                  |\n| Diabetes              | Every 3 years                    |                                                                                                  |\n| Colorectal cancer     | Every 10 years (colonoscopy)     | Or yearly FIT test                                                                               |\n| Mammogram (women)     | Every 1-2 years                  |                                                                                                  |\n| Lung cancer (CT scan) | Yearly                           | Ages 50-80 with 20 pack-year smoking history, currently smoking or quit within the last 15 years |\n| Osteoporosis (women)  | At 65 or earlier if risk factors | Bone density scan                                                                                |\n| Prostate cancer (men) | Talk to doctor                   | Ages 55-69, individual decision                                                                  |\n| Shingles vaccine      | Two doses                        | Age 50+                                                                                          |\n| Dental exam           | Every 6 months                   |                                                                                                  |\n| Eye exam              | Every 1-2 years                  |                                                                                                  |",
         },
         {
           title: "Ages 65+",
           content:
-            "| Screening            | Frequency        | Notes                       |\n| -------------------- | ---------------- | --------------------------- |\n| Blood pressure       | Every year       |                             |\n| Cholesterol          | Every 4-6 years  |                             |\n| Colorectal cancer    | Until age 75     | Discuss after 75            |\n| Mammogram (women)    | Every 1-2 years  | Until 74, then discuss      |\n| Lung cancer (CT)     | Yearly           | Until 80 if smoking history |\n| Osteoporosis         | Every 2 years    |                             |\n| Fall risk assessment | Yearly           |                             |\n| Cognitive screening  | Yearly           |                             |\n| Pneumonia vaccine    | One or two doses | Age 65+                     |\n| Flu vaccine          | Every year       |                             |\n| Dental exam          | Every 6 months   |                             |\n| Eye exam             | Every year       |                             |",
+            "| Screening            | Frequency        | Notes                                                                                                                 |\n| -------------------- | ---------------- | --------------------------------------------------------------------------------------------------------------------- |\n| Blood pressure       | Every year       |                                                                                                                       |\n| Cholesterol          | Every 4-6 years  |                                                                                                                       |\n| Colorectal cancer    | Until age 75     | Discuss after 75                                                                                                      |\n| Mammogram (women)    | Every 1-2 years  | Until 74, then discuss                                                                                                |\n| Lung cancer (CT)     | Yearly           | Until 80 if currently smoking or quit within the last 15 years with 20 pack-year history                              |\n| Osteoporosis         | Every 2 years    |                                                                                                                       |\n| Fall risk assessment | Yearly           |                                                                                                                       |\n| Cognitive screening  | Yearly           |                                                                                                                       |\n| Pneumonia vaccine    | One or two doses | Age 65+, or earlier with risk factors (ask your doctor or pharmacist which specific vaccine product is right for you) |\n| Flu vaccine          | Every year       |                                                                                                                       |\n| Dental exam          | Every 6 months   |                                                                                                                       |\n| Eye exam             | Every year       |                                                                                                                       |",
         },
         {
           title: "How to Prepare for Screenings",
@@ -875,7 +875,7 @@ export const lessons: Lesson[] = [
             {
               type: "warning",
               content:
-                "**Hypertensive crisis (180/120 or higher) is a medical emergency.** Call 911 if you have chest pain, shortness of breath, vision changes, or confusion with these numbers.",
+                "**Hypertensive crisis (180/120 or higher) is a medical emergency.** Call 911 if you have chest pain, shortness of breath, vision changes, or confusion with these numbers. Even without symptoms, a reading this high should prompt same-day contact with your clinician.",
             },
           ],
         },
@@ -891,7 +891,8 @@ export const lessons: Lesson[] = [
           callouts: [
             {
               type: "success",
-              content: "The DASH diet can lower systolic BP by 8-14 points — similar to some medications.",
+              content:
+                "The DASH diet can lower systolic BP by 8-14 points — similar to some medications (Appel et al., NEJM 1997; Sacks et al., NEJM 2001).",
             },
           ],
         },
@@ -1058,12 +1059,12 @@ export const lessons: Lesson[] = [
         {
           title: "Two Types of Inhalers",
           content:
-            "### 1. Quick-Relief (Rescue) Inhaler\n\n- **Short-acting beta agonist (SABA):** Albuterol, levalbuterol\n- **Use:** For sudden symptoms or before exercise (if prescribed)\n- **Works in:** Minutes\n- **Lasts:** 4-6 hours\n- **Color code:** Often **red** or blue\n\n\n\n### 2. Controller (Maintenance) Inhaler\n\n- **Inhaled corticosteroids (ICS):** Fluticasone, budesonide, beclomethasone\n- **Use:** Daily, even when feeling well\n- **Works over:** Days to weeks\n- **Prevents:** Inflammation and attacks\n- **Color code:** Often **orange**, brown, or purple\n\n### Combination Inhalers\n\n- **ICS + Long-acting beta agonist (LABA):** Fluticasone/salmeterol, budesonide/formoterol\n- **Used as:** Daily controller (some also approved for rescue)",
+            "### 1. Quick-Relief (Rescue) Inhaler\n\n- **Short-acting beta agonist (SABA):** Albuterol, levalbuterol\n- **Use:** For sudden symptoms or before exercise (if prescribed)\n- **Works in:** Minutes\n- **Lasts:** 4-6 hours\n  warning\nInhaler colors can be a helpful memory cue, but they are not standardized — different brands and manufacturers use different colors. Always check the drug name on the label (for example, albuterol = quick-relief; fluticasone = controller) rather than relying on color alone.\n:::\n\n### Combination Inhalers\n\n- **ICS + Long-acting beta agonist (LABA):** Fluticasone/salmeterol, budesonide/formoterol\n- **Used as:** Daily controller (some also approved for rescue)",
           callouts: [
             {
               type: "info",
               content:
-                "If you use your rescue inhaler more than 2 times per week (not counting pre-exercise), your asthma is not well controlled. Talk to your doctor.",
+                "If you use your rescue inhaler more than 2 times per week (not counting pre-exercise), your asthma is not well controlled. Talk to your doctor.\n  :::\n\n### 2. Controller (Maintenance) Inhaler\n\n- **Inhaled corticosteroids (ICS):** Fluticasone, budesonide, beclomethasone\n- **Use:** Daily, even when feeling well\n- **Works over:** Days to weeks\n- **Prevents:** Inflammation and attacks",
             },
           ],
         },
@@ -1075,7 +1076,7 @@ export const lessons: Lesson[] = [
             {
               type: "success",
               content:
-                "A spacer (holding chamber) doubles the amount of medicine reaching your lungs. Always use one with MDIs.",
+                "A spacer (holding chamber) substantially increases the amount of medicine reaching your lungs compared to using an inhaler alone — the exact improvement varies by device and technique. Always use one with MDIs.",
             },
           ],
         },
@@ -1152,7 +1153,7 @@ export const lessons: Lesson[] = [
         {
           title: "Protecting Your Heart",
           content:
-            '### Life\'s Essential 8 (American Heart Association)\n\n1. **Eat better** — Mediterranean or DASH diet\n2. **Be active** — 150 min moderate or 75 min vigorous/week\n3. **Quit tobacco** — including vaping\n4. **Get healthy sleep** — 7-9 hours/night\n5. **Manage weight** — BMI 18.5-24.9\n6. **Control cholesterol** — LDL < 100 (or < 70 if high risk)\n7. **Manage blood sugar** — A1C < 5.7%\n8. **Manage blood pressure** — < 120/80\n\n\n\n### Heart-Healthy Eating\n\n- **More:** vegetables, fruits, whole grains, beans, nuts, fish, olive oil\n- **Less:** red meat, processed meat, refined grains, added sugar, sodium\n- **Limit saturated fat** to < 10% of calories\n- **No trans fats** (partially hydrogenated oils)\n\n### Know Your Numbers (Get Checked)\n\n| Test              | Target                    |\n| ----------------- | ------------------------- |\n| Blood pressure    | < 120/80                  |\n| Total cholesterol | < 200 mg/dL               |\n| LDL ("bad")       | < 100 (or < 70 high risk) |\n| HDL ("good")      | > 40 men, > 50 women      |\n| Triglycerides     | < 150                     |\n| Fasting glucose   | < 100                     |\n| A1C               | < 5.7%                    |',
+            '### Life\'s Essential 8 (American Heart Association)\n\n1. **Eat better** — Mediterranean or DASH diet\n2. **Be active** — 150 min moderate or 75 min vigorous/week\n3. **Quit tobacco** — including vaping\n4. **Get healthy sleep** — 7-9 hours/night\n5. **Manage weight** — BMI 18.5-24.9\n6. **Control cholesterol** — LDL < 100 (or < 70 if high risk)\n7. **Manage blood sugar** — A1C < 5.7% is normal for people without diabetes; if you have diabetes, your personal A1C goal is usually higher (often below 7%) and is set with your doctor\n8. **Manage blood pressure** — < 120/80 is considered normal; if you\'re being treated for high blood pressure, your doctor will set a personal target (often below 130/80)\n\n\n\n### Heart-Healthy Eating\n\n- **More:** vegetables, fruits, whole grains, beans, nuts, fish, olive oil\n- **Less:** red meat, processed meat, refined grains, added sugar, sodium\n- **Limit saturated fat** to < 10% of calories\n- **No trans fats** (partially hydrogenated oils)\n\n### Know Your Numbers (Get Checked)\n\n| Test              | Target                                                                                                          |\n| ----------------- | --------------------------------------------------------------------------------------------------------------- |\n| Blood pressure    | < 120/80 (normal); if treated for hypertension, personal target often < 130/80                                  |\n| Total cholesterol | < 200 mg/dL                                                                                                     |\n| LDL ("bad")       | < 100 (or < 70 high risk)                                                                                       |\n| HDL ("good")      | > 40 men, > 50 women                                                                                            |\n| Triglycerides     | < 150                                                                                                           |\n| Fasting glucose   | < 100                                                                                                           |\n| A1C               | < 5.7% (normal); if you have diabetes, your personal goal is usually higher (often < 7%) — set with your doctor |',
           callouts: [
             {
               type: "success",
@@ -1261,7 +1262,7 @@ export const lessons: Lesson[] = [
     sidebarTips: [
       "Breathe: 4 counts in, 6 counts out — activates relaxation response.",
       "Ground yourself: name 5 things you see, 4 you feel, 3 you hear, 2 you smell, 1 you taste.",
-      "Panic attacks are not dangerous. They pass in 5-20 minutes.",
+      "Panic attacks usually peak within minutes and ease within 20–30 minutes. But if this is your first episode, symptoms are severe, or you're not sure it's a panic attack (especially with chest pain), treat it as an emergency and call 911 or seek care.",
       "Avoid caffeine and alcohol — both worsen anxiety.",
     ],
     sidebarTitle: "Coping quick guide",
@@ -1302,12 +1303,12 @@ export const lessons: Lesson[] = [
         {
           title: "Managing Anxiety",
           content:
-            '### Grounding Techniques (for acute anxiety/panic)\n\n1. **5-4-3-2-1:** Name 5 things you see, 4 you can touch, 3 you hear, 2 you smell, 1 you taste\n2. **Deep breathing:** Inhale 4 counts, hold 4, exhale 6 — activates parasympathetic nervous system\n3. **Cold water:** Splash cold water on face — triggers diving reflex, slows heart rate\n4. **Self-talk:** "This is uncomfortable but not dangerous. It will pass."\n\n### Lifestyle\n\n- **Limit caffeine:** Increases heart rate, mimics anxiety symptoms\n- **Regular exercise:** Burns off stress hormones, produces endorphins\n- **Sleep:** 7-9 hours — sleep deprivation worsens anxiety\n- **Reduce alcohol:** Short-term relief, long-term worsening\n- **Mindfulness meditation:** 10 minutes daily reduces amygdala reactivity\n\n### Professional Treatments\n\n- **CBT (Cognitive Behavioral Therapy)** — Gold standard for all anxiety disorders. Teaches you to challenge anxious thoughts and face fears gradually\n- **Exposure therapy** — Gradually and safely facing feared situations\n- **Acceptance and Commitment Therapy (ACT)** — Accepts anxiety, commits to valued action\n- **Medications:**\n  - SSRIs/SNRIs (same as depression) — daily, long-term\n  - Buspirone — for GAD\n  - Benzodiazepines (e.g., clonazepam, lorazepam) — short-term or as-needed only',
+            '### Grounding Techniques (for acute anxiety/panic)\n\n1. **5-4-3-2-1:** Name 5 things you see, 4 you can touch, 3 you hear, 2 you smell, 1 you taste\n2. **Deep breathing:** Inhale 4 counts, hold 4, exhale 6 — activates parasympathetic nervous system\n3. **Cold water:** Splash cold water on face — triggers diving reflex, slows heart rate\n4. **Self-talk:** "This is uncomfortable but not dangerous. It will pass."\n\n### Lifestyle\n\n- **Limit caffeine:** Increases heart rate, mimics anxiety symptoms\n- **Regular exercise:** Burns off stress hormones, produces endorphins\n- **Sleep:** 7-9 hours — sleep deprivation worsens anxiety\n- **Reduce alcohol:** Short-term relief, long-term worsening\n- **Mindfulness meditation:** 10 minutes daily reduces amygdala reactivity\n\n### Professional Treatments\n\n- **CBT (Cognitive Behavioral Therapy)** — A well-supported first-line treatment for most anxiety disorders. Teaches you to challenge anxious thoughts and face fears gradually\n- **Exposure therapy** — Gradually and safely facing feared situations\n- **Acceptance and Commitment Therapy (ACT)** — Accepts anxiety, commits to valued action\n- **Medications:**\n  - SSRIs/SNRIs (same as depression) — daily, long-term\n  - Buspirone — for GAD\n  - Benzodiazepines (e.g., clonazepam, lorazepam) — short-term or as-needed only',
           callouts: [
             {
               type: "success",
               content:
-                "Anxiety disorders are highly treatable. 70-90% of people improve with evidence-based treatment. You don't have to live with constant fear.",
+                "Anxiety disorders are highly treatable. Evidence-based treatments — especially cognitive behavioral therapy (CBT) and, for some conditions, medication — help most people improve significantly, though responses vary by individual and disorder type. You don't have to live with constant fear.",
             },
           ],
         },
@@ -2157,7 +2158,7 @@ export const lessons: Lesson[] = [
         {
           title: "Common Adult Screenings",
           content:
-            "| Screening                 | Who it is for (general guidelines)                       | Notes                                                |\n| ------------------------- | -------------------------------------------------------- | ---------------------------------------------------- |\n| Mammogram                 | Women at average risk, often starting 40–50              | Earlier if strong family history                     |\n| Colonoscopy or stool test | Adults 45+                                               | Colonoscopy every 10 years or stool tests more often |\n| Cervical (Pap/HPV)        | People with a cervix, 21–65                              | Interval depends on test type and results            |\n| Lung CT                   | Heavy smokers 50–80 who currently smoke or quit recently | Discuss risks and benefits                           |\n| Skin checks               | Anyone with many moles or history of melanoma            | Self-exams plus dermatology visits                   |\n\nGuidelines change — your doctor personalizes recommendations.",
+            "| Screening                 | Who it is for (general guidelines)                                                           | Notes                                                |\n| ------------------------- | -------------------------------------------------------------------------------------------- | ---------------------------------------------------- |\n| Mammogram                 | Women at average risk, often starting 40–50                                                  | Earlier if strong family history                     |\n| Colonoscopy or stool test | Adults 45+                                                                                   | Colonoscopy every 10 years or stool tests more often |\n| Cervical (Pap/HPV)        | People with a cervix, 21–65                                                                  | Interval depends on test type and results            |\n| Lung CT                   | Adults 50–80 with 20+ pack-year history who currently smoke or quit within the last 15 years | Discuss risks and benefits                           |\n| Skin checks               | Anyone with many moles or history of melanoma                                                | Self-exams plus dermatology visits                   |\n\nGuidelines change — your doctor personalizes recommendations.",
         },
         {
           title: "Preparing for Screening",
@@ -3104,7 +3105,7 @@ export const lessons: Lesson[] = [
         {
           title: "How It Works",
           content:
-            "When LDL drops, fewer cholesterol particles enter artery walls, slowing plaque growth and stabilizing existing plaque — lowering heart attack and stroke risk over time. Statins also have anti-inflammatory effects on blood vessels. Dose and potency vary; clinicians match intensity to risk. Liver enzymes are sometimes monitored. Muscle symptoms occur in a minority of patients — ranging from mild aches to rare severe muscle breakdown (rhabdomyolysis).",
+            "When LDL drops, fewer cholesterol particles enter artery walls, slowing plaque growth and stabilizing existing plaque — lowering heart attack and stroke risk over time. Statins also have anti-inflammatory effects on blood vessels. Dose and potency vary; clinicians match intensity to risk. Your doctor may check liver function before you start a statin, but routine ongoing liver testing usually isn't needed unless you develop symptoms like unusual fatigue, dark urine, or yellowing skin. The FDA removed the requirement for routine periodic liver-enzyme monitoring in 2012. Muscle symptoms occur in a minority of patients — ranging from mild aches to rare severe muscle breakdown (rhabdomyolysis).",
           callouts: [
             {
               type: "warning",
@@ -3147,7 +3148,7 @@ export const lessons: Lesson[] = [
     sidebarTips: [
       "Call 911 — do not drive yourself.",
       "Note time symptoms started for stroke care.",
-      "Chewing aspirin only if directed for heart symptoms.",
+      "Chew 1 adult aspirin (325 mg) for heart symptoms if not allergic and no bleeding risk — follow 911 dispatcher instructions.",
       "FAST helps remember stroke warning signs.",
     ],
     sidebarTitle: "Heart vs brain emergency",
@@ -3178,7 +3179,7 @@ export const lessons: Lesson[] = [
         {
           title: "What This Means for You",
           content:
-            "Know your personal risk factors: high blood pressure (ACC/AHA 2017 thresholds), smoking, diabetes, atrial fibrillation (stroke risk), and family history. If chest symptoms suggest a heart attack, sit or rest and call 911 — take aspirin only if already advised by a clinician. For stroke, note the last time the person was known well. Do not give food or drink if speech or swallowing is affected.",
+            "Know your personal risk factors: high blood pressure (ACC/AHA 2017 thresholds), smoking, diabetes, atrial fibrillation (stroke risk), and family history. If chest symptoms suggest a heart attack, call 911 right away. If you are not allergic to aspirin and have no bleeding problems, chewing one adult aspirin (325 mg) while waiting for help may be recommended — follow instructions from the 911 dispatcher or your clinician if given. For stroke, note the last time the person was known well. Do not give food or drink if speech or swallowing is affected.",
           callouts: [
             {
               type: "info",
