@@ -22,7 +22,8 @@ function ChecklistItems({ items, textColor }: { items: string; textColor?: strin
   );
 }
 
-function CareOptionsSection({ t }: { t: any }) {
+function CareOptionsSection() {
+  const t = useTranslations("tools");
   const careOptions = [
     {
       title: t("homeCare"),
@@ -96,7 +97,8 @@ function CareOptionsSection({ t }: { t: any }) {
   );
 }
 
-function ScenariosSection({ t }: { t: any }) {
+function ScenariosSection() {
+  const t = useTranslations("tools");
   const scenarios = [
     {
       title: t("scenarioSoreThroatTitle"),
@@ -154,9 +156,9 @@ export default function CareGuideClient() {
           className="mb-8"
         />
 
-        <CareOptionsSection t={t} />
+        <CareOptionsSection />
 
-        <ScenariosSection t={t} />
+        <ScenariosSection />
 
         <Reveal delay={0.1}>
           <div className="mb-10 rounded-[1.5rem] border border-secondary bg-secondary-container/40 p-6">
