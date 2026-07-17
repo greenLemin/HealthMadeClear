@@ -12,7 +12,13 @@ type RecommendedNextProps = {
   activePaths: LearningPathEntry[];
 };
 
-function FirstVisitRecommendation({ recommendedNext, t }: { recommendedNext: RecommendedLesson; t: any }) {
+function FirstVisitRecommendation({
+  recommendedNext,
+  t,
+}: {
+  recommendedNext: RecommendedLesson;
+  t: ReturnType<typeof useTranslations<"dashboard">>;
+}) {
   return (
     <Card padding="md" variant="accent" className="border-secondary/30 bg-secondary-container/20">
       <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
@@ -39,7 +45,13 @@ function FirstVisitRecommendation({ recommendedNext, t }: { recommendedNext: Rec
   );
 }
 
-function ActivePathRecommendation({ active, t }: { active: LearningPathEntry; t: any }) {
+function ActivePathRecommendation({
+  active,
+  t,
+}: {
+  active: LearningPathEntry;
+  t: ReturnType<typeof useTranslations<"dashboard">>;
+}) {
   return (
     <Card padding="md" className="border-primary/20">
       <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
@@ -74,7 +86,7 @@ function ActivePathRecommendation({ active, t }: { active: LearningPathEntry; t:
   );
 }
 
-function AllCaughtUp({ t }: { t: any }) {
+function AllCaughtUp({ t }: { t: ReturnType<typeof useTranslations<"dashboard">> }) {
   return (
     <Card padding="md">
       <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
