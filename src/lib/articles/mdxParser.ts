@@ -57,7 +57,9 @@ export async function getAllArticlesFromMdx(locale: "en" | "es"): Promise<Articl
   return Promise.all(
     ARTICLE_IDS.map(async (id) => {
       const filePath = path.join(dir, `${id}.mdx`);
-      if (!fs.existsSync(filePath)) {
+      try {
+        await fsPromises.access(filePath);
+      } catch {
         throw new Error(`Missing article MDX file: ${filePath}`);
       }
       return await articleFromFile(filePath);
@@ -68,6 +70,10 @@ export async function getAllArticlesFromMdx(locale: "en" | "es"): Promise<Articl
 export async function getArticleFromMdx(id: string, locale: "en" | "es"): Promise<Article | undefined> {
   if (!(ARTICLE_IDS as readonly string[]).includes(id)) return undefined;
   const filePath = path.join(getArticleMdxDir(locale), `${id}.mdx`);
-  if (!fs.existsSync(filePath)) return undefined;
+  try {
+    await fsPromises.access(filePath);
+  } catch {
+    return undefined;
+  }
   return await articleFromFile(filePath);
 }
