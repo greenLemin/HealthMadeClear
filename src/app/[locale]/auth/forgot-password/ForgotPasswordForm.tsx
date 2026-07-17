@@ -10,7 +10,13 @@ import { Mail } from "lucide-react";
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-function SuccessMessage({ t, headingRef }: { t: any; headingRef: React.RefObject<HTMLHeadingElement> }) {
+function SuccessMessage({
+  t,
+  headingRef,
+}: {
+  t: ReturnType<typeof useTranslations<"auth">>;
+  headingRef: React.RefObject<HTMLHeadingElement>;
+}) {
   return (
     <div className="mx-auto max-w-lg text-center" role="status" aria-live="polite">
       <div
@@ -41,7 +47,7 @@ function RequestForm({
   loading,
   handleSubmit,
 }: {
-  t: any;
+  t: ReturnType<typeof useTranslations<"auth">>;
   email: string;
   handleEmailChange: (value: string) => void;
   fieldError: string;
