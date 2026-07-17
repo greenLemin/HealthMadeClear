@@ -35,6 +35,12 @@ describe("rateLimit", () => {
 });
 
 describe("getClientIp", () => {
+  it("uses the Next.js native ip property if present", () => {
+    const req = new Request("http://localhost");
+    (req as any).ip = "203.0.113.1";
+    expect(getClientIp(req)).toBe("203.0.113.1");
+  });
+
   it("extracts IP from x-nf-client-connection-ip", () => {
     const req = new Request("http://localhost", {
       headers: { "x-nf-client-connection-ip": "192.168.1.1" },
