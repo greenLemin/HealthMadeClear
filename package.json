@@ -55,7 +55,7 @@
   },
   "devDependencies": {
     "@netlify/plugin-nextjs": "^5.15.12",
-    "@next/bundle-analyzer": "^16.2.10",
+    "@next/bundle-analyzer": "^16.2.11",
     "@playwright/test": "^1.61.1",
     "@swc/helpers": "0.5.23",
     "@tailwindcss/postcss": "^4.3.2",
