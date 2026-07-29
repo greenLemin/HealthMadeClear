@@ -146,4 +146,47 @@ describe("useFocusTrap", () => {
     rerender(<TestComponent active={false} />);
     expect(document.activeElement).toBe(outside1);
   });
+
+  it("does not throw when containerRef.current is null", () => {
+    function NoRefFixture() {
+      const ref = useRef<HTMLDivElement>(null);
+      useFocusTrap(ref, true);
+      return null;
+    }
+    expect(() => render(<NoRefFixture />)).not.toThrow();
+  });
+
+  it("does not throw when previously focused element has no focus method", () => {
+    const mockElement = document.createElement("div");
+
+    Object.defineProperty(mockElement, "focus", {
+      value: undefined,
+      configurable: true,
+      writable: true,
+    });
+
+    Object.defineProperty(document, "activeElement", {
+      value: mockElement,
+      configurable: true,
+    });
+
+    const { rerender } = render(<TestComponent active={true} />);
+
+    expect(() => rerender(<TestComponent active={false} />)).not.toThrow();
+
+    delete (document as any).activeElement;
+  });
+
+  it("does not throw when previously focused element is null", () => {
+    Object.defineProperty(document, "activeElement", {
+      value: null,
+      configurable: true,
+    });
+
+    const { rerender } = render(<TestComponent active={true} />);
+
+    expect(() => rerender(<TestComponent active={false} />)).not.toThrow();
+
+    delete (document as any).activeElement;
+  });
 });
