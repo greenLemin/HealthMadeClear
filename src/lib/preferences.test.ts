@@ -1,6 +1,13 @@
 // @vitest-environment jsdom
 import { describe, expect, it, beforeEach, vi, afterEach } from "vitest";
-import { readStoredJson, readStoredStringArray, writeStoredJson } from "@/lib/preferences";
+import {
+  readStoredJson,
+  readStoredStringArray,
+  writeStoredJson,
+  readStoredTextSize,
+  PREFERENCE_COOKIES,
+  STORAGE_KEYS,
+} from "@/lib/preferences";
 
 describe("preferences", () => {
   const originalWindow = global.window;
@@ -128,6 +135,65 @@ describe("preferences", () => {
 
       expect(result).toBeNull();
       expect(validate).toHaveBeenCalledWith({ a: 1 });
+    });
+  });
+
+  describe("readStoredTextSize", () => {
+    let originalCookieDesc: PropertyDescriptor | undefined;
+
+    beforeEach(() => {
+      originalCookieDesc = Object.getOwnPropertyDescriptor(Document.prototype, "cookie");
+      let cookieStore = "";
+      Object.defineProperty(document, "cookie", {
+        get: () => cookieStore,
+        set: (val) => {
+          cookieStore = val;
+        },
+        configurable: true,
+      });
+    });
+
+    afterEach(() => {
+      if (originalCookieDesc) {
+        Object.defineProperty(document, "cookie", originalCookieDesc);
+      } else {
+        // @ts-ignore
+        delete document.cookie;
+      }
+      vi.unstubAllGlobals();
+    });
+
+    it("returns from cookie if 'large'", () => {
+      document.cookie = `${PREFERENCE_COOKIES.textSize}=large`;
+      expect(readStoredTextSize()).toBe("large");
+    });
+
+    it("returns from cookie if 'largest'", () => {
+      document.cookie = `${PREFERENCE_COOKIES.textSize}=largest`;
+      expect(readStoredTextSize()).toBe("largest");
+    });
+
+    it("falls back to localStorage if cookie is invalid", () => {
+      document.cookie = `${PREFERENCE_COOKIES.textSize}=invalid`;
+      window.localStorage.setItem(STORAGE_KEYS.textSize, "large");
+      expect(readStoredTextSize()).toBe("large");
+    });
+
+    it("returns from localStorage if cookie is absent", () => {
+      window.localStorage.setItem(STORAGE_KEYS.textSize, "largest");
+      expect(readStoredTextSize()).toBe("largest");
+    });
+
+    it("defaults to 'standard' if neither has valid value", () => {
+      document.cookie = `${PREFERENCE_COOKIES.textSize}=invalid`;
+      window.localStorage.setItem(STORAGE_KEYS.textSize, "invalid");
+      expect(readStoredTextSize()).toBe("standard");
+    });
+
+    it("defaults to 'standard' if window is undefined", () => {
+      vi.stubGlobal("window", undefined);
+      // document is typically undefined too in this case but we're testing the typeof window check
+      expect(readStoredTextSize()).toBe("standard");
     });
   });
 });
