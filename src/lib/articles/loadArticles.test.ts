@@ -27,8 +27,10 @@ vi.mock("./loadArticles", async (importOriginal) => {
       // A better way is mocking at the specific module level which vitest supports if we just match exactly.
       if (locale === "en") {
         return [{ id: "dyn-en-1", title: "Dynamic English 1" }];
+      } else if (locale === "es") {
+        return [{ id: "dyn-es-1", title: "Dynamic Spanish 1" }];
       }
-      return [{ id: "dyn-es-1", title: "Dynamic Spanish 1" }];
+      throw new Error(`Cannot find module '@/data/articleBundles.${locale}'`);
     }),
   };
 });
@@ -49,6 +51,13 @@ describe("loadArticles", () => {
   });
 
   describe("getArticleByIdFromBundle", () => {
+
+    it("should return the correct article when finding the first article in the bundle", () => {
+      const article = getArticleByIdFromBundle("article-1", "en");
+      expect(article).toBeDefined();
+      expect(article?.title).toBe("English Article 1");
+    });
+
     it("should return the correct article when valid ID and locale are provided", () => {
       const article = getArticleByIdFromBundle("article-2", "en");
       expect(article).toBeDefined();
@@ -77,6 +86,11 @@ describe("loadArticlesForLocale", () => {
     expect(articles.length).toBeGreaterThan(0);
     expect(Array.isArray(articles)).toBe(true);
     expect(articles[0].title).toBe("Dynamic English 1");
+  });
+
+
+  it("should throw an error when loading articles for an invalid locale", async () => {
+    await expect(loadArticlesForLocale("invalid-locale" as any)).rejects.toThrow();
   });
 
   it("should load articles for Spanish locale dynamically", async () => {
