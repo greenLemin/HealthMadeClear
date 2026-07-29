@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import JsonLd from "@/components/JsonLd";
-import { getGlossaryTerms } from "@/lib/localizedContent";
+import { getGlossaryTerms, getGlossaryTermById } from "@/lib/localizedContent";
 import { requireLocale } from "@/lib/locale";
 import { getSiteUrl } from "@/lib/site";
 import GlossaryTermClient from "./GlossaryTermClient";
@@ -15,7 +15,7 @@ export function generateStaticParams() {
 
 export async function generateMetadata({ params }: Props) {
   const { locale, term: termId } = await params;
-  const term = getGlossaryTerms(requireLocale(locale)).find((item) => item.id === termId);
+  const term = getGlossaryTermById(termId, requireLocale(locale));
   if (!term) return { title: "Term not found" };
 
   const base = getSiteUrl();
@@ -37,7 +37,7 @@ export async function generateMetadata({ params }: Props) {
 
 export default async function GlossaryTermPage({ params }: Props) {
   const { locale, term: termId } = await params;
-  const term = getGlossaryTerms(requireLocale(locale)).find((item) => item.id === termId);
+  const term = getGlossaryTermById(termId, requireLocale(locale));
   if (!term) notFound();
 
   const base = getSiteUrl();
