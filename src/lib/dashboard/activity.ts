@@ -51,8 +51,13 @@ export async function getRecentActivity(
     passed?: boolean;
   }> = [];
 
-  const lessonsData = lessonResult.data ?? [];
-  const quizzesData = quizResult.data ?? [];
+  // Ensure arrays are sorted descending by date to safely merge
+  const lessonsData = [...(lessonResult.data ?? [])].sort(
+    (a, b) => new Date(b.completed_at ?? 0).getTime() - new Date(a.completed_at ?? 0).getTime()
+  );
+  const quizzesData = [...(quizResult.data ?? [])].sort(
+    (a, b) => new Date(b.attempted_at ?? 0).getTime() - new Date(a.attempted_at ?? 0).getTime()
+  );
 
   let lIdx = 0;
   let qIdx = 0;
@@ -65,7 +70,7 @@ export async function getRecentActivity(
     const lTime = l ? new Date(l.completed_at ?? 0).getTime() || 0 : -Infinity;
     const qTime = q ? new Date(q.attempted_at ?? 0).getTime() || 0 : -Infinity;
 
-    if (lTime >= qTime) {
+    if (l && (lTime >= qTime || !q)) {
       const lessonData = lessonMap.get(l.lesson_id);
       activity.push({
         type: "lesson",
@@ -74,7 +79,7 @@ export async function getRecentActivity(
         completedAt: l.completed_at ?? "",
       });
       lIdx++;
-    } else {
+    } else if (q) {
       const quizLessonId = q.quiz_id.replace("-quiz", "");
       const lessonData = lessonMap.get(quizLessonId);
       activity.push({
