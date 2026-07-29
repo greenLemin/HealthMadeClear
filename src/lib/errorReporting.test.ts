@@ -50,6 +50,10 @@ describe("reportClientError", () => {
         PHI_data: "no",
         something_cookie: "no",
         localStorage_thing: "no",
+        authToken: "no",
+        session_id: "no",
+        apiKey: "no",
+        userCredential: "no",
       });
       expect(consoleSpy).toHaveBeenCalledWith("[hmc]", expect.any(Error), { safe: "yes" });
     });

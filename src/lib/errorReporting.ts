@@ -1,6 +1,7 @@
 type ErrorContext = Record<string, string | number | boolean | undefined>;
 
-const SENSITIVE_KEY_PATTERN = /localStorage|cookie|password|token|secret|note|phi/i;
+const SENSITIVE_KEY_PATTERN =
+  /localStorage|cookie|password|token|secret|note|phi|auth|key|session|credential/i;
 
 function sanitizeContext(context?: ErrorContext): ErrorContext | undefined {
   if (!context) return undefined;
