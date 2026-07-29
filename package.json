@@ -71,8 +71,8 @@
     "@vitejs/plugin-react": "^6.0.3",
     "@vitest/coverage-v8": "^4.1.10",
     "autoprefixer": "^10.5.3",
-    "eslint": "^10.0.0",
-    "eslint-config-next": "16.2.12",
+    "eslint": "^9.39.4",
+    "eslint-config-next": "^16.2.10",
     "husky": "^9.1.7",
     "jsdom": "^26.1.0",
     "lint-staged": "^17.0.8",
@@ -90,6 +90,6 @@
     "next": "16.2.12",
     "postcss": "^8.5.25",
     "js-yaml": "^4.2.0",
-    "eslint": "^10.0.0"
+    "eslint": "^9.39.4"
   }
 }
