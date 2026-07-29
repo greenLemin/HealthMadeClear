@@ -51,7 +51,6 @@ describe("loadArticles", () => {
   });
 
   describe("getArticleByIdFromBundle", () => {
-
     it("should return the correct article when finding the first article in the bundle", () => {
       const article = getArticleByIdFromBundle("article-1", "en");
       expect(article).toBeDefined();
@@ -87,7 +86,6 @@ describe("loadArticlesForLocale", () => {
     expect(Array.isArray(articles)).toBe(true);
     expect(articles[0].title).toBe("Dynamic English 1");
   });
-
 
   it("should throw an error when loading articles for an invalid locale", async () => {
     await expect(loadArticlesForLocale("invalid-locale" as any)).rejects.toThrow();
