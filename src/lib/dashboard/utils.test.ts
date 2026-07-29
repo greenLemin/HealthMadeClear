@@ -27,6 +27,28 @@ describe("dashboard utils", () => {
       expect(console.error).toHaveBeenCalledWith("Query error in TestContext:", mockError);
     });
 
+    it("should log an error when AuthError is provided", () => {
+      const mockError = {
+        name: "AuthError",
+        message: "Test auth error",
+        status: 401,
+      };
+
+      logQueryError("TestContext", mockError as any);
+
+      expect(console.error).toHaveBeenCalledTimes(1);
+      expect(console.error).toHaveBeenCalledWith("Query error in TestContext:", mockError);
+    });
+
+    it("should log an error when standard Error is provided", () => {
+      const mockError = new Error("Standard error");
+
+      logQueryError("TestContext", mockError);
+
+      expect(console.error).toHaveBeenCalledTimes(1);
+      expect(console.error).toHaveBeenCalledWith("Query error in TestContext:", mockError);
+    });
+
     it("should not log anything when error is null", () => {
       logQueryError("TestContext", null);
 
