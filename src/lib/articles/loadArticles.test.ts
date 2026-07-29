@@ -15,23 +15,13 @@ vi.mock("@/data/articleBundles", () => ({
   },
 }));
 
-// Provide dynamic imports via mock resolution on the actual function
-// since vitest struggles with string interpolation in dynamic imports.
-vi.mock("./loadArticles", async (importOriginal) => {
-  const mod = await importOriginal<typeof import("./loadArticles")>();
-  return {
-    ...mod,
-    loadArticlesForLocale: vi.fn(async (locale: "en" | "es") => {
-      // By calling actual import we can get coverage on dynamic imports inside loadArticles.ts
-      // but doing it dynamically in vitest is tricky.
-      // A better way is mocking at the specific module level which vitest supports if we just match exactly.
-      if (locale === "en") {
-        return [{ id: "dyn-en-1", title: "Dynamic English 1" }];
-      }
-      return [{ id: "dyn-es-1", title: "Dynamic Spanish 1" }];
-    }),
-  };
-});
+vi.mock("@/data/articleBundles.en", () => ({
+  articles: [{ id: "dyn-en-1", title: "Dynamic English 1" }],
+}));
+
+vi.mock("@/data/articleBundles.es", () => ({
+  articles: [{ id: "dyn-es-1", title: "Dynamic Spanish 1" }],
+}));
 
 describe("loadArticles", () => {
   describe("getAllArticles", () => {
@@ -45,6 +35,11 @@ describe("loadArticles", () => {
       const articles = getAllArticles("es");
       expect(articles).toHaveLength(2);
       expect(articles[0].title).toBe("Spanish Article 1");
+    });
+
+    it("should return an empty array for an unsupported locale", () => {
+      const articles = getAllArticles("fr" as any);
+      expect(articles).toEqual([]);
     });
   });
 
@@ -67,6 +62,11 @@ describe("loadArticles", () => {
       const esArticle = getArticleByIdFromBundle("article-3", "es");
       expect(esArticle).toBeDefined();
     });
+
+    it("should return undefined for an unsupported locale", () => {
+      const article = getArticleByIdFromBundle("article-1", "fr" as any);
+      expect(article).toBeUndefined();
+    });
   });
 });
 
@@ -84,5 +84,10 @@ describe("loadArticlesForLocale", () => {
     expect(articles).toBeDefined();
     expect(Array.isArray(articles)).toBe(true);
     expect(articles[0].title).toBe("Dynamic Spanish 1");
+  });
+
+  it("should return an empty array for an unsupported locale dynamically", async () => {
+    const articles = await loadArticlesForLocale("fr" as any);
+    expect(articles).toEqual([]);
   });
 });
