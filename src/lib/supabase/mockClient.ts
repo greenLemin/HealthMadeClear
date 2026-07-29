@@ -974,124 +974,140 @@ function applyMutation(
   }
 }
 
-function createQueryBuilder(table: string, cookieStore?: CookieStore) {
-  const filters: QueryFilter[] = [];
-  let order: QueryOrder | null = null;
-  let range: QueryRange | null = null;
-  let limitCount: number | null = null;
-  let mutation: QueryMutation | null = null;
-  let selectedColumns: string[] | null = null;
-  let selectOptions: SelectOptions = {};
-  let shouldReturnRows = false;
+class MockQueryBuilder {
+  private filters: QueryFilter[] = [];
+  private _order: QueryOrder | null = null;
+  private _range: QueryRange | null = null;
+  private limitCount: number | null = null;
+  private mutation: QueryMutation | null = null;
+  private selectedColumns: string[] | null = null;
+  private selectOptions: SelectOptions = {};
+  private shouldReturnRows = false;
 
-  const execute = (single: boolean) => {
-    const db = getMockDb(cookieStore);
+  constructor(
+    private table: string,
+    private cookieStore?: CookieStore
+  ) {}
 
-    if (mutation) {
-      const { rows, changed } = applyMutation(db, table, mutation, filters);
-      if (changed) {
-        saveMockDb(db, cookieStore);
-      }
+  private executeMutation(db: MockDb) {
+    const { rows, changed } = applyMutation(db, this.table, this.mutation!, this.filters);
+    if (changed) {
+      saveMockDb(db, this.cookieStore);
+    }
+    return rows;
+  }
 
-      const filteredRows = applyRange(applyOrdering(rows, order), range, limitCount);
-      const projectedRows = projectRows(filteredRows, selectedColumns);
-      const count = selectOptions.count ? rows.length : null;
+  private execute(single: boolean) {
+    const db = getMockDb(this.cookieStore);
+    let rows;
 
-      return Promise.resolve({
-        data: single
-          ? (projectedRows[0] ?? null)
-          : shouldReturnRows
-            ? selectOptions.head
-              ? null
-              : projectedRows
-            : null,
-        error: null,
-        count,
-      });
+    if (this.mutation) {
+      rows = this.executeMutation(db);
+    } else {
+      rows = applyFilters(getTableRows(db, this.table), this.filters);
     }
 
-    const rawRows = applyFilters(getTableRows(db, table), filters);
-    const count = selectOptions.count ? rawRows.length : null;
-    const filteredRows = applyRange(applyOrdering(rawRows, order), range, limitCount);
-    const projectedRows = projectRows(filteredRows, selectedColumns);
+    const count = this.selectOptions.count ? rows.length : null;
+    const filteredRows = applyRange(applyOrdering(rows, this._order), this._range, this.limitCount);
+    const projectedRows = projectRows(filteredRows, this.selectedColumns);
 
-    return Promise.resolve({
-      data: single ? (projectedRows[0] ?? null) : selectOptions.head ? null : projectedRows,
-      error: null,
-      count,
-    });
-  };
+    let data;
+    if (single) {
+      data = projectedRows[0] ?? null;
+    } else if (this.mutation) {
+      data = this.shouldReturnRows ? (this.selectOptions.head ? null : projectedRows) : null;
+    } else {
+      data = this.selectOptions.head ? null : projectedRows;
+    }
 
-  const builder = {
-    select(columns?: string, options?: SelectOptions) {
-      selectedColumns = parseSelectedColumns(columns);
-      selectOptions = options ?? {};
-      if (mutation) shouldReturnRows = true;
-      return builder;
-    },
-    eq(column: string, value: unknown) {
-      filters.push({ type: "eq", column, value });
-      return builder;
-    },
-    gte(column: string, value: unknown) {
-      filters.push({ type: "gte", column, value });
-      return builder;
-    },
-    order(column: string, options?: { ascending?: boolean }) {
-      order = { column, ascending: options?.ascending ?? true };
-      return builder;
-    },
-    limit(count: number) {
-      limitCount = count;
-      return builder;
-    },
-    range(from: number, to: number) {
-      range = { from, to };
-      return builder;
-    },
-    not(column: string, operator: string, value: unknown) {
-      filters.push({ type: "not", column, operator, value });
-      return builder;
-    },
-    is(column: string, value: unknown) {
-      filters.push({ type: "is", column, value });
-      return builder;
-    },
-    in(column: string, values: unknown[]) {
-      filters.push({ type: "in", column, value: values });
-      return builder;
-    },
-    upsert(values: unknown, options?: unknown) {
-      mutation = { kind: "upsert", values, options };
-      return builder;
-    },
-    insert(values: unknown, options?: unknown) {
-      mutation = { kind: "insert", values, options };
-      return builder;
-    },
-    update(values: unknown, options?: unknown) {
-      mutation = { kind: "update", values, options };
-      return builder;
-    },
-    delete(options?: unknown) {
-      mutation = { kind: "delete", options };
-      return builder;
-    },
-    single() {
-      return execute(true);
-    },
-    maybeSingle() {
-      return execute(true);
-    },
-    then(
-      onfulfilled?: (value: { data: unknown; error: null; count: number | null }) => unknown,
-      onrejected?: (reason: unknown) => unknown
-    ) {
-      return execute(false).then(onfulfilled as any, onrejected);
-    },
-  };
+    return Promise.resolve({ data, error: null, count });
+  }
 
-  return builder;
+  select(columns?: string, options?: SelectOptions) {
+    this.selectedColumns = parseSelectedColumns(columns);
+    this.selectOptions = options ?? {};
+    if (this.mutation) this.shouldReturnRows = true;
+    return this;
+  }
+
+  eq(column: string, value: unknown) {
+    this.filters.push({ type: "eq", column, value });
+    return this;
+  }
+
+  gte(column: string, value: unknown) {
+    this.filters.push({ type: "gte", column, value });
+    return this;
+  }
+
+  order(column: string, options?: { ascending?: boolean }) {
+    this._order = { column, ascending: options?.ascending ?? true };
+    return this;
+  }
+
+  limit(count: number) {
+    this.limitCount = count;
+    return this;
+  }
+
+  range(from: number, to: number) {
+    this._range = { from, to };
+    return this;
+  }
+
+  not(column: string, operator: string, value: unknown) {
+    this.filters.push({ type: "not", column, operator, value });
+    return this;
+  }
+
+  is(column: string, value: unknown) {
+    this.filters.push({ type: "is", column, value });
+    return this;
+  }
+
+  in(column: string, values: unknown[]) {
+    this.filters.push({ type: "in", column, value: values });
+    return this;
+  }
+
+  upsert(values: unknown, options?: unknown) {
+    this.mutation = { kind: "upsert", values, options };
+    return this;
+  }
+
+  insert(values: unknown, options?: unknown) {
+    this.mutation = { kind: "insert", values, options };
+    return this;
+  }
+
+  update(values: unknown, options?: unknown) {
+    this.mutation = { kind: "update", values, options };
+    return this;
+  }
+
+  delete(options?: unknown) {
+    this.mutation = { kind: "delete", options };
+    return this;
+  }
+
+  single() {
+    return this.execute(true);
+  }
+
+  maybeSingle() {
+    return this.execute(true);
+  }
+
+  then(
+    onfulfilled?: (value: { data: unknown; error: null; count: number | null }) => unknown,
+    onrejected?: (reason: unknown) => unknown
+  ) {
+    return this.execute(false).then(onfulfilled as any, onrejected);
+  }
+}
+
+function createQueryBuilder(table: string, cookieStore?: CookieStore) {
+  return new MockQueryBuilder(table, cookieStore);
 }
 
 const authSubscribers = new Set<(event: AuthChangeEvent, session: Session | null) => void>();
