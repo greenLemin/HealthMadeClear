@@ -55,7 +55,7 @@ export async function getQuizPerformanceByCategory(
       categoryId,
       attemptsCount: stats.attempts,
       averageScore: stats.totalMax > 0 ? Math.round((stats.totalScore / stats.totalMax) * 100) : 0,
-      passRate: stats.attempts > 0 ? Math.round((stats.passed / stats.attempts) * 100) : 0,
+      passRate: Math.round((stats.passed / stats.attempts) * 100),
     }))
     .sort((a, b) => b.attemptsCount - a.attemptsCount);
 }
