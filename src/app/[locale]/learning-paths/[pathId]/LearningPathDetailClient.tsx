@@ -13,7 +13,7 @@ import MedicalDisclaimer from "@/components/MedicalDisclaimer";
 import MarkdownRenderer from "@/components/mdx/MarkdownRenderer";
 import Reveal from "@/components/ui/Reveal";
 import ProgressBar from "@/components/ui/ProgressBar";
-import { formatLevel, getCategoryLabel } from "@/lib/i18n";
+import { formatLevel } from "@/lib/i18n";
 import type { Lesson } from "@/types/lesson";
 import type { GlossaryTerm } from "@/types/glossary";
 import type { LearningPath } from "@/types/learningPath";
