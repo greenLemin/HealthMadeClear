@@ -82,4 +82,26 @@ describe("highlightMatches", () => {
     expect((result[3] as React.ReactElement).props.children).toBe("foo");
     expect(result[4]).toBe("");
   });
+
+  it("highlights match at the beginning of string", () => {
+    const text = "Hello world";
+    const result = highlightMatches(text, "Hello");
+
+    expect(result.length).toBe(3);
+    expect(result[0]).toBe("");
+    expect(result[1]).toHaveProperty("type", "mark");
+    expect((result[1] as React.ReactElement).props.children).toBe("Hello");
+    expect(result[2]).toBe(" world");
+  });
+
+  it("highlights match that is the entire string", () => {
+    const text = "Hello world";
+    const result = highlightMatches(text, "Hello world");
+
+    expect(result.length).toBe(3);
+    expect(result[0]).toBe("");
+    expect(result[1]).toHaveProperty("type", "mark");
+    expect((result[1] as React.ReactElement).props.children).toBe("Hello world");
+    expect(result[2]).toBe("");
+  });
 });
