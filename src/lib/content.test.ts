@@ -38,24 +38,73 @@ describe("content helpers", () => {
     expect(getStartedPathCount([], ["doctor-visit-prep"], lessons, learningPaths)).toBe(1);
   });
 
-  it("counts completed paths only when all lessons done", () => {
-    const partial = getCompletedPathCount(["understanding-prescription-labels"], lessons, learningPaths);
-    expect(partial).toBe(0);
+  describe("getCompletedPathCount", () => {
+    const mockLessonItems = [
+      { id: "understanding-prescription-labels" },
+      { id: "asking-about-medications" },
+      { id: "managing-side-effects" },
+    ] as any[];
 
-    const full = getCompletedPathCount(
-      [
-        "understanding-prescription-labels",
-        "asking-about-medications",
-        "managing-side-effects",
-        "generic-vs-brand-drugs",
-        "pain-medications-safely",
-        "otc-drug-interactions",
-        "drug-food-interactions",
-        "antibiotic-stewardship",
-      ],
-      lessons,
-      learningPaths
-    );
-    expect(full).toBe(1);
+    const mockPathItems = [
+      {
+        id: "safer-medicine-use",
+        lessons: ["understanding-prescription-labels", "asking-about-medications"],
+      },
+      { id: "navigating-healthcare", lessons: ["managing-side-effects"] },
+    ] as any[];
+
+    it("returns 0 when no paths are completed", () => {
+      expect(getCompletedPathCount([], mockLessonItems, mockPathItems)).toBe(0);
+    });
+
+    it("returns 0 when a path is only partially completed", () => {
+      expect(
+        getCompletedPathCount(["understanding-prescription-labels"], mockLessonItems, mockPathItems)
+      ).toBe(0);
+    });
+
+    it("counts a path as completed when all its valid lessons are completed", () => {
+      expect(
+        getCompletedPathCount(
+          ["understanding-prescription-labels", "asking-about-medications"],
+          mockLessonItems,
+          mockPathItems
+        )
+      ).toBe(1);
+      expect(getCompletedPathCount(["managing-side-effects"], mockLessonItems, mockPathItems)).toBe(1);
+    });
+
+    it("counts multiple completed paths", () => {
+      expect(
+        getCompletedPathCount(
+          ["understanding-prescription-labels", "asking-about-medications", "managing-side-effects"],
+          mockLessonItems,
+          mockPathItems
+        )
+      ).toBe(2);
+    });
+
+    it("ignores invalid lessons when checking for completion", () => {
+      const pathWithMixed = [
+        { id: "safer-medicine-use", lessons: ["understanding-prescription-labels", "invalid-lesson"] },
+      ] as any[];
+      expect(
+        getCompletedPathCount(["understanding-prescription-labels"], mockLessonItems, pathWithMixed)
+      ).toBe(1);
+    });
+
+    it("does not count paths with no valid lessons as completed", () => {
+      const emptyAndInvalidPaths = [
+        { id: "safer-medicine-use", lessons: [] },
+        { id: "navigating-healthcare", lessons: ["invalid-lesson"] },
+      ] as any[];
+      expect(
+        getCompletedPathCount(
+          ["understanding-prescription-labels", "asking-about-medications", "managing-side-effects"],
+          mockLessonItems,
+          emptyAndInvalidPaths
+        )
+      ).toBe(0);
+    });
   });
 });
