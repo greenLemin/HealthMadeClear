@@ -88,7 +88,6 @@
     "postcss": "^8.5.18",
     "js-yaml": "^4.2.0",
     "eslint": "^9.39.4",
-    "brace-expansion": "^5.0.8",
     "sharp": "^0.35.0"
   }
 }
