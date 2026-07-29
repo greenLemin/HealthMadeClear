@@ -1,6 +1,5 @@
 import { Suspense } from "react";
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import { requireLocale } from "@/lib/locale";
 import LoginForm from "./LoginForm";
 import type { Metadata } from "next";
 
