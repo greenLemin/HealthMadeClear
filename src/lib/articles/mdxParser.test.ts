@@ -3,7 +3,6 @@ import { ARTICLE_IDS } from "@/types/content";
 import { getAllArticlesFromMdx, getArticleMdxDir } from "./mdxParser";
 import path from "path";
 
-
 describe("getArticleMdxDir", () => {
   it("returns correct path for en locale", () => {
     const dir = getArticleMdxDir("en");
