@@ -29,14 +29,6 @@ export async function getRecommendedNextLesson(
 
   const completedSet = new Set((progressData ?? []).map((p) => p.lesson_id));
 
-  const lessonRecord = allLessons.reduce(
-    (acc, lesson) => {
-      acc[lesson.id] = lesson;
-      return acc;
-    },
-    {} as Record<string, (typeof allLessons)[0]>
-  );
-
   for (const path of allPaths) {
     let nextIncomplete: string | undefined;
     let hasCompleted = false;
@@ -54,7 +46,7 @@ export async function getRecommendedNextLesson(
     }
 
     if (hasCompleted && nextIncomplete !== undefined) {
-      const lesson = lessonRecord[nextIncomplete];
+      const lesson = allLessons.find((l) => l.id === nextIncomplete);
       if (lesson) {
         return {
           id: lesson.id,
@@ -83,6 +75,7 @@ export async function getRecommendedNextLesson(
       }
       if (!firstUncompleted) {
         firstUncompleted = l;
+        break;
       }
     }
   }
