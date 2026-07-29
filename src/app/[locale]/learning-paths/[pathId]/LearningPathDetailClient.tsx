@@ -33,8 +33,16 @@ export default function LearningPathDetailClient({ path, lessons, glossaryTerms 
   const tNav = useTranslations("nav");
 
   const pathLessons = useMemo(() => {
-    const lessonMap = new Map(lessons.map((l) => [l.id as string, l]));
-    return path.lessons.map((id) => lessonMap.get(id as string)).filter(Boolean) as Lesson[];
+    const lessonMap = new Map<string, Lesson>();
+    for (const lesson of lessons) {
+      lessonMap.set(lesson.id as string, lesson);
+    }
+    const result: Lesson[] = [];
+    for (const id of path.lessons) {
+      const lesson = lessonMap.get(id as string);
+      if (lesson) result.push(lesson);
+    }
+    return result;
   }, [path.lessons, lessons]);
 
   const progress = getLearningPathProgress(path.lessons);
