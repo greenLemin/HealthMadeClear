@@ -33,44 +33,23 @@ export function parseQuestions(markdown: string): QuizQuestion[] {
 
     for (let i = 0; i < lines.length; i++) {
       const line = lines[i];
-      if (phase === "question" && OPTION_REGEX.test(line)) {
-        phase = "options";
-      }
-      if (phase === "options" && line.startsWith("answer:")) {
-        phase = "answer";
-      }
-      if (phase === "question") {
-        questionEnd = i;
-      }
-      if (phase === "options" && line.startsWith("answer:")) {
-        phase = "answer";
-      }
-      if (phase === "options" && !line.startsWith("answer:")) {
-        optionLines.push(line);
-      }
-      if (phase === "answer") {
-        if (line.startsWith("answer:")) {
-          const letter = line.replace("answer:", "").trim().toUpperCase();
-          if (["A", "B", "C", "D"].includes(letter)) answer = letter;
-        } else if (line.startsWith("explanation:")) {
-          explanation = line.replace("explanation:", "").trim();
-        }
-      }
-    }
 
-    if (!answer && lines.length) {
-      for (const line of lines) {
-        if (line.startsWith("answer:")) {
-          const letter = line.replace("answer:", "").trim().toUpperCase();
-          if (["A", "B", "C", "D"].includes(letter)) answer = letter;
+      if (line.startsWith("answer:")) {
+        phase = "answer";
+        const letter = line.replace("answer:", "").trim().toUpperCase();
+        if (["A", "B", "C", "D"].includes(letter)) answer = letter;
+      } else if (line.startsWith("explanation:")) {
+        phase = "answer";
+        explanation = line.replace("explanation:", "").trim();
+      } else {
+        if (phase === "question" && OPTION_REGEX.test(line)) {
+          phase = "options";
         }
-      }
-    }
-
-    if (!explanation && lines.length) {
-      for (const line of lines) {
-        if (line.startsWith("explanation:")) {
-          explanation = line.replace("explanation:", "").trim();
+        if (phase === "question") {
+          questionEnd = i;
+        }
+        if (phase === "options") {
+          optionLines.push(line);
         }
       }
     }
