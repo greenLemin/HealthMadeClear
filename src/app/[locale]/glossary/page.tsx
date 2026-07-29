@@ -4,7 +4,6 @@ import { getAllGlossaryTerms } from "@/lib/glossary/loadGlossary";
 import { requireLocale } from "@/lib/locale";
 import { localeAlternates } from "@/lib/metadata";
 import { getSiteUrl } from "@/lib/site";
-import type { GlossaryTerm } from "@/types/glossary";
 import GlossaryClient from "./GlossaryClient";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
