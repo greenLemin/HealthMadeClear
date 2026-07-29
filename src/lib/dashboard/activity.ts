@@ -51,31 +51,44 @@ export async function getRecentActivity(
     passed?: boolean;
   }> = [];
 
-  for (const lesson of lessonResult.data ?? []) {
-    const lessonData = lessonMap.get(lesson.lesson_id);
-    activity.push({
-      type: "lesson",
-      lessonId: lesson.lesson_id,
-      title: lessonData?.title ?? "Unknown Lesson",
-      completedAt: lesson.completed_at ?? "",
-    });
+  const lessonsData = lessonResult.data ?? [];
+  const quizzesData = quizResult.data ?? [];
+
+  let lIdx = 0;
+  let qIdx = 0;
+
+  while (activity.length < 5 && (lIdx < lessonsData.length || qIdx < quizzesData.length)) {
+    const l = lessonsData[lIdx];
+    const q = quizzesData[qIdx];
+
+    // parse dates, fallback to 0 if invalid
+    const lTime = l ? new Date(l.completed_at ?? 0).getTime() || 0 : -Infinity;
+    const qTime = q ? new Date(q.attempted_at ?? 0).getTime() || 0 : -Infinity;
+
+    if (lTime >= qTime) {
+      const lessonData = lessonMap.get(l.lesson_id);
+      activity.push({
+        type: "lesson",
+        lessonId: l.lesson_id,
+        title: lessonData?.title ?? "Unknown Lesson",
+        completedAt: l.completed_at ?? "",
+      });
+      lIdx++;
+    } else {
+      const quizLessonId = q.quiz_id.replace("-quiz", "");
+      const lessonData = lessonMap.get(quizLessonId);
+      activity.push({
+        type: "quiz",
+        lessonId: quizLessonId,
+        quizId: q.quiz_id,
+        title: `Quiz: ${lessonData?.title ?? "Unknown"}`,
+        completedAt: q.attempted_at,
+        score: q.max_score > 0 ? Math.round((q.score / q.max_score) * 100) : 0,
+        passed: q.passed,
+      });
+      qIdx++;
+    }
   }
 
-  for (const quiz of quizResult.data ?? []) {
-    const quizLessonId = quiz.quiz_id.replace("-quiz", "");
-    const lessonData = lessonMap.get(quizLessonId);
-    activity.push({
-      type: "quiz",
-      lessonId: quizLessonId,
-      quizId: quiz.quiz_id,
-      title: `Quiz: ${lessonData?.title ?? "Unknown"}`,
-      completedAt: quiz.attempted_at,
-      score: quiz.max_score > 0 ? Math.round((quiz.score / quiz.max_score) * 100) : 0,
-      passed: quiz.passed,
-    });
-  }
-
-  activity.sort((a, b) => new Date(b.completedAt).getTime() - new Date(a.completedAt).getTime());
-
-  return activity.slice(0, 5);
+  return activity;
 }
