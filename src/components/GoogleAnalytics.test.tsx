@@ -2,7 +2,7 @@
  * @vitest-environment jsdom
  */
 import { render } from "@testing-library/react";
-import { describe, expect, it, vi, beforeEach, afterEach } from "vitest";
+import { describe, expect, it, vi, afterEach } from "vitest";
 
 vi.mock("next/script", () => ({
   default: ({ children, id, src, strategy, ...props }: any) => (
