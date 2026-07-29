@@ -72,23 +72,24 @@
     "@vitest/coverage-v8": "^4.1.10",
     "autoprefixer": "^10.5.3",
     "eslint": "^9.39.4",
-    "eslint-config-next": "16.2.12",
+    "eslint-config-next": "^15.5.22",
     "husky": "^9.1.7",
     "jsdom": "^26.1.0",
     "lint-staged": "^17.0.8",
     "postcss": "^8.5.17",
     "prettier": "^3.9.5",
+    "sharp": "^0.35.0",
     "tailwindcss": "^4.3.2",
     "tsx": "^4.23.1",
     "typescript": "^5.5.3",
-    "vitest": "^4.1.10",
-    "brace-expansion": "^2.0.1"
+    "vitest": "^4.1.10"
   },
   "overrides": {
     "next": "16.2.12",
     "postcss": "^8.5.17",
     "js-yaml": "^4.2.0",
     "eslint": "^9.39.4",
-    "brace-expansion": "^2.0.1"
+    "brace-expansion": "^5.0.8",
+    "sharp": "^0.35.0"
   }
 }
