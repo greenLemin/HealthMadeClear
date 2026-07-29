@@ -38,10 +38,18 @@ export default function HomeClient({ lessons, learningPaths }: HomeClientProps) 
     return recentLessons.find((id) => !completedLessons.has(id));
   }, [recentLessons, completedLessons]);
 
+  const lessonMap = useMemo(() => {
+    const map = new Map<string, LessonListItem>();
+    for (const lesson of lessons) {
+      map.set(lesson.id, lesson);
+    }
+    return map;
+  }, [lessons]);
+
   const lastRecentLesson = useMemo(() => {
     if (!lastUncompletedRecentLessonId) return null;
-    return lessons.find((l) => l.id === lastUncompletedRecentLessonId);
-  }, [lastUncompletedRecentLessonId, lessons]);
+    return lessonMap.get(lastUncompletedRecentLessonId) || null;
+  }, [lastUncompletedRecentLessonId, lessonMap]);
 
   return (
     <div className="pb-14">
