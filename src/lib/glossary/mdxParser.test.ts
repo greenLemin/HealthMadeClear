@@ -1,5 +1,18 @@
 import { describe, expect, it } from "vitest";
-import { getAllGlossaryFromMdx, getGlossaryTermFromMdx } from "@/lib/glossary/mdxParser";
+import { getAllGlossaryFromMdx, getGlossaryTermFromMdx, getGlossaryMdxDir } from "@/lib/glossary/mdxParser";
+import path from "path";
+
+describe("getGlossaryMdxDir", () => {
+  it("returns correct path for English locale", () => {
+    const dir = getGlossaryMdxDir("en");
+    expect(dir).toBe(path.join(process.cwd(), "content", "glossary", "en"));
+  });
+
+  it("returns correct path for Spanish locale", () => {
+    const dir = getGlossaryMdxDir("es");
+    expect(dir).toBe(path.join(process.cwd(), "content", "glossary", "es"));
+  });
+});
 
 describe("glossary mdxParser", () => {
   it("loads all English glossary terms from MDX", async () => {
