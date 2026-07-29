@@ -44,12 +44,10 @@ export async function getRecommendedNextLesson(
     for (const id of path.lessons) {
       if (completedSet.has(id)) {
         hasCompleted = true;
+        if (nextIncomplete !== undefined) break;
       } else if (nextIncomplete === undefined) {
         nextIncomplete = id;
-      }
-
-      if (hasCompleted && nextIncomplete !== undefined) {
-        break;
+        if (hasCompleted) break;
       }
     }
 
