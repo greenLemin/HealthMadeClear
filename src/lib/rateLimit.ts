@@ -12,7 +12,7 @@ function getStore(namespace: string) {
 }
 
 export function getClientIp(request: Request): string {
-  // If request has a Next.js IP property natively, use it
+  // Use the native Next.js IP property if available
   if ("ip" in request && typeof request.ip === "string") {
     return request.ip;
   }
