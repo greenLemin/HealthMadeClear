@@ -48,10 +48,12 @@
     "lucide-react": "^1.24.0",
     "markdown-it": "^14.3.0",
     "motion": "^12.42.2",
-    "next": "16.2.10",
+    "next": "16.2.12",
+    "sharp": "^0.35.3",
     "next-intl": "^4.13.2",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react-dom": "^18.3.1",
+    "sharp": "^0.35.3"
   },
   "devDependencies": {
     "@netlify/plugin-nextjs": "^5.15.12",
@@ -84,7 +86,8 @@
     "vitest": "^4.1.10"
   },
   "overrides": {
-    "next": "16.2.10",
+    "next": "16.2.12",
+    "sharp": "^0.35.3",
     "postcss": "^8.5.10",
     "js-yaml": "^4.2.0",
     "eslint": "^9.39.4"
