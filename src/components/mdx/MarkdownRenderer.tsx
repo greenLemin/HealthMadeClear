@@ -7,6 +7,23 @@ import type { GlossaryTerm } from "@/types/glossary";
 import { getGlossaryRegexAndMap } from "@/lib/glossary/highlighterCache";
 import type MarkdownItToken from "markdown-it/lib/token.mjs";
 
+const SAFE_PROTOCOLS = ["http:", "https:", "mailto:", "tel:"];
+
+function isSafeUrl(url: string): boolean {
+  try {
+    // Note: control characters like \x00 might bypass URL parser in some
+    // environments if we don't clean them, but Node's URL handles it by
+    // sometimes parsing it as part of path. For browser, we should be safe
+    // against javascript: by using URL.
+    // To be perfectly safe, let's also strip control chars and spaces.
+    const cleanUrl = url.trim().replace(/[\x00-\x1F\x7F-\x9F]/g, "");
+    const parsed = new URL(cleanUrl, "http://dummy.com");
+    return SAFE_PROTOCOLS.includes(parsed.protocol);
+  } catch {
+    return false;
+  }
+}
+
 const md = new MarkdownIt({
   html: false,
   linkify: true,
@@ -180,10 +197,9 @@ function renderTokens(
       result.push(<Tag key={`h${level}-${i}`}>{headingChildren}</Tag>);
     } else if (token.type === "link_open") {
       const href = token.attrGet("href") || "#";
-      if (/^\s*javascript:/i.test(href)) {
-        i++;
-        while (i < tokens.length && tokens[i].type !== "link_close") i++;
-        continue;
+      let safeHref = href;
+      if (!isSafeUrl(safeHref)) {
+        safeHref = "#";
       }
       const linkChildren: React.ReactNode[] = [];
       i++;
@@ -196,7 +212,7 @@ function renderTokens(
       result.push(
         <a
           key={`link-${i}`}
-          href={href}
+          href={safeHref}
           target="_blank"
           rel="noopener noreferrer"
           className="text-primary underline hover:no-underline"
