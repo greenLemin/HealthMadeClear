@@ -40,6 +40,23 @@ describe("dailyLog", () => {
       expect(logQueryError).toHaveBeenCalledWith("updateDailyLog", null);
     });
 
+    it("should extract correctly date independent of timezone", async () => {
+      vi.setSystemTime(new Date("2024-05-10T23:59:59Z"));
+      const mockUpsert = vi.fn().mockResolvedValue({ error: null });
+      const mockFrom = vi.fn().mockReturnValue({ upsert: mockUpsert });
+      const mockSupabase = {
+        from: mockFrom,
+      } as unknown as SupabaseClient;
+
+      const userId = "test-user-id";
+      await updateDailyLog(mockSupabase, userId);
+
+      expect(mockUpsert).toHaveBeenCalledWith(
+        { user_id: userId, activity_date: "2024-05-10" },
+        { onConflict: "user_id,activity_date" }
+      );
+    });
+
     it("should log error if upsert fails", async () => {
       const mockError = new Error("DB error");
       const mockUpsert = vi.fn().mockResolvedValue({ error: mockError });
