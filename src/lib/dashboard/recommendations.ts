@@ -29,9 +29,13 @@ export async function getRecommendedNextLesson(
 
   const completedSet = new Set((progressData ?? []).map((p) => p.lesson_id));
 
+  let lastBeginnerIndex = -1;
   const lessonRecord = allLessons.reduce(
-    (acc, lesson) => {
+    (acc, lesson, index) => {
       acc[lesson.id] = lesson;
+      if (lesson.level === "beginner") {
+        lastBeginnerIndex = index;
+      }
       return acc;
     },
     {} as Record<string, (typeof allLessons)[0]>
@@ -84,6 +88,11 @@ export async function getRecommendedNextLesson(
       if (!firstUncompleted) {
         firstUncompleted = l;
       }
+    }
+    // Optimization: if we have already found the first uncompleted lesson
+    // and we are past the last known beginner lesson, we can break early.
+    if (firstUncompleted && i >= lastBeginnerIndex) {
+      break;
     }
   }
 
