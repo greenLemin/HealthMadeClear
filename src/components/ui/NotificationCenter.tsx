@@ -44,7 +44,7 @@ function getNotifIcon(type: string) {
   }
 }
 
-export default function NotificationCenter() {
+export function NotificationCenter() {
   const { user } = useAuth();
   const { locale } = useAppState();
   const t = useTranslations("notifications");

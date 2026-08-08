@@ -32,7 +32,10 @@ import { useAuth } from "@/hooks/useAuth";
 import { useTranslations } from "next-intl";
 import { revealEase } from "@/components/ui/Reveal";
 
-const NotificationCenter = dynamic(() => import("@/components/ui/NotificationCenter"), { ssr: false });
+const NotificationCenter = dynamic(
+  () => import("@/components/ui/NotificationCenter").then((mod) => mod.NotificationCenter),
+  { ssr: false }
+);
 const SearchDialog = dynamic(() => import("@/components/SearchDialog"), {
   ssr: false,
   loading: () => <Skeleton variant="button" width="44px" />,
