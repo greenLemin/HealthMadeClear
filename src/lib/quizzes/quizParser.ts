@@ -100,28 +100,40 @@ export function getQuizMdxDir(locale: "en" | "es") {
 
 export async function getAllQuizzesFromMdx(locale: "en" | "es"): Promise<Quiz[]> {
   const dir = getQuizMdxDir(locale);
+  const results: (Quiz | null)[] = [];
+  const BATCH_SIZE = 10;
 
-  const promises = LESSON_IDS.map(async (id) => {
-    const filePath = path.join(dir, `${id}.mdx`);
-    try {
-      await fs.access(filePath);
-    } catch {
-      return null;
+  for (let i = 0; i < LESSON_IDS.length; i += BATCH_SIZE) {
+    const batch = LESSON_IDS.slice(i, i + BATCH_SIZE);
+    const batchPromises = batch.map(async (id) => {
+      const filePath = path.join(dir, `${id}.mdx`);
+
+      let fileContent: string;
+      try {
+        fileContent = await fs.readFile(filePath, "utf8");
+      } catch {
+        return null;
+      }
+
+      const raw = normalizeLineEndings(fileContent);
+      const { data, content } = matter(raw);
+
+      return {
+        id: String(data.id),
+        title: String(data.title),
+        lessonId: String(data.lessonId) as LessonId,
+        passScore: Number(data.passScore) || 70,
+        questions: parseQuestions(content.trim()),
+      } as Quiz;
+    });
+
+    const batchResults = await Promise.all(batchPromises);
+    for (const res of batchResults) {
+      if (res) results.push(res);
     }
-    const raw = normalizeLineEndings(await fs.readFile(filePath, "utf8"));
-    const { data, content } = matter(raw);
+  }
 
-    return {
-      id: String(data.id),
-      title: String(data.title),
-      lessonId: String(data.lessonId) as LessonId,
-      passScore: Number(data.passScore) || 70,
-      questions: parseQuestions(content.trim()),
-    } as Quiz;
-  });
-
-  const results = await Promise.all(promises);
-  return results.filter(Boolean) as Quiz[];
+  return results as Quiz[];
 }
 
 export async function getQuizFromMdx(id: string, locale: "en" | "es"): Promise<Quiz | undefined> {
@@ -145,13 +157,18 @@ export async function getQuizFromMdx(id: string, locale: "en" | "es"): Promise<Q
 
 export async function assertAllQuizzesExist(locale: "en" | "es"): Promise<void> {
   const dir = getQuizMdxDir(locale);
-  const promises = LESSON_IDS.map(async (id) => {
-    const filePath = path.join(dir, `${id}.mdx`);
-    try {
-      await fs.access(filePath);
-    } catch {
-      throw new Error(`Missing quiz MDX file: ${filePath}`);
-    }
-  });
-  await Promise.all(promises);
+  const BATCH_SIZE = 10;
+
+  for (let i = 0; i < LESSON_IDS.length; i += BATCH_SIZE) {
+    const batch = LESSON_IDS.slice(i, i + BATCH_SIZE);
+    const promises = batch.map(async (id) => {
+      const filePath = path.join(dir, `${id}.mdx`);
+      try {
+        await fs.access(filePath);
+      } catch {
+        throw new Error(`Missing quiz MDX file: ${filePath}`);
+      }
+    });
+    await Promise.all(promises);
+  }
 }
