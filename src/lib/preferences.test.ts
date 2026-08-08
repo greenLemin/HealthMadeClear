@@ -161,6 +161,7 @@ describe("preferences", () => {
         delete document.cookie;
       }
       vi.unstubAllGlobals();
+      window.localStorage.clear();
     });
 
     it("returns from cookie if 'large'", () => {
