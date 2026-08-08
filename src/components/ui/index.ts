@@ -7,7 +7,6 @@ export { default as Input } from "./Input";
 export { default as KeyTakeaway } from "./KeyTakeaway";
 export { default as Modal } from "./Modal";
 export { default as ProgressBar } from "./ProgressBar";
-export { default as ReadingTime } from "./ReadingTime";
 export { default as Skeleton } from "./Skeleton";
 export { default as ThemeToggle } from "./ThemeToggle";
 export { default as ToastProvider, useToast } from "./ToastProvider";

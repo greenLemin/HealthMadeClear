@@ -17,7 +17,6 @@ Design system primitive components.
 - `Skeleton.tsx`: Loading skeleton placeholders
 - `EmptyState.tsx`: Empty state display
 - `ProgressBar.tsx`: Progress indicator bar
-- `ReadingTime.tsx`: Estimated reading time display
 - `ThemeToggle.tsx`: Dark/light mode toggle
 - `NetworkStatusBanner.tsx`: Offline/online status banner
 - `StreakBadge.tsx`: Learning streak badge
