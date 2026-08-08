@@ -31,11 +31,117 @@ function handleArrowSelection<T extends string>(
   onSelect(options[(index + delta + options.length) % options.length]);
 }
 
+function TextSizeControls({ t }: { t: any }) {
+  const { textSize, setTextSize } = useAppState();
+  const textSizeLabels: Record<TextSize, string> = {
+    standard: t("textSizeStandard"),
+    large: t("textSizeLarge"),
+    largest: t("textSizeLargest"),
+  };
+
+  return (
+    <div className="mb-5">
+      <div className="mb-2 flex items-center gap-2 text-label-md text-on-surface">
+        <Type size={16} aria-hidden="true" />
+        {t("textSize")}
+      </div>
+      <div className="grid grid-cols-3 gap-2" role="radiogroup" aria-label={t("textSize")}>
+        {TEXT_SIZES.map((value) => (
+          <button
+            key={value}
+            type="button"
+            role="radio"
+            aria-checked={textSize === value}
+            aria-label={textSizeLabels[value]}
+            onClick={() => setTextSize(value)}
+            onKeyDown={(event) => handleArrowSelection(event, TEXT_SIZES, textSize, setTextSize)}
+            className={
+              textSize === value
+                ? "min-h-11 rounded-lg bg-primary px-3 py-3 text-label-md font-semibold text-on-primary"
+                : "min-h-11 rounded-lg border border-outline-variant bg-surface-container-low px-3 py-3 text-label-md font-semibold text-on-surface"
+            }
+          >
+            {TEXT_SIZE_DISPLAY[value]}
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function ThemeControls({ t }: { t: any }) {
+  const { theme, setTheme } = useAppState();
+  return (
+    <div className="mb-5">
+      <div className="mb-2 text-label-md text-on-surface">{t("colorTheme")}</div>
+      <div className="grid grid-cols-2 gap-2" role="radiogroup" aria-label={t("colorTheme")}>
+        <button
+          type="button"
+          role="radio"
+          aria-checked={theme === "light"}
+          onClick={() => setTheme("light")}
+          onKeyDown={(event) => handleArrowSelection(event, THEMES, theme, setTheme)}
+          className={
+            theme === "light"
+              ? "flex min-h-11 items-center justify-center gap-2 rounded-lg bg-primary px-3 py-3 text-label-md font-semibold text-on-primary"
+              : "flex min-h-11 items-center justify-center gap-2 rounded-lg border border-outline-variant bg-surface-container-low px-3 py-3 text-label-md font-semibold text-on-surface"
+          }
+        >
+          <Sun size={16} aria-hidden="true" />
+          {t("light")}
+        </button>
+        <button
+          type="button"
+          role="radio"
+          aria-checked={theme === "dark"}
+          onClick={() => setTheme("dark")}
+          onKeyDown={(event) => handleArrowSelection(event, THEMES, theme, setTheme)}
+          className={
+            theme === "dark"
+              ? "flex min-h-11 items-center justify-center gap-2 rounded-lg bg-primary px-3 py-3 text-label-md font-semibold text-on-primary"
+              : "flex min-h-11 items-center justify-center gap-2 rounded-lg border border-outline-variant bg-surface-container-low px-3 py-3 text-label-md font-semibold text-on-surface"
+          }
+        >
+          <Moon size={16} aria-hidden="true" />
+          {t("dark")}
+        </button>
+      </div>
+    </div>
+  );
+}
+
+function SimpleModeControl({ t }: { t: any }) {
+  const { simpleMode, setSimpleMode } = useAppState();
+  return (
+    <div className="flex items-center justify-between rounded-lg bg-surface-container-low px-4 py-4">
+      <div>
+        <div className="text-label-md text-on-surface">{t("simpleMode")}</div>
+        <div id="simple-mode-description" className="text-label-md text-on-surface-variant">
+          {t("simpleModeDescription")}
+        </div>
+      </div>
+      <button
+        type="button"
+        aria-label={`${t("simpleMode")}, ${simpleMode ? t("on") : t("off")}`}
+        aria-describedby="simple-mode-description"
+        aria-pressed={simpleMode}
+        onClick={() => setSimpleMode(!simpleMode)}
+        className={
+          simpleMode
+            ? "inline-flex min-h-11 items-center rounded-full bg-primary px-4 py-2 text-label-md font-semibold text-on-primary"
+            : "inline-flex min-h-11 items-center rounded-full border border-outline-variant px-4 py-2 text-label-md font-semibold text-on-surface"
+        }
+      >
+        {simpleMode ? t("on") : t("off")}
+      </button>
+    </div>
+  );
+}
+
 export default function AccessibilityControls() {
   const [isOpen, setIsOpen] = useState(false);
   const panelRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
-  const { theme, setTheme, textSize, setTextSize, simpleMode, setSimpleMode } = useAppState();
   const t = useTranslations("accessibility");
   const tCommon = useTranslations("common");
   const motionSafe = useMotionSafe();
@@ -61,12 +167,6 @@ export default function AccessibilityControls() {
     return () => document.removeEventListener("keydown", handleGlobalKeyDown);
   }, []);
 
-  const textSizeLabels: Record<TextSize, string> = {
-    standard: t("textSizeStandard"),
-    large: t("textSizeLarge"),
-    largest: t("textSizeLargest"),
-  };
-
   const panelContent = (
     <>
       <div className="mb-5 flex items-start justify-between gap-3">
@@ -83,91 +183,9 @@ export default function AccessibilityControls() {
         </button>
       </div>
 
-      <div className="mb-5">
-        <div className="mb-2 flex items-center gap-2 text-label-md text-on-surface">
-          <Type size={16} aria-hidden="true" />
-          {t("textSize")}
-        </div>
-        <div className="grid grid-cols-3 gap-2" role="radiogroup" aria-label={t("textSize")}>
-          {TEXT_SIZES.map((value) => (
-            <button
-              key={value}
-              type="button"
-              role="radio"
-              aria-checked={textSize === value}
-              aria-label={textSizeLabels[value]}
-              onClick={() => setTextSize(value)}
-              onKeyDown={(event) => handleArrowSelection(event, TEXT_SIZES, textSize, setTextSize)}
-              className={
-                textSize === value
-                  ? "min-h-11 rounded-lg bg-primary px-3 py-3 text-label-md font-semibold text-on-primary"
-                  : "min-h-11 rounded-lg border border-outline-variant bg-surface-container-low px-3 py-3 text-label-md font-semibold text-on-surface"
-              }
-            >
-              {TEXT_SIZE_DISPLAY[value]}
-            </button>
-          ))}
-        </div>
-      </div>
-
-      <div className="mb-5">
-        <div className="mb-2 text-label-md text-on-surface">{t("colorTheme")}</div>
-        <div className="grid grid-cols-2 gap-2" role="radiogroup" aria-label={t("colorTheme")}>
-          <button
-            type="button"
-            role="radio"
-            aria-checked={theme === "light"}
-            onClick={() => setTheme("light")}
-            onKeyDown={(event) => handleArrowSelection(event, THEMES, theme, setTheme)}
-            className={
-              theme === "light"
-                ? "flex min-h-11 items-center justify-center gap-2 rounded-lg bg-primary px-3 py-3 text-label-md font-semibold text-on-primary"
-                : "flex min-h-11 items-center justify-center gap-2 rounded-lg border border-outline-variant bg-surface-container-low px-3 py-3 text-label-md font-semibold text-on-surface"
-            }
-          >
-            <Sun size={16} aria-hidden="true" />
-            {t("light")}
-          </button>
-          <button
-            type="button"
-            role="radio"
-            aria-checked={theme === "dark"}
-            onClick={() => setTheme("dark")}
-            onKeyDown={(event) => handleArrowSelection(event, THEMES, theme, setTheme)}
-            className={
-              theme === "dark"
-                ? "flex min-h-11 items-center justify-center gap-2 rounded-lg bg-primary px-3 py-3 text-label-md font-semibold text-on-primary"
-                : "flex min-h-11 items-center justify-center gap-2 rounded-lg border border-outline-variant bg-surface-container-low px-3 py-3 text-label-md font-semibold text-on-surface"
-            }
-          >
-            <Moon size={16} aria-hidden="true" />
-            {t("dark")}
-          </button>
-        </div>
-      </div>
-
-      <div className="flex items-center justify-between rounded-lg bg-surface-container-low px-4 py-4">
-        <div>
-          <div className="text-label-md text-on-surface">{t("simpleMode")}</div>
-          <div id="simple-mode-description" className="text-label-md text-on-surface-variant">
-            {t("simpleModeDescription")}
-          </div>
-        </div>
-        <button
-          type="button"
-          aria-label={`${t("simpleMode")}, ${simpleMode ? t("on") : t("off")}`}
-          aria-describedby="simple-mode-description"
-          aria-pressed={simpleMode}
-          onClick={() => setSimpleMode(!simpleMode)}
-          className={
-            simpleMode
-              ? "inline-flex min-h-11 items-center rounded-full bg-primary px-4 py-2 text-label-md font-semibold text-on-primary"
-              : "inline-flex min-h-11 items-center rounded-full border border-outline-variant px-4 py-2 text-label-md font-semibold text-on-surface"
-          }
-        >
-          {simpleMode ? t("on") : t("off")}
-        </button>
-      </div>
+      <TextSizeControls t={t} />
+      <ThemeControls t={t} />
+      <SimpleModeControl t={t} />
     </>
   );
 
