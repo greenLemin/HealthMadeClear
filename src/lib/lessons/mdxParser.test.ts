@@ -9,6 +9,11 @@ describe("mdxParser", () => {
     expect(lessons[0]?.content.sections.length).toBeGreaterThan(0);
   });
 
+  it("returns undefined for non-existent lesson", async () => {
+    const lesson = await getLessonFromMdx("non-existent-lesson", "en");
+    expect(lesson).toBeUndefined();
+  });
+
   it("loads Spanish lesson with translated title", async () => {
     const lesson = await getLessonFromMdx("understanding-prescription-labels", "es");
     expect(lesson?.title).toBe("Entender las etiquetas de receta");
