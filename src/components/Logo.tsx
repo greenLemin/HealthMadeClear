@@ -1,3 +1,4 @@
+import Image from "next/image";
 import React from "react";
 
 interface LogoProps {
@@ -5,5 +6,5 @@ interface LogoProps {
 }
 
 export default function Logo({ className = "h-12 w-12" }: LogoProps) {
-  return <img src="/logo.jpeg" alt="Health Made Clear logo" className={className} draggable={false} />;
+  return <Image src="/logo.jpeg" alt="Health Made Clear logo" className={className} draggable={false} />;
 }
