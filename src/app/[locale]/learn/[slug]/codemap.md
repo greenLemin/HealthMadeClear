@@ -11,6 +11,6 @@ Individual lesson detail page — renders lesson content with sections, callouts
 ## Integration
 
 - Loads lesson via `getLessonById` from `src/lib/lessons/loadLessons.ts`
-- Uses MDX components for rendering (GlossaryHighlighter, LessonCallout)
+- Uses MDX components for rendering (GlossaryHighlighter)
 - Links to `quiz` sub-route for lesson quiz
 - Depends on `useProgress` hook for marking lesson completion
