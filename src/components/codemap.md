@@ -27,7 +27,7 @@ React component library — all UI components organized by domain.
 
 | Directory    | Responsibility                                                                               |
 | ------------ | -------------------------------------------------------------------------------------------- |
-| `layout/`    | Layout primitives (Container, Section)                                                       |
+| `layout/`    | Layout primitives (Container)                                                                |
 | `ui/`        | Design system primitives (Button, Card, Input, Modal, Toast, Badge, etc.)                    |
 | `providers/` | React context providers (AuthProvider)                                                       |
 | `learn/`     | Learning catalog cards (LessonCard, LearningPathCard)                                        |
