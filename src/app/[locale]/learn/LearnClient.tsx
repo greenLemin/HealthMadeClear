@@ -9,7 +9,7 @@ import MedicalDisclaimer from "@/components/MedicalDisclaimer";
 import EmptyState from "@/components/ui/EmptyState";
 import Reveal from "@/components/ui/Reveal";
 import { getCategoryLabel } from "@/lib/i18n";
-import { LESSON_CATEGORY_IDS, type LessonCategoryId } from "@/types/content";
+import { LESSON_CATEGORY_IDS } from "@/types/content";
 import type { LessonListItem } from "@/types/lesson";
 import { useTranslations } from "next-intl";
 
@@ -73,12 +73,12 @@ export default function LearnClient({ lessons }: LearnClientProps) {
     if (activeCategory !== ALL) {
       return null;
     }
-    const groups: Partial<Record<LessonCategoryId, LessonListItem[]>> = {};
+    const groups: Record<string, LessonListItem[]> = {};
     for (const lesson of libraryLessons) {
       if (!groups[lesson.categoryId]) {
         groups[lesson.categoryId] = [];
       }
-      groups[lesson.categoryId]!.push(lesson);
+      groups[lesson.categoryId].push(lesson);
     }
     return groups;
   }, [libraryLessons, activeCategory]);
@@ -171,29 +171,27 @@ export default function LearnClient({ lessons }: LearnClientProps) {
             <h2 className="mb-8 font-display text-headline-lg text-primary">{tCommon("exploreLibrary")}</h2>
             {groupedLibraryLessons ? (
               <div className="space-y-12">
-                {(Object.entries(groupedLibraryLessons) as [LessonCategoryId, LessonListItem[]][]).map(
-                  ([categoryId, groupLessons]) => (
-                    <div
-                      key={categoryId}
-                      className="border-t border-outline-variant/40 pt-8 first:border-t-0 first:pt-0"
-                    >
-                      <h3 className="mb-6 font-display text-headline-md text-primary">
-                        {getCategoryLabel(categoryId, locale)}
-                      </h3>
-                      <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-                        {groupLessons.map((lesson, index) => (
-                          <Reveal key={lesson.id} delay={(index % 3) * 0.04}>
-                            <LessonCard
-                              lesson={lesson}
-                              isComplete={completedLessons.has(lesson.id)}
-                              onNavigate={() => markLessonViewed(lesson.id)}
-                            />
-                          </Reveal>
-                        ))}
-                      </div>
+                {Object.entries(groupedLibraryLessons).map(([categoryId, groupLessons]) => (
+                  <div
+                    key={categoryId}
+                    className="border-t border-outline-variant/40 pt-8 first:border-t-0 first:pt-0"
+                  >
+                    <h3 className="mb-6 font-display text-headline-md text-primary">
+                      {getCategoryLabel(categoryId as any, locale)}
+                    </h3>
+                    <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+                      {groupLessons.map((lesson, index) => (
+                        <Reveal key={lesson.id} delay={(index % 3) * 0.04}>
+                          <LessonCard
+                            lesson={lesson}
+                            isComplete={completedLessons.has(lesson.id)}
+                            onNavigate={() => markLessonViewed(lesson.id)}
+                          />
+                        </Reveal>
+                      ))}
                     </div>
-                  )
-                )}
+                  </div>
+                ))}
               </div>
             ) : (
               <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
