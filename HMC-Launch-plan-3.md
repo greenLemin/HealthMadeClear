@@ -615,14 +615,14 @@ if (!isClient) return null; // wrap kbd
 | DS-03     | Body font-size drift (17px vs 18px)                     | globals.css                   | Design        | P2.2  |
 | DS-04     | Hardcoded teal hex colors in quiz                       | QuizClient.tsx:35             | Design        | P2.2  |
 | PERF-01   | SearchDialog static import                              | Header.tsx:22                 | Performance   | P2.2  |
-| PERF-02   | Image optimization missing                              | content/* lessons             | Performance   | P2.2  |
+| PERF-02   | Image optimization missing                              | content/\* lessons            | Performance   | P2.2  |
 | DB-02     | Referential integrity — cascade deletes                 | migrations/                   | Database      | P2.2  |
 | DB-03     | No connection pooling configured                        | —                             | Database      | P2.2  |
 | DB-04     | Missing database indexes                                | —                             | Database      | P2.3  |
 | DS-05     | Animation values inconsistent                           | Multiple components           | Design        | P2.3  |
 | A11Y-04   | No skip-to-content link                                 | layout.tsx                    | Accessibility | P2.3  |
 | A11Y-05   | Focus indicators weak/missing                           | Multiple components           | Accessibility | P2.3  |
-| A11Y-08   | Lesson images missing alt text                          | content/*.mdx                 | Accessibility | P2.3  |
+| A11Y-08   | Lesson images missing alt text                          | content/\*.mdx                | Accessibility | P2.3  |
 | A11Y-09   | Form labels not associated with inputs                  | Multiple forms                | Accessibility | P2.3  |
 | AUTH-04   | Password reset flow untested                            | —                             | Auth          | P2.3  |
 | AUTH-05   | OAuth provider config unverified                        | —                             | Auth          | P2.3  |
