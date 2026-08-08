@@ -12,21 +12,7 @@ import { useTranslations } from "next-intl";
 import type { SearchEntry } from "@/data/searchIndex.en";
 import EmptyState from "@/components/ui/EmptyState";
 import { modalVariants, revealEase } from "@/components/ui/Reveal";
-
-export function highlightMatches(text: string, query: string) {
-  if (!query) return text;
-  const regex = new RegExp(`(${query.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")})`, "gi");
-  const parts = text.split(regex);
-  return parts.map((part, i) =>
-    i % 2 === 1 ? (
-      <mark key={i} className="rounded bg-primary-container px-0.5 text-on-primary-container">
-        {part}
-      </mark>
-    ) : (
-      part
-    )
-  );
-}
+import { highlightMatches } from "@/lib/search/highlightMatches";
 
 function getShortcutLabel(t: ReturnType<typeof useTranslations<"search">>) {
   if (typeof navigator === "undefined") return t("shortcutWindows");
