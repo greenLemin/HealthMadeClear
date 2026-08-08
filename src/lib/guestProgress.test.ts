@@ -69,4 +69,10 @@ describe("guestProgress", () => {
     expect(result.ok).toBe(true);
     expect(supabase.from).not.toHaveBeenCalled();
   });
+  it("silently catches errors when storage.setItem throws", () => {
+    const setItemSpy = vi.spyOn(Storage.prototype, "setItem").mockImplementation(() => {
+      throw new Error("QuotaExceededError");
+    });
+    expect(() => markLessonComplete("lesson-error")).not.toThrow();
+  });
 });
