@@ -1087,7 +1087,7 @@ function createQueryBuilder(table: string, cookieStore?: CookieStore) {
       onfulfilled?: (value: { data: unknown; error: null; count: number | null }) => unknown,
       onrejected?: (reason: unknown) => unknown
     ) {
-      return execute(false).then(onfulfilled as any, onrejected);
+      return execute(false).then(onfulfilled, onrejected);
     },
   };
 
