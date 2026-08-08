@@ -117,6 +117,24 @@ describe("progressExport", () => {
         ])
       );
     });
+
+    it("handles missing arrays by stringifying undefined", () => {
+      const setItemSpy = vi.spyOn(Storage.prototype, "setItem");
+
+      const invalidData = {
+        completedLessons: undefined,
+        recentLessons: undefined,
+        startedPaths: undefined,
+        quizScores: undefined,
+      } as any;
+
+      applyProgressImport(invalidData);
+
+      expect(setItemSpy).toHaveBeenCalledWith(STORAGE_KEYS.completedLessons, undefined);
+      expect(setItemSpy).toHaveBeenCalledWith(STORAGE_KEYS.recentLessons, undefined);
+      expect(setItemSpy).toHaveBeenCalledWith(STORAGE_KEYS.startedPaths, undefined);
+      expect(setItemSpy).toHaveBeenCalledWith(STORAGE_KEYS.quizScores, undefined);
+    });
   });
 
   describe("readStoredQuizScores", () => {
