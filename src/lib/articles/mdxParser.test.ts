@@ -42,7 +42,7 @@ describe("article mdxParser", () => {
   });
 
   it("returns undefined for getArticleFromMdx when id is not valid", async () => {
-    const result = await getArticleFromMdx("invalid-id", "en");
+    const result = await getArticleFromMdx("invalid-id" as any, "en");
     expect(result).toBeUndefined();
   });
 
