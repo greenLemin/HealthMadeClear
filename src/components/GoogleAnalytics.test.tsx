@@ -6,6 +6,7 @@ import { describe, expect, it, vi, beforeEach, afterEach } from "vitest";
 
 vi.mock("next/script", () => ({
   default: ({ children, id, src, strategy, ...props }: any) => (
+    /* eslint-disable-next-line @next/next/no-sync-scripts */
     <script id={id} src={src} data-strategy={strategy} {...props}>
       {children}
     </script>

@@ -54,23 +54,3 @@
   [headers.values]
     Cache-Control = "public, max-age=86400"
 
-# Security headers for all routes (backup to next.config.js)
-[[headers]]
-  for = "/*"
-  [headers.values]
-    X-Frame-Options = "DENY"
-    X-Content-Type-Options = "nosniff"
-    Referrer-Policy = "strict-origin-when-cross-origin"
-    Permissions-Policy = "camera=(), microphone=(), geolocation=(), interest-cohort=()"
-    Strict-Transport-Security = "max-age=31536000; includeSubDomains"
-
-# Redirects
-[[redirects]]
-  from = "/en"
-  to = "/en"
-  status = 200
-
-[[redirects]]
-  from = "/es"
-  to = "/es"
-  status = 200
