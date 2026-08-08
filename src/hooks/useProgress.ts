@@ -17,7 +17,7 @@ import type { AchievementId } from "@/lib/achievements";
 import type { Locale } from "@/lib/i18n";
 import { updateStreak } from "@/lib/streaks";
 import { updateDailyLog } from "@/lib/dashboard";
-import { createNotification } from "@/lib/notifications";
+import { createNotifications } from "@/lib/notifications";
 import { reportClientError } from "@/lib/errorReporting";
 
 export interface ProgressState {
@@ -176,20 +176,20 @@ export function useProgress(): ProgressState & ProgressActions {
               loadPathsPromise = import("@/lib/paths/loadPaths");
             }
             const allPaths = (await loadPathsPromise).getAllLearningPaths(locale as Locale);
-            const notificationPromises = [];
+            const notifications = [];
             for (const path of allPaths) {
               const remaining = path.lessons.filter((id) => !allCompletedSet.has(id));
               if (remaining.length === 1 && allCompletedSet.has(lessonId)) {
-                notificationPromises.push(
-                  createNotification(supabase, user.id, {
-                    type: "close-to-completion",
-                    title: "Almost there!",
-                    body: `You're one lesson away from completing "${path.title}".`,
-                  })
-                );
+                notifications.push({
+                  type: "close-to-completion",
+                  title: "Almost there!",
+                  body: `You're one lesson away from completing "${path.title}".`,
+                });
               }
             }
-            await Promise.all(notificationPromises);
+            if (notifications.length > 0) {
+              await createNotifications(supabase, user.id, notifications);
+            }
           } catch (error) {
             reportClientError(error, { context: "Failed to load paths for progress calculation" });
           }
