@@ -2,9 +2,8 @@
 
 import { useMemo } from "react";
 import MarkdownIt from "markdown-it";
-import InlineGlossaryTerm from "./InlineGlossaryTerm";
+import GlossaryHighlighter from "./GlossaryHighlighter";
 import type { GlossaryTerm } from "@/types/glossary";
-import { getGlossaryRegexAndMap } from "@/lib/glossary/highlighterCache";
 import type MarkdownItToken from "markdown-it/lib/token.mjs";
 
 const md = new MarkdownIt({
@@ -306,27 +305,6 @@ function renderTable(
   );
 
   return { node, next: i + 1 };
-}
-
-function GlossaryHighlighter({ text, glossaryTerms }: { text: string; glossaryTerms: GlossaryTerm[] }) {
-  if (!text || glossaryTerms.length === 0) return text;
-
-  const { termMap, regex } = getGlossaryRegexAndMap(glossaryTerms);
-  const parts = text.split(regex);
-
-  return parts.map((part, index) => {
-    const termObj = termMap.get(part.toLowerCase());
-    if (termObj) {
-      return (
-        <InlineGlossaryTerm
-          key={`${termObj.id}-${index}`}
-          term={{ id: termObj.id, term: termObj.term, definition: termObj.definition }}
-          displayText={part}
-        />
-      );
-    }
-    return part;
-  });
 }
 
 export default function MarkdownRenderer({ text, glossaryTerms }: MarkdownRendererProps) {
