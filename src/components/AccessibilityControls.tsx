@@ -181,6 +181,7 @@ export default function AccessibilityControls() {
         aria-expanded={isOpen}
         aria-haspopup="dialog"
         aria-controls="accessibility-panel"
+        aria-label={t("display")}
       >
         <Settings2 size={18} aria-hidden="true" />
         <span className="hidden 2xl:inline">{t("display")}</span>
