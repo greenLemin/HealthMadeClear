@@ -2,6 +2,7 @@
 import { describe, expect, it, vi } from "vitest";
 import { getUserProfile } from "./profile";
 import type { SupabaseClient } from "@supabase/supabase-js";
+import { logger } from "../logger";
 
 describe("getUserProfile", () => {
   it("should return the user profile with correct display name and email", async () => {
@@ -62,7 +63,7 @@ describe("getUserProfile", () => {
     } as unknown as SupabaseClient;
 
     // Supress console error for expected log
-    const consoleSpy = vi.spyOn(console, "error").mockImplementation(() => {});
+    const consoleSpy = vi.spyOn(logger, "error").mockImplementation(() => {});
 
     const profile = await getUserProfile(mockSupabase, "user123");
 
@@ -132,7 +133,7 @@ describe("getUserProfile", () => {
       },
     } as unknown as SupabaseClient;
 
-    const consoleSpy = vi.spyOn(console, "error").mockImplementation(() => {});
+    const consoleSpy = vi.spyOn(logger, "error").mockImplementation(() => {});
 
     const profile = await getUserProfile(mockSupabase, "user123");
 
