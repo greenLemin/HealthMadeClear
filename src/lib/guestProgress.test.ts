@@ -23,7 +23,7 @@ describe("guestProgress", () => {
   });
 
   it("returns fallback value when storage throws an error on read", () => {
-    vi.spyOn(Storage.prototype, "getItem").mockImplementation(() => {
+    vi.spyOn(Storage.prototype, "getItem").mockImplementationOnce(() => {
       throw new Error("Storage unavailable");
     });
 
