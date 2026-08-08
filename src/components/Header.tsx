@@ -32,7 +32,6 @@ import { useAuth } from "@/hooks/useAuth";
 import { useTranslations } from "next-intl";
 import { revealEase } from "@/components/ui/Reveal";
 
-const NotificationCenter = dynamic(() => import("@/components/ui/NotificationCenter"), { ssr: false });
 const SearchDialog = dynamic(() => import("@/components/SearchDialog"), {
   ssr: false,
   loading: () => <Skeleton variant="button" width="44px" />,
@@ -202,7 +201,6 @@ export default function Header() {
                 <Skeleton variant="button" width="110px" />
               ) : user ? (
                 <div className="flex items-center gap-2">
-                  <NotificationCenter />
                   <Link
                     href="/dashboard"
                     className="flex items-center gap-2 rounded-full bg-surface-container-lowest/85 px-4 py-2.5 text-label-md text-primary shadow-elevation-1 transition-all duration-300 ease-premium hover:-translate-y-0.5 hover:shadow-elevation-2"

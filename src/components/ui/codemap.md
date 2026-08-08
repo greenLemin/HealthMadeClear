@@ -11,7 +11,6 @@ Design system primitive components.
 - `Input.tsx`: Form input component
 - `Modal.tsx`: Accessible modal dialog
 - `Toast.tsx`, `ToastProvider.tsx`: Toast notification system (context + component)
-- `NotificationCenter.tsx`: In-app notification dropdown
 - `Alert.tsx`: Alert banner component
 - `Badge.tsx`: Status badge
 - `Skeleton.tsx`: Loading skeleton placeholders
