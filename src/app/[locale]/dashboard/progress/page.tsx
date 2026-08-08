@@ -49,6 +49,8 @@ export default async function ProgressPage({ params, searchParams }: Props) {
     .eq("user_id", user.id)
     .eq("completed", true);
 
+  const completedSet = new Set((lessonProgressData ?? []).map((p: { lesson_id: string }) => p.lesson_id));
+
   const categoryProgress: Record<
     string,
     {
@@ -60,11 +62,8 @@ export default async function ProgressPage({ params, searchParams }: Props) {
     }
   > = {};
 
-  const lessonCategoryMap = new Map<string, string>();
-
   for (const lesson of allLessons) {
     const catId = lesson.categoryId;
-    lessonCategoryMap.set(lesson.id, catId);
     let catProg = categoryProgress[catId];
     if (!catProg) {
       catProg = categoryProgress[catId] = {
@@ -76,12 +75,8 @@ export default async function ProgressPage({ params, searchParams }: Props) {
       };
     }
     catProg.total += 1;
-  }
-
-  for (const p of lessonProgressData ?? []) {
-    const catId = lessonCategoryMap.get(p.lesson_id);
-    if (catId && categoryProgress[catId]) {
-      categoryProgress[catId].completed += 1;
+    if (completedSet.has(lesson.id)) {
+      catProg.completed += 1;
     }
   }
 
