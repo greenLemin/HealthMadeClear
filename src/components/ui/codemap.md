@@ -20,7 +20,6 @@ Design system primitive components.
 - `ReadingTime.tsx`: Estimated reading time display
 - `ThemeToggle.tsx`: Dark/light mode toggle
 - `NetworkStatusBanner.tsx`: Offline/online status banner
-- `StreakBadge.tsx`: Learning streak badge
 - `KeyTakeaway.tsx`: Key takeaway highlight box
 - `SaveProgressBanner.tsx`: Prompts guest users to save progress
 - `index.ts`: Barrel export
