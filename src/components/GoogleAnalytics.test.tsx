@@ -6,7 +6,7 @@ import { describe, expect, it, vi, beforeEach, afterEach } from "vitest";
 
 vi.mock("next/script", () => ({
   default: ({ children, id, src, strategy, ...props }: any) => (
-    <script id={id} src={src} data-strategy={strategy} {...props}>
+    <script id={id} src={src} data-strategy={strategy} {...props} async>
       {children}
     </script>
   ),
