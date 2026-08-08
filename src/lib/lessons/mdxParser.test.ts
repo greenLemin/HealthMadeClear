@@ -1,4 +1,5 @@
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
+import fs from "fs";
 import { LESSON_IDS } from "@/types/content";
 import { getAllLessonsFromMdx, getLessonFromMdx } from "@/lib/lessons/mdxParser";
 
@@ -18,5 +19,18 @@ describe("mdxParser", () => {
     const lesson = await getLessonFromMdx("otc-drug-interactions", "en");
     const withCallout = lesson?.content.sections.find((s) => s.callouts?.length);
     expect(withCallout?.callouts?.[0]?.type).toBe("warning");
+  });
+
+  it("throws an error when a lesson MDX file is missing in getAllLessonsFromMdx", async () => {
+    const spy = vi.spyOn(fs.promises, "access").mockRejectedValueOnce(new Error("ENOENT"));
+    await expect(getAllLessonsFromMdx("en")).rejects.toThrow(/Missing lesson MDX file/);
+    spy.mockRestore();
+  });
+
+  it("returns undefined when a lesson MDX file is missing in getLessonFromMdx", async () => {
+    const spy = vi.spyOn(fs.promises, "access").mockRejectedValueOnce(new Error("ENOENT"));
+    const lesson = await getLessonFromMdx("nonexistent-lesson", "en");
+    expect(lesson).toBeUndefined();
+    spy.mockRestore();
   });
 });
