@@ -17,6 +17,7 @@ export default defineConfig({
     baseURL: "http://127.0.0.1:3000",
     actionTimeout: isCI ? 20_000 : 10_000,
     trace: "on-first-retry",
+    viewport: { width: 1600, height: 900 },
     storageState: {
       cookies: [],
       origins: [
@@ -39,5 +40,7 @@ export default defineConfig({
         reuseExistingServer: !isCI,
         timeout: isCI ? 180_000 : 60_000,
       },
-  projects: [{ name: "chromium", use: { ...devices["Desktop Chrome"] } }],
+  projects: [
+    { name: "chromium", use: { ...devices["Desktop Chrome"], viewport: { width: 1600, height: 900 } } },
+  ],
 });

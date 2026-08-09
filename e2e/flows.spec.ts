@@ -228,6 +228,10 @@ test("contact form validation clears as fields are corrected", async ({ page }) 
 });
 
 test("header reflects guest and signed-in states", async ({ page }) => {
+  // The header shows the full "Create account" / "Sign in" pair below the 2xl
+  // breakpoint; at 2xl and above the sign-up link is hidden and sign-in
+  // collapses to an icon. Pin this test to a sub-2xl viewport.
+  await page.setViewportSize({ width: 1280, height: 900 });
   await page.goto("/en");
   await waitForAppReady(page);
   const header = page.getByRole("banner");
