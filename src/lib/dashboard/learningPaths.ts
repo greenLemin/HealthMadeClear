@@ -35,10 +35,20 @@ export async function getUserLearningPaths(
 
   return allPaths.map((path) => {
     const lessonsInPath = path.lessons;
-    const completedInPath = lessonsInPath.filter((id) => completedSet.has(id));
+
+    const completedInPath: string[] = [];
+    let nextIncomplete: LessonId | undefined;
+
+    for (const id of lessonsInPath) {
+      if (completedSet.has(id)) {
+        completedInPath.push(id);
+      } else if (!nextIncomplete) {
+        nextIncomplete = id as LessonId;
+      }
+    }
+
     const totalInPath = lessonsInPath.length;
     const isComplete = totalInPath > 0 && completedInPath.length >= totalInPath;
-    const nextIncomplete = lessonsInPath.find((id) => !completedSet.has(id)) as LessonId | undefined;
     const nextLesson = nextIncomplete
       ? {
           id: nextIncomplete,
