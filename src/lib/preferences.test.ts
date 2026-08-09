@@ -1,6 +1,6 @@
 // @vitest-environment jsdom
 import { describe, expect, it, beforeEach, vi, afterEach } from "vitest";
-import { readStoredJson, writeStoredJson } from "@/lib/preferences";
+import { readStoredJson } from "@/lib/preferences";
 
 describe("preferences", () => {
   const originalWindow = global.window;
