@@ -51,7 +51,60 @@ describe("reportClientError", () => {
         something_cookie: "no",
         localStorage_thing: "no",
       });
-      expect(consoleSpy).toHaveBeenCalledWith("[hmc]", expect.any(Error), { safe: "yes" });
+      expect(consoleSpy).toHaveBeenCalledWith("[hmc]", expect.any(Error), {
+        safe: "yes",
+        password: "[redacted]",
+        token: "[redacted]",
+        mySecret: "[redacted]",
+        PHI_data: "[redacted]",
+        something_cookie: "[redacted]",
+        localStorage_thing: "[redacted]",
+      });
+    });
+
+    it.each([
+      "password",
+      "passwd",
+      "authToken",
+      "Authorization",
+      "apiKey",
+      "api_key",
+      "accessKey",
+      "bearerToken",
+      "signature",
+      "credentials",
+      "sessionId",
+      "sessionStorage",
+      "userEmail",
+      "phoneNumber",
+      "ssn",
+      "dob",
+      "homeAddress",
+      "user_notes",
+      "phi_record",
+    ])("redacts %s", (key) => {
+      reportClientError("Error", { [key]: "sensitive" });
+      expect(consoleSpy).toHaveBeenCalledWith("[hmc]", expect.any(Error), { [key]: "[redacted]" });
+    });
+
+    it.each([
+      "route",
+      "digest",
+      "phase",
+      "context",
+      "lessonId",
+      "pathId",
+      "userId",
+      "errorCode",
+      "attempts",
+      "duration",
+      // These read as sensitive to a naive substring match but are not.
+      "monkey",
+      "keyboard",
+      "keyword",
+    ])("keeps %s", (key) => {
+      reportClientError("Error", { [key]: "diagnostic" });
+      expect(consoleSpy).toHaveBeenCalledWith("[hmc]", expect.any(Error), { [key]: "diagnostic" });
     });
 
     it("handles undefined context", () => {
@@ -119,7 +172,9 @@ describe("reportClientError", () => {
         });
       }
 
-      expect(Sentry.captureException).toHaveBeenCalledWith(expect.any(Error), { extra: { safe: "data" } });
+      expect(Sentry.captureException).toHaveBeenCalledWith(expect.any(Error), {
+        extra: { safe: "data", secret: "[redacted]" },
+      });
     });
 
     it("does not initialize Sentry if client already exists", async () => {
