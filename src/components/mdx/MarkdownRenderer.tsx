@@ -7,6 +7,37 @@ import type { GlossaryTerm } from "@/types/glossary";
 import { getGlossaryRegexAndMap } from "@/lib/glossary/highlighterCache";
 import type MarkdownItToken from "markdown-it/lib/token.mjs";
 
+const SAFE_PROTOCOLS = new Set(["http:", "https:", "mailto:", "tel:"]);
+
+/**
+ * Content authors write Markdown, so link targets are attacker-controlled if a
+ * content file is ever compromised. Only allow a fixed set of protocols, and
+ * resolve relative links against a dummy origin so anchors and site-relative
+ * paths keep working.
+ *
+ * Control characters are stripped first: `java\0script:` and friends are
+ * ignored by browsers when resolving a URL, so they must not survive into the
+ * protocol check.
+ */
+function isSafeHref(href: string): boolean {
+  // markdown-it percent-encodes control characters and spaces before we ever
+  // see the href, so `java\0script:` arrives as `java%00script:`. Decode first,
+  // then strip, so those payloads cannot smuggle a scheme past the check.
+  let decoded = href;
+  try {
+    decoded = decodeURIComponent(href);
+  } catch {
+    // Malformed escape sequence — fall through and test the raw value.
+  }
+  const normalized = decoded.replace(/[\u0000-\u0020\u007F-\u009F]/g, "");
+  if (normalized === "") return false;
+  try {
+    return SAFE_PROTOCOLS.has(new URL(normalized, "https://example.invalid").protocol);
+  } catch {
+    return false;
+  }
+}
+
 const md = new MarkdownIt({
   html: false,
   linkify: true,
@@ -78,6 +109,43 @@ function renderInlineChildren(
         index++;
       }
       nodes.push(<em key={`${keyPrefix}-em-wrap-${index}`}>{inner}</em>);
+      index++;
+      continue;
+    }
+
+    if (child.type === "link_open") {
+      const href = child.attrGet("href") ?? "";
+      const inner: React.ReactNode[] = [];
+      index++;
+      while (index < children.length && children[index].type !== "link_close") {
+        if (children[index].type === "text" && children[index].content) {
+          inner.push(
+            <GlossaryHighlighter
+              key={`${keyPrefix}-link-${index}`}
+              text={children[index].content ?? ""}
+              glossaryTerms={glossaryTerms}
+            />
+          );
+        }
+        index++;
+      }
+      const key = `${keyPrefix}-link-wrap-${index}`;
+      nodes.push(
+        isSafeHref(href) ? (
+          <a
+            key={key}
+            href={href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-primary underline hover:no-underline"
+          >
+            {inner}
+          </a>
+        ) : (
+          // Keep the link text so the sentence still reads, but drop the anchor.
+          <span key={key}>{inner}</span>
+        )
+      );
       index++;
       continue;
     }
@@ -180,11 +248,6 @@ function renderTokens(
       result.push(<Tag key={`h${level}-${i}`}>{headingChildren}</Tag>);
     } else if (token.type === "link_open") {
       const href = token.attrGet("href") || "#";
-      if (/^\s*javascript:/i.test(href)) {
-        i++;
-        while (i < tokens.length && tokens[i].type !== "link_close") i++;
-        continue;
-      }
       const linkChildren: React.ReactNode[] = [];
       i++;
       while (i < tokens.length && tokens[i].type !== "link_close") {
@@ -193,17 +256,22 @@ function renderTokens(
         }
         i++;
       }
-      result.push(
-        <a
-          key={`link-${i}`}
-          href={href}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-primary underline hover:no-underline"
-        >
-          {linkChildren}
-        </a>
-      );
+      if (!isSafeHref(href)) {
+        // Keep the link text so the sentence still reads, but drop the anchor.
+        result.push(<span key={`link-${i}`}>{linkChildren}</span>);
+      } else {
+        result.push(
+          <a
+            key={`link-${i}`}
+            href={href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-primary underline hover:no-underline"
+          >
+            {linkChildren}
+          </a>
+        );
+      }
     } else if (token.type === "blockquote_open") {
       const inner: MarkdownItToken[] = [];
       let depth = 1;
