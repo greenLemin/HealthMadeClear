@@ -1,5 +1,11 @@
 import { describe, expect, it } from "vitest";
-import { formatLevel, getCategoryLabel, normalizeGlossaryLetter } from "./i18n";
+import {
+  formatLevel,
+  getCategoryLabel,
+  normalizeGlossaryLetter,
+  formatDuration,
+  formatReviewDate,
+} from "./i18n";
 
 describe("i18n", () => {
   describe("formatLevel", () => {
@@ -40,6 +46,47 @@ describe("i18n", () => {
 
     it("handles whitespace", () => {
       expect(normalizeGlossaryLetter("  banana  ")).toBe("B");
+    });
+  });
+
+  describe("formatDuration", () => {
+    it("formats minutes less than 60 in English", () => {
+      expect(formatDuration(45, "en")).toBe("45 min");
+    });
+
+    it("formats minutes less than 60 in Spanish", () => {
+      expect(formatDuration(45, "es")).toBe("45 min");
+    });
+
+    it("formats exact hours in English", () => {
+      expect(formatDuration(120, "en")).toBe("2h");
+    });
+
+    it("formats exact hours in Spanish", () => {
+      expect(formatDuration(120, "es")).toBe("2h");
+    });
+
+    it("formats hours and minutes in English", () => {
+      expect(formatDuration(90, "en")).toBe("1h 30m");
+    });
+
+    it("formats hours and minutes in Spanish", () => {
+      expect(formatDuration(90, "es")).toBe("1h 30m");
+    });
+  });
+
+  describe("formatReviewDate", () => {
+    it("returns empty string if date is not provided", () => {
+      expect(formatReviewDate("", "en")).toBe("");
+      expect(formatReviewDate("", "es")).toBe("");
+    });
+
+    it("formats date in English", () => {
+      expect(formatReviewDate("2023-11-15", "en")).toBe("November 15, 2023");
+    });
+
+    it("formats date in Spanish", () => {
+      expect(formatReviewDate("2023-11-15", "es")).toBe("15 de noviembre de 2023");
     });
   });
 });
