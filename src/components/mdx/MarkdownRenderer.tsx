@@ -243,7 +243,7 @@ function renderTokens(
         }
         i++;
       }
-      const Tag = `h${level}` as keyof JSX.IntrinsicElements;
+      const Tag = `h${level}` as keyof React.JSX.IntrinsicElements;
       result.push(<Tag key={`h${level}-${i}`}>{headingChildren}</Tag>);
     } else if (token.type === "link_open") {
       const href = token.attrGet("href") || "#";
