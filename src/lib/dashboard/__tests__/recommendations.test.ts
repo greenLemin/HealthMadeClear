@@ -133,6 +133,45 @@ describe("getRecommendedNextLesson", () => {
     expect(result).toBeNull();
   });
 
+  it("prefers a beginner lesson even when an advanced lesson comes first", async () => {
+    // Ordering matters: the advanced lesson is the first uncompleted one, but a
+    // beginner lesson exists later in the list. The fallback scan must keep
+    // going rather than settling for the advanced lesson.
+    vi.mocked(loadLessons.getAllLessons).mockReturnValue([
+      mockLessons[2], // advanced, uncompleted, appears first
+      mockLessons[1], // beginner, uncompleted, appears later
+    ]);
+    vi.mocked(loadPaths.getAllLearningPaths).mockReturnValue([]);
+
+    const result = await getRecommendedNextLesson(mockSupabase([]), "user1");
+
+    expect(result).toEqual({
+      id: "asking-about-medications",
+      title: "Beginner Lesson 2",
+      description: "Desc 2",
+      duration: "10 min",
+      level: "beginner",
+    });
+  });
+
+  it("falls back to the first uncompleted lesson when no beginner lesson remains", async () => {
+    vi.mocked(loadLessons.getAllLessons).mockReturnValue([mockLessons[2], mockLessons[1]]);
+    vi.mocked(loadPaths.getAllLearningPaths).mockReturnValue([]);
+
+    const result = await getRecommendedNextLesson(
+      mockSupabase([{ lesson_id: "asking-about-medications" }]),
+      "user1"
+    );
+
+    expect(result).toEqual({
+      id: "managing-side-effects",
+      title: "Advanced Lesson 1",
+      description: "Desc 3",
+      duration: "15 min",
+      level: "advanced",
+    });
+  });
+
   it("should log query error if supabase returns an error", async () => {
     const error = new Error("Database error");
     const supabase = mockSupabase([], error);
