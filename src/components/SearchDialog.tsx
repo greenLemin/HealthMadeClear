@@ -12,21 +12,7 @@ import { useTranslations } from "next-intl";
 import type { SearchEntry } from "@/data/searchIndex.en";
 import EmptyState from "@/components/ui/EmptyState";
 import { modalVariants, revealEase } from "@/components/ui/Reveal";
-
-export function highlightMatches(text: string, query: string) {
-  if (!query) return text;
-  const regex = new RegExp(`(${query.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")})`, "gi");
-  const parts = text.split(regex);
-  return parts.map((part, i) =>
-    i % 2 === 1 ? (
-      <mark key={i} className="rounded bg-primary-container px-0.5 text-on-primary-container">
-        {part}
-      </mark>
-    ) : (
-      part
-    )
-  );
-}
+import { highlightMatches } from "@/lib/search/highlightMatches";
 
 function getShortcutLabel(t: ReturnType<typeof useTranslations<"search">>) {
   if (typeof navigator === "undefined") return t("shortcutWindows");
@@ -42,53 +28,54 @@ function getShortcutLabel(t: ReturnType<typeof useTranslations<"search">>) {
     : t("shortcutWindows");
 }
 
-export default function SearchDialog() {
-  const t = useTranslations("search");
-  const { locale } = useAppState();
-  const [isOpen, setIsOpen] = useState(false);
-  const [query, setQuery] = useState("");
-  const [entries, setEntries] = useState<SearchEntry[]>([]);
-  const [mounted, setMounted] = useState(false);
-  const inputRef = useRef<HTMLInputElement>(null);
-  const dialogRef = useRef<HTMLDivElement>(null);
-  const triggerRef = useRef<HTMLButtonElement>(null);
-  const shortcutLabel = useMemo(() => (mounted ? getShortcutLabel(t) : null), [t, mounted]);
-  const motionSafe = useMotionSafe();
-  const noResultsMessage = t("noResults");
-  const noResultsSplit = noResultsMessage.indexOf(". ");
-  const noResultsTitle =
-    noResultsSplit === -1 ? noResultsMessage : noResultsMessage.slice(0, noResultsSplit + 1);
-  const noResultsDescription = noResultsSplit === -1 ? "" : noResultsMessage.slice(noResultsSplit + 2);
+interface SearchTriggerProps {
+  triggerRef: React.RefObject<HTMLButtonElement>;
+  setIsOpen: (isOpen: boolean) => void;
+  t: ReturnType<typeof useTranslations<"search">>;
+  shortcutLabel: string | null;
+}
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+function SearchTrigger({ triggerRef, setIsOpen, t, shortcutLabel }: SearchTriggerProps) {
+  return (
+    <button
+      ref={triggerRef}
+      type="button"
+      onClick={() => setIsOpen(true)}
+      className="flex min-h-11 items-center gap-3 rounded-full border border-outline-variant bg-surface-container-lowest/90 px-3 py-2 text-label-md text-on-surface-variant shadow-elevation-1 transition-all duration-300 ease-premium hover:-translate-y-0.5 hover:bg-surface hover:text-on-surface hover:shadow-elevation-2 md:w-56 lg:w-11 xl:w-11 2xl:w-11 xl:justify-center 2xl:justify-center"
+      aria-label={t("openSearch")}
+    >
+      <Search size={16} aria-hidden="true" />
+      <span className="hidden md:inline lg:hidden">{t("placeholder")}</span>
+      {shortcutLabel ? (
+        <kbd className="ml-auto hidden rounded-full border border-outline-variant bg-surface px-2 py-0.5 text-label-sm tracking-[0.16em] text-on-surface-variant md:inline lg:hidden">
+          {shortcutLabel}
+        </kbd>
+      ) : null}
+    </button>
+  );
+}
 
-  useEffect(() => {
-    let active = true;
-    import(`@/data/searchIndex.${locale}.ts`).then((mod) => {
-      if (active) setEntries(mod.searchIndex);
-    });
-    return () => {
-      active = false;
-    };
-  }, [locale]);
+interface SearchDialogContentProps {
+  t: ReturnType<typeof useTranslations<"search">>;
+  close: () => void;
+  inputRef: React.RefObject<HTMLInputElement>;
+  query: string;
+  setQuery: (q: string) => void;
+  results: SearchEntry[];
+  noResultsTitle: string;
+  noResultsDescription: string;
+}
 
-  const close = useCallback(() => {
-    setIsOpen(false);
-    setQuery("");
-  }, []);
-
-  useFocusTrap(dialogRef, isOpen);
-  useDismissibleOverlay({
-    isOpen,
-    onClose: close,
-    containerRef: dialogRef,
-    triggerRef,
-    lockBodyScroll: true,
-    returnFocusRef: triggerRef,
-  });
-
+function SearchDialogContent({
+  t,
+  close,
+  inputRef,
+  query,
+  setQuery,
+  results,
+  noResultsTitle,
+  noResultsDescription,
+}: SearchDialogContentProps) {
   const typeLabel = (type: SearchEntry["type"]) => {
     switch (type) {
       case "lesson":
@@ -106,37 +93,7 @@ export default function SearchDialog() {
     }
   };
 
-  const results = useMemo(() => {
-    if (!query.trim()) return entries.slice(0, 6);
-    const q = query.toLowerCase();
-    return entries
-      .filter(
-        (e) =>
-          e.title.toLowerCase().includes(q) ||
-          e.description.toLowerCase().includes(q) ||
-          e.content.toLowerCase().includes(q) ||
-          e.category.toLowerCase().includes(q)
-      )
-      .slice(0, 12);
-  }, [query, entries]);
-
-  useEffect(() => {
-    const handler = (e: KeyboardEvent) => {
-      if ((e.metaKey || e.ctrlKey) && e.key === "k") {
-        e.preventDefault();
-        setIsOpen((o) => !o);
-      }
-      if (e.key === "Escape") close();
-    };
-    document.addEventListener("keydown", handler);
-    return () => document.removeEventListener("keydown", handler);
-  }, [close]);
-
-  useEffect(() => {
-    if (isOpen) inputRef.current?.focus();
-  }, [isOpen]);
-
-  const searchDialogContent = (
+  return (
     <>
       <h2 id="search-dialog-title" className="sr-only">
         {t("searchDialog")}
@@ -218,24 +175,99 @@ export default function SearchDialog() {
       </div>
     </>
   );
+}
+
+export default function SearchDialog() {
+  const t = useTranslations("search");
+  const { locale } = useAppState();
+  const [isOpen, setIsOpen] = useState(false);
+  const [query, setQuery] = useState("");
+  const [entries, setEntries] = useState<SearchEntry[]>([]);
+  const [mounted, setMounted] = useState(false);
+  const inputRef = useRef<HTMLInputElement>(null);
+  const dialogRef = useRef<HTMLDivElement>(null);
+  const triggerRef = useRef<HTMLButtonElement>(null);
+  const shortcutLabel = useMemo(() => (mounted ? getShortcutLabel(t) : null), [t, mounted]);
+  const motionSafe = useMotionSafe();
+  const noResultsMessage = t("noResults");
+  const noResultsSplit = noResultsMessage.indexOf(". ");
+  const noResultsTitle =
+    noResultsSplit === -1 ? noResultsMessage : noResultsMessage.slice(0, noResultsSplit + 1);
+  const noResultsDescription = noResultsSplit === -1 ? "" : noResultsMessage.slice(noResultsSplit + 2);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    let active = true;
+    import(`@/data/searchIndex.${locale}.ts`).then((mod) => {
+      if (active) setEntries(mod.searchIndex);
+    });
+    return () => {
+      active = false;
+    };
+  }, [locale]);
+
+  const close = useCallback(() => {
+    setIsOpen(false);
+    setQuery("");
+  }, []);
+
+  useFocusTrap(dialogRef, isOpen);
+  useDismissibleOverlay({
+    isOpen,
+    onClose: close,
+    containerRef: dialogRef,
+    triggerRef,
+    lockBodyScroll: true,
+    returnFocusRef: triggerRef,
+  });
+
+  const results = useMemo(() => {
+    if (!query.trim()) return entries.slice(0, 6);
+    const q = query.toLowerCase();
+    return entries
+      .filter(
+        (e) =>
+          e.title.toLowerCase().includes(q) ||
+          e.description.toLowerCase().includes(q) ||
+          e.content.toLowerCase().includes(q) ||
+          e.category.toLowerCase().includes(q)
+      )
+      .slice(0, 12);
+  }, [query, entries]);
+
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === "k") {
+        e.preventDefault();
+        setIsOpen((o) => !o);
+      }
+      if (e.key === "Escape") close();
+    };
+    document.addEventListener("keydown", handler);
+    return () => document.removeEventListener("keydown", handler);
+  }, [close]);
+
+  useEffect(() => {
+    if (isOpen) inputRef.current?.focus();
+  }, [isOpen]);
+
+  const contentProps = {
+    t,
+    close,
+    inputRef,
+    query,
+    setQuery,
+    results,
+    noResultsTitle,
+    noResultsDescription,
+  };
 
   return (
     <>
-      <button
-        ref={triggerRef}
-        type="button"
-        onClick={() => setIsOpen(true)}
-        className="flex min-h-11 items-center gap-3 rounded-full border border-outline-variant bg-surface-container-lowest/90 px-3 py-2 text-label-md text-on-surface-variant shadow-elevation-1 transition-all duration-300 ease-premium hover:-translate-y-0.5 hover:bg-surface hover:text-on-surface hover:shadow-elevation-2 md:w-56 lg:w-11 xl:w-11 2xl:w-11 xl:justify-center 2xl:justify-center"
-        aria-label={t("openSearch")}
-      >
-        <Search size={16} aria-hidden="true" />
-        <span className="hidden md:inline lg:hidden">{t("placeholder")}</span>
-        {shortcutLabel ? (
-          <kbd className="ml-auto hidden rounded-full border border-outline-variant bg-surface px-2 py-0.5 text-label-sm tracking-[0.16em] text-on-surface-variant md:inline lg:hidden">
-            {shortcutLabel}
-          </kbd>
-        ) : null}
-      </button>
+      <SearchTrigger triggerRef={triggerRef} setIsOpen={setIsOpen} t={t} shortcutLabel={shortcutLabel} />
 
       <AnimatePresence>
         {isOpen ? (
@@ -265,7 +297,7 @@ export default function SearchDialog() {
                 aria-labelledby="search-dialog-title"
                 className="surface-card-glass relative z-10 w-full max-w-2xl overflow-hidden"
               >
-                {searchDialogContent}
+                <SearchDialogContent {...contentProps} />
               </div>
             ) : (
               <motion.div
@@ -280,7 +312,7 @@ export default function SearchDialog() {
                 transition={{ duration: 0.26, ease: revealEase }}
                 className="surface-card-glass relative z-10 w-full max-w-2xl overflow-hidden"
               >
-                {searchDialogContent}
+                <SearchDialogContent {...contentProps} />
               </motion.div>
             )}
           </div>
