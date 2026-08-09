@@ -1,5 +1,4 @@
 import { getTranslations } from "next-intl/server";
-import { requireLocale } from "@/lib/locale";
 import { requireAuth } from "@/lib/auth/requireAuth";
 import { createClient } from "@/lib/supabase/server";
 import { getUserProfile } from "@/lib/dashboard";
