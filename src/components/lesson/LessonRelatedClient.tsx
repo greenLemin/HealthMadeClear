@@ -17,9 +17,14 @@ export default function LessonRelatedClient({
   const { locale } = useAppState();
   const tLearn = useTranslations("learn");
   const tCommon = useTranslations("common");
-  const relatedLessons = getLessons(locale)
-    .filter((item) => item.id !== lessonId && item.categoryId === categoryId)
-    .slice(0, 3);
+  const allLessons = getLessons(locale);
+  const relatedLessons = [];
+  for (const item of allLessons) {
+    if (item.id !== lessonId && item.categoryId === categoryId) {
+      relatedLessons.push(item);
+      if (relatedLessons.length === 3) break;
+    }
+  }
 
   if (relatedLessons.length === 0) return null;
 

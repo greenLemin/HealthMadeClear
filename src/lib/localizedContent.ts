@@ -1,6 +1,10 @@
 import type { Locale } from "@/lib/i18n";
 import { getAllArticles, getArticleByIdFromBundle } from "@/lib/articles/loadArticles";
-import { getAllGlossaryTerms, getGlossaryLabelFromBundle } from "@/lib/glossary/loadGlossary";
+import {
+  getAllGlossaryTerms,
+  getGlossaryLabelFromBundle,
+  getGlossaryTermById as getGlossaryTermByIdFromBundle,
+} from "@/lib/glossary/loadGlossary";
 import { getAllLessons, getLessonByIdFromBundle } from "@/lib/lessons/loadLessons";
 import { getAllLearningPaths, getPathByIdFromBundle } from "@/lib/paths/loadPaths";
 
@@ -34,4 +38,8 @@ export function getArticles(locale: Locale) {
 
 export function getArticleById(id: string, locale: Locale) {
   return getArticleByIdFromBundle(id, locale);
+}
+
+export function getGlossaryTermById(id: string, locale: Locale) {
+  return getGlossaryTermByIdFromBundle(id, locale);
 }

@@ -49,6 +49,7 @@ export default async function ProgressPage({ params, searchParams }: Props) {
     .eq("user_id", user.id)
     .eq("completed", true);
 
+  // Deduplicate progress entries exactly as originally done
   const completedSet = new Set((lessonProgressData ?? []).map((p: { lesson_id: string }) => p.lesson_id));
 
   const categoryProgress: Record<
@@ -62,8 +63,12 @@ export default async function ProgressPage({ params, searchParams }: Props) {
     }
   > = {};
 
+  const lessonCategoryMap = new Map<string, string>();
+
+  // Build the base structure and lookup map once (O(N) total lessons)
   for (const lesson of allLessons) {
     const catId = lesson.categoryId;
+    lessonCategoryMap.set(lesson.id, catId);
     let catProg = categoryProgress[catId];
     if (!catProg) {
       catProg = categoryProgress[catId] = {
@@ -75,8 +80,13 @@ export default async function ProgressPage({ params, searchParams }: Props) {
       };
     }
     catProg.total += 1;
-    if (completedSet.has(lesson.id)) {
-      catProg.completed += 1;
+  }
+
+  // Iterate the deduplicated set of completed lessons (O(M) completed lessons)
+  for (const lessonId of completedSet) {
+    const catId = lessonCategoryMap.get(lessonId);
+    if (catId && categoryProgress[catId]) {
+      categoryProgress[catId].completed += 1;
     }
   }
 
