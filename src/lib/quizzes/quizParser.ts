@@ -33,44 +33,23 @@ export function parseQuestions(markdown: string): QuizQuestion[] {
 
     for (let i = 0; i < lines.length; i++) {
       const line = lines[i];
-      if (phase === "question" && OPTION_REGEX.test(line)) {
-        phase = "options";
-      }
-      if (phase === "options" && line.startsWith("answer:")) {
-        phase = "answer";
-      }
-      if (phase === "question") {
-        questionEnd = i;
-      }
-      if (phase === "options" && line.startsWith("answer:")) {
-        phase = "answer";
-      }
-      if (phase === "options" && !line.startsWith("answer:")) {
-        optionLines.push(line);
-      }
-      if (phase === "answer") {
-        if (line.startsWith("answer:")) {
-          const letter = line.replace("answer:", "").trim().toUpperCase();
-          if (["A", "B", "C", "D"].includes(letter)) answer = letter;
-        } else if (line.startsWith("explanation:")) {
-          explanation = line.replace("explanation:", "").trim();
-        }
-      }
-    }
 
-    if (!answer && lines.length) {
-      for (const line of lines) {
-        if (line.startsWith("answer:")) {
-          const letter = line.replace("answer:", "").trim().toUpperCase();
-          if (["A", "B", "C", "D"].includes(letter)) answer = letter;
+      if (line.startsWith("answer:")) {
+        phase = "answer";
+        const letter = line.replace("answer:", "").trim().toUpperCase();
+        if (["A", "B", "C", "D"].includes(letter)) answer = letter;
+      } else if (line.startsWith("explanation:")) {
+        phase = "answer";
+        explanation = line.replace("explanation:", "").trim();
+      } else {
+        if (phase === "question" && OPTION_REGEX.test(line)) {
+          phase = "options";
         }
-      }
-    }
-
-    if (!explanation && lines.length) {
-      for (const line of lines) {
-        if (line.startsWith("explanation:")) {
-          explanation = line.replace("explanation:", "").trim();
+        if (phase === "question") {
+          questionEnd = i;
+        }
+        if (phase === "options") {
+          optionLines.push(line);
         }
       }
     }
@@ -100,28 +79,40 @@ export function getQuizMdxDir(locale: "en" | "es") {
 
 export async function getAllQuizzesFromMdx(locale: "en" | "es"): Promise<Quiz[]> {
   const dir = getQuizMdxDir(locale);
+  const results: (Quiz | null)[] = [];
+  const BATCH_SIZE = 10;
 
-  const promises = LESSON_IDS.map(async (id) => {
-    const filePath = path.join(dir, `${id}.mdx`);
-    try {
-      await fs.access(filePath);
-    } catch {
-      return null;
+  for (let i = 0; i < LESSON_IDS.length; i += BATCH_SIZE) {
+    const batch = LESSON_IDS.slice(i, i + BATCH_SIZE);
+    const batchPromises = batch.map(async (id) => {
+      const filePath = path.join(dir, `${id}.mdx`);
+
+      let fileContent: string;
+      try {
+        fileContent = await fs.readFile(filePath, "utf8");
+      } catch {
+        return null;
+      }
+
+      const raw = normalizeLineEndings(fileContent);
+      const { data, content } = matter(raw);
+
+      return {
+        id: String(data.id),
+        title: String(data.title),
+        lessonId: String(data.lessonId) as LessonId,
+        passScore: Number(data.passScore) || 70,
+        questions: parseQuestions(content.trim()),
+      } as Quiz;
+    });
+
+    const batchResults = await Promise.all(batchPromises);
+    for (const res of batchResults) {
+      if (res) results.push(res);
     }
-    const raw = normalizeLineEndings(await fs.readFile(filePath, "utf8"));
-    const { data, content } = matter(raw);
+  }
 
-    return {
-      id: String(data.id),
-      title: String(data.title),
-      lessonId: String(data.lessonId) as LessonId,
-      passScore: Number(data.passScore) || 70,
-      questions: parseQuestions(content.trim()),
-    } as Quiz;
-  });
-
-  const results = await Promise.all(promises);
-  return results.filter(Boolean) as Quiz[];
+  return results as Quiz[];
 }
 
 export async function getQuizFromMdx(id: string, locale: "en" | "es"): Promise<Quiz | undefined> {
@@ -145,13 +136,18 @@ export async function getQuizFromMdx(id: string, locale: "en" | "es"): Promise<Q
 
 export async function assertAllQuizzesExist(locale: "en" | "es"): Promise<void> {
   const dir = getQuizMdxDir(locale);
-  const promises = LESSON_IDS.map(async (id) => {
-    const filePath = path.join(dir, `${id}.mdx`);
-    try {
-      await fs.access(filePath);
-    } catch {
-      throw new Error(`Missing quiz MDX file: ${filePath}`);
-    }
-  });
-  await Promise.all(promises);
+  const BATCH_SIZE = 10;
+
+  for (let i = 0; i < LESSON_IDS.length; i += BATCH_SIZE) {
+    const batch = LESSON_IDS.slice(i, i + BATCH_SIZE);
+    const promises = batch.map(async (id) => {
+      const filePath = path.join(dir, `${id}.mdx`);
+      try {
+        await fs.access(filePath);
+      } catch {
+        throw new Error(`Missing quiz MDX file: ${filePath}`);
+      }
+    });
+    await Promise.all(promises);
+  }
 }
