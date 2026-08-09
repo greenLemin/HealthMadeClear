@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import React, { useRef } from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, it, expect, beforeEach, afterEach } from "vitest";
@@ -44,7 +44,7 @@ describe("useFocusTrap", () => {
   });
 
   afterEach(() => {
-    delete (HTMLElement.prototype as any).offsetParent;
+    Reflect.deleteProperty(HTMLElement.prototype, "offsetParent");
   });
 
   it("does nothing when inactive", () => {
@@ -145,5 +145,48 @@ describe("useFocusTrap", () => {
     // Deactivate the trap
     rerender(<TestComponent active={false} />);
     expect(document.activeElement).toBe(outside1);
+  });
+
+  it("does not throw when containerRef.current is null", () => {
+    function NoRefFixture() {
+      const ref = useRef<HTMLDivElement>(null);
+      useFocusTrap(ref, true);
+      return null;
+    }
+    expect(() => render(<NoRefFixture />)).not.toThrow();
+  });
+
+  it("does not throw when previously focused element has no focus method", () => {
+    const mockElement = document.createElement("div");
+
+    Object.defineProperty(mockElement, "focus", {
+      value: undefined,
+      configurable: true,
+      writable: true,
+    });
+
+    Object.defineProperty(document, "activeElement", {
+      value: mockElement,
+      configurable: true,
+    });
+
+    const { rerender } = render(<TestComponent active={true} />);
+
+    expect(() => rerender(<TestComponent active={false} />)).not.toThrow();
+
+    Reflect.deleteProperty(document, "activeElement");
+  });
+
+  it("does not throw when previously focused element is null", () => {
+    Object.defineProperty(document, "activeElement", {
+      value: null,
+      configurable: true,
+    });
+
+    const { rerender } = render(<TestComponent active={true} />);
+
+    expect(() => rerender(<TestComponent active={false} />)).not.toThrow();
+
+    Reflect.deleteProperty(document, "activeElement");
   });
 });
