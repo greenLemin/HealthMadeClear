@@ -127,14 +127,6 @@ describe("LanguageToggle", () => {
     renderComponent();
     const enButton = screen.getByRole("radio", { name: en.nav.switchToEnglish });
 
-    // Pressing 'ArrowRight' while 'en' is current should cycle to 'es'.
-    // If we pretend 'es' is currently selected and we press 'ArrowRight' it would cycle back to 'en'.
-    // The handleKeyDown computes the next locale.
-
-    // Instead of faking handleKeyDown, we can just test that switchLocale does nothing if next === locale.
-    // The easiest way to trigger this is to have 'en' as current and try to trigger a change to 'en', but the keyboard nav just cycles.
-    // So let's test clicking on the already active locale ('en').
-
     act(() => {
       fireEvent.click(enButton);
     });
