@@ -1,23 +1,9 @@
 /**
  * @vitest-environment jsdom
  */
-import { describe, expect, it, vi } from "vitest";
-
-// Mock the dependencies before importing SearchDialog
-vi.mock("next-intl", () => ({
-  useTranslations: () => (key: string) => key,
-}));
-
-vi.mock("@/components/AppProviders", () => ({
-  useAppState: () => ({ locale: "en" }),
-}));
-
-vi.mock("@/i18n/navigation", () => ({
-  Link: ({ children }: any) => `<a>${children}</a>`,
-}));
-
-// We only need to import the function we are testing
-import { highlightMatches } from "./SearchDialog";
+import { describe, expect, it } from "vitest";
+import { render } from "@testing-library/react";
+import { highlightMatches } from "@/lib/search/highlightMatches";
 
 describe("highlightMatches", () => {
   it("returns original text if query is empty", () => {
