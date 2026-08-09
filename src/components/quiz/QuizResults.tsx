@@ -88,6 +88,45 @@ function QuizSummary({
   );
 }
 
+function QuizOptionReview({
+  option,
+  index,
+  isSelected,
+  isCorrectOption,
+}: {
+  option: string;
+  index: number;
+  isSelected: boolean;
+  isCorrectOption: boolean;
+}) {
+  const t = useTranslations("quiz");
+  let className = "rounded-xl border px-4 py-3 text-body-md flex items-center gap-3 transition-colors ";
+  if (isCorrectOption) {
+    className += "border-secondary bg-secondary-container/30 text-on-secondary-container";
+  } else if (isSelected && !isCorrectOption) {
+    className += "border-tertiary bg-tertiary-container/20 text-tertiary";
+  } else {
+    className += "border-outline-variant text-on-surface";
+  }
+
+  return (
+    <div className={className}>
+      <span
+        className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-surface-container text-label-md font-bold text-on-surface-variant"
+        aria-hidden="true"
+      >
+        {String.fromCharCode(65 + index)}
+      </span>
+      <span className="flex-1">{option}</span>
+      {isCorrectOption ? (
+        <span className="shrink-0 text-label-sm font-semibold text-secondary">{t("correctAnswer")}</span>
+      ) : isSelected ? (
+        <span className="shrink-0 text-label-sm font-semibold text-tertiary">{t("yourAnswer")}</span>
+      ) : null}
+    </div>
+  );
+}
+
 function QuizQuestionReview({
   question,
   index,
@@ -126,32 +165,14 @@ function QuizQuestionReview({
         {question.options.map((opt, oi) => {
           const isSelected = userAnswerIdx === oi;
           const isCorrectOption = oi === correctIdx;
-          let className =
-            "rounded-xl border px-4 py-3 text-body-md flex items-center gap-3 transition-colors ";
-          if (isCorrectOption) {
-            className += "border-secondary bg-secondary-container/30 text-on-secondary-container";
-          } else if (isSelected && !isCorrectOption) {
-            className += "border-tertiary bg-tertiary-container/20 text-tertiary";
-          } else {
-            className += "border-outline-variant text-on-surface";
-          }
           return (
-            <div key={oi} className={className}>
-              <span
-                className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-surface-container text-label-md font-bold text-on-surface-variant"
-                aria-hidden="true"
-              >
-                {String.fromCharCode(65 + oi)}
-              </span>
-              <span className="flex-1">{opt}</span>
-              {isCorrectOption ? (
-                <span className="shrink-0 text-label-sm font-semibold text-secondary">
-                  {t("correctAnswer")}
-                </span>
-              ) : isSelected ? (
-                <span className="shrink-0 text-label-sm font-semibold text-tertiary">{t("yourAnswer")}</span>
-              ) : null}
-            </div>
+            <QuizOptionReview
+              key={oi}
+              option={opt}
+              index={oi}
+              isSelected={isSelected}
+              isCorrectOption={isCorrectOption}
+            />
           );
         })}
       </div>
