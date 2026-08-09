@@ -68,8 +68,16 @@ export async function getLessonsForPath(pathId: string, locale: Locale = "en"): 
   const path = getPathByIdFromBundle(pathId, locale);
   if (!path) return [];
   const lessons = loadAllLessons(locale);
-  const lessonMap = new Map<string, Lesson>(lessons.map((l) => [l.id, l]));
-  return path.lessons.map((id) => lessonMap.get(id)).filter(Boolean) as Lesson[];
+  const lessonMap = new Map<string, Lesson>();
+  for (const lesson of lessons) {
+    lessonMap.set(lesson.id, lesson);
+  }
+  const result: Lesson[] = [];
+  for (const id of path.lessons) {
+    const lesson = lessonMap.get(id);
+    if (lesson) result.push(lesson);
+  }
+  return result;
 }
 
 // ── Part 2: Path utility functions (used by dashboard, HomeClient, etc.) ──
@@ -81,9 +89,12 @@ export function getLessonsByPath(pathId: string, lessonItems: LessonListItem[], 
   for (const lesson of lessonItems) {
     lessonMap.set(lesson.id, lesson);
   }
-  return path.lessons
-    .map((lessonId) => lessonMap.get(lessonId))
-    .filter((lesson): lesson is LessonListItem => Boolean(lesson));
+  const result: LessonListItem[] = [];
+  for (const id of path.lessons) {
+    const lesson = lessonMap.get(id);
+    if (lesson) result.push(lesson);
+  }
+  return result;
 }
 
 export function getPathProgress(
