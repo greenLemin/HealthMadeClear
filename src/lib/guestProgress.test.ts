@@ -22,6 +22,14 @@ describe("guestProgress", () => {
     expect(getGuestProgress().completedLessons).toEqual([]);
   });
 
+  it("returns fallback value when storage throws an error on read", () => {
+    vi.spyOn(Storage.prototype, "getItem").mockImplementationOnce(() => {
+      throw new Error("Storage unavailable");
+    });
+
+    expect(getGuestProgress().completedLessons).toEqual([]);
+  });
+
   it("clears progress only after successful migration", async () => {
     markLessonComplete("lesson-1");
 

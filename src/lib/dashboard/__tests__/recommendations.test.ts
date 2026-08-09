@@ -57,6 +57,16 @@ describe("getRecommendedNextLesson", () => {
       categoryId: "intro" as any,
       content: { sections: [] },
     },
+    {
+      id: "advanced-lesson-2" as any,
+      title: "Advanced Lesson 2",
+      description: "Desc 4",
+      duration: "20 min",
+      level: "advanced",
+      category: "cat2",
+      categoryId: "intro" as any,
+      content: { sections: [] },
+    },
   ];
 
   const mockPaths: LearningPath[] = [
@@ -68,6 +78,15 @@ describe("getRecommendedNextLesson", () => {
       level: "beginner",
       icon: "icon1",
       lessons: ["understanding-prescription-labels", "asking-about-medications"],
+    },
+    {
+      id: "path-with-missing-lesson" as any,
+      title: "Path 2",
+      description: "Path 2 Desc",
+      duration: "1 hour",
+      level: "advanced",
+      icon: "icon2",
+      lessons: ["managing-side-effects", "missing-lesson-id"],
     },
   ];
 
@@ -88,6 +107,26 @@ describe("getRecommendedNextLesson", () => {
       duration: "10 min",
       level: "beginner",
       pathTitle: "Path 1",
+    });
+  });
+
+  it("should handle partially completed path where next lesson is missing from lessonRecord", async () => {
+    // Complete all beginner lessons so it moves past Path 1 and default beginner behavior
+    const supabase = mockSupabase([
+      { lesson_id: "understanding-prescription-labels" },
+      { lesson_id: "asking-about-medications" },
+      { lesson_id: "managing-side-effects" }, // Path 2 completed part
+    ]);
+    const result = await getRecommendedNextLesson(supabase, "user1");
+
+    // "missing-lesson-id" is next in Path 2 but not in lessons.
+    // So it should fallback to the first uncompleted lesson which is "advanced-lesson-2"
+    expect(result).toEqual({
+      id: "advanced-lesson-2",
+      title: "Advanced Lesson 2",
+      description: "Desc 4",
+      duration: "20 min",
+      level: "advanced",
     });
   });
 
@@ -113,6 +152,8 @@ describe("getRecommendedNextLesson", () => {
     ]);
     const result = await getRecommendedNextLesson(supabase, "user1");
 
+    // It will find managing-side-effects as firstUncompleted, and also advanced-lesson-2 is uncompleted,
+    // which tests the !firstUncompleted branch.
     expect(result).toEqual({
       id: "managing-side-effects",
       title: "Advanced Lesson 1",
@@ -127,6 +168,7 @@ describe("getRecommendedNextLesson", () => {
       { lesson_id: "understanding-prescription-labels" },
       { lesson_id: "asking-about-medications" },
       { lesson_id: "managing-side-effects" },
+      { lesson_id: "advanced-lesson-2" },
     ]);
     const result = await getRecommendedNextLesson(supabase, "user1");
 

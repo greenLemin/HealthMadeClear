@@ -56,22 +56,21 @@ describe("getQuizPerformanceByCategory", () => {
 
     expect(result).toHaveLength(2);
 
-    // Sort logic is by attemptsCount descending. Since both have 2 attempts, the order might not be strictly deterministic in the array.from(). We can check if it contains both.
     expect(result).toEqual(
       expect.arrayContaining([
         {
           category: "Category 2",
           categoryId: "cat2",
           attemptsCount: 2,
-          averageScore: 95, // (10+9) / 20 = 95%
-          passRate: 100, // 2 / 2 = 100%
+          averageScore: 95,
+          passRate: 100,
         },
         {
           category: "Category 1",
           categoryId: "cat1",
           attemptsCount: 2,
-          averageScore: 60, // (8+4) / 20 = 60%
-          passRate: 50, // 1 / 2 = 50%
+          averageScore: 60,
+          passRate: 50,
         },
       ])
     );
@@ -112,5 +111,14 @@ describe("getQuizPerformanceByCategory", () => {
       averageScore: 50,
       passRate: 0,
     });
+  });
+
+  it("should handle division by zero when totalMax is 0", async () => {
+    const supabase = mockSupabase([{ quiz_id: "lesson1-quiz", score: 0, max_score: 0, passed: false }]);
+
+    const result = await getQuizPerformanceByCategory(supabase, "test-user");
+
+    expect(result).toHaveLength(1);
+    expect(result[0].averageScore).toBe(0);
   });
 });
