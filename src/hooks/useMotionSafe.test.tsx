@@ -36,4 +36,14 @@ describe("useMotionSafe", () => {
     const { result } = renderHook(() => useMotionSafe());
     expect(result.current).toBe(false);
   });
+
+  it("dynamically respects motion safe state when it toggles", () => {
+    vi.mocked(motionReact.useReducedMotion).mockReturnValue(false);
+    const { result, rerender } = renderHook(() => useMotionSafe());
+    expect(result.current).toBe(false);
+
+    vi.mocked(motionReact.useReducedMotion).mockReturnValue(true);
+    rerender();
+    expect(result.current).toBe(true);
+  });
 });

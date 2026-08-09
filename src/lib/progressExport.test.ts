@@ -69,12 +69,8 @@ describe("progressExport", () => {
         click: vi.fn(),
       };
       const createElementSpy = vi.spyOn(document, "createElement").mockReturnValue(mockAnchor as any);
-      const appendChildSpy = vi.spyOn(document.body, "appendChild").mockImplementation(() => {
-        return null as any;
-      });
-      const removeChildSpy = vi.spyOn(document.body, "removeChild").mockImplementation(() => {
-        return null as any;
-      });
+      const appendChildSpy = vi.spyOn(document.body, "appendChild").mockImplementation((node) => node);
+      const removeChildSpy = vi.spyOn(document.body, "removeChild").mockImplementation((node) => node);
 
       const data = buildProgressExport(["a"], ["b"], ["c"]);
       downloadProgressExport(data);
@@ -116,6 +112,24 @@ describe("progressExport", () => {
           { lessonId: "quiz-1", score: 100, passed: true, completedAt: "2026-01-01T00:00:00.000Z" },
         ])
       );
+    });
+
+    it("handles missing arrays by stringifying undefined", () => {
+      const setItemSpy = vi.spyOn(Storage.prototype, "setItem");
+
+      const invalidData = {
+        completedLessons: undefined,
+        recentLessons: undefined,
+        startedPaths: undefined,
+        quizScores: undefined,
+      } as any;
+
+      applyProgressImport(invalidData);
+
+      expect(setItemSpy).toHaveBeenCalledWith(STORAGE_KEYS.completedLessons, undefined);
+      expect(setItemSpy).toHaveBeenCalledWith(STORAGE_KEYS.recentLessons, undefined);
+      expect(setItemSpy).toHaveBeenCalledWith(STORAGE_KEYS.startedPaths, undefined);
+      expect(setItemSpy).toHaveBeenCalledWith(STORAGE_KEYS.quizScores, undefined);
     });
   });
 
