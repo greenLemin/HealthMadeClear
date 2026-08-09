@@ -38,6 +38,25 @@ const SearchDialog = dynamic(() => import("@/components/SearchDialog"), {
   loading: () => <Skeleton variant="button" width="44px" />,
 });
 
+type NavItem = {
+  href: string;
+  label: string;
+  icon: React.ReactNode;
+};
+
+function getNavItems(t: ReturnType<typeof useTranslations<"nav">>): NavItem[] {
+  return [
+    { href: "/", label: t("home"), icon: <Home size={18} /> },
+    { href: "/learn", label: t("learn"), icon: <BookOpen size={18} /> },
+    { href: "/articles", label: t("articles"), icon: <BookOpen size={18} /> },
+    { href: "/learning-paths", label: t("paths"), icon: <Route size={18} /> },
+    { href: "/tools", label: t("tools"), icon: <Wrench size={18} /> },
+    { href: "/dashboard", label: t("dashboard"), icon: <LayoutDashboard size={18} /> },
+    { href: "/glossary", label: t("glossary"), icon: <Search size={18} /> },
+    { href: "/about", label: t("about"), icon: <Info size={18} /> },
+  ];
+}
+
 export default function Header() {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
@@ -58,16 +77,7 @@ export default function Header() {
     returnFocusRef: toggleButtonRef,
   });
 
-  const navItems = [
-    { href: "/", label: t("home"), icon: <Home size={18} /> },
-    { href: "/learn", label: t("learn"), icon: <BookOpen size={18} /> },
-    { href: "/articles", label: t("articles"), icon: <BookOpen size={18} /> },
-    { href: "/learning-paths", label: t("paths"), icon: <Route size={18} /> },
-    { href: "/tools", label: t("tools"), icon: <Wrench size={18} /> },
-    { href: "/dashboard", label: t("dashboard"), icon: <LayoutDashboard size={18} /> },
-    { href: "/glossary", label: t("glossary"), icon: <Search size={18} /> },
-    { href: "/about", label: t("about"), icon: <Info size={18} /> },
-  ];
+  const navItems = getNavItems(t);
 
   const handleSkip = (event: React.MouseEvent<HTMLAnchorElement>) => {
     event.preventDefault();

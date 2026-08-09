@@ -13,7 +13,7 @@ import MedicalDisclaimer from "@/components/MedicalDisclaimer";
 import MarkdownRenderer from "@/components/mdx/MarkdownRenderer";
 import Reveal from "@/components/ui/Reveal";
 import ProgressBar from "@/components/ui/ProgressBar";
-import { formatLevel } from "@/lib/i18n";
+import { formatLevel, getCategoryLabel } from "@/lib/i18n";
 import type { Lesson } from "@/types/lesson";
 import type { GlossaryTerm } from "@/types/glossary";
 import type { LearningPath } from "@/types/learningPath";
@@ -33,8 +33,16 @@ export default function LearningPathDetailClient({ path, lessons, glossaryTerms 
   const tNav = useTranslations("nav");
 
   const pathLessons = useMemo(() => {
-    const lessonMap = new Map(lessons.map((l) => [l.id as string, l]));
-    return path.lessons.map((id) => lessonMap.get(id as string)).filter(Boolean) as Lesson[];
+    const lessonMap = new Map<string, Lesson>();
+    for (const lesson of lessons) {
+      lessonMap.set(lesson.id as string, lesson);
+    }
+    const result: Lesson[] = [];
+    for (const id of path.lessons) {
+      const lesson = lessonMap.get(id as string);
+      if (lesson) result.push(lesson);
+    }
+    return result;
   }, [path.lessons, lessons]);
 
   const progress = getLearningPathProgress(path.lessons);
