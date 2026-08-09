@@ -1,6 +1,5 @@
 "use client";
 
-import { Languages } from "lucide-react";
 import { useAppState } from "@/components/AppProviders";
 import { usePathname, useRouter } from "@/i18n/navigation";
 import type { Locale } from "@/lib/i18n";
