@@ -15,7 +15,7 @@ function SuccessMessage({
   headingRef,
 }: {
   t: ReturnType<typeof useTranslations<"auth">>;
-  headingRef: React.RefObject<HTMLHeadingElement>;
+  headingRef: React.RefObject<HTMLHeadingElement | null>;
 }) {
   return (
     <div className="mx-auto max-w-lg text-center" role="status" aria-live="polite">

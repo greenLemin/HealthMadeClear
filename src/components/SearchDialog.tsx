@@ -29,7 +29,7 @@ function getShortcutLabel(t: ReturnType<typeof useTranslations<"search">>) {
 }
 
 interface SearchTriggerProps {
-  triggerRef: React.RefObject<HTMLButtonElement>;
+  triggerRef: React.RefObject<HTMLButtonElement | null>;
   setIsOpen: (isOpen: boolean) => void;
   t: ReturnType<typeof useTranslations<"search">>;
   shortcutLabel: string | null;
@@ -58,7 +58,7 @@ function SearchTrigger({ triggerRef, setIsOpen, t, shortcutLabel }: SearchTrigge
 interface SearchDialogContentProps {
   t: ReturnType<typeof useTranslations<"search">>;
   close: () => void;
-  inputRef: React.RefObject<HTMLInputElement>;
+  inputRef: React.RefObject<HTMLInputElement | null>;
   query: string;
   setQuery: (q: string) => void;
   results: SearchEntry[];

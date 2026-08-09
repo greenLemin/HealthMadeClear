@@ -26,7 +26,7 @@ describe("highlightMatches", () => {
     expect(result.length).toBe(3);
     expect(result[0]).toBe("Hello ");
     expect(result[1]).toHaveProperty("type", "mark");
-    expect((result[1] as React.ReactElement).props.children).toBe("world");
+    expect((result[1] as React.ReactElement<{ children: React.ReactNode }>).props.children).toBe("world");
     expect(result[2]).toBe("");
   });
 
@@ -38,7 +38,7 @@ describe("highlightMatches", () => {
     expect(result.length).toBe(3);
     expect(result[0]).toBe("Hello ");
     expect(result[1]).toHaveProperty("type", "mark");
-    expect((result[1] as React.ReactElement).props.children).toBe("WORLD");
+    expect((result[1] as React.ReactElement<{ children: React.ReactNode }>).props.children).toBe("WORLD");
     expect(result[2]).toBe("");
   });
 
@@ -50,7 +50,9 @@ describe("highlightMatches", () => {
     expect(result.length).toBe(3);
     expect(result[0]).toBe("Are you sure");
     expect(result[1]).toHaveProperty("type", "mark");
-    expect((result[1] as React.ReactElement).props.children).toBe("? (Yes/No) [");
+    expect((result[1] as React.ReactElement<{ children: React.ReactNode }>).props.children).toBe(
+      "? (Yes/No) ["
+    );
     expect(result[2]).toBe("100%]");
   });
 
@@ -62,10 +64,10 @@ describe("highlightMatches", () => {
     expect(result.length).toBe(5);
     expect(result[0]).toBe("");
     expect(result[1]).toHaveProperty("type", "mark");
-    expect((result[1] as React.ReactElement).props.children).toBe("foo");
+    expect((result[1] as React.ReactElement<{ children: React.ReactNode }>).props.children).toBe("foo");
     expect(result[2]).toBe(" bar ");
     expect(result[3]).toHaveProperty("type", "mark");
-    expect((result[3] as React.ReactElement).props.children).toBe("foo");
+    expect((result[3] as React.ReactElement<{ children: React.ReactNode }>).props.children).toBe("foo");
     expect(result[4]).toBe("");
   });
 
@@ -76,7 +78,7 @@ describe("highlightMatches", () => {
     expect(result.length).toBe(3);
     expect(result[0]).toBe("");
     expect(result[1]).toHaveProperty("type", "mark");
-    expect((result[1] as React.ReactElement).props.children).toBe("Hello");
+    expect((result[1] as React.ReactElement<{ children: React.ReactNode }>).props.children).toBe("Hello");
     expect(result[2]).toBe(" world");
   });
 
@@ -87,7 +89,9 @@ describe("highlightMatches", () => {
     expect(result.length).toBe(3);
     expect(result[0]).toBe("");
     expect(result[1]).toHaveProperty("type", "mark");
-    expect((result[1] as React.ReactElement).props.children).toBe("Hello world");
+    expect((result[1] as React.ReactElement<{ children: React.ReactNode }>).props.children).toBe(
+      "Hello world"
+    );
     expect(result[2]).toBe("");
   });
 });
