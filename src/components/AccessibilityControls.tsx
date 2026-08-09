@@ -184,6 +184,11 @@ export default function AccessibilityControls() {
       >
         <Settings2 size={18} aria-hidden="true" />
         <span className="hidden 2xl:inline">{t("display")}</span>
+        {/* Below 2xl the visible label is hidden, so the button would otherwise
+            have no accessible name. Keep the visible text as-is at 2xl and up
+            rather than overriding it with aria-label, which would break
+            speech-input users who say what they see. */}
+        <span className="sr-only 2xl:hidden">{t("display")}</span>
       </button>
 
       <AnimatePresence>

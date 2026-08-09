@@ -5,8 +5,13 @@ import { Bell, BellDot, CheckCheck, Trophy, Flame, Target, X } from "lucide-reac
 import { createClient } from "@/lib/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
 import { useAppState } from "@/components/AppProviders";
-import { getNotifications, markAsRead, markAllAsRead, getUnreadCount } from "@/lib/notifications";
-import type { Notification as DbNotification } from "@/lib/notifications";
+import {
+  getNotifications,
+  markAsRead,
+  markAllAsRead,
+  getUnreadCount,
+  type Notification,
+} from "@/lib/notifications";
 import { useTranslations } from "next-intl";
 import { useFocusTrap } from "@/hooks/useFocusTrap";
 import { useDismissibleOverlay } from "@/hooks/useDismissibleOverlay";
@@ -51,7 +56,7 @@ export default function NotificationCenter() {
   const tCommon = useTranslations("common");
   const supabase = useMemo(() => createClient(), []);
   const [isOpen, setIsOpen] = useState(false);
-  const [notifications, setNotifications] = useState<DbNotification[]>([]);
+  const [notifications, setNotifications] = useState<Notification[]>([]);
   const [unreadCount, setUnreadCount] = useState(0);
   const [loading, setLoading] = useState(false);
   const panelRef = useRef<HTMLDivElement>(null);
@@ -91,7 +96,7 @@ export default function NotificationCenter() {
     setNotifications((prev) => prev.map((n) => ({ ...n, read: true })));
   }
 
-  async function handleClick(notif: DbNotification) {
+  async function handleClick(notif: Notification) {
     if (!user) return;
     if (!notif.read) {
       await markAsRead(supabase, user.id, notif.id);
