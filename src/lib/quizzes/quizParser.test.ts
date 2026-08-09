@@ -182,7 +182,7 @@ explanation: 2 is correct.
   });
 
   it("returns empty array when no files exist", async () => {
-    mockAccess.mockRejectedValue(new Error("ENOENT"));
+    mockReadFile.mockRejectedValue(new Error("ENOENT"));
 
     const quizzes = await getAllQuizzesFromMdx("en");
 
@@ -190,7 +190,7 @@ explanation: 2 is correct.
   });
 
   it("returns null for quiz if file access fails in getAllQuizzesFromMdx mapped promises", async () => {
-    mockAccess.mockImplementation((path) => {
+    mockReadFile.mockImplementation((path) => {
       if (typeof path === "string") {
         if (path.includes("understanding-prescription-labels")) return Promise.reject(new Error("EACCES"));
       }
@@ -202,7 +202,7 @@ explanation: 2 is correct.
   });
 
   it("returns undefined if file access fails in getAllQuizzesFromMdx", async () => {
-    mockAccess.mockRejectedValue(new Error("EACCES"));
+    mockReadFile.mockRejectedValue(new Error("EACCES"));
     const quizzes = await getAllQuizzesFromMdx("en");
     expect(quizzes).toEqual([]);
   });
