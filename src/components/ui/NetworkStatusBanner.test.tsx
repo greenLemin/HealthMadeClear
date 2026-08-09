@@ -60,11 +60,6 @@ describe("NetworkStatusBanner", () => {
     act(() => {
       window.dispatchEvent(new Event("online"));
     });
-    // Still in the document immediately after online (dismissed becomes true, but offline is still true initially until timeout, but actually the component returns null if `dismissed` is true)
-
-    // Wait, let's check the code:
-    // if (!offline || dismissed) return null;
-    // So it should disappear immediately when online is fired because dismissed becomes true.
     expect(screen.queryByRole("status")).not.toBeInTheDocument();
 
     act(() => {
