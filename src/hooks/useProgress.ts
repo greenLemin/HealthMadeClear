@@ -17,8 +17,9 @@ import type { AchievementId } from "@/lib/achievements";
 import type { Locale } from "@/lib/i18n";
 import { updateStreak } from "@/lib/streaks";
 import { updateDailyLog } from "@/lib/dashboard";
-import { createNotification } from "@/lib/notifications";
+import { createNotifications, type NotificationInput } from "@/lib/notifications";
 import { reportClientError } from "@/lib/errorReporting";
+import type { User } from "@supabase/supabase-js";
 
 export interface ProgressState {
   completedLessonIds: string[];
@@ -43,23 +44,14 @@ export interface ProgressActions {
 // Cache the dynamic import to improve performance
 let loadPathsPromise: Promise<typeof import("@/lib/paths/loadPaths")> | null = null;
 
-export function useProgress(): ProgressState & ProgressActions {
-  const { user, loading: authLoading } = useAuth();
-  const locale = useLocale();
-  const {
-    completedLessons,
-    quizScores,
-    markLessonComplete: appStateMarkLessonComplete,
-    recordQuizScore,
-  } = useAppState();
-  const { showToast } = useToast();
-  const supabase = useMemo(() => createClient(), []);
-  const [isLoading, setIsLoading] = useState(true);
-
-  // Track whether we've migrated guest progress for this session
+function useGuestMigration(
+  user: User | null,
+  supabase: ReturnType<typeof createClient>,
+  authLoading: boolean
+) {
   const [migrated, setMigrated] = useState(false);
+  const [isMigrationLoading, setIsMigrationLoading] = useState(true);
 
-  // On auth state change, migrate guest progress to Supabase
   useEffect(() => {
     if (authLoading) return;
     if (user && !migrated) {
@@ -67,19 +59,21 @@ export function useProgress(): ProgressState & ProgressActions {
       if (guest.completedLessons.length > 0 || guest.quizAttempts.length > 0) {
         migrateGuestProgressToSupabase(supabase, user.id).then((result) => {
           if (result.ok) setMigrated(true);
-          setIsLoading(false);
+          setIsMigrationLoading(false);
         });
       } else {
-        setIsLoading(false);
-
+        setIsMigrationLoading(false);
         setMigrated(true);
       }
     } else if (!user) {
-      setIsLoading(false);
+      setIsMigrationLoading(false);
     }
   }, [user, authLoading, supabase, migrated]);
 
-  // Fetch Supabase progress when user is authenticated
+  return { isMigrationLoading };
+}
+
+function useSupabaseProgress(user: User | null, supabase: ReturnType<typeof createClient>) {
   const [supabaseCompletedLessonIds, setSupabaseCompletedLessonIds] = useState<string[]>([]);
   const [supabaseQuizAttempts, setSupabaseQuizAttempts] = useState<
     Record<string, { score: number; maxScore: number; passed: boolean }>
@@ -88,7 +82,6 @@ export function useProgress(): ProgressState & ProgressActions {
   useEffect(() => {
     if (!user) {
       setSupabaseCompletedLessonIds([]);
-
       setSupabaseQuizAttempts({});
       return;
     }
@@ -117,7 +110,21 @@ export function useProgress(): ProgressState & ProgressActions {
     fetchProgress();
   }, [user, supabase]);
 
-  // Derive effective state from auth or guest sources
+  return {
+    supabaseCompletedLessonIds,
+    setSupabaseCompletedLessonIds,
+    supabaseQuizAttempts,
+    setSupabaseQuizAttempts,
+  };
+}
+
+function useDerivedProgress(
+  user: User | null,
+  supabaseCompletedLessonIds: string[],
+  supabaseQuizAttempts: Record<string, { score: number; maxScore: number; passed: boolean }>,
+  completedLessons: Set<string>,
+  quizScores: any[]
+) {
   const completedLessonIds = useMemo(() => {
     if (user) return supabaseCompletedLessonIds;
     return Array.from(completedLessons);
@@ -134,6 +141,22 @@ export function useProgress(): ProgressState & ProgressActions {
 
   const completedLessonIdsSet = useMemo(() => new Set(completedLessonIds), [completedLessonIds]);
 
+  return { completedLessonIds, quizAttempts, completedLessonIdsSet };
+}
+
+function useProgressMutations(
+  user: User | null,
+  supabase: ReturnType<typeof createClient>,
+  showToast: (type: "success" | "error" | "info", message: string) => void,
+  supabaseCompletedLessonIds: string[],
+  setSupabaseCompletedLessonIds: React.Dispatch<React.SetStateAction<string[]>>,
+  setSupabaseQuizAttempts: React.Dispatch<
+    React.SetStateAction<Record<string, { score: number; maxScore: number; passed: boolean }>>
+  >,
+  appStateMarkLessonComplete: (lessonId: string) => void,
+  recordQuizScore: (lessonId: string, score: number, passed: boolean) => void,
+  locale: string
+) {
   const markLessonComplete = useCallback(
     async (lessonId: string) => {
       if (user) {
@@ -176,20 +199,20 @@ export function useProgress(): ProgressState & ProgressActions {
               loadPathsPromise = import("@/lib/paths/loadPaths");
             }
             const allPaths = (await loadPathsPromise).getAllLearningPaths(locale as Locale);
-            const notificationPromises = [];
+            const notificationsToCreate: NotificationInput[] = [];
             for (const path of allPaths) {
               const remaining = path.lessons.filter((id) => !allCompletedSet.has(id));
               if (remaining.length === 1 && allCompletedSet.has(lessonId)) {
-                notificationPromises.push(
-                  createNotification(supabase, user.id, {
-                    type: "close-to-completion",
-                    title: "Almost there!",
-                    body: `You're one lesson away from completing "${path.title}".`,
-                  })
-                );
+                notificationsToCreate.push({
+                  type: "close-to-completion",
+                  title: "Almost there!",
+                  body: `You're one lesson away from completing "${path.title}".`,
+                });
               }
             }
-            await Promise.all(notificationPromises);
+            if (notificationsToCreate.length > 0) {
+              await createNotifications(supabase, user.id, notificationsToCreate);
+            }
           } catch (error) {
             reportClientError(error, { context: "Failed to load paths for progress calculation" });
           }
@@ -199,7 +222,15 @@ export function useProgress(): ProgressState & ProgressActions {
         appStateMarkLessonComplete(lessonId);
       }
     },
-    [user, supabase, showToast, supabaseCompletedLessonIds, appStateMarkLessonComplete, locale]
+    [
+      user,
+      supabase,
+      showToast,
+      supabaseCompletedLessonIds,
+      appStateMarkLessonComplete,
+      locale,
+      setSupabaseCompletedLessonIds,
+    ]
   );
 
   const saveQuizAttempt = useCallback(
@@ -250,9 +281,16 @@ export function useProgress(): ProgressState & ProgressActions {
         recordQuizScore(lessonId, score, passed);
       }
     },
-    [user, supabase, showToast, recordQuizScore, supabaseCompletedLessonIds]
+    [user, supabase, showToast, recordQuizScore, supabaseCompletedLessonIds, setSupabaseQuizAttempts]
   );
 
+  return { markLessonComplete, saveQuizAttempt };
+}
+
+function useProgressQueries(
+  completedLessonIdsSet: Set<string>,
+  quizAttempts: Record<string, { score: number; maxScore: number; passed: boolean }>
+) {
   const isLessonComplete = useCallback(
     (lessonId: string) => completedLessonIdsSet.has(lessonId),
     [completedLessonIdsSet]
@@ -279,10 +317,59 @@ export function useProgress(): ProgressState & ProgressActions {
     [completedLessonIdsSet]
   );
 
+  return { isLessonComplete, getQuizBestScore, getLearningPathProgress };
+}
+
+export function useProgress(): ProgressState & ProgressActions {
+  const { user, loading: authLoading } = useAuth();
+  const locale = useLocale();
+  const {
+    completedLessons,
+    quizScores,
+    markLessonComplete: appStateMarkLessonComplete,
+    recordQuizScore,
+  } = useAppState();
+  const { showToast } = useToast();
+  const supabase = useMemo(() => createClient(), []);
+
+  const { isMigrationLoading } = useGuestMigration(user, supabase, authLoading);
+
+  const {
+    supabaseCompletedLessonIds,
+    setSupabaseCompletedLessonIds,
+    supabaseQuizAttempts,
+    setSupabaseQuizAttempts,
+  } = useSupabaseProgress(user, supabase);
+
+  const { completedLessonIds, quizAttempts, completedLessonIdsSet } = useDerivedProgress(
+    user,
+    supabaseCompletedLessonIds,
+    supabaseQuizAttempts,
+    completedLessons,
+    quizScores
+  );
+
+  const { markLessonComplete, saveQuizAttempt } = useProgressMutations(
+    user,
+    supabase,
+    showToast,
+    supabaseCompletedLessonIds,
+    setSupabaseCompletedLessonIds,
+    setSupabaseQuizAttempts,
+    appStateMarkLessonComplete,
+    recordQuizScore,
+    locale
+  );
+
+  const { isLessonComplete, getQuizBestScore, getLearningPathProgress } = useProgressQueries(
+    completedLessonIdsSet,
+    quizAttempts
+  );
+
   return {
     completedLessonIds,
     quizAttempts,
-    isLoading: isLoading || authLoading,
+    isLoading: isMigrationLoading || authLoading,
     markLessonComplete,
     saveQuizAttempt,
     isLessonComplete,
