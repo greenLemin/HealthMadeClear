@@ -57,3 +57,61 @@ Started: 2026-08-11
 - Symptom: `logo.jpeg` was 1.2MB, used as favicon icon (192x192 and 512x512) and as the `<img>` in `Logo.tsx`. JPEG is wrong format for a logo (raster, no scaling). The existing `favicon.svg` (1.3KB) is an infinitely scalable SVG with the same design.
 - Fix: Replaced all references to `logo.jpeg` with `favicon.svg`. Updated `manifest.json` to use the SVG icon. Deleted the 1.2MB `logo.jpeg`.
 - Status: Fixed
+
+### F-007 — P3 — Stitch design artifacts in repo
+
+- Files: `stitch_health_made_clear_ux_design/` directory (11 files)
+- Symptom: Figma export screenshots committed to repo. Not needed at runtime. Already gitignored but still in repo history.
+- Fix: `git rm -r stitch_health_made_clear_ux_design/` to remove from repo.
+- Status: Fixed
+
+### F-008 — P3 — HSTS header missing from next.config.mjs
+
+- File: `next.config.mjs:38-61`
+- Symptom: `Strict-Transport-Security` header was only in `netlify.toml`, not in `next.config.mjs` `securityHeaders` array. Defense-in-depth wants it in both.
+- Fix: Added `{ key: "Strict-Transport-Security", value: "max-age=31536000; includeSubDomains; preload" }` to `securityHeaders`.
+- Status: Fixed
+
+### F-009 — P3 — CSP missing `object-src 'none'`
+
+- File: `next.config.mjs:48-59`
+- Symptom: CSP relies on `default-src 'self'` fallback for `object-src`, which permits plugins from same origin. Explicit `object-src 'none'` is more secure.
+- Fix: Added `"object-src 'none'"` to CSP.
+- Status: Fixed
+
+### F-010 — P2 — PII scrubbing for Sentry and server logs
+
+- File: `src/lib/errorReporting.ts`
+- Symptom: `reportClientError` calls `Sentry.captureException` with raw error messages and stack traces. If a Supabase/Postgres error includes submitted PII (e.g., unique constraint violation echoing the duplicate email), that PII reaches Sentry. Similarly, `reportServerError` logs raw error messages to Netlify function logs.
+- Fix: Added `scrubPII()` function that replaces email addresses, phone numbers, SSNs, and credit card numbers with `[email]`, `[phone]`, `[ssn]`, `[card]` placeholders. Applied scrubbing to:
+  - `reportServerError`: scrubs `normalized.message` before `console.error`
+  - `reportClientError`: added `beforeSend` hook to Sentry init that scrubs PII from `event.message`, `event.exception.values[].value`, and `event.exception.values[].stacktrace.frames[].filename/function`
+- Status: Fixed
+
+### F-011 — P2 — GA `page_view` sends full URL including query string
+
+- Files: `src/lib/analytics.ts:24,28`, `src/components/AnalyticsPageViewTracker.tsx:14,18`
+- Symptom: `trackPageView` sends `page_location: window.location.href` (full URL including query params) to Google Analytics. If any page puts PII in query params (e.g., `?email=user@example.com`), it would leak to GA. The `SEARCH_PERFORMED` event exists but is not currently called from any component — good.
+- Fix: Changed `trackPageView` to send `page_location: window.location.origin + window.location.pathname` (no query params) and `page_path: window.location.pathname` (no query params). Updated test to match new implementation.
+- Status: Fixed
+
+### F-012 — P2 — Missing `viewport` export in layout
+
+- File: `src/app/[locale]/layout.tsx`
+- Symptom: Next.js 14+ recommends a separate `viewport` export for the viewport meta tag and `themeColor`. Without it, the default viewport is used, which may not be optimal for mobile. The `themeColor` was not set anywhere in metadata.
+- Fix: Added `export const viewport: Viewport = { themeColor: "#004349", width: "device-width", initialScale: 1 }` to layout.
+- Status: Fixed
+
+### F-013 — P2 — `quizScores` typed as `any[]` in `useProgress.ts`
+
+- File: `src/hooks/useProgress.ts:126`
+- Symptom: `useDerivedProgress` function parameter `quizScores: any[]` — `any[]` allows any value, which could mask bugs. The actual `quizScores` from `useAppState()` is `QuizScore[]`.
+- Fix: Changed parameter type from `any[]` to `QuizScore[]` and added import for `QuizScore` type from `@/lib/progressExport`.
+- Status: Fixed
+
+### F-014 — P2 — SignupForm missing email format validation
+
+- File: `src/app/[locale]/auth/signup/SignupForm.tsx`
+- Symptom: `SignupForm.handleSubmit` only checks if email is empty (`if (!email.trim()) nextFieldErrors.email = t("emailRequired")`). No email format validation, allowing invalid email addresses to be submitted to Supabase. `LoginForm` has `EMAIL_REGEX` check but `SignupForm` doesn't.
+- Fix: Added `EMAIL_REGEX` constant and email format validation to `SignupForm.handleSubmit`, consistent with `LoginForm`.
+- Status: Fixed

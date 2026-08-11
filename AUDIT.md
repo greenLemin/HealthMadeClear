@@ -1,7 +1,9 @@
 # Health Made Clear — Codebase Audit Report
 
-**Date:** 2026-06-11
-**Phase:** Audit & Cleanup (pre-feature development)
+**Date:** 2026-08-11 (updated from 2026-06-11)
+**Phase:** Post-remediation audit
+**Full audit log:** `AUDIT_LOG.md`
+**Full audit report:** `AUDIT_REPORT.md`
 
 ---
 
@@ -41,18 +43,6 @@ All routes live under `src/app/[locale]/`. Status: **Complete** = fully built wi
 | -------------------------------- | -------------------- | ----------------------------------------------------------------------------------- |
 | `src/lib/errorReporting.test.ts` | 73, 85, 95, 130, 147 | Tests manipulate `global.window` for Sentry test coverage. Acceptable in test code. |
 
-### Hardcoded `defaultValue` Fallbacks in VisitPlannerClient
-
-| File                                                          | Line | Issue                                               |
-| ------------------------------------------------------------- | ---- | --------------------------------------------------- |
-| `src/app/[locale]/tools/visit-planner/VisitPlannerClient.tsx` | 219  | `defaultValue: "Your Custom Questions"`             |
-| `src/app/[locale]/tools/visit-planner/VisitPlannerClient.tsx` | 226  | `defaultValue: "Type your custom question here..."` |
-| `src/app/[locale]/tools/visit-planner/VisitPlannerClient.tsx` | 242  | `defaultValue: "Add"`                               |
-| `src/app/[locale]/tools/visit-planner/VisitPlannerClient.tsx` | 259  | `defaultValue: "Remove"`                            |
-| `src/app/[locale]/tools/visit-planner/VisitPlannerClient.tsx` | 320  | `defaultValue: "No questions selected."`            |
-
-**Recommendation:** Remove all `defaultValue` fallbacks — the keys already exist in both locale files.
-
 ### Hardcoded Brand Strings
 
 | File                          | Line     | String                                         |
@@ -70,22 +60,19 @@ All routes live under `src/app/[locale]/`. Status: **Complete** = fully built wi
 | `src/app/not-found.tsx`    | 6-28  | Manual `COPY` object instead of i18n (acceptable — runs outside `NextIntlClientProvider`) |
 | `src/app/global-error.tsx` | 6-17  | Same pattern (acceptable — error boundary)                                                |
 
-### Unused Translation Keys (known dead keys)
-
-See section 5 (Dead Code).
-
 ---
 
 ## 3. Build Status
 
-| Command                              | Status                         | Output                                          |
-| ------------------------------------ | ------------------------------ | ----------------------------------------------- |
-| `npm run build`                      | ✅ PASS (0 errors)             | 263 static pages generated, all routes compiled |
-| `npm run lint`                       | ✅ PASS (0 warnings, 0 errors) | ESLint clean                                    |
-| `npm run typecheck` (`tsc --noEmit`) | ✅ PASS (0 errors)             | TypeScript clean                                |
-| `npm run dev`                        | ✅ PASS                        | Starts clean in 1852ms, no console errors       |
+| Command                              | Status                         | Output                                            |
+| ------------------------------------ | ------------------------------ | ------------------------------------------------- |
+| `npm run build`                      | ✅ PASS (0 errors)             | 363 static pages generated, all routes compiled   |
+| `npm run lint`                       | ✅ PASS (0 errors, 2 warnings) | 2 acceptable warnings (test sync script, SVG img) |
+| `npm run typecheck` (`tsc --noEmit`) | ✅ PASS (0 errors)             | TypeScript clean                                  |
+| `npm test`                           | ✅ PASS (577 tests)            | 86 test files, 577 tests pass                     |
+| `npm audit`                          | ✅ PASS (0 vulnerabilities)    | 0 high/critical vulnerabilities                   |
 
-**All three quality gates pass with zero errors.**
+**All quality gates pass with zero errors.**
 
 ---
 
@@ -100,53 +87,21 @@ See section 5 (Dead Code).
 
 No translation gaps found between locales.
 
-### Hardcoded English Identified
-
-- **`defaultValue` fallbacks** in `VisitPlannerClient.tsx` (5 locations — see section 2)
-- **Root not-found/global-error** pages use manual `COPY` objects (acceptable)
-- **Metadata strings** in `layout.tsx` (brand name — low priority)
-
-### Recommendation
-
-Remove the 5 `defaultValue` props from `VisitPlannerClient.tsx` — the keys exist in both locale files so the fallbacks never trigger and just serve as dead code / untranslated noise.
-
 ---
 
 ## 5. Dead Code
 
 ### Unused Imports / Exports
 
-| File                             | Item                    | Line | Notes                                                           |
-| -------------------------------- | ----------------------- | ---- | --------------------------------------------------------------- |
-| `src/lib/progressExport.ts`      | `applyProgressImport`   | 85   | Defined but never imported anywhere                             |
-| `src/hooks/useScrollSpy.ts`      | Entire hook             | 11   | Never imported; `ScrollSpyProvider` uses its own implementation |
-| `src/components/PageSection.tsx` | Entire component        | 9    | Never imported by any file                                      |
-| `src/lib/quizzes/quizParser.ts`  | `getAllQuizzesFromMdx`  | 99   | Legacy — superseded by bundle system                            |
-| `src/lib/quizzes/quizParser.ts`  | `getQuizFromMdx`        | 118  | Legacy                                                          |
-| `src/lib/quizzes/quizParser.ts`  | `assertAllQuizzesExist` | 133  | Legacy                                                          |
-| `src/lib/localizedContent.ts`    | `getPathById`           | 23   | Wrapper function never called                                   |
+| File                             | Item                    | Line | Notes                                                 |
+| -------------------------------- | ----------------------- | ---- | ----------------------------------------------------- |
+| `src/lib/progressExport.ts`      | `applyProgressImport`   | 85   | Used by DashboardHeader.tsx and tests. NOT dead code. |
+| `src/components/PageSection.tsx` | Entire component        | 9    | Used by TermsClient.tsx. NOT dead code.               |
+| `src/lib/quizzes/quizParser.ts`  | `getAllQuizzesFromMdx`  | 80   | Used by scripts/bundle-quizzes.ts. NOT dead code.     |
+| `src/lib/quizzes/quizParser.ts`  | `getQuizFromMdx`        | 118  | Used by tests. NOT dead code.                         |
+| `src/lib/quizzes/quizParser.ts`  | `assertAllQuizzesExist` | 137  | Used by scripts/validate-content.ts. NOT dead code.   |
 
-### Unused Translation Keys (in both locale files)
-
-| Key                     | Notes                       |
-| ----------------------- | --------------------------- |
-| `hero.whatYouFind`      | Not used by Hero.tsx        |
-| `hero.guidedPaths`      | Not used by Hero.tsx        |
-| `hero.printableTools`   | Not used by Hero.tsx        |
-| `hero.glossaryDefs`     | Not used by Hero.tsx        |
-| `hero.progressTracking` | Not used by Hero.tsx        |
-| `sectionNav.learn`      | Not used by SectionNav.tsx  |
-| `sectionNav.paths`      | Not used by SectionNav.tsx  |
-| `sectionNav.tools`      | Not used by SectionNav.tsx  |
-| `sectionNav.glossary`   | Not used by SectionNav.tsx  |
-| `sectionNav.dashboard`  | Not used by SectionNav.tsx  |
-| `about.warningTitle`    | Not used by AboutClient.tsx |
-| `common.print`          | Not used by any component   |
-| `common.start`          | Not used by any component   |
-
-### Design Artifacts
-
-`stitch_health_made_clear_ux_design/` contains Figma exports (Framer-style design screenshots). **Not needed at runtime.** Added to `.gitignore`. Recommend deleting the directory from the repo.
+**Note:** The original AUDIT.md listed these as dead code, but verification shows they are all actively used by build scripts, tests, or runtime code.
 
 ---
 
@@ -156,28 +111,22 @@ Remove the 5 `defaultValue` props from `VisitPlannerClient.tsx` — the keys exi
 
 | Package                   | Version  | Purpose                 | Status             |
 | ------------------------- | -------- | ----------------------- | ------------------ |
-| `next`                    | 14.2.35  | Framework               | ✅ Current         |
-| `next-intl`               | ^4.13.0  | i18n routing            | ✅ Current         |
-| `react` / `react-dom`     | ^18.3.1  | UI library              | ✅ Current         |
-| `lucide-react`            | ^0.400.0 | Icons                   | ✅ Current         |
+| `next`                    | 16.3.0   | Framework               | ✅ Current         |
+| `next-intl`               | ^4.13.2  | i18n routing            | ✅ Current         |
+| `react` / `react-dom`     | ^19.2.8  | UI library              | ✅ Current         |
+| `lucide-react`            | ^1.24.0  | Icons                   | ✅ Current         |
 | `gray-matter`             | ^4.0.3   | MDX frontmatter parsing | ✅ Used            |
-| `markdown-it`             | ^14.2.0  | Markdown rendering      | ✅ Used            |
-| `@sentry/browser`         | ^9.15.0  | Error reporting         | ✅ Used (optional) |
-| `@tailwindcss/typography` | ^0.5.19  | Prose styling           | ✅ Configured      |
-| `@netlify/plugin-nextjs`  | latest   | Netlify deployment      | ✅ Just installed  |
+| `markdown-it`             | ^14.3.0  | Markdown rendering      | ✅ Used            |
+| `@sentry/browser`         | ^10.65.0 | Error reporting         | ✅ Used (optional) |
+| `@tailwindcss/typography` | ^0.5.20  | Prose styling           | ✅ Configured      |
+| `@netlify/plugin-nextjs`  | ^5.15.12 | Netlify deployment      | ✅ Installed       |
 
 ### Packages NOT Installed (verification)
 
-| Package                 | Status                               |
-| ----------------------- | ------------------------------------ |
-| `@supabase/supabase-js` | ❌ Not installed (correct — Phase 2) |
-| `@supabase/ssr`         | ❌ Not installed (correct — Phase 2) |
-
-### Potentially Unused Packages
-
-- `@swc/helpers` (0.5.23) — installed by Next.js as a transitive dep, explicitly listed in devDependencies. Keep.
-- `@vitejs/plugin-react` (^4.4.1) — used by Vitest for JSX transform. Keep.
-- `jsdom` (^26.1.0) — used by vitest environment. Keep.
+| Package                 | Status                  |
+| ----------------------- | ----------------------- |
+| `@supabase/supabase-js` | ✅ Installed (^2.110.6) |
+| `@supabase/ssr`         | ✅ Installed (^0.12.0)  |
 
 ### Outdated (none flagged as major version behind latest)
 
@@ -192,20 +141,20 @@ All packages appear on recent versions as of mid-2026.
 | Variable                 | Default                 | Used In                                                                          | Status                   |
 | ------------------------ | ----------------------- | -------------------------------------------------------------------------------- | ------------------------ |
 | `NEXT_PUBLIC_SITE_URL`   | `http://localhost:3000` | `src/lib/site.ts:2`, `src/app/[locale]/layout.tsx`, sitemap, robots, OG metadata | ✅ Documented            |
-| `NEXT_PUBLIC_SENTRY_DSN` | (empty)                 | `src/lib/errorReporting.ts:26`                                                   | ✅ Documented (optional) |
+| `NEXT_PUBLIC_SENTRY_DSN` | (empty)                 | `src/lib/errorReporting.ts:86`                                                   | ✅ Documented (optional) |
 
 ### Variables Referenced in Code Not in `.env.example`
 
-| Variable           | File                | Line   | Notes                               |
-| ------------------ | ------------------- | ------ | ----------------------------------- |
-| `NODE_ENV`         | `errorReporting.ts` | 21, 34 | Next.js built-in                    |
-| `NODE_ENV`         | `preferences.ts`    | 30     | Next.js built-in                    |
-| `NODE_ENV`         | `next.config.js`    | 9      | Next.js built-in                    |
-| `URL`              | `next.config.js`    | 6      | Netlify-provided env var (fallback) |
-| `DEPLOY_PRIME_URL` | `next.config.js`    | 6      | Netlify-provided env var (fallback) |
-| `NETLIFY`          | `next.config.js`    | 5      | Netlify-provided flag               |
+| Variable           | File                | Line | Notes                               |
+| ------------------ | ------------------- | ---- | ----------------------------------- |
+| `NODE_ENV`         | `errorReporting.ts` | 81   | Next.js built-in                    |
+| `NODE_ENV`         | `preferences.ts`    | 30   | Next.js built-in                    |
+| `NODE_ENV`         | `next.config.mjs`   | 36   | Next.js built-in                    |
+| `URL`              | `next.config.mjs`   | 11   | Netlify-provided env var (fallback) |
+| `DEPLOY_PRIME_URL` | `next.config.mjs`   | 11   | Netlify-provided env var (fallback) |
+| `NETLIFY`          | `next.config.mjs`   | 10   | Netlify-provided flag               |
 
-No env vars are missing from `.env.example` — the three extra vars (`URL`, `DEPLOY_PRIME_URL`, `NETLIFY`) are Netlify-provided and documented in `next.config.js`.
+No env vars are missing from `.env.example` — the three extra vars (`URL`, `DEPLOY_PRIME_URL`, `NETLIFY`) are Netlify-provided and documented in `next.config.mjs`.
 
 ---
 
@@ -234,9 +183,44 @@ The codebase is in excellent shape. All 17+ routes are fully built. Build, lint,
 
 ### Recommended Cleanup Items (Optional)
 
-1. Remove `defaultValue` fallbacks in `VisitPlannerClient.tsx` (5 occurrences)
-2. Delete deprecated MDX parser functions (3 in `quizParser.ts`)
-3. Delete unused `PageSection` component and `useScrollSpy` hook
-4. Remove dead translation keys from both locale files
-5. Delete `stitch_health_made_clear_ux_design/` from repo (already gitignored)
-6. Address 5 `@ts-ignore` in `errorReporting.test.ts` (low priority — test code)
+1. Remove `defaultValue` fallbacks in `VisitPlannerClient.tsx` (5 occurrences) — **DONE** (already removed)
+2. Delete deprecated MDX parser functions (3 in `quizParser.ts`) — **DEFERRED** (functions are actively used by build scripts and tests)
+3. Delete unused `PageSection` component and `useScrollSpy` hook — **NOT NEEDED** (PageSection is used by TermsClient.tsx; useScrollSpy.ts doesn't exist)
+4. Remove dead translation keys from both locale files — **DEFERRED** (low priority, keys don't cause runtime issues)
+5. Delete `stitch_health_made_clear_ux_design/` from repo (already gitignored) — **DONE**
+6. Address 5 `@ts-ignore` in `errorReporting.test.ts` (low priority — test code) — **DEFERRED**
+
+---
+
+## Remediation Summary (2026-08-11)
+
+A full-codebase remediation was performed on 2026-08-11. See `AUDIT_LOG.md` for the complete running ledger and `AUDIT_REPORT.md` for the final report.
+
+### Fixes Applied
+
+1. **F-001** (P0): Removed illegal route export from `src/app/api/contact/route.ts` that broke `next build` typecheck.
+2. **F-002** (P1): Pinned `next build` to webpack via `--webpack` flag to work around Turbopack next/font Google fetch 404s.
+3. **F-003** (P1): Added `setRequestLocale(locale)` to 19 page.tsx files that were missing it, enabling static rendering optimization.
+4. **F-004** (P1): Added CSRF protection to contact endpoint via Origin header validation. Added 2 regression tests.
+5. **F-005** (P0): Compressed homepage video from 64MB to 1.3MB (98% reduction). Added poster, preload, and dimensions.
+6. **F-006** (P1): Replaced 1.2MB JPEG logo with 1.3KB SVG favicon in all references.
+7. **F-007** (P3): Removed stitch design artifacts from repo.
+8. **F-008** (P3): Added HSTS header to next.config.mjs securityHeaders.
+9. **F-009** (P3): Added `object-src 'none'` to CSP.
+10. **F-010** (P2): Added PII scrubbing (email, phone, SSN, card) to Sentry beforeSend and reportServerError.
+11. **F-011** (P2): Stripped query params from GA page_view events to prevent PII leakage.
+12. **F-012** (P2): Added viewport export with themeColor to layout.
+13. **F-013** (P2): Fixed `quizScores` type from `any[]` to `QuizScore[]` in useProgress.
+14. **F-014** (P2): Added email format validation to SignupForm, consistent with LoginForm.
+
+### Verification Gates
+
+All verification gates pass:
+
+- `tsc --noEmit` → 0 errors ✅
+- ESLint → 0 errors, 2 acceptable warnings ✅
+- `vitest run` → 577 tests pass across 86 files ✅
+- `next build --webpack` → succeeds, 363 static pages generated ✅
+- `npm audit` → 0 high/critical vulnerabilities ✅
+- `AUDIT_LOG.md` → every entry marked Fixed ✅
+- Zero open P0/P1 findings ✅
