@@ -74,6 +74,28 @@ function sanitizeContext(context?: ErrorContext): ErrorContext | undefined {
   return safe;
 }
 
+// PII patterns to scrub from error messages and stack traces before
+// sending to Sentry. The patterns cover the most common accidental PII
+// leaks: emails, phone numbers, SSNs, and credit card numbers.
+const PII_PATTERNS: Array<{ pattern: RegExp; replacement: string }> = [
+  // Email addresses
+  { pattern: /\b[\w.+-]+@[\w-]+\.[\w.-]+\b/g, replacement: "[email]" },
+  // US phone numbers (xxx) xxx-xxxx, xxx-xxx-xxxx, +1 xxx-xxx-xxxx
+  { pattern: /(\+1[-.\s]?)?\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}\b/g, replacement: "[phone]" },
+  // SSN xxx-xx-xxxx
+  { pattern: /\b\d{3}-\d{2}-\d{4}\b/g, replacement: "[ssn]" },
+  // Credit card numbers (13-19 digits, optionally space/dash separated)
+  { pattern: /\b(?:\d[ -]*?){13,19}\b/g, replacement: "[card]" },
+];
+
+function scrubPII(text: string): string {
+  let result = text;
+  for (const { pattern, replacement } of PII_PATTERNS) {
+    result = result.replace(pattern, replacement);
+  }
+  return result;
+}
+
 export function reportClientError(error: unknown, context?: ErrorContext) {
   const normalized = error instanceof Error ? error : new Error(String(error));
   const safeContext = sanitizeContext(context);
@@ -96,6 +118,24 @@ export function reportClientError(error: unknown, context?: ErrorContext) {
             if (breadcrumb.category === "console") return null;
             return breadcrumb;
           },
+          beforeSend(event) {
+            // Scrub PII from error messages and stack traces
+            if (event.message) {
+              event.message = scrubPII(event.message);
+            }
+            if (event.exception?.values) {
+              for (const ex of event.exception.values) {
+                if (ex.value) ex.value = scrubPII(ex.value);
+                if (ex.stacktrace?.frames) {
+                  for (const frame of ex.stacktrace.frames) {
+                    if (frame.filename) frame.filename = scrubPII(frame.filename);
+                    if (frame.function) frame.function = scrubPII(frame.function);
+                  }
+                }
+              }
+            }
+            return event;
+          },
         });
       }
       Sentry.captureException(normalized, { extra: safeContext });
@@ -109,5 +149,6 @@ export function reportClientError(error: unknown, context?: ErrorContext) {
 export function reportServerError(error: unknown, context?: ErrorContext) {
   const normalized = error instanceof Error ? error : new Error(String(error));
   const safeContext = sanitizeContext(context);
-  console.error("[hmc:server]", normalized.message, safeContext);
+  const scrubbedMessage = scrubPII(normalized.message);
+  console.error("[hmc:server]", scrubbedMessage, safeContext);
 }
