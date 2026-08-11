@@ -8,6 +8,8 @@ import Input from "@/components/ui/Input";
 import { Link } from "@/i18n/navigation";
 import { Mail, Lock, User } from "lucide-react";
 
+const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
 function getPasswordStrength(password: string): {
   label: string;
   color: string;
@@ -66,6 +68,7 @@ export default function SignupForm() {
 
     const nextFieldErrors: { email?: string; password?: string } = {};
     if (!email.trim()) nextFieldErrors.email = t("emailRequired");
+    else if (!EMAIL_REGEX.test(email.trim())) nextFieldErrors.email = t("errorEmailInvalid");
     if (!password.trim()) nextFieldErrors.password = t("passwordRequired");
     else if (password.length < 8) nextFieldErrors.password = t("passwordMinLength");
     setFieldErrors(nextFieldErrors);
