@@ -1,9 +1,7 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
-import { checkRateLimit, clearRateLimitStore, getClientIp } from "@/lib/rateLimit";
+import { checkRateLimit, getClientIp } from "@/lib/rateLimit";
 import { reportServerError } from "@/lib/errorReporting";
-
-export { clearRateLimitStore };
 
 // Field length limits to prevent spam and DoS
 const LIMITS = {

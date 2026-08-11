@@ -1,5 +1,6 @@
 import { describe, expect, it, vi, beforeEach } from "vitest";
-import { POST, clearRateLimitStore } from "./route";
+import { POST } from "./route";
+import { clearRateLimitStore } from "@/lib/rateLimit";
 
 describe("POST /api/contact", () => {
   beforeEach(() => {
