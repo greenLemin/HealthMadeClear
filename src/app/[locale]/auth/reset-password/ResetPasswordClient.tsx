@@ -72,16 +72,20 @@ export default function ResetPasswordClient() {
 
     setSubmitting(true);
 
-    const { error: updateError } = await supabase.auth.updateUser({ password });
+    try {
+      const { error: updateError } = await supabase.auth.updateUser({ password });
 
-    if (updateError) {
+      if (updateError) {
+        setError(t("errorGeneric"));
+        return;
+      }
+
+      setSubmitted(true);
+    } catch {
       setError(t("errorGeneric"));
+    } finally {
       setSubmitting(false);
-      return;
     }
-
-    setSubmitting(false);
-    setSubmitted(true);
   }
 
   if (loading) {

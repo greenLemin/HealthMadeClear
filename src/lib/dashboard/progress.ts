@@ -77,8 +77,10 @@ export async function getCompletedLessonsPaginated(
   const allLessons = getAllLessons(locale);
   const lessonMap = new Map(allLessons.map((l) => [l.id, l]));
 
-  const from = (page - 1) * pageSize;
-  const to = from + pageSize - 1;
+  const safePage = Math.max(1, page);
+  const safePageSize = Math.max(1, pageSize);
+  const from = (safePage - 1) * safePageSize;
+  const to = from + safePageSize - 1;
 
   const {
     data: progressData,

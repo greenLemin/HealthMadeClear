@@ -133,18 +133,22 @@ export default function ForgotPasswordForm() {
 
     setLoading(true);
 
-    const { error: authError } = await supabase.auth.resetPasswordForEmail(email, {
-      redirectTo: `${window.location.origin}/${locale}/auth/reset-password`,
-    });
+    try {
+      const { error: authError } = await supabase.auth.resetPasswordForEmail(email, {
+        redirectTo: `${window.location.origin}/${locale}/auth/reset-password`,
+      });
 
-    if (authError) {
+      if (authError) {
+        setError(t("errorGeneric"));
+        return;
+      }
+
+      setSubmitted(true);
+    } catch {
       setError(t("errorGeneric"));
+    } finally {
       setLoading(false);
-      return;
     }
-
-    setSubmitted(true);
-    setLoading(false);
   }
 
   if (submitted) {

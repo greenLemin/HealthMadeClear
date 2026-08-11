@@ -58,12 +58,15 @@ describe("updateStreak", () => {
     expect(mockSelect).toHaveBeenCalledWith("*");
     expect(mockEq).toHaveBeenCalledWith("user_id", "user1");
 
-    expect(mockUpsert).toHaveBeenCalledWith({
-      user_id: "user1",
-      current_streak: 1,
-      longest_streak: 1,
-      last_activity_date: "2023-10-15",
-    });
+    expect(mockUpsert).toHaveBeenCalledWith(
+      {
+        user_id: "user1",
+        current_streak: 1,
+        longest_streak: 1,
+        last_activity_date: "2023-10-15",
+      },
+      { onConflict: "user_id" }
+    );
 
     expect(createNotification).not.toHaveBeenCalled();
   });
@@ -88,12 +91,15 @@ describe("updateStreak", () => {
 
     expect(result).toEqual({ currentStreak: 5, longestStreak: 10, isNewDay: false });
 
-    expect(mockUpsert).toHaveBeenCalledWith({
-      user_id: "user1",
-      current_streak: 5,
-      longest_streak: 10,
-      last_activity_date: "2023-10-15",
-    });
+    expect(mockUpsert).toHaveBeenCalledWith(
+      {
+        user_id: "user1",
+        current_streak: 5,
+        longest_streak: 10,
+        last_activity_date: "2023-10-15",
+      },
+      { onConflict: "user_id" }
+    );
 
     expect(createNotification).not.toHaveBeenCalled();
   });
@@ -117,12 +123,15 @@ describe("updateStreak", () => {
 
     expect(result).toEqual({ currentStreak: 6, longestStreak: 6, isNewDay: true });
 
-    expect(mockUpsert).toHaveBeenCalledWith({
-      user_id: "user1",
-      current_streak: 6,
-      longest_streak: 6,
-      last_activity_date: "2023-10-16",
-    });
+    expect(mockUpsert).toHaveBeenCalledWith(
+      {
+        user_id: "user1",
+        current_streak: 6,
+        longest_streak: 6,
+        last_activity_date: "2023-10-16",
+      },
+      { onConflict: "user_id" }
+    );
 
     expect(createNotification).not.toHaveBeenCalled();
   });
@@ -146,12 +155,15 @@ describe("updateStreak", () => {
 
     expect(result).toEqual({ currentStreak: 1, longestStreak: 10, isNewDay: true });
 
-    expect(mockUpsert).toHaveBeenCalledWith({
-      user_id: "user1",
-      current_streak: 1,
-      longest_streak: 10,
-      last_activity_date: "2023-10-18",
-    });
+    expect(mockUpsert).toHaveBeenCalledWith(
+      {
+        user_id: "user1",
+        current_streak: 1,
+        longest_streak: 10,
+        last_activity_date: "2023-10-18",
+      },
+      { onConflict: "user_id" }
+    );
 
     expect(createNotification).not.toHaveBeenCalled();
   });

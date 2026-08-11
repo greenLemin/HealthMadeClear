@@ -68,26 +68,37 @@ function useLoginFormLogic() {
 
     setLoading(true);
 
-    const { data, error: authError } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    });
+    try {
+      const { data, error: authError } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      });
 
-    if (authError) {
-      setError(t("errorInvalidCredentials"));
+      if (authError) {
+        setError(t("errorInvalidCredentials"));
+        return;
+      }
+
+      if (!data.user) {
+        setError(t("errorGeneric"));
+        return;
+      }
+
+      const redirectParam = searchParams.get("redirect");
+      const safeRedirect = sanitizeRedirectPath(redirectParam);
+
+      try {
+        await migrateGuestProgressToSupabase(supabase, data.user.id);
+      } catch {
+        // Non-fatal: continue with redirect even if migration fails
+      }
+
+      router.push(safeRedirect);
+    } catch {
+      setError(t("errorGeneric"));
+    } finally {
       setLoading(false);
-      return;
     }
-
-    // Validate redirect param — only allow relative paths to prevent open redirect attacks
-    const redirectParam = searchParams.get("redirect");
-    const safeRedirect = sanitizeRedirectPath(redirectParam);
-
-    if (data.user) {
-      await migrateGuestProgressToSupabase(supabase, data.user.id);
-    }
-
-    router.push(safeRedirect);
   }
 
   return {
