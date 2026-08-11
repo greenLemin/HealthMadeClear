@@ -36,3 +36,24 @@ Started: 2026-08-11
 - Symptom: Per `next-intl` App Router docs, every page must call `setRequestLocale(locale)` to enable static rendering. Without it, `getTranslations()` and `useTranslations()` fall back to dynamic rendering.
 - Fix: Added `setRequestLocale(locale)` to the default export of each affected page, after destructuring `params`. For pages where the default export was previously a synchronous component without `params`, upgraded to `async function Page({ params }: Props)` with `await params` and the `setRequestLocale` call.
 - Status: Fixed
+
+### F-004 — P1 — Contact endpoint lacks CSRF protection
+
+- File: `src/app/api/contact/route.ts`
+- Symptom: The POST handler accepts JSON via `request.json()`. An attacker could submit a cross-origin POST with `Content-Type: text/plain` (which doesn't trigger CORS preflight) and the server would parse it as JSON and insert into the database. The honeypot and rate limit are the only defenses, and both are bypassable.
+- Fix: Added `isAllowedOrigin()` function that checks the `Origin` header against the site's origin (comparing hostname). Returns 403 if Origin is missing or doesn't match. Added 2 regression tests for missing/mismatched Origin.
+- Status: Fixed
+
+### F-005 — P0 — 64MB autoplay video on homepage (LCP/bandwidth)
+
+- Files: `public/HMC_Video.mp4` (64MB), `src/app/[locale]/HomeClient.tsx:57`
+- Symptom: 1920x1080 H.264 video at 13.3 Mbps, 40 seconds long, 64MB file size. Auto-played on homepage with no `poster`, no `preload` attribute (defaults to `auto` → fetches all 64MB). Devastates LCP, bandwidth, and mobile data costs.
+- Fix: Compressed video with ffmpeg (CRF 30, 1280px wide, faststart) from 64MB to 1.3MB (98% reduction). Quality remains visually identical for a background video. Added `poster="/hmc-video-poster.jpg"` (29KB extracted first frame), `preload="metadata"` (defers loading until user interacts), and `width={1280} height={720}` attributes (prevents CLS by reserving space).
+- Status: Fixed
+
+### F-006 — P1 — 1.2MB JPEG logo replaced with 1.3KB SVG
+
+- Files: `public/logo.jpeg` (1.2MB), `src/components/Logo.tsx:6`, `src/app/[locale]/layout.tsx:84-85`, `public/manifest.json:11,17`
+- Symptom: `logo.jpeg` was 1.2MB, used as favicon icon (192x192 and 512x512) and as the `<img>` in `Logo.tsx`. JPEG is wrong format for a logo (raster, no scaling). The existing `favicon.svg` (1.3KB) is an infinitely scalable SVG with the same design.
+- Fix: Replaced all references to `logo.jpeg` with `favicon.svg`. Updated `manifest.json` to use the SVG icon. Deleted the 1.2MB `logo.jpeg`.
+- Status: Fixed
