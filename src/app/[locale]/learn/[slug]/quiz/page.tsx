@@ -1,4 +1,5 @@
 import { notFound } from "next/navigation";
+import { setRequestLocale } from "next-intl/server";
 import { routing } from "@/i18n/routing";
 import { lessons } from "@/data/lessons";
 import { getLessonById } from "@/lib/localizedContent";
@@ -28,10 +29,12 @@ export async function generateMetadata({ params }: Props) {
 
 export default async function QuizPage({ params }: Props) {
   const { locale, slug } = await params;
-  const lesson = getLessonById(slug, requireLocale(locale));
+  const l = requireLocale(locale);
+  setRequestLocale(l);
+  const lesson = getLessonById(slug, l);
   if (!lesson) notFound();
 
-  const quiz = getQuizByLessonId(slug, requireLocale(locale));
+  const quiz = getQuizByLessonId(slug, l);
   if (!quiz) notFound();
 
   const base = getSiteUrl();

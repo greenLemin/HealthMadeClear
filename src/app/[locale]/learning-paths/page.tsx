@@ -1,4 +1,4 @@
-import { getTranslations } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import { localeAlternates } from "@/lib/metadata";
 import { requireLocale } from "@/lib/locale";
 import { getAllLessons } from "@/lib/lessons/loadLessons";
@@ -25,6 +25,7 @@ type Props = { params: Promise<{ locale: string }> };
 export default async function LearningPathsPage({ params }: Props) {
   const { locale: localeStr } = await params;
   const locale = requireLocale(localeStr);
+  setRequestLocale(locale);
   const lessons = toLessonListItems(getAllLessons(locale));
   const learningPaths = getAllLearningPaths(locale);
   const glossaryTerms = getAllGlossaryTerms(locale);

@@ -1,4 +1,5 @@
 import { notFound } from "next/navigation";
+import { setRequestLocale } from "next-intl/server";
 import { routing } from "@/i18n/routing";
 import { paths } from "@/data/paths";
 import { requireLocale } from "@/lib/locale";
@@ -45,6 +46,7 @@ export async function generateMetadata({ params }: Props) {
 export default async function LearningPathDetailPage({ params }: Props) {
   const { locale, pathId } = await params;
   const l = requireLocale(locale);
+  setRequestLocale(l);
   const path = getPathById(pathId, l);
   if (!path) notFound();
 

@@ -1,4 +1,4 @@
-import { getTranslations } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import { localeAlternates } from "@/lib/metadata";
 import { requireLocale } from "@/lib/locale";
 import { getSiteUrl } from "@/lib/site";
@@ -20,6 +20,7 @@ type Props = { params: Promise<{ locale: string }> };
 export default async function ToolsPage({ params }: Props) {
   const { locale: localeStr } = await params;
   const locale = requireLocale(localeStr);
+  setRequestLocale(locale);
   const base = getSiteUrl();
   const t = await getTranslations({ locale, namespace: "tools" });
 

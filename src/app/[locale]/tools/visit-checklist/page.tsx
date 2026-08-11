@@ -1,5 +1,6 @@
-import { getTranslations } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import { localeAlternates } from "@/lib/metadata";
+import { requireLocale } from "@/lib/locale";
 import VisitChecklistClient from "./VisitChecklistClient";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
@@ -12,6 +13,11 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   };
 }
 
-export default function VisitChecklistPage() {
+type Props = { params: Promise<{ locale: string }> };
+
+export default async function VisitChecklistPage({ params }: Props) {
+  const { locale: localeStr } = await params;
+  const locale = requireLocale(localeStr);
+  setRequestLocale(locale);
   return <VisitChecklistClient />;
 }

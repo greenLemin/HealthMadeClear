@@ -29,3 +29,10 @@ Started: 2026-08-11
 - Symptom: Default `next build` (Turbopack) fails because Turbopack eagerly fetches Google Font woff2 files at build time and the local network returns 404. Webpack build works (with F-001 fixed). This is environment-dependent and will fail in CI.
 - Fix: Adjust `next.config.mjs` build to use webpack (Next 16 default is Turbopack). Set `turbopack: false` equivalent by passing `--webpack` to `next build`, OR pin Turbopack but ensure font loader is robust. Decision: use webpack for now via `next build --webpack`; document that Turbopack default in Next 16 has issues with next/font in restricted network environments.
 - Status: Fixed
+
+### F-003 — P1 — Missing `setRequestLocale` in 19 page.tsx files
+
+- Files: `src/app/[locale]/{contact,tools/visit-planner,tools/care-guide,tools/visit-checklist,tools,privacy,terms,about,accessibility,glossary,glossary/[term],learning-paths,learning-paths/[pathId],learn/[slug],learn/[slug]/quiz,dashboard,dashboard/settings,dashboard/progress,dashboard/achievements}/page.tsx`
+- Symptom: Per `next-intl` App Router docs, every page must call `setRequestLocale(locale)` to enable static rendering. Without it, `getTranslations()` and `useTranslations()` fall back to dynamic rendering.
+- Fix: Added `setRequestLocale(locale)` to the default export of each affected page, after destructuring `params`. For pages where the default export was previously a synchronous component without `params`, upgraded to `async function Page({ params }: Props)` with `await params` and the `setRequestLocale` call.
+- Status: Fixed
