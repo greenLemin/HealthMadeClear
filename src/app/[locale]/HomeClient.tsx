@@ -54,7 +54,18 @@ export default function HomeClient({ lessons, learningPaths }: HomeClientProps) 
   return (
     <div className="pb-14">
       <div className="w-full overflow-hidden">
-        <video src="/HMC_Video.mp4" autoPlay loop muted playsInline className="block h-auto w-full" />
+        <video
+          src="/HMC_Video.mp4"
+          poster="/hmc-video-poster.jpg"
+          width={1280}
+          height={720}
+          autoPlay
+          loop
+          muted
+          playsInline
+          preload="metadata"
+          className="block h-auto w-full"
+        />
       </div>
       <Hero />
       <SectionNav />

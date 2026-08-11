@@ -80,11 +80,7 @@ export async function generateMetadata({
       googleBot: { index: true, follow: true, "max-image-preview": "large" },
     },
     icons: {
-      icon: [
-        { url: "/logo.jpeg", sizes: "192x192", type: "image/jpeg" },
-        { url: "/logo.jpeg", sizes: "512x512", type: "image/jpeg" },
-        { url: "/favicon.svg", sizes: "any", type: "image/svg+xml" },
-      ],
+      icon: [{ url: "/favicon.svg", sizes: "any", type: "image/svg+xml" }],
     },
     manifest: "/manifest.json",
   };
