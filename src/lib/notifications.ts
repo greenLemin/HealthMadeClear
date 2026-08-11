@@ -19,7 +19,8 @@ export async function createNotifications(
     body: input.body,
     read: false,
   }));
-  await supabase.from("notifications").insert(records);
+  const { error } = await supabase.from("notifications").insert(records);
+  if (error) throw error;
 }
 
 export async function createNotification(
@@ -27,13 +28,14 @@ export async function createNotification(
   userId: string,
   input: NotificationInput
 ): Promise<void> {
-  await supabase.from("notifications").insert({
+  const { error } = await supabase.from("notifications").insert({
     user_id: userId,
     type: input.type,
     title: input.title,
     body: input.body,
     read: false,
   });
+  if (error) throw error;
 }
 
 export async function getNotifications(

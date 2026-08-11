@@ -14,7 +14,8 @@ function getItem<T>(key: string, fallback: T): T {
   try {
     const raw = storage.getItem(STORAGE_PREFIX + key);
     return raw ? (JSON.parse(raw) as T) : fallback;
-  } catch {
+  } catch (e) {
+    logger.warn("Failed to read guest progress from storage:", e);
     return fallback;
   }
 }
@@ -24,7 +25,9 @@ function setItem<T>(key: string, value: T) {
   if (!storage) return;
   try {
     storage.setItem(STORAGE_PREFIX + key, JSON.stringify(value));
-  } catch {}
+  } catch (e) {
+    logger.warn("Failed to write guest progress to storage:", e);
+  }
 }
 
 export function getGuestProgress() {
