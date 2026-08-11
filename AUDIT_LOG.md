@@ -115,3 +115,67 @@ Started: 2026-08-11
 - Symptom: `SignupForm.handleSubmit` only checks if email is empty (`if (!email.trim()) nextFieldErrors.email = t("emailRequired")`). No email format validation, allowing invalid email addresses to be submitted to Supabase. `LoginForm` has `EMAIL_REGEX` check but `SignupForm` doesn't.
 - Fix: Added `EMAIL_REGEX` constant and email format validation to `SignupForm.handleSubmit`, consistent with `LoginForm`.
 - Status: Fixed
+
+### F-015 — P1 — Auth forms stuck loading on network errors
+
+- Files: `src/app/[locale]/auth/login/LoginForm.tsx`, `src/app/[locale]/auth/signup/SignupForm.tsx`, `src/app/[locale]/auth/forgot-password/ForgotPasswordForm.tsx`, `src/app/[locale]/auth/reset-password/ResetPasswordClient.tsx`
+- Symptom: All four auth form components had async Supabase calls (`signInWithPassword`, `signUp`, `resetPasswordForEmail`, `updateUser`) without try/catch. If the Supabase client throws (network error, timeout), the `loading`/`submitting` state stays `true` forever — the user sees a spinning button with no way to recover except refreshing the page.
+- Fix: Wrapped each async Supabase call in `try { ... } catch { setError(t("errorGeneric")); } finally { setLoading(false); }`. The `finally` block guarantees the loading state is reset regardless of success or failure. Added null user check in LoginForm (`if (!data.user) { setError(...); return; }`).
+- Status: Fixed
+
+### F-016 — P1 — Streaks race condition and timezone bug
+
+- File: `src/lib/streaks.ts`
+- Symptom: Three issues:
+  1. **Timezone bug**: `new Date().getFullYear()/getMonth()/getDate()` uses server-local time. If the server is in UTC but the user is in PST, the date could be off by a day, causing streaks to reset incorrectly.
+  2. **Race condition**: Concurrent `updateStreak` calls both read the same `existing` state, both increment, and both upsert. The `if (!existing)` branch can double-insert if two concurrent calls both see `existing` as null (no `onConflict` specified).
+  3. **Hardcoded return**: The function returns hardcoded `{currentStreak:1, longestStreak:1, isNewDay:true}` regardless of the actual DB result from `inserted`.
+- Fix:
+  1. Replaced `new Date().getFullYear()/getMonth()/getDate()` with `new Date().toISOString().slice(0, 10)` (UTC) for date strings.
+  2. Added `{ onConflict: "user_id" }` to both upserts to prevent duplicate rows on race.
+  3. Used actual `inserted` data for return value.
+  4. Added `selectError` check to distinguish PGRST116 (no rows) from real errors.
+  5. Added `upsertError`/`updateError` checks and throw on failure.
+- Status: Fixed
+
+### F-017 — P2 — Auth callback/confirm routes don't log returned errors
+
+- Files: `src/app/[locale]/auth/callback/route.ts`, `src/app/[locale]/auth/confirm/route.ts`
+- Symptom: Both routes call `supabase.auth.exchangeCodeForSession(code)` which returns `{ error }`. If `error` is non-null, the route falls through to the `auth_failed` redirect without logging the error. This makes it impossible to debug OAuth/code exchange failures from server logs.
+- Fix: Added `reportServerError(error, { route: "auth/callback", phase: "exchange" })` (and same for confirm) when the returned `error` is non-null.
+- Status: Fixed
+
+### F-018 — P2 — sanitizeRedirectPath doesn't reject CRLF injection
+
+- File: `src/lib/auth/sanitizeRedirect.ts`
+- Symptom: `sanitizeRedirectPath` checks `startsWith("/")` and rejects `//` and `/\`, but doesn't check for CRLF characters (`\r`, `\n`) or their encoded forms (`%0d`, `%0a`). A path like `/\r\nSet-Cookie: evil=1` would pass validation and could be used for header injection if the redirect URL is used in a `Location` header.
+- Fix: Added check: `if (/[\r\n]/.test(path) || /%0d|%0a/i.test(path)) return fallback;` to reject paths containing CRLF characters or their encoded forms.
+- Status: Fixed
+
+### F-019 — P2 — Dashboard progress page doesn't validate page/pageSize
+
+- File: `src/lib/dashboard/progress.ts:80`
+- Symptom: `getCompletedLessonsPaginated` computes `from = (page - 1) * pageSize` and passes it to `.range(from, to)`. If `page <= 0` or `pageSize <= 0`, `from` becomes negative, which causes a Supabase query error. The function doesn't clamp `page` or `pageSize` to valid ranges.
+- Fix: Added clamping: `const safePage = Math.max(1, page); const safePageSize = Math.max(1, pageSize);` and used `safePage`/`safePageSize` in the calculation.
+- Status: Fixed
+
+### F-020 — P2 — Notifications insert errors not checked
+
+- File: `src/lib/notifications.ts`
+- Symptom: `createNotifications` and `createNotification` call `supabase.from("notifications").insert(records)` but don't destructure or check the `error` from the insert result. If the insert fails (RLS violation, constraint failure), the error is silently swallowed and the function returns as if successful.
+- Fix: Destructured `error` from both insert results and added `if (error) throw error;` to propagate failures to callers.
+- Status: Fixed
+
+### F-021 — P2 — Guest progress storage failures silently swallowed
+
+- File: `src/lib/guestProgress.ts`
+- Symptom: `getItem` and `setItem` have `catch` blocks that silently swallow all errors (e.g., `QuotaExceededError`, `SecurityError` on sessionStorage access). If sessionStorage is full or blocked, guest progress writes silently fail with no signal to the user or developer.
+- Fix: Added `logger.warn(...)` calls in both catch blocks to log storage failures for debugging.
+- Status: Fixed
+
+### F-022 — P2 — requireAuth doesn't sanitize redirectTo
+
+- File: `src/lib/auth/requireAuth.ts`
+- Symptom: `requireAuth` passes `redirectTo` directly to `encodeURIComponent` without sanitizing it through `sanitizeRedirectPath`. If a caller passes user input as `redirectTo`, it could be an open redirect vector. Today all callers pass hardcoded strings like `/dashboard`, but the API is fragile.
+- Fix: Added `sanitizeRedirectPath(redirectTo)` call before encoding. Preserved original behavior of only adding `redirect` param when `redirectTo` is provided.
+- Status: Fixed
