@@ -1,20 +1,23 @@
 # AUDIT_REPORT.md — Full Codebase Remediation
 
 **Branch:** `audit/full-codebase-remediation`
-**Date:** 2026-08-11
+**Date:** 2026-08-12
 **Auditor:** Automated full-codebase audit
 
 ---
 
 ## Executive Summary
 
-A comprehensive audit of the HealthMadeClear codebase identified 14 findings across security, performance, privacy, type safety, and form validation dimensions. All 14 findings have been fixed and verified. The codebase was already in excellent shape — the audit found no critical security vulnerabilities, no hardcoded secrets, and no XSS vectors. The main issues were:
+A comprehensive audit of the HealthMadeClear codebase verified all 22 prior findings (F-001 through F-022) as Fixed, found and fixed 1 new P2 bug (F-023: pagination return value), committed 1 batch of uncommitted a11y/perf improvements (F-026), and documented 2 deferred items (F-024: acceptable lint warnings; F-025: production 403s caused by Netlify edge bot detection, not code-level bugs).
 
-1. **Build broken** (P0): `next build` failed due to an illegal route export and Turbopack font fetching issues.
-2. **64MB autoplay video** (P0): The homepage video was 64MB, devastating LCP and bandwidth.
-3. **Missing `setRequestLocale`** (P1): 19 page.tsx files were missing `setRequestLocale` calls, preventing static rendering optimization.
-4. **CSRF protection gap** (P1): The contact endpoint lacked Origin header validation.
-5. **PII leakage risk** (P2): GA page_view events sent full URLs including query params; Sentry events and server logs lacked PII scrubbing.
+The codebase is in excellent shape. All 16 audit dimensions (A–P) were examined with concrete evidence. The audit found no critical security vulnerabilities, no hardcoded secrets, no XSS vectors, and no unhandled promise rejections. The main findings were:
+
+1. **Build broken** (P0, prior): `next build` failed due to an illegal route export and Turbopack font fetching issues. **Fixed.**
+2. **64MB autoplay video** (P0, prior): The homepage video was 64MB, devastating LCP and bandwidth. **Fixed (98% reduction).**
+3. **Missing `setRequestLocale`** (P1, prior): 19 page.tsx files were missing `setRequestLocale` calls, preventing static rendering optimization. **Fixed.**
+4. **CSRF protection gap** (P1, prior): The contact endpoint lacked Origin header validation. **Fixed.**
+5. **PII leakage risk** (P2, prior): GA `page_view` events sent full URLs including query params; Sentry events and server logs lacked PII scrubbing. **Fixed.**
+6. **Pagination return value bug** (P2, new): `getCompletedLessonsPaginated` returned raw `page`/`pageSize` instead of clamped `safePage`/`safePageSize`, causing incorrect `totalPages` when negative values passed. **Fixed with regression test.**
 
 All fixes preserve existing user-facing behavior, routes, and public APIs. No UI restyles, no feature changes, no dependency swaps.
 
@@ -24,11 +27,13 @@ All fixes preserve existing user-facing behavior, routes, and public APIs. No UI
 
 ### A. Correctness & Latent Bugs
 
-| ID    | Severity | File:Line                        | Problem                                                                                                                 | Fix                                                                            | Status |
-| ----- | -------- | -------------------------------- | ----------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------ | ------ |
-| F-001 | P0       | `src/app/api/contact/route.ts:6` | `next build` typecheck fails — `clearRateLimitStore` exported from route handler. Next.js 16 forbids non-route exports. | Removed export; updated test to import from `@/lib/rateLimit` directly.        | Fixed  |
-| F-002 | P1       | `src/app/fonts.ts:10`            | Default `next build` (Turbopack) fails — font fetch returns 404 from gstatic.                                           | Pinned build to webpack via `--webpack` flag in `build` and `analyze` scripts. | Fixed  |
-| F-003 | P1       | 19 page.tsx files                | Missing `setRequestLocale(locale)` — prevents static rendering optimization.                                            | Added `setRequestLocale` calls to all affected pages.                          | Fixed  |
+| ID    | Severity | File:Line                               | Problem                                                                                                                                                                 | Fix                                                                                                 | Status |
+| ----- | -------- | --------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- | ------ |
+| F-001 | P0       | `src/app/api/contact/route.ts:6`        | `next build` typecheck fails — `Property 'clearRateLimitStore' is incompatible with index signature`. Next.js 16 forbids non-route exports.                             | Removed export; updated test to import from `@/lib/rateLimit` directly.                             | Fixed  |
+| F-002 | P1       | `src/app/fonts.ts:10`                   | Default `next build` (Turbopack) fails — font fetch returns 404 from gstatic.                                                                                           | Pinned build to webpack via `--webpack` flag in `build` script.                                     | Fixed  |
+| F-003 | P1       | 19 page.tsx files                       | Missing `setRequestLocale(locale)` — prevents static rendering optimization.                                                                                            | Added `setRequestLocale` calls to all affected pages.                                               | Fixed  |
+| F-016 | P1       | `src/lib/streaks.ts`                    | Streaks race condition (concurrent upserts both insert), timezone bug (server-local time), hardcoded return value.                                                      | Added `{ onConflict: "user_id" }` to both upserts. Used UTC dates. Returned actual `inserted` data. | Fixed  |
+| F-023 | P2       | `src/lib/dashboard/progress.ts:135-140` | `getCompletedLessonsPaginated` returned raw `page`/`pageSize` instead of clamped `safePage`/`safePageSize`, causing incorrect `totalPages` when negative values passed. | Changed return value to use `safePage`/`safePageSize`. Added regression test.                       | Fixed  |
 
 ### B. Type Safety
 
@@ -38,11 +43,13 @@ All fixes preserve existing user-facing behavior, routes, and public APIs. No UI
 
 ### C. Security
 
-| ID    | Severity | File:Line                      | Problem                                                                                             | Fix                                                                                                                                           | Status |
-| ----- | -------- | ------------------------------ | --------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- | ------ |
-| F-004 | P1       | `src/app/api/contact/route.ts` | Contact endpoint lacks CSRF protection — accepts cross-origin POST with `Content-Type: text/plain`. | Added `isAllowedOrigin()` function checking `Origin` header against site origin. Returns 403 if missing/mismatched. Added 2 regression tests. | Fixed  |
-| F-008 | P3       | `next.config.mjs:38-61`        | HSTS header missing from `next.config.mjs` (only in `netlify.toml`).                                | Added `Strict-Transport-Security` header to `securityHeaders` array.                                                                          | Fixed  |
-| F-009 | P3       | `next.config.mjs:48-59`        | CSP missing `object-src 'none'` — relies on `default-src 'self'` fallback.                          | Added `"object-src 'none'"` to CSP.                                                                                                           | Fixed  |
+| ID    | Severity | File:Line                          | Problem                                                                                                                  | Fix                                                                                                                                           | Status |
+| ----- | -------- | ---------------------------------- | ------------------------------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------- | ------ |
+| F-004 | P1       | `src/app/api/contact/route.ts`     | Contact endpoint lacks CSRF protection — accepts cross-origin POST with `Content-Type: text/plain`.                      | Added `isAllowedOrigin()` function checking `Origin` header against site origin. Returns 403 if missing/mismatched. Added 2 regression tests. | Fixed  |
+| F-008 | P3       | `next.config.mjs:38-61`            | HSTS header missing from `next.config.mjs` (only in `netlify.toml`).                                                     | Added `Strict-Transport-Security` header to `securityHeaders` array.                                                                          | Fixed  |
+| F-009 | P3       | `next.config.mjs:48-59`            | CSP missing `object-src 'none'` — relies on `default-src 'self'` fallback.                                               | Added `"object-src 'none'"` to CSP.                                                                                                           | Fixed  |
+| F-018 | P2       | `src/lib/auth/sanitizeRedirect.ts` | `sanitizeRedirectPath` doesn't reject CRLF characters (`\r`, `\n`) or their encoded forms (`%0d`, `%0a`).                | Added CRLF rejection check.                                                                                                                   | Fixed  |
+| F-022 | P2       | `src/lib/auth/requireAuth.ts`      | `requireAuth` passes `redirectTo` directly to `encodeURIComponent` without sanitizing it through `sanitizeRedirectPath`. | Added `sanitizeRedirectPath(redirectTo)` call before encoding.                                                                                | Fixed  |
 
 ### D. Privacy
 
@@ -59,9 +66,9 @@ All fixes preserve existing user-facing behavior, routes, and public APIs. No UI
 | F-006 | P1       | `public/logo.jpeg` (1.2MB), `src/components/Logo.tsx:6`, `src/app/[locale]/layout.tsx:84-85`, `public/manifest.json:11,17` | 1.2MB JPEG logo used as favicon and `<img>` in Logo.tsx. JPEG is wrong format for a logo (raster, no scaling).                                      | Replaced all references to `logo.jpeg` with `favicon.svg` (1.3KB SVG). Updated `manifest.json` to use SVG icon. Deleted 1.2MB `logo.jpeg`.                                                                         | Fixed  |
 | F-012 | P2       | `src/app/[locale]/layout.tsx`                                                                                              | Missing `viewport` export — Next.js 14+ recommends separate `viewport` export for viewport meta tag and `themeColor`.                               | Added `export const viewport: Viewport = { themeColor: "#004349", width: "device-width", initialScale: 1 }` to layout.                                                                                             | Fixed  |
 
-### F. Accessibility
+### F. Accessibility (WCAG 2.2 AA)
 
-No findings. The codebase has excellent accessibility:
+No new findings. The codebase has excellent accessibility:
 
 - Skip link to `#main-content` with `tabIndex={-1}` on main
 - Proper focus management with `useFocusTrap` hook
@@ -80,11 +87,11 @@ No findings. EN and ES message catalogs have identical key structures. All user-
 
 ### I. Error Handling & Resilience
 
-No findings. `error.tsx` / `global-error.tsx` / `not-found.tsx` coverage is complete. Every async operation has loading, error, and empty states. Network failures are handled gracefully with offline banner and retry button.
+No findings. `error.tsx`/`global-error.tsx`/`not-found.tsx` coverage is complete. Every async operation has loading, error, and empty states. Network failures are handled gracefully with offline banner and retry button.
 
 ### J. Testing
 
-No findings. 577 tests pass across 86 files. Critical logic (validation, data transforms, auth-adjacent utilities) has good coverage. Added 2 regression tests for CSRF protection (F-004).
+No findings. 578 tests pass across 86 files. Critical logic (validation, data transforms, auth-adjacent utilities) has good coverage. Added 1 regression test for F-023.
 
 ### K. Code Quality
 
@@ -102,11 +109,14 @@ No findings. Tailwind v4 is used with `@tailwindcss/typography` plugin. Custom t
 
 ### N. Dependencies & Build Config
 
-No findings. `npm audit` reports 0 vulnerabilities. All packages are on recent versions. `next.config.mjs` is well-configured with security headers, CSP, and image optimization.
+No findings. `npm audit` reports 0 high/critical vulnerabilities. All packages are on recent versions. `next.config.mjs` is well-configured with security headers, CSP, and image optimization.
 
 ### O. CI/CD & Netlify
 
-No findings. CI workflow runs typecheck, lint, unit tests, build, and e2e tests. Netlify config has correct build command, publish directory, and security headers.
+| ID    | Severity | File:Line                                  | Problem                                                                                                                            | Fix                         | Status   |
+| ----- | -------- | ------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------- | --------------------------- | -------- |
+| F-024 | P3       | `GoogleAnalytics.test.tsx:9`, `Logo.tsx:6` | 2 pre-existing lint warnings: sync scripts in test mock, `<img>` in Logo. Both acceptable.                                         | None (acceptable)           | Deferred |
+| F-025 | Deferred | `audit-summary.txt` (various lines)        | HTTP 403 responses on production during Playwright audit. Caused by Netlify edge bot detection/rate limiting, not code-level bugs. | None (infrastructure issue) | Deferred |
 
 ### P. Documentation & Developer Experience
 
@@ -116,9 +126,7 @@ No findings. README is accurate with setup steps, env vars, scripts, and archite
 
 ## Tests Added
 
-- `src/app/api/contact/route.test.ts`: Added 2 tests for CSRF protection:
-  - `returns 403 for missing Origin header (CSRF)`
-  - `returns 403 for mismatched Origin (CSRF)`
+- `src/lib/dashboard/__tests__/progress.test.ts`: Added 1 regression test "clamps negative page and pageSize to valid ranges" for F-023.
 
 ## Dependency Changes
 
@@ -142,6 +150,7 @@ No dependency changes. No new runtime dependencies were added. All fixes use the
 4. **Pre-render markdown at build time** — Move markdown-it to build-time only, eliminating it from the client bundle.
 5. **Add `BreadcrumbList` JSON-LD to content pages** — For rich result eligibility in search engines.
 6. **Pre-generate OG images at build time** — To improve crawler reliability and reduce edge function cold start latency.
+7. **Configure Netlify edge rate limiting** — To allow known audit scripts while still blocking abusive traffic.
 
 ---
 
@@ -150,9 +159,9 @@ No dependency changes. No new runtime dependencies were added. All fixes use the
 All verification gates pass:
 
 - `tsc --noEmit` → 0 errors ✅
-- ESLint → 0 errors, 2 acceptable warnings (test sync script, SVG img element) ✅
-- `vitest run` → 577 tests pass across 86 files ✅
-- `next build --webpack` → succeeds, 363 static pages generated ✅
+- `npm run lint` → 0 errors, 2 acceptable warnings ✅
+- `npx vitest run` → 578 tests pass across 86 files ✅
+- `npm run build` → succeeds, 363 static pages generated ✅
 - `npm audit` → 0 high/critical vulnerabilities ✅
-- `AUDIT_LOG.md` → every entry marked Fixed ✅
+- `AUDIT_LOG.md` → every entry marked Fixed or Deferred (with reason) ✅
 - Zero open P0/P1 findings ✅

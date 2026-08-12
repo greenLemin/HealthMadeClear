@@ -1,0 +1,18 @@
+=== CONSOLE ERRORS ===
+None
+
+=== PAGE ERRORS ===
+None
+
+=== FAILED REQUESTS ===
+None
+
+=== MISSING ALT TEXTS ===
+None
+
+=== POTENTIAL UNTRANSLATED ===
+None
+
+=== LAYOUT OVERFLOWS ===
+None
+
