@@ -9,7 +9,7 @@ import { useDismissibleOverlay } from "@/hooks/useDismissibleOverlay";
 import { useFocusTrap } from "@/hooks/useFocusTrap";
 import { useMotionSafe } from "@/hooks/useMotionSafe";
 import { useTranslations } from "next-intl";
-import type { SearchEntry } from "@/data/searchIndex.en";
+import type { SearchEntry } from "@/types/search";
 import EmptyState from "@/components/ui/EmptyState";
 import { modalVariants, revealEase } from "@/components/ui/Reveal";
 import { highlightMatches } from "@/lib/search/highlightMatches";

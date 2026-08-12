@@ -2,7 +2,7 @@ import { useTranslations } from "next-intl";
 import { ArrowLeft, ClipboardList, NotebookPen, Printer } from "lucide-react";
 import Button from "@/components/ui/Button";
 import Reveal from "@/components/ui/Reveal";
-import { type CustomQuestion } from "../types";
+import { type CustomQuestion } from "@/types/visitPlanner";
 
 type Props = {
   questions: string[];

@@ -2,7 +2,7 @@ import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
 import { renderHook, act } from "@testing-library/react";
 import { useVisitPlanner } from "./useVisitPlanner";
 import { STORAGE_KEYS } from "@/lib/preferences";
-import type { PlannerState } from "./types";
+import type { PlannerState } from "@/types/visitPlanner";
 
 describe("useVisitPlanner", () => {
   beforeEach(() => {

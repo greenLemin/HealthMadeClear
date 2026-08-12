@@ -4,7 +4,7 @@ import { useTranslations } from "next-intl";
 import Card from "@/components/ui/Card";
 import Button from "@/components/ui/Button";
 import ProgressBar from "@/components/ui/ProgressBar";
-import type { RecommendedLesson, LearningPathEntry } from "../types";
+import type { RecommendedLesson, LearningPathEntry } from "@/types/dashboard";
 
 type RecommendedNextProps = {
   isFirstVisit: boolean;

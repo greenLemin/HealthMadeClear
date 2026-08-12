@@ -2,7 +2,7 @@ import { Link } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
 import Card from "@/components/ui/Card";
 import { formatRelativeDate } from "@/lib/i18n";
-import type { AchievementItem } from "../types";
+import type { AchievementItem } from "@/types/dashboard";
 
 type EarnedAchievementsProps = {
   earnedAchievements: AchievementItem[];

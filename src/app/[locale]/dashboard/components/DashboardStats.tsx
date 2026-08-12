@@ -2,7 +2,7 @@ import { BookOpen, CheckCircle2, Flame, Clock } from "lucide-react";
 import { useTranslations } from "next-intl";
 import Card from "@/components/ui/Card";
 import { formatDuration } from "@/lib/i18n";
-import type { Summary } from "../types";
+import type { Summary } from "@/types/dashboard";
 
 type DashboardStatsProps = {
   summary: Summary;

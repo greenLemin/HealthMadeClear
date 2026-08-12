@@ -3,7 +3,8 @@ import { render, screen } from "@testing-library/react";
 import { NextIntlClientProvider } from "next-intl";
 import { describe, expect, it, vi, beforeEach } from "vitest";
 import en from "@/messages/en.json";
-import AchievementCard, { AchievementItem } from "./AchievementCard";
+import AchievementCard from "./AchievementCard";
+import type { AchievementItem } from "@/types/dashboard";
 
 vi.mock("@/lib/i18n", () => ({
   formatRelativeDate: vi.fn((date) => `formatted-${date}`),

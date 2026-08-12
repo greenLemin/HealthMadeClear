@@ -4,7 +4,7 @@ import { useTranslations } from "next-intl";
 import ButtonLink from "@/components/ui/ButtonLink";
 import ProgressBar from "@/components/ui/ProgressBar";
 import EmptyState from "@/components/ui/EmptyState";
-import type { LearningPathEntry } from "../types";
+import type { LearningPathEntry } from "@/types/dashboard";
 
 type LearningPathsProps = {
   inProgressPaths: LearningPathEntry[];

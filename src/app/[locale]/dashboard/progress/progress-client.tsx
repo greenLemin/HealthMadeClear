@@ -9,17 +9,7 @@ import PageHeader from "@/components/PageHeader";
 import ProgressBar from "@/components/ui/ProgressBar";
 import Reveal from "@/components/ui/Reveal";
 import { formatRelativeDate, formatMemberSince, formatDuration, type Locale } from "@/lib/i18n";
-
-type Summary = {
-  totalLessonsCompleted: number;
-  totalLessonsAvailable: number;
-  totalQuizzesPassed: number;
-  totalQuizzesAttempted: number;
-  averageQuizScore: number;
-  totalTimeSpentMinutes: number;
-  currentStreak: number;
-  longestStreak: number;
-};
+import type { Summary } from "@/types/dashboard";
 
 type QuizPerfItem = {
   category: string;

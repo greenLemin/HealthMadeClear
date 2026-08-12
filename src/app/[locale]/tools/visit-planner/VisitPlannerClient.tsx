@@ -8,7 +8,7 @@ import PageHeader from "@/components/PageHeader";
 import ProgressBar from "@/components/ui/ProgressBar";
 import Reveal from "@/components/ui/Reveal";
 
-import { type StepValue, type VisitTypeKey } from "./types";
+import { type StepValue, type VisitTypeKey } from "@/types/visitPlanner";
 import { useVisitPlanner } from "./useVisitPlanner";
 import Step1ChooseVisitType from "./components/Step1ChooseVisitType";
 import Step2SelectQuestions from "./components/Step2SelectQuestions";

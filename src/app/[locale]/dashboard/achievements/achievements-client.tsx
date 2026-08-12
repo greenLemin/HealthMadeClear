@@ -6,7 +6,7 @@ import AchievementCard from "@/components/dashboard/AchievementCard";
 import PageHeader from "@/components/PageHeader";
 import ProgressBar from "@/components/ui/ProgressBar";
 import Reveal from "@/components/ui/Reveal";
-import type { AchievementItem } from "@/components/dashboard/AchievementCard";
+import type { AchievementItem } from "@/types/dashboard";
 
 type AchievementsClientProps = {
   achievements: AchievementItem[];
