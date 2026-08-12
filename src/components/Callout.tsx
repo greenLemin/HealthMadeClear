@@ -36,8 +36,8 @@ export default function Callout({
 
   return (
     <div
-      role="note"
-      aria-label={title ? undefined : label}
+      role="region"
+      aria-label={title ? `${label}: ${title}` : label}
       className={`rounded-2xl p-6 ${typeClasses[type]} ${className}`}
     >
       {title ? (

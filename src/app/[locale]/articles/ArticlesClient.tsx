@@ -39,13 +39,14 @@ export default function ArticlesClient() {
         <PageHeader centered title={t("title")} description={t("description")} className="mb-8">
           <div className="mx-auto max-w-3xl">
             <div className="surface-card-glass px-4 py-4 text-left md:px-6 md:py-5">
-              <label className="relative block">
+              <label htmlFor="articles-search" className="relative block">
                 <span className="sr-only">{t("searchArticles")}</span>
                 <Search
                   className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant"
                   size={18}
                 />
                 <input
+                  id="articles-search"
                   type="search"
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}

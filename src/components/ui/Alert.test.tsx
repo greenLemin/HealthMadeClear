@@ -18,7 +18,8 @@ describe("Alert", () => {
   it("renders children correctly with default variant (info)", () => {
     renderComponent({ children: "This is an alert" });
 
-    const alertElement = screen.getByRole("alert");
+    // Info variant uses role="status" for polite announcements
+    const alertElement = screen.getByRole("status");
     expect(alertElement).toBeInTheDocument();
     expect(alertElement).toHaveClass("bg-primary-fixed/30");
     expect(screen.getByText("This is an alert")).toBeInTheDocument();
@@ -33,13 +34,15 @@ describe("Alert", () => {
   it("renders success variant with correct classes", () => {
     renderComponent({ variant: "success", children: "Success alert" });
 
-    const alertElement = screen.getByRole("alert");
+    // Success variant uses role="status" for polite announcements
+    const alertElement = screen.getByRole("status");
     expect(alertElement).toHaveClass("bg-secondary-container/60");
   });
 
   it("renders warning variant with correct classes", () => {
     renderComponent({ variant: "warning", children: "Warning alert" });
 
+    // Warning variant uses role="alert" for assertive announcements
     const alertElement = screen.getByRole("alert");
     expect(alertElement).toHaveClass("bg-tertiary-container/30");
   });
@@ -47,6 +50,7 @@ describe("Alert", () => {
   it("renders error variant with correct classes", () => {
     renderComponent({ variant: "error", children: "Error alert" });
 
+    // Error variant uses role="alert" for assertive announcements
     const alertElement = screen.getByRole("alert");
     expect(alertElement).toHaveClass("bg-error-container");
   });
@@ -84,7 +88,8 @@ describe("Alert", () => {
   it("applies custom className", () => {
     renderComponent({ className: "custom-test-class", children: "Custom class alert" });
 
-    const alertElement = screen.getByRole("alert");
+    // Info variant (default) uses role="status"
+    const alertElement = screen.getByRole("status");
     expect(alertElement).toHaveClass("custom-test-class");
   });
 });

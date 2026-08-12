@@ -76,26 +76,30 @@ export default function SignupForm() {
 
     setLoading(true);
 
-    const { error: authError } = await supabase.auth.signUp({
-      email,
-      password,
-      options: {
-        data: { display_name: displayName },
-      },
-    });
+    try {
+      const { error: authError } = await supabase.auth.signUp({
+        email,
+        password,
+        options: {
+          data: { display_name: displayName },
+        },
+      });
 
-    if (authError) {
-      if (authError.message.includes("already registered")) {
-        setError(t("errorEmailInUse"));
-      } else {
-        setError(t("errorGeneric"));
+      if (authError) {
+        if (authError.message.includes("already registered")) {
+          setError(t("errorEmailInUse"));
+        } else {
+          setError(t("errorGeneric"));
+        }
+        return;
       }
-      setLoading(false);
-      return;
-    }
 
-    setSubmitted(true);
-    setLoading(false);
+      setSubmitted(true);
+    } catch {
+      setError(t("errorGeneric"));
+    } finally {
+      setLoading(false);
+    }
   }
 
   if (submitted) {

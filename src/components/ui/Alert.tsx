@@ -59,10 +59,12 @@ export default function Alert({
 }: AlertProps) {
   const styles = variantStyles[variant];
   const tCommon = useTranslations("common");
+  const isPolite = variant === "info" || variant === "success";
 
   return (
     <div
-      role="alert"
+      role={isPolite ? "status" : "alert"}
+      aria-live={isPolite ? "polite" : "assertive"}
       className={["rounded-2xl border-l-4 p-5", styles.container, styles.border, className].join(" ")}
     >
       <div className="flex gap-4">
@@ -77,7 +79,7 @@ export default function Alert({
           <button
             type="button"
             onClick={onDismiss}
-            className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface"
+            className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
             aria-label={tCommon("dismiss")}
           >
             <X size={18} />
