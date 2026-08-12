@@ -65,14 +65,12 @@
   },
   "common": {
     "loading": "Loading...",
-    "streakTooltip": "{streak} day learning streak!",
     "add": "Add",
     "completed": "Completed",
     "ready": "Ready",
     "continue": "Continue",
     "start": "Start",
     "useTool": "Use tool",
-    "print": "Print",
     "readLesson": "Read lesson",
     "read": "read",
     "back": "Back",
@@ -87,7 +85,6 @@
     "intermediate": "Intermediate",
     "advanced": "Advanced",
     "termsFound": "terms found",
-    "lessonsFound": "lessons found",
     "noTermsFound": "No terms found",
     "noLessonsFound": "No lessons found",
     "relativeJustNow": "just now",
@@ -106,8 +103,6 @@
     "of": "of",
     "modules": "modules",
     "breadcrumb": "Breadcrumb",
-    "closeDialog": "Close dialog",
-    "dismissNotification": "Dismiss notification",
     "relatedTerms": "Related terms",
     "copyLink": "Copy link",
     "progressPercent": "Progress: {percent}%",
@@ -141,8 +136,6 @@
     "backToLibrary": "Back to library",
     "backToLessons": "Back to lessons",
     "markComplete": "Mark as complete",
-    "markIncomplete": "Mark as not done",
-    "printLesson": "Print lesson",
     "stillConfused": "Still confused?",
     "sidebarBody": "Bring these questions to your next visit or pharmacy stop.",
     "tipCheckName": "Check the name.",
@@ -185,8 +178,6 @@
     "lesson": "Lesson",
     "lessons": "lessons",
     "complete": "complete",
-    "progressOfTotal": "{completed} of {total} complete",
-    "lessonsOfTotal": "{completed} of {total} lessons",
     "upNext": "Up next",
     "includedLessons": "Included lessons",
     "done": "Done",
@@ -197,10 +188,8 @@
     "pageBadge": "Guided learning",
     "progressLabel": "path progress",
     "progressForPath": "{title} progress",
-    "yourProgress": "Your progress",
     "nextLesson": "Next lesson",
     "pathCompleted": "Path completed!",
-    "lessonsInPath": "Lessons in this path",
     "start": "Start"
   },
   "dashboard": {
@@ -210,16 +199,7 @@
     "title": "Your learning dashboard",
     "description": "Track your progress, pick up where you left off, and build confidence one lesson at a time.",
     "completedLessons": "Completed lessons",
-    "pathsInProgress": "Paths in progress",
     "pathsCompleted": "Completed paths",
-    "recentMilestones": "Recent milestones",
-    "overview": "Your overview",
-    "ofLibrary": "of the library completed",
-    "modulesCompleted": "modules completed",
-    "noPathsProgress": "Start a path to see progress here.",
-    "keepGoing": "Keep going. Every lesson adds up.",
-    "noPathsCompleted": "Finish a full path to celebrate a milestone.",
-    "pathsCompletedMsg": "You have completed guided journeys.",
     "timeMinutes": "{count} min",
     "timeHours": "{hours}h",
     "timeHoursMinutes": "{hours}h {minutes}m",
@@ -387,16 +367,46 @@
     "earnedDate": "{date}",
     "unlocked": "Achievement unlocked: {title}",
     "items": {
-      "first-lesson": { "title": "First Step", "description": "Completed your first lesson" },
-      "first-quiz-pass": { "title": "Quiz Champion", "description": "Passed your first quiz" },
-      "first-path-complete": { "title": "Path Finder", "description": "Completed your first learning path" },
-      "five-lessons": { "title": "Dedicated Learner", "description": "Completed 5 lessons" },
-      "perfect-quiz": { "title": "Perfect Score", "description": "Got 100% on a quiz" },
-      "three-day-streak": { "title": "On a Roll", "description": "3-day learning streak" },
-      "seven-day-streak": { "title": "Week Warrior", "description": "7-day learning streak" },
-      "ten-lessons": { "title": "Knowledge Seeker", "description": "Completed 10 lessons" },
-      "all-beginner": { "title": "Solid Foundation", "description": "Completed all beginner lessons" },
-      "glossary-reader": { "title": "Word Wizard", "description": "Looked up 10 glossary terms" }
+      "first-lesson": {
+        "title": "First Step",
+        "description": "Completed your first lesson"
+      },
+      "first-quiz-pass": {
+        "title": "Quiz Champion",
+        "description": "Passed your first quiz"
+      },
+      "first-path-complete": {
+        "title": "Path Finder",
+        "description": "Completed your first learning path"
+      },
+      "five-lessons": {
+        "title": "Dedicated Learner",
+        "description": "Completed 5 lessons"
+      },
+      "perfect-quiz": {
+        "title": "Perfect Score",
+        "description": "Got 100% on a quiz"
+      },
+      "three-day-streak": {
+        "title": "On a Roll",
+        "description": "3-day learning streak"
+      },
+      "seven-day-streak": {
+        "title": "Week Warrior",
+        "description": "7-day learning streak"
+      },
+      "ten-lessons": {
+        "title": "Knowledge Seeker",
+        "description": "Completed 10 lessons"
+      },
+      "all-beginner": {
+        "title": "Solid Foundation",
+        "description": "Completed all beginner lessons"
+      },
+      "glossary-reader": {
+        "title": "Word Wizard",
+        "description": "Looked up 10 glossary terms"
+      }
     }
   },
   "notifications": {

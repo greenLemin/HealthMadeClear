@@ -65,14 +65,12 @@
   },
   "common": {
     "loading": "Cargando...",
-    "streakTooltip": "¡Racha de aprendizaje de {streak} días!",
     "add": "Agregar",
     "completed": "Completado",
     "ready": "Listo",
     "continue": "Continuar",
     "start": "Comenzar",
     "useTool": "Usar herramienta",
-    "print": "Imprimir",
     "readLesson": "Leer lección",
     "read": "lectura",
     "back": "Atrás",
@@ -87,7 +85,6 @@
     "intermediate": "Intermedio",
     "advanced": "Avanzado",
     "termsFound": "términos encontrados",
-    "lessonsFound": "lecciones encontradas",
     "noTermsFound": "No se encontraron términos",
     "noLessonsFound": "No se encontraron lecciones",
     "relativeJustNow": "ahora mismo",
@@ -106,8 +103,6 @@
     "of": "de",
     "modules": "módulos",
     "breadcrumb": "Ruta de navegación",
-    "closeDialog": "Cerrar diálogo",
-    "dismissNotification": "Descartar notificación",
     "relatedTerms": "Términos relacionados",
     "copyLink": "Copiar enlace",
     "progressPercent": "Progreso: {percent}%",
@@ -141,8 +136,6 @@
     "backToLibrary": "Volver a la biblioteca",
     "backToLessons": "Volver a las lecciones",
     "markComplete": "Marcar como completada",
-    "markIncomplete": "Marcar como no completada",
-    "printLesson": "Imprimir lección",
     "stillConfused": "¿Todavía tienes dudas?",
     "sidebarBody": "Lleva estas preguntas a tu próxima cita o visita a la farmacia.",
     "tipCheckName": "Revisa el nombre.",
@@ -185,8 +178,6 @@
     "lesson": "Lección",
     "lessons": "lecciones",
     "complete": "completado",
-    "progressOfTotal": "{completed} de {total} completado",
-    "lessonsOfTotal": "{completed} de {total} lecciones",
     "upNext": "Sigue",
     "includedLessons": "Lecciones incluidas",
     "done": "Listo",
@@ -197,10 +188,8 @@
     "pageBadge": "Aprendizaje guiado",
     "progressLabel": "progreso de la ruta",
     "progressForPath": "Progreso de {title}",
-    "yourProgress": "Tu progreso",
     "nextLesson": "Siguiente lección",
     "pathCompleted": "¡Ruta completada!",
-    "lessonsInPath": "Lecciones en esta ruta",
     "start": "Comenzar"
   },
   "dashboard": {
@@ -210,16 +199,7 @@
     "title": "Tu panel de aprendizaje",
     "description": "Sigue tu progreso, retoma donde te quedaste y gana confianza una lección a la vez.",
     "completedLessons": "Lecciones completadas",
-    "pathsInProgress": "Rutas en progreso",
     "pathsCompleted": "Rutas completadas",
-    "recentMilestones": "Logros recientes",
-    "overview": "Tu resumen",
-    "ofLibrary": "de la biblioteca completada",
-    "modulesCompleted": "módulos completados",
-    "noPathsProgress": "Comienza una ruta para ver progreso aquí.",
-    "keepGoing": "Sigue así. Cada lección cuenta.",
-    "noPathsCompleted": "Termina una ruta completa para celebrar un logro.",
-    "pathsCompletedMsg": "Has completado recorridos guiados.",
     "timeMinutes": "{count} min",
     "timeHours": "{hours}h",
     "timeHoursMinutes": "{hours}h {minutes}m",
@@ -387,17 +367,38 @@
     "earnedDate": "{date}",
     "unlocked": "Logro desbloqueado: {title}",
     "items": {
-      "first-lesson": { "title": "Primer Paso", "description": "Completaste tu primera lección" },
-      "first-quiz-pass": { "title": "Campeón del Examen", "description": "Aprobaste tu primer examen" },
+      "first-lesson": {
+        "title": "Primer Paso",
+        "description": "Completaste tu primera lección"
+      },
+      "first-quiz-pass": {
+        "title": "Campeón del Examen",
+        "description": "Aprobaste tu primer examen"
+      },
       "first-path-complete": {
         "title": "Explorador",
         "description": "Completaste tu primera ruta de aprendizaje"
       },
-      "five-lessons": { "title": "Aprendiz Dedicado", "description": "Completaste 5 lecciones" },
-      "perfect-quiz": { "title": "Puntaje Perfecto", "description": "Obtuviste 100% en un examen" },
-      "three-day-streak": { "title": "En Racha", "description": "Racha de aprendizaje de 3 días" },
-      "seven-day-streak": { "title": "Guerrero Semanal", "description": "Racha de aprendizaje de 7 días" },
-      "ten-lessons": { "title": "Buscador de Conocimiento", "description": "Completaste 10 lecciones" },
+      "five-lessons": {
+        "title": "Aprendiz Dedicado",
+        "description": "Completaste 5 lecciones"
+      },
+      "perfect-quiz": {
+        "title": "Puntaje Perfecto",
+        "description": "Obtuviste 100% en un examen"
+      },
+      "three-day-streak": {
+        "title": "En Racha",
+        "description": "Racha de aprendizaje de 3 días"
+      },
+      "seven-day-streak": {
+        "title": "Guerrero Semanal",
+        "description": "Racha de aprendizaje de 7 días"
+      },
+      "ten-lessons": {
+        "title": "Buscador de Conocimiento",
+        "description": "Completaste 10 lecciones"
+      },
       "all-beginner": {
         "title": "Base Sólida",
         "description": "Completaste todas las lecciones para principiantes"
