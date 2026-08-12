@@ -1,22 +1,14 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { getAllLessons } from "@/lib/lessons/loadLessons";
 import type { Locale } from "@/lib/i18n";
+import type { Summary } from "@/types/dashboard";
 import { logQueryError } from "./utils";
 
 export async function getUserProgressSummary(
   supabase: SupabaseClient,
   userId: string,
   locale: Locale = "en"
-): Promise<{
-  totalLessonsCompleted: number;
-  totalLessonsAvailable: number;
-  totalQuizzesPassed: number;
-  totalQuizzesAttempted: number;
-  averageQuizScore: number;
-  totalTimeSpentMinutes: number;
-  currentStreak: number;
-  longestStreak: number;
-}> {
+): Promise<Summary> {
   const allLessons = getAllLessons(locale);
 
   const [lessonResult, quizResult, streakResult] = await Promise.all([

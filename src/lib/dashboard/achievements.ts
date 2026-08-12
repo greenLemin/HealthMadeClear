@@ -1,22 +1,14 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { ACHIEVEMENTS, getLocalizedAchievement } from "@/lib/achievements";
 import type { Locale } from "@/lib/i18n";
+import type { AchievementItem } from "@/types/dashboard";
 import { logQueryError } from "./utils";
 
 export async function getUserAchievements(
   supabase: SupabaseClient,
   userId: string,
   locale: Locale = "en"
-): Promise<
-  Array<{
-    id: string;
-    title: string;
-    description: string;
-    icon: string;
-    earned: boolean;
-    earnedAt: string | null;
-  }>
-> {
+): Promise<AchievementItem[]> {
   const { data: earnedData, error: earnedError } = await supabase
     .from("achievements")
     .select("achievement_id, earned_at")
