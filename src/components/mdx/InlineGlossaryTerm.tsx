@@ -7,13 +7,7 @@ import { createPortal } from "react-dom";
 import { X } from "lucide-react";
 import { useFocusTrap } from "@/hooks/useFocusTrap";
 import { useOptionalScrollSpyContext } from "./ScrollSpyProvider";
-
-/** The minimal shape of a glossary term needed to render the popover. */
-export interface GlossaryTermSummary {
-  id: string;
-  term: string;
-  definition: string;
-}
+import type { GlossaryTermSummary } from "@/types/glossary";
 
 interface InlineGlossaryTermProps {
   term: GlossaryTermSummary;

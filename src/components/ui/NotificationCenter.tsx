@@ -5,13 +5,8 @@ import { Bell, BellDot, CheckCheck, Trophy, Flame, Target, X } from "lucide-reac
 import { createClient } from "@/lib/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
 import { useAppState } from "@/components/AppProviders";
-import {
-  getNotifications,
-  markAsRead,
-  markAllAsRead,
-  getUnreadCount,
-  type Notification,
-} from "@/lib/notifications";
+import { getNotifications, markAsRead, markAllAsRead, getUnreadCount } from "@/lib/notifications";
+import type { Notification } from "@/types/database";
 import { useTranslations } from "next-intl";
 import { useFocusTrap } from "@/hooks/useFocusTrap";
 import { useDismissibleOverlay } from "@/hooks/useDismissibleOverlay";

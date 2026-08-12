@@ -4,9 +4,9 @@ import type { LessonCategoryId } from "@/types/content";
 
 export type Locale = "en" | "es";
 
-export type Messages = typeof en;
+type Messages = typeof en;
 
-export const messages: Record<Locale, Messages> = { en, es };
+const messages: Record<Locale, Messages> = { en, es };
 
 export function getMessages(locale: Locale): Messages {
   return messages[locale];

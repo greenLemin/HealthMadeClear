@@ -1,4 +1,5 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
+import type { Notification } from "@/types/database";
 
 export type NotificationInput = {
   type: string;
@@ -73,14 +74,4 @@ export async function getUnreadCount(supabase: SupabaseClient, userId: string): 
     .eq("read", false);
 
   return count ?? 0;
-}
-
-export interface Notification {
-  id: string;
-  user_id: string;
-  type: string;
-  title: string;
-  body: string;
-  read: boolean;
-  created_at: string;
 }
