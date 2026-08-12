@@ -11,7 +11,7 @@ import { useMotionSafe } from "@/hooks/useMotionSafe";
 import { useTranslations } from "next-intl";
 import type { SearchEntry } from "@/types/search";
 import EmptyState from "@/components/ui/EmptyState";
-import { modalVariants, revealEase } from "@/components/ui/Reveal";
+import { modalVariants, revealEase } from "@/components/ui/animation";
 import { highlightMatches } from "@/lib/search/highlightMatches";
 
 function getShortcutLabel(t: ReturnType<typeof useTranslations<"search">>) {

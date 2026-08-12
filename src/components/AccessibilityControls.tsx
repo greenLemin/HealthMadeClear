@@ -8,7 +8,7 @@ import { useDismissibleOverlay } from "@/hooks/useDismissibleOverlay";
 import { useFocusTrap } from "@/hooks/useFocusTrap";
 import { useMotionSafe } from "@/hooks/useMotionSafe";
 import { useTranslations } from "next-intl";
-import { modalVariants, revealEase } from "@/components/ui/Reveal";
+import { modalVariants, revealEase } from "@/components/ui/animation";
 
 const TEXT_SIZES: TextSize[] = ["standard", "large", "largest"];
 const TEXT_SIZE_DISPLAY: Record<TextSize, string> = {

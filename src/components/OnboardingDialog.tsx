@@ -7,7 +7,7 @@ import { motion, AnimatePresence } from "motion/react";
 import { usePathname } from "@/i18n/navigation";
 import { useDismissibleOverlay } from "@/hooks/useDismissibleOverlay";
 import { useMotionSafe } from "@/hooks/useMotionSafe";
-import { revealEase } from "@/components/ui/Reveal";
+import { revealEase } from "@/components/ui/animation";
 import Button from "@/components/ui/Button";
 
 const ONBOARDING_KEY = "hmc_onboarded";

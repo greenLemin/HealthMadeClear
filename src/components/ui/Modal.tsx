@@ -5,7 +5,7 @@ import { AnimatePresence, motion } from "motion/react";
 import { X } from "lucide-react";
 import { useFocusTrap } from "@/hooks/useFocusTrap";
 import { useMotionSafe } from "@/hooks/useMotionSafe";
-import { modalVariants, revealEase } from "@/components/ui/Reveal";
+import { modalVariants, revealEase } from "@/components/ui/animation";
 import { useTranslations } from "next-intl";
 
 type ModalSize = "sm" | "md" | "lg";

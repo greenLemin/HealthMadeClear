@@ -30,7 +30,7 @@ import { useFocusTrap } from "@/hooks/useFocusTrap";
 import { useMotionSafe } from "@/hooks/useMotionSafe";
 import { useAuth } from "@/hooks/useAuth";
 import { useTranslations } from "next-intl";
-import { revealEase } from "@/components/ui/Reveal";
+import { revealEase } from "@/components/ui/animation";
 
 const NotificationCenter = dynamic(() => import("@/components/ui/NotificationCenter"), { ssr: false });
 const SearchDialog = dynamic(() => import("@/components/SearchDialog"), {
