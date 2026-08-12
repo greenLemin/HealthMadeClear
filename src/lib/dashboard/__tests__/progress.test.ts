@@ -264,4 +264,36 @@ describe("getCompletedLessonsPaginated", () => {
     expect(result.lessons[0].categoryId).toBe("");
     expect(result.lessons[0].quizScore).toBeNull();
   });
+
+  it("clamps negative page and pageSize to valid ranges (F-019 regression)", async () => {
+    const progress = buildProgressChain({
+      data: [{ lesson_id: "lesson-a", completed_at: "2024-01-01T00:00:00Z" }],
+      count: 5,
+      error: null,
+    });
+    const quizzes = buildQuizInChain({ data: [], error: null });
+
+    mockSupabase = {
+      from: vi.fn((table: string) => {
+        if (table === "lesson_progress") return { select: progress.select };
+        if (table === "quiz_attempts") return { select: quizzes.select };
+        return { select: vi.fn() };
+      }),
+    };
+
+    const result = await getCompletedLessonsPaginated(
+      mockSupabase as unknown as SupabaseClient,
+      "user1",
+      "en",
+      -3, // negative page
+      -10 // negative pageSize
+    );
+
+    // Page should be clamped to 1
+    expect(result.page).toBe(1);
+    // PageSize clamped to 1, so totalPages = ceil(5 / 1) = 5
+    expect(result.totalPages).toBe(5);
+    // Verify range() was called with non-negative values
+    expect(progress.range).toHaveBeenCalledWith(0, 0);
+  });
 });

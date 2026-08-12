@@ -135,7 +135,7 @@ export async function getCompletedLessonsPaginated(
   return {
     lessons,
     total: count ?? 0,
-    page,
-    totalPages: count ? Math.ceil(count / pageSize) : 0,
+    page: safePage,
+    totalPages: count ? Math.ceil(count / safePageSize) : 0,
   };
 }
