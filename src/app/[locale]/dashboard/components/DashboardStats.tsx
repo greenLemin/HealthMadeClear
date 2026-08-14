@@ -1,3 +1,4 @@
+"use client";
 import { BookOpen, CheckCircle2, Flame, Clock } from "lucide-react";
 import { useTranslations } from "next-intl";
 import Card from "@/components/ui/Card";

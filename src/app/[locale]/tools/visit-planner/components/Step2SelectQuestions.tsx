@@ -1,3 +1,4 @@
+"use client";
 import { useTranslations } from "next-intl";
 import { ArrowLeft, ClipboardList, NotebookPen, Printer } from "lucide-react";
 import Button from "@/components/ui/Button";

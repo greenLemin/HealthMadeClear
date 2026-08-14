@@ -1,3 +1,4 @@
+"use client";
 import { Link } from "@/i18n/navigation";
 import { BookOpen, CheckCircle2 } from "lucide-react";
 import { useTranslations } from "next-intl";

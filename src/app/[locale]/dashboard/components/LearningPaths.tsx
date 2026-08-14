@@ -1,3 +1,4 @@
+"use client";
 import { Link } from "@/i18n/navigation";
 import { Clock, ListChecks } from "lucide-react";
 import { useTranslations } from "next-intl";

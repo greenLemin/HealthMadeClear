@@ -1,3 +1,4 @@
+"use client";
 import { useRef } from "react";
 import { Flame, FileUp, FileDown } from "lucide-react";
 import { useTranslations } from "next-intl";
