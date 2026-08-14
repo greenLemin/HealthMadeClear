@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
 import { checkRateLimit, getClientIp } from "@/lib/rateLimit";
 import { reportServerError } from "@/lib/errorReporting";
+import { EMAIL_REGEX } from "@/lib/validation";
 
 // Field length limits to prevent spam and DoS
 const LIMITS = {
@@ -10,9 +11,6 @@ const LIMITS = {
   subject: 100,
   message: 5000,
 };
-
-// Basic email format check
-const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 const RATE_LIMIT_WINDOW_MS = 10 * 60 * 1000; // 10 minutes
 const MAX_REQUESTS = 5;
