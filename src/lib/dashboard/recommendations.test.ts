@@ -9,7 +9,7 @@ import type { LearningPath } from "@/types/learningPath";
 
 vi.mock("@/lib/lessons/loadLessons");
 vi.mock("@/lib/paths/loadPaths");
-vi.mock("../utils", () => ({
+vi.mock("./utils", () => ({
   logQueryError: vi.fn(),
 }));
 

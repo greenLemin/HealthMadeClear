@@ -10,7 +10,7 @@ vi.mock("@/lib/lessons/loadLessons", () => ({
   ]),
 }));
 
-vi.mock("../utils", () => ({
+vi.mock("./utils", () => ({
   logQueryError: vi.fn(),
 }));
 

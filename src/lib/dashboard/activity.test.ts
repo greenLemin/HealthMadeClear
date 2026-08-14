@@ -5,7 +5,7 @@ import * as utils from "./utils";
 import type { SupabaseClient } from "@supabase/supabase-js";
 
 vi.mock("@/lib/lessons/loadLessons");
-vi.mock("../utils", () => ({
+vi.mock("./utils", () => ({
   logQueryError: vi.fn(),
 }));
 

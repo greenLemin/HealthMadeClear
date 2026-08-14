@@ -18,7 +18,7 @@ vi.mock("@/lib/achievements", () => ({
   getLocalizedAchievement: vi.fn(),
 }));
 
-vi.mock("../utils", () => ({
+vi.mock("./utils", () => ({
   logQueryError: vi.fn(),
 }));
 

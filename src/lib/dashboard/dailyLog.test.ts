@@ -3,7 +3,7 @@ import { updateDailyLog, getDailyLogForRange } from "./dailyLog";
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { logQueryError } from "./utils";
 
-vi.mock("../utils", () => ({
+vi.mock("./utils", () => ({
   logQueryError: vi.fn(),
 }));
 
