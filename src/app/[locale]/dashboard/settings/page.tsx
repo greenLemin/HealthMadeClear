@@ -2,7 +2,7 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { requireAuth } from "@/lib/auth/requireAuth";
 import { createClient } from "@/lib/supabase/server";
 import { getUserProfile } from "@/lib/dashboard";
-import SettingsClient from "./settings-client";
+import SettingsClient from "./SettingsClient";
 
 export const dynamic = "force-dynamic";
 

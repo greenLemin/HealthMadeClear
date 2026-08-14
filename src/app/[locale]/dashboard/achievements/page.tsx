@@ -2,7 +2,7 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { requireAuth } from "@/lib/auth/requireAuth";
 import { createClient } from "@/lib/supabase/server";
 import { getUserAchievements } from "@/lib/dashboard";
-import AchievementsClient from "./achievements-client";
+import AchievementsClient from "./AchievementsClient";
 
 export const dynamic = "force-dynamic";
 
