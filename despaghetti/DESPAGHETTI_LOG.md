@@ -270,3 +270,17 @@ Remaining work for future sessions:
 - WS-9 (useProgress Hook Decomposition) — hook already well-decomposed internally, could extract sub-hooks to separate files
 - WS-17 (Test Mocks Consolidation) — not started
 - WS-18 (Move **tests**/ to Colocated) — complete
+
+## WS-17: Test Mocks Consolidation — Complete (with caveat)
+
+- Created src/test/mocks/navigation.tsx with MockLink component and createNavigationMock factory
+- Note: vi.mock factory hoisting prevents using imported factory functions directly
+- Test files can still import MockLink for use in their own inline vi.mock factories
+- Future work: consider using vi.hoisted() pattern for shared mocks
+
+## Final Verification Gates (Post WS-17)
+
+- tsc --noEmit → 0 errors — PASS
+- npm run lint → 0 errors, 2 acceptable warnings — PASS
+- npx vitest run → 562 tests pass (84 files) — PASS
+- npx madge --circular → No circular dependency found — PASS
