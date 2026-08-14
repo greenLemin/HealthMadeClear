@@ -11,6 +11,8 @@ import ProgressBar from "@/components/ui/ProgressBar";
 import Reveal from "@/components/ui/Reveal";
 import { formatRelativeDate, formatMemberSince, formatDuration, type Locale } from "@/lib/i18n";
 import type { Summary } from "@/types/dashboard";
+import ProgressCircle from "./components/ProgressCircle";
+import StreakCalendar from "./components/StreakCalendar";
 
 type QuizPerfItem = {
   category: string;
@@ -80,13 +82,6 @@ export default function ProgressClient({
     ? t("memberSince", { date: formatMemberSince(memberSince, locale) })
     : null;
   const averageScore = summary.totalQuizzesAttempted > 0 ? `${clampPercent(summary.averageQuizScore)}%` : "-";
-
-  const calendarDays = Array.from({ length: 30 }, (_, i) => {
-    const d = new Date();
-    d.setDate(d.getDate() - (29 - i));
-    return d.toISOString().split("T")[0];
-  });
-
   const hasActivityToday = activeSet.has(today);
 
   return (
@@ -114,44 +109,13 @@ export default function ProgressClient({
         <Reveal>
           <div className="surface-card-strong px-6 py-6 md:px-8 md:py-8">
             <div className="grid gap-6 md:grid-cols-[220px_1fr] md:items-center">
-              <div
-                className="mx-auto flex h-[220px] w-[220px] items-center justify-center rounded-full bg-surface shadow-elevation-2"
-                role="img"
-                aria-label={t("lessonsCompleted", {
+              <ProgressCircle
+                percentage={overallPct}
+                label={t("lessonsCompleted", {
                   count: summary.totalLessonsCompleted,
                   total: summary.totalLessonsAvailable,
                 })}
-              >
-                <div className="relative flex h-44 w-44 items-center justify-center">
-                  <svg className="h-full w-full -rotate-90" viewBox="0 0 100 100" aria-hidden="true">
-                    <circle
-                      cx="50"
-                      cy="50"
-                      r="42"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="8"
-                      className="text-surface-container"
-                    />
-                    <circle
-                      cx="50"
-                      cy="50"
-                      r="42"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="8"
-                      strokeDasharray={`${overallPct * 2.64} 264`}
-                      strokeLinecap="round"
-                      className="text-secondary"
-                    />
-                  </svg>
-                  <div className="absolute inset-0 flex flex-col items-center justify-center text-center">
-                    <span className="font-display text-headline-lg text-primary">{overallPct}%</span>
-                    <span className="text-label-md text-on-surface-variant">{t("overallProgress")}</span>
-                  </div>
-                </div>
-              </div>
-
+              />
               <div>
                 <div className="eyebrow mb-4">{t("overallProgress")}</div>
                 <h2 className="font-display text-headline-lg text-primary">
@@ -254,66 +218,12 @@ export default function ProgressClient({
         </Reveal>
 
         <Reveal delay={0.06}>
-          <div className="surface-card-strong px-6 py-6 md:px-8 md:py-8">
-            <div className="eyebrow mb-3">{t("streakHistory")}</div>
-            <h2 className="font-display text-headline-lg text-primary">{t("last30Days")}</h2>
-            <p className="mt-3 text-body-md text-on-surface-variant">
-              {hasActivityToday ? t("activeLabel") : t("keepStreakAlive")}
-            </p>
-
-            <div className="mt-6 flex items-center gap-4 rounded-[1.5rem] bg-surface px-5 py-5 shadow-elevation-1">
-              <div className="flex h-14 w-14 items-center justify-center rounded-full bg-tertiary-container/55 text-tertiary">
-                <Flame size={26} aria-hidden="true" />
-              </div>
-              <div>
-                <p className="text-label-md text-on-surface-variant">{t("currentStreak")}</p>
-                <p className="font-display text-headline-md text-primary">
-                  {t("daysValue", { count: summary.currentStreak })}
-                </p>
-                <p className="text-label-md text-on-surface-variant">
-                  {t("longestStreak", { count: summary.longestStreak })}
-                </p>
-              </div>
-            </div>
-
-            <ul className="mt-6 grid grid-cols-10 gap-1.5" aria-label={t("streakCalendarCaption")}>
-              {calendarDays.map((dateStr) => {
-                const isActive = activeSet.has(dateStr);
-                const isToday = dateStr === today;
-                return (
-                  <li
-                    key={dateStr}
-                    className={[
-                      "aspect-square rounded-md",
-                      isActive ? "bg-secondary shadow-elevation-1" : "bg-surface-container",
-                      isToday ? "ring-2 ring-primary ring-offset-2 ring-offset-transparent" : "",
-                    ].join(" ")}
-                  >
-                    <span className="sr-only">
-                      {isActive
-                        ? t("activeDayLabel", { date: dateStr })
-                        : t("inactiveDayLabel", { date: dateStr })}
-                    </span>
-                  </li>
-                );
-              })}
-            </ul>
-
-            <div className="mt-4 flex flex-wrap gap-3 text-label-md text-on-surface-variant">
-              <span className="metric-pill">
-                <span className="inline-block h-3 w-3 rounded-sm bg-secondary" aria-hidden="true" />{" "}
-                {t("activeLabel")}
-              </span>
-              <span className="metric-pill">
-                <span className="inline-block h-3 w-3 rounded-sm bg-surface-container" aria-hidden="true" />{" "}
-                {t("inactiveLabel")}
-              </span>
-            </div>
-
-            {!hasActivityToday ? (
-              <p className="mt-4 text-label-md font-semibold text-primary">{t("keepStreakAlive")}</p>
-            ) : null}
-          </div>
+          <StreakCalendar
+            activeDays={activeDays}
+            currentStreak={summary.currentStreak}
+            longestStreak={summary.longestStreak}
+            hasActivityToday={hasActivityToday}
+          />
         </Reveal>
       </section>
 
