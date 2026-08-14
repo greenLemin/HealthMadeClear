@@ -1,7 +1,7 @@
 import { describe, expect, it, vi, beforeEach } from "vitest";
-import { getQuizPerformanceByCategory } from "../quizzes";
+import { getQuizPerformanceByCategory } from "./quizzes";
 import type { SupabaseClient } from "@supabase/supabase-js";
-import { logQueryError } from "../utils";
+import { logQueryError } from "./utils";
 import * as loadLessons from "@/lib/lessons/loadLessons";
 
 vi.mock("../utils", () => ({

@@ -1,7 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
-import { getUserAchievements } from "../achievements";
+import { getUserAchievements } from "./achievements";
 import { getLocalizedAchievement } from "@/lib/achievements";
-import { logQueryError } from "../utils";
+import { logQueryError } from "./utils";
 import type { SupabaseClient } from "@supabase/supabase-js";
 
 vi.mock("@/lib/achievements", () => ({

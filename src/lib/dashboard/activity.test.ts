@@ -1,7 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
-import { getRecentActivity } from "../activity";
+import { getRecentActivity } from "./activity";
 import * as loadLessons from "@/lib/lessons/loadLessons";
-import * as utils from "../utils";
+import * as utils from "./utils";
 import type { SupabaseClient } from "@supabase/supabase-js";
 
 vi.mock("@/lib/lessons/loadLessons");

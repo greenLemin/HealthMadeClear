@@ -1,8 +1,8 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
-import { getRecommendedNextLesson } from "../recommendations";
+import { getRecommendedNextLesson } from "./recommendations";
 import * as loadLessons from "@/lib/lessons/loadLessons";
 import * as loadPaths from "@/lib/paths/loadPaths";
-import * as utils from "../utils";
+import * as utils from "./utils";
 import type { SupabaseClient } from "@supabase/supabase-js";
 import type { Lesson } from "@/types/lesson";
 import type { LearningPath } from "@/types/learningPath";

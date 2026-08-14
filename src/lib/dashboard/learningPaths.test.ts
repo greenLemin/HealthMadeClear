@@ -1,8 +1,8 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
-import { getUserLearningPaths } from "../learningPaths";
+import { getUserLearningPaths } from "./learningPaths";
 import { getAllLearningPaths } from "@/lib/paths/loadPaths";
 import { getAllLessons } from "@/lib/lessons/loadLessons";
-import { logQueryError } from "../utils";
+import { logQueryError } from "./utils";
 import type { SupabaseClient } from "@supabase/supabase-js";
 
 vi.mock("@/lib/paths/loadPaths", () => ({

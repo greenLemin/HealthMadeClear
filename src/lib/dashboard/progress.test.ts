@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
-import { getUserProgressSummary, getCompletedLessonsPaginated } from "../progress";
-import { logQueryError } from "../utils";
+import { getUserProgressSummary, getCompletedLessonsPaginated } from "./progress";
+import { logQueryError } from "./utils";
 import type { SupabaseClient } from "@supabase/supabase-js";
 
 vi.mock("@/lib/lessons/loadLessons", () => ({

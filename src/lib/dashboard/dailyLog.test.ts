@@ -1,7 +1,7 @@
 import { describe, expect, it, vi, beforeEach, afterEach } from "vitest";
-import { updateDailyLog, getDailyLogForRange } from "../dailyLog";
+import { updateDailyLog, getDailyLogForRange } from "./dailyLog";
 import type { SupabaseClient } from "@supabase/supabase-js";
-import { logQueryError } from "../utils";
+import { logQueryError } from "./utils";
 
 vi.mock("../utils", () => ({
   logQueryError: vi.fn(),
