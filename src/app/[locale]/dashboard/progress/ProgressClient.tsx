@@ -2,9 +2,10 @@
 
 import { Link } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
-import { ArrowLeft, ArrowRight, CheckCircle2, Clock, Flame, TrendingUp, type LucideIcon } from "lucide-react";
+import { ArrowLeft, ArrowRight, CheckCircle2, Clock, Flame, TrendingUp } from "lucide-react";
 import Button from "@/components/ui/Button";
 import EmptyState from "@/components/ui/EmptyState";
+import MetricCard from "@/components/ui/MetricCard";
 import PageHeader from "@/components/PageHeader";
 import ProgressBar from "@/components/ui/ProgressBar";
 import Reveal from "@/components/ui/Reveal";
@@ -55,31 +56,6 @@ type ProgressClientProps = {
 
 function clampPercent(value: number): number {
   return Math.min(100, Math.max(0, Math.round(value)));
-}
-
-function MetricCard({
-  icon: Icon,
-  label,
-  value,
-  detail,
-  tone = "surface-card",
-}: {
-  icon: LucideIcon;
-  label: string;
-  value: string;
-  detail?: string | null;
-  tone?: string;
-}) {
-  return (
-    <div className={`${tone} px-5 py-5 md:px-6 md:py-6`}>
-      <div className="flex h-12 w-12 items-center justify-center rounded-full bg-surface text-primary shadow-elevation-1">
-        <Icon size={22} aria-hidden="true" />
-      </div>
-      <p className="mt-4 text-label-md text-on-surface-variant">{label}</p>
-      <p className="mt-2 font-display text-headline-md text-primary">{value}</p>
-      {detail ? <p className="mt-2 text-label-md text-on-surface-variant">{detail}</p> : null}
-    </div>
-  );
 }
 
 export default function ProgressClient({

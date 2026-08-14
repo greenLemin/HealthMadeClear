@@ -10,7 +10,7 @@ import {
   getUserProfile,
 } from "@/lib/dashboard";
 import { getAllLessons } from "@/lib/lessons/loadLessons";
-import ProgressClient from "./progress-client";
+import ProgressClient from "./ProgressClient";
 
 export const dynamic = "force-dynamic";
 
