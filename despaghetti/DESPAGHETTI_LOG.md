@@ -158,3 +158,49 @@
 ## Items Deferred
 
 - None. All Phase 1 tasks completed. Phase 2 and 3 tasks not started due to context window budget.
+
+## Phase 2 Additional Commits (Continued Session)
+
+### WS-3: Auth Forms Consolidation (Complete)
+
+- Created src/lib/validation.ts with EMAIL_REGEX and isValidEmail (DUP-001)
+- Created src/lib/auth/passwordStrength.ts with getPasswordStrength and explicit PASSWORD_THRESHOLDS config (FA-004)
+- Created src/components/ui/FormErrorAlert.tsx shared error alert (DUP-009)
+- Created src/lib/auth/useAuthFormState.ts shared form-state hook (DUP-008)
+- Refactored LoginForm, SignupForm, ForgotPasswordForm, ResetPasswordClient to use shared utilities
+- Updated api/contact/route.ts to import EMAIL_REGEX from @/lib/validation
+- Commit: `refactor(auth): consolidate auth forms with shared validation and error components`
+
+### WS-4: Dashboard Refactor (Partial)
+
+- WS-4.1: Extracted MetricCard from ProgressClient.tsx to src/components/ui/MetricCard.tsx — Complete
+- WS-4.2: Extracted ProgressCircle and StreakCalendar from ProgressClient — Complete
+- Renamed progress-client.tsx to ProgressClient.tsx (WS-16.1)
+- Renamed settings-client.tsx to SettingsClient.tsx (WS-16.1)
+- Renamed achievements-client.tsx to AchievementsClient.tsx (WS-16.1)
+- Commits: `refactor(dashboard): extract MetricCard, rename progress-client to ProgressClient`, `refactor(dashboard): rename remaining kebab-case client files to PascalCase`, `refactor(dashboard): extract ProgressCircle and StreakCalendar from ProgressClient`
+
+### WS-14: Filter Hook (Complete)
+
+- Created src/hooks/useFilteredCollection.ts — generic hook for query+filter patterns
+- Commit: `refactor(hooks): extract useFilteredCollection hook (FA-021)`
+
+### WS-16: Naming and Convention Fixes (Complete)
+
+- WS-16.1: Renamed 3 kebab-case dashboard client files to PascalCase (progress-client, settings-client, achievements-client)
+- WS-16.2: Added "use client" to 9 feature-folder components that omit it despite using React hooks
+- Commits: `refactor(dashboard): rename remaining kebab-case client files to PascalCase`, `refactor(convention): add 'use client' to 9 feature-folder components (CD-010)`
+
+### WS-18: Move **tests**/ to Colocated (Complete)
+
+- Moved 7 test files from src/lib/dashboard/**tests**/ to colocated positions
+- Fixed relative imports (../ -> ./)
+- Deleted **tests**/ directory
+- Commit: `refactor(convention): move __tests__/ to colocated *.test.ts (CD-014)`
+
+## Verification Gates (Post Phase 2)
+
+- tsc --noEmit → 0 errors — PASS
+- npm run lint → 0 errors, 2 acceptable warnings — PASS
+- npx vitest run → 562 tests pass (84 files) — PASS
+- npx madge --circular → No circular dependency found — PASS
