@@ -204,3 +204,69 @@
 - npm run lint → 0 errors, 2 acceptable warnings — PASS
 - npx vitest run → 562 tests pass (84 files) — PASS
 - npx madge --circular → No circular dependency found — PASS
+
+## Phase 2 Completion (Current Session)
+
+### WS-6: Header Decomposition — Complete
+
+- Extracted NavLink to src/components/header/NavLink.tsx
+- Extracted MobileMenu to src/components/header/MobileMenu.tsx
+- Header.tsx reduced from 348 to ~270 lines
+- Commit: `refactor(header): extract NavLink and MobileMenu from Header`
+
+### WS-7: Search Dialog Decomposition — Complete
+
+- Extracted SearchTrigger and getShortcutLabel to src/components/search/SearchTrigger.tsx
+- Extracted SearchDialogContent to src/components/search/SearchDialogContent.tsx
+- SearchDialog.tsx reduced from 323 to ~140 lines
+- Commit: `refactor(search): extract SearchTrigger and SearchDialogContent`
+
+### WS-8: Quiz Decomposition — Complete
+
+- Extracted Confetti component from QuizClient.tsx to src/components/quiz/Confetti.tsx
+- QuizClient.tsx reduced by ~50 lines
+- Commit: `refactor(quiz): extract Confetti component from QuizClient`
+
+### WS-13: MDX Renderer Split — Complete
+
+- Extracted isSafeHref function and SAFE_PROTOCOLS to src/lib/safeHref.ts
+- MarkdownRenderer.tsx now imports isSafeHref from @/lib/safeHref
+- Commit: `refactor(mdx): extract isSafeHref to src/lib/safeHref.ts`
+
+### WS-15: Loading Skeletons Consolidation — Complete
+
+- Created shared PageHeaderSkeleton component at src/components/loading/PageHeaderSkeleton.tsx
+- Refactored 6 loading.tsx files to use PageHeaderSkeleton: learn, glossary, learning-paths, tools, dashboard, dashboard/progress
+- Eliminates duplicated header skeleton pattern across loading files
+- Commits: `refactor(loading): extract PageHeaderSkeleton, consolidate loading.tsx files`
+
+## WS-16: Naming and Convention Fixes — Complete
+
+- Renamed 3 kebab-case dashboard client files to PascalCase: progress-client, settings-client, achievements-client
+- Added "use client" directive to 9 feature-folder components missing it
+- Moved **tests**/ directory to colocated *.test.ts pattern
+- Commits: `refactor(dashboard): rename remaining kebab-case client files to PascalCase`, `refactor(convention): add 'use client' to 9 feature-folder components`, `refactor(convention): move __tests__/ to colocated *.test.ts`
+
+## Final Verification Gates (Post Phase 2)
+
+- tsc --noEmit → 0 errors — PASS
+- npm run lint → 0 errors, 2 acceptable warnings — PASS
+- npx vitest run → 562 tests pass (84 files) — PASS
+- npx madge --circular → No circular dependency found — PASS
+
+## Summary
+
+Phase 2 workstreams complete:
+
+- WS-6 (Header Decomposition) ✅
+- WS-7 (Search Dialog Decomposition) ✅
+- WS-8 (Quiz Decomposition) ✅
+- WS-13 (MDX Renderer Split) ✅
+- WS-15 (Loading Skeletons Consolidation) ✅
+- WS-16 (Naming and Convention Fixes) ✅
+
+Remaining work for future sessions:
+
+- WS-9 (useProgress Hook Decomposition) — hook already well-decomposed internally, could extract sub-hooks to separate files
+- WS-17 (Test Mocks Consolidation) — not started
+- WS-18 (Move **tests**/ to Colocated) — complete
