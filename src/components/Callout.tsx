@@ -1,4 +1,7 @@
+"use client";
+
 import type { ReactNode, ElementType } from "react";
+import { useTranslations } from "next-intl";
 
 type CalloutType = "info" | "success" | "warning";
 
@@ -11,12 +14,6 @@ interface CalloutProps {
   typeLabel?: string;
 }
 
-const defaultTypeLabels: Record<CalloutType, string> = {
-  info: "Note",
-  success: "Tip",
-  warning: "Warning",
-};
-
 export default function Callout({
   type = "info",
   title,
@@ -25,6 +22,7 @@ export default function Callout({
   headingLevel = "h2",
   typeLabel,
 }: CalloutProps) {
+  const tCommon = useTranslations("common");
   const typeClasses = {
     info: "border-l-4 border-primary bg-primary-fixed/30",
     success: "border-l-4 border-secondary bg-secondary-container/60",
@@ -32,12 +30,18 @@ export default function Callout({
   };
 
   const Heading = headingLevel as ElementType;
-  const label = typeLabel ?? defaultTypeLabels[type];
+  const defaultLabel =
+    type === "info"
+      ? tCommon("calloutNote")
+      : type === "success"
+        ? tCommon("calloutTip")
+        : tCommon("calloutWarning");
+  const label = typeLabel ?? defaultLabel;
 
   return (
     <div
-      role="note"
-      aria-label={title ? undefined : label}
+      role="region"
+      aria-label={title ? `${label}: ${title}` : label}
       className={`rounded-2xl p-6 ${typeClasses[type]} ${className}`}
     >
       {title ? (

@@ -1,4 +1,4 @@
-import { getTranslations } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import { requireLocale } from "@/lib/locale";
 import { requireAuth } from "@/lib/auth/requireAuth";
 import { createClient } from "@/lib/supabase/server";
@@ -10,7 +10,7 @@ import {
   getUserProfile,
 } from "@/lib/dashboard";
 import { getAllLessons } from "@/lib/lessons/loadLessons";
-import ProgressClient from "./progress-client";
+import ProgressClient from "./ProgressClient";
 
 export const dynamic = "force-dynamic";
 
@@ -29,6 +29,7 @@ export default async function ProgressPage({ params, searchParams }: Props) {
   const { locale: localeStr } = await params;
   const page = Math.max(1, parseInt((await searchParams).page ?? "1", 10) || 1);
   const locale = requireLocale(localeStr);
+  setRequestLocale(locale);
   const user = await requireAuth(locale, "/dashboard/progress");
   const supabase = await createClient();
 

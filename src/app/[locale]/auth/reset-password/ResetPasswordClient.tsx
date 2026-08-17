@@ -1,22 +1,21 @@
 "use client";
 
-import { useEffect, useRef, useState, useMemo } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
 import { useRouter, Link } from "@/i18n/navigation";
-import { createClient } from "@/lib/supabase/client";
 import Button from "@/components/ui/Button";
 import Input from "@/components/ui/Input";
+import FormErrorAlert from "@/components/ui/FormErrorAlert";
 import { Lock } from "lucide-react";
+import { useAuthFormState } from "@/lib/auth/useAuthFormState";
 
 export default function ResetPasswordClient() {
   const t = useTranslations("auth");
   const router = useRouter();
-  const supabase = useMemo(() => createClient(), []);
+  const { error, setError, clearError, supabase } = useAuthFormState();
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [error, setError] = useState("");
   const [fieldErrors, setFieldErrors] = useState<{ password?: string; confirm?: string }>({});
-  const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const successHeadingRef = useRef<HTMLHeadingElement>(null);
@@ -27,19 +26,15 @@ export default function ResetPasswordClient() {
 
     if (!code) {
       setError(t("errorGeneric"));
-      setLoading(false);
       return;
     }
 
-    supabase.auth
-      .exchangeCodeForSession(code)
-      .then(({ error: exchangeError }) => {
-        if (exchangeError) {
-          setError(t("errorGeneric"));
-        }
-      })
-      .finally(() => setLoading(false));
-  }, [supabase, t]);
+    supabase.auth.exchangeCodeForSession(code).then(({ error: exchangeError }) => {
+      if (exchangeError) {
+        setError(t("errorGeneric"));
+      }
+    });
+  }, [supabase, t, setError]);
 
   useEffect(() => {
     if (!submitted) return;
@@ -50,19 +45,19 @@ export default function ResetPasswordClient() {
 
   function handlePasswordChange(value: string) {
     setPassword(value);
-    setError("");
+    clearError();
     setFieldErrors((prev) => ({ ...prev, password: undefined, confirm: undefined }));
   }
 
   function handleConfirmPasswordChange(value: string) {
     setConfirmPassword(value);
-    setError("");
+    clearError();
     setFieldErrors((prev) => ({ ...prev, confirm: undefined }));
   }
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    setError("");
+    clearError();
 
     const nextFieldErrors: { password?: string; confirm?: string } = {};
     if (password.length < 8) nextFieldErrors.password = t("passwordMinLength");
@@ -72,19 +67,23 @@ export default function ResetPasswordClient() {
 
     setSubmitting(true);
 
-    const { error: updateError } = await supabase.auth.updateUser({ password });
+    try {
+      const { error: updateError } = await supabase.auth.updateUser({ password });
 
-    if (updateError) {
+      if (updateError) {
+        setError(t("errorGeneric"));
+        return;
+      }
+
+      setSubmitted(true);
+    } catch {
       setError(t("errorGeneric"));
+    } finally {
       setSubmitting(false);
-      return;
     }
-
-    setSubmitting(false);
-    setSubmitted(true);
   }
 
-  if (loading) {
+  if (submitting) {
     return (
       <div className="mx-auto max-w-container px-4 py-16 md:px-6 md:py-24">
         <div
@@ -162,14 +161,7 @@ export default function ResetPasswordClient() {
             />
           </fieldset>
 
-          {error ? (
-            <p
-              role="alert"
-              className="rounded-lg bg-error-container px-4 py-3 text-label-md text-on-error-container"
-            >
-              {error}
-            </p>
-          ) : null}
+          <FormErrorAlert error={error} />
 
           <Button type="submit" loading={submitting} fullWidth>
             {t("resetPasswordButton")}

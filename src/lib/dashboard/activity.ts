@@ -1,23 +1,14 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { getAllLessons } from "@/lib/lessons/loadLessons";
 import type { Locale } from "@/lib/i18n";
+import type { ActivityItem } from "@/types/dashboard";
 import { logQueryError } from "./utils";
 
 export async function getRecentActivity(
   supabase: SupabaseClient,
   userId: string,
   locale: Locale = "en"
-): Promise<
-  Array<{
-    type: "lesson" | "quiz";
-    lessonId?: string;
-    quizId?: string;
-    title: string;
-    completedAt: string;
-    score?: number;
-    passed?: boolean;
-  }>
-> {
+): Promise<ActivityItem[]> {
   const allLessons = getAllLessons(locale);
   const lessonMap = new Map(allLessons.map((l) => [l.id, l]));
 

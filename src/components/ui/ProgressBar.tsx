@@ -49,11 +49,12 @@ export default function ProgressBar({
         aria-valuenow={clamped}
         aria-valuemin={0}
         aria-valuemax={100}
+        aria-valuetext={`${clamped}%`}
         aria-label={label || tCommon("progressPercent", { percent: clamped })}
         className={["w-full overflow-hidden rounded-full bg-surface-container", sizeStyles[size]].join(" ")}
       >
         <div
-          className="h-full rounded-full bg-secondary transition-all duration-500 ease-out motion-reduce:transition-none"
+          className="h-full will-change-[width] rounded-full bg-secondary transition-[width] duration-500 ease-out motion-reduce:transition-none"
           style={{ width: `${width}%` }}
         />
       </div>

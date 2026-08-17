@@ -1,17 +1,17 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState } from "react";
 import { useTranslations } from "next-intl";
 import { useRouter, useSearchParams } from "next/navigation";
-import { createClient } from "@/lib/supabase/client";
 import Button from "@/components/ui/Button";
 import Input from "@/components/ui/Input";
+import FormErrorAlert from "@/components/ui/FormErrorAlert";
 import { Link } from "@/i18n/navigation";
 import { Mail, Lock } from "lucide-react";
+import { EMAIL_REGEX, isValidEmail } from "@/lib/validation";
 import { sanitizeRedirectPath } from "@/lib/auth/sanitizeRedirect";
 import { migrateGuestProgressToSupabase } from "@/lib/guestProgress";
-
-const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+import { useAuthFormState } from "@/lib/auth/useAuthFormState";
 
 function getUrlError(errorParam: string | null, t: (key: string) => string) {
   if (!errorParam) return null;
@@ -23,112 +23,79 @@ function getUrlError(errorParam: string | null, t: (key: string) => string) {
   return errorMessages[errorParam] || null;
 }
 
-function validateFields(email: string, password: string, t: (key: string) => string) {
-  const errors: { email?: string; password?: string } = {};
-  if (!email.trim()) errors.email = t("emailRequired");
-  else if (!EMAIL_REGEX.test(email.trim())) errors.email = t("errorEmailInvalid");
-  if (!password.trim()) errors.password = t("passwordRequired");
-  return errors;
-}
-
-function useLoginFormLogic() {
+export default function LoginForm() {
   const t = useTranslations("auth");
   const router = useRouter();
   const searchParams = useSearchParams();
-  const supabase = useMemo(() => createClient(), []);
+  const { error, fieldErrors, loading, setError, setFieldError, clearError, setLoading, supabase } =
+    useAuthFormState();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
-  const [fieldErrors, setFieldErrors] = useState<{ email?: string; password?: string }>({});
-  const [loading, setLoading] = useState(false);
 
-  // Display errors passed via URL params (e.g. from email confirmation or OAuth)
   const urlError = getUrlError(searchParams.get("error"), t);
 
   function handleEmailChange(value: string) {
     setEmail(value);
-    setError("");
-    setFieldErrors((prev) => ({ ...prev, email: undefined }));
+    clearError();
+    setFieldError("email", undefined);
   }
 
   function handlePasswordChange(value: string) {
     setPassword(value);
-    setError("");
-    setFieldErrors((prev) => ({ ...prev, password: undefined }));
+    clearError();
+    setFieldError("password", undefined);
   }
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    setError("");
+    clearError();
 
-    const nextFieldErrors = validateFields(email, password, t);
-    setFieldErrors(nextFieldErrors);
-    if (Object.keys(nextFieldErrors).length > 0) return;
+    const nextFieldErrors: { email?: string; password?: string } = {};
+    if (!email.trim()) nextFieldErrors.email = t("emailRequired");
+    else if (!isValidEmail(email)) nextFieldErrors.email = t("errorEmailInvalid");
+    if (!password.trim()) nextFieldErrors.password = t("passwordRequired");
+    setFieldError("email", nextFieldErrors.email);
+    setFieldError("password", nextFieldErrors.password);
+    if (nextFieldErrors.email || nextFieldErrors.password) return;
 
     setLoading(true);
+    try {
+      const { data, error: authError } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      });
 
-    const { data, error: authError } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    });
+      if (authError) {
+        setError(t("errorInvalidCredentials"));
+        return;
+      }
 
-    if (authError) {
-      setError(t("errorInvalidCredentials"));
+      if (!data.user) {
+        setError(t("errorGeneric"));
+        return;
+      }
+
+      const redirectParam = searchParams.get("redirect");
+      const safeRedirect = sanitizeRedirectPath(redirectParam);
+
+      try {
+        await migrateGuestProgressToSupabase(supabase, data.user.id);
+      } catch {
+        // Non-fatal: continue with redirect even if migration fails
+      }
+
+      router.push(safeRedirect);
+    } catch {
+      setError(t("errorGeneric"));
+    } finally {
       setLoading(false);
-      return;
     }
-
-    // Validate redirect param — only allow relative paths to prevent open redirect attacks
-    const redirectParam = searchParams.get("redirect");
-    const safeRedirect = sanitizeRedirectPath(redirectParam);
-
-    if (data.user) {
-      await migrateGuestProgressToSupabase(supabase, data.user.id);
-    }
-
-    router.push(safeRedirect);
   }
-
-  return {
-    t,
-    email,
-    password,
-    error,
-    urlError,
-    fieldErrors,
-    loading,
-    handleEmailChange,
-    handlePasswordChange,
-    handleSubmit,
-  };
-}
-
-export default function LoginForm() {
-  const {
-    t,
-    email,
-    password,
-    error,
-    urlError,
-    fieldErrors,
-    loading,
-    handleEmailChange,
-    handlePasswordChange,
-    handleSubmit,
-  } = useLoginFormLogic();
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6" noValidate>
-      {/* URL-based errors (confirmation failed, OAuth error, etc.) */}
-      {urlError ? (
-        <p
-          role="alert"
-          className="rounded-lg bg-error-container px-4 py-3 text-label-md text-on-error-container"
-        >
-          {urlError}
-        </p>
-      ) : null}
+      {urlError ? <FormErrorAlert error={urlError} /> : null}
 
       <Input
         label={t("emailLabel")}
@@ -154,15 +121,7 @@ export default function LoginForm() {
         hidePasswordLabel={t("hidePassword")}
       />
 
-      {/* Form submission errors */}
-      {error ? (
-        <p
-          role="alert"
-          className="rounded-lg bg-error-container px-4 py-3 text-label-md text-on-error-container"
-        >
-          {error}
-        </p>
-      ) : null}
+      <FormErrorAlert error={error} />
 
       <Button type="submit" loading={loading} fullWidth>
         {t("loginButton")}

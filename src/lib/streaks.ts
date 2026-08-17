@@ -3,6 +3,18 @@ import { createNotification } from "@/lib/notifications";
 
 const STREAK_MILESTONES = [3, 7, 14, 21, 30];
 
+/** Returns the current UTC date as YYYY-MM-DD. */
+function todayUTC(): string {
+  return new Date().toISOString().slice(0, 10);
+}
+
+/** Returns the previous UTC date as YYYY-MM-DD. */
+function yesterdayUTC(): string {
+  const d = new Date();
+  d.setUTCDate(d.getUTCDate() - 1);
+  return d.toISOString().slice(0, 10);
+}
+
 export async function updateStreak(
   supabase: SupabaseClient,
   userId: string
@@ -11,26 +23,40 @@ export async function updateStreak(
   longestStreak: number;
   isNewDay: boolean;
 }> {
-  const d = new Date();
-  const today = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+  const today = todayUTC();
+  const yesterday = yesterdayUTC();
 
-  const { data: existing } = await supabase.from("streaks").select("*").eq("user_id", userId).single();
+  const { data: existing, error: selectError } = await supabase
+    .from("streaks")
+    .select("*")
+    .eq("user_id", userId)
+    .single();
+
+  // PGRST116 = no rows found, which is expected for first-time users
+  if (selectError && selectError.code !== "PGRST116") {
+    throw selectError;
+  }
 
   if (!existing) {
-    const { data: inserted } = await supabase
+    const { data: inserted, error: upsertError } = await supabase
       .from("streaks")
-      .upsert({
-        user_id: userId,
-        current_streak: 1,
-        longest_streak: 1,
-        last_activity_date: today,
-      })
+      .upsert(
+        {
+          user_id: userId,
+          current_streak: 1,
+          longest_streak: 1,
+          last_activity_date: today,
+        },
+        { onConflict: "user_id" }
+      )
       .select()
       .single();
 
+    if (upsertError) throw upsertError;
+
     return {
-      currentStreak: 1,
-      longestStreak: 1,
+      currentStreak: inserted?.current_streak ?? 1,
+      longestStreak: inserted?.longest_streak ?? 1,
       isNewDay: true,
     };
   }
@@ -43,11 +69,7 @@ export async function updateStreak(
   if (lastDate === today) {
     isNewDay = false;
   } else {
-    const yesterday = new Date();
-    yesterday.setDate(yesterday.getDate() - 1);
-    const yesterdayStr = `${yesterday.getFullYear()}-${String(yesterday.getMonth() + 1).padStart(2, "0")}-${String(yesterday.getDate()).padStart(2, "0")}`;
-
-    if (lastDate === yesterdayStr) {
+    if (lastDate === yesterday) {
       currentStreak += 1;
     } else {
       currentStreak = 1;
@@ -60,12 +82,17 @@ export async function updateStreak(
     isNewDay = true;
   }
 
-  await supabase.from("streaks").upsert({
-    user_id: userId,
-    current_streak: currentStreak,
-    longest_streak: longestStreak,
-    last_activity_date: today,
-  });
+  const { error: updateError } = await supabase.from("streaks").upsert(
+    {
+      user_id: userId,
+      current_streak: currentStreak,
+      longest_streak: longestStreak,
+      last_activity_date: today,
+    },
+    { onConflict: "user_id" }
+  );
+
+  if (updateError) throw updateError;
 
   if (isNewDay && STREAK_MILESTONES.includes(currentStreak)) {
     await createNotification(supabase, userId, {

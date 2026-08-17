@@ -1,9 +1,7 @@
 "use client";
 
-import dynamic from "next/dynamic";
 import { Link, usePathname } from "@/i18n/navigation";
 import { useRef, useState } from "react";
-import { AnimatePresence, motion } from "motion/react";
 import {
   BookOpen,
   Home,
@@ -25,12 +23,16 @@ import ThemeToggle from "@/components/ui/ThemeToggle";
 import Skeleton from "@/components/ui/Skeleton";
 import Logo from "@/components/Logo";
 import TruncatedText from "@/components/ui/TruncatedText";
+import NavLink from "@/components/header/NavLink";
+import MobileMenu from "@/components/header/MobileMenu";
 import { useDismissibleOverlay } from "@/hooks/useDismissibleOverlay";
 import { useFocusTrap } from "@/hooks/useFocusTrap";
 import { useMotionSafe } from "@/hooks/useMotionSafe";
-import { useAuth } from "@/hooks/useAuth";
 import { useTranslations } from "next-intl";
-import { revealEase } from "@/components/ui/Reveal";
+import { useAuth } from "@/hooks/useAuth";
+import dynamic from "next/dynamic";
+import { AnimatePresence, motion } from "motion/react";
+import { revealEase } from "@/components/ui/animation";
 
 const NotificationCenter = dynamic(() => import("@/components/ui/NotificationCenter"), { ssr: false });
 const SearchDialog = dynamic(() => import("@/components/SearchDialog"), {
@@ -91,76 +93,6 @@ export default function Header() {
   }
 
   const displayName = user?.user_metadata?.display_name || user?.email?.split("@")[0] || "";
-
-  const mobileMenuContent = (
-    <>
-      <nav className="grid gap-2" aria-label={t("mobileNavigation")}>
-        {navItems.map((item) => (
-          <NavLink
-            key={item.href}
-            href={item.href}
-            label={item.label}
-            icon={item.icon}
-            active={
-              item.href === "/"
-                ? pathname === "/"
-                : pathname === item.href || pathname.startsWith(`${item.href}/`)
-            }
-            mobile
-            onClick={() => setIsOpen(false)}
-          />
-        ))}
-      </nav>
-
-      <div className="mt-4 rounded-[1.5rem] bg-surface-container-low/70 p-4 shadow-elevation-1 lg:hidden">
-        <div className="space-y-3">
-          <SearchDialog />
-          <div className="flex items-center gap-2">
-            <LanguageToggle />
-            <ThemeToggle />
-            <AccessibilityControls />
-          </div>
-        </div>
-      </div>
-
-      <div className="mt-4 border-t border-outline-variant/70 pt-4">
-        {loading ? (
-          <Skeleton variant="button" />
-        ) : user ? (
-          <div className="space-y-3">
-            <div className="surface-card-muted flex items-center gap-3 px-4 py-4">
-              <div className="flex h-11 w-11 items-center justify-center rounded-full bg-primary text-on-primary shadow-elevation-1">
-                <User size={18} />
-              </div>
-              <div className="min-w-0">
-                <TruncatedText as="p" className="truncate text-label-md font-semibold text-on-surface">
-                  {displayName}
-                </TruncatedText>
-                <p className="text-label-sm text-on-surface-variant">{t("dashboard")}</p>
-              </div>
-            </div>
-            <button
-              type="button"
-              onClick={handleSignOut}
-              className="flex w-full items-center justify-center gap-2 rounded-full border border-outline-variant bg-surface-container-lowest px-4 py-3 text-label-md font-semibold text-on-surface transition-all duration-300 ease-premium hover:bg-surface"
-            >
-              <LogOut size={18} />
-              {authT("signOut")}
-            </button>
-          </div>
-        ) : (
-          <div className="flex flex-col gap-3">
-            <ButtonLink href="/auth/login" onClick={() => setIsOpen(false)} variant="secondary" fullWidth>
-              {authT("loginButton")}
-            </ButtonLink>
-            <ButtonLink href="/auth/signup" onClick={() => setIsOpen(false)} fullWidth>
-              {authT("signupButton")}
-            </ButtonLink>
-          </div>
-        )}
-      </div>
-    </>
-  );
 
   return (
     <header className="no-print sticky top-0 z-50 px-3 pt-3 md:px-4">
@@ -285,7 +217,24 @@ export default function Header() {
                   aria-label={t("mobileNavigation")}
                   className="border-t border-outline-variant pb-4 pt-3 2xl:hidden"
                 >
-                  {mobileMenuContent}
+                  <nav className="grid gap-2" aria-label={t("mobileNavigation")}>
+                    {navItems.map((item) => (
+                      <NavLink
+                        key={item.href}
+                        href={item.href}
+                        label={item.label}
+                        icon={item.icon}
+                        active={
+                          item.href === "/"
+                            ? pathname === "/"
+                            : pathname === item.href || pathname.startsWith(`${item.href}/`)
+                        }
+                        mobile
+                        onClick={() => setIsOpen(false)}
+                      />
+                    ))}
+                  </nav>
+                  <MobileMenu onClose={() => setIsOpen(false)} />
                 </div>
               ) : (
                 <motion.div
@@ -300,7 +249,24 @@ export default function Header() {
                   transition={{ duration: 0.24, ease: revealEase }}
                   className="border-t border-outline-variant pb-4 pt-3 2xl:hidden"
                 >
-                  {mobileMenuContent}
+                  <nav className="grid gap-2" aria-label={t("mobileNavigation")}>
+                    {navItems.map((item) => (
+                      <NavLink
+                        key={item.href}
+                        href={item.href}
+                        label={item.label}
+                        icon={item.icon}
+                        active={
+                          item.href === "/"
+                            ? pathname === "/"
+                            : pathname === item.href || pathname.startsWith(`${item.href}/`)
+                        }
+                        mobile
+                        onClick={() => setIsOpen(false)}
+                      />
+                    ))}
+                  </nav>
+                  <MobileMenu onClose={() => setIsOpen(false)} />
                 </motion.div>
               )
             ) : null}
@@ -308,41 +274,5 @@ export default function Header() {
         </div>
       </div>
     </header>
-  );
-}
-
-function NavLink({
-  href,
-  icon,
-  label,
-  active,
-  onClick,
-  mobile = false,
-}: {
-  href: string;
-  icon: React.ReactNode;
-  label: string;
-  active: boolean;
-  onClick?: () => void;
-  mobile?: boolean;
-}) {
-  return (
-    <Link
-      href={href}
-      onClick={onClick}
-      aria-current={active ? "page" : undefined}
-      className={
-        mobile
-          ? active
-            ? "flex items-center gap-3 rounded-[1.25rem] bg-primary px-4 py-3 text-label-md font-semibold text-on-primary shadow-elevation-1"
-            : "flex items-center gap-3 rounded-[1.25rem] bg-surface-container-lowest/75 px-4 py-3 text-label-md font-medium text-on-surface-variant transition-all duration-300 ease-premium hover:bg-surface hover:text-primary"
-          : active
-            ? "flex items-center gap-2 rounded-full bg-primary px-3 py-2.5 text-label-md font-semibold text-on-primary shadow-elevation-1 2xl:px-2.5 2xl:gap-1"
-            : "flex items-center gap-2 rounded-full px-3 py-2.5 text-label-md font-medium text-on-surface-variant transition-all duration-300 ease-premium hover:bg-surface hover:text-primary 2xl:px-2.5 2xl:gap-1"
-      }
-    >
-      <span>{icon}</span>
-      {label}
-    </Link>
   );
 }

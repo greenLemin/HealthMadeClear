@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
 import { notFound } from "next/navigation";
 import Script from "next/script";
@@ -21,6 +21,12 @@ import GoogleAnalytics from "@/components/GoogleAnalytics";
 import "../globals.css";
 
 const siteUrl = getSiteUrl();
+
+export const viewport: Viewport = {
+  themeColor: "#004349",
+  width: "device-width",
+  initialScale: 1,
+};
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
@@ -80,11 +86,7 @@ export async function generateMetadata({
       googleBot: { index: true, follow: true, "max-image-preview": "large" },
     },
     icons: {
-      icon: [
-        { url: "/logo.jpeg", sizes: "192x192", type: "image/jpeg" },
-        { url: "/logo.jpeg", sizes: "512x512", type: "image/jpeg" },
-        { url: "/favicon.svg", sizes: "any", type: "image/svg+xml" },
-      ],
+      icon: [{ url: "/favicon.svg", sizes: "any", type: "image/svg+xml" }],
     },
     manifest: "/manifest.json",
   };

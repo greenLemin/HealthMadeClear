@@ -7,7 +7,7 @@ import DashboardHeader from "./DashboardHeader";
 import { useAppState } from "@/components/AppProviders";
 import { useToast } from "@/components/ui/ToastProvider";
 import { buildProgressExport, downloadProgressExport } from "@/lib/progressExport";
-import type { Summary } from "../types";
+import type { Summary } from "@/types/dashboard";
 
 vi.mock("@/components/AppProviders", () => ({
   useAppState: vi.fn(),

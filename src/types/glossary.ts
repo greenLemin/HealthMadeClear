@@ -8,3 +8,10 @@ export interface GlossaryTerm {
   relatedTerms?: string[];
   relatedLessons?: LessonId[];
 }
+
+/** The minimal shape of a glossary term needed to render the popover. */
+export interface GlossaryTermSummary {
+  id: string;
+  term: string;
+  definition: string;
+}

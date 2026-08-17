@@ -1,8 +1,9 @@
+"use client";
 import { BookOpen, CheckCircle2, Flame, Clock } from "lucide-react";
 import { useTranslations } from "next-intl";
 import Card from "@/components/ui/Card";
 import { formatDuration } from "@/lib/i18n";
-import type { Summary } from "../types";
+import type { Summary } from "@/types/dashboard";
 
 type DashboardStatsProps = {
   summary: Summary;
@@ -38,7 +39,7 @@ export default function DashboardStats({ summary, locale }: DashboardStatsProps)
       <Card padding="sm" variant="glass">
         <div className="flex items-center gap-3">
           <div
-            className="rounded-full bg-secondary-container/60 p-2.5 text-secondary shadow-elevation-1"
+            className="rounded-full bg-secondary-container p-2.5 text-on-secondary-container shadow-elevation-1"
             aria-hidden="true"
           >
             <CheckCircle2 size={20} />
@@ -56,7 +57,7 @@ export default function DashboardStats({ summary, locale }: DashboardStatsProps)
       <Card padding="sm" variant="glass">
         <div className="flex items-center gap-3">
           <div
-            className="rounded-full bg-tertiary-container/30 p-2.5 text-tertiary shadow-elevation-1"
+            className="rounded-full bg-tertiary-container p-2.5 text-on-tertiary-container shadow-elevation-1"
             aria-hidden="true"
           >
             <Flame size={20} />

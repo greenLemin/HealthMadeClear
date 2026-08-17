@@ -2,19 +2,12 @@ import Skeleton from "@/components/ui/Skeleton";
 import StatCardSkeleton from "@/components/dashboard/skeletons/StatCardSkeleton";
 import LearningPathCardSkeleton from "@/components/dashboard/skeletons/LearningPathCardSkeleton";
 import ActivityFeedSkeleton from "@/components/dashboard/skeletons/ActivityFeedSkeleton";
+import PageHeaderSkeleton from "@/components/loading/PageHeaderSkeleton";
 
 export default function DashboardLoading() {
   return (
     <div className="space-y-10">
-      <section className="section-frame px-6 py-8 md:px-8 md:py-10">
-        <Skeleton variant="text" width="132px" className="mb-4" />
-        <Skeleton variant="heading" width="320px" className="max-w-full" />
-        <Skeleton variant="text" width="68%" className="mt-4 max-w-2xl" />
-        <div className="mt-6 flex flex-wrap gap-3">
-          <Skeleton variant="button" width="148px" height="44px" className="rounded-full" />
-          <Skeleton variant="button" width="128px" height="44px" className="rounded-full" />
-        </div>
-      </section>
+      <PageHeaderSkeleton eyebrowWidth="132px" headingWidth="320px" descriptionWidth="68%" />
 
       <section className="grid grid-cols-2 gap-4 md:grid-cols-4">
         <StatCardSkeleton />

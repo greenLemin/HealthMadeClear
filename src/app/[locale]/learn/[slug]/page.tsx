@@ -1,4 +1,5 @@
 import { notFound } from "next/navigation";
+import { setRequestLocale } from "next-intl/server";
 import { routing } from "@/i18n/routing";
 import { lessons } from "@/data/lessons";
 import { requireLocale } from "@/lib/locale";
@@ -61,6 +62,7 @@ export async function generateMetadata({ params }: Props) {
 export default async function LessonDetailPage({ params }: Props) {
   const { locale, slug } = await params;
   const l = requireLocale(locale);
+  setRequestLocale(l);
   const lesson = getLessonById(slug, l);
   if (!lesson) {
     notFound();

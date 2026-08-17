@@ -1,7 +1,7 @@
 import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
-import { parseSections } from "@/lib/lessons/mdxParser";
+import { parseSections } from "@/lib/mdx/callouts";
 import { normalizeLineEndings } from "@/lib/normalizeLineEndings";
 import type { PathId } from "@/types/content";
 import { PATH_IDS } from "@/types/content";

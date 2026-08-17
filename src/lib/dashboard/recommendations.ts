@@ -2,20 +2,14 @@ import type { SupabaseClient } from "@supabase/supabase-js";
 import { getAllLessons } from "@/lib/lessons/loadLessons";
 import { getAllLearningPaths } from "@/lib/paths/loadPaths";
 import type { Locale } from "@/lib/i18n";
+import type { RecommendedLesson } from "@/types/dashboard";
 import { logQueryError } from "./utils";
 
 export async function getRecommendedNextLesson(
   supabase: SupabaseClient,
   userId: string,
   locale: Locale = "en"
-): Promise<{
-  id: string;
-  title: string;
-  description: string;
-  duration: string;
-  level: string;
-  pathTitle?: string;
-} | null> {
+): Promise<RecommendedLesson | null> {
   const allPaths = getAllLearningPaths(locale);
   const allLessons = getAllLessons(locale);
 

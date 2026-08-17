@@ -1,5 +1,6 @@
-import { getTranslations } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import { localeAlternates } from "@/lib/metadata";
+import { requireLocale } from "@/lib/locale";
 import PrivacyClient from "./PrivacyClient";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
@@ -12,6 +13,11 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   };
 }
 
-export default function PrivacyPage() {
+type Props = { params: Promise<{ locale: string }> };
+
+export default async function PrivacyPage({ params }: Props) {
+  const { locale: localeStr } = await params;
+  const locale = requireLocale(localeStr);
+  setRequestLocale(locale);
   return <PrivacyClient />;
 }

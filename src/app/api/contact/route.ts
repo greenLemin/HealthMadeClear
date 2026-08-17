@@ -1,9 +1,8 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
-import { checkRateLimit, clearRateLimitStore, getClientIp } from "@/lib/rateLimit";
+import { checkRateLimit, getClientIp } from "@/lib/rateLimit";
 import { reportServerError } from "@/lib/errorReporting";
-
-export { clearRateLimitStore };
+import { EMAIL_REGEX } from "@/lib/validation";
 
 // Field length limits to prevent spam and DoS
 const LIMITS = {
@@ -13,14 +12,42 @@ const LIMITS = {
   message: 5000,
 };
 
-// Basic email format check
-const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
 const RATE_LIMIT_WINDOW_MS = 10 * 60 * 1000; // 10 minutes
 const MAX_REQUESTS = 5;
 
+/**
+ * CSRF protection: check the Origin header against the site's origin.
+ * If Origin is missing or doesn't match, reject the request.
+ * This is effective for unauthenticated endpoints because browsers
+ * always send the Origin header for cross-origin POST requests.
+ */
+function isAllowedOrigin(request: Request): boolean {
+  const origin = request.headers.get("origin");
+  if (!origin) return false;
+  try {
+    const originUrl = new URL(origin);
+    // Allow same-origin requests (compare hostname, not host:port)
+    const requestUrl = new URL(request.url);
+    if (originUrl.hostname === requestUrl.hostname) return true;
+    // Allow if origin matches NEXT_PUBLIC_SITE_URL
+    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL;
+    if (siteUrl) {
+      const site = new URL(siteUrl);
+      if (originUrl.hostname === site.hostname) return true;
+    }
+    return false;
+  } catch {
+    return false;
+  }
+}
+
 export async function POST(request: Request) {
   try {
+    // CSRF check
+    if (!isAllowedOrigin(request)) {
+      return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+    }
+
     const ip = getClientIp(request);
     const limit = checkRateLimit("contact", ip, MAX_REQUESTS, RATE_LIMIT_WINDOW_MS);
 

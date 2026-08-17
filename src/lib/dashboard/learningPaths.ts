@@ -4,21 +4,14 @@ import { getAllLessons } from "@/lib/lessons/loadLessons";
 import type { LearningPath } from "@/types/learningPath";
 import type { LessonId } from "@/types/content";
 import type { Locale } from "@/lib/i18n";
+import type { LearningPathEntry } from "@/types/dashboard";
 import { logQueryError } from "./utils";
 
 export async function getUserLearningPaths(
   supabase: SupabaseClient,
   userId: string,
   locale: Locale = "en"
-): Promise<
-  Array<{
-    path: LearningPath;
-    completedLessonIds: string[];
-    nextLesson: { id: string; title: string; duration: string } | null;
-    progressPercentage: number;
-    isComplete: boolean;
-  }>
-> {
+): Promise<LearningPathEntry[]> {
   const allPaths = getAllLearningPaths(locale);
   const allLessons = getAllLessons(locale);
 

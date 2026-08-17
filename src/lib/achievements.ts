@@ -77,7 +77,7 @@ export function getLocalizedAchievement(id: AchievementId, locale: Locale) {
   return ACHIEVEMENTS[id];
 }
 
-export type AchievementContext = {
+type AchievementContext = {
   totalLessonsCompleted: number;
   quizPassed?: boolean;
   quizScore?: number;

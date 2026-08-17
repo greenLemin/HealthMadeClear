@@ -15,6 +15,7 @@ import {
 import { ACHIEVEMENTS, checkAndAwardAchievements } from "@/lib/achievements";
 import type { AchievementId } from "@/lib/achievements";
 import type { Locale } from "@/lib/i18n";
+import type { QuizScore } from "@/lib/progressExport";
 import { updateStreak } from "@/lib/streaks";
 import { updateDailyLog } from "@/lib/dashboard";
 import { createNotifications, type NotificationInput } from "@/lib/notifications";
@@ -123,7 +124,7 @@ function useDerivedProgress(
   supabaseCompletedLessonIds: string[],
   supabaseQuizAttempts: Record<string, { score: number; maxScore: number; passed: boolean }>,
   completedLessons: Set<string>,
-  quizScores: any[]
+  quizScores: QuizScore[]
 ) {
   const completedLessonIds = useMemo(() => {
     if (user) return supabaseCompletedLessonIds;

@@ -6,7 +6,7 @@ import {
   type StepValue,
   type CustomQuestion,
   type PlannerState,
-} from "./types";
+} from "@/types/visitPlanner";
 
 function parsePlannerState(value: unknown): PlannerState | null {
   if (!value || typeof value !== "object") return null;

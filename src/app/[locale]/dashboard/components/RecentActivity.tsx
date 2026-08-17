@@ -1,9 +1,10 @@
+"use client";
 import { Link } from "@/i18n/navigation";
 import { BookOpen, CheckCircle2 } from "lucide-react";
 import { useTranslations } from "next-intl";
 import EmptyState from "@/components/ui/EmptyState";
 import { formatRelativeDate } from "@/lib/i18n";
-import type { ActivityItem, RecommendedLesson } from "../types";
+import type { ActivityItem, RecommendedLesson } from "@/types/dashboard";
 
 type RecentActivityProps = {
   recentActivity: ActivityItem[];

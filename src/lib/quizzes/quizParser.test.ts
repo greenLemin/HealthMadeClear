@@ -15,7 +15,7 @@ vi.mock("fs/promises", () => ({
   readFile: mockReadFile,
 }));
 
-import { getQuizFromMdx, assertAllQuizzesExist, getAllQuizzesFromMdx } from "@/lib/quizzes/quizParser";
+import { getQuizFromMdx, getAllQuizzesFromMdx } from "@/lib/quizzes/quizParser";
 
 afterEach(() => {
   vi.clearAllMocks();
@@ -94,14 +94,6 @@ explanation: 2+2 equals 4.
         },
       ],
     });
-  });
-});
-
-describe("assertAllQuizzesExist", () => {
-  it("throws an error if a quiz is missing", async () => {
-    mockAccess.mockRejectedValue(new Error("ENOENT"));
-
-    await expect(assertAllQuizzesExist("en")).rejects.toThrow(/Missing quiz MDX file:/);
   });
 });
 

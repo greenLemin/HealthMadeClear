@@ -6,7 +6,7 @@ import RecommendedNext from "./components/RecommendedNext";
 import LearningPaths from "./components/LearningPaths";
 import RecentActivity from "./components/RecentActivity";
 import EarnedAchievements from "./components/EarnedAchievements";
-import type { DashboardClientProps } from "./types";
+import type { DashboardClientProps } from "@/types/dashboard";
 
 export default function DashboardClient({
   summary,

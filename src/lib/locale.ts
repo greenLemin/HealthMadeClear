@@ -1,7 +1,7 @@
 import { routing } from "@/i18n/routing";
 import type { Locale } from "@/lib/i18n";
 
-export function parseLocale(value: string): Locale | null {
+function parseLocale(value: string): Locale | null {
   return routing.locales.includes(value as Locale) ? (value as Locale) : null;
 }
 

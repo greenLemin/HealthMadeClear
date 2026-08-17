@@ -134,7 +134,7 @@ export async function getQuizFromMdx(id: string, locale: "en" | "es"): Promise<Q
   } as Quiz;
 }
 
-export async function assertAllQuizzesExist(locale: "en" | "es"): Promise<void> {
+async function assertAllQuizzesExist(locale: "en" | "es"): Promise<void> {
   const dir = getQuizMdxDir(locale);
   const BATCH_SIZE = 10;
 

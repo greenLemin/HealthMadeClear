@@ -1,4 +1,4 @@
-import { getTranslations } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import { requireLocale } from "@/lib/locale";
 import { requireAuth } from "@/lib/auth/requireAuth";
 import { createClient } from "@/lib/supabase/server";
@@ -28,6 +28,7 @@ type Props = { params: Promise<{ locale: string }> };
 export default async function Dashboard({ params }: Props) {
   const { locale: localeStr } = await params;
   const locale = requireLocale(localeStr);
+  setRequestLocale(locale);
   const user = await requireAuth(locale, "/dashboard");
   const supabase = await createClient();
 

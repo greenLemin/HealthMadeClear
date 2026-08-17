@@ -45,7 +45,7 @@ export default function EmptyState({
 
   return (
     <Card variant="muted" className={["px-6 py-14", className].join(" ")}>
-      <div className="flex flex-col items-center justify-center text-center" role="status">
+      <div className="flex flex-col items-center justify-center text-center" role="status" aria-live="polite">
         {displayIcon ? (
           <div
             className="mb-5 inline-flex h-16 w-16 items-center justify-center rounded-full bg-surface text-on-surface-variant shadow-elevation-1"

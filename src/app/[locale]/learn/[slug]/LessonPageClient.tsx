@@ -127,7 +127,7 @@ export default function LessonPageClient({
     <>
       {/* Reading progress bar */}
       <div
-        className="fixed top-0 left-0 z-50 h-1 bg-primary transition-all duration-150 motion-reduce:transition-none"
+        className="fixed top-0 left-0 z-50 h-1.5 will-change-[width] bg-primary transition-[width] duration-150 motion-reduce:transition-none"
         style={{ width: `${scrollProgress}%` }}
         role="progressbar"
         aria-valuenow={Math.round(scrollProgress)}

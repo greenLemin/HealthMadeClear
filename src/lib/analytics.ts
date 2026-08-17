@@ -23,10 +23,14 @@ export function trackPageView(_url: string, _locale: string): void {
   if (process.env.NODE_ENV === "development") return;
 
   if (typeof window !== "undefined") {
+    // Strip query params to prevent PII leakage (e.g., ?code=oauth_code)
+    const pagePath = window.location.pathname;
+    const pageLocation = window.location.origin + window.location.pathname;
+
     if (typeof window.gtag === "function") {
       window.gtag("event", "page_view", {
-        page_location: window.location.href,
-        page_path: _url,
+        page_location: pageLocation,
+        page_path: pagePath,
         locale: _locale,
       });
     }

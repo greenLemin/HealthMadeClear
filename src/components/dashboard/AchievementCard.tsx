@@ -2,15 +2,7 @@
 
 import { useTranslations } from "next-intl";
 import { formatRelativeDate } from "@/lib/i18n";
-
-export type AchievementItem = {
-  id: string;
-  title: string;
-  description: string;
-  icon: string;
-  earned: boolean;
-  earnedAt: string | null;
-};
+import type { AchievementItem } from "@/types/dashboard";
 
 interface AchievementCardProps {
   achievement: AchievementItem;

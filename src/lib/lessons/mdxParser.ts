@@ -5,35 +5,7 @@ import type { Lesson } from "@/types/lesson";
 import type { LessonCategoryId, LessonId } from "@/types/content";
 import { normalizeLineEndings } from "@/lib/normalizeLineEndings";
 import { LESSON_IDS } from "@/types/content";
-
-const CALLOUT_REGEX = /:::([a-z]+)\n([\s\S]*?)\n:::/g;
-
-function parseCallouts(block: string) {
-  const callouts: NonNullable<Lesson["content"]["sections"][number]["callouts"]> = [];
-  let content = block;
-
-  for (const match of Array.from(block.matchAll(CALLOUT_REGEX))) {
-    const type = match[1];
-    if (type === "info" || type === "success" || type === "warning") {
-      callouts.push({ type, content: match[2].trim() });
-    }
-    content = content.replace(match[0], "").trim();
-  }
-
-  return { content: content.trim(), callouts: callouts.length ? callouts : undefined };
-}
-
-export function parseSections(markdown: string): Lesson["content"]["sections"] {
-  const parts = markdown.split(/^## /m).filter(Boolean);
-
-  return parts.map((part) => {
-    const newline = part.indexOf("\n");
-    const title = newline === -1 ? part.trim() : part.slice(0, newline).trim();
-    const body = newline === -1 ? "" : part.slice(newline + 1).trim();
-    const { content, callouts } = parseCallouts(body);
-    return { title, content, callouts };
-  });
-}
+import { parseSections } from "@/lib/mdx/callouts";
 
 async function lessonFromFile(filePath: string): Promise<Lesson> {
   const raw = normalizeLineEndings(await fs.promises.readFile(filePath, "utf8"));

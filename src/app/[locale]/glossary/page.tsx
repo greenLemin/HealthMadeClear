@@ -1,4 +1,4 @@
-import { getTranslations } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import JsonLd from "@/components/JsonLd";
 import { getAllGlossaryTerms } from "@/lib/glossary/loadGlossary";
 import { requireLocale } from "@/lib/locale";
@@ -21,6 +21,7 @@ type Props = { params: Promise<{ locale: string }> };
 export default async function GlossaryPage({ params }: Props) {
   const { locale: localeStr } = await params;
   const locale = requireLocale(localeStr);
+  setRequestLocale(locale);
   const terms = getAllGlossaryTerms(locale);
   const base = getSiteUrl();
 

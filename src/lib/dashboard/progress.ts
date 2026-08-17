@@ -1,22 +1,14 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { getAllLessons } from "@/lib/lessons/loadLessons";
 import type { Locale } from "@/lib/i18n";
+import type { Summary } from "@/types/dashboard";
 import { logQueryError } from "./utils";
 
 export async function getUserProgressSummary(
   supabase: SupabaseClient,
   userId: string,
   locale: Locale = "en"
-): Promise<{
-  totalLessonsCompleted: number;
-  totalLessonsAvailable: number;
-  totalQuizzesPassed: number;
-  totalQuizzesAttempted: number;
-  averageQuizScore: number;
-  totalTimeSpentMinutes: number;
-  currentStreak: number;
-  longestStreak: number;
-}> {
+): Promise<Summary> {
   const allLessons = getAllLessons(locale);
 
   const [lessonResult, quizResult, streakResult] = await Promise.all([
@@ -77,8 +69,10 @@ export async function getCompletedLessonsPaginated(
   const allLessons = getAllLessons(locale);
   const lessonMap = new Map(allLessons.map((l) => [l.id, l]));
 
-  const from = (page - 1) * pageSize;
-  const to = from + pageSize - 1;
+  const safePage = Math.max(1, page);
+  const safePageSize = Math.max(1, pageSize);
+  const from = (safePage - 1) * safePageSize;
+  const to = from + safePageSize - 1;
 
   const {
     data: progressData,
@@ -133,7 +127,7 @@ export async function getCompletedLessonsPaginated(
   return {
     lessons,
     total: count ?? 0,
-    page,
-    totalPages: count ? Math.ceil(count / pageSize) : 0,
+    page: safePage,
+    totalPages: count ? Math.ceil(count / safePageSize) : 0,
   };
 }

@@ -1,14 +1,11 @@
 import Skeleton from "@/components/ui/Skeleton";
 import StatCardSkeleton from "@/components/dashboard/skeletons/StatCardSkeleton";
+import PageHeaderSkeleton from "@/components/loading/PageHeaderSkeleton";
 
 export default function ProgressLoading() {
   return (
     <div className="space-y-10">
-      <section className="section-frame px-6 py-8 md:px-8 md:py-10">
-        <Skeleton variant="text" width="180px" className="mb-4" />
-        <Skeleton variant="heading" width="300px" className="max-w-full" />
-        <Skeleton variant="text" width="65%" className="mt-4 max-w-2xl" />
-      </section>
+      <PageHeaderSkeleton eyebrowWidth="180px" headingWidth="300px" descriptionWidth="65%" />
 
       <section className="grid gap-6 xl:grid-cols-[1.05fr_0.95fr]">
         <div className="surface-card-strong px-6 py-6 md:px-8 md:py-8">

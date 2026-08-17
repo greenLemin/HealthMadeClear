@@ -1,8 +1,9 @@
+"use client";
 import { useTranslations } from "next-intl";
 import { type LucideIcon } from "lucide-react";
 import Button from "@/components/ui/Button";
 import Reveal from "@/components/ui/Reveal";
-import { type VisitTypeKey } from "../types";
+import { type VisitTypeKey } from "@/types/visitPlanner";
 
 type Props = {
   visitType: VisitTypeKey;

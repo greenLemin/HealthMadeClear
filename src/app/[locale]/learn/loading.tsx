@@ -1,15 +1,12 @@
 import Skeleton from "@/components/ui/Skeleton";
+import PageHeaderSkeleton from "@/components/loading/PageHeaderSkeleton";
 
 export default function LearnLoading() {
   return (
     <div className="py-12 md:py-16">
       <div className="mx-auto max-w-container px-4 md:px-6">
         <div className="space-y-8">
-          <section className="section-frame px-6 py-8 md:px-8 md:py-10">
-            <Skeleton variant="text" width="140px" className="mb-4" />
-            <Skeleton variant="heading" width="300px" className="max-w-full" />
-            <Skeleton variant="text" width="72%" className="mt-4 max-w-2xl" />
-          </section>
+          <PageHeaderSkeleton eyebrowWidth="140px" headingWidth="300px" descriptionWidth="72%" />
 
           <section className="surface-card-glass px-5 py-5 md:px-6 md:py-6">
             <div className="grid gap-3 lg:grid-cols-[1fr_auto_auto]">

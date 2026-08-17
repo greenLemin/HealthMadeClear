@@ -37,8 +37,8 @@ describe("Analytics", () => {
       trackPageView(url, locale);
 
       expect(gtagMock).toHaveBeenCalledWith("event", "page_view", {
-        page_location: window.location.href,
-        page_path: url,
+        page_location: window.location.origin + window.location.pathname,
+        page_path: window.location.pathname,
         locale: locale,
       });
     });

@@ -1,4 +1,5 @@
 import { notFound } from "next/navigation";
+import { setRequestLocale } from "next-intl/server";
 import { routing } from "@/i18n/routing";
 import JsonLd from "@/components/JsonLd";
 import { getGlossaryTerms, getGlossaryTermById } from "@/lib/localizedContent";
@@ -37,7 +38,9 @@ export async function generateMetadata({ params }: Props) {
 
 export default async function GlossaryTermPage({ params }: Props) {
   const { locale, term: termId } = await params;
-  const term = getGlossaryTermById(termId, requireLocale(locale));
+  const l = requireLocale(locale);
+  setRequestLocale(l);
+  const term = getGlossaryTermById(termId, l);
   if (!term) notFound();
 
   const base = getSiteUrl();

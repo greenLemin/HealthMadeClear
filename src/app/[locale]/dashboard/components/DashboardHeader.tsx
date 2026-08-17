@@ -1,3 +1,4 @@
+"use client";
 import { useRef } from "react";
 import { Flame, FileUp, FileDown } from "lucide-react";
 import { useTranslations } from "next-intl";
@@ -10,7 +11,7 @@ import {
   applyProgressImport,
 } from "@/lib/progressExport";
 import Button from "@/components/ui/Button";
-import type { Summary } from "../types";
+import type { Summary } from "@/types/dashboard";
 
 type DashboardHeaderProps = {
   summary: Summary;

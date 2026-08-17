@@ -1,4 +1,5 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
+import type { Notification } from "@/types/database";
 
 export type NotificationInput = {
   type: string;
@@ -19,7 +20,8 @@ export async function createNotifications(
     body: input.body,
     read: false,
   }));
-  await supabase.from("notifications").insert(records);
+  const { error } = await supabase.from("notifications").insert(records);
+  if (error) throw error;
 }
 
 export async function createNotification(
@@ -27,13 +29,14 @@ export async function createNotification(
   userId: string,
   input: NotificationInput
 ): Promise<void> {
-  await supabase.from("notifications").insert({
+  const { error } = await supabase.from("notifications").insert({
     user_id: userId,
     type: input.type,
     title: input.title,
     body: input.body,
     read: false,
   });
+  if (error) throw error;
 }
 
 export async function getNotifications(
@@ -71,14 +74,4 @@ export async function getUnreadCount(supabase: SupabaseClient, userId: string): 
     .eq("read", false);
 
   return count ?? 0;
-}
-
-export interface Notification {
-  id: string;
-  user_id: string;
-  type: string;
-  title: string;
-  body: string;
-  read: boolean;
-  created_at: string;
 }
