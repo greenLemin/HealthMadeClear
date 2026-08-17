@@ -284,3 +284,28 @@ Remaining work for future sessions:
 - npm run lint → 0 errors, 2 acceptable warnings — PASS
 - npx vitest run → 562 tests pass (84 files) — PASS
 - npx madge --circular → No circular dependency found — PASS
+
+## FINAL VERIFICATION (Independent Audit)
+
+All 5 verification gates pass:
+
+| Gate                 | Result                                 |
+| -------------------- | -------------------------------------- |
+| tsc --noEmit         | 0 errors — PASS                        |
+| npm run lint         | 0 errors, 2 acceptable warnings — PASS |
+| npx vitest run       | 562 tests pass (84 files) — PASS       |
+| npx madge --circular | No circular dependency found — PASS    |
+| npm run build        | Succeeds, 363 static pages — PASS      |
+
+## Test Fix Post-WS-18
+
+Fixed 23 broken tests from WS-18 (move **tests**/) and WS-12 (Callout i18n):
+
+1. Dashboard tests: vi.mock() paths still used '../utils' after files
+   moved from **tests**/ to colocated positions. Fixed to './utils'.
+
+2. Callout test: Callout now uses useTranslations('common') which
+   requires NextIntlClientProvider context. Wrapped test renders
+   in NextIntlClientProvider with en messages.
+
+Commit: `fix(test): repair broken tests from WS-18 move and WS-12 Callout i18n`

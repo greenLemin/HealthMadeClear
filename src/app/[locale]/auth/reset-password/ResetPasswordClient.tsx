@@ -12,7 +12,7 @@ import { useAuthFormState } from "@/lib/auth/useAuthFormState";
 export default function ResetPasswordClient() {
   const t = useTranslations("auth");
   const router = useRouter();
-  const { error, loading, setError, clearError, supabase } = useAuthFormState();
+  const { error, setError, clearError, supabase } = useAuthFormState();
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [fieldErrors, setFieldErrors] = useState<{ password?: string; confirm?: string }>({});
@@ -83,7 +83,7 @@ export default function ResetPasswordClient() {
     }
   }
 
-  if (loading) {
+  if (submitting) {
     return (
       <div className="mx-auto max-w-container px-4 py-16 md:px-6 md:py-24">
         <div

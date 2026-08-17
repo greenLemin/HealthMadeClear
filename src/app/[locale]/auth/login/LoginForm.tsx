@@ -27,7 +27,8 @@ export default function LoginForm() {
   const t = useTranslations("auth");
   const router = useRouter();
   const searchParams = useSearchParams();
-  const { error, fieldErrors, loading, setError, setFieldError, clearError, supabase } = useAuthFormState();
+  const { error, fieldErrors, loading, setError, setFieldError, clearError, setLoading, supabase } =
+    useAuthFormState();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -58,6 +59,7 @@ export default function LoginForm() {
     setFieldError("password", nextFieldErrors.password);
     if (nextFieldErrors.email || nextFieldErrors.password) return;
 
+    setLoading(true);
     try {
       const { data, error: authError } = await supabase.auth.signInWithPassword({
         email,
@@ -86,6 +88,8 @@ export default function LoginForm() {
       router.push(safeRedirect);
     } catch {
       setError(t("errorGeneric"));
+    } finally {
+      setLoading(false);
     }
   }
 

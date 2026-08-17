@@ -13,7 +13,8 @@ import { useAuthFormState } from "@/lib/auth/useAuthFormState";
 
 export default function SignupForm() {
   const t = useTranslations("auth");
-  const { error, fieldErrors, loading, setError, setFieldError, clearError, supabase } = useAuthFormState();
+  const { error, fieldErrors, loading, setError, setFieldError, clearError, setLoading, supabase } =
+    useAuthFormState();
 
   const [displayName, setDisplayName] = useState("");
   const [email, setEmail] = useState("");
@@ -60,6 +61,7 @@ export default function SignupForm() {
     setFieldError("password", nextFieldErrors.password);
     if (nextFieldErrors.email || nextFieldErrors.password) return;
 
+    setLoading(true);
     try {
       const { error: authError } = await supabase.auth.signUp({
         email,
@@ -81,6 +83,8 @@ export default function SignupForm() {
       setSubmitted(true);
     } catch {
       setError(t("errorGeneric"));
+    } finally {
+      setLoading(false);
     }
   }
 

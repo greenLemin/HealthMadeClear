@@ -13,7 +13,7 @@ import { useAuthFormState } from "@/lib/auth/useAuthFormState";
 export default function ForgotPasswordForm() {
   const t = useTranslations("auth");
   const locale = useLocale();
-  const { error, loading, setError, clearError, supabase } = useAuthFormState();
+  const { error, loading, setError, clearError, setLoading, supabase } = useAuthFormState();
   const [email, setEmail] = useState("");
   const [fieldError, setFieldError] = useState("");
   const [submitted, setSubmitted] = useState(false);
@@ -44,6 +44,7 @@ export default function ForgotPasswordForm() {
       return;
     }
 
+    setLoading(true);
     try {
       const { error: authError } = await supabase.auth.resetPasswordForEmail(email, {
         redirectTo: `${window.location.origin}/${locale}/auth/reset-password`,
@@ -57,6 +58,8 @@ export default function ForgotPasswordForm() {
       setSubmitted(true);
     } catch {
       setError(t("errorGeneric"));
+    } finally {
+      setLoading(false);
     }
   }
 
