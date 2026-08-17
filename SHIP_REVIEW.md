@@ -231,7 +231,23 @@ All gates green on the exact tree pushed.
 
 ### Ship Log
 
-(To be updated during ship execution.)
+- `git fetch origin` — origin/main unchanged at `23650c0`.
+- `git checkout main` — switched to main.
+- `git merge --no-ff audit/full-codebase-remediation` — merge commit `df766e24`, 42 commits merged.
+- Post-merge gates on main:
+  - `tsc --noEmit` → 0 errors — PASS
+  - `npm run lint` → 0 errors, 2 acceptable warnings — PASS
+  - `npx vitest run` → 562 tests pass (84 files) — PASS
+  - `npm run build` → succeeds, 363 static pages — PASS
+  - `npm audit` → 0 vulnerabilities — PASS
+- `git push origin main` — `23650c0..df766e24 main -> main` — SUCCESS.
+- Post-push verification:
+  - `git status` — "Your branch is up to date with 'origin/main'." — PASS
+  - `git log origin/main` — shows merge commit `df766e24` and all 42 workstream commits — PASS
+  - `git rev-list --count main..origin/main` → 0 — PASS
+  - `git rev-list --count origin/main..main` → 0 — PASS
+  - `git diff origin/main --stat` → empty — PASS
+- Netlify production deploy: triggered by push to main. Deploy observable on Netlify dashboard.
 
 ---
 
