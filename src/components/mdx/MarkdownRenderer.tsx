@@ -2,9 +2,9 @@
 
 import { useMemo } from "react";
 import MarkdownIt from "markdown-it";
+import type { Token as MarkdownItToken } from "markdown-it";
 import GlossaryHighlighter from "./GlossaryHighlighter";
 import type { GlossaryTerm } from "@/types/glossary";
-import type MarkdownItToken from "markdown-it/lib/token.mjs";
 import { isSafeHref } from "@/lib/safeHref";
 
 const md = new MarkdownIt({
@@ -83,7 +83,7 @@ function renderInlineChildren(
     }
 
     if (child.type === "link_open") {
-      const href = child.attrGet("href") ?? "";
+      const href = String(child.attrGet("href") ?? "");
       const inner: React.ReactNode[] = [];
       index++;
       while (index < children.length && children[index].type !== "link_close") {
@@ -216,7 +216,7 @@ function renderTokens(
       const Tag = `h${level}` as keyof React.JSX.IntrinsicElements;
       result.push(<Tag key={`h${level}-${i}`}>{headingChildren}</Tag>);
     } else if (token.type === "link_open") {
-      const href = token.attrGet("href") || "#";
+      const href = String(token.attrGet("href") || "#");
       const linkChildren: React.ReactNode[] = [];
       i++;
       while (i < tokens.length && tokens[i].type !== "link_close") {
