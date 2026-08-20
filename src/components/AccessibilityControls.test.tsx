@@ -8,20 +8,25 @@ import AccessibilityControls from "./AccessibilityControls";
 import { useAppState } from "@/components/AppProviders";
 import { useMotionSafe } from "@/hooks/useMotionSafe";
 
-vi.mock("motion/react", () => ({
-  AnimatePresence: ({ children }: { children: React.ReactNode }) => <>{children}</>,
-  motion: {
-    div: React.forwardRef(({ children, ...props }: any, ref: any) => {
-      // Omit framer-motion specific props that shouldn't be forwarded to DOM
-      const { initial, animate, exit, variants, transition, ...rest } = props;
-      return (
-        <div ref={ref} {...rest}>
-          {children}
-        </div>
-      );
-    }),
-  },
-}));
+vi.mock("motion/react", () => {
+  const MockMotionDiv = React.forwardRef(({ children, ...props }: any, ref: any) => {
+    // Omit framer-motion specific props that shouldn't be forwarded to DOM
+    const { initial, animate, exit, variants, transition, ...rest } = props;
+    return (
+      <div ref={ref} {...rest}>
+        {children}
+      </div>
+    );
+  });
+  MockMotionDiv.displayName = "MockMotionDiv";
+
+  return {
+    AnimatePresence: ({ children }: { children: React.ReactNode }) => <>{children}</>,
+    motion: {
+      div: MockMotionDiv,
+    },
+  };
+});
 
 vi.mock("@/components/AppProviders", () => ({
   useAppState: vi.fn(),
