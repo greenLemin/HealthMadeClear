@@ -18,3 +18,4 @@ stitch_health_made_clear_ux_design/
 
 # Supabase CLI local state
 supabase/.temp/
+audit-results*.json
