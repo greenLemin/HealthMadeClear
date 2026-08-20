@@ -168,6 +168,101 @@ function useDerivedProgress(
   return { completedLessonIds, quizAttempts, completedLessonIdsSet };
 }
 
+async function handleLessonCompletionSideEffects(
+  supabase: ReturnType<typeof createClient>,
+  userId: string,
+  lessonId: string,
+  supabaseCompletedLessonIds: string[],
+  showToast: (type: "success" | "error" | "info", message: string) => void,
+  locale: string
+) {
+  // Update daily log
+  await updateDailyLog(supabase, userId);
+
+  // Check achievements
+  const allCompleted = [...supabaseCompletedLessonIds, lessonId];
+  const newAchievements = await checkAndAwardAchievements(supabase, userId, {
+    totalLessonsCompleted: allCompleted.length,
+  });
+  for (const achievementId of newAchievements) {
+    const achievement = ACHIEVEMENTS[achievementId as AchievementId];
+    if (achievement) {
+      showToast("success", `Achievement unlocked: ${achievement.title}`);
+    }
+  }
+
+  // Update streak
+  await updateStreak(supabase, userId);
+
+  // Check for close-to-completion notifications on learning paths (optimized)
+  const allCompletedSet = new Set(supabaseCompletedLessonIds);
+  allCompletedSet.add(lessonId);
+  try {
+    if (!loadPathsPromise) {
+      loadPathsPromise = import("@/lib/paths/loadPaths");
+    }
+    const allPaths = (await loadPathsPromise).getAllLearningPaths(locale as Locale);
+    const matchingPaths = getPathsForLesson(allPaths, locale as Locale, lessonId);
+    const notificationsToCreate: NotificationInput[] = [];
+    for (const path of matchingPaths) {
+      let uncompletedCount = 0;
+      for (const id of path.lessons) {
+        if (!allCompletedSet.has(id)) {
+          uncompletedCount++;
+          if (uncompletedCount > 1) break;
+        }
+      }
+      if (uncompletedCount === 1) {
+        notificationsToCreate.push({
+          type: "close-to-completion",
+          title: "Almost there!",
+          body: `You're one lesson away from completing "${path.title}".`,
+        });
+      }
+    }
+    if (notificationsToCreate.length > 0) {
+      await createNotifications(supabase, userId, notificationsToCreate);
+    }
+  } catch (error) {
+    reportClientError(error, { context: "Failed to load paths for progress calculation" });
+  }
+}
+
+async function handleQuizAttemptSideEffects(
+  supabase: ReturnType<typeof createClient>,
+  userId: string,
+  lessonId: string,
+  score: number,
+  maxScore: number,
+  passed: boolean,
+  supabaseCompletedLessonIds: string[],
+  showToast: (type: "success" | "error" | "info", message: string) => void
+) {
+  // Update daily log
+  await updateDailyLog(supabase, userId);
+
+  // Check achievements
+  const allCompleted = [...supabaseCompletedLessonIds];
+  if (!allCompleted.includes(lessonId)) {
+    allCompleted.push(lessonId);
+  }
+  const newAchievements = await checkAndAwardAchievements(supabase, userId, {
+    totalLessonsCompleted: allCompleted.length,
+    quizPassed: passed,
+    quizScore: score,
+    quizMaxScore: maxScore,
+  });
+  for (const achievementId of newAchievements) {
+    const achievement = ACHIEVEMENTS[achievementId as AchievementId];
+    if (achievement) {
+      showToast("success", `Achievement unlocked: ${achievement.title}`);
+    }
+  }
+
+  // Update streak
+  await updateStreak(supabase, userId);
+}
+
 function useProgressMutations(
   user: User | null,
   supabase: ReturnType<typeof createClient>,
@@ -199,55 +294,14 @@ function useProgressMutations(
           showToast("error", "Failed to save progress");
           setSupabaseCompletedLessonIds((prev) => prev.filter((id) => id !== lessonId));
         } else {
-          // Update daily log
-          await updateDailyLog(supabase, user.id);
-
-          // Check achievements
-          const allCompleted = [...supabaseCompletedLessonIds, lessonId];
-          const newAchievements = await checkAndAwardAchievements(supabase, user.id, {
-            totalLessonsCompleted: allCompleted.length,
-          });
-          for (const achievementId of newAchievements) {
-            const achievement = ACHIEVEMENTS[achievementId as AchievementId];
-            if (achievement) {
-              showToast("success", `Achievement unlocked: ${achievement.title}`);
-            }
-          }
-          // Update streak
-          const { currentStreak } = await updateStreak(supabase, user.id);
-
-          // Check for close-to-completion notifications on learning paths
-          const allCompletedSet = new Set(supabaseCompletedLessonIds);
-          allCompletedSet.add(lessonId);
-          try {
-            if (!loadPathsPromise) {
-              loadPathsPromise = import("@/lib/paths/loadPaths");
-            }
-            const allPaths = (await loadPathsPromise).getAllLearningPaths(locale as Locale);
-            const matchingPaths = getPathsForLesson(allPaths, locale as Locale, lessonId);
-            const notificationsToCreate: NotificationInput[] = [];
-            for (const path of matchingPaths) {
-              let uncompletedCount = 0;
-              for (const id of path.lessons) {
-                if (!allCompletedSet.has(id)) {
-                  uncompletedCount++;
-                  if (uncompletedCount > 1) break;
-                }
-              }
-              if (uncompletedCount === 1) {
-                notificationsToCreate.push({
-                  type: "close-to-completion",
-                  title: "Almost there!",
-                  body: `You're one lesson away from completing "${path.title}".`,
-                });
-              }
-            }
-            if (notificationsToCreate.length > 0) {
-              await createNotifications(supabase, user.id, notificationsToCreate);
-            }
-          } catch (error) {
-            reportClientError(error, { context: "Failed to load paths for progress calculation" });
-          }
+          await handleLessonCompletionSideEffects(
+            supabase,
+            user.id,
+            lessonId,
+            supabaseCompletedLessonIds,
+            showToast,
+            locale
+          );
         }
       } else {
         guestMarkLessonComplete(lessonId);
@@ -285,28 +339,16 @@ function useProgressMutations(
         if (error) {
           showToast("error", "Failed to save quiz result");
         } else {
-          // Update daily log
-          await updateDailyLog(supabase, user.id);
-
-          // Check achievements
-          const allCompleted = [...supabaseCompletedLessonIds];
-          if (!allCompleted.includes(lessonId)) {
-            allCompleted.push(lessonId);
-          }
-          const newAchievements = await checkAndAwardAchievements(supabase, user.id, {
-            totalLessonsCompleted: allCompleted.length,
-            quizPassed: passed,
-            quizScore: score,
-            quizMaxScore: maxScore,
-          });
-          for (const achievementId of newAchievements) {
-            const achievement = ACHIEVEMENTS[achievementId as AchievementId];
-            if (achievement) {
-              showToast("success", `Achievement unlocked: ${achievement.title}`);
-            }
-          }
-          // Update streak
-          await updateStreak(supabase, user.id);
+          await handleQuizAttemptSideEffects(
+            supabase,
+            user.id,
+            lessonId,
+            score,
+            maxScore,
+            passed,
+            supabaseCompletedLessonIds,
+            showToast
+          );
         }
       } else {
         guestSaveQuizAttempt(quizId, score, maxScore);
