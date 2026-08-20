@@ -14,6 +14,7 @@ import {
 } from "@/lib/guestProgress";
 import { ACHIEVEMENTS, checkAndAwardAchievements } from "@/lib/achievements";
 import type { AchievementId } from "@/lib/achievements";
+import type { LearningPath } from "@/types/learningPath";
 import type { Locale } from "@/lib/i18n";
 import type { QuizScore } from "@/lib/progressExport";
 import { updateStreak } from "@/lib/streaks";
@@ -40,6 +41,28 @@ export interface ProgressActions {
   isLessonComplete: (lessonId: string) => boolean;
   getQuizBestScore: (quizId: string) => number | null;
   getLearningPathProgress: (lessonIds: string[]) => { completed: number; total: number; percentage: number };
+}
+
+// Cache lesson-to-paths map by locale to optimize close-to-completion checks
+const pathsByLessonMapCache = new Map<Locale, Map<string, LearningPath[]>>();
+
+function getPathsForLesson(allPaths: LearningPath[], locale: Locale, lessonId: string): LearningPath[] {
+  let localeMap = pathsByLessonMapCache.get(locale);
+  if (!localeMap) {
+    localeMap = new Map<string, LearningPath[]>();
+    for (const path of allPaths) {
+      for (const id of path.lessons) {
+        let list = localeMap.get(id);
+        if (!list) {
+          list = [];
+          localeMap.set(id, list);
+        }
+        list.push(path);
+      }
+    }
+    pathsByLessonMapCache.set(locale, localeMap);
+  }
+  return localeMap.get(lessonId) || [];
 }
 
 // Cache the dynamic import to improve performance
@@ -194,16 +217,24 @@ function useProgressMutations(
           const { currentStreak } = await updateStreak(supabase, user.id);
 
           // Check for close-to-completion notifications on learning paths
-          const allCompletedSet = new Set(allCompleted);
+          const allCompletedSet = new Set(supabaseCompletedLessonIds);
+          allCompletedSet.add(lessonId);
           try {
             if (!loadPathsPromise) {
               loadPathsPromise = import("@/lib/paths/loadPaths");
             }
             const allPaths = (await loadPathsPromise).getAllLearningPaths(locale as Locale);
+            const matchingPaths = getPathsForLesson(allPaths, locale as Locale, lessonId);
             const notificationsToCreate: NotificationInput[] = [];
-            for (const path of allPaths) {
-              const remaining = path.lessons.filter((id) => !allCompletedSet.has(id));
-              if (remaining.length === 1 && allCompletedSet.has(lessonId)) {
+            for (const path of matchingPaths) {
+              let uncompletedCount = 0;
+              for (const id of path.lessons) {
+                if (!allCompletedSet.has(id)) {
+                  uncompletedCount++;
+                  if (uncompletedCount > 1) break;
+                }
+              }
+              if (uncompletedCount === 1) {
                 notificationsToCreate.push({
                   type: "close-to-completion",
                   title: "Almost there!",
