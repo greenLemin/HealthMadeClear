@@ -117,12 +117,13 @@ export async function getAllQuizzesFromMdx(locale: "en" | "es"): Promise<Quiz[]>
 
 export async function getQuizFromMdx(id: string, locale: "en" | "es"): Promise<Quiz | undefined> {
   const filePath = path.join(getQuizMdxDir(locale), `${id}.mdx`);
+  let fileContent: string;
   try {
-    await fs.access(filePath);
+    fileContent = await fs.readFile(filePath, "utf8");
   } catch {
     return undefined;
   }
-  const raw = normalizeLineEndings(await fs.readFile(filePath, "utf8"));
+  const raw = normalizeLineEndings(fileContent);
   const { data, content } = matter(raw);
 
   return {

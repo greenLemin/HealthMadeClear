@@ -49,12 +49,12 @@ explanation: 2+2 equals 4.
 
 describe("getQuizFromMdx", () => {
   it("returns undefined if file does not exist", async () => {
-    mockAccess.mockRejectedValue(new Error("ENOENT"));
+    mockReadFile.mockRejectedValue(new Error("ENOENT"));
     expect(await getQuizFromMdx("non-existent", "en")).toBeUndefined();
   });
 
   it("returns undefined if file access fails", async () => {
-    mockAccess.mockRejectedValue(new Error("EACCES"));
+    mockReadFile.mockRejectedValue(new Error("EACCES"));
     expect(await getQuizFromMdx("no-access", "en")).toBeUndefined();
   });
 
