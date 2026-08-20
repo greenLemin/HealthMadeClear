@@ -21,7 +21,7 @@ afterEach(() => {
   vi.clearAllMocks();
 });
 
-describe("Quiz Parser", () => {
+describe("Quiz Parser - parseQuestions", () => {
   it("parses a single question with options and explanation", () => {
     const markdown = `
 ## Question 1
@@ -49,6 +49,185 @@ explanation: 2+2 equals 4.
   it("returns an empty array when given an empty string or whitespace", () => {
     expect(parseQuestions("")).toEqual([]);
     expect(parseQuestions("   \n\t  ")).toEqual([]);
+    expect(parseQuestions("   \n\n  ")).toEqual([]);
+  });
+
+  it("parses Spanish question headings ('Pregunta 1')", () => {
+    const markdown = `
+## Pregunta 1
+
+¿Cuánto es 2+2?
+
+A) 3
+B) 4
+
+answer: B
+explanation: 2+2 es 4.
+`;
+
+    const questions = parseQuestions(markdown);
+
+    expect(questions).toHaveLength(1);
+    expect(questions[0].question).toBe("¿Cuánto es 2+2?");
+    expect(questions[0].options).toEqual(["3", "4"]);
+    expect(questions[0].correctAnswer).toBe("B");
+    expect(questions[0].explanation).toBe("2+2 es 4.");
+  });
+
+  it("ignores section headings that do not match question pattern", () => {
+    const markdown = `
+## Introduction
+
+Welcome to the quiz!
+
+## Overview
+
+Here is an overview.
+`;
+
+    const questions = parseQuestions(markdown);
+    expect(questions).toEqual([]);
+  });
+
+  it("ignores heading-only sections without body or options", () => {
+    const markdown = `
+## Question 1
+`;
+
+    const questions = parseQuestions(markdown);
+    expect(questions).toEqual([]);
+  });
+
+  it("ignores questions missing an answer tag", () => {
+    const markdown = `
+## Question 1
+
+What is 2+2?
+
+A) 3
+B) 4
+
+explanation: missing answer line
+`;
+
+    const questions = parseQuestions(markdown);
+    expect(questions).toEqual([]);
+  });
+
+  it("ignores questions with invalid answer letter", () => {
+    const markdown1 = `
+## Question 1
+
+What is 2+2?
+
+A) 3
+B) 4
+
+answer: E
+explanation: Invalid answer E
+`;
+
+    const markdown2 = `
+## Question 2
+
+What is 2+2?
+
+A) 3
+B) 4
+
+answer: 123
+`;
+
+    expect(parseQuestions(markdown1)).toEqual([]);
+    expect(parseQuestions(markdown2)).toEqual([]);
+  });
+
+  it("ignores questions with fewer than 2 options", () => {
+    const markdown = `
+## Question 1
+
+What is 2+2?
+
+A) 4
+
+answer: A
+`;
+
+    const questions = parseQuestions(markdown);
+    expect(questions).toEqual([]);
+  });
+
+  it("ignores options with non-matching format", () => {
+    const markdown = `
+## Question 1
+
+What is 2+2?
+
+1. 3
+2. 4
+
+answer: A
+`;
+
+    const questions = parseQuestions(markdown);
+    expect(questions).toEqual([]);
+  });
+
+  it("parses valid questions while skipping malformed ones in the same file", () => {
+    const markdown = `
+## Overview
+Some intro text.
+
+## Question 1
+
+What is 2+2?
+
+A) 3
+B) 4
+
+answer: B
+explanation: Correct!
+
+## Question 2
+
+Malformed question with no options or answer.
+
+## Question 3
+
+What is 3+3?
+
+A) 5
+B) 6
+C) 7
+D) 8
+
+answer: B
+`;
+
+    const questions = parseQuestions(markdown);
+    expect(questions).toHaveLength(2);
+    expect(questions[0].question).toBe("What is 2+2?");
+    expect(questions[0].correctAnswer).toBe("B");
+    expect(questions[1].question).toBe("What is 3+3?");
+    expect(questions[1].correctAnswer).toBe("B");
+    expect(questions[1].explanation).toBe("");
+  });
+
+  it("handles questions without explanation gracefully", () => {
+    const markdown = `
+## Question 1
+
+What is 1+1?
+
+A) 1
+B) 2
+
+answer: B
+`;
+
+    const questions = parseQuestions(markdown);
+    expect(questions).toHaveLength(1);
+    expect(questions[0].explanation).toBe("");
   });
 });
 
@@ -99,6 +278,44 @@ explanation: 2+2 equals 4.
         },
       ],
     });
+  });
+
+  it("defaults passScore to 70 when passScore is missing or invalid in frontmatter", async () => {
+    mockAccess.mockResolvedValue(undefined);
+    mockReadFile.mockResolvedValue(`---
+id: "test-quiz-no-passscore"
+title: "Test Quiz"
+lessonId: "test-lesson"
+---
+
+## Question 1
+
+What is 1+1?
+
+A) 1
+B) 2
+
+answer: B
+`);
+    const quiz = await getQuizFromMdx("test-quiz-no-passscore", "en");
+    expect(quiz?.passScore).toBe(70);
+  });
+
+  it("filters out malformed questions from MDX content in getQuizFromMdx", async () => {
+    mockAccess.mockResolvedValue(undefined);
+    mockReadFile.mockResolvedValue(`---
+id: "test-quiz-malformed"
+title: "Test Quiz"
+lessonId: "test-lesson"
+passScore: 75
+---
+
+## Question 1
+
+Broken question with no options or answer.
+`);
+    const quiz = await getQuizFromMdx("test-quiz-malformed", "en");
+    expect(quiz?.questions).toEqual([]);
   });
 });
 
