@@ -17,7 +17,7 @@ export async function signInMockUser(page: Page, redirectPath = "/dashboard") {
   await page.goto(`/en/auth/login?redirect=${encodedRedirect}`);
   await waitForAppReady(page);
   await page.getByLabel(/email address/i).fill("guest@example.com");
-  await page.locator('input[type="password"]').fill("password123");
+  await page.locator('input[type="password"]').fill(process.env.MOCK_GUEST_PASSWORD || "password123");
   await Promise.all([
     page.waitForURL(expectedUrl, { timeout: 15000 }),
     page.getByRole("button", { name: /sign in/i }).click(),

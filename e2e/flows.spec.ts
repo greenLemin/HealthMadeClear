@@ -52,7 +52,7 @@ test("dashboard redirects guests to login and sign-in returns to dashboard", asy
   await expect(page).toHaveURL(/\/en\/auth\/login\?redirect=%2Fdashboard/);
   await waitForAppReady(page);
   await page.getByLabel(/email address/i).fill("guest@example.com");
-  await page.locator('input[type="password"]').fill("password123");
+  await page.locator('input[type="password"]').fill(process.env.MOCK_GUEST_PASSWORD || "password123");
   await Promise.all([
     page.waitForURL(/\/en\/dashboard(?:\?|$)/, { timeout: 15_000 }),
     page.getByRole("button", { name: /sign in/i }).click(),
@@ -180,7 +180,7 @@ test("login validation clears as fields are corrected", async ({ page }) => {
   await page.getByLabel(/email address/i).fill("test@example.com");
   await expect(emailError).toBeHidden();
 
-  await page.locator('input[type="password"]').fill("password123");
+  await page.locator('input[type="password"]').fill(process.env.MOCK_GUEST_PASSWORD || "password123");
   await expect(passwordError).toBeHidden();
 });
 
