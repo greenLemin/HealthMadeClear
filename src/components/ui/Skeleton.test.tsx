@@ -12,9 +12,12 @@ describe("Skeleton Component", () => {
     const lines = wrapper?.children;
     expect(lines).toHaveLength(3);
     if (lines && lines.length === 3) {
-      expect(lines[0]).toHaveStyle({ width: "100%", height: "1em" });
-      expect(lines[1]).toHaveStyle({ width: "100%", height: "1em" });
-      expect(lines[2]).toHaveStyle({ width: "60%", height: "1em" });
+      expect((lines[0] as HTMLElement).style.width).toBe("100%");
+      expect((lines[0] as HTMLElement).style.height).toBe("1em");
+      expect((lines[1] as HTMLElement).style.width).toBe("100%");
+      expect((lines[1] as HTMLElement).style.height).toBe("1em");
+      expect((lines[2] as HTMLElement).style.width).toBe("60%");
+      expect((lines[2] as HTMLElement).style.height).toBe("1em");
     }
   });
 
@@ -27,9 +30,10 @@ describe("Skeleton Component", () => {
 
   it("renders single line text variant when lines prop is 1", () => {
     const { container } = render(<Skeleton variant="text" lines={1} />);
-    const element = container.querySelector("div[aria-hidden='true']");
+    const element = container.querySelector("div[aria-hidden='true']") as HTMLElement;
     expect(element).toBeInTheDocument();
-    expect(element).toHaveStyle({ width: "100%", height: "1em" });
+    expect(element.style.width).toBe("100%");
+    expect(element.style.height).toBe("1em");
   });
 
   it("renders non-text variants correctly with default styles", () => {
@@ -62,10 +66,11 @@ describe("Skeleton Component", () => {
 
     variants.forEach(({ variant, expectedWidth, expectedHeight, expectedRounded }) => {
       const { container, unmount } = render(<Skeleton variant={variant} />);
-      const element = container.querySelector("div[aria-hidden='true']");
+      const element = container.querySelector("div[aria-hidden='true']") as HTMLElement;
       expect(element).toBeInTheDocument();
       expect(element).toHaveClass(expectedRounded);
-      expect(element).toHaveStyle({ width: expectedWidth, height: expectedHeight });
+      expect(element.style.width).toBe(expectedWidth);
+      expect(element.style.height).toBe(expectedHeight);
       unmount();
     });
   });
@@ -74,10 +79,11 @@ describe("Skeleton Component", () => {
     const { container } = render(
       <Skeleton variant="card" width="300px" height="150px" className="custom-skeleton-class" />
     );
-    const element = container.querySelector("div[aria-hidden='true']");
+    const element = container.querySelector("div[aria-hidden='true']") as HTMLElement;
     expect(element).toBeInTheDocument();
     expect(element).toHaveClass("custom-skeleton-class");
-    expect(element).toHaveStyle({ width: "300px", height: "150px" });
+    expect(element.style.width).toBe("300px");
+    expect(element.style.height).toBe("150px");
   });
 
   it("renders accessible loading label when loadingLabel prop is provided", () => {
