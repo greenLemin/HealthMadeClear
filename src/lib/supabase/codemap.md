@@ -10,7 +10,14 @@ Supabase client configuration and environment handling.
 - `server.ts`: Server-side Supabase client — creates `createServerClient` with cookie handling
 - `middleware.ts`: Next.js middleware Supabase client — refreshes session, guards dashboard routes
 - `env.ts`: Environment config — reads `NEXT_PUBLIC_SUPABASE_URL`/`ANON_KEY`, detects mock/CI/placeholder modes
-- `mockClient.ts`: In-memory Supabase mock for local development without real Supabase — stores data in cookies, provides mock user/session, supports basic CRUD operations on all tables
+- `mockClient.ts`: Re-exports mock Supabase client interface and entrypoint constructed from `mock/` modules
+- `mock/types.ts`: Mock DB schema, query builder filter/mutation interfaces, and cookie store types
+- `mock/utils.ts`: Mock ID generation, timestamping, JSON parser, and column selection helpers
+- `mock/defaults.ts`: Factory functions for default accounts, profiles, auth state, and DB tables
+- `mock/normalizers.ts`: Data normalization and migration helpers for cookie persistence
+- `mock/store.ts`: Storage persistence handlers (cookie/document) and user/session builders
+- `mock/queryBuilder.ts`: In-memory query builder, filtering, ordering, pagination, and table mutations
+- `mock/auth.ts`: In-memory Supabase Auth implementation with event emitter support
 
 ## Integration
 
