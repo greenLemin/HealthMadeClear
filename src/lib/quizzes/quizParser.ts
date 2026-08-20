@@ -6,6 +6,7 @@ import type { Quiz, QuizQuestion } from "@/types/quiz";
 import type { LessonId } from "@/types/content";
 import { normalizeLineEndings } from "@/lib/normalizeLineEndings";
 import { LESSON_IDS } from "@/types/content";
+import { logger } from "@/lib/logger";
 
 const OPTION_REGEX = /^([A-D])\)\s(.+)$/m;
 const QUESTION_HEADING_REGEX = /^(Question|Pregunta)\s+\d+/i;
@@ -95,12 +96,20 @@ export async function getAllQuizzesFromMdx(locale: "en" | "es"): Promise<Quiz[]>
       }
 
       const raw = normalizeLineEndings(fileContent);
-      const { data, content } = matter(raw);
+      let data: Record<string, unknown> = {};
+      let content = raw;
+      try {
+        const parsed = matter(raw);
+        data = parsed.data;
+        content = parsed.content;
+      } catch (error) {
+        logger.error(`Failed to parse frontmatter in quiz MDX file: ${filePath}`, error);
+      }
 
       return {
-        id: String(data.id),
-        title: String(data.title),
-        lessonId: String(data.lessonId) as LessonId,
+        id: String(data.id ?? ""),
+        title: String(data.title ?? ""),
+        lessonId: String(data.lessonId ?? "") as LessonId,
         passScore: Number(data.passScore) || 70,
         questions: parseQuestions(content.trim()),
       } as Quiz;
@@ -124,12 +133,20 @@ export async function getQuizFromMdx(id: string, locale: "en" | "es"): Promise<Q
     return undefined;
   }
   const raw = normalizeLineEndings(fileContent);
-  const { data, content } = matter(raw);
+  let data: Record<string, unknown> = {};
+  let content = raw;
+  try {
+    const parsed = matter(raw);
+    data = parsed.data;
+    content = parsed.content;
+  } catch (error) {
+    logger.error(`Failed to parse frontmatter in quiz MDX file: ${filePath}`, error);
+  }
 
   return {
-    id: String(data.id),
-    title: String(data.title),
-    lessonId: String(data.lessonId) as LessonId,
+    id: String(data.id ?? ""),
+    title: String(data.title ?? ""),
+    lessonId: String(data.lessonId ?? "") as LessonId,
     passScore: Number(data.passScore) || 70,
     questions: parseQuestions(content.trim()),
   } as Quiz;

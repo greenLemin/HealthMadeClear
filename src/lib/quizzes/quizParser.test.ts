@@ -3,6 +3,7 @@
  */
 import { describe, expect, it, vi, afterEach } from "vitest";
 import { parseQuestions } from "@/lib/quizzes/quizParser";
+import { logger } from "@/lib/logger";
 
 const { mockAccess, mockReadFile } = vi.hoisted(() => ({
   mockAccess: vi.fn(),
@@ -19,6 +20,7 @@ import { getQuizFromMdx, getAllQuizzesFromMdx } from "@/lib/quizzes/quizParser";
 
 afterEach(() => {
   vi.clearAllMocks();
+  vi.restoreAllMocks();
 });
 
 describe("Quiz Parser - parseQuestions", () => {
@@ -317,6 +319,48 @@ Broken question with no options or answer.
     const quiz = await getQuizFromMdx("test-quiz-malformed", "en");
     expect(quiz?.questions).toEqual([]);
   });
+
+  it("handles invalid frontmatter gracefully and logs an error", async () => {
+    const errorSpy = vi.spyOn(logger, "error").mockImplementation(() => {});
+    mockAccess.mockResolvedValue(undefined);
+    mockReadFile.mockResolvedValue(`---
+invalid: frontmatter: : yaml syntax error
+---
+
+## Question 1
+
+What is 2+2?
+
+A) 3
+B) 4
+C) 5
+D) 6
+
+answer: B
+explanation: 2+2 equals 4.
+`);
+
+    const quiz = await getQuizFromMdx("invalid-frontmatter", "en");
+
+    expect(errorSpy).toHaveBeenCalledWith(
+      expect.stringContaining("Failed to parse frontmatter in quiz MDX file"),
+      expect.any(Error)
+    );
+    expect(quiz).toEqual({
+      id: "",
+      title: "",
+      lessonId: "",
+      passScore: 70,
+      questions: [
+        {
+          question: "What is 2+2?",
+          options: ["3", "4", "5", "6"],
+          correctAnswer: "B",
+          explanation: "2+2 equals 4.",
+        },
+      ],
+    });
+  });
 });
 
 describe("getAllQuizzesFromMdx", () => {
@@ -419,5 +463,53 @@ explanation: 2 is correct.
     mockReadFile.mockRejectedValue(new Error("EACCES"));
     const quizzes = await getAllQuizzesFromMdx("en");
     expect(quizzes).toEqual([]);
+  });
+
+  it("handles invalid frontmatter in getAllQuizzesFromMdx safely", async () => {
+    const errorSpy = vi.spyOn(logger, "error").mockImplementation(() => {});
+    mockAccess.mockResolvedValue(undefined);
+    mockReadFile.mockImplementation((path) => {
+      if (typeof path === "string" && path.includes("understanding-prescription-labels")) {
+        return Promise.resolve(`---
+invalid: yaml: : syntax error
+---
+
+## Question 1
+
+Q1?
+
+A) 1
+B) 2
+C) 3
+D) 4
+
+answer: A
+explanation: 1 is correct.
+`);
+      }
+      return Promise.reject(new Error("ENOENT"));
+    });
+
+    const quizzes = await getAllQuizzesFromMdx("en");
+
+    expect(errorSpy).toHaveBeenCalledWith(
+      expect.stringContaining("Failed to parse frontmatter in quiz MDX file"),
+      expect.any(Error)
+    );
+    expect(quizzes).toHaveLength(1);
+    expect(quizzes[0]).toEqual({
+      id: "",
+      title: "",
+      lessonId: "",
+      passScore: 70,
+      questions: [
+        {
+          question: "Q1?",
+          options: ["1", "2", "3", "4"],
+          correctAnswer: "A",
+          explanation: "1 is correct.",
+        },
+      ],
+    });
   });
 });
