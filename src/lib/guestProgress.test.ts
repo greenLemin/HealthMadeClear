@@ -43,10 +43,7 @@ describe("guestProgress", () => {
       completedLessons: [],
       quizAttempts: [],
     });
-    expect(loggerSpy).toHaveBeenCalledWith(
-      "Failed to read guest progress from storage:",
-      expect.any(Error)
-    );
+    expect(loggerSpy).toHaveBeenCalledWith("Failed to read guest progress from storage:", expect.any(Error));
   });
 
   it("clears progress only after successful migration", async () => {
