@@ -15,7 +15,7 @@ Core business logic and utility library — content loading, i18n utilities, Sup
 - `localizedContent.ts`: Thin facade over content loaders
 - `localizedQuiz.ts`: Quiz loading by locale — `getQuizByLessonId`, `getAllQuizzes`
 - `lessonVisuals.ts`: Category-to-emoji/gradient mapping
-- `analytics.ts`: Analytics tracking stub (console.log in dev, not wired to production)
+- `analytics.ts`: Analytics event tracking utility (logs via logger in dev, forwards to Google Analytics via gtag in production)
 - `achievements.ts`: Achievement definitions and check/award logic against Supabase
 - `streaks.ts`: Learning streak tracking against Supabase (milestone notifications at 3/7/14/21/30 days)
 - `dashboard.ts`: Dashboard data queries — progress summary, learning paths, recent activity, achievements, recommendations, quiz performance, daily logs, paginated lesson history
