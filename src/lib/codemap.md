@@ -22,6 +22,7 @@ Core business logic and utility library — content loading, i18n utilities, Sup
 - `notifications.ts`: In-app notification CRUD against Supabase
 - `progressExport.ts`: Progress import/export (JSON format, v1/v2 compatible)
 - `guestProgress.ts`: Guest (unauthenticated) progress in sessionStorage + migration to Supabase
+- `safeHref.ts`: URL sanitizer to prevent XSS in Markdown links (`isSafeHref`)
 - `errorReporting.ts`: Error boundary reporting utility
 
 ## Subdirectories
