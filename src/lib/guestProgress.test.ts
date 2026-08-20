@@ -5,6 +5,7 @@ import {
   markLessonComplete,
   migrateGuestProgressToSupabase,
 } from "./guestProgress";
+import { logger } from "./logger";
 
 describe("guestProgress", () => {
   beforeEach(() => {
@@ -28,6 +29,24 @@ describe("guestProgress", () => {
     });
 
     expect(getGuestProgress().completedLessons).toEqual([]);
+  });
+
+  it("returns default empty guest progress object when storage throws on getGuestProgress call", () => {
+    const loggerSpy = vi.spyOn(logger, "warn").mockImplementation(() => {});
+    vi.spyOn(Storage.prototype, "getItem").mockImplementation(() => {
+      throw new Error("Storage access denied");
+    });
+
+    const progress = getGuestProgress();
+
+    expect(progress).toEqual({
+      completedLessons: [],
+      quizAttempts: [],
+    });
+    expect(loggerSpy).toHaveBeenCalledWith(
+      "Failed to read guest progress from storage:",
+      expect.any(Error)
+    );
   });
 
   it("clears progress only after successful migration", async () => {
@@ -77,6 +96,7 @@ describe("guestProgress", () => {
     expect(result.ok).toBe(true);
     expect(supabase.from).not.toHaveBeenCalled();
   });
+
   it("silently catches errors when storage.setItem throws", () => {
     const setItemSpy = vi.spyOn(Storage.prototype, "setItem").mockImplementation(() => {
       throw new Error("QuotaExceededError");
