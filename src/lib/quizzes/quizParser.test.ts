@@ -45,6 +45,11 @@ explanation: 2+2 equals 4.
     expect(questions[0].correctAnswer).toBe("B");
     expect(questions[0].explanation).toBe("2+2 equals 4.");
   });
+
+  it("returns an empty array when given an empty string or whitespace", () => {
+    expect(parseQuestions("")).toEqual([]);
+    expect(parseQuestions("   \n\t  ")).toEqual([]);
+  });
 });
 
 describe("getQuizFromMdx", () => {
