@@ -3,8 +3,10 @@ import {
   clearGuestProgress,
   getGuestProgress,
   markLessonComplete,
+  saveQuizAttempt,
   migrateGuestProgressToSupabase,
 } from "./guestProgress";
+import { logger } from "./logger";
 
 describe("guestProgress", () => {
   beforeEach(() => {
@@ -17,6 +19,11 @@ describe("guestProgress", () => {
     expect(getGuestProgress().completedLessons).toEqual(["lesson-1"]);
   });
 
+  it("stores and retrieves quiz attempts", () => {
+    saveQuizAttempt("quiz-1", 8, 10);
+    expect(getGuestProgress().quizAttempts).toEqual([{ quizId: "quiz-1", score: 8, maxScore: 10 }]);
+  });
+
   it("returns fallback value when storage contains malformed JSON", () => {
     sessionStorage.setItem("hmc_guest_completedLessons", "{invalid-json]");
     expect(getGuestProgress().completedLessons).toEqual([]);
@@ -27,7 +34,30 @@ describe("guestProgress", () => {
       throw new Error("Storage unavailable");
     });
 
+    const warnSpy = vi.spyOn(logger, "warn").mockImplementation(() => {});
+
     expect(getGuestProgress().completedLessons).toEqual([]);
+    expect(warnSpy).toHaveBeenCalledWith("Failed to read guest progress from storage:", expect.any(Error));
+  });
+
+  it("logs warning and catches error when storage.setItem throws on markLessonComplete", () => {
+    vi.spyOn(Storage.prototype, "setItem").mockImplementationOnce(() => {
+      throw new Error("QuotaExceededError");
+    });
+    const warnSpy = vi.spyOn(logger, "warn").mockImplementation(() => {});
+
+    expect(() => markLessonComplete("lesson-error")).not.toThrow();
+    expect(warnSpy).toHaveBeenCalledWith("Failed to write guest progress to storage:", expect.any(Error));
+  });
+
+  it("logs warning and catches error when storage.setItem throws on saveQuizAttempt", () => {
+    vi.spyOn(Storage.prototype, "setItem").mockImplementationOnce(() => {
+      throw new Error("QuotaExceededError");
+    });
+    const warnSpy = vi.spyOn(logger, "warn").mockImplementation(() => {});
+
+    expect(() => saveQuizAttempt("quiz-1", 10, 10)).not.toThrow();
+    expect(warnSpy).toHaveBeenCalledWith("Failed to write guest progress to storage:", expect.any(Error));
   });
 
   it("clears progress only after successful migration", async () => {
@@ -76,11 +106,5 @@ describe("guestProgress", () => {
 
     expect(result.ok).toBe(true);
     expect(supabase.from).not.toHaveBeenCalled();
-  });
-  it("silently catches errors when storage.setItem throws", () => {
-    const setItemSpy = vi.spyOn(Storage.prototype, "setItem").mockImplementation(() => {
-      throw new Error("QuotaExceededError");
-    });
-    expect(() => markLessonComplete("lesson-error")).not.toThrow();
   });
 });
