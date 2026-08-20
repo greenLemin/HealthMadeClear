@@ -1,11 +1,17 @@
 import { render, screen } from "@testing-library/react";
+import React from "react";
 import { describe, it, expect, vi } from "vitest";
 import LessonThumbnail from "./LessonThumbnail";
 
 vi.mock("next/image", () => ({
   default: ({ src, alt, priority, className, fill, sizes, ...props }: any) => {
-    // eslint-disable-next-line @next/next/no-img-element
-    return <img src={src} alt={alt} data-priority={priority} className={className} {...props} />;
+    return React.createElement("img", {
+      src,
+      alt,
+      "data-priority": priority,
+      className,
+      ...props,
+    });
   },
 }));
 
