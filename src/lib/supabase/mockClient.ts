@@ -97,7 +97,11 @@ function cloneDefaultAccount(): MockAccount {
   return {
     id: DEFAULT_ACCOUNT_ID,
     email: "guest@example.com",
-    password: "password123",
+    password:
+      process.env.NEXT_PUBLIC_MOCK_GUEST_PASSWORD ||
+      process.env.MOCK_GUEST_PASSWORD ||
+      process.env.MOCK_USER_PASSWORD ||
+      crypto.randomUUID(),
     display_name: "Guest Student",
     confirmed: true,
     pending_reset_code: null,

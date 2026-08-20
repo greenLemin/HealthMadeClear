@@ -33,7 +33,29 @@ describe("parseFirstJsonObject", () => {
 });
 
 describe("mockClient", () => {
+  it("uses env variable for guest password when specified or generates random password", async () => {
+    delete process.env.MOCK_GUEST_PASSWORD;
+    delete process.env.MOCK_USER_PASSWORD;
+
+    const client1 = getMockSupabaseClient();
+    const res1 = await client1.auth.signInWithPassword({
+      email: "guest@example.com",
+      password: "non-matching-password",
+    });
+    expect(res1.error?.message).toMatch(/invalid login credentials/i);
+
+    process.env.MOCK_GUEST_PASSWORD = "env-secret-password-123";
+    const client2 = getMockSupabaseClient();
+    const res2 = await client2.auth.signInWithPassword({
+      email: "guest@example.com",
+      password: "env-secret-password-123",
+    });
+    expect(res2.error).toBeNull();
+    expect(res2.data.user?.email).toBe("guest@example.com");
+  });
+
   beforeEach(() => {
+    process.env.MOCK_GUEST_PASSWORD = "password123";
     if (typeof document !== "undefined") {
       document.cookie = "hmc_mock_db=;path=/;max-age=0";
     }
