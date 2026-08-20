@@ -6,6 +6,7 @@ React component library — all UI components organized by domain.
 
 ## Key Files (top-level)
 
+- `AnalyticsPageViewTracker.tsx`: Client component that tracks page views on path/locale change
 - `AppProviders.tsx`: Client context provider — theme, text size, simple mode, locale, learning progress (Context API + localStorage)
 - `Header.tsx`: Navigation header with mobile menu, auth controls, search, language/theme toggles
 - `Footer.tsx`: Site footer
