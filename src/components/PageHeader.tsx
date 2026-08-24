@@ -44,7 +44,7 @@ export default function PageHeader({
               ].join(" ")}
             >
               {breadcrumb.map((item, i) => (
-                <li key={i} className="flex items-center gap-2">
+                <li key={`${item.label}-${item.href ?? "current"}-${i}`} className="flex items-center gap-2">
                   {i > 0 ? (
                     <span aria-hidden="true" className="text-on-surface-variant">
                       /

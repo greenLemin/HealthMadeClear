@@ -6,11 +6,13 @@ create table public.quiz_attempts (
   max_score integer not null,
   passed boolean not null,
   answers jsonb,
-  attempted_at timestamptz default now() not null
+  attempted_at timestamptz default now() not null,
+  unique(user_id, quiz_id)
 );
 
 alter table public.quiz_attempts enable row level security;
 
 create policy "Users can manage their own quiz attempts"
   on public.quiz_attempts for all
-  using (auth.uid() = user_id);
+  using (auth.uid() = user_id)
+  with check (auth.uid() = user_id);

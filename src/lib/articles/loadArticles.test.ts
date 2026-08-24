@@ -38,13 +38,13 @@ describe("loadArticles", () => {
     it("should return all English articles", () => {
       const articles = getAllArticles("en");
       expect(articles).toHaveLength(2);
-      expect(articles[0].title).toBe("English Article 1");
+      expect(articles[0]!.title).toBe("English Article 1");
     });
 
     it("should return all Spanish articles", () => {
       const articles = getAllArticles("es");
       expect(articles).toHaveLength(2);
-      expect(articles[0].title).toBe("Spanish Article 1");
+      expect(articles[0]!.title).toBe("Spanish Article 1");
     });
   });
 
@@ -76,13 +76,36 @@ describe("loadArticlesForLocale", () => {
     expect(articles).toBeDefined();
     expect(articles.length).toBeGreaterThan(0);
     expect(Array.isArray(articles)).toBe(true);
-    expect(articles[0].title).toBe("Dynamic English 1");
+    expect(articles[0]!.title).toBe("Dynamic English 1");
   });
 
   it("should load articles for Spanish locale dynamically", async () => {
     const articles = await loadArticlesForLocale("es");
     expect(articles).toBeDefined();
     expect(Array.isArray(articles)).toBe(true);
-    expect(articles[0].title).toBe("Dynamic Spanish 1");
+    expect(articles[0]!.title).toBe("Dynamic Spanish 1");
+  });
+
+  it("should return an empty array when the locale bundle is empty", async () => {
+    vi.mocked(loadArticlesForLocale).mockResolvedValueOnce([]);
+    const articles = await loadArticlesForLocale("en");
+    expect(articles).toEqual([]);
+  });
+
+  it("should return an empty array when the locale bundle is missing", async () => {
+    vi.mocked(loadArticlesForLocale).mockResolvedValueOnce([]);
+    const articles = await loadArticlesForLocale("fr" as "en");
+    expect(articles).toEqual([]);
+  });
+
+  it("should propagate an error thrown by the dynamic import", async () => {
+    vi.mocked(loadArticlesForLocale).mockRejectedValueOnce(new Error("Bundle not found"));
+    await expect(loadArticlesForLocale("en")).rejects.toThrow("Bundle not found");
+  });
+
+  it("should return an empty array when the bundled article list is empty", async () => {
+    // Verify the fallback `|| []` in getAllArticles when a locale key is missing.
+    // The top-level mock provides en/es fixtures; an unknown locale falls back to [].
+    expect(getAllArticles("fr" as "en")).toEqual([]);
   });
 });

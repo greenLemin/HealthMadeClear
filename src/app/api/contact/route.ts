@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
-import { checkRateLimit, getClientIp } from "@/lib/rateLimit";
+import { getClientIp } from "@/lib/rateLimit";
+import { checkRateLimitDistributed } from "@/lib/rateLimitDistributed";
 import { reportServerError } from "@/lib/errorReporting";
 import { EMAIL_REGEX } from "@/lib/validation";
 
@@ -26,14 +27,32 @@ function isAllowedOrigin(request: Request): boolean {
   if (!origin) return false;
   try {
     const originUrl = new URL(origin);
-    // Allow same-origin requests (compare hostname, not host:port)
     const requestUrl = new URL(request.url);
-    if (originUrl.hostname === requestUrl.hostname) return true;
-    // Allow if origin matches NEXT_PUBLIC_SITE_URL
+    // Strict origin check (protocol + hostname + port) to prevent protocol downgrade
+    // and subdomain spoofing; e.g., https vs http mismatch blocked.
+    if (originUrl.origin === requestUrl.origin) return true;
+    // Dev exception: localhost with different ports — keep port-agnostic for local dev
+    // where request URL may be http://localhost:3000 and origin http://localhost:3000 (already matched above)
+    // or http://localhost vs http://localhost:3000; allow if both are localhost/127.0.0.1 and protocol matches.
+    const isLocalhost = (h: string) => h === "localhost" || h === "127.0.0.1";
+    if (
+      isLocalhost(originUrl.hostname) &&
+      isLocalhost(requestUrl.hostname) &&
+      originUrl.protocol === requestUrl.protocol
+    ) {
+      return true;
+    }
     const siteUrl = process.env.NEXT_PUBLIC_SITE_URL;
     if (siteUrl) {
       const site = new URL(siteUrl);
-      if (originUrl.hostname === site.hostname) return true;
+      if (originUrl.origin === site.origin) return true;
+      if (
+        isLocalhost(originUrl.hostname) &&
+        isLocalhost(site.hostname) &&
+        originUrl.protocol === site.protocol
+      ) {
+        return true;
+      }
     }
     return false;
   } catch {
@@ -49,7 +68,7 @@ export async function POST(request: Request) {
     }
 
     const ip = getClientIp(request);
-    const limit = checkRateLimit("contact", ip, MAX_REQUESTS, RATE_LIMIT_WINDOW_MS);
+    const limit = await checkRateLimitDistributed("contact", ip, MAX_REQUESTS, RATE_LIMIT_WINDOW_MS);
 
     if (!limit.allowed) {
       return NextResponse.json(
@@ -64,12 +83,13 @@ export async function POST(request: Request) {
     const body = await request.json();
     const { name, email, subject, message, website } = body;
 
-    // Honeypot — bots fill hidden fields
-    if (website) {
+    // Honeypot — any truthy value (including whitespace-only) indicates a bot
+    // that filled the hidden field. Empty string / undefined is user intent clear.
+    if (typeof website === "string" ? website !== "" : Boolean(website)) {
       return NextResponse.json({ success: true });
     }
 
-    // Required field presence check
+    // Required field presence check (trim-aware)
     if (!name || !email || !message) {
       return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
     }
@@ -79,17 +99,23 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Invalid field types" }, { status: 400 });
     }
 
+    // Trim before length validation to avoid bypass via trailing spaces
+    const trimmedName = name.trim();
+    const trimmedEmail = email.trim();
+    const trimmedMessage = message.trim();
+    const trimmedSubject = typeof subject === "string" ? subject.trim() : "";
+
     // Length validation
-    if (name.length > LIMITS.name) {
+    if (trimmedName.length > LIMITS.name) {
       return NextResponse.json({ error: "Name is too long (max 100 characters)" }, { status: 400 });
     }
-    if (email.length > LIMITS.email) {
+    if (trimmedEmail.length > LIMITS.email) {
       return NextResponse.json({ error: "Email is too long (max 200 characters)" }, { status: 400 });
     }
-    if (message.length > LIMITS.message) {
+    if (trimmedMessage.length > LIMITS.message) {
       return NextResponse.json({ error: "Message is too long (max 5000 characters)" }, { status: 400 });
     }
-    if (subject && typeof subject === "string" && subject.length > LIMITS.subject) {
+    if (trimmedSubject.length > LIMITS.subject) {
       return NextResponse.json({ error: "Subject is too long (max 100 characters)" }, { status: 400 });
     }
 
@@ -107,13 +133,15 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Service unavailable" }, { status: 503 });
     }
 
-    const supabase = createClient(supabaseUrl, supabaseKey);
+    const supabase = createClient(supabaseUrl, supabaseKey, {
+      auth: { persistSession: false, autoRefreshToken: false },
+    });
 
     const { error } = await supabase.from("contact_submissions").insert({
-      name: name.trim(),
-      email: email.trim(),
-      subject: (typeof subject === "string" ? subject.trim() : null) || "general",
-      message: message.trim(),
+      name: trimmedName,
+      email: trimmedEmail,
+      subject: trimmedSubject || "general",
+      message: trimmedMessage,
     });
 
     if (error) {

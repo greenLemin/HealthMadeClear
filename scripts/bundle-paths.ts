@@ -2,7 +2,6 @@ import fs from "fs";
 import path from "path";
 import { getAllPathsFromMdx } from "../src/lib/paths/mdxParser";
 import { assertLocaleIdParity } from "./lib/validateLocaleParity";
-import { formatWithPrettier } from "./lib/formatWithPrettier";
 
 async function main() {
   const en = await getAllPathsFromMdx("en");
@@ -20,7 +19,6 @@ async function main() {
       `${header}export const paths: LearningPath[] = ${JSON.stringify(paths, null, 2)} as const;\n`,
       "utf8"
     );
-    formatWithPrettier(outPath);
     return outPath;
   };
 
@@ -35,4 +33,7 @@ async function main() {
 
   console.log(`Wrote path bundles (${en.length} EN, ${es.length} ES paths).`);
 }
-main().catch(console.error);
+main().catch((e) => {
+  console.error(e);
+  process.exit(1);
+});

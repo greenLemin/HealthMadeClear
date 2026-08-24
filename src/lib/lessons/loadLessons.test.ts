@@ -19,13 +19,13 @@ describe("loadLessons", () => {
     it("returns all lessons for the specified locale", () => {
       const lessonsEn = getAllLessons("en");
       expect(lessonsEn).toHaveLength(2);
-      expect(lessonsEn[0].title).toBe("Lesson One");
-      expect(lessonsEn[1].title).toBe("Lesson Two");
+      expect(lessonsEn[0]!.title).toBe("Lesson One");
+      expect(lessonsEn[1]!.title).toBe("Lesson Two");
 
       const lessonsEs = getAllLessons("es");
       expect(lessonsEs).toHaveLength(2);
-      expect(lessonsEs[0].title).toBe("Lección Uno");
-      expect(lessonsEs[1].title).toBe("Lección Tres");
+      expect(lessonsEs[0]!.title).toBe("Lección Uno");
+      expect(lessonsEs[1]!.title).toBe("Lección Tres");
     });
   });
 

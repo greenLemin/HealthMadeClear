@@ -28,7 +28,14 @@ function handleArrowSelection<T extends string>(
   event.preventDefault();
   const index = options.indexOf(current);
   const delta = event.key === "ArrowLeft" || event.key === "ArrowUp" ? -1 : 1;
-  onSelect(options[(index + delta + options.length) % options.length]);
+  const next = options[(index + delta + options.length) % options.length]!;
+  onSelect(next);
+  const group = (event.currentTarget as HTMLElement).closest('[role="radiogroup"]');
+  if (group) {
+    const radios = Array.from(group.querySelectorAll<HTMLElement>('[role="radio"]'));
+    const nextIndex = options.indexOf(next);
+    radios[nextIndex]?.focus();
+  }
 }
 
 function TextSizeControls({ t }: { t: ReturnType<typeof useTranslations<"accessibility">> }) {
@@ -53,6 +60,7 @@ function TextSizeControls({ t }: { t: ReturnType<typeof useTranslations<"accessi
             role="radio"
             aria-checked={textSize === value}
             aria-label={textSizeLabels[value]}
+            tabIndex={textSize === value ? 0 : -1}
             onClick={() => setTextSize(value)}
             onKeyDown={(event) => handleArrowSelection(event, TEXT_SIZES, textSize, setTextSize)}
             className={
@@ -79,6 +87,7 @@ function ThemeControls({ t }: { t: ReturnType<typeof useTranslations<"accessibil
           type="button"
           role="radio"
           aria-checked={theme === "light"}
+          tabIndex={theme === "light" ? 0 : -1}
           onClick={() => setTheme("light")}
           onKeyDown={(event) => handleArrowSelection(event, THEMES, theme, setTheme)}
           className={
@@ -94,6 +103,7 @@ function ThemeControls({ t }: { t: ReturnType<typeof useTranslations<"accessibil
           type="button"
           role="radio"
           aria-checked={theme === "dark"}
+          tabIndex={theme === "dark" ? 0 : -1}
           onClick={() => setTheme("dark")}
           onKeyDown={(event) => handleArrowSelection(event, THEMES, theme, setTheme)}
           className={

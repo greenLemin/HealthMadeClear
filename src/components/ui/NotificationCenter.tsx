@@ -79,6 +79,7 @@ export default function NotificationCenter() {
   }, [user, supabase]);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- Fetch notifications on mount; loading state toggles synchronously
     fetchNotifications();
   }, [fetchNotifications]);
 

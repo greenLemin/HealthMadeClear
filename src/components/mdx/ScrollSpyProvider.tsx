@@ -1,6 +1,15 @@
 "use client";
 
-import { createContext, useContext, useEffect, useRef, useState, useCallback, ReactNode } from "react";
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+  useCallback,
+  useMemo,
+  ReactNode,
+} from "react";
 
 interface ScrollSpyContextValue {
   registerTerm: (id: string, element: HTMLElement | null) => void;
@@ -61,11 +70,12 @@ export function ScrollSpyProvider({ children }: { children: ReactNode }) {
     };
   }, []);
 
-  return (
-    <ScrollSpyContext.Provider value={{ registerTerm, unregisterTerm, activeTermIds }}>
-      {children}
-    </ScrollSpyContext.Provider>
+  const value = useMemo<ScrollSpyContextValue>(
+    () => ({ registerTerm, unregisterTerm, activeTermIds }),
+    [registerTerm, unregisterTerm, activeTermIds]
   );
+
+  return <ScrollSpyContext.Provider value={value}>{children}</ScrollSpyContext.Provider>;
 }
 
 export function useScrollSpyContext() {

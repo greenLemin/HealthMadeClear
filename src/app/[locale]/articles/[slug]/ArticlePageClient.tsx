@@ -12,16 +12,21 @@ import { useAppState } from "@/components/AppProviders";
 import { useToast } from "@/components/ui/ToastProvider";
 import Reveal from "@/components/ui/Reveal";
 import { formatReviewDate } from "@/lib/i18n";
-import { getGlossaryTerms } from "@/lib/localizedContent";
 import { useTranslations } from "next-intl";
 import type { Article } from "@/types/article";
+import type { GlossaryTerm } from "@/types/glossary";
 
-export default function ArticlePageClient({ article }: { article: Article }) {
+export default function ArticlePageClient({
+  article,
+  glossaryTerms,
+}: {
+  article: Article;
+  glossaryTerms: GlossaryTerm[];
+}) {
   const { locale } = useAppState();
   const t = useTranslations("articles");
   const tCommon = useTranslations("common");
   const tNav = useTranslations("nav");
-  const glossaryTerms = getGlossaryTerms(locale);
   const { showToast } = useToast();
   const url = typeof window !== "undefined" ? window.location.href : "";
   const reviewedDate = article.lastReviewed ? formatReviewDate(article.lastReviewed, locale) : null;

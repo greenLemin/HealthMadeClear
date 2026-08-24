@@ -10,4 +10,5 @@ alter table public.streaks enable row level security;
 
 create policy "Users can manage their own streak"
   on public.streaks for all
-  using (auth.uid() = user_id);
+  using (auth.uid() = user_id)
+  with check (auth.uid() = user_id);

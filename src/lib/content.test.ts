@@ -56,7 +56,7 @@ describe("content helpers", () => {
 
   describe("getLessonsByPath", () => {
     const [l1, l2, l3] = ["l1", "l2", "l3"].map(makeLesson);
-    const mockLessons = [l1, l2, l3];
+    const mockLessons = [l1!, l2!, l3!];
 
     it("returns an empty array when the path is not found", () => {
       expect(getLessonsByPath("nope", mockLessons, [makePath("p1", ["l1"])])).toEqual([]);

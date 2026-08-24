@@ -9,9 +9,9 @@ describe("locale", () => {
     });
 
     it("throws an error when the locale is invalid", () => {
-      expect(() => requireLocale("fr")).toThrowError("Invalid locale: fr");
-      expect(() => requireLocale("invalid")).toThrowError("Invalid locale: invalid");
-      expect(() => requireLocale("")).toThrowError("Invalid locale: ");
+      expect(() => requireLocale("fr")).toThrow();
+      expect(() => requireLocale("invalid")).toThrow();
+      expect(() => requireLocale("")).toThrow();
     });
   });
 });

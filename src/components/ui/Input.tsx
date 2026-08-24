@@ -1,6 +1,6 @@
 "use client";
 
-import { forwardRef, useState, type InputHTMLAttributes, type ReactNode } from "react";
+import { forwardRef, useId, useState, type InputHTMLAttributes, type ReactNode } from "react";
 import { AlertCircle, Eye, EyeOff } from "lucide-react";
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
@@ -30,7 +30,8 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
     },
     ref
   ) => {
-    const inputId = id || `input-${label.toLowerCase().replace(/\s+/g, "-")}`;
+    const idFallback = useId();
+    const inputId = id || `input-${idFallback}`;
     const errorId = `${inputId}-error`;
     const hintId = `${inputId}-hint`;
 

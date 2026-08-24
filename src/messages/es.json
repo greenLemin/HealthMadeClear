@@ -64,6 +64,7 @@
     "emergencyCallAria": "Llamar a emergencias (911 en EE. UU.)"
   },
   "common": {
+    "keyTakeaway": "Punto clave",
     "loading": "Cargando...",
     "add": "Agregar",
     "completed": "Completado",
@@ -313,6 +314,8 @@
     "spanish": "Español"
   },
   "progress": {
+    "saveError": "No se pudo guardar el progreso",
+    "quizSaveError": "No se pudo guardar el resultado del cuestionario",
     "title": "Mi Progreso",
     "overallProgress": "Progreso General",
     "lessonsCompleted": "{count} de {total} lecciones completadas",
@@ -343,12 +346,14 @@
     "activeLabel": "Activo",
     "inactiveLabel": "Inactivo",
     "keepStreakAlive": "¡Mantén tu racha viva! Aprende algo nuevo hoy.",
+    "activeToday": "Activo hoy",
     "daysValue": "{count} días",
     "lessonsValue": "{count} lecciones",
     "averageScoreValue": "Puntuación media {score}%",
     "categoryTableCaption": "Lecciones completadas y resultados de cuestionarios por categoría",
     "completedTableCaption": "Lecciones que has completado",
     "streakCalendarCaption": "Tu actividad de aprendizaje en los últimos 30 días",
+    "streakResetNote": "Los días de aprendizaje siguen el horario UTC: tu racha se actualiza a las 00:00 UTC.",
     "activeDayLabel": "{date}: activo",
     "inactiveDayLabel": "{date}: sin actividad",
     "startLearningCta": "Empezar a aprender",

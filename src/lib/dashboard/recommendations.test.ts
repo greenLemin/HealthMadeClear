@@ -180,8 +180,8 @@ describe("getRecommendedNextLesson", () => {
     // beginner lesson exists later in the list. The fallback scan must keep
     // going rather than settling for the advanced lesson.
     vi.mocked(loadLessons.getAllLessons).mockReturnValue([
-      mockLessons[2], // advanced, uncompleted, appears first
-      mockLessons[1], // beginner, uncompleted, appears later
+      mockLessons[2]!, // advanced, uncompleted, appears first
+      mockLessons[1]!, // beginner, uncompleted, appears later
     ]);
     vi.mocked(loadPaths.getAllLearningPaths).mockReturnValue([]);
 
@@ -197,7 +197,7 @@ describe("getRecommendedNextLesson", () => {
   });
 
   it("falls back to the first uncompleted lesson when no beginner lesson remains", async () => {
-    vi.mocked(loadLessons.getAllLessons).mockReturnValue([mockLessons[2], mockLessons[1]]);
+    vi.mocked(loadLessons.getAllLessons).mockReturnValue([mockLessons[2]!, mockLessons[1]!]);
     vi.mocked(loadPaths.getAllLearningPaths).mockReturnValue([]);
 
     const result = await getRecommendedNextLesson(

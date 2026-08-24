@@ -40,4 +40,7 @@ async function main() {
 
   console.log(`Generated ${learningPaths.length} EN and ${esPaths.length} ES path MDX files.`);
 }
-main().catch(console.error);
+main().catch((e) => {
+  console.error(e);
+  process.exit(1);
+});

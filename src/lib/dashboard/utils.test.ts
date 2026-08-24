@@ -24,7 +24,11 @@ describe("dashboard utils", () => {
       logQueryError("TestContext", mockError);
 
       expect(console.error).toHaveBeenCalledTimes(1);
-      expect(console.error).toHaveBeenCalledWith("Query error in TestContext:", mockError);
+      // logQueryError now delegates to reportServerError which scrubs and prefixes with [hmc:server]
+      const [prefix, , context] = (console.error as unknown as { mock: { calls: unknown[][] } }).mock
+        .calls[0] as [string, string, Record<string, unknown>];
+      expect(prefix).toBe("[hmc:server]");
+      expect(context).toMatchObject({ context: "TestContext" });
     });
 
     it("should not log anything when error is null", () => {

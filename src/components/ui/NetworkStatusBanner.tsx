@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { X } from "lucide-react";
 import { useTranslations } from "next-intl";
 
@@ -8,17 +8,21 @@ export default function NetworkStatusBanner() {
   const t = useTranslations("common");
   const [offline, setOffline] = useState(false);
   const [dismissed, setDismissed] = useState(false);
+  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- Initialize offline state from navigator.onLine on mount
     setOffline(!navigator.onLine);
 
     const handleOffline = () => {
+      if (timerRef.current) clearTimeout(timerRef.current);
       setDismissed(false);
       setOffline(true);
     };
     const handleOnline = () => {
       setDismissed(true);
-      setTimeout(() => {
+      if (timerRef.current) clearTimeout(timerRef.current);
+      timerRef.current = setTimeout(() => {
         setOffline(false);
         setDismissed(false);
       }, 3000);
@@ -27,6 +31,7 @@ export default function NetworkStatusBanner() {
     window.addEventListener("offline", handleOffline);
     window.addEventListener("online", handleOnline);
     return () => {
+      if (timerRef.current) clearTimeout(timerRef.current);
       window.removeEventListener("offline", handleOffline);
       window.removeEventListener("online", handleOnline);
     };

@@ -47,6 +47,9 @@ export function markLessonComplete(lessonId: string) {
 
 export function saveQuizAttempt(quizId: string, score: number, maxScore: number) {
   const attempts = getItem<{ quizId: string; score: number; maxScore: number }[]>("quizAttempts", []);
+  if (attempts.length >= 100) {
+    attempts.splice(0, attempts.length - 99);
+  }
   attempts.push({ quizId, score, maxScore });
   setItem("quizAttempts", attempts);
 }
@@ -86,15 +89,24 @@ export async function migrateGuestProgressToSupabase(
   }
 
   if (progress.quizAttempts.length > 0) {
-    const quizRows = progress.quizAttempts.map((attempt) => ({
+    const bestByQuizId = new Map<string, { score: number; maxScore: number }>();
+    for (const attempt of progress.quizAttempts) {
+      const existing = bestByQuizId.get(attempt.quizId);
+      if (!existing || attempt.score > existing.score) {
+        bestByQuizId.set(attempt.quizId, { score: attempt.score, maxScore: attempt.maxScore });
+      }
+    }
+    const quizRows = Array.from(bestByQuizId.entries()).map(([quizId, { score, maxScore }]) => ({
       user_id: userId,
-      quiz_id: attempt.quizId,
-      score: attempt.score,
-      max_score: attempt.maxScore,
-      passed: attempt.score >= attempt.maxScore * 0.7,
+      quiz_id: quizId,
+      score,
+      max_score: maxScore,
+      passed: score >= maxScore * 0.7,
     }));
 
-    const { error: quizError } = await supabase.from("quiz_attempts").insert(quizRows);
+    const { error: quizError } = await supabase.from("quiz_attempts").upsert(quizRows, {
+      onConflict: "user_id,quiz_id",
+    });
 
     if (quizError) {
       logger.error("Failed to migrate quiz attempts:", quizError);

@@ -101,8 +101,8 @@ describe("getUserAchievements", () => {
     expect(logQueryError).toHaveBeenCalledWith("getUserAchievements", errorObj);
 
     expect(achievements).toHaveLength(2);
-    expect(achievements[0].earned).toBe(false);
-    expect(achievements[1].earned).toBe(false);
+    expect(achievements[0]!.earned).toBe(false);
+    expect(achievements[1]!.earned).toBe(false);
   });
 
   it("uses the provided locale", async () => {

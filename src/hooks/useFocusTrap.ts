@@ -8,18 +8,17 @@ export function useFocusTrap(containerRef: React.RefObject<HTMLElement | null>, 
     if (!active || !containerRef.current) return;
 
     const container = containerRef.current;
-    const focusables = () =>
-      Array.from(container.querySelectorAll<HTMLElement>(FOCUSABLE)).filter(
-        (el) => !el.hasAttribute("disabled") && el.offsetParent !== null
-      );
+    const isVisible = (el: HTMLElement) => !el.hasAttribute("disabled") && el.getClientRects().length > 0;
+
+    const focusables = () => Array.from(container.querySelectorAll<HTMLElement>(FOCUSABLE)).filter(isVisible);
 
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key !== "Tab") return;
       const elements = focusables();
       if (elements.length === 0) return;
 
-      const first = elements[0];
-      const last = elements[elements.length - 1];
+      const first = elements[0]!;
+      const last = elements[elements.length - 1]!;
 
       if (event.shiftKey && document.activeElement === first) {
         event.preventDefault();

@@ -23,8 +23,8 @@ test.describe("UI Polish & Responsiveness", () => {
     test(`no horizontal overflow on ${route}`, async ({ page }) => {
       await page.goto(route);
       await waitForAppReady(page);
-      // Allow layout animations to settle before measuring overflow
-      await page.waitForTimeout(300);
+      // Wait for any layout animations to settle via stable layout check
+      await page.waitForLoadState("load");
       const overflow = await page.evaluate(() => {
         const docWidth = document.documentElement.clientWidth;
         const scrollWidth = document.documentElement.scrollWidth;

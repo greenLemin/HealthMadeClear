@@ -122,9 +122,9 @@ export default function VisitPlannerClient() {
             <div className="flex flex-col gap-6 xl:flex-row xl:items-end xl:justify-between">
               <div>
                 <div className="eyebrow mb-3">{tPlanner("introEyebrow")}</div>
-                <h2 className="font-display text-headline-lg text-primary">{steps[step - 1].title}</h2>
+                <h2 className="font-display text-headline-lg text-primary">{steps[step - 1]!.title}</h2>
                 <p className="mt-3 max-w-readable text-body-md text-on-surface-variant">
-                  {steps[step - 1].description}
+                  {steps[step - 1]!.description}
                 </p>
               </div>
               <div className="w-full max-w-sm">

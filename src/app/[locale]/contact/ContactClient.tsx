@@ -195,7 +195,7 @@ export default function ContactClient() {
                     {SUBJECTS.map((s) => (
                       <option key={s} value={s}>
                         {t(
-                          `subject${s.charAt(0).toUpperCase() + s.slice(1).replace(/-./g, (m) => m[1].toUpperCase())}`
+                          `subject${s.charAt(0).toUpperCase() + s.slice(1).replace(/-./g, (m) => m[1]!.toUpperCase())}`
                         )}
                       </option>
                     ))}

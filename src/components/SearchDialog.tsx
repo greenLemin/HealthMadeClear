@@ -31,6 +31,7 @@ export default function SearchDialog() {
   const noResultsDescription = noResultsSplit === -1 ? "" : noResultsMessage.slice(noResultsSplit + 2);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- Mark hydration complete on mount; shortcut label depends on it
     setMounted(true);
   }, []);
 

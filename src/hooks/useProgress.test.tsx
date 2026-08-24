@@ -12,7 +12,16 @@ vi.mock("@/hooks/useAuth", () => ({ useAuth: vi.fn() }));
 vi.mock("@/components/AppProviders", () => ({ useAppState: vi.fn() }));
 vi.mock("@/components/ui/ToastProvider", () => ({ useToast: vi.fn() }));
 vi.mock("@/lib/supabase/client", () => ({ createClient: vi.fn() }));
-vi.mock("next-intl", () => ({ useLocale: vi.fn(() => "en") }));
+vi.mock("next-intl", () => ({
+  useLocale: vi.fn(() => "en"),
+  useTranslations: vi.fn(() => (key: string) => {
+    const map: Record<string, string> = {
+      saveError: "Failed to save progress",
+      quizSaveError: "Failed to save quiz result",
+    };
+    return map[key] ?? key;
+  }),
+}));
 vi.mock("@/lib/guestProgress", () => ({
   getGuestProgress: vi.fn(() => ({ completedLessons: [], quizAttempts: [] })),
   markLessonComplete: vi.fn(),
@@ -25,7 +34,10 @@ vi.mock("@/lib/achievements", () => ({
 }));
 vi.mock("@/lib/streaks", () => ({ updateStreak: vi.fn(() => Promise.resolve({ currentStreak: 1 })) }));
 vi.mock("@/lib/dashboard", () => ({ updateDailyLog: vi.fn(() => Promise.resolve()) }));
-vi.mock("@/lib/notifications", () => ({ createNotification: vi.fn(() => Promise.resolve()) }));
+vi.mock("@/lib/notifications", () => ({
+  createNotification: vi.fn(() => Promise.resolve()),
+  createNotifications: vi.fn(() => Promise.resolve()),
+}));
 vi.mock("@/lib/errorReporting", () => ({ reportClientError: vi.fn() }));
 vi.mock("@/lib/paths/loadPaths", () => ({
   getAllLearningPaths: vi.fn(() => []),
@@ -412,6 +424,52 @@ describe("useProgress hook", () => {
       });
 
       expect(mockShowToast).toHaveBeenCalledWith("error", "Failed to save quiz result");
+    });
+  });
+
+  describe("Rapid Double-Complete Race (C-01 regression guard)", () => {
+    beforeEach(() => {
+      vi.mocked(useAuth).mockReturnValue({ user: { id: "user-123" }, loading: false } as any);
+
+      mockSupabase = {
+        from: vi.fn((table) => {
+          if (table === "lesson_progress") {
+            return {
+              select: vi.fn().mockReturnValue({
+                eq: vi.fn().mockReturnValue({
+                  eq: vi.fn().mockResolvedValue({ data: [] }),
+                }),
+              }),
+              upsert: vi.fn().mockResolvedValue({ error: null }),
+            };
+          }
+          if (table === "quiz_attempts") {
+            return {
+              select: vi.fn().mockReturnValue({
+                eq: vi.fn().mockResolvedValue({ data: [] }),
+              }),
+              insert: vi.fn().mockResolvedValue({ error: null }),
+            };
+          }
+          return {};
+        }),
+      };
+      vi.mocked(createClient).mockReturnValue(mockSupabase as any);
+    });
+
+    it("should keep both lessons when completing two lessons in rapid Promise.all", async () => {
+      const { result } = renderHook(() => useProgress());
+      await waitFor(() => expect(result.current.isLoading).toBe(false));
+
+      await act(async () => {
+        await Promise.all([
+          result.current.markLessonComplete("lesson-A"),
+          result.current.markLessonComplete("lesson-B"),
+        ]);
+      });
+
+      expect(result.current.completedLessonIds).toEqual(expect.arrayContaining(["lesson-A", "lesson-B"]));
+      expect(result.current.completedLessonIds).toHaveLength(2);
     });
   });
 });

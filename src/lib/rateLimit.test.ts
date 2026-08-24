@@ -62,8 +62,8 @@ describe("getClientIp", () => {
     expect(getClientIp(req)).toBe("192.168.1.3");
   });
 
-  it("returns 127.0.0.1 as a last resort", () => {
+  it("returns 'unknown' as a last resort", () => {
     const req = new Request("http://localhost");
-    expect(getClientIp(req)).toBe("127.0.0.1");
+    expect(getClientIp(req)).toBe("unknown");
   });
 });

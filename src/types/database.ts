@@ -70,12 +70,16 @@ export interface Database {
       };
       lesson_progress: {
         Row: LessonProgress;
-        Insert: Omit<LessonProgress, "id" | "created_at" | "updated_at">;
+        Insert: Omit<
+          LessonProgress,
+          "id" | "created_at" | "updated_at" | "completed" | "time_spent_seconds" | "completed_at"
+        > &
+          Partial<Pick<LessonProgress, "completed" | "time_spent_seconds" | "completed_at">>;
         Update: Partial<Omit<LessonProgress, "id" | "user_id">>;
       };
       quiz_attempts: {
         Row: QuizAttempt;
-        Insert: Omit<QuizAttempt, "id" | "attempted_at">;
+        Insert: Omit<QuizAttempt, "id" | "attempted_at" | "answers"> & Partial<Pick<QuizAttempt, "answers">>;
         Update: Partial<Omit<QuizAttempt, "id" | "user_id">>;
       };
       achievements: {
@@ -85,7 +89,8 @@ export interface Database {
       };
       streaks: {
         Row: Streak;
-        Insert: Omit<Streak, "updated_at">;
+        Insert: Omit<Streak, "updated_at" | "current_streak" | "longest_streak" | "last_activity_date"> &
+          Partial<Pick<Streak, "current_streak" | "longest_streak" | "last_activity_date">>;
         Update: Partial<Omit<Streak, "user_id">>;
       };
       daily_log: {
@@ -95,8 +100,30 @@ export interface Database {
       };
       notifications: {
         Row: Notification;
-        Insert: Omit<Notification, "id" | "created_at">;
+        Insert: Omit<Notification, "id" | "created_at" | "read"> & Partial<Pick<Notification, "read">>;
         Update: Partial<Omit<Notification, "id" | "user_id">>;
+      };
+      contact_submissions: {
+        Row: {
+          id: string;
+          name: string;
+          email: string;
+          subject: string;
+          message: string;
+          created_at: string;
+        };
+        Insert: {
+          name: string;
+          email: string;
+          subject?: string;
+          message: string;
+        };
+        Update: Partial<{
+          name: string;
+          email: string;
+          subject: string;
+          message: string;
+        }>;
       };
     };
   };

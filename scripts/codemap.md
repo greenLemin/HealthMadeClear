@@ -32,7 +32,6 @@ Content build pipeline — generates TypeScript data bundles from MDX source fil
 ### Other
 
 - `check-production-env.mjs`: Verifies production environment variables before build
-- `update_messages.js`: Updates translation message files
 
 ## Subdirectories
 

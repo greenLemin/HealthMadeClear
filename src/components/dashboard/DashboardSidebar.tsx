@@ -20,6 +20,8 @@ interface NavItem {
   exact: boolean;
 }
 
+type TranslationValues = Record<string, string | number | Date>;
+
 function DesktopSidebar({
   displayName,
   email,
@@ -32,7 +34,7 @@ function DesktopSidebar({
   initials: string;
   navItems: NavItem[];
   pathname: string;
-  t: (key: string, values?: any) => string;
+  t: (key: string, values?: TranslationValues) => string;
 }) {
   function isActive(href: string, exact: boolean) {
     if (exact) return pathname === href;
@@ -97,7 +99,7 @@ function MobileBottomNav({
 }: {
   navItems: NavItem[];
   pathname: string;
-  t: (key: string, values?: any) => string;
+  t: (key: string, values?: TranslationValues) => string;
 }) {
   function isActive(href: string, exact: boolean) {
     if (exact) return pathname === href;

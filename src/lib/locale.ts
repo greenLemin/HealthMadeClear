@@ -1,3 +1,4 @@
+import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import type { Locale } from "@/lib/i18n";
 
@@ -8,7 +9,7 @@ function parseLocale(value: string): Locale | null {
 export function requireLocale(value: string): Locale {
   const locale = parseLocale(value);
   if (!locale) {
-    throw new Error(`Invalid locale: ${value}`);
+    notFound();
   }
   return locale;
 }

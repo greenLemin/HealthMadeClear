@@ -2,20 +2,20 @@
 
 import { useMemo, useState } from "react";
 import { Search } from "lucide-react";
-import { useAppState } from "@/components/AppProviders";
 import ArticleCard from "@/components/articles/ArticleCard";
 import PageHeader from "@/components/PageHeader";
 import Button from "@/components/ui/Button";
 import EmptyState from "@/components/ui/EmptyState";
 import Reveal from "@/components/ui/Reveal";
-import { getArticles } from "@/lib/localizedContent";
+import type { Article } from "@/types/article";
 import { useTranslations } from "next-intl";
 
-export default function ArticlesClient() {
+// Props-driven to avoid bundling articleBundles in client JS — server passes localized articles.
+type Props = { articles: Article[] };
+
+export default function ArticlesClient({ articles }: Props) {
   const [query, setQuery] = useState("");
-  const { locale } = useAppState();
   const t = useTranslations("articles");
-  const articles = getArticles(locale);
 
   const searchIndex = useMemo(() => {
     return articles.map((article) => ({
@@ -28,7 +28,7 @@ export default function ArticlesClient() {
   const filtered = useMemo(() => {
     const q = query.toLowerCase();
     return articles.filter((article, index) => {
-      const idx = searchIndex[index];
+      const idx = searchIndex[index]!;
       return idx.titleLower.includes(q) || idx.descriptionLower.includes(q) || idx.categoryLower.includes(q);
     });
   }, [articles, query, searchIndex]);

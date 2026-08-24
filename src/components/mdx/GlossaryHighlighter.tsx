@@ -1,3 +1,5 @@
+"use client";
+
 import { useMemo, useId } from "react";
 import InlineGlossaryTerm from "./InlineGlossaryTerm";
 import type { GlossaryTerm } from "@/types/glossary";

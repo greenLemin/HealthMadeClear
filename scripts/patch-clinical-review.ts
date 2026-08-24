@@ -29,8 +29,8 @@ function patchFile(filePath: string) {
 
   const yaml = Object.entries(data)
     .map(([k, v]) => {
-      if (Array.isArray(v)) return `${k}:\n${v.map((x) => `  - "${x}"`).join("\n")}`;
-      return `${k}: "${v}"`;
+      if (Array.isArray(v)) return `${k}:\n${v.map((x) => `  - ${JSON.stringify(x)}`).join("\n")}`;
+      return `${k}: ${JSON.stringify(v)}`;
     })
     .join("\n");
   fs.writeFileSync(filePath, `---\n${yaml}\n---\n\n${content.trim()}\n`, "utf8");

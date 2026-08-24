@@ -83,7 +83,7 @@ describe("supabase server createClient", () => {
     expect(client).toBe(realClient);
 
     // Test cookies.getAll
-    const createServerClientArgs = vi.mocked(createServerClient).mock.calls[0];
+    const createServerClientArgs = vi.mocked(createServerClient).mock.calls[0]!;
     const cookiesConfig = createServerClientArgs[2]?.cookies;
 
     expect(cookiesConfig).toBeDefined();

@@ -10,4 +10,5 @@ alter table public.achievements enable row level security;
 
 create policy "Users can view their own achievements"
   on public.achievements for all
-  using (auth.uid() = user_id);
+  using (auth.uid() = user_id)
+  with check (auth.uid() = user_id);

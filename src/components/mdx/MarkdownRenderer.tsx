@@ -28,7 +28,7 @@ function renderInlineChildren(
   let index = 0;
 
   while (index < children.length) {
-    const child = children[index];
+    const child = children[index]!;
 
     if (child.type === "text" && child.content) {
       nodes.push(
@@ -45,12 +45,12 @@ function renderInlineChildren(
     if (child.type === "strong_open") {
       const inner: React.ReactNode[] = [];
       index++;
-      while (index < children.length && children[index].type !== "strong_close") {
-        if (children[index].type === "text" && children[index].content) {
+      while (index < children.length && children[index]!.type !== "strong_close") {
+        if (children[index]!.type === "text" && children[index]!.content) {
           inner.push(
             <GlossaryHighlighter
               key={`${keyPrefix}-strong-${index}`}
-              text={children[index].content ?? ""}
+              text={children[index]!.content ?? ""}
               glossaryTerms={glossaryTerms}
             />
           );
@@ -65,12 +65,12 @@ function renderInlineChildren(
     if (child.type === "em_open") {
       const inner: React.ReactNode[] = [];
       index++;
-      while (index < children.length && children[index].type !== "em_close") {
-        if (children[index].type === "text" && children[index].content) {
+      while (index < children.length && children[index]!.type !== "em_close") {
+        if (children[index]!.type === "text" && children[index]!.content) {
           inner.push(
             <GlossaryHighlighter
               key={`${keyPrefix}-em-${index}`}
-              text={children[index].content ?? ""}
+              text={children[index]!.content ?? ""}
               glossaryTerms={glossaryTerms}
             />
           );
@@ -86,12 +86,12 @@ function renderInlineChildren(
       const href = String(child.attrGet("href") ?? "");
       const inner: React.ReactNode[] = [];
       index++;
-      while (index < children.length && children[index].type !== "link_close") {
-        if (children[index].type === "text" && children[index].content) {
+      while (index < children.length && children[index]!.type !== "link_close") {
+        if (children[index]!.type === "text" && children[index]!.content) {
           inner.push(
             <GlossaryHighlighter
               key={`${keyPrefix}-link-${index}`}
-              text={children[index].content ?? ""}
+              text={children[index]!.content ?? ""}
               glossaryTerms={glossaryTerms}
             />
           );
@@ -134,7 +134,7 @@ function renderTokens(
   let i = index;
 
   while (i < tokens.length) {
-    const token = tokens[i];
+    const token = tokens[i]!;
 
     if (token.type === "inline") {
       if (token.children) {
@@ -143,28 +143,30 @@ function renderTokens(
     } else if (token.type === "paragraph_open") {
       const children: React.ReactNode[] = [];
       i++;
-      while (i < tokens.length && tokens[i].type !== "paragraph_close") {
-        if (tokens[i].type === "inline") {
-          const inlineChildren = renderTokens([tokens[i]], glossaryTerms);
+      while (i < tokens.length && tokens[i]!.type !== "paragraph_close") {
+        if (tokens[i]!.type === "inline") {
+          const inlineChildren = renderTokens([tokens[i]!], glossaryTerms);
           children.push(...inlineChildren);
         }
         i++;
       }
-      result.push(<p key={`p-${i}`}>{children}</p>);
+      result.push(<p key={`p-${token.map?.join("-") ?? i}-${i}`}>{children}</p>);
     } else if (token.type === "bullet_list_open") {
       const items: React.ReactNode[] = [];
+      const listKey = `ul-${token.map?.join("-") ?? i}-${i}`;
       i++;
-      while (i < tokens.length && tokens[i].type !== "bullet_list_close") {
-        if (tokens[i].type === "list_item_open") {
+      while (i < tokens.length && tokens[i]!.type !== "bullet_list_close") {
+        if (tokens[i]!.type === "list_item_open") {
           const itemChildren: React.ReactNode[] = [];
+          const liKey = `li-${tokens[i]!.map?.join("-") ?? i}-${i}-${items.length}`;
           i++;
-          while (i < tokens.length && tokens[i].type !== "list_item_close") {
-            if (tokens[i].type === "paragraph_open") {
+          while (i < tokens.length && tokens[i]!.type !== "list_item_close") {
+            if (tokens[i]!.type === "paragraph_open") {
               const paraChildren: React.ReactNode[] = [];
               i++;
-              while (i < tokens.length && tokens[i].type !== "paragraph_close") {
-                if (tokens[i].type === "inline") {
-                  paraChildren.push(...renderTokens([tokens[i]], glossaryTerms));
+              while (i < tokens.length && tokens[i]!.type !== "paragraph_close") {
+                if (tokens[i]!.type === "inline") {
+                  paraChildren.push(...renderTokens([tokens[i]!], glossaryTerms));
                 }
                 i++;
               }
@@ -172,25 +174,27 @@ function renderTokens(
             }
             i++;
           }
-          items.push(<li key={`li-${i}`}>{itemChildren}</li>);
+          items.push(<li key={liKey}>{itemChildren}</li>);
         }
         i++;
       }
-      result.push(<ul key={`ul-${i}`}>{items}</ul>);
+      result.push(<ul key={listKey}>{items}</ul>);
     } else if (token.type === "ordered_list_open") {
       const items: React.ReactNode[] = [];
+      const listKey = `ol-${token.map?.join("-") ?? i}-${i}`;
       i++;
-      while (i < tokens.length && tokens[i].type !== "ordered_list_close") {
-        if (tokens[i].type === "list_item_open") {
+      while (i < tokens.length && tokens[i]!.type !== "ordered_list_close") {
+        if (tokens[i]!.type === "list_item_open") {
           const itemChildren: React.ReactNode[] = [];
+          const liKey = `li-${tokens[i]!.map?.join("-") ?? i}-${i}-${items.length}`;
           i++;
-          while (i < tokens.length && tokens[i].type !== "list_item_close") {
-            if (tokens[i].type === "paragraph_open") {
+          while (i < tokens.length && tokens[i]!.type !== "list_item_close") {
+            if (tokens[i]!.type === "paragraph_open") {
               const paraChildren: React.ReactNode[] = [];
               i++;
-              while (i < tokens.length && tokens[i].type !== "paragraph_close") {
-                if (tokens[i].type === "inline") {
-                  paraChildren.push(...renderTokens([tokens[i]], glossaryTerms));
+              while (i < tokens.length && tokens[i]!.type !== "paragraph_close") {
+                if (tokens[i]!.type === "inline") {
+                  paraChildren.push(...renderTokens([tokens[i]!], glossaryTerms));
                 }
                 i++;
               }
@@ -198,40 +202,42 @@ function renderTokens(
             }
             i++;
           }
-          items.push(<li key={`li-${i}`}>{itemChildren}</li>);
+          items.push(<li key={liKey}>{itemChildren}</li>);
         }
         i++;
       }
-      result.push(<ol key={`ol-${i}`}>{items}</ol>);
+      result.push(<ol key={listKey}>{items}</ol>);
     } else if (token.type === "heading_open") {
       const level = parseInt(token.tag?.slice(1) ?? "2", 10) || 2;
       const headingChildren: React.ReactNode[] = [];
       i++;
-      while (i < tokens.length && tokens[i].type !== "heading_close") {
-        if (tokens[i].type === "inline") {
-          headingChildren.push(...renderTokens([tokens[i]], glossaryTerms));
+      while (i < tokens.length && tokens[i]!.type !== "heading_close") {
+        if (tokens[i]!.type === "inline") {
+          headingChildren.push(...renderTokens([tokens[i]!], glossaryTerms));
         }
         i++;
       }
       const Tag = `h${level}` as keyof React.JSX.IntrinsicElements;
-      result.push(<Tag key={`h${level}-${i}`}>{headingChildren}</Tag>);
+      result.push(<Tag key={`h${level}-${token.map?.join("-") ?? i}-${i}`}>{headingChildren}</Tag>);
     } else if (token.type === "link_open") {
       const href = String(token.attrGet("href") || "#");
       const linkChildren: React.ReactNode[] = [];
+      const linkStart = i;
       i++;
-      while (i < tokens.length && tokens[i].type !== "link_close") {
-        if (tokens[i].type === "inline") {
-          linkChildren.push(...renderTokens([tokens[i]], glossaryTerms));
+      while (i < tokens.length && tokens[i]!.type !== "link_close") {
+        if (tokens[i]!.type === "inline") {
+          linkChildren.push(...renderTokens([tokens[i]!], glossaryTerms));
         }
         i++;
       }
+      const linkKey = `link-${href.slice(0, 20)}-${linkStart}-${i}`;
       if (!isSafeHref(href)) {
         // Keep the link text so the sentence still reads, but drop the anchor.
-        result.push(<span key={`link-${i}`}>{linkChildren}</span>);
+        result.push(<span key={linkKey}>{linkChildren}</span>);
       } else {
         result.push(
           <a
-            key={`link-${i}`}
+            key={linkKey}
             href={href}
             target="_blank"
             rel="noopener noreferrer"
@@ -246,17 +252,17 @@ function renderTokens(
       let depth = 1;
       i++;
       while (i < tokens.length && depth > 0) {
-        if (tokens[i].type === "blockquote_open") depth++;
-        else if (tokens[i].type === "blockquote_close") {
+        if (tokens[i]!.type === "blockquote_open") depth++;
+        else if (tokens[i]!.type === "blockquote_close") {
           depth--;
           if (depth === 0) break;
         }
-        inner.push(tokens[i]);
+        inner.push(tokens[i]!);
         i++;
       }
       result.push(
         <blockquote
-          key={`bq-${i}`}
+          key={`bq-${token.map?.join("-") ?? i}-${i}-${token.content.slice(0, 20)}`}
           className="border-l-4 border-primary-container pl-4 italic text-on-surface-variant"
         >
           {renderTokens(inner, glossaryTerms)}
@@ -264,7 +270,10 @@ function renderTokens(
       );
     } else if (token.type === "fence" || token.type === "code_block") {
       result.push(
-        <pre key={`code-${i}`} className="overflow-x-auto rounded-lg bg-surface-container p-4 text-label-md">
+        <pre
+          key={`code-${token.map?.join("-") ?? i}-${i}-${token.content.slice(0, 20)}`}
+          className="overflow-x-auto rounded-lg bg-surface-container p-4 text-label-md"
+        >
           <code>{token.content}</code>
         </pre>
       );
@@ -293,15 +302,15 @@ function renderTable(
   const renderRow = (isHeader: boolean, key: string) => {
     const cells: React.ReactNode[] = [];
     i++; // past tr_open
-    while (i < tokens.length && tokens[i].type !== "tr_close") {
-      const cellToken = tokens[i];
+    while (i < tokens.length && tokens[i]!.type !== "tr_close") {
+      const cellToken = tokens[i]!;
       if (cellToken.type === "th_open" || cellToken.type === "td_open") {
         const isTh = cellToken.type === "th_open";
         const cellChildren: React.ReactNode[] = [];
         i++;
-        while (i < tokens.length && tokens[i].type !== "th_close" && tokens[i].type !== "td_close") {
-          if (tokens[i].type === "inline") {
-            cellChildren.push(...renderTokens([tokens[i]], glossaryTerms));
+        while (i < tokens.length && tokens[i]!.type !== "th_close" && tokens[i]!.type !== "td_close") {
+          if (tokens[i]!.type === "inline") {
+            cellChildren.push(...renderTokens([tokens[i]!], glossaryTerms));
           }
           i++;
         }
@@ -324,8 +333,8 @@ function renderTable(
     else body.push(row);
   };
 
-  while (i < tokens.length && tokens[i].type !== "table_close") {
-    const t = tokens[i];
+  while (i < tokens.length && tokens[i]!.type !== "table_close") {
+    const t = tokens[i]!;
     if (t.type === "tr_open") {
       const inHead = head.length === 0 && body.length === 0;
       renderRow(inHead, `row-${i}`);

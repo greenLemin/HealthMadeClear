@@ -3,6 +3,10 @@ const PLACEHOLDER_KEY = "placeholder_anon_key";
 const CI_PLACEHOLDER_URL = "https://ci-build.supabase.co";
 
 export function getSupabaseUrl(): string {
+  // Placeholder fallback keeps local production builds (`npm run build`) working
+  // without real credentials — prerendered pages catch failed queries and render
+  // fallbacks. Enforcing real credentials is the job of scripts/check-production-env.mjs
+  // at the deploy gate, NOT a throw here (a throw here breaks static prerendering).
   return process.env.NEXT_PUBLIC_SUPABASE_URL || PLACEHOLDER_URL;
 }
 

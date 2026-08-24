@@ -101,10 +101,10 @@ describe("getUserLearningPaths", () => {
     expect(logQueryError).toHaveBeenCalledWith("getUserLearningPaths", errorObj);
 
     expect(paths).toHaveLength(1);
-    expect(paths[0].completedLessonIds).toEqual([]);
-    expect(paths[0].progressPercentage).toBe(0);
-    expect(paths[0].isComplete).toBe(false);
-    expect(paths[0].nextLesson).toEqual({
+    expect(paths[0]!.completedLessonIds).toEqual([]);
+    expect(paths[0]!.progressPercentage).toBe(0);
+    expect(paths[0]!.isComplete).toBe(false);
+    expect(paths[0]!.nextLesson).toEqual({
       id: "lesson-1",
       title: "Lesson 1",
       duration: "5m",
@@ -120,10 +120,10 @@ describe("getUserLearningPaths", () => {
     const paths = await getUserLearningPaths(mockSupabase as unknown as SupabaseClient, "user1");
 
     expect(paths).toHaveLength(1);
-    expect(paths[0].completedLessonIds).toEqual(["lesson-1", "lesson-2"]);
-    expect(paths[0].progressPercentage).toBe(100);
-    expect(paths[0].isComplete).toBe(true);
-    expect(paths[0].nextLesson).toBeNull();
+    expect(paths[0]!.completedLessonIds).toEqual(["lesson-1", "lesson-2"]);
+    expect(paths[0]!.progressPercentage).toBe(100);
+    expect(paths[0]!.isComplete).toBe(true);
+    expect(paths[0]!.nextLesson).toBeNull();
   });
 
   it("handles empty paths correctly", async () => {
@@ -139,10 +139,10 @@ describe("getUserLearningPaths", () => {
     const paths = await getUserLearningPaths(mockSupabase as unknown as SupabaseClient, "user1");
 
     expect(paths).toHaveLength(1);
-    expect(paths[0].completedLessonIds).toEqual([]);
-    expect(paths[0].progressPercentage).toBe(0);
-    expect(paths[0].isComplete).toBe(false);
-    expect(paths[0].nextLesson).toBeNull();
+    expect(paths[0]!.completedLessonIds).toEqual([]);
+    expect(paths[0]!.progressPercentage).toBe(0);
+    expect(paths[0]!.isComplete).toBe(false);
+    expect(paths[0]!.nextLesson).toBeNull();
   });
 
   it("handles missing lesson details correctly", async () => {
@@ -151,7 +151,7 @@ describe("getUserLearningPaths", () => {
     const paths = await getUserLearningPaths(mockSupabase as unknown as SupabaseClient, "user1");
 
     expect(paths).toHaveLength(1);
-    expect(paths[0].nextLesson).toEqual({
+    expect(paths[0]!.nextLesson).toEqual({
       id: "lesson-2", // lesson-1 is completed in beforeEach setup
       title: "",
       duration: "",

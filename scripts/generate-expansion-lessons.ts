@@ -251,8 +251,8 @@ function writeLesson(locale: "en" | "es", spec: LessonSpec) {
   };
   const yaml = Object.entries(fm)
     .map(([k, v]) => {
-      if (Array.isArray(v)) return `${k}:\n${v.map((x) => `  - "${x}"`).join("\n")}`;
-      return `${k}: "${v}"`;
+      if (Array.isArray(v)) return `${k}:\n${v.map((x) => `  - ${JSON.stringify(x)}`).join("\n")}`;
+      return `${k}: ${JSON.stringify(v)}`;
     })
     .join("\n");
   const out = path.join(process.cwd(), "content", "lessons", locale, `${spec.id}.mdx`);

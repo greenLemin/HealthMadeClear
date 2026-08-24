@@ -31,10 +31,11 @@ describe("Modal Component", () => {
     expect(dialog).toBeInTheDocument();
     expect(dialog).toHaveAttribute("aria-modal", "true");
 
-    const titleId = `modal-test-modal`;
-    expect(dialog).toHaveAttribute("aria-labelledby", titleId);
+    const titleEl = screen.getByText("Test Modal");
+    expect(titleEl).toHaveAttribute("id");
+    expect(dialog).toHaveAttribute("aria-labelledby", titleEl.id);
+    expect(titleEl.id).toMatch(/^modal-title-/);
 
-    expect(screen.getByText("Test Modal")).toBeInTheDocument();
     expect(screen.getByText("Modal Content")).toBeInTheDocument();
   });
 
@@ -61,7 +62,7 @@ describe("Modal Component", () => {
     render(<Modal {...defaultProps} />);
     const backdrops = document.querySelectorAll('div[aria-hidden="true"]');
     if (backdrops.length > 0) {
-      fireEvent.click(backdrops[0]);
+      fireEvent.click(backdrops[0]!);
       expect(defaultProps.onClose).toHaveBeenCalledTimes(1);
     } else {
       throw new Error("Backdrop not found");

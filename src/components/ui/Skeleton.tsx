@@ -41,7 +41,7 @@ export default function Skeleton({
         {status}
         {Array.from({ length: lines }).map((_, i) => (
           <div
-            key={i}
+            key={`skeleton-line-${i}`}
             className={[
               "mb-2 animate-pulse rounded shadow-[inset_0_1px_0_rgba(255,255,255,0.24)] motion-reduce:animate-none",
               shimmerClass,

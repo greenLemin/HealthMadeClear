@@ -23,16 +23,16 @@ describe("AuthFormLoading", () => {
     expect(skeletons).toHaveLength(3);
 
     // Heading skeleton
-    expect(skeletons[0].getAttribute("data-variant")).toBe("heading");
-    expect(skeletons[0].getAttribute("data-width")).toBe("240px");
+    expect(skeletons[0]!.getAttribute("data-variant")).toBe("heading");
+    expect(skeletons[0]!.getAttribute("data-width")).toBe("240px");
 
     // Text skeleton
-    expect(skeletons[1].getAttribute("data-variant")).toBe("text");
-    expect(skeletons[1].getAttribute("data-width")).toBe("100%");
+    expect(skeletons[1]!.getAttribute("data-variant")).toBe("text");
+    expect(skeletons[1]!.getAttribute("data-width")).toBe("100%");
 
     // Card skeleton
-    expect(skeletons[2].getAttribute("data-variant")).toBe("card");
-    expect(skeletons[2].getAttribute("data-height")).toBe("280px");
+    expect(skeletons[2]!.getAttribute("data-variant")).toBe("card");
+    expect(skeletons[2]!.getAttribute("data-height")).toBe("280px");
   });
 
   it("renders compact variant with correct default card height", () => {
@@ -42,8 +42,8 @@ describe("AuthFormLoading", () => {
     expect(skeletons).toHaveLength(1);
 
     // Card skeleton
-    expect(skeletons[0].getAttribute("data-variant")).toBe("card");
-    expect(skeletons[0].getAttribute("data-height")).toBe("280px");
+    expect(skeletons[0]!.getAttribute("data-variant")).toBe("card");
+    expect(skeletons[0]!.getAttribute("data-height")).toBe("280px");
   });
 
   it("renders split variant correctly", () => {
@@ -53,35 +53,35 @@ describe("AuthFormLoading", () => {
     expect(skeletons).toHaveLength(4);
 
     // Heading skeleton
-    expect(skeletons[0].getAttribute("data-variant")).toBe("heading");
-    expect(skeletons[0].getAttribute("data-width")).toBe("280px");
+    expect(skeletons[0]!.getAttribute("data-variant")).toBe("heading");
+    expect(skeletons[0]!.getAttribute("data-width")).toBe("280px");
 
     // First Text skeleton
-    expect(skeletons[1].getAttribute("data-variant")).toBe("text");
-    expect(skeletons[1].getAttribute("data-width")).toBe("340px");
+    expect(skeletons[1]!.getAttribute("data-variant")).toBe("text");
+    expect(skeletons[1]!.getAttribute("data-width")).toBe("340px");
 
     // Second Text skeleton with lines
-    expect(skeletons[2].getAttribute("data-variant")).toBe("text");
-    expect(skeletons[2].getAttribute("data-lines")).toBe("3");
+    expect(skeletons[2]!.getAttribute("data-variant")).toBe("text");
+    expect(skeletons[2]!.getAttribute("data-lines")).toBe("3");
 
     // Card skeleton
-    expect(skeletons[3].getAttribute("data-variant")).toBe("card");
-    expect(skeletons[3].getAttribute("data-height")).toBe("320px");
+    expect(skeletons[3]!.getAttribute("data-variant")).toBe("card");
+    expect(skeletons[3]!.getAttribute("data-height")).toBe("320px");
   });
 
   it("applies custom cardHeight correctly to narrow variant", () => {
     const { getAllByTestId } = render(<AuthFormLoading cardHeight="400px" />);
     const skeletons = getAllByTestId("skeleton");
 
-    expect(skeletons[2].getAttribute("data-variant")).toBe("card");
-    expect(skeletons[2].getAttribute("data-height")).toBe("400px");
+    expect(skeletons[2]!.getAttribute("data-variant")).toBe("card");
+    expect(skeletons[2]!.getAttribute("data-height")).toBe("400px");
   });
 
   it("applies custom cardHeight correctly to compact variant", () => {
     const { getAllByTestId } = render(<AuthFormLoading variant="compact" cardHeight="500px" />);
     const skeletons = getAllByTestId("skeleton");
 
-    expect(skeletons[0].getAttribute("data-variant")).toBe("card");
-    expect(skeletons[0].getAttribute("data-height")).toBe("500px");
+    expect(skeletons[0]!.getAttribute("data-variant")).toBe("card");
+    expect(skeletons[0]!.getAttribute("data-height")).toBe("500px");
   });
 });

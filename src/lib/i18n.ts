@@ -1,5 +1,6 @@
 import en from "@/messages/en.json";
 import es from "@/messages/es.json";
+import { LESSON_CATEGORY_IDS } from "@/types/content";
 import type { LessonCategoryId } from "@/types/content";
 
 export type Locale = "en" | "es";
@@ -21,6 +22,10 @@ export function formatLevel(level: "beginner" | "intermediate" | "advanced", loc
 
 export function getCategoryLabel(categoryId: LessonCategoryId, locale: Locale): string {
   return getMessages(locale).categories[categoryId];
+}
+
+export function isLessonCategoryId(value: string): value is LessonCategoryId {
+  return (LESSON_CATEGORY_IDS as readonly string[]).includes(value);
 }
 
 export function normalizeGlossaryLetter(term: string): string {

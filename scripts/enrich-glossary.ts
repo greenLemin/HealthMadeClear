@@ -143,7 +143,7 @@ function writeGlossary(locale: "en" | "es", id: string) {
 
   const term = locale === "en" ? TERM_EN[id] : TERM_ES[id];
   const categoryEn = CATEGORY_EN[id];
-  const category = locale === "en" ? categoryEn : CATEGORY_ES[categoryEn];
+  const category = locale === "en" ? categoryEn : CATEGORY_ES[categoryEn!];
   const base = locale === "en" ? enrichment.en : enrichment.es;
   const definition = formatReference(base, locale, id);
   const relatedTerms = readExistingRelatedTerms(locale, id);
@@ -160,9 +160,9 @@ function writeGlossary(locale: "en" | "es", id: string) {
   const file = `---\n${Object.entries(frontmatter)
     .map(([key, value]) => {
       if (Array.isArray(value)) {
-        return `${key}:\n${value.map((v) => `  - "${v}"`).join("\n")}`;
+        return `${key}:\n${value.map((v) => `  - ${JSON.stringify(v)}`).join("\n")}`;
       }
-      return `${key}: "${value}"`;
+      return `${key}: ${JSON.stringify(value)}`;
     })
     .join("\n")}\n---\n\n${body}`;
 

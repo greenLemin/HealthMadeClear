@@ -259,10 +259,10 @@ describe("getCompletedLessonsPaginated", () => {
     );
 
     expect(result.lessons).toHaveLength(1);
-    expect(result.lessons[0].title).toBe("Unknown Lesson");
-    expect(result.lessons[0].category).toBe("");
-    expect(result.lessons[0].categoryId).toBe("");
-    expect(result.lessons[0].quizScore).toBeNull();
+    expect(result.lessons[0]!.title).toBe("Unknown Lesson");
+    expect(result.lessons[0]!.category).toBe("");
+    expect(result.lessons[0]!.categoryId).toBe("");
+    expect(result.lessons[0]!.quizScore).toBeNull();
   });
 
   it("clamps negative page and pageSize to valid ranges (F-019 regression)", async () => {

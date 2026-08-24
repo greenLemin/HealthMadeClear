@@ -2,7 +2,6 @@ import fs from "fs";
 import path from "path";
 import { getAllLessonsFromMdx } from "../src/lib/lessons/mdxParser";
 import { assertLocaleIdParity } from "./lib/validateLocaleParity";
-import { formatWithPrettier } from "./lib/formatWithPrettier";
 
 async function main() {
   const en = await getAllLessonsFromMdx("en");
@@ -20,7 +19,6 @@ async function main() {
       `${header}export const lessons: Lesson[] = ${JSON.stringify(lessons, null, 2)} as const;\n`,
       "utf8"
     );
-    formatWithPrettier(outPath);
     return outPath;
   };
 

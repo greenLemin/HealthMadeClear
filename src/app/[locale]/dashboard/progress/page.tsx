@@ -42,8 +42,6 @@ export default async function ProgressPage({ params, searchParams }: Props) {
     Promise.resolve(getAllLessons(locale)),
   ]);
 
-  const totalBeginnerLessons = allLessons.filter((l) => l.level === "beginner").length;
-
   const { data: lessonProgressData } = await supabase
     .from("lesson_progress")
     .select("lesson_id")
@@ -93,8 +91,8 @@ export default async function ProgressPage({ params, searchParams }: Props) {
 
   for (const perf of quizPerformance) {
     if (categoryProgress[perf.categoryId]) {
-      categoryProgress[perf.categoryId].quizStats.attempts = perf.attemptsCount;
-      categoryProgress[perf.categoryId].quizStats.passed = Math.round(
+      categoryProgress[perf.categoryId]!.quizStats.attempts = perf.attemptsCount;
+      categoryProgress[perf.categoryId]!.quizStats.passed = Math.round(
         (perf.passRate / 100) * perf.attemptsCount
       );
     }

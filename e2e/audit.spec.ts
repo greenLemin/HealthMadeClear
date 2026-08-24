@@ -113,16 +113,21 @@ test.describe("Exhaustive UI/UX live site audit", () => {
         console.log(`Navigating to: ${targetUrl} (${vp.name})`);
 
         try {
-          const res = await page.goto(targetUrl, { waitUntil: "domcontentloaded", timeout: 20000 });
-          await page.waitForTimeout(1000); // let things settle
+          const res = await page.goto(targetUrl, { waitUntil: "load", timeout: 20000 });
+          await page.waitForLoadState("load");
+          await page
+            .locator("header")
+            .waitFor({ state: "visible", timeout: 10000 })
+            .catch(() => undefined);
 
           if (!res) {
             failedRequests.push(`Navigation returned null response for ${targetUrl}`);
           } else if (res.status() >= 400) {
             failedRequests.push(`HTTP ${res.status()} response for ${targetUrl}`);
           }
-        } catch (e: any) {
-          pageErrors.push(`Goto failed: ${e.message}`);
+        } catch (e: unknown) {
+          const msg = e instanceof Error ? e.message : String(e);
+          pageErrors.push(`Goto failed: ${msg}`);
         }
 
         // 1. Accessibility Checks: Missing Alt Texts
@@ -177,6 +182,14 @@ test.describe("Exhaustive UI/UX live site audit", () => {
           potentialUnTranslated,
           layoutOverflow,
         });
+
+        // Assertions — fail audit if critical issues detected
+        expect(failedRequests, `Failed requests on ${targetUrl} (${vp.name})`).toEqual([]);
+        expect(pageErrors, `Page errors on ${targetUrl} (${vp.name})`).toEqual([]);
+        expect(missingAlts, `Missing alt attributes on ${targetUrl} (${vp.name})`).toEqual([]);
+        expect(potentialUnTranslated, `Untranslated keys on ${targetUrl} (${vp.name})`).toEqual([]);
+        expect(layoutOverflow, `Layout overflow on ${targetUrl} (${vp.name})`).toBe(false);
+        expect(consoleErrors, `Console errors on ${targetUrl} (${vp.name})`).toEqual([]);
       });
     }
   }

@@ -3,7 +3,7 @@ import type { Database } from "@/types/database";
 
 export interface MockCookieStore {
   get(name: string): { name: string; value: string } | undefined | null;
-  set?(name: string, value: string, options?: any): void;
+  set?(name: string, value: string, options?: Record<string, unknown>): void;
 }
 
 export type CookieStore = ReadonlyRequestCookies | MockCookieStore;
@@ -15,6 +15,7 @@ export type MockAchievementRow = Database["public"]["Tables"]["achievements"]["R
 export type MockStreakRow = Database["public"]["Tables"]["streaks"]["Row"];
 export type MockDailyLogRow = Database["public"]["Tables"]["daily_log"]["Row"];
 export type MockNotificationRow = Database["public"]["Tables"]["notifications"]["Row"];
+export type MockContactSubmissionRow = Database["public"]["Tables"]["contact_submissions"]["Row"];
 
 export type MockAccount = {
   id: string;
@@ -40,6 +41,7 @@ export type MockDb = {
   profiles: MockProfileRow[];
   daily_log: MockDailyLogRow[];
   notifications: MockNotificationRow[];
+  contact_submissions: MockContactSubmissionRow[];
   auth: MockAuthState;
 };
 

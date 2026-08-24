@@ -12,6 +12,9 @@ async function lessonFromFile(filePath: string): Promise<Lesson> {
   const { data, content } = matter(raw);
 
   const id = data.id as LessonId;
+  if (!LESSON_IDS.includes(id)) {
+    throw new Error(`Invalid lesson id '${String(data.id)}' in ${filePath}`);
+  }
   const categoryId = data.categoryId as LessonCategoryId;
   const level = data.level as Lesson["level"];
 
@@ -40,17 +43,23 @@ export function getLessonMdxDir(locale: "en" | "es") {
 
 export async function getAllLessonsFromMdx(locale: "en" | "es"): Promise<Lesson[]> {
   const dir = getLessonMdxDir(locale);
-
-  const promises = LESSON_IDS.map(async (id) => {
-    const filePath = path.join(dir, `${id}.mdx`);
-    try {
-      await fs.promises.access(filePath);
-    } catch {
-      throw new Error(`Missing lesson MDX file: ${filePath}`);
-    }
-    return lessonFromFile(filePath);
-  });
-  return Promise.all(promises);
+  const BATCH_SIZE = 10;
+  const results: Lesson[] = [];
+  for (let i = 0; i < LESSON_IDS.length; i += BATCH_SIZE) {
+    const batch = LESSON_IDS.slice(i, i + BATCH_SIZE);
+    const batchPromises = batch.map(async (id) => {
+      const filePath = path.join(dir, `${id}.mdx`);
+      try {
+        await fs.promises.access(filePath);
+      } catch {
+        throw new Error(`Missing lesson MDX file: ${filePath}`);
+      }
+      return lessonFromFile(filePath);
+    });
+    const batchResults = await Promise.all(batchPromises);
+    results.push(...batchResults);
+  }
+  return results;
 }
 
 export async function getLessonFromMdx(id: string, locale: "en" | "es"): Promise<Lesson | undefined> {

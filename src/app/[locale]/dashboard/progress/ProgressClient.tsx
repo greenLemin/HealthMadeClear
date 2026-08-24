@@ -1,17 +1,17 @@
 "use client";
 
-import { Link } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
-import { ArrowLeft, ArrowRight, CheckCircle2, Clock, Flame, TrendingUp } from "lucide-react";
-import Button from "@/components/ui/Button";
-import EmptyState from "@/components/ui/EmptyState";
+import { CheckCircle2, Clock, Flame, TrendingUp } from "lucide-react";
 import MetricCard from "@/components/ui/MetricCard";
-import PageHeader from "@/components/PageHeader";
 import ProgressBar from "@/components/ui/ProgressBar";
 import Reveal from "@/components/ui/Reveal";
-import { formatRelativeDate, formatMemberSince, formatDuration, type Locale } from "@/lib/i18n";
+import { formatDuration, formatMemberSince, type Locale } from "@/lib/i18n";
 import type { Summary } from "@/types/dashboard";
+import { clampPercent } from "./components/clamp";
+import CategoryProgressList from "./components/CategoryProgressList";
+import CompletedLessonsList from "./components/CompletedLessonsList";
 import ProgressCircle from "./components/ProgressCircle";
+import ProgressHeader from "./components/ProgressHeader";
 import StreakCalendar from "./components/StreakCalendar";
 
 type QuizPerfItem = {
@@ -56,10 +56,6 @@ type ProgressClientProps = {
   locale: Locale;
 };
 
-function clampPercent(value: number): number {
-  return Math.min(100, Math.max(0, Math.round(value)));
-}
-
 export default function ProgressClient({
   summary,
   quizPerformance,
@@ -70,13 +66,12 @@ export default function ProgressClient({
   locale,
 }: ProgressClientProps) {
   const t = useTranslations("progress");
-  const page = completedLessons.page;
   const overallPct =
     summary.totalLessonsAvailable > 0
       ? clampPercent((summary.totalLessonsCompleted / summary.totalLessonsAvailable) * 100)
       : 0;
 
-  const today = new Date().toISOString().split("T")[0];
+  const today = new Date().toISOString().split("T")[0]!;
   const activeSet = new Set(activeDays);
   const memberSinceLabel = memberSince
     ? t("memberSince", { date: formatMemberSince(memberSince, locale) })
@@ -86,24 +81,7 @@ export default function ProgressClient({
 
   return (
     <div className="space-y-10">
-      <PageHeader
-        centered
-        title={t("title")}
-        description={t("lessonsCompleted", {
-          count: summary.totalLessonsCompleted,
-          total: summary.totalLessonsAvailable,
-        })}
-      >
-        <div className="flex flex-wrap justify-center gap-3">
-          {memberSinceLabel ? <span className="metric-pill">{memberSinceLabel}</span> : null}
-          <span className="metric-pill bg-secondary-container/60 text-secondary">
-            {t("quizzesPassedColumn")}: {summary.totalQuizzesPassed}/{summary.totalQuizzesAttempted}
-          </span>
-          <span className="metric-pill bg-tertiary-container/60 text-tertiary">
-            {t("currentStreak")}: {t("daysValue", { count: summary.currentStreak })}
-          </span>
-        </div>
-      </PageHeader>
+      <ProgressHeader summary={summary} memberSinceLabel={memberSinceLabel} />
 
       <section className="grid gap-6 xl:grid-cols-[1.08fr_0.92fr]">
         <Reveal>
@@ -180,42 +158,7 @@ export default function ProgressClient({
       </section>
 
       <section className="grid gap-6 xl:grid-cols-[1.14fr_0.86fr]">
-        <Reveal>
-          <div className="surface-card px-6 py-6 md:px-8 md:py-8">
-            <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
-              <div>
-                <div className="eyebrow mb-3">{t("progressByCategory")}</div>
-                <h2 className="font-display text-headline-lg text-primary">{t("progressByCategory")}</h2>
-              </div>
-              <span className="metric-pill">{t("categoriesCount", { count: categoryProgress.length })}</span>
-            </div>
-
-            <div className="mt-6 grid gap-4 md:grid-cols-2">
-              {categoryProgress.map((cat) => {
-                const pct = cat.total > 0 ? clampPercent((cat.completed / cat.total) * 100) : 0;
-                return (
-                  <article key={cat.categoryId} className="surface-card-muted px-5 py-5">
-                    <div className="flex items-start justify-between gap-3">
-                      <h3 className="font-display text-headline-md text-primary">
-                        {cat.label || cat.categoryId}
-                      </h3>
-                      <span className="chip-active">{pct}%</span>
-                    </div>
-                    <ProgressBar value={pct} label={`${cat.completed}/${cat.total}`} className="mt-4" />
-                    <div className="mt-4 flex flex-wrap gap-3">
-                      <span className="metric-pill">
-                        {t("lessonsColumn")}: {cat.completed}/{cat.total}
-                      </span>
-                      <span className="metric-pill bg-secondary-container/60 text-secondary">
-                        {t("quizzesPassedColumn")}: {cat.quizStats.passed}/{cat.quizStats.attempts}
-                      </span>
-                    </div>
-                  </article>
-                );
-              })}
-            </div>
-          </div>
-        </Reveal>
+        <CategoryProgressList categoryProgress={categoryProgress} />
 
         <Reveal delay={0.06}>
           <StreakCalendar
@@ -270,94 +213,7 @@ export default function ProgressClient({
         </Reveal>
       ) : null}
 
-      <Reveal delay={0.1}>
-        <section className="surface-card px-6 py-6 md:px-8 md:py-8">
-          <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
-            <div>
-              <div className="eyebrow mb-3">{t("completedLessons")}</div>
-              <h2 className="font-display text-headline-lg text-primary">{t("completedLessons")}</h2>
-            </div>
-            <span className="metric-pill">{t("pageXofY", { page, total: completedLessons.totalPages })}</span>
-          </div>
-
-          {completedLessons.lessons.length > 0 ? (
-            <>
-              <div className="mt-6 grid gap-4 xl:grid-cols-2">
-                {completedLessons.lessons.map((lesson, index) => (
-                  <Reveal key={lesson.lessonId} delay={Math.min(index * 0.03, 0.16)}>
-                    <article className="surface-card-glass px-5 py-5 md:px-6 md:py-6">
-                      <div className="flex flex-wrap items-start justify-between gap-3">
-                        <div className="min-w-0 flex-1">
-                          <Link
-                            href={`/learn/${lesson.lessonId}`}
-                            className="font-display text-headline-md text-primary underline-offset-4 hover:underline"
-                          >
-                            {lesson.title}
-                          </Link>
-                          <p className="mt-2 text-label-md text-on-surface-variant">
-                            {lesson.category || lesson.categoryId}
-                          </p>
-                        </div>
-                        {lesson.quizScore !== null ? (
-                          <span className="chip-active">{lesson.quizScore}%</span>
-                        ) : (
-                          <span className="chip">{t("quizScoreColumn")}: -</span>
-                        )}
-                      </div>
-
-                      <div className="mt-4 flex flex-wrap gap-3 text-label-md text-on-surface-variant">
-                        <span className="metric-pill">
-                          {t("completedColumn")}: {formatRelativeDate(lesson.completedAt, locale)}
-                        </span>
-                      </div>
-                    </article>
-                  </Reveal>
-                ))}
-              </div>
-
-              {completedLessons.totalPages > 1 ? (
-                <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
-                  {page > 1 ? (
-                    <Link href={`?page=${page - 1}`}>
-                      <Button variant="secondary" size="sm" icon={<ArrowLeft size={16} />}>
-                        {t("previous")}
-                      </Button>
-                    </Link>
-                  ) : (
-                    <Button variant="secondary" size="sm" disabled icon={<ArrowLeft size={16} />}>
-                      {t("previous")}
-                    </Button>
-                  )}
-
-                  <span className="text-label-md text-on-surface-variant">
-                    {t("pageXofY", { page, total: completedLessons.totalPages })}
-                  </span>
-
-                  {page < completedLessons.totalPages ? (
-                    <Link href={`?page=${page + 1}`}>
-                      <Button variant="secondary" size="sm" icon={<ArrowRight size={16} />}>
-                        {t("next")}
-                      </Button>
-                    </Link>
-                  ) : (
-                    <Button variant="secondary" size="sm" disabled icon={<ArrowRight size={16} />}>
-                      {t("next")}
-                    </Button>
-                  )}
-                </div>
-              ) : null}
-            </>
-          ) : (
-            <EmptyState
-              variant="learning"
-              title={t("completedLessons")}
-              description={t("noCompletedLessons")}
-              action={{ label: t("startLearningCta"), href: "/learn", onClick: () => {} }}
-              className="mt-6"
-            />
-          )}
-        </section>
-      </Reveal>
+      <CompletedLessonsList completedLessons={completedLessons} locale={locale} />
     </div>
   );
 }

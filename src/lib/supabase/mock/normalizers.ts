@@ -1,6 +1,7 @@
 import type {
   MockAccount,
   MockAchievementRow,
+  MockContactSubmissionRow,
   MockDailyLogRow,
   MockDb,
   MockLessonProgressRow,
@@ -269,6 +270,14 @@ export function normalizeMockDb(value: unknown): MockDb {
           )
         : [];
 
+  // contact_submissions is append-only via service_role — mock needs no complex normalization.
+  const contactSubmissions: MockContactSubmissionRow[] = Array.isArray(record.contact_submissions)
+    ? ((record.contact_submissions as unknown[]).filter((r) => {
+        const row = asRecord(r);
+        return row !== null && typeof row.email === "string";
+      }) as MockContactSubmissionRow[])
+    : [];
+
   const db: MockDb = {
     lesson_progress: Array.isArray(record.lesson_progress)
       ? record.lesson_progress
@@ -303,6 +312,7 @@ export function normalizeMockDb(value: unknown): MockDb {
           .map((item, index) => normalizeNotificationRow(item, account.id, index))
           .filter((row): row is MockNotificationRow => row !== null)
       : [],
+    contact_submissions: contactSubmissions,
     auth: {
       account,
       current_user_id: currentUserId,

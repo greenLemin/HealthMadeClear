@@ -54,7 +54,10 @@
   [headers.values]
     Cache-Control = "public, max-age=86400"
 
-# Security headers for all routes (backup to next.config.js)
+# Security headers for all routes (backup to next.config.mjs — keep CSP in sync with securityHeaders there)
+# script-src keeps 'unsafe-inline' because Next.js App Router emits framework-generated inline
+# bootstrap/flight scripts (self.__next_f) that cannot be hashed or nonced under static generation.
+# Our own scripts live in /pref-bootstrap.js and /ga-init.js (external, CSP-safe).
 [[headers]]
   for = "/*"
   [headers.values]
@@ -63,3 +66,4 @@
     Referrer-Policy = "strict-origin-when-cross-origin"
     Permissions-Policy = "camera=(), microphone=(), geolocation=(), interest-cohort=()"
     Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"
+    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self' https://*.supabase.co wss://*.supabase.co https://*.ingest.sentry.io https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; object-src 'none'"

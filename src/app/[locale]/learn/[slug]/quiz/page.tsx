@@ -23,7 +23,7 @@ export async function generateMetadata({ params }: Props) {
   return {
     title: `${lesson.title} — Quiz`,
     description: `Test your knowledge: ${lesson.description}`,
-    alternates: localeAlternates(locale, `/learn/${slug}/quiz`),
+    alternates: localeAlternates(locale, `/learn/${lesson.id}/quiz`),
   };
 }
 

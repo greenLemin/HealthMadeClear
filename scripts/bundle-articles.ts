@@ -2,7 +2,6 @@ import fs from "fs";
 import path from "path";
 import { getAllArticlesFromMdx } from "../src/lib/articles/mdxParser";
 import { assertLocaleIdParity } from "./lib/validateLocaleParity";
-import { formatWithPrettier } from "./lib/formatWithPrettier";
 
 async function main() {
   const en = await getAllArticlesFromMdx("en");
@@ -20,7 +19,6 @@ async function main() {
       `${header}export const articles: Article[] = ${JSON.stringify(articles, null, 2)} as const;\n`,
       "utf8"
     );
-    formatWithPrettier(outPath);
   };
 
   writeLocaleBundle("en", en);
@@ -35,4 +33,7 @@ async function main() {
   console.log(`Wrote article bundles (${en.length} EN, ${es.length} ES articles).`);
 }
 
-main().catch(console.error);
+main().catch((e) => {
+  console.error(e);
+  process.exit(1);
+});

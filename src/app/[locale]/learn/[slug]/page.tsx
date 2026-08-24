@@ -3,13 +3,17 @@ import { setRequestLocale } from "next-intl/server";
 import { routing } from "@/i18n/routing";
 import { lessons } from "@/data/lessons";
 import { requireLocale } from "@/lib/locale";
-import { getLessonById, getGlossaryTerms } from "@/lib/localizedContent";
+import { getLessonById, getGlossaryTerms, getLessons } from "@/lib/localizedContent";
 import { getAllLearningPaths } from "@/lib/paths/loadPaths";
+import { getQuizByLessonId } from "@/lib/localizedQuiz";
+import type { Lesson } from "@/types/lesson";
 import JsonLd from "@/components/JsonLd";
 import { getSiteUrl } from "@/lib/site";
 import LessonPageClient from "./LessonPageClient";
 
 type Props = { params: Promise<{ locale: string; slug: string }> };
+
+export const dynamicParams = false;
 
 export function generateStaticParams() {
   return routing.locales.flatMap((locale) => lessons.map((lesson) => ({ locale, slug: lesson.id })));
@@ -72,6 +76,16 @@ export default async function LessonDetailPage({ params }: Props) {
   const url = `${base}/${locale}/learn/${lesson.id}`;
   const glossaryTerms = getGlossaryTerms(l);
   const learningPaths = getAllLearningPaths(l);
+  // Server-passed data to keep lesson/quiz bundles out of client JS
+  const allLessons = getLessons(l);
+  const quiz = getQuizByLessonId(lesson.id, l);
+  const relatedLessons: Lesson[] = [];
+  for (const item of allLessons) {
+    if (item.id !== lesson.id && item.categoryId === lesson.categoryId) {
+      relatedLessons.push(item);
+      if (relatedLessons.length === 3) break;
+    }
+  }
 
   return (
     <>
@@ -95,7 +109,14 @@ export default async function LessonDetailPage({ params }: Props) {
           mainEntityOfPage: { "@type": "WebPage", "@id": url },
         }}
       />
-      <LessonPageClient lesson={lesson} glossaryTerms={glossaryTerms} learningPaths={learningPaths} />
+      <LessonPageClient
+        lesson={lesson}
+        glossaryTerms={glossaryTerms}
+        learningPaths={learningPaths}
+        allLessons={allLessons}
+        quiz={quiz}
+        relatedLessons={relatedLessons}
+      />
     </>
   );
 }

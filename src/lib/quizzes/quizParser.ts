@@ -33,7 +33,7 @@ export function parseQuestions(markdown: string): QuizQuestion[] {
     let phase: "question" | "options" | "answer" = "question";
 
     for (let i = 0; i < lines.length; i++) {
-      const line = lines[i];
+      const line = lines[i]!;
 
       if (line.startsWith("answer:")) {
         phase = "answer";
@@ -78,50 +78,80 @@ export function getQuizMdxDir(locale: "en" | "es") {
   return path.join(process.cwd(), "content", "quizzes", locale);
 }
 
+function validateQuizFrontmatter(data: Record<string, unknown>, filePath: string, fallbackId: string) {
+  if (!data.id || typeof data.id !== "string" || String(data.id).trim() === "") {
+    throw new Error(`Quiz ${fallbackId} is missing required field 'id' in ${filePath}`);
+  }
+  if (!data.title || typeof data.title !== "string" || String(data.title).trim() === "") {
+    throw new Error(`Quiz ${fallbackId} is missing required field 'title' in ${filePath}`);
+  }
+  if (!data.lessonId || typeof data.lessonId !== "string" || String(data.lessonId).trim() === "") {
+    throw new Error(`Quiz ${fallbackId} is missing required field 'lessonId' in ${filePath}`);
+  }
+  // Validate lessonId is known
+  if (!LESSON_IDS.includes(String(data.lessonId) as LessonId)) {
+    throw new Error(`Quiz ${fallbackId} has invalid lessonId '${String(data.lessonId)}' in ${filePath}`);
+  }
+}
+
+function parsePassScore(data: Record<string, unknown>, filePath: string, fallbackId: string): number {
+  if (data.passScore == null || data.passScore === "") {
+    return 70;
+  }
+  const n = Number(data.passScore);
+  if (!Number.isFinite(n) || n <= 0 || n > 100) {
+    throw new Error(`Quiz ${fallbackId} has invalid passScore '${String(data.passScore)}' in ${filePath}`);
+  }
+  return n;
+}
+
 export async function getAllQuizzesFromMdx(locale: "en" | "es"): Promise<Quiz[]> {
   const dir = getQuizMdxDir(locale);
-  const results: (Quiz | null)[] = [];
+  const results: Quiz[] = [];
   const BATCH_SIZE = 10;
 
   for (let i = 0; i < LESSON_IDS.length; i += BATCH_SIZE) {
     const batch = LESSON_IDS.slice(i, i + BATCH_SIZE);
     const batchPromises = batch.map(async (id) => {
       const filePath = path.join(dir, `${id}.mdx`);
-
-      let fileContent: string;
       try {
-        fileContent = await fs.readFile(filePath, "utf8");
+        await fs.access(filePath);
       } catch {
-        return null;
+        throw new Error(`Missing quiz MDX file: ${filePath}`);
       }
 
+      const fileContent = await fs.readFile(filePath, "utf8");
+
       const raw = normalizeLineEndings(fileContent);
-      let data: Record<string, unknown> = {};
-      let content = raw;
+      let data: Record<string, unknown>;
+      let content: string;
       try {
         const parsed = matter(raw);
-        data = parsed.data;
+        data = parsed.data as Record<string, unknown>;
         content = parsed.content;
       } catch (error) {
         logger.error(`Failed to parse frontmatter in quiz MDX file: ${filePath}`, error);
+        throw error instanceof Error ? error : new Error(String(error));
       }
 
+      validateQuizFrontmatter(data, filePath, id);
+      const passScore = parsePassScore(data, filePath, id);
+      const questions = parseQuestions(content.trim());
+
       return {
-        id: String(data.id ?? ""),
-        title: String(data.title ?? ""),
-        lessonId: String(data.lessonId ?? "") as LessonId,
-        passScore: Number(data.passScore) || 70,
-        questions: parseQuestions(content.trim()),
+        id: String(data.id),
+        title: String(data.title),
+        lessonId: String(data.lessonId) as LessonId,
+        passScore,
+        questions,
       } as Quiz;
     });
 
     const batchResults = await Promise.all(batchPromises);
-    for (const res of batchResults) {
-      if (res) results.push(res);
-    }
+    results.push(...batchResults);
   }
 
-  return results as Quiz[];
+  return results;
 }
 
 export async function getQuizFromMdx(id: string, locale: "en" | "es"): Promise<Quiz | undefined> {
@@ -133,26 +163,30 @@ export async function getQuizFromMdx(id: string, locale: "en" | "es"): Promise<Q
     return undefined;
   }
   const raw = normalizeLineEndings(fileContent);
-  let data: Record<string, unknown> = {};
-  let content = raw;
+  let data: Record<string, unknown>;
+  let content: string;
   try {
     const parsed = matter(raw);
-    data = parsed.data;
+    data = parsed.data as Record<string, unknown>;
     content = parsed.content;
   } catch (error) {
     logger.error(`Failed to parse frontmatter in quiz MDX file: ${filePath}`, error);
+    throw error instanceof Error ? error : new Error(String(error));
   }
 
+  validateQuizFrontmatter(data, filePath, id);
+  const passScore = parsePassScore(data, filePath, id);
+
   return {
-    id: String(data.id ?? ""),
-    title: String(data.title ?? ""),
-    lessonId: String(data.lessonId ?? "") as LessonId,
-    passScore: Number(data.passScore) || 70,
+    id: String(data.id),
+    title: String(data.title),
+    lessonId: String(data.lessonId) as LessonId,
+    passScore,
     questions: parseQuestions(content.trim()),
   } as Quiz;
 }
 
-async function assertAllQuizzesExist(locale: "en" | "es"): Promise<void> {
+export async function assertAllQuizzesExist(locale: "en" | "es"): Promise<void> {
   const dir = getQuizMdxDir(locale);
   const BATCH_SIZE = 10;
 

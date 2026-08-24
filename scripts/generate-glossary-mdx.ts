@@ -37,4 +37,7 @@ async function main() {
   console.log(`Generated ${glossaryTerms.length} EN and ${esTerms.length} ES glossary MDX files.`);
 }
 
-main().catch(console.error);
+main().catch((e) => {
+  console.error(e);
+  process.exit(1);
+});

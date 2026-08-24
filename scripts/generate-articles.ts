@@ -360,8 +360,8 @@ function writeArticle(locale: "en" | "es", spec: ArticleSpec) {
   };
   const yaml = Object.entries(fm)
     .map(([k, v]) => {
-      if (Array.isArray(v)) return `${k}:\n${v.map((x) => `  - "${x}"`).join("\n")}`;
-      return `${k}: "${v}"`;
+      if (Array.isArray(v)) return `${k}:\n${v.map((x) => `  - ${JSON.stringify(x)}`).join("\n")}`;
+      return `${k}: ${JSON.stringify(v)}`;
     })
     .join("\n");
   const dir = path.join(process.cwd(), "content", "articles", locale);

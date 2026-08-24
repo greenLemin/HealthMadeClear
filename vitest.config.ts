@@ -12,16 +12,22 @@ export default defineConfig({
     coverage: {
       provider: "v8",
       reporter: ["text", "lcov"],
-      include: ["src/lib/**/*.{ts,tsx}", "src/hooks/**/*.{ts,tsx}", "src/components/ui/buttonStyles.ts"],
-      exclude: ["**/*.test.{ts,tsx}", "**/*.d.ts", "**/*.md"],
+      include: ["src/**/*.{ts,tsx}"],
+      exclude: ["**/*.test.{ts,tsx}", "**/*.d.ts", "**/*.md", "src/data/**", "src/messages/**"],
       thresholds: {
-        lines: 35,
+        // Raised incrementally from 50/49/45/45 — current actuals ~51/52/47/49.
+        // Bump again as coverage grows; do not jump ahead of actuals.
+        lines: 50.5,
+        statements: 51,
+        functions: 46,
+        branches: 47,
       },
     },
   },
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
+      "server-only": path.resolve(__dirname, "./src/lib/__mocks__/server-only.ts"),
     },
   },
 });

@@ -31,7 +31,7 @@ describe("QuizQuestion", () => {
     const handleSelect = vi.fn();
     render(<QuizQuestion question={mockQuestion} selectedIndex={null} onSelect={handleSelect} />);
 
-    const radioInput = screen.getAllByRole("radio")[1];
+    const radioInput = screen.getAllByRole("radio")[1]!;
     fireEvent.click(radioInput);
 
     expect(handleSelect).toHaveBeenCalledWith(1);
@@ -79,7 +79,7 @@ describe("QuizQuestion", () => {
 
     const italicElements = container.querySelectorAll("em");
     expect(italicElements.length).toBe(2);
-    expect(italicElements[0].textContent).toBe("italic");
-    expect(italicElements[1].textContent).toBe("another italic");
+    expect(italicElements[0]!.textContent).toBe("italic");
+    expect(italicElements[1]!.textContent).toBe("another italic");
   });
 });

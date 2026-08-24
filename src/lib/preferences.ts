@@ -34,15 +34,19 @@ export function setPreferenceCookie(name: string, value: string) {
 export function getCookieValue(name: string): string | null {
   if (typeof document === "undefined") return null;
   const match = document.cookie.match(new RegExp(`(?:^|; )${name}=([^;]*)`));
-  return match ? decodeURIComponent(match[1]) : null;
+  return match ? decodeURIComponent(match[1]!) : null;
 }
 
 export function readStoredLocale(): Locale {
   const fromCookie = getCookieValue(PREFERENCE_COOKIES.locale);
   if (fromCookie === "es") return "es";
   if (typeof window !== "undefined") {
-    const fromStorage = window.localStorage.getItem(STORAGE_KEYS.locale);
-    if (fromStorage === "es") return "es";
+    try {
+      const fromStorage = window.localStorage.getItem(STORAGE_KEYS.locale);
+      if (fromStorage === "es") return "es";
+    } catch {
+      return "en";
+    }
   }
   return "en";
 }
@@ -52,10 +56,14 @@ export function readStoredTheme(): ThemeMode {
   if (fromCookie === "dark") return "dark";
   if (fromCookie === "light") return "light";
   if (typeof window !== "undefined") {
-    const fromStorage = window.localStorage.getItem(STORAGE_KEYS.theme);
-    if (fromStorage === "dark") return "dark";
-    if (fromStorage === "light") return "light";
-    if (window.matchMedia("(prefers-color-scheme: dark)").matches) return "dark";
+    try {
+      const fromStorage = window.localStorage.getItem(STORAGE_KEYS.theme);
+      if (fromStorage === "dark") return "dark";
+      if (fromStorage === "light") return "light";
+      if (window.matchMedia("(prefers-color-scheme: dark)").matches) return "dark";
+    } catch {
+      return "light";
+    }
   }
   return "light";
 }
@@ -64,8 +72,12 @@ export function readStoredTextSize(): TextSize {
   const fromCookie = getCookieValue(PREFERENCE_COOKIES.textSize);
   if (fromCookie === "large" || fromCookie === "largest") return fromCookie;
   if (typeof window !== "undefined") {
-    const fromStorage = window.localStorage.getItem(STORAGE_KEYS.textSize);
-    if (fromStorage === "large" || fromStorage === "largest") return fromStorage;
+    try {
+      const fromStorage = window.localStorage.getItem(STORAGE_KEYS.textSize);
+      if (fromStorage === "large" || fromStorage === "largest") return fromStorage;
+    } catch {
+      return "standard";
+    }
   }
   return "standard";
 }
@@ -73,10 +85,9 @@ export function readStoredTextSize(): TextSize {
 export function readStoredJson<T>(key: string, validate: (value: unknown) => T | null): T | null {
   if (typeof window === "undefined") return null;
 
-  const raw = window.localStorage.getItem(key);
-  if (!raw) return null;
-
   try {
+    const raw = window.localStorage.getItem(key);
+    if (!raw) return null;
     return validate(JSON.parse(raw));
   } catch {
     return null;
@@ -85,20 +96,30 @@ export function readStoredJson<T>(key: string, validate: (value: unknown) => T |
 
 export function writeStoredJson(key: string, value: unknown) {
   if (typeof window === "undefined") return;
-  window.localStorage.setItem(key, JSON.stringify(value));
+  try {
+    window.localStorage.setItem(key, JSON.stringify(value));
+  } catch (e) {
+    if (process.env.NODE_ENV === "development") {
+      console.warn("writeStoredJson failed:", e);
+    }
+  }
 }
 
 export function readStoredStringArray(key: string): string[] {
   const parsed = readStoredJson(key, (value) => (Array.isArray(value) ? value : null));
   if (!parsed) return [];
-  return parsed.filter((item): item is string => typeof item === "string");
+  return parsed.filter((item): item is string => typeof item === "string").slice(0, 200);
 }
 
 export function readStoredSimpleMode(): boolean {
   const fromCookie = getCookieValue(PREFERENCE_COOKIES.simpleMode);
   if (fromCookie === "true") return true;
   if (typeof window !== "undefined") {
-    return window.localStorage.getItem(STORAGE_KEYS.simpleMode) === "true";
+    try {
+      return window.localStorage.getItem(STORAGE_KEYS.simpleMode) === "true";
+    } catch {
+      return false;
+    }
   }
   return false;
 }
@@ -117,23 +138,3 @@ export function applyDocumentPreferences(
   document.documentElement.dataset.simpleMode = simpleMode ? "true" : "false";
   document.documentElement.classList.toggle("dark", theme === "dark");
 }
-
-export const PREFERENCE_BOOTSTRAP_SCRIPT = `
-(function(){
-  var c=document.cookie.split(';').reduce(function(a,s){var p=s.trim().split('=');if(p[0])a[p[0]]=decodeURIComponent(p[1]||'');return a},{});
-  var locale=c['hmc-locale']==='es'?'es':'en';
-  var theme=c['hmc-theme'];
-  if(!theme)theme=window.matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light';
-  if(theme!=='dark')theme='light';
-  var textSize=c['hmc-text-size']||'standard';
-  if(textSize!=='large'&&textSize!=='largest')textSize='standard';
-  var simpleMode=c['hmc-simple-mode']==='true';
-  var el=document.documentElement;
-  el.lang=locale;
-  el.dataset.locale=locale;
-  el.dataset.theme=theme;
-  el.dataset.textSize=textSize;
-  el.dataset.simpleMode=simpleMode?'true':'false';
-  if(theme==='dark')el.classList.add('dark');
-})();
-`.trim();

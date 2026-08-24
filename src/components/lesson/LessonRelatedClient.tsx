@@ -2,29 +2,16 @@
 
 import { Link } from "@/i18n/navigation";
 import Card from "@/components/ui/Card";
-import { useAppState } from "@/components/AppProviders";
-import { getLessons } from "@/lib/localizedContent";
-import type { LessonCategoryId, LessonId } from "@/types/content";
 import { useTranslations } from "next-intl";
+import type { Lesson } from "@/types/lesson";
 
-export default function LessonRelatedClient({
-  lessonId,
-  categoryId,
-}: {
-  lessonId: LessonId;
-  categoryId: LessonCategoryId;
-}) {
-  const { locale } = useAppState();
+type Props = {
+  relatedLessons: Lesson[];
+};
+
+export default function LessonRelatedClient({ relatedLessons }: Props) {
   const tLearn = useTranslations("learn");
   const tCommon = useTranslations("common");
-  const allLessons = getLessons(locale);
-  const relatedLessons = [];
-  for (const item of allLessons) {
-    if (item.id !== lessonId && item.categoryId === categoryId) {
-      relatedLessons.push(item);
-      if (relatedLessons.length === 3) break;
-    }
-  }
 
   if (relatedLessons.length === 0) return null;
 

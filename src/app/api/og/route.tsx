@@ -1,4 +1,6 @@
 import { ImageResponse } from "next/og";
+import { getClientIp } from "@/lib/rateLimit";
+import { checkRateLimitDistributed } from "@/lib/rateLimitDistributed";
 
 export const runtime = "edge";
 
@@ -23,7 +25,18 @@ async function loadFont(): Promise<ArrayBuffer> {
         return fallback.arrayBuffer();
       }
 
-      const fontUrl = urlMatch[1].replace(/['"]/g, "");
+      const fontUrl = urlMatch[1]!.replace(/['"]/g, "");
+      // Validate font hostname to prevent SSRF via injected CSS URL — only
+      // allow fonts.gstatic.com as expected from Google Fonts CSS.
+      try {
+        const u = new URL(fontUrl);
+        if (u.hostname !== "fonts.gstatic.com") throw new Error("invalid font host");
+      } catch {
+        const fallback = await fetch(
+          "https://fonts.gstatic.com/s/atkinsonhyperlegible/v11/9Bt23C1KxNDXMspQ1lPyU89-1h6ONRlW45GE5Zg.woff2"
+        );
+        return fallback.arrayBuffer();
+      }
       const font = await fetch(fontUrl);
       return font.arrayBuffer();
     } catch (e) {
@@ -127,9 +140,18 @@ function Category({ category }: { category: string }) {
 }
 
 export async function GET(request: Request) {
+  const ip = getClientIp(request);
+  const rl = await checkRateLimitDistributed("og", ip, 30, 60_000);
+  if (!rl.allowed) {
+    return new Response("Too Many Requests", {
+      status: 429,
+      headers: { "Retry-After": String(rl.retryAfterSeconds ?? 60) },
+    });
+  }
+
   const { searchParams } = new URL(request.url);
-  const title = searchParams.get("title") || "Health Education for Everyone";
-  const category = searchParams.get("category") || "";
+  const title = (searchParams.get("title") || "Health Education for Everyone").slice(0, 100);
+  const category = (searchParams.get("category") || "").slice(0, 30);
 
   const fontData = await loadFont();
 

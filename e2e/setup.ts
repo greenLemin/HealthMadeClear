@@ -1,12 +1,25 @@
 import { test as base, expect, type Page } from "@playwright/test";
 
 export async function waitForAppReady(page: Page) {
-  await page.waitForLoadState("domcontentloaded");
+  await page.waitForLoadState("load");
   await page.locator("header").waitFor({ state: "visible", timeout: 20_000 });
   await page
     .locator('html[data-hydrated="true"]')
     .waitFor({ state: "attached", timeout: 20_000 })
     .catch(() => undefined);
+}
+
+function getMockPassword(): string {
+  const pwd =
+    process.env.NEXT_PUBLIC_MOCK_GUEST_PASSWORD ||
+    process.env.MOCK_GUEST_PASSWORD ||
+    process.env.MOCK_USER_PASSWORD;
+  if (!pwd) {
+    if (process.env.CI)
+      throw new Error("NEXT_PUBLIC_MOCK_GUEST_PASSWORD or MOCK_GUEST_PASSWORD must be set in CI");
+    return "password123";
+  }
+  return pwd;
 }
 
 export async function signInMockUser(page: Page, redirectPath = "/dashboard") {
@@ -17,9 +30,7 @@ export async function signInMockUser(page: Page, redirectPath = "/dashboard") {
   await page.goto(`/en/auth/login?redirect=${encodedRedirect}`);
   await waitForAppReady(page);
   await page.getByLabel(/email address/i).fill("guest@example.com");
-  await page
-    .locator('input[type="password"]')
-    .fill(process.env.NEXT_PUBLIC_MOCK_GUEST_PASSWORD || process.env.MOCK_GUEST_PASSWORD || "password123");
+  await page.locator('input[type="password"]').fill(getMockPassword());
   await Promise.all([
     page.waitForURL(expectedUrl, { timeout: 15000 }),
     page.getByRole("button", { name: /sign in/i }).click(),

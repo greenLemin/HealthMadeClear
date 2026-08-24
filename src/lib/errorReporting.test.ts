@@ -159,7 +159,7 @@ describe("reportClientError", () => {
       );
 
       // Test the beforeBreadcrumb logic
-      const initCall = vi.mocked(Sentry.init).mock.calls[0][0];
+      const initCall = vi.mocked(Sentry.init).mock.calls[0]![0];
       expect(initCall?.beforeBreadcrumb).toBeDefined();
 
       if (initCall?.beforeBreadcrumb) {

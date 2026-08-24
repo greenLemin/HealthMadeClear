@@ -24,7 +24,7 @@ export default function LanguageToggle() {
     event.preventDefault();
     const index = LOCALES.indexOf(current);
     const delta = event.key === "ArrowLeft" || event.key === "ArrowUp" ? -1 : 1;
-    switchLocale(LOCALES[(index + delta + LOCALES.length) % LOCALES.length]);
+    switchLocale(LOCALES[(index + delta + LOCALES.length) % LOCALES.length]!);
   };
 
   return (

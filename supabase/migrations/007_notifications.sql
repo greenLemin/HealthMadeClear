@@ -12,7 +12,8 @@ alter table public.notifications enable row level security;
 
 create policy "Users can manage their own notifications"
   on public.notifications for all
-  using (auth.uid() = user_id);
+  using (auth.uid() = user_id)
+  with check (auth.uid() = user_id);
 
 create index idx_notifications_user_id on public.notifications(user_id);
 create index idx_notifications_read on public.notifications(user_id, read);

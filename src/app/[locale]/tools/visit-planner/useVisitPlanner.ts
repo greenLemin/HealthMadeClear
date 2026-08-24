@@ -104,6 +104,7 @@ export function useVisitPlanner(defaultQuestions: string[]) {
     const saved = readStoredJson(STORAGE_KEYS.visitPlanner, parsePlannerState);
 
     if (saved) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- Restore planner state from storage on mount
       setStep(saved.step);
       setVisitType(saved.visitType);
       setSelectedQuestions(saved.selectedQuestions);

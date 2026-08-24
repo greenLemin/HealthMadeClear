@@ -47,14 +47,25 @@ test("progress export button exists on dashboard", async ({ page }) => {
   await expect(page.getByRole("button", { name: /export progress/i })).toBeVisible();
 });
 
+function getMockPassword() {
+  const pwd =
+    process.env.NEXT_PUBLIC_MOCK_GUEST_PASSWORD ||
+    process.env.MOCK_GUEST_PASSWORD ||
+    process.env.MOCK_USER_PASSWORD;
+  if (!pwd) {
+    if (process.env.CI)
+      throw new Error("NEXT_PUBLIC_MOCK_GUEST_PASSWORD or MOCK_GUEST_PASSWORD must be set in CI");
+    return "password123";
+  }
+  return pwd;
+}
+
 test("dashboard redirects guests to login and sign-in returns to dashboard", async ({ page }) => {
   await page.goto("/en/dashboard");
   await expect(page).toHaveURL(/\/en\/auth\/login\?redirect=%2Fdashboard/);
   await waitForAppReady(page);
   await page.getByLabel(/email address/i).fill("guest@example.com");
-  await page
-    .locator('input[type="password"]')
-    .fill(process.env.NEXT_PUBLIC_MOCK_GUEST_PASSWORD || process.env.MOCK_GUEST_PASSWORD || "password123");
+  await page.locator('input[type="password"]').fill(getMockPassword());
   await Promise.all([
     page.waitForURL(/\/en\/dashboard(?:\?|$)/, { timeout: 15_000 }),
     page.getByRole("button", { name: /sign in/i }).click(),
@@ -182,9 +193,7 @@ test("login validation clears as fields are corrected", async ({ page }) => {
   await page.getByLabel(/email address/i).fill("test@example.com");
   await expect(emailError).toBeHidden();
 
-  await page
-    .locator('input[type="password"]')
-    .fill(process.env.NEXT_PUBLIC_MOCK_GUEST_PASSWORD || process.env.MOCK_GUEST_PASSWORD || "password123");
+  await page.locator('input[type="password"]').fill(getMockPassword());
   await expect(passwordError).toBeHidden();
 });
 

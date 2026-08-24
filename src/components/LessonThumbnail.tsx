@@ -39,7 +39,7 @@ export default function LessonThumbnail({
   return (
     <div
       className={`flex items-center justify-center bg-gradient-to-br ${visual.gradient} ${className}`}
-      aria-hidden
+      aria-hidden="true"
     >
       <span className="text-6xl drop-shadow-sm">{visual.emoji}</span>
       <span className="sr-only">{title}</span>

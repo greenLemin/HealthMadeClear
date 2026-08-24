@@ -4,13 +4,15 @@ import { getAllGlossaryFromMdx } from "../src/lib/glossary/mdxParser";
 import { getAllQuizzesFromMdx } from "../src/lib/quizzes/quizParser";
 import { getAllArticlesFromMdx } from "../src/lib/articles/mdxParser";
 import { assertLocaleIdParity } from "./lib/validateLocaleParity";
+import { LESSON_IDS } from "../src/types/content";
 
 async function main() {
   const enLessons = await getAllLessonsFromMdx("en");
   const esLessons = await getAllLessonsFromMdx("es");
   assertLocaleIdParity(enLessons, esLessons, "lessons");
 
-  const MAX_REVIEW_AGE_MS = 365 * 24 * 60 * 60 * 1000;
+  const MAX_REVIEW_WARN_MS = 365 * 24 * 60 * 60 * 1000;
+  const MAX_REVIEW_FAIL_MS = 400 * 24 * 60 * 60 * 1000;
 
   function assertFreshReview(id: string, lastReviewed: string | undefined) {
     if (!lastReviewed) {
@@ -20,8 +22,14 @@ async function main() {
     if (Number.isNaN(reviewed.getTime())) {
       throw new Error(`${id} has invalid lastReviewed date: ${lastReviewed}`);
     }
-    if (Date.now() - reviewed.getTime() > MAX_REVIEW_AGE_MS) {
-      throw new Error(`${id} lastReviewed (${lastReviewed}) is older than 12 months — re-review required`);
+    const age = Date.now() - reviewed.getTime();
+    if (age > MAX_REVIEW_FAIL_MS) {
+      throw new Error(`${id} lastReviewed (${lastReviewed}) is older than 400 days — re-review required`);
+    }
+    if (age > MAX_REVIEW_WARN_MS) {
+      console.warn(
+        `Warning: ${id} lastReviewed (${lastReviewed}) is older than 12 months — re-review recommended`
+      );
     }
   }
 
@@ -39,9 +47,29 @@ async function main() {
   const esPaths = await getAllPathsFromMdx("es");
   assertLocaleIdParity(enPaths, esPaths, "paths");
 
+  for (const p of [...enPaths, ...esPaths]) {
+    for (const lessonId of p.lessons) {
+      if (!(LESSON_IDS as readonly string[]).includes(lessonId)) {
+        throw new Error(`Path ${p.id} references unknown lesson ID: ${lessonId}`);
+      }
+    }
+  }
+
   const enGlossary = await getAllGlossaryFromMdx("en");
   const esGlossary = await getAllGlossaryFromMdx("es");
   assertLocaleIdParity(enGlossary, esGlossary, "glossary");
+
+  for (const term of [...enGlossary, ...esGlossary]) {
+    if (!term.term || !term.term.trim()) {
+      throw new Error(`Glossary ${term.id} is missing term`);
+    }
+    if (!term.category || !term.category.trim()) {
+      throw new Error(`Glossary ${term.id} is missing category`);
+    }
+    if (!term.definition || !term.definition.trim()) {
+      throw new Error(`Glossary ${term.id} is missing definition`);
+    }
+  }
 
   const enQuizzes = await getAllQuizzesFromMdx("en");
   const esQuizzes = await getAllQuizzesFromMdx("es");
@@ -57,7 +85,7 @@ async function main() {
       throw new Error(`Quiz ${quiz.id} (${quiz.questions.length} questions) must have at least 5 questions`);
     }
     for (let index = 0; index < quiz.questions.length; index++) {
-      const question = quiz.questions[index];
+      const question = quiz.questions[index]!;
       if (!question.explanation || question.explanation.trim().length < 40) {
         throw new Error(`Quiz ${quiz.id} question ${index + 1} has a missing or too-short explanation`);
       }

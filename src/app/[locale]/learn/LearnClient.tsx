@@ -8,7 +8,7 @@ import PageHeader from "@/components/PageHeader";
 import MedicalDisclaimer from "@/components/MedicalDisclaimer";
 import EmptyState from "@/components/ui/EmptyState";
 import Reveal from "@/components/ui/Reveal";
-import { getCategoryLabel } from "@/lib/i18n";
+import { getCategoryLabel, isLessonCategoryId } from "@/lib/i18n";
 import { LESSON_CATEGORY_IDS } from "@/types/content";
 import type { LessonListItem } from "@/types/lesson";
 import { useTranslations } from "next-intl";
@@ -78,7 +78,7 @@ export default function LearnClient({ lessons }: LearnClientProps) {
       if (!groups[lesson.categoryId]) {
         groups[lesson.categoryId] = [];
       }
-      groups[lesson.categoryId].push(lesson);
+      groups[lesson.categoryId]!.push(lesson);
     }
     return groups;
   }, [libraryLessons, activeCategory]);
@@ -177,7 +177,7 @@ export default function LearnClient({ lessons }: LearnClientProps) {
                     className="border-t border-outline-variant/40 pt-8 first:border-t-0 first:pt-0"
                   >
                     <h3 className="mb-6 font-display text-headline-md text-primary">
-                      {getCategoryLabel(categoryId as any, locale)}
+                      {isLessonCategoryId(categoryId) ? getCategoryLabel(categoryId, locale) : categoryId}
                     </h3>
                     <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
                       {groupLessons.map((lesson, index) => (

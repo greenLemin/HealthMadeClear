@@ -14,4 +14,5 @@ alter table public.lesson_progress enable row level security;
 
 create policy "Users can manage their own lesson progress"
   on public.lesson_progress for all
-  using (auth.uid() = user_id);
+  using (auth.uid() = user_id)
+  with check (auth.uid() = user_id);

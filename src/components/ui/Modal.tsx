@@ -1,10 +1,11 @@
 "use client";
 
-import { useCallback, useEffect, useRef, type ReactNode } from "react";
+import { useCallback, useEffect, useId, useRef, type ReactNode } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { X } from "lucide-react";
 import { useFocusTrap } from "@/hooks/useFocusTrap";
 import { useMotionSafe } from "@/hooks/useMotionSafe";
+import { lockScroll, unlockScroll } from "@/hooks/useDismissibleOverlay";
 import { modalVariants, revealEase } from "@/components/ui/animation";
 import { useTranslations } from "next-intl";
 
@@ -108,23 +109,11 @@ function ModalPanel({ dialogRef, titleId, size, motionSafe, children }: ModalPan
 
 export default function Modal({ isOpen, onClose, title, children, size = "md" }: ModalProps) {
   const dialogRef = useRef<HTMLDivElement>(null);
-  const titleId = `modal-${title.toLowerCase().replace(/\s+/g, "-")}`;
+  const generatedId = useId();
+  const titleId = `modal-title-${generatedId}`;
   const motionSafe = useMotionSafe();
 
   useFocusTrap(dialogRef, isOpen);
-
-  const previousActiveElement = useRef<HTMLElement | null>(null);
-
-  useEffect(() => {
-    if (isOpen) {
-      previousActiveElement.current = document.activeElement as HTMLElement;
-    }
-    return () => {
-      if (previousActiveElement.current) {
-        previousActiveElement.current.focus();
-      }
-    };
-  }, [isOpen]);
 
   const handleKeyDown = useCallback(
     (event: KeyboardEvent) => {
@@ -141,9 +130,9 @@ export default function Modal({ isOpen, onClose, title, children, size = "md" }:
 
   useEffect(() => {
     if (!isOpen) return;
-    document.body.style.overflow = "hidden";
+    lockScroll();
     return () => {
-      document.body.style.overflow = "";
+      unlockScroll();
     };
   }, [isOpen]);
 

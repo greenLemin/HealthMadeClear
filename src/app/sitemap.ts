@@ -31,7 +31,10 @@ function parseReviewDate(value?: string): Date {
 
 function getAlternates(base: string, path: string) {
   return {
-    languages: Object.fromEntries(routing.locales.map((alt) => [alt, `${base}/${alt}${path}`])),
+    languages: {
+      ...Object.fromEntries(routing.locales.map((alt) => [alt, `${base}/${alt}${path}`])),
+      "x-default": `${base}/en${path}`,
+    },
   };
 }
 

@@ -44,7 +44,7 @@ export default async function ArticlesPage({ params }: Props) {
           })),
         }}
       />
-      <ArticlesClient />
+      <ArticlesClient articles={articles} />
     </>
   );
 }

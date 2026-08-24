@@ -3,13 +3,10 @@
 import { Link } from "@/i18n/navigation";
 import Card from "@/components/ui/Card";
 import { ArrowLeft, GraduationCap } from "lucide-react";
-import { useAppState } from "@/components/AppProviders";
 import MarkdownRenderer from "@/components/mdx/MarkdownRenderer";
 import MedicalDisclaimer from "@/components/MedicalDisclaimer";
-import { getGlossaryLabel, getGlossaryTerms, getLessonById } from "@/lib/localizedContent";
 import { useTranslations } from "next-intl";
 import type { GlossaryTerm } from "@/types/glossary";
-import type { Locale } from "@/lib/i18n";
 
 function GlossaryBreadcrumbs({ term }: { term: GlossaryTerm }) {
   const tCommon = useTranslations("common");
@@ -40,7 +37,13 @@ function GlossaryBreadcrumbs({ term }: { term: GlossaryTerm }) {
   );
 }
 
-function RelatedLessons({ lessonIds, locale }: { lessonIds: string[]; locale: Locale }) {
+function RelatedLessons({
+  lessonIds,
+  lessonTitles,
+}: {
+  lessonIds: string[];
+  lessonTitles: Record<string, string>;
+}) {
   const t = useTranslations("glossary");
 
   if (!lessonIds.length) return null;
@@ -53,15 +56,15 @@ function RelatedLessons({ lessonIds, locale }: { lessonIds: string[]; locale: Lo
       </h2>
       <ul className="space-y-2">
         {lessonIds.map((lessonId) => {
-          const lesson = getLessonById(lessonId, locale);
-          if (!lesson) return null;
+          const title = lessonTitles[lessonId];
+          if (!title) return null;
           return (
             <li key={lessonId}>
               <Link
                 href={`/learn/${lessonId}`}
                 className="font-semibold text-primary underline underline-offset-2"
               >
-                {lesson.title}
+                {title}
               </Link>
             </li>
           );
@@ -71,7 +74,7 @@ function RelatedLessons({ lessonIds, locale }: { lessonIds: string[]; locale: Lo
   );
 }
 
-function RelatedTerms({ termIds, locale }: { termIds: string[]; locale: Locale }) {
+function RelatedTerms({ termIds, termLabels }: { termIds: string[]; termLabels: Record<string, string> }) {
   const tCommon = useTranslations("common");
 
   if (!termIds.length) return null;
@@ -88,7 +91,7 @@ function RelatedTerms({ termIds, locale }: { termIds: string[]; locale: Locale }
             href={`/glossary/${related}`}
             className="inline-flex min-h-11 items-center rounded-full bg-surface-container px-4 py-2 text-label-md font-semibold text-primary underline underline-offset-2 hover:bg-secondary-container"
           >
-            {getGlossaryLabel(related, locale)}
+            {termLabels[related] ?? related}
           </Link>
         ))}
       </div>
@@ -96,10 +99,18 @@ function RelatedTerms({ termIds, locale }: { termIds: string[]; locale: Locale }
   );
 }
 
-export default function GlossaryTermClient({ term }: { term: GlossaryTerm }) {
+export default function GlossaryTermClient({
+  term,
+  glossaryTerms,
+  lessonTitles,
+  termLabels,
+}: {
+  term: GlossaryTerm;
+  glossaryTerms: GlossaryTerm[];
+  lessonTitles: Record<string, string>;
+  termLabels: Record<string, string>;
+}) {
   const t = useTranslations("glossary");
-  const { locale } = useAppState();
-  const glossaryTerms = getGlossaryTerms(locale);
 
   return (
     <div className="py-12 md:py-16">
@@ -122,11 +133,11 @@ export default function GlossaryTermClient({ term }: { term: GlossaryTerm }) {
         </Card>
 
         {term.relatedLessons && term.relatedLessons.length > 0 && (
-          <RelatedLessons lessonIds={term.relatedLessons} locale={locale} />
+          <RelatedLessons lessonIds={term.relatedLessons} lessonTitles={lessonTitles} />
         )}
 
         {term.relatedTerms && term.relatedTerms.length > 0 && (
-          <RelatedTerms termIds={term.relatedTerms} locale={locale} />
+          <RelatedTerms termIds={term.relatedTerms} termLabels={termLabels} />
         )}
 
         <MedicalDisclaimer />

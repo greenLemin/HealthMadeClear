@@ -48,10 +48,10 @@ describe("GoogleAnalytics", () => {
     expect(scripts[0]).toHaveAttribute("src", "https://www.googletagmanager.com/gtag/js?id=G-1234567890");
     expect(scripts[0]).toHaveAttribute("data-strategy", "afterInteractive");
 
-    // Second script
-    expect(scripts[1]).toHaveAttribute("id", "google-analytics");
+    // Second script: external init loader (CSP-safe, no inline executable code)
+    expect(scripts[1]).toHaveAttribute("id", "ga-init");
+    expect(scripts[1]).toHaveAttribute("src", "/ga-init.js?id=G-1234567890");
     expect(scripts[1]).toHaveAttribute("data-strategy", "afterInteractive");
-    expect(scripts[1].innerHTML).toContain("gtag('config', 'G-1234567890'");
-    expect(scripts[1].innerHTML).toContain("window.dataLayer = window.dataLayer || []");
+    expect(scripts[1]!.innerHTML).toBe("");
   });
 });

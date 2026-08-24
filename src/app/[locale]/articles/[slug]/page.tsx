@@ -3,7 +3,7 @@ import { setRequestLocale } from "next-intl/server";
 import { routing } from "@/i18n/routing";
 import { articles } from "@/data/articles";
 import { requireLocale } from "@/lib/locale";
-import { getArticleById } from "@/lib/localizedContent";
+import { getArticleById, getGlossaryTerms } from "@/lib/localizedContent";
 import JsonLd from "@/components/JsonLd";
 import { getSiteUrl } from "@/lib/site";
 import ArticlePageClient from "./ArticlePageClient";
@@ -21,6 +21,7 @@ export async function generateMetadata({ params }: Props) {
   const base = getSiteUrl();
   const path = `/articles/${article.id}`;
   const ogTitle = encodeURIComponent(article.title);
+  const ogCategory = encodeURIComponent(article.category || "Articles");
   return {
     title: article.title,
     description: article.description,
@@ -36,9 +37,10 @@ export async function generateMetadata({ params }: Props) {
       title: article.title,
       description: article.description,
       url: `${base}/${locale}${path}`,
+      locale: locale === "es" ? "es_ES" : "en_US",
       images: [
         {
-          url: `${base}/api/og?title=${ogTitle}&category=Articles`,
+          url: `${base}/api/og?title=${ogTitle}&category=${ogCategory}`,
           width: 1200,
           height: 630,
           alt: article.title,
@@ -49,7 +51,7 @@ export async function generateMetadata({ params }: Props) {
       card: "summary_large_image",
       title: article.title,
       description: article.description,
-      images: [`${base}/api/og?title=${ogTitle}&category=Articles`],
+      images: [`${base}/api/og?title=${ogTitle}&category=${ogCategory}`],
     },
   };
 }
@@ -62,6 +64,7 @@ export default async function ArticleDetailPage({ params }: Props) {
   if (!article) notFound();
 
   const url = `${getSiteUrl()}/${locale}/articles/${article.id}`;
+  const glossaryTerms = getGlossaryTerms(l);
 
   return (
     <>
@@ -77,7 +80,7 @@ export default async function ArticleDetailPage({ params }: Props) {
           dateModified: article.lastReviewed,
         }}
       />
-      <ArticlePageClient article={article} />
+      <ArticlePageClient article={article} glossaryTerms={glossaryTerms} />
     </>
   );
 }

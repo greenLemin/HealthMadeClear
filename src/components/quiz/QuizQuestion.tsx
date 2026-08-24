@@ -6,10 +6,10 @@ function renderOptionText(text: string): React.ReactNode {
   const parts = text.split(/(\*\*.*?\*\*|\*.*?\*|_.*?_)/g);
   return parts.map((part, index) => {
     if (part.startsWith("**") && part.endsWith("**")) {
-      return <strong key={index}>{part.slice(2, -2)}</strong>;
+      return <strong key={`${part.slice(0, 10)}-${index}`}>{part.slice(2, -2)}</strong>;
     }
     if ((part.startsWith("*") && part.endsWith("*")) || (part.startsWith("_") && part.endsWith("_"))) {
-      return <em key={index}>{part.slice(1, -1)}</em>;
+      return <em key={`${part.slice(0, 10)}-${index}`}>{part.slice(1, -1)}</em>;
     }
     return part;
   });

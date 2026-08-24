@@ -119,6 +119,6 @@ describe("getQuizPerformanceByCategory", () => {
     const result = await getQuizPerformanceByCategory(supabase, "test-user");
 
     expect(result).toHaveLength(1);
-    expect(result[0].averageScore).toBe(0);
+    expect(result[0]!.averageScore).toBe(0);
   });
 });

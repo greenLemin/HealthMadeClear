@@ -3,18 +3,24 @@
 import { type NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { sanitizeRedirectPath } from "@/lib/auth/sanitizeRedirect";
-import { checkRateLimit, getClientIp } from "@/lib/rateLimit";
+import { getClientIp } from "@/lib/rateLimit";
+import { checkRateLimitDistributed } from "@/lib/rateLimitDistributed";
 import { reportServerError } from "@/lib/errorReporting";
 
 export async function GET(request: NextRequest) {
-  const limit = checkRateLimit("auth-callback", getClientIp(request), 5, 60_000);
+  const limit = await checkRateLimitDistributed("auth-callback", getClientIp(request), 5, 60_000);
   if (!limit.allowed) {
     return NextResponse.redirect(new URL("/auth/login?error=rate_limited", request.url));
   }
 
   const { searchParams } = new URL(request.url);
   const code = searchParams.get("code");
-  const next = sanitizeRedirectPath(searchParams.get("next"));
+  const pathname =
+    (request as unknown as { nextUrl?: { pathname: string } }).nextUrl?.pathname ??
+    new URL(request.url).pathname;
+  const localePart = pathname.split("/")[1];
+  const locale = ["en", "es"].includes(localePart || "") ? localePart! : "en";
+  const next = sanitizeRedirectPath(searchParams.get("next"), `/${locale}/dashboard`);
 
   if (code) {
     try {

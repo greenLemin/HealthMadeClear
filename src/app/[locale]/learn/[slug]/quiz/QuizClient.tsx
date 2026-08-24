@@ -10,6 +10,9 @@ import { useAppState } from "@/components/AppProviders";
 import { useProgress } from "@/hooks/useProgress";
 import QuizQuestionComponent from "@/components/quiz/QuizQuestion";
 import QuizResults from "@/components/quiz/QuizResults";
+import QuizStart from "@/components/quiz/QuizStart";
+import QuizEmpty from "@/components/quiz/QuizEmpty";
+import QuizFeedback from "@/components/quiz/QuizFeedback";
 import Confetti from "@/components/quiz/Confetti";
 import Modal from "@/components/ui/Modal";
 import MedicalDisclaimer from "@/components/MedicalDisclaimer";
@@ -32,7 +35,7 @@ export default function QuizClient({ quiz, lessonTitle, lessonId }: Props) {
   const t = useTranslations("quiz");
   const { locale } = useAppState();
   const router = useRouter();
-  const { saveQuizAttempt, getQuizBestScore } = useProgress();
+  const { saveQuizAttempt } = useProgress();
   const [state, setState] = useState<QuizState>("start");
   const recordedRef = useRef(false);
   const [current, setCurrent] = useState(0);
@@ -120,61 +123,17 @@ export default function QuizClient({ quiz, lessonTitle, lessonId }: Props) {
   }, [state, score, total, lessonId, quiz.id, quiz.questions, answers, saveQuizAttempt]);
 
   if (total === 0) {
-    return (
-      <div className="py-10 md:py-14">
-        <div className="mx-auto max-w-2xl px-4 md:px-6">
-          <Link
-            href={`/learn/${lessonId}`}
-            className="no-print mb-6 inline-flex items-center gap-2 text-label-md font-semibold text-primary"
-          >
-            <ArrowLeft size={18} />
-            {t("backToLesson")}
-          </Link>
-          <div className="surface-card-glass px-6 py-6 md:px-8 md:py-8">
-            <div className="eyebrow mb-3">{t("backToLesson")}</div>
-            <h1 className="font-display text-headline-lg text-primary">{quiz.title}</h1>
-            <p className="mb-6 text-body-md text-on-surface-variant">{t("noQuestions")}</p>
-            <ButtonLink href={`/learn/${lessonId}`}>{t("backToLesson")}</ButtonLink>
-          </div>
-          <MedicalDisclaimer />
-        </div>
-      </div>
-    );
+    return <QuizEmpty quiz={quiz} lessonId={lessonId} />;
   }
 
   if (state === "start") {
-    const bestScore = getQuizBestScore(quiz.id);
     return (
-      <div className="py-10 md:py-14">
-        <div className="mx-auto max-w-2xl px-4 md:px-6">
-          <Link
-            href={`/learn/${lessonId}`}
-            className="no-print mb-6 inline-flex items-center gap-2 text-label-md font-semibold text-primary"
-          >
-            <ArrowLeft size={18} />
-            {t("backToLesson")}
-          </Link>
-          <div className="section-frame px-6 py-6 md:px-8 md:py-8">
-            <div className="flex flex-wrap items-center gap-3">
-              <span className="chip">{total}</span>
-              <span className="chip">{t("passRequirement", { score: quiz.passScore })}</span>
-            </div>
-            <h1 className="mt-4 font-display text-headline-lg text-primary">{quiz.title}</h1>
-            <p className="mb-4 text-body-md text-on-surface-variant">
-              {t("description", { count: total, title: lessonTitle })}
-            </p>
-            {bestScore !== null ? (
-              <p className="mb-4 text-label-md font-semibold text-secondary">
-                {t("bestScore", { score: bestScore })}
-              </p>
-            ) : null}
-            <Button type="button" onClick={() => setState("active")}>
-              {bestScore !== null ? t("retake") : t("startQuiz")}
-            </Button>
-          </div>
-          <MedicalDisclaimer />
-        </div>
-      </div>
+      <QuizStart
+        quiz={quiz}
+        lessonId={lessonId}
+        lessonTitle={lessonTitle}
+        onStart={() => setState("active")}
+      />
     );
   }
 
@@ -199,7 +158,7 @@ export default function QuizClient({ quiz, lessonTitle, lessonId }: Props) {
     );
   }
 
-  const question = quiz.questions[current];
+  const question = quiz.questions[current]!;
   const selectedIdx = answers[current] ?? -1;
   const selectedLetter = selectedIdx >= 0 ? IDX_TO_LETTER[selectedIdx] : undefined;
   const isCorrect = selectedLetter !== undefined ? selectedLetter === question.correctAnswer : null;
@@ -280,21 +239,7 @@ export default function QuizClient({ quiz, lessonTitle, lessonId }: Props) {
             </div>
           </Reveal>
 
-          {selectedIdx >= 0 && showResult && isCorrect !== null ? (
-            <Reveal delay={0.06} className="mt-6">
-              <div
-                role="alert"
-                className={`rounded-[1.35rem] border px-5 py-5 ${
-                  isCorrect
-                    ? "border-secondary bg-secondary-container/30 text-on-secondary-container"
-                    : "border-tertiary bg-tertiary-container/20 text-tertiary"
-                }`}
-              >
-                <p className="mb-1 font-semibold">{isCorrect ? t("correct") : t("incorrect")}</p>
-                {question.explanation && <p className="text-label-md">{question.explanation}</p>}
-              </div>
-            </Reveal>
-          ) : null}
+          <QuizFeedback showResult={showResult} correct={isCorrect} explanation={question.explanation} />
 
           <div className="mt-6 flex items-center justify-between rounded-[1.5rem] border border-outline-variant bg-surface-container-low px-4 py-4">
             <Button

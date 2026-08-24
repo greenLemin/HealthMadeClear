@@ -118,7 +118,7 @@ export default function RecommendedNext({
       {isFirstVisit && recommendedNext ? (
         <FirstVisitRecommendation recommendedNext={recommendedNext} t={t} />
       ) : activePaths.length > 0 ? (
-        <ActivePathRecommendation active={activePaths[0]} t={t} />
+        <ActivePathRecommendation active={activePaths[0]!} t={t} />
       ) : (
         <AllCaughtUp t={t} />
       )}

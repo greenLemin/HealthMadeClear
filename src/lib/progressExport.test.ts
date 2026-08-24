@@ -157,7 +157,7 @@ describe("progressExport", () => {
 
       const result = readStoredQuizScores();
       expect(result).toHaveLength(1);
-      expect(result[0].lessonId).toBe("quiz-1");
+      expect(result[0]!.lessonId).toBe("quiz-1");
     });
 
     it("returns empty array if stored data is not an array", () => {

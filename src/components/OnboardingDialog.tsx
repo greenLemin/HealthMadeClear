@@ -6,6 +6,7 @@ import { BookOpen, Route, Search, X, type LucideIcon } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 import { usePathname } from "@/i18n/navigation";
 import { useDismissibleOverlay } from "@/hooks/useDismissibleOverlay";
+import { useFocusTrap } from "@/hooks/useFocusTrap";
 import { useMotionSafe } from "@/hooks/useMotionSafe";
 import { revealEase } from "@/components/ui/animation";
 import Button from "@/components/ui/Button";
@@ -105,16 +106,25 @@ export default function OnboardingDialog() {
 
   useEffect(() => {
     if (pathname !== "/") {
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- Hide onboarding when navigating away from home
       setVisible(false);
       return;
     }
-    setVisible(!localStorage.getItem(ONBOARDING_KEY));
+    try {
+      setVisible(!localStorage.getItem(ONBOARDING_KEY));
+    } catch {
+      setVisible(false);
+    }
   }, [pathname]);
 
   const dismiss = () => {
-    localStorage.setItem(ONBOARDING_KEY, "true");
+    try {
+      localStorage.setItem(ONBOARDING_KEY, "true");
+    } catch {}
     setVisible(false);
   };
+
+  useFocusTrap(dialogRef, visible);
 
   useDismissibleOverlay({
     isOpen: visible,
@@ -127,18 +137,20 @@ export default function OnboardingDialog() {
     <AnimatePresence>
       {visible ? (
         motionSafe ? (
-          <aside
+          <div
             ref={dialogRef}
-            role="complementary"
+            role="dialog"
+            aria-modal="true"
             aria-labelledby="onboarding-title"
             className="no-print fixed bottom-4 left-4 z-[110] w-[min(24rem,calc(100vw-2rem))]"
           >
             <OnboardingContent dismiss={dismiss} t={t} />
-          </aside>
+          </div>
         ) : (
-          <motion.aside
+          <motion.div
             ref={dialogRef}
-            role="complementary"
+            role="dialog"
+            aria-modal="true"
             aria-labelledby="onboarding-title"
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
@@ -147,7 +159,7 @@ export default function OnboardingDialog() {
             className="no-print fixed bottom-4 left-4 z-[110] w-[min(24rem,calc(100vw-2rem))]"
           >
             <OnboardingContent dismiss={dismiss} t={t} />
-          </motion.aside>
+          </motion.div>
         )
       ) : null}
     </AnimatePresence>

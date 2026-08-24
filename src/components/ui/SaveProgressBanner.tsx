@@ -17,10 +17,15 @@ export default function SaveProgressBanner() {
 
   useEffect(() => {
     if (authLoading || user) return;
-    const dismissed = sessionStorage.getItem(BANNER_DISMISSED_KEY);
-    if (dismissed) return;
+    try {
+      const dismissed = sessionStorage.getItem(BANNER_DISMISSED_KEY);
+      if (dismissed) return;
+    } catch {
+      return;
+    }
     const progress = getGuestProgress();
     if (progress.completedLessons.length > 0 || progress.quizAttempts.length > 0) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- Show banner once when guest has unsaved progress after mount
       setVisible(true);
     }
   }, [authLoading, user]);

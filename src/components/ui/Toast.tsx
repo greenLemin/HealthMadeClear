@@ -34,6 +34,7 @@ const AUTO_DISMISS_MS = 8000;
 export default function ToastItem({ toast, onDismiss }: ToastProps) {
   const [visible, setVisible] = useState(false);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const dismissTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const isError = toast.variant === "error";
   const tCommon = useTranslations("common");
 
@@ -44,20 +45,23 @@ export default function ToastItem({ toast, onDismiss }: ToastProps) {
 
   const startTimer = useCallback(() => {
     if (timerRef.current) clearTimeout(timerRef.current);
+    if (dismissTimerRef.current) clearTimeout(dismissTimerRef.current);
     timerRef.current = setTimeout(() => {
       setVisible(false);
-      setTimeout(() => onDismiss(toast.id), 300);
+      dismissTimerRef.current = setTimeout(() => onDismiss(toast.id), 300);
     }, AUTO_DISMISS_MS);
   }, [toast.id, onDismiss]);
 
   const pauseTimer = useCallback(() => {
     if (timerRef.current) clearTimeout(timerRef.current);
+    if (dismissTimerRef.current) clearTimeout(dismissTimerRef.current);
   }, []);
 
   useEffect(() => {
     startTimer();
     return () => {
       if (timerRef.current) clearTimeout(timerRef.current);
+      if (dismissTimerRef.current) clearTimeout(dismissTimerRef.current);
     };
   }, [startTimer]);
 

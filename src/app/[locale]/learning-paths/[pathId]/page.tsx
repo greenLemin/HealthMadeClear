@@ -32,13 +32,13 @@ export async function generateMetadata({ params }: Props) {
       title: `${path.title} — Learning Path`,
       description: path.description,
       siteName: "Health Made Clear",
-      images: [{ url: "/og-default.png", width: 1200, height: 630, alt: "Health Made Clear" }],
+      images: [{ url: "/og-default.jpg", width: 1200, height: 630, alt: "Health Made Clear" }],
     },
     twitter: {
       card: "summary_large_image" as const,
       title: `${path.title} — Learning Path`,
       description: path.description,
-      images: ["/og-default.png"],
+      images: ["/og-default.jpg"],
     },
   };
 }

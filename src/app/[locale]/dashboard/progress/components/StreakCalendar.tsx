@@ -1,6 +1,8 @@
 "use client";
 
+import { useLocale, useTranslations } from "next-intl";
 import { Flame } from "lucide-react";
+import { formatUtcDay, utcDay, utcToday } from "@/lib/streakDisplay";
 
 interface StreakCalendarProps {
   activeDays: string[];
@@ -15,21 +17,19 @@ export default function StreakCalendar({
   longestStreak,
   hasActivityToday,
 }: StreakCalendarProps) {
-  const today = new Date().toISOString().split("T")[0];
+  const t = useTranslations("progress");
+  const locale = useLocale();
+  const today = utcToday();
   const activeSet = new Set(activeDays);
 
-  const calendarDays = Array.from({ length: 30 }, (_, i) => {
-    const d = new Date();
-    d.setDate(d.getDate() - (29 - i));
-    return d.toISOString().split("T")[0];
-  });
+  const calendarDays = Array.from({ length: 30 }, (_, i) => utcDay(i - 29));
 
   return (
     <div className="surface-card-strong px-6 py-6 md:px-8 md:py-8">
-      <div className="eyebrow mb-3">Streak History</div>
-      <h2 className="font-display text-headline-lg text-primary">Last 30 Days</h2>
+      <div className="eyebrow mb-3">{t("streakHistory")}</div>
+      <h2 className="font-display text-headline-lg text-primary">{t("last30Days")}</h2>
       <p className="mt-3 text-body-md text-on-surface-variant">
-        {hasActivityToday ? "Active today" : "Keep your streak alive!"}
+        {hasActivityToday ? t("activeToday") : t("keepStreakAlive")}
       </p>
 
       <div className="mt-6 flex items-center gap-4 rounded-[1.5rem] bg-surface px-5 py-5 shadow-elevation-1">
@@ -37,16 +37,21 @@ export default function StreakCalendar({
           <Flame size={26} aria-hidden="true" />
         </div>
         <div>
-          <p className="text-label-md text-on-surface-variant">Current Streak</p>
-          <p className="font-display text-headline-md text-primary">{currentStreak} days</p>
-          <p className="text-label-md text-on-surface-variant">Longest: {longestStreak} days</p>
+          <p className="text-label-md text-on-surface-variant">{t("currentStreak")}</p>
+          <p className="font-display text-headline-md text-primary">
+            {t("daysValue", { count: currentStreak })}
+          </p>
+          <p className="text-label-md text-on-surface-variant">
+            {t("longestStreak", { count: longestStreak })}
+          </p>
         </div>
       </div>
 
-      <ul className="mt-6 grid grid-cols-10 gap-1.5" aria-label="Streak calendar">
+      <ul className="mt-6 grid grid-cols-10 gap-1.5" aria-label={t("streakHistory")}>
         {calendarDays.map((dateStr) => {
           const isActive = activeSet.has(dateStr);
           const isToday = dateStr === today;
+          const dayLabel = formatUtcDay(dateStr, locale, { weekday: true });
           return (
             <li
               key={dateStr}
@@ -56,11 +61,17 @@ export default function StreakCalendar({
                 isToday ? "ring-2 ring-primary ring-offset-2 ring-offset-transparent" : "",
               ].join(" ")}
             >
-              <span className="sr-only">{isActive ? "Active" : "Inactive"}</span>
+              <span className="sr-only">
+                {isActive
+                  ? t("activeDayLabel", { date: dayLabel })
+                  : t("inactiveDayLabel", { date: dayLabel })}
+              </span>
             </li>
           );
         })}
       </ul>
+
+      <p className="mt-4 text-xs opacity-70">{t("streakResetNote")}</p>
     </div>
   );
 }

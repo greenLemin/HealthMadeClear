@@ -10,4 +10,5 @@ alter table public.daily_log enable row level security;
 
 create policy "Users can manage their own daily log"
   on public.daily_log for all
-  using (auth.uid() = user_id);
+  using (auth.uid() = user_id)
+  with check (auth.uid() = user_id);

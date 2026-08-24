@@ -20,11 +20,11 @@ describe("loadGlossary", () => {
     it("returns all glossary terms for a given locale", () => {
       const termsEn = getAllGlossaryTerms("en");
       expect(termsEn).toHaveLength(2);
-      expect(termsEn[0].term).toBe("Term One");
+      expect(termsEn[0]!.term).toBe("Term One");
 
       const termsEs = getAllGlossaryTerms("es");
       expect(termsEs).toHaveLength(2);
-      expect(termsEs[0].term).toBe("Término Uno");
+      expect(termsEs[0]!.term).toBe("Término Uno");
     });
   });
 

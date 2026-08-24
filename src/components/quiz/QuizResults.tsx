@@ -167,7 +167,7 @@ function QuizQuestionReview({
           const isCorrectOption = oi === correctIdx;
           return (
             <QuizOptionReview
-              key={oi}
+              key={`${opt.slice(0, 20)}-${oi}`}
               option={opt}
               index={oi}
               isSelected={isSelected}
@@ -216,7 +216,12 @@ export default function QuizResults({
 
       <div className="space-y-6">
         {quiz.questions.map((q, i) => (
-          <QuizQuestionReview key={i} question={q} index={i} userAnswerIdx={answers[i]} />
+          <QuizQuestionReview
+            key={q.id ?? `quiz-question-${q.question.slice(0, 20)}-${i}`}
+            question={q}
+            index={i}
+            userAnswerIdx={answers[i]!}
+          />
         ))}
       </div>
     </div>

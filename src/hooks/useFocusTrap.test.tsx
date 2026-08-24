@@ -33,8 +33,16 @@ function EmptyTrapFixture({ active }: { active: boolean }) {
 
 describe("useFocusTrap", () => {
   beforeEach(() => {
-    // JSDOM doesn't implement offsetParent, which is used to check visibility.
-    // We mock it so our elements appear "visible".
+    // JSDOM doesn't implement layout; getClientRects returns empty.
+    // Mock it so elements appear "visible" for focus trap visibility check.
+    Object.defineProperty(HTMLElement.prototype, "getClientRects", {
+      value: function () {
+        return [
+          { width: 10, height: 10, top: 0, left: 0, right: 10, bottom: 10, x: 0, y: 0, toJSON() {} },
+        ] as unknown as DOMRectList;
+      },
+      configurable: true,
+    });
     Object.defineProperty(HTMLElement.prototype, "offsetParent", {
       get() {
         return this.parentNode;
@@ -44,6 +52,7 @@ describe("useFocusTrap", () => {
   });
 
   afterEach(() => {
+    Reflect.deleteProperty(HTMLElement.prototype, "getClientRects");
     Reflect.deleteProperty(HTMLElement.prototype, "offsetParent");
   });
 

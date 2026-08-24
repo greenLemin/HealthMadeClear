@@ -4,7 +4,6 @@ import { getAllLessonsFromMdx } from "../src/lib/lessons/mdxParser";
 import { getAllArticlesFromMdx } from "../src/lib/articles/mdxParser";
 import { getAllGlossaryFromMdx } from "../src/lib/glossary/mdxParser";
 import { getAllPathsFromMdx } from "../src/lib/paths/mdxParser";
-import { formatWithPrettier } from "./lib/formatWithPrettier";
 
 export type SearchEntryType = "lesson" | "article" | "glossary" | "path" | "tool";
 
@@ -116,7 +115,6 @@ async function main() {
       `${header}export type SearchEntryType = "lesson" | "article" | "glossary" | "path" | "tool";\n\nexport interface SearchEntry {\n  id: string;\n  type: SearchEntryType;\n  title: string;\n  description: string;\n  category: string;\n  categoryId: string;\n  content: string;\n  url: string;\n}\n\nexport const searchIndex: SearchEntry[] = ${JSON.stringify(entries, null, 2)} as const;\n`,
       "utf8"
     );
-    formatWithPrettier(outPath);
     console.log(`Wrote search index (${entries.length} entries) for ${locale}.`);
   }
 }

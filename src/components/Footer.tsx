@@ -105,7 +105,7 @@ function CopyrightSection() {
 
   return (
     <div className="flex items-end justify-between gap-4 border-t border-outline-variant pt-4 text-label-md text-on-surface-variant lg:border-t-0 lg:pt-0">
-      <span>© {new Date().getFullYear()} Health Made Clear.</span>
+      <span suppressHydrationWarning>© {new Date().getFullYear()} Health Made Clear.</span>
       <span>{t("rights")}</span>
     </div>
   );

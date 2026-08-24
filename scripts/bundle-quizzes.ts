@@ -1,10 +1,11 @@
 import fs from "fs";
 import path from "path";
-import { getAllQuizzesFromMdx } from "../src/lib/quizzes/quizParser";
+import { assertAllQuizzesExist, getAllQuizzesFromMdx } from "../src/lib/quizzes/quizParser";
 import { assertLocaleIdParity } from "./lib/validateLocaleParity";
-import { formatWithPrettier } from "./lib/formatWithPrettier";
 
 async function main() {
+  await assertAllQuizzesExist("en");
+  await assertAllQuizzesExist("es");
   const en = await getAllQuizzesFromMdx("en");
   const es = await getAllQuizzesFromMdx("es");
 
@@ -20,7 +21,6 @@ async function main() {
       `${header}export const quizzes: Quiz[] = ${JSON.stringify(quizzes, null, 2)} as const;\n`,
       "utf8"
     );
-    formatWithPrettier(outPath);
     return outPath;
   };
 
@@ -37,4 +37,7 @@ async function main() {
   console.log(`Wrote quiz bundles (${en.length} EN, ${es.length} ES quizzes).`);
 }
 
-main().catch(console.error);
+main().catch((e) => {
+  console.error(e);
+  process.exit(1);
+});

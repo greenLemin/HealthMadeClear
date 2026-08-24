@@ -1,6 +1,7 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import JsonLd from "@/components/JsonLd";
 import { getAllGlossaryTerms } from "@/lib/glossary/loadGlossary";
+import { getAllLessons } from "@/lib/lessons/loadLessons";
 import { requireLocale } from "@/lib/locale";
 import { localeAlternates } from "@/lib/metadata";
 import { getSiteUrl } from "@/lib/site";
@@ -24,6 +25,8 @@ export default async function GlossaryPage({ params }: Props) {
   setRequestLocale(locale);
   const terms = getAllGlossaryTerms(locale);
   const base = getSiteUrl();
+  const lessonTitles = Object.fromEntries(getAllLessons(locale).map((l) => [l.id, l.title]));
+  const termLabels = Object.fromEntries(terms.map((term) => [term.id, term.term]));
 
   return (
     <>
@@ -42,7 +45,7 @@ export default async function GlossaryPage({ params }: Props) {
           })),
         }}
       />
-      <GlossaryClient terms={terms} />
+      <GlossaryClient terms={terms} lessonTitles={lessonTitles} termLabels={termLabels} />
     </>
   );
 }

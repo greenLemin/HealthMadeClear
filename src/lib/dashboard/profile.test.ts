@@ -67,7 +67,16 @@ describe("getUserProfile", () => {
     const profile = await getUserProfile(mockSupabase, "user123");
 
     expect(profile).toBeNull();
-    expect(consoleSpy).toHaveBeenCalledWith("Query error in getUserProfile:", { message: "Not found" });
+    // logQueryError now via reportServerError → [hmc:server] prefix with context
+    expect(consoleSpy).toHaveBeenCalledTimes(1);
+    const [prefix1, , ctx1] = consoleSpy.mock.calls[0] as unknown[] as [
+      string,
+      string,
+      Record<string, unknown>,
+    ];
+    expect(prefix1).toBe("[hmc:server]");
+    expect(ctx1).toMatchObject({ context: "getUserProfile" });
+
     expect(mockSupabase.auth.getUser).not.toHaveBeenCalled();
 
     consoleSpy.mockRestore();
@@ -142,9 +151,11 @@ describe("getUserProfile", () => {
       createdAt: "2023-01-01T00:00:00Z",
     });
 
-    expect(consoleSpy).toHaveBeenCalledWith("Query error in getUserProfile:auth:", {
-      message: "Auth failed",
-    });
+    // First error is auth, second is profile? Check at least one call with auth context
+    expect(consoleSpy).toHaveBeenCalled();
+    const authCall = consoleSpy.mock.calls.find((c) => String(c[2]?.context).includes("auth"));
+    // reportServerError uses [hmc:server] prefix
+    expect(authCall?.[0]).toBe("[hmc:server]");
 
     consoleSpy.mockRestore();
   });

@@ -11,7 +11,7 @@ export function getMockDb(cookieStore?: Pick<CookieStore, "get">): MockDb {
       const raw = cookieStore.get("hmc_mock_db")?.value || null;
       if (raw) {
         if (raw.startsWith("%7B") || raw.includes("%")) {
-          json = decodeURIComponent(raw.split(",")[0]);
+          json = decodeURIComponent(raw.split(",")[0]!);
         } else {
           json = raw;
         }
@@ -19,7 +19,7 @@ export function getMockDb(cookieStore?: Pick<CookieStore, "get">): MockDb {
     } else if (typeof document !== "undefined") {
       const match = document.cookie.match(/(?:^|; )hmc_mock_db=([^;]*)/);
       if (match) {
-        const raw = match[1];
+        const raw = match[1]!;
         json = raw.startsWith("%7B") || raw.includes("%") ? decodeURIComponent(raw) : raw;
       }
     }

@@ -140,14 +140,14 @@ describe("getRecentActivity", () => {
     const result = await getRecentActivity(mockSupabase, "user1");
 
     expect(result).toHaveLength(5);
-    expect(result[0].completedAt).toBe("2023-10-06T10:00:00Z"); // Lesson
-    expect(result[1].completedAt).toBe("2023-10-05T10:00:00Z"); // Quiz
-    expect(result[2].completedAt).toBe("2023-10-04T10:00:00Z"); // Lesson
-    expect(result[3].completedAt).toBe("2023-10-03T10:00:00Z"); // Quiz
-    expect(result[4].completedAt).toBe("2023-10-02T10:00:00Z"); // Lesson
+    expect(result[0]!.completedAt).toBe("2023-10-06T10:00:00Z"); // Lesson
+    expect(result[1]!.completedAt).toBe("2023-10-05T10:00:00Z"); // Quiz
+    expect(result[2]!.completedAt).toBe("2023-10-04T10:00:00Z"); // Lesson
+    expect(result[3]!.completedAt).toBe("2023-10-03T10:00:00Z"); // Quiz
+    expect(result[4]!.completedAt).toBe("2023-10-02T10:00:00Z"); // Lesson
 
     // check max_score 0 edge case
-    expect(result[1].score).toBe(0);
+    expect(result[1]!.score).toBe(0);
   });
 
   it("should handle null data and log errors correctly", async () => {

@@ -1,4 +1,5 @@
 import { STORAGE_KEYS } from "@/lib/preferences";
+import { logger } from "@/lib/logger";
 
 export type QuizScore = {
   lessonId: string;
@@ -46,13 +47,26 @@ export function downloadProgressExport(data: ExportedProgress) {
 
 function isQuizScore(value: unknown): value is QuizScore {
   if (!value || typeof value !== "object") return false;
-  const score = value as QuizScore;
-  return (
-    typeof score.lessonId === "string" &&
-    typeof score.score === "number" &&
-    typeof score.passed === "boolean" &&
-    typeof score.completedAt === "string"
-  );
+  const score = value as QuizScore & { maxScore?: unknown; max_score?: unknown };
+  if (
+    typeof score.lessonId !== "string" ||
+    typeof score.score !== "number" ||
+    !Number.isFinite(score.score) ||
+    typeof score.passed !== "boolean" ||
+    typeof score.completedAt !== "string"
+  )
+    return false;
+  if (
+    score.maxScore !== undefined &&
+    (typeof score.maxScore !== "number" || !Number.isFinite(score.maxScore))
+  )
+    return false;
+  if (
+    score.max_score !== undefined &&
+    (typeof score.max_score !== "number" || !Number.isFinite(score.max_score))
+  )
+    return false;
+  return true;
 }
 
 export function parseProgressImport(raw: string): ExportedProgress | null {
@@ -85,17 +99,26 @@ export function parseProgressImport(raw: string): ExportedProgress | null {
 }
 
 export function applyProgressImport(data: ExportedProgress) {
-  window.localStorage.setItem(STORAGE_KEYS.completedLessons, JSON.stringify(data.completedLessons));
-  window.localStorage.setItem(STORAGE_KEYS.recentLessons, JSON.stringify(data.recentLessons));
-  window.localStorage.setItem(STORAGE_KEYS.startedPaths, JSON.stringify(data.startedPaths));
-  window.localStorage.setItem(STORAGE_KEYS.quizScores, JSON.stringify(data.quizScores));
+  const entries: Array<[string, unknown]> = [
+    [STORAGE_KEYS.completedLessons, data.completedLessons],
+    [STORAGE_KEYS.recentLessons, data.recentLessons],
+    [STORAGE_KEYS.startedPaths, data.startedPaths],
+    [STORAGE_KEYS.quizScores, data.quizScores],
+  ];
+  for (const [key, value] of entries) {
+    try {
+      window.localStorage.setItem(key, JSON.stringify(value));
+    } catch (e) {
+      logger.warn(`applyProgressImport failed for ${key}:`, e);
+    }
+  }
 }
 
 export function readStoredQuizScores(): QuizScore[] {
   if (typeof window === "undefined") return [];
-  const raw = window.localStorage.getItem(STORAGE_KEYS.quizScores);
-  if (!raw) return [];
   try {
+    const raw = window.localStorage.getItem(STORAGE_KEYS.quizScores);
+    if (!raw) return [];
     const parsed = JSON.parse(raw) as unknown;
     if (!Array.isArray(parsed)) return [];
     return parsed.filter(isQuizScore);

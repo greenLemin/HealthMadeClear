@@ -1,5 +1,8 @@
 name: CI
 
+permissions:
+  contents: read
+
 on:
   push:
     branches: [main]
@@ -31,5 +34,5 @@ jobs:
         env:
           NEXT_PUBLIC_SUPABASE_URL: https://ci-build.supabase.co
           NEXT_PUBLIC_SUPABASE_ANON_KEY: ci_build_anon_key_placeholder
-      - run: npx playwright install chromium --with-deps
+      - run: npx playwright install --with-deps chromium firefox webkit
       - run: npm run test:e2e

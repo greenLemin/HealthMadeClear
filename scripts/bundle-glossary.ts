@@ -2,7 +2,6 @@ import fs from "fs";
 import path from "path";
 import { getAllGlossaryFromMdx } from "../src/lib/glossary/mdxParser";
 import { assertLocaleIdParity } from "./lib/validateLocaleParity";
-import { formatWithPrettier } from "./lib/formatWithPrettier";
 
 async function main() {
   const en = await getAllGlossaryFromMdx("en");
@@ -20,7 +19,6 @@ async function main() {
       `${header}export const terms: GlossaryTerm[] = ${JSON.stringify(terms, null, 2)} as const;\n`,
       "utf8"
     );
-    formatWithPrettier(outPath);
     return outPath;
   };
 
@@ -36,4 +34,7 @@ async function main() {
   console.log(`Wrote glossary bundles (${en.length} EN, ${es.length} ES terms).`);
 }
 
-main().catch(console.error);
+main().catch((e) => {
+  console.error(e);
+  process.exit(1);
+});

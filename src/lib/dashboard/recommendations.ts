@@ -68,7 +68,7 @@ export async function getRecommendedNextLesson(
 
   let firstUncompleted: (typeof allLessons)[0] | null = null;
   for (let i = 0; i < allLessons.length; i++) {
-    const l = allLessons[i];
+    const l = allLessons[i]!;
     if (!completedSet.has(l.id)) {
       if (l.level === "beginner") {
         return {

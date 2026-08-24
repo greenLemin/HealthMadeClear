@@ -82,14 +82,14 @@ describe("localizedQuiz", () => {
     it("returns all quizzes for the requested English locale", () => {
       const quizzes = getAllQuizzes("en");
       expect(quizzes).toHaveLength(2);
-      expect(quizzes[0].id).toBe("quiz-1-en");
-      expect(quizzes[1].id).toBe("quiz-2-en");
+      expect(quizzes[0]!.id).toBe("quiz-1-en");
+      expect(quizzes[1]!.id).toBe("quiz-2-en");
     });
 
     it("returns all quizzes for the requested Spanish locale", () => {
       const quizzes = getAllQuizzes("es");
       expect(quizzes).toHaveLength(1);
-      expect(quizzes[0].id).toBe("quiz-1-es");
+      expect(quizzes[0]!.id).toBe("quiz-1-es");
     });
   });
 });

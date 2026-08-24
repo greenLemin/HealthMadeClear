@@ -17,7 +17,10 @@ export function getClientIp(request: Request): string {
     return request.ip;
   }
 
-  // Netlify provides a trusted client IP header that cannot be spoofed (it overwrites it)
+  // Netlify provides a trusted client IP header that cannot be spoofed — the
+  // edge overwrites x-nf-client-connection-ip, so clients cannot inject it.
+  // Trust model: when this header is present, it is the authoritative client
+  // IP and we use it exclusively without falling back to XFF.
   const netlifyIp = request.headers.get("x-nf-client-connection-ip");
   if (netlifyIp) {
     return netlifyIp.trim();
@@ -25,17 +28,25 @@ export function getClientIp(request: Request): string {
 
   // To prevent IP spoofing, we take the *last* IP from x-forwarded-for,
   // which represents the IP that connected to the last trusted proxy.
+  // Trust model: assumes request traversed a trusted proxy (Netlify/Vercel)
+  // that appends the real client address. The first entry can be spoofed by
+  // the client; the last entry is supplied by the trusted proxy and is
+  // therefore the only XFF entry we trust under this model.
   const forwardedFor = request.headers.get("x-forwarded-for");
   if (forwardedFor) {
     const ips = forwardedFor.split(",");
-    const lastIp = ips[ips.length - 1].trim();
+    const lastIp = ips[ips.length - 1]!.trim();
     if (lastIp) return lastIp;
   }
 
   const realIp = request.headers.get("x-real-ip");
   if (realIp) return realIp.trim();
 
-  return "127.0.0.1";
+  // Distinct bucket for missing IP — avoids collapsing all unknown clients
+  // onto 127.0.0.1 and makes the rate-limit bucket explicit. Callers get a
+  // shared "unknown" bucket rather than a loopback bucket that could mask
+  // localhost traffic.
+  return "unknown";
 }
 
 type RateLimitResult = { allowed: true } | { allowed: false; retryAfterSeconds: number };

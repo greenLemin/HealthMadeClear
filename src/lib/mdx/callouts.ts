@@ -11,7 +11,7 @@ export interface Section {
   callouts?: Callout[];
 }
 
-const CALLOUT_REGEX = /:::([a-z]+)\n([\s\S]*?)\n:::/g;
+const CALLOUT_REGEX = /:::([a-z]+)\r?\n([\s\S]*?)\r?\n:::/g;
 
 export function parseCallouts(block: string): { content: string; callouts: Callout[] | undefined } {
   const callouts: Callout[] = [];
@@ -20,7 +20,7 @@ export function parseCallouts(block: string): { content: string; callouts: Callo
   for (const match of Array.from(block.matchAll(CALLOUT_REGEX))) {
     const type = match[1] as CalloutType;
     if (type === "info" || type === "success" || type === "warning") {
-      callouts.push({ type, content: match[2].trim() });
+      callouts.push({ type, content: match[2]!.trim() });
     }
     content = content.replace(match[0], "").trim();
   }

@@ -3,14 +3,11 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link } from "@/i18n/navigation";
 import { Search } from "lucide-react";
-import { useAppState } from "@/components/AppProviders";
 import PageHeader from "@/components/PageHeader";
 import MedicalDisclaimer from "@/components/MedicalDisclaimer";
 import EmptyState from "@/components/ui/EmptyState";
 import Reveal from "@/components/ui/Reveal";
 import { normalizeGlossaryLetter } from "@/lib/i18n";
-import { getGlossaryLabelFromBundle } from "@/lib/glossary/loadGlossary";
-import { getLessonById } from "@/lib/localizedContent";
 import type { GlossaryTerm } from "@/types/glossary";
 import { useTranslations } from "next-intl";
 import MarkdownRenderer from "@/components/mdx/MarkdownRenderer";
@@ -19,12 +16,17 @@ const alphabet = ["All", ..."ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("")];
 
 type GlossaryClientProps = {
   terms: GlossaryTerm[];
+  lessonTitles: Record<string, string>;
+  termLabels: Record<string, string>;
 };
 
-export default function GlossaryClient({ terms: glossaryTerms }: GlossaryClientProps) {
+export default function GlossaryClient({
+  terms: glossaryTerms,
+  lessonTitles,
+  termLabels,
+}: GlossaryClientProps) {
   const [query, setQuery] = useState("");
   const [activeLetter, setActiveLetter] = useState("All");
-  const { locale } = useAppState();
   const t = useTranslations("glossary");
   const tCommon = useTranslations("common");
   const allLabel = tCommon("all");
@@ -172,15 +174,15 @@ export default function GlossaryClient({ terms: glossaryTerms }: GlossaryClientP
                           </div>
                           <div className="flex flex-col gap-1">
                             {term.relatedLessons.map((lessonId) => {
-                              const lesson = getLessonById(lessonId, locale);
-                              if (!lesson) return null;
+                              const title = lessonTitles[lessonId];
+                              if (!title) return null;
                               return (
                                 <Link
                                   key={lessonId}
                                   href={`/learn/${lessonId}`}
                                   className="text-label-md font-semibold text-primary underline hover:underline"
                                 >
-                                  {lesson.title}
+                                  {title}
                                 </Link>
                               );
                             })}
@@ -202,7 +204,7 @@ export default function GlossaryClient({ terms: glossaryTerms }: GlossaryClientP
                                 href={`/glossary/${related}`}
                                 className="chip min-h-11 px-4 py-2 text-label-md text-primary hover:bg-secondary-container"
                               >
-                                {getGlossaryLabelFromBundle(related, locale)}
+                                {termLabels[related] ?? related}
                               </Link>
                             ))}
                           </div>

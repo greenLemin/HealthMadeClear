@@ -1,7 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
 import { notFound } from "next/navigation";
-import Script from "next/script";
 import { NextIntlClientProvider, hasLocale } from "next-intl";
 import { getMessages, getTranslations, setRequestLocale } from "next-intl/server";
 import { atkinson, newsreader } from "@/app/fonts";
@@ -14,7 +13,6 @@ import SaveProgressBanner from "@/components/ui/SaveProgressBanner";
 import ScrollToTop from "@/components/ScrollToTop";
 import { routing } from "@/i18n/routing";
 import { requireLocale } from "@/lib/locale";
-import { PREFERENCE_BOOTSTRAP_SCRIPT } from "@/lib/preferences";
 import { getSiteUrl } from "@/lib/site";
 import AnalyticsPageViewTracker from "@/components/AnalyticsPageViewTracker";
 import GoogleAnalytics from "@/components/GoogleAnalytics";
@@ -59,6 +57,7 @@ export async function generateMetadata({
     authors: [{ name: "Health Made Clear" }],
     creator: "Health Made Clear",
     alternates: {
+      canonical: `${siteUrl}/${locale}`,
       languages: {
         en: `${siteUrl}/en`,
         es: `${siteUrl}/es`,
@@ -72,13 +71,13 @@ export async function generateMetadata({
       siteName: "Health Made Clear",
       title: t("siteTitle"),
       description: t("siteDescription"),
-      images: [{ url: "/og-default.png", width: 1200, height: 630, alt: "Health Made Clear" }],
+      images: [{ url: "/og-default.jpg", width: 1200, height: 630, alt: "Health Made Clear" }],
     },
     twitter: {
       card: "summary_large_image",
       title: t("siteTitle"),
       description: t("siteDescription"),
-      images: ["/og-default.png"],
+      images: ["/og-default.jpg"],
     },
     robots: {
       index: true,
@@ -103,13 +102,13 @@ export default async function LocaleLayout({
   if (!hasLocale(routing.locales, locale)) {
     notFound();
   }
-  setRequestLocale(locale);
-  const messages = await getMessages();
   const validLocale = requireLocale(locale);
+  setRequestLocale(validLocale);
+  const messages = await getMessages({ locale: validLocale });
 
   return (
     <html
-      lang={locale}
+      lang={validLocale}
       suppressHydrationWarning
       className={[atkinson.variable, newsreader.variable].join(" ")}
     >
@@ -117,13 +116,12 @@ export default async function LocaleLayout({
         <GoogleAnalytics />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
-        <Script id="hmc-preferences" strategy="beforeInteractive">
-          {PREFERENCE_BOOTSTRAP_SCRIPT}
-        </Script>
+        {/* eslint-disable-next-line @next/next/no-sync-scripts -- must block rendering to prevent theme/locale FOUC */}
+        <script src="/pref-bootstrap.js" />
       </head>
       <body className="min-h-screen bg-background font-sans text-on-surface antialiased">
-        <NextIntlClientProvider locale={locale} messages={messages}>
-          <AppProviders locale={locale}>
+        <NextIntlClientProvider locale={validLocale} messages={messages}>
+          <AppProviders locale={validLocale}>
             <AnalyticsPageViewTracker locale={validLocale} />
             <AuthProvider>
               <NetworkStatusBanner />

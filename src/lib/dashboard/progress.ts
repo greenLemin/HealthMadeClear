@@ -28,19 +28,29 @@ export async function getUserProgressSummary(
   const completedLessons = lessonResult.data ?? [];
   const quizAttempts = quizResult.data ?? [];
 
-  const totalTimeSpentSeconds = completedLessons.reduce((sum, l) => sum + (l.time_spent_seconds ?? 0), 0);
+  const totalTimeSpentSeconds = completedLessons.reduce((sum, l) => {
+    const v = Number(l.time_spent_seconds ?? 0);
+    return sum + (Number.isFinite(v) ? v : 0);
+  }, 0);
   const totalLessonsCompleted = new Set(completedLessons.map((l) => l.lesson_id)).size;
 
   const passedQuizzes = quizAttempts.filter((q) => q.passed).length;
-  const totalScore = quizAttempts.reduce((sum, q) => sum + (q.score ?? 0), 0);
-  const totalMaxScore = quizAttempts.reduce((sum, q) => sum + (q.max_score ?? 0), 0);
+  const totalScore = quizAttempts.reduce((sum, q) => {
+    const v = Number(q.score ?? 0);
+    return sum + (Number.isFinite(v) ? v : 0);
+  }, 0);
+  const totalMaxScore = quizAttempts.reduce((sum, q) => {
+    const v = Number(q.max_score ?? 0);
+    return sum + (Number.isFinite(v) ? v : 0);
+  }, 0);
+  const rawAverage = totalMaxScore > 0 ? Math.round((totalScore / totalMaxScore) * 100) : 0;
 
   return {
     totalLessonsCompleted,
     totalLessonsAvailable: allLessons.length,
     totalQuizzesPassed: passedQuizzes,
     totalQuizzesAttempted: quizAttempts.length,
-    averageQuizScore: totalMaxScore > 0 ? Math.round((totalScore / totalMaxScore) * 100) : 0,
+    averageQuizScore: Number.isFinite(rawAverage) ? rawAverage : 0,
     totalTimeSpentMinutes: Math.round(totalTimeSpentSeconds / 60),
     currentStreak: streakResult.data?.current_streak ?? 0,
     longestStreak: streakResult.data?.longest_streak ?? 0,
@@ -105,9 +115,12 @@ export async function getCompletedLessonsPaginated(
   const bestQuizScores = new Map<string, number>();
   for (const attempt of quizAttempts) {
     const existing = bestQuizScores.get(attempt.quiz_id) ?? 0;
-    const pct = attempt.max_score > 0 ? Math.round((attempt.score / attempt.max_score) * 100) : 0;
-    if (pct > existing) {
-      bestQuizScores.set(attempt.quiz_id, pct);
+    const s = Number(attempt.score);
+    const m = Number(attempt.max_score);
+    const pct = Number.isFinite(s) && Number.isFinite(m) && m > 0 ? Math.round((s / m) * 100) : 0;
+    const safePct = Number.isFinite(pct) ? pct : 0;
+    if (safePct > existing) {
+      bestQuizScores.set(attempt.quiz_id, safePct);
     }
   }
 

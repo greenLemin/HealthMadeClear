@@ -4,6 +4,7 @@ import { createContext, useCallback, useContext, useEffect, useMemo, useState } 
 import type { Locale } from "@/lib/i18n";
 import OnboardingDialog from "@/components/OnboardingDialog";
 import ToastProvider from "@/components/ui/ToastProvider";
+import ErrorBoundary from "@/components/ErrorBoundary";
 import {
   STORAGE_KEYS,
   applyDocumentPreferences,
@@ -61,6 +62,7 @@ export default function AppProviders({
   const [hydrated, setHydrated] = useState(false);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- Load persisted prefs after mount, blocking render until hydrated gates storage writes
     setLocaleState(initialLocale);
 
     // Load stored preferences after mount to prevent hydration mismatches
@@ -84,10 +86,18 @@ export default function AppProviders({
     if (!hydrated) return;
     applyDocumentPreferences(locale, theme, textSize, simpleMode);
     document.documentElement.dataset.hydrated = "true";
-    window.localStorage.setItem(STORAGE_KEYS.locale, locale);
-    window.localStorage.setItem(STORAGE_KEYS.theme, theme);
-    window.localStorage.setItem(STORAGE_KEYS.textSize, textSize);
-    window.localStorage.setItem(STORAGE_KEYS.simpleMode, String(simpleMode));
+    try {
+      window.localStorage.setItem(STORAGE_KEYS.locale, locale);
+    } catch {}
+    try {
+      window.localStorage.setItem(STORAGE_KEYS.theme, theme);
+    } catch {}
+    try {
+      window.localStorage.setItem(STORAGE_KEYS.textSize, textSize);
+    } catch {}
+    try {
+      window.localStorage.setItem(STORAGE_KEYS.simpleMode, String(simpleMode));
+    } catch {}
     setPreferenceCookie("hmc-locale", locale);
     setPreferenceCookie("hmc-theme", theme);
     setPreferenceCookie("hmc-text-size", textSize);
@@ -96,10 +106,21 @@ export default function AppProviders({
 
   useEffect(() => {
     if (!hydrated) return;
-    window.localStorage.setItem(STORAGE_KEYS.completedLessons, JSON.stringify(Array.from(completedLessons)));
-    window.localStorage.setItem(STORAGE_KEYS.recentLessons, JSON.stringify(recentLessons));
-    window.localStorage.setItem(STORAGE_KEYS.startedPaths, JSON.stringify(startedPaths));
-    window.localStorage.setItem(STORAGE_KEYS.quizScores, JSON.stringify(quizScores));
+    try {
+      window.localStorage.setItem(
+        STORAGE_KEYS.completedLessons,
+        JSON.stringify(Array.from(completedLessons))
+      );
+    } catch {}
+    try {
+      window.localStorage.setItem(STORAGE_KEYS.recentLessons, JSON.stringify(recentLessons));
+    } catch {}
+    try {
+      window.localStorage.setItem(STORAGE_KEYS.startedPaths, JSON.stringify(startedPaths));
+    } catch {}
+    try {
+      window.localStorage.setItem(STORAGE_KEYS.quizScores, JSON.stringify(quizScores));
+    } catch {}
   }, [hydrated, completedLessons, recentLessons, startedPaths, quizScores]);
 
   const setLocale = useCallback((value: Locale) => setLocaleState(value), []);
@@ -202,10 +223,12 @@ export default function AppProviders({
 
   return (
     <AppContext.Provider value={value}>
-      <ToastProvider>
-        {children}
-        <OnboardingDialog />
-      </ToastProvider>
+      <ErrorBoundary>
+        <ToastProvider>
+          {children}
+          <OnboardingDialog />
+        </ToastProvider>
+      </ErrorBoundary>
     </AppContext.Provider>
   );
 }

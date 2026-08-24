@@ -45,6 +45,7 @@ export function cloneDefaultDb(): MockDb {
     profiles: [createProfileFromAccount(auth.account)],
     daily_log: [],
     notifications: [],
+    contact_submissions: [],
     auth,
   };
 }

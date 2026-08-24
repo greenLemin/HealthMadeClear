@@ -1,4 +1,5 @@
 import { useEffect, type RefObject } from "react";
+import { lockScroll as sharedLockScroll, unlockScroll as sharedUnlockScroll } from "@/lib/scrollLock";
 
 type Options = {
   isOpen: boolean;
@@ -9,22 +10,12 @@ type Options = {
   returnFocusRef?: RefObject<HTMLElement | null>;
 };
 
-let scrollLockCount = 0;
-let previousBodyOverflow = "";
-
-function lockScroll() {
-  if (scrollLockCount === 0) {
-    previousBodyOverflow = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-  }
-  scrollLockCount += 1;
+export function lockScroll() {
+  sharedLockScroll();
 }
 
-function unlockScroll() {
-  scrollLockCount = Math.max(0, scrollLockCount - 1);
-  if (scrollLockCount === 0) {
-    document.body.style.overflow = previousBodyOverflow;
-  }
+export function unlockScroll() {
+  sharedUnlockScroll();
 }
 
 export function useDismissibleOverlay({

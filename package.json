@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "engines": {
-    "node": ">=20"
+    "node": "22.x"
   },
   "scripts": {
     "dev": "next dev",
@@ -32,12 +32,15 @@
     "test:coverage": "vitest run --coverage",
     "analyze": "ANALYZE=true next build --webpack",
     "content:bundle": "npm run content:bundle-lessons && npm run content:bundle-paths && npm run content:bundle-glossary && npm run content:bundle-quizzes && npm run content:bundle-articles && npm run content:bundle-search && prettier --write src/data",
-    "prebuild": "npm run content:bundle",
-    "prepare": "husky",
-    "postinstall": "node scripts/patch-yaml-compatibility.js"
+    "prebuild": "npm run content:validate && npm run content:bundle",
+    "prepare": "husky"
   },
   "lint-staged": {
-    "*.{js,jsx,ts,tsx,mjs,cjs,json,yml,yaml,md,css,mdx}": "prettier --write"
+    "*.{js,jsx,ts,tsx,mjs,cjs}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{json,yml,yaml,md,css,mdx}": "prettier --write"
   },
   "dependencies": {
     "@sentry/browser": "^10.65.0",
@@ -84,8 +87,6 @@
   "overrides": {
     "next": "16.3.1",
     "postcss": "^8.5.26",
-    "js-yaml": "^4.2.0",
-    "eslint": "^9.39.4",
-    "sharp": "^0.35.3"
+    "eslint": "^9.39.4"
   }
 }

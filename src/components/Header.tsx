@@ -199,7 +199,7 @@ export default function Header() {
               className="flex min-h-11 min-w-11 items-center justify-center rounded-full border border-outline-variant bg-surface-container-lowest/90 p-2.5 text-primary shadow-elevation-1 2xl:hidden"
               onClick={() => setIsOpen((current) => !current)}
               aria-expanded={isOpen}
-              aria-controls="mobile-menu"
+              aria-controls={isOpen ? "mobile-menu" : undefined}
               aria-label={t("toggleNavigation")}
             >
               {isOpen ? <X size={20} /> : <Menu size={20} />}

@@ -64,6 +64,7 @@
     "emergencyCallAria": "Call emergency services (911 in the US)"
   },
   "common": {
+    "keyTakeaway": "Key Takeaway",
     "loading": "Loading...",
     "add": "Add",
     "completed": "Completed",
@@ -313,6 +314,8 @@
     "spanish": "Español"
   },
   "progress": {
+    "saveError": "Failed to save progress",
+    "quizSaveError": "Failed to save quiz result",
     "title": "My Progress",
     "overallProgress": "Overall Progress",
     "lessonsCompleted": "{count} of {total} lessons completed",
@@ -343,12 +346,14 @@
     "activeLabel": "Active",
     "inactiveLabel": "Inactive",
     "keepStreakAlive": "Keep your streak alive! Learn something new today.",
+    "activeToday": "Active today",
     "daysValue": "{count} days",
     "lessonsValue": "{count} lessons",
     "averageScoreValue": "Average score {score}%",
     "categoryTableCaption": "Lessons completed and quiz results by category",
     "completedTableCaption": "Lessons you have completed",
     "streakCalendarCaption": "Your learning activity over the last 30 days",
+    "streakResetNote": "Learning days follow UTC — your streak updates at 00:00 UTC.",
     "activeDayLabel": "{date}: active",
     "inactiveDayLabel": "{date}: no activity",
     "startLearningCta": "Start learning",
