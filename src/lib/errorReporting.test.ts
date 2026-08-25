@@ -1,4 +1,4 @@
-import { describe, expect, it, vi, beforeEach, afterEach } from "vitest";
+import { describe, expect, it, vi, beforeEach, afterEach, type MockInstance } from "vitest";
 import { reportClientError } from "./errorReporting";
 import * as Sentry from "@sentry/browser";
 
@@ -10,7 +10,7 @@ vi.mock("@sentry/browser", () => ({
 
 describe("reportClientError", () => {
   const originalEnv = process.env;
-  let consoleSpy: any;
+  let consoleSpy: MockInstance;
 
   beforeEach(() => {
     vi.resetModules();
@@ -32,7 +32,7 @@ describe("reportClientError", () => {
     it("logs normalized string errors to console", () => {
       reportClientError("A string error");
       expect(consoleSpy).toHaveBeenCalledWith("[hmc]", expect.any(Error), undefined);
-      expect(consoleSpy.mock.calls[0][1].message).toBe("A string error");
+      expect((consoleSpy.mock.calls[0]?.[1] as Error)?.message).toBe("A string error");
     });
 
     it("logs Error instances to console", () => {
@@ -114,16 +114,14 @@ describe("reportClientError", () => {
   });
 
   describe("production mode", () => {
-    let originalWindow: any;
-
     beforeEach(() => {
       vi.stubEnv("NODE_ENV", "production");
       vi.stubEnv("NEXT_PUBLIC_SENTRY_DSN", "https://examplePublicKey@o0.ingest.sentry.io/0");
-      originalWindow = global.window;
+      vi.stubGlobal("window", globalThis.window);
     });
 
     afterEach(() => {
-      (global as any).window = originalWindow;
+      vi.unstubAllGlobals();
     });
 
     it("does nothing if DSN is missing", async () => {
@@ -134,7 +132,7 @@ describe("reportClientError", () => {
     });
 
     it("does nothing if window is undefined", async () => {
-      delete (global as any).window;
+      vi.stubGlobal("window", undefined);
       reportClientError("Error");
       await new Promise(process.nextTick);
       expect(Sentry.captureException).not.toHaveBeenCalled();
@@ -142,9 +140,7 @@ describe("reportClientError", () => {
 
     it("initializes Sentry and captures exception", async () => {
       // Simulate browser environment
-      if (!global.window) {
-        (global as any).window = {};
-      }
+      vi.stubGlobal("window", {} as Window & typeof globalThis);
 
       reportClientError("Prod Error", { safe: "data", secret: "hidden" });
 
@@ -164,9 +160,11 @@ describe("reportClientError", () => {
 
       if (initCall?.beforeBreadcrumb) {
         expect(
-          initCall.beforeBreadcrumb({ category: "console", message: "test" } as any, undefined)
+          initCall.beforeBreadcrumb({ category: "console", message: "test" } as Sentry.Breadcrumb, undefined)
         ).toBeNull();
-        expect(initCall.beforeBreadcrumb({ category: "ui", message: "click" } as any, undefined)).toEqual({
+        expect(
+          initCall.beforeBreadcrumb({ category: "ui", message: "click" } as Sentry.Breadcrumb, undefined)
+        ).toEqual({
           category: "ui",
           message: "click",
         });
@@ -178,12 +176,10 @@ describe("reportClientError", () => {
     });
 
     it("does not initialize Sentry if client already exists", async () => {
-      if (!global.window) {
-        (global as any).window = {};
-      }
+      vi.stubGlobal("window", {} as Window & typeof globalThis);
 
       // Mock that client already exists
-      vi.mocked(Sentry.getClient).mockReturnValue({} as any);
+      vi.mocked(Sentry.getClient).mockReturnValue({} as ReturnType<typeof Sentry.getClient>);
 
       reportClientError("Prod Error");
 
@@ -194,22 +190,12 @@ describe("reportClientError", () => {
     });
 
     it("catches import errors silently", async () => {
-      if (!global.window) {
-        (global as any).window = {};
-      }
+      vi.stubGlobal("window", {} as Window & typeof globalThis);
 
       // Mock the dynamic import failing
       vi.doMock("@sentry/browser", () => {
         throw new Error("Import failed");
       });
-
-      // Note: we can't fully mock dynamic imports failing in vitest easily without setup modifications
-      // The previous code covered the catch block via execution.
-      // But we can simulate a rejected promise to get to the catch block
-
-      // To get line coverage on the catch block, we need to mock import("@sentry/browser")
-      // However, Vitest doesn't have an easy way to intercept top-level dynamic imports inline like this.
-      // We will just let the original import pass through, so line 38 `catch` is hard to reach unless we break the module.
 
       reportClientError("Error");
       await new Promise(process.nextTick);
