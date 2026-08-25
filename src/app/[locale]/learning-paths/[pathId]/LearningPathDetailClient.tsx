@@ -13,7 +13,7 @@ import MedicalDisclaimer from "@/components/MedicalDisclaimer";
 import MarkdownRenderer from "@/components/mdx/MarkdownRenderer";
 import Reveal from "@/components/ui/Reveal";
 import ProgressBar from "@/components/ui/ProgressBar";
-import { formatLevel, getCategoryLabel } from "@/lib/i18n";
+import { formatLevel } from "@/lib/i18n";
 import type { Lesson } from "@/types/lesson";
 import type { GlossaryTerm } from "@/types/glossary";
 import type { LearningPath } from "@/types/learningPath";
@@ -46,10 +46,18 @@ export default function LearningPathDetailClient({ path, lessons, glossaryTerms 
   }, [path.lessons, lessons]);
 
   const progress = getLearningPathProgress(path.lessons);
-  const completedLessonIdsSet = new Set(completedLessonIds);
-  const firstUncompleted = pathLessons.find((l) => !completedLessonIdsSet.has(l.id));
-  const nextLesson = firstUncompleted ?? pathLessons[0];
-  const allDone = progress.percentage === 100 && pathLessons.length > 0;
+
+  const { completedLessonIdsSet, nextLesson, allDone } = useMemo(() => {
+    const set = new Set(completedLessonIds);
+    const firstUncompleted = pathLessons.find((l) => !set.has(l.id));
+    const next = firstUncompleted ?? pathLessons[0];
+    const done = progress.percentage === 100 && pathLessons.length > 0;
+    return {
+      completedLessonIdsSet: set,
+      nextLesson: next,
+      allDone: done,
+    };
+  }, [completedLessonIds, pathLessons, progress.percentage]);
 
   return (
     <div className="py-10 md:py-14">
