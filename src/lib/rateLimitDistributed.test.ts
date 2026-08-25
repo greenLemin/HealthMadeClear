@@ -49,6 +49,36 @@ describe("rateLimitDistributed", () => {
     expect(second.allowed).toBe(false);
   });
 
+  it("fails open to the memory limiter when Upstash pipeline returns non-OK status", async () => {
+    vi.stubEnv("UPSTASH_REDIS_REST_URL", "https://xx.upstash.io");
+    vi.stubEnv("UPSTASH_REDIS_REST_TOKEN", "secret");
+    vi.stubGlobal(
+      "fetch",
+      vi.fn().mockResolvedValue({
+        ok: false,
+        status: 500,
+      })
+    );
+
+    const limit = await checkRateLimitDistributed("t", "10.0.0.5", 1, 60_000);
+    expect(limit.allowed).toBe(true);
+  });
+
+  it("fails open to the memory limiter when Upstash pipeline returns unexpected JSON shape", async () => {
+    vi.stubEnv("UPSTASH_REDIS_REST_URL", "https://xx.upstash.io");
+    vi.stubEnv("UPSTASH_REDIS_REST_TOKEN", "secret");
+    vi.stubGlobal(
+      "fetch",
+      vi.fn().mockResolvedValue({
+        ok: true,
+        json: async () => ({ error: "invalid pipeline" }),
+      })
+    );
+
+    const limit = await checkRateLimitDistributed("t", "10.0.0.6", 1, 60_000);
+    expect(limit.allowed).toBe(true);
+  });
+
   it("parses a normal Upstash pipeline response as allowed", async () => {
     vi.stubEnv("UPSTASH_REDIS_REST_URL", "https://xx.upstash.io");
     vi.stubEnv("UPSTASH_REDIS_REST_TOKEN", "secret");
@@ -99,5 +129,82 @@ describe("rateLimitDistributed", () => {
     const limit = await checkRateLimitDistributed("t", "10.0.0.4", 5, 60_000);
     expect(limit.allowed).toBe(false);
     expect(limit.retryAfterSeconds).toBe(60);
+  });
+
+  it("falls back to window when TTL response returns non-OK status", async () => {
+    vi.stubEnv("UPSTASH_REDIS_REST_URL", "https://xx.upstash.io");
+    vi.stubEnv("UPSTASH_REDIS_REST_TOKEN", "secret");
+    const fetchMock = vi
+      .fn()
+      .mockResolvedValueOnce({
+        ok: true,
+        json: async () => [[{ result: 10 }, { result: 1 }]],
+      })
+      .mockResolvedValueOnce({
+        ok: false,
+        status: 500,
+      });
+    vi.stubGlobal("fetch", fetchMock);
+
+    const limit = await checkRateLimitDistributed("t", "10.0.0.7", 5, 60_000);
+    expect(limit.allowed).toBe(false);
+    expect(limit.retryAfterSeconds).toBe(60);
+  });
+
+  it("falls back to window when TTL response returns invalid or non-positive TTL", async () => {
+    vi.stubEnv("UPSTASH_REDIS_REST_URL", "https://xx.upstash.io");
+    vi.stubEnv("UPSTASH_REDIS_REST_TOKEN", "secret");
+    const fetchMock = vi
+      .fn()
+      .mockResolvedValueOnce({
+        ok: true,
+        json: async () => [[{ result: 10 }, { result: 1 }]],
+      })
+      .mockResolvedValueOnce({
+        ok: true,
+        json: async () => [[{ result: -2 }]],
+      });
+    vi.stubGlobal("fetch", fetchMock);
+
+    const limit = await checkRateLimitDistributed("t", "10.0.0.8", 5, 60_000);
+    expect(limit.allowed).toBe(false);
+    expect(limit.retryAfterSeconds).toBe(60);
+  });
+
+  it("strips trailing slashes from UPSTASH_REDIS_REST_URL", async () => {
+    vi.stubEnv("UPSTASH_REDIS_REST_URL", "https://xx.upstash.io///");
+    vi.stubEnv("UPSTASH_REDIS_REST_TOKEN", "secret");
+    const fetchMock = vi.fn().mockResolvedValue({
+      ok: true,
+      json: async () => [[{ result: 1 }, { result: 1 }]],
+    });
+    vi.stubGlobal("fetch", fetchMock);
+
+    await checkRateLimitDistributed("t", "10.0.0.9", 5, 60_000);
+    expect(fetchMock).toHaveBeenCalledWith(
+      "https://xx.upstash.io/pipeline",
+      expect.objectContaining({ method: "POST" })
+    );
+  });
+
+  it("clamps windowSec to a minimum of 1 second for sub-second windowMs", async () => {
+    vi.stubEnv("UPSTASH_REDIS_REST_URL", "https://xx.upstash.io");
+    vi.stubEnv("UPSTASH_REDIS_REST_TOKEN", "secret");
+    const fetchMock = vi.fn().mockResolvedValue({
+      ok: true,
+      json: async () => [[{ result: 1 }, { result: 1 }]],
+    });
+    vi.stubGlobal("fetch", fetchMock);
+
+    await checkRateLimitDistributed("t", "10.0.0.10", 5, 500);
+    expect(fetchMock).toHaveBeenCalledWith(
+      "https://xx.upstash.io/pipeline",
+      expect.objectContaining({
+        body: JSON.stringify([
+          ["INCR", "ratelimit:t:10.0.0.10"],
+          ["EXPIRE", "ratelimit:t:10.0.0.10", 1],
+        ]),
+      })
+    );
   });
 });
