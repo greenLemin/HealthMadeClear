@@ -46,10 +46,18 @@ export default function LearningPathDetailClient({ path, lessons, glossaryTerms 
   }, [path.lessons, lessons]);
 
   const progress = getLearningPathProgress(path.lessons);
-  const completedLessonIdsSet = new Set(completedLessonIds);
-  const firstUncompleted = pathLessons.find((l) => !completedLessonIdsSet.has(l.id));
-  const nextLesson = firstUncompleted ?? pathLessons[0];
-  const allDone = progress.percentage === 100 && pathLessons.length > 0;
+
+  const { completedLessonIdsSet, nextLesson, allDone } = useMemo(() => {
+    const completedSet = new Set(completedLessonIds);
+    const firstUncompleted = pathLessons.find((l) => !completedSet.has(l.id));
+    const next = firstUncompleted ?? pathLessons[0];
+    const done = progress.percentage === 100 && pathLessons.length > 0;
+    return {
+      completedLessonIdsSet: completedSet,
+      nextLesson: next,
+      allDone: done,
+    };
+  }, [pathLessons, completedLessonIds, progress.percentage]);
 
   return (
     <div className="py-10 md:py-14">
