@@ -88,12 +88,13 @@ function ChecklistItems({
   toggleItem: (item: string) => void;
   pageTitle: string;
 }) {
+  const checkedSet = new Set(checkedItems);
   return (
     <fieldset className="m-0 border-0 p-0">
       <legend className="sr-only">{pageTitle}</legend>
       <div className="space-y-3">
         {checklistItems.map((item) => {
-          const checked = checkedItems.includes(item);
+          const checked = checkedSet.has(item);
           const inputId = `checklist-${item.replace(/\s+/g, "-")}`;
           return (
             <label
