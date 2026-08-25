@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState, useSyncExternalStore } from "react";
 import { useTranslations } from "next-intl";
 import { X } from "lucide-react";
 import { Link } from "@/i18n/navigation";
@@ -10,28 +10,32 @@ import { useAuth } from "@/hooks/useAuth";
 
 const BANNER_DISMISSED_KEY = "hmc_save_progress_dismissed";
 
+const emptySubscribe = () => () => {};
+
 export default function SaveProgressBanner() {
   const t = useTranslations("auth");
   const { user, loading: authLoading } = useAuth();
-  const [visible, setVisible] = useState(false);
+  const [dismissed, setDismissed] = useState(false);
 
-  useEffect(() => {
-    if (authLoading || user) return;
-    try {
-      const dismissed = sessionStorage.getItem(BANNER_DISMISSED_KEY);
-      if (dismissed) return;
-    } catch {
-      return;
-    }
-    const progress = getGuestProgress();
-    if (progress.completedLessons.length > 0 || progress.quizAttempts.length > 0) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect -- Show banner once when guest has unsaved progress after mount
-      setVisible(true);
-    }
-  }, [authLoading, user]);
+  const hasGuestProgress = useSyncExternalStore(
+    emptySubscribe,
+    () => {
+      if (authLoading || user) return false;
+      try {
+        if (sessionStorage.getItem(BANNER_DISMISSED_KEY)) return false;
+      } catch {
+        return false;
+      }
+      const progress = getGuestProgress();
+      return progress.completedLessons.length > 0 || progress.quizAttempts.length > 0;
+    },
+    () => false
+  );
+
+  const visible = !dismissed && hasGuestProgress;
 
   function handleDismiss() {
-    setVisible(false);
+    setDismissed(true);
     try {
       sessionStorage.setItem(BANNER_DISMISSED_KEY, "true");
     } catch {}
