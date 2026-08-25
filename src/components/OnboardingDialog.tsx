@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState, useSyncExternalStore } from "react";
 import { useTranslations } from "next-intl";
 import { BookOpen, Route, Search, X, type LucideIcon } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
@@ -12,6 +12,23 @@ import { revealEase } from "@/components/ui/animation";
 import Button from "@/components/ui/Button";
 
 const ONBOARDING_KEY = "hmc_onboarded";
+
+function subscribe(callback: () => void) {
+  window.addEventListener("storage", callback);
+  return () => window.removeEventListener("storage", callback);
+}
+
+function getSnapshot() {
+  try {
+    return localStorage.getItem(ONBOARDING_KEY) === "true";
+  } catch {
+    return true;
+  }
+}
+
+function getServerSnapshot() {
+  return true;
+}
 
 function StepItem({
   icon: Icon,
@@ -100,28 +117,18 @@ function OnboardingContent({
 export default function OnboardingDialog() {
   const t = useTranslations("onboarding");
   const pathname = usePathname();
-  const [visible, setVisible] = useState(false);
+  const [dismissed, setDismissed] = useState(false);
+  const onboarded = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
   const dialogRef = useRef<HTMLDivElement>(null);
   const motionSafe = useMotionSafe();
 
-  useEffect(() => {
-    if (pathname !== "/") {
-      // eslint-disable-next-line react-hooks/set-state-in-effect -- Hide onboarding when navigating away from home
-      setVisible(false);
-      return;
-    }
-    try {
-      setVisible(!localStorage.getItem(ONBOARDING_KEY));
-    } catch {
-      setVisible(false);
-    }
-  }, [pathname]);
+  const visible = pathname === "/" && !dismissed && !onboarded;
 
   const dismiss = () => {
     try {
       localStorage.setItem(ONBOARDING_KEY, "true");
     } catch {}
-    setVisible(false);
+    setDismissed(true);
   };
 
   useFocusTrap(dialogRef, visible);
