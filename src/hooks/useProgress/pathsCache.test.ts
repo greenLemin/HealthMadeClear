@@ -1,36 +1,38 @@
 import { describe, expect, it } from "vitest";
 import { getPathsForLesson, getLoadPathsPromise } from "./pathsCache";
 import type { LearningPath } from "@/types/learningPath";
+import type { PathId } from "@/types/content";
+import type { Locale } from "@/lib/i18n";
 
 describe("pathsCache", () => {
   describe("getPathsForLesson", () => {
     const mockPath1: LearningPath = {
-      id: "path-1",
-      slug: "path-1",
+      id: "safer-medicine-use" as PathId,
       title: "Path 1",
       description: "First path",
-      category: "general",
-      estimatedMinutes: 30,
+      duration: "30 min",
+      level: "beginner",
+      icon: "Pill",
       lessons: ["lesson-1", "lesson-2"],
     };
 
     const mockPath2: LearningPath = {
-      id: "path-2",
-      slug: "path-2",
+      id: "doctor-visit-prep" as PathId,
       title: "Path 2",
       description: "Second path",
-      category: "advanced",
-      estimatedMinutes: 45,
+      duration: "45 min",
+      level: "intermediate",
+      icon: "Stethoscope",
       lessons: ["lesson-2", "lesson-3"],
     };
 
     const mockPathEmpty: LearningPath = {
-      id: "path-empty",
-      slug: "path-empty",
+      id: "understanding-labs" as PathId,
       title: "Empty Path",
       description: "Path with no lessons",
-      category: "general",
-      estimatedMinutes: 0,
+      duration: "0 min",
+      level: "beginner",
+      icon: "FileText",
       lessons: [],
     };
 
@@ -53,13 +55,13 @@ describe("pathsCache", () => {
     });
 
     it("returns empty array when paths list is empty on initial cache build", () => {
-      const result = getPathsForLesson([], "de", "lesson-1");
+      const result = getPathsForLesson([], "de" as Locale, "lesson-1");
       expect(result).toEqual([]);
     });
 
     it("handles paths with empty lessons arrays gracefully on initial cache build", () => {
       const paths = [mockPathEmpty];
-      const result = getPathsForLesson(paths, "it", "lesson-1");
+      const result = getPathsForLesson(paths, "it" as Locale, "lesson-1");
       expect(result).toEqual([]);
     });
 
@@ -70,10 +72,10 @@ describe("pathsCache", () => {
       const esResult = getPathsForLesson(esPaths, "es", "lesson-1");
       expect(esResult).toEqual([mockPath1]);
 
-      const ptResult = getPathsForLesson(ptPaths, "pt", "lesson-3");
+      const ptResult = getPathsForLesson(ptPaths, "pt" as Locale, "lesson-3");
       expect(ptResult).toEqual([mockPath2]);
 
-      const ptLesson1 = getPathsForLesson(ptPaths, "pt", "lesson-1");
+      const ptLesson1 = getPathsForLesson(ptPaths, "pt" as Locale, "lesson-1");
       expect(ptLesson1).toEqual([]);
     });
 
@@ -81,10 +83,10 @@ describe("pathsCache", () => {
       const initialPaths = [mockPath1];
       const updatedPaths = [mockPath2];
 
-      const result1 = getPathsForLesson(initialPaths, "fr", "lesson-1");
+      const result1 = getPathsForLesson(initialPaths, "fr" as Locale, "lesson-1");
       expect(result1).toEqual([mockPath1]);
 
-      const result2 = getPathsForLesson(updatedPaths, "fr", "lesson-1");
+      const result2 = getPathsForLesson(updatedPaths, "fr" as Locale, "lesson-1");
       expect(result2).toEqual([mockPath1]);
     });
   });
