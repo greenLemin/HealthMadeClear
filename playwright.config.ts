@@ -3,12 +3,11 @@ import { defineConfig, devices } from "@playwright/test";
 const isCI = !!process.env.CI;
 
 function getMockGuestPassword(): string {
-  const pwd = process.env.NEXT_PUBLIC_MOCK_GUEST_PASSWORD || process.env.MOCK_GUEST_PASSWORD;
-  if (!pwd) {
-    if (isCI) throw new Error("NEXT_PUBLIC_MOCK_GUEST_PASSWORD or MOCK_GUEST_PASSWORD must be set in CI");
-    return "password123";
-  }
-  return pwd;
+  return (
+    process.env.NEXT_PUBLIC_MOCK_GUEST_PASSWORD ||
+    process.env.MOCK_GUEST_PASSWORD ||
+    "password123"
+  );
 }
 
 function allowlistedEnv(): Record<string, string> {
