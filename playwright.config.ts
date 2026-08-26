@@ -3,11 +3,7 @@ import { defineConfig, devices } from "@playwright/test";
 const isCI = !!process.env.CI;
 
 function getMockGuestPassword(): string {
-  return (
-    process.env.NEXT_PUBLIC_MOCK_GUEST_PASSWORD ||
-    process.env.MOCK_GUEST_PASSWORD ||
-    "password123"
-  );
+  return process.env.NEXT_PUBLIC_MOCK_GUEST_PASSWORD || process.env.MOCK_GUEST_PASSWORD || "password123";
 }
 
 function allowlistedEnv(): Record<string, string> {

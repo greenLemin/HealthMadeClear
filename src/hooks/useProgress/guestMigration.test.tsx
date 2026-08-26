@@ -19,9 +19,7 @@ describe("useGuestMigration hook", () => {
   });
 
   it("should do nothing and keep migration loading state when auth is loading", () => {
-    const { result } = renderHook(() =>
-      useGuestMigration(mockUser, mockSupabase, true)
-    );
+    const { result } = renderHook(() => useGuestMigration(mockUser, mockSupabase, true));
 
     expect(result.current.isMigrationLoading).toBe(true);
     expect(getGuestProgress).not.toHaveBeenCalled();
@@ -29,9 +27,7 @@ describe("useGuestMigration hook", () => {
   });
 
   it("should mark migration complete without migrating when user is not logged in", async () => {
-    const { result } = renderHook(() =>
-      useGuestMigration(null, mockSupabase, false)
-    );
+    const { result } = renderHook(() => useGuestMigration(null, mockSupabase, false));
 
     await waitFor(() => {
       expect(result.current.isMigrationLoading).toBe(false);
@@ -48,9 +44,7 @@ describe("useGuestMigration hook", () => {
     });
     vi.mocked(migrateGuestProgressToSupabase).mockResolvedValue({ ok: true, errors: [] });
 
-    const { result } = renderHook(() =>
-      useGuestMigration(mockUser, mockSupabase, false)
-    );
+    const { result } = renderHook(() => useGuestMigration(mockUser, mockSupabase, false));
 
     await waitFor(() => {
       expect(result.current.isMigrationLoading).toBe(false);
@@ -67,9 +61,7 @@ describe("useGuestMigration hook", () => {
     });
     vi.mocked(migrateGuestProgressToSupabase).mockResolvedValue({ ok: true, errors: [] });
 
-    const { result } = renderHook(() =>
-      useGuestMigration(mockUser, mockSupabase, false)
-    );
+    const { result } = renderHook(() => useGuestMigration(mockUser, mockSupabase, false));
 
     await waitFor(() => {
       expect(result.current.isMigrationLoading).toBe(false);
@@ -86,9 +78,7 @@ describe("useGuestMigration hook", () => {
     });
     vi.mocked(migrateGuestProgressToSupabase).mockResolvedValue({ ok: false, errors: ["Failed to migrate"] });
 
-    const { result } = renderHook(() =>
-      useGuestMigration(mockUser, mockSupabase, false)
-    );
+    const { result } = renderHook(() => useGuestMigration(mockUser, mockSupabase, false));
 
     await waitFor(() => {
       expect(result.current.isMigrationLoading).toBe(false);
@@ -103,9 +93,7 @@ describe("useGuestMigration hook", () => {
       quizAttempts: [],
     });
 
-    const { result } = renderHook(() =>
-      useGuestMigration(mockUser, mockSupabase, false)
-    );
+    const { result } = renderHook(() => useGuestMigration(mockUser, mockSupabase, false));
 
     await waitFor(() => {
       expect(result.current.isMigrationLoading).toBe(false);
