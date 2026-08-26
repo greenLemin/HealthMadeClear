@@ -103,19 +103,30 @@ export default function LessonPageClient({
     }
   }, [markLessonComplete, lessonId]);
 
+  // Pre-index lessons by ID for O(1) lookup
+  const lessonMap = useMemo(() => new Map<string, Lesson>(allLessons.map((l) => [l.id, l])), [allLessons]);
+
   // Find prev/next lesson in learning path from server-passed allLessons
   const { prevLesson, nextLesson } = useMemo(() => {
     if (!learningPaths) return { prevLesson: null, nextLesson: null };
-    const path = learningPaths.find((p) => p.lessons.includes(lessonId));
+    let path: LearningPath | undefined;
+    let idx = -1;
+    for (const p of learningPaths) {
+      const foundIdx = p.lessons.indexOf(lessonId);
+      if (foundIdx !== -1) {
+        path = p;
+        idx = foundIdx;
+        break;
+      }
+    }
     if (!path) return { prevLesson: null, nextLesson: null };
-    const idx = path.lessons.indexOf(lessonId);
     const prevId = idx > 0 ? path.lessons[idx - 1] : null;
     const nextId = idx < path.lessons.length - 1 ? path.lessons[idx + 1] : null;
     return {
-      prevLesson: prevId ? (allLessons.find((l) => l.id === prevId) ?? null) : null,
-      nextLesson: nextId ? (allLessons.find((l) => l.id === nextId) ?? null) : null,
+      prevLesson: prevId ? (lessonMap.get(prevId) ?? null) : null,
+      nextLesson: nextId ? (lessonMap.get(nextId) ?? null) : null,
     };
-  }, [learningPaths, lessonId, allLessons]);
+  }, [learningPaths, lessonId, lessonMap]);
 
   return (
     <>
