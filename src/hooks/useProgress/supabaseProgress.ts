@@ -13,12 +13,18 @@ export type QuizAttempts = Record<string, QuizAttemptValue>;
 export function useSupabaseProgress(user: User | null, supabase: ReturnType<typeof createClient>) {
   const [supabaseCompletedLessonIds, setSupabaseCompletedLessonIds] = useState<string[]>([]);
   const [supabaseQuizAttempts, setSupabaseQuizAttempts] = useState<QuizAttempts>({});
+  const [prevUser, setPrevUser] = useState<User | null>(user);
+
+  if (user !== prevUser) {
+    setPrevUser(user);
+    if (!user) {
+      setSupabaseCompletedLessonIds([]);
+      setSupabaseQuizAttempts({});
+    }
+  }
 
   useEffect(() => {
     if (!user) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect -- Reset progress when user logs out
-      setSupabaseCompletedLessonIds([]);
-      setSupabaseQuizAttempts({});
       return;
     }
 
