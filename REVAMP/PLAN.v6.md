@@ -1,0 +1,1951 @@
+# HealthMadeClear Launch Revamp — Implementation Plan v6
+
+**Status:** Contract for all implementation work in the 4-day launch window. **Supersedes `REVAMP/PLAN.v5.md` (v5).** v4, v3, v2, and v1 are historical.  
+**Date:** 2026-08-27  
+**Inputs:** `REVAMP/AUDIT-CODE.md` (file audit + independent adversarial/live-DB audit), `REVAMP/AUDIT-VISUAL.md`, `REVAMP/CRITIQUES/ROUND-1.md`, `REVAMP/CRITIQUES/ROUND-2.md`, `REVAMP/CRITIQUES/ROUND-3.md`, `REVAMP/CRITIQUES/ROUND-4.md`, `REVAMP/CRITIQUES/ROUND-5.md` (panel + Cursor/Grok second opinion)  
+**Stack:** Next.js 16 App Router, React 19, TypeScript, Tailwind 4, next-intl (EN/ES), Supabase (`xdmbyadosmzixsxqullj`, us-east-1), Vitest, Playwright, Netlify
+
+This document is the only source of truth for what ships. If a later chat disagrees with this file, update this file first. Vagueness here causes failed PRs later.
+
+v5 already incorporated ROUND-1/2/3/4 + CF-1…CF-32. Do not re-litigate those without a new finding. This file starts from that contract.
+
+---
+
+## Changelog from v5
+
+Every row is a delta vs `REVAMP/PLAN.v5.md`. Critiques: `Staff` / `Sec` / `UX` / `Clin` / `PM` = panel ROUND-5; `CF-N` = combined flaws in the Cursor/Grok second opinion on ROUND-5 (CF-33…CF-37).
+
+| Change                                                                                                                                                                                                                                                                                                                                                                                                                                                                              | Driven by                                   |
+| ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------- |
+| This file is the contract; v5 is historical.                                                                                                                                                                                                                                                                                                                                                                                                                                        | Process                                     |
+| **Contact stream error taxonomy.** After origin + rate-limit: `Content-Length` > 10240 → 413, do not read. `request.body == null` → **400**. Else stream with running byte count; on overflow `await reader.cancel()` then 413; `finally` `releaseLock()`. `JSON.parse` in its own try → **400**. Never `request.json()` on an unbounded body. **Do not** `reportServerError` 400/413. Outer catch is unexpected only. Tests: empty body 400; `{` 400; stream without CL >10KB 413. | **Staff 🔴 1**, **CF-33**                   |
+| **`AuthProvider.signOut` is `try/finally`**, owned by **Phase 9** (Day 1). `try { await supabase.auth.signOut() } catch { /* ignore */ } finally { resetLocalProgress(); router.push("/") }`. Kill P5’s “after `signOut` succeeds.” Settings still **must not** call `AuthProvider.signOut`. `AuthProvider.test.tsx`: `vi.mock` `useAppState` (`resetLocalProgress`); **do not** wrap full `AppProviders`. Case: `signOut` reject still wipes + push.                               | **Staff 🔴 2 PARTIAL**, **CF-34**           |
+| **Middleware expires `sb-*auth*` cookies** when `getUser()` **resolves with `error`**. Thrown (outage) → **keep** cookies. Guest `user===null` + no auth cookies + no error → no-op. Do **not** redirect guests to `login?error=session_expired`. Dashboard `!user` redirect unchanged.                                                                                                                                                                                             | **Sec 🔴 1 PARTIAL**, **CF-35**             |
+| **`homeCarePediatricNote` paste includes 100.4°F (38°C).** No “rectal” in the UI string. Tests `/100\.4\|38/` plus existing infant/dehydrat.                                                                                                                                                                                                                                                                                                                                        | **Clin 🔴 1**, **CF-36**                    |
+| **Day 2 cell: Phase 6 first**, then 5, 7; **Phase 4 parallel / anytime Day 2**. No 08:00–20:00 clock. P6 before P5 unchanged.                                                                                                                                                                                                                                                                                                                                                       | **PM 🔴 1 PARTIAL**, **CF-37**              |
+| `reportServerError` HTTP ingest: `signal: AbortSignal.timeout(2000)` and `.catch(() => {})`. Flood throttle unchanged. Hung Sentry must not stall the isolate.                                                                                                                                                                                                                                                                                                                      | **Staff 🟡 4**, **CF-33**                   |
+| Glossary mobile mask: both `-webkit-mask-image` and `mask-image`. No scroll-linked dual fade.                                                                                                                                                                                                                                                                                                                                                                                       | **UX 🟡 2 PARTIAL**                         |
+| Article desktop TOC: `<main>` first in DOM, `<aside>` second; CSS grid for visual placement. No scroll-spy.                                                                                                                                                                                                                                                                                                                                                                         | **UX 🟡 3**                                 |
+| Care-guide print: keep print-only 911/988 line; add print-only educational disclaimer footer (not a diagnosis).                                                                                                                                                                                                                                                                                                                                                                     | **Clin 🟡 3**                               |
+| Header: drawer stays **full-width accordion** (not `max-w-md` overlay). If 1280 `/es` Playwright overflow fails, tighten NavLink to `xl:text-label-sm xl:px-1.5 xl:gap-0.5` **before** dropping items or adding a dropdown. Catalog labels stay the 8 short keys (`Rutas`, not “Rutas de aprendizaje”).                                                                                                                                                                             | **UX 🔴 1 REJECT overlay**, overflow ladder |
+| Planner v1→v2: copy `customQuestions` as-is. Unmapped `selectedQuestions` **drop**. Do **not** promote them into `customQuestions`.                                                                                                                                                                                                                                                                                                                                                 | **Staff 🟡 1 REJECT as stated**             |
+| `security-headers.json` `connect-src` keeps existing **wildcards** (`https://*.supabase.co`, `wss://*.supabase.co`, `https://*.ingest.sentry.io`, GA/GTM). Do **not** pin `xdmbyadosmzixsxqullj`.                                                                                                                                                                                                                                                                                   | **Sec 🟡 2 REJECT pin**                     |
+| P14 13:00 slip: leave `revamp/p14-*` **unmerged**. Start P16 from `main`. Do **not** `git checkout main` as a dirty-tree discard.                                                                                                                                                                                                                                                                                                                                                   | **PM 🟡 2 PARTIAL**                         |
+
+**Rejected with justification (not in the table as a code change):**
+
+- Overlay `max-w-md ml-auto` mobile drawer — HEAD is an inline accordion; iPad hamburger at `< xl` is the compact-at-xl contract. (`UX 🔴 1` as stated)
+- Overflow math from “Rutas de aprendizaje” / `t("nav.login")` leftovers — catalog is `Rutas`; overflow already Playwright-gated on `/es`. (`UX 🔴 1` labels)
+- Deleted-user JWT **redirect loop** and `user===null` ⇒ always expire + `session_expired` — `LoginForm` has no auto-redirect; guests are `user===null`; expire-on-throw logs everyone out during an outage. (`Sec 🔴 1` as stated)
+- Day 2 08:00–20:00 clock — P4 has no DB dependency; C41 already killed AM/PM folklore. (`PM 🔴 1` as stated)
+- Promote unmapped v1 `selectedQuestions` into `customQuestions` — that freezes stale EN catalog lines as fake custom questions. (`Staff 🟡 1` as stated)
+- Pin Supabase project-ref in CSP — HEAD already wildcards; pin breaks preview. (`Sec 🟡 2` as stated)
+- `display_name` JSON-LD XSS — `JsonLd.tsx` already escapes `<`; profile names are not in JsonLd. (`Sec 🟡 3`)
+- Validator requires guideline-specific citation titles — P8 is presence + denylist, not a content rewrite. (`Clin 🟡 2`)
+- `git checkout main` at 13:00 to discard P14 — drops dirty work; leave the branch unmerged. (`PM 🟡 2` as stated)
+
+**Still in force from v5 (ROUND-1/2/3/4 / CF-1…CF-32), not re-opened:**
+
+- Do not `db push` pending `009`–`013`; repair-as-applied; Day 1 = `014` only.
+- Rollback SQL in `supabase/rollback/`, never `supabase/migrations/`.
+- Session-aware reset; confirm `type=recovery` forces reset-password; `useAuth().loading` only; consume-once PKCE.
+- Contact route keeps origin / rate-limit / honeypot; **stream** body cap (v6 tightens 400/413 taxonomy).
+- Guest quiz shape stays `{ quizId, … }` in localStorage guest keys; do not merge into `QuizScore`.
+- Validator: presence + denylist; keep 400-day `lastReviewed`; no credential regex.
+- Phase 14 descoped; generators in scope; no Day-2 SSG rewrite; no client `loadLessons`. **Not** message catalogs.
+- Phase 11 breadcrumbs `min-h-11`; verify-first drawer/pills/quiz.
+- Phase **6 before Phase 5**; two PRs; `ON CONFLICT` without unique is `42P10`.
+- Planner per-type default map **inside** the hook; `xl:flex` + compact-at-xl; HomeClient (not Hero) owns the video.
+- Sentry `sendDefaultPii: false`; keep path slugs; strip `?` and `#`; no `dataCollection: {}`.
+- Quiz Option A count/count; 015 normalize before dedupe; completed-tab queries both ids.
+- Account delete: local `signOut({ scope: "local" })` in `finally` + `resetLocalProgress`; **logout uses the same wipe** (v6: AuthProvider `finally`, not success-only).
+- `handleQuizAttemptSideEffects` takes `locale`; award fn returns ids only; hook `t`.
+- `clearLocalHealthData` + `AppProviders.resetLocalProgress`; empty React state **before** `removeItem`.
+- Compact-at-xl **keeps** icon-only login with `aria-label={authT("loginButton")}`.
+- Gate 0: forbid `npx supabase db push` until Netlify `SUPABASE_SERVICE_ROLE_KEY` is proven.
+- Day 4 after P14 timebox: **Phase 16 must-dos (19.1), then Phase 15.** Never drop 19.1.
+
+---
+
+## Changelog from v4 (historical; already in v5)
+
+v5 deltas vs `REVAMP/PLAN.v4.md` are not repeated as work items. Summary: CF-24…CF-32, quiz `locale` arg, `resetLocalProgress` / `clearLocalHealthData`, compact-at-xl `aria-label`, `homeCarePediatricNote` (v6 adds the temperature number), Gate 0, both 015 rollback directions, planner map inside the hook, contact stream cap (v6 adds 400/413), Sentry strip `?` and `#`, glossary fade, print-only 911/988, denylist `Internet`/`Google`/`N/A`/`None`/`Unknown`, Day 4 19.1 before P15. Full v4→v5 table: `REVAMP/PLAN.v5.md` §Changelog from v4.
+
+---
+
+## Changelog from v3 (historical; already in v4)
+
+v4 deltas vs `REVAMP/PLAN.v3.md` are not repeated as work items. Summary: CF-17…CF-23, Option A quiz units + 015 percent→count before dedupe, completed-tab both quiz ids, consume-once PKCE, local `signOut` in `finally`, compact-at-xl + `/es` overflow (no Tools dropdown), paste-ready atypical-ACS chest pain, P13 owns video `preload` / reduced-motion. Full v3→v4 table: `REVAMP/PLAN.v4.md` §Changelog from v3.
+
+---
+
+## Changelog from v2 (historical; already in v3)
+
+v3 deltas vs `REVAMP/PLAN.v2.md` are not repeated as work items. Summary: CF-8…CF-16, Phase 6 before Phase 5, per-type planner defaults, named `useAuth().loading`, Sentry `sendDefaultPii: false` without slug-masking, `xl:flex` + compact-at-xl, HomeClient (not Hero) video order, sore-throat red-flag spec strings, skip-lower still runs side effects, generated `lessonMeta`, P8 on Day 3. Full v2→v3 table: `REVAMP/PLAN.v3.md` §Changelog from v2.
+
+---
+
+## Changelog from v1 (historical; already in v2)
+
+v2 deltas vs `REVAMP/PLAN.md` are not repeated as work items. Summary: CF-1…CF-7, session-aware reset, `015` deferred to Phase 6, guest quiz shape, care-guide key inventory, validator denylist, P14 descope. v2 allowed a hand-written `lessonMeta` — **superseded in this file** by `bundle-lessons.ts` emit. Full v1→v2 table: `REVAMP/PLAN.v2.md` §Changelog from v1.
+
+---
+
+## 0. How to execute this plan
+
+### 0.1 Rules every agent must follow
+
+1. **One phase = one PR.** Do not mix phases. Each PR must leave `main` shippable (build, lint, typecheck, unit tests, e2e green). **Order exception:** Phase 6 must merge (and `015` must be applied) **before** Phase 5. Do not combine 5+6 into one PR.
+2. **Read this phase section completely** before touching files. Do not invent extra scope.
+3. **EN and ES catalogs must stay in parity.** Every new `en.json` key gets the same path in `es.json`. Run existing locale tests.
+4. **Do not replay** `supabase/migrations/001_*.sql` through `013_*.sql` against production. Live `schema_migrations` is `001`–`008` (+ dummy). Local files `009`–`013` are **pending**. Blind `npx supabase db push` would execute `009`–`013` then `014`/`015`. That is forbidden. **Repair `009`–`013` as already applied** (without executing) once `014` is written to superset their intent, then push **only** forward files that are meant to run. See Phase 1.
+5. **Never put `SUPABASE_SERVICE_ROLE_KEY` in a `NEXT_PUBLIC_*` variable** or client bundle.
+6. **Do not** add email, Resend, PWA service workers, TTS, or new clinical tools in this window.
+7. After UI work, verify in the browser (desktop 1440 and mobile 390) on the routes listed in that phase. Screenshots in `REVAMP/SCREENSHOTS/` are the **before** state, not the target.
+8. Commits and PR titles: normal English, conventional commits (`fix:`, `feat:`, `security:`, `a11y:`).
+9. If a step says "verify current code first" and the bug is already gone, record that in the PR description and skip the rewrite. Do not revert a working fix.
+10. **Never put rollback SQL in `supabase/migrations/`.** Emergency reverse scripts live in `supabase/rollback/` so the CLI cannot apply them as forward migrations.
+
+### 0.2 Commands every phase uses
+
+```bash
+npm run lint
+npm run typecheck
+npm test
+npm run test:e2e   # after UI/auth/routing changes
+```
+
+Content changes also require:
+
+```bash
+npm run content:validate
+```
+
+Production env gate (Netlify builds):
+
+```bash
+CI=true NETLIFY=true npm run build
+```
+
+### 0.3 Branch naming
+
+`revamp/pNN-short-slug` (example: `revamp/p02-auth-recovery`).
+
+---
+
+## 1. Synthesis of the three audits
+
+### 1.1 What each audit is authoritative for
+
+| Source                                               | Trust for                                                                                                                           | Do not trust for                                                                 |
+| ---------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
+| File audit (`AUDIT-CODE.md` §§1–8 + Top 20)          | App source bugs, missing tests, client bundle imports, contrast math, article citation omission                                     | Live RLS, live functions, live constraints, "migrations are applied"             |
+| Adversarial audit (`AUDIT-CODE.md` Independent pass) | Production `pg_policies`, `schema_migrations`, `pg_proc`, grants, quiz unique drift, privacy copy vs network, `delete_user` absence | Visual layout, tap targets, 1440px header                                        |
+| Visual audit (`AUDIT-VISUAL.md`)                     | 1440/390 screenshots, header `2xl` bug, hero type, 404 chrome, glossary wrap, quiz CLS, search grouping                             | Live DB, auth PKCE, whether a component was already patched after the screenshot |
+
+### 1.2 Conflict resolution (accepted)
+
+| ID  | Conflict                                                                                                                                                                                                                    | Decision                                                                                                                                                                      | Reasoning                                                                                                                                             |
+| --- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
+| C1  | File audit RLS matrix scores every table "✅ Secure". Adversarial audit shows live DB only has `001`–`008` (+ dummy), public INSERT on `contact_submissions`, no `delete_user`, no quiz unique, missing `daily_log` UPDATE. | **Adversarial wins.** Treat file SQL as intent, not runtime.                                                                                                                  | Launch risk is production, not the git tree.                                                                                                          |
+| C2  | File audit SEC-01 (missing service-role env → Next `/api/contact` 503) vs ADV-10 (anon can INSERT via PostgREST).                                                                                                           | **Both accepted.** They are different layers.                                                                                                                                 | Env gate without dropping the live INSERT policy still leaves an open spam/PII pipe. Policy drop without the env gate still 503s the legitimate form. |
+| C3  | File audit implies applying repo `003_quiz_attempts.sql` unique is fine. ADV-01: live has duplicates; client `.insert()`; unique would 23505 on retake.                                                                     | **Do not apply `003` as-is.** Dedupe in `014`, add unique, change client to upsert-best-score.                                                                                | Product UI already shows best score. History-everywhere is a post-launch project.                                                                     |
+| C4  | "Just run `supabase db push` / replay 001–013." vs "production was mutated outside migrations."                                                                                                                             | **Write `014_launch_reconcile.sql` (and follow-ons) that IF NOT EXISTS / DROP POLICY IF EXISTS against live names.** Never replay 001–008.                                    | Live policy names are split (`lesson_progress_select`, etc.). Replaying `FOR ALL` would collide and weaken WITH CHECK splits.                         |
+| C5  | File audit §8 "Print-friendly PDF." Adversarial: print CSS + visit planner/checklist `window.print()` already exist.                                                                                                        | **No new PDF library.** Add print CTAs on lesson/article/care-guide only.                                                                                                     | Four days; print path already works.                                                                                                                  |
+| C6  | Visual audit: checklist checkboxes `20×20px`. Current `VisitChecklistClient.tsx` wraps each row in `<label className="… py-4">`.                                                                                            | **Verify first.** If full-row label already hit-tests, only enlarge the native control + `min-h-[48px]`. Do not rewrite the list.                                             | Screenshot may predate the label wrap.                                                                                                                |
+| C7  | Visual audit praises care-guide emergency flagging. ADV-12: copy reads as triage/OTC treatment.                                                                                                                             | **Keep the visual hierarchy (red emergency banner).** Rewrite copy to educational comparison, not instructions to take medicine or "go to urgent care" as a directive.        | Liability > visual praise.                                                                                                                            |
+| C8  | File audit treats mock `any` as the main type debt. Adversarial lists production `as unknown as` and unvalidated `JSON.parse`.                                                                                              | **Fix guest `JSON.parse` in Phase 5.** Defer mock-client generics. Auth `nextUrl` casts: replace with `request.nextUrl` in Phase 2.                                           | Launch integrity is guest storage + auth routes, not the in-memory mock.                                                                              |
+| C9  | File audit MED-03 `tel:911` unlabeled. `disclaimer.emergencyCallAria` already says "911 in the US"; visible button does not.                                                                                                | **Change visible string + keep `tel:911`.** Do not add 112 routing.                                                                                                           | Audience is US EN/ES. Hidden aria is not enough.                                                                                                      |
+| C10 | File audit A11Y LanguageToggle missing aria. Current `LanguageToggle.tsx` already has `aria-label={t("switchToEnglish")}` / Spanish.                                                                                        | **Verify-only.** Skip rewrite if labels present on both breakpoints.                                                                                                          | Avoid churn.                                                                                                                                          |
+| C11 | File audit: AppProviders key `hmc_completed_lessons`. Actual key is `STORAGE_KEYS.completedLessons` = `hmc-completed-lessons`. Guest key is `hmc_guest_completedLessons` in **sessionStorage**.                             | **Use actual keys.** Dual-storage bug still stands.                                                                                                                           | Audit key names were wrong; mechanism was right.                                                                                                      |
+| C12 | First-audit feature list (med schedule, lab decoder, PWA, TTS, screening timeline, bill dispute, glossary audio, email plan). Adversarial: do not add email until privacy is true; several "features" already shipped.      | **Out of scope** except the small S-effort items in Phase 15.                                                                                                                 | After P0/P1 work, M-effort tools will slip the window and add clinical liability.                                                                     |
+| C13 | Ownership RLS vs cheat-proof integrity (client can forge streaks).                                                                                                                                                          | **Out of scope to make gamification server-authoritative.** Keep BOLA-safe ownership.                                                                                         | Not a PHI leak. Full SECURITY DEFINER completion RPC is a post-launch project.                                                                        |
+| C14 | `ArticlePageClient` already renders `MedicalDisclaimer`. ADV-12 says articles **index** has none. File audit said article **reader** omits sources (true) and implied no disclaimer (false for reader).                     | **Add disclaimer to `ArticlesClient` (catalog).** Add `ArticleNotes` sources/reviewedBy on the reader.                                                                        | Split the finding.                                                                                                                                    |
+| C15 | Dashboard "minutes learned" vs dead `time_spent_seconds`.                                                                                                                                                                   | **Honesty: hide or show em dash when zero.** Do not fake minutes. Instrumentation is out of scope.                                                                            | Product lie is worse than an empty metric.                                                                                                            |
+| C16 | Panel: `/api/contact` has no origin/rate-limit/honeypot after RLS lock. File: those checks already exist.                                                                                                                   | **Keep existing server controls.** Add body-size cap + client `inFlight` only.                                                                                                | Panel 🔴 described a missing file. Churn would risk regressing a working gate.                                                                        |
+| C17 | v1 calendars `015` unique on Day 1 and quiz `.upsert()` on Day 2. Live client `.insert()`.                                                                                                                                  | **`015` not applied until Phase 6 is on Netlify.** Day 1 = `014` only.                                                                                                        | Else authenticated retakes 23505 for a day. Guest migrate already upserts.                                                                            |
+| C18 | v1 ResetPassword errors if URL has no `code`/`token_hash`. Confirm recovery can already have set cookies. Confirm `next` defaults to dashboard.                                                                             | **Session-aware reset. Force recovery `next` to reset-password.** Canonical email template: reset page with PKCE `code`.                                                      | Server OTP and PKCE are both real Supabase templates. v1 broke the intersection.                                                                      |
+| C19 | v1 merges guest quizzes into `QuizScore` (`lessonId`). Migrate + `015` need `quiz_id`.                                                                                                                                      | **Keep guest attempt shape. Do not merge into `quizScores`.**                                                                                                                 | Shape mismatch becomes a unique-constraint failure, not a duplicate row.                                                                              |
+| C20 | v1 P14 hand-edits combined barrels; generators rewrite them. v1 P7 dynamic-imports `loadLessons` (both locales) into client.                                                                                                | **Generators in P14. Slim `lessonMeta` for P7. No client `loadLessons` import. Keep sync server loaders.**                                                                    | P14 slip would leave P7 worse than HEAD.                                                                                                              |
+| C21 | Panel: put `016_rollback` in `migrations/`.                                                                                                                                                                                 | **`supabase/rollback/` only.**                                                                                                                                                | Forward CLI would undo 014/015.                                                                                                                       |
+| C22 | Panel: move P14 to Day 2.                                                                                                                                                                                                   | **Descope P14; keep Day 4.** Do not stack SSG graph surgery on auth/DB day.                                                                                                   | Option A increases blast radius.                                                                                                                      |
+| C23 | v2: `ON CONFLICT` without unique is a “no-op.” Panel: Phase 5 deploy 42P10. HEAD already upserts quizzes.                                                                                                                   | **Postgres 42P10, not a no-op.** Guest quiz upsert is **already live**. Phase **6 before Phase 5**. Two PRs. Do not mega-merge.                                               | Unique missing + upsert = error today; P5 localStorage **amplifies** it.                                                                              |
+| C24 | Visual audit `lg` **or** `xl`. v2 picked `lg`. Panel overflow math used 6 nav items.                                                                                                                                        | **`xl:flex` + compact-at-xl.** Nav has **8** items. Auth already `lg:flex`. 1440 is `xl`.                                                                                     | `lg` overflows; `2xl` hides nav at the audit viewport.                                                                                                |
+| C25 | v2 TrustBanner/video in `Hero.tsx`. Video is in `HomeClient.tsx` above Hero.                                                                                                                                                | **Reorder in `HomeClient`.** Hero has no `<video>` (stitch image only).                                                                                                       | Wrong file = CTAs stay buried.                                                                                                                        |
+| C26 | v2 planner defaults `medication:1`/`followup:3` with `visitType` `new-symptom`.                                                                                                                                             | **Per-type default map** matching visible Step 2.                                                                                                                             | Cross-type IDs + `changeVisitType` reset = empty boxes / wrong review.                                                                                |
+| C27 | Sentry v7 folklore (default IP) vs `@sentry/browser` v10.                                                                                                                                                                   | **`sendDefaultPii: false` explicit; no `dataCollection: {}`.** Keep path slugs; disclose in privacy.                                                                          | Empty `dataCollection` enables IP. Slug `*` kills debug; GA already has paths.                                                                        |
+| C28 | §7.2 requires emergency signs; example copy omits airway flags.                                                                                                                                                             | **Example strings are the red-flag copy.**                                                                                                                                    | Implementers paste examples.                                                                                                                          |
+| C29 | QuizClient writes percent into `score` and question count into `max_score`. Persist/dashboard assume count/count. Tests mix both.                                                                                           | **Option A:** persist count/count. Local UI percent stays. 015 normalizes `score > max_score` rows **before** dedupe.                                                         | Unique-without-normalize freezes 80/5. `perfect-quiz` is `score === maxScore`.                                                                        |
+| C30 | Dashboard completed-tab queries `${lessonId}-quiz`. Bundles/QuizClient store `quiz.id === lessonId`.                                                                                                                        | **Query both ids.** Do not rewrite stored `quiz_id`.                                                                                                                          | Summary-only P6 work leaves the tab as `—`.                                                                                                           |
+| C31 | Panel: StrictMode double-mount breaks prod PKCE. React StrictMode remount is dev-only.                                                                                                                                      | **Consume-once + strip `code` from the URL.** Session-aware reset retriggers the effect in prod if the code stays.                                                            | CF-10 ∪ single-use PKCE.                                                                                                                              |
+| C32 | P1 `delete_user` gate vs Settings `signOut()` after rpc vs AuthProvider global logout.                                                                                                                                      | **Local `signOut` in `finally`.** Ignore logout errors. Clear guest keys.                                                                                                     | JWT stays valid ≤1h; throw on logout leaves cookies.                                                                                                  |
+| C33 | Panel overflow math used tool names that are not in `getNavItems`. v3 compact-at-xl is real. Playwright is `/en` only.                                                                                                      | **Keep 8 items + compact-at-xl.** Add `/es` overflow tests. No dropdown.                                                                                                      | Invented labels ≠ `Rutas` / `Herramientas`.                                                                                                           |
+| C34 | Sore-throat spec is a paste-ready paragraph. Chest pain is “keep US 911” with no string.                                                                                                                                    | **Paste-ready atypical-ACS + don’t-wait chest-pain strings.**                                                                                                                 | Same class as C28 / CF-14.                                                                                                                            |
+| C35 | P13 reorders HomeClient `<video>`; P16 sets `preload` / reduced-motion on the same node.                                                                                                                                    | **P13 owns all video behavior.** P16 drops `HomeClient.tsx`.                                                                                                                  | Day 4 double-touch.                                                                                                                                   |
+| C36 | P7 “toast via `getLocalizedAchievement(id, locale)`” vs quiz `handleQuizAttemptSideEffects` with no `locale` vs `checkAndAwardAchievements` writing English notifications.                                                  | **Pass `locale` + localize callback into both side-effect fns.** Award fn returns ids only. Hook `useTranslations("achievements")`. No `getMessages` from client sideEffects. | Lesson path already has `locale`; quiz path cannot typecheck a `locale` it does not take. Notifications are a second EN pipe.                         |
+| C37 | Panel: P7 `getMessages` newly dual-packs catalogs and violates P14. Tree: 15 client files already import `@/lib/i18n`. P14 analyzer is content barrels.                                                                     | **P7 uses hook `t`.** Do not call `getLocalizedAchievement` from client. P14 stays lesson/path/quiz/glossary. Catalog split is **not** in the 3h timebox.                     | Dual JSON is pre-existing. Category mix-up is not a new leak.                                                                                         |
+| C38 | CF-20 `clearGuestProgress` vs AppProviders UI keys vs persist-effect rewrite vs layout that does not unmount vs P5 localStorage guest keys.                                                                                 | **`resetLocalProgress` empties React state then wipes health keys.** Delete **and** logout. Guest prefix in **both** stores. Do not wipe prefs.                               | `removeItem` alone is a no-op while `AppProviders` is mounted.                                                                                        |
+| C39 | Compact-at-xl icon-only login vs PLAN silent `aria-label` vs `Header.test` mock dropping the label. HEAD already has `authT("loginButton")`.                                                                                | **Keep icon-only.** Require `aria-label={authT("loginButton")}`. Test the name. No `nav.login`. No text restore at `xl`.                                                      | Overflow 🔴 was wrong labels; a11y hole is the leftover.                                                                                              |
+| C40 | `homeCareChecklist` “Low fever” vs children only in OTC sentence vs CF-5/14 paste-example. Infant fever / pediatric dehydration absent.                                                                                     | **Paste-ready `homeCarePediatricNote` under the card.** Qualify/remove unqualified “Low fever.” 911-class exception.                                                          | Implementers ship the checklist string.                                                                                                               |
+| C41 | Matrix “env gate before 014” vs calendar P1 then P3 vs §4.2.4 skippable human bullet. Form already 503s without the key.                                                                                                    | **Gate 0 forbids `db push` until Netlify key is proven.** Env-gate file may merge first. Contact revoke last in 014.                                                          | Not an AM/PM deadlock. Skip the bullet → PostgREST lock with no form path.                                                                            |
+| C42 | §9.5 documents unique+insert 23505. Panel: P5 upsert + drop unique = 42P10. HEAD guest already upserts.                                                                                                                     | **Both directions in rollback.** Revert P6 client before `015_emergency.sql`. HEAD guest upsert is in the pairing even if P5 reverts.                                         | CF-8 relitigation of who introduced upsert; docs still incomplete.                                                                                    |
+| C43 | CF-9 per-type map as parent `PLANNER_DEFAULTS_BY_TYPE[visitType]` vs hydrate effect deps `defaultQuestionsStr`.                                                                                                             | **Map lives inside `useVisitPlanner`.** `changeVisitType` looks up internally. Parent does not pass visitType-keyed defaults into the effect.                                 | HEAD static slice has no loop. v4 spec creates it.                                                                                                    |
+| C44 | “Cap before `request.json()`” vs “if no Content-Length, cap after parse.”                                                                                                                                                   | **Stream byte counter.** 413 then parse. Trust CL only as a fast reject, never as a skip of the stream cap.                                                                   | Chunked body is the bypass.                                                                                                                           |
+| C45 | Sentry strip `?` vs `ResetPasswordClient` `location.hash` tokens (`#access_token=`). HEAD strips neither.                                                                                                                   | **Strip `?` and `#`.** Keep path slugs. Privacy copy names fragments.                                                                                                         | Implicit recovery URLs are hash, not query.                                                                                                           |
+| C46 | Day 4 P15 before P16 19.1 vs P14 3h vs slip protocol dropping N+1 not CSP/Sentry.                                                                                                                                           | **After P14 timebox: 19.1, then P15.** Never drop 19.1. P15 may slip.                                                                                                         | Security hardening is not optional polish.                                                                                                            |
+| C47 | v5 “stream then `JSON.parse`” vs `request.body === null` vs outer catch 500 vs P16 ingest without abort.                                                                                                                    | **400** for null body and parse errors; **413** + `reader.cancel()` on overflow; **do not** report 400/413; ingest `AbortSignal.timeout(2000)`.                               | CF-30 named the cap, not the status. Bot `{` POSTs must not stall the isolate.                                                                        |
+| C48 | P5 “after `signOut` succeeds” vs P9 Settings `finally` vs Header calling `AuthProvider.signOut` vs isolated `AuthProvider` tests.                                                                                           | **P9 owns `AuthProvider.signOut` `try/finally`.** Mock `useAppState`; do **not** wrap `AppProviders`. Settings still independent local `signOut`.                             | CF-25 leftover: logout (kiosk) skipped the wipe.                                                                                                      |
+| C49 | Panel: deleted JWT → middleware redirect loop / wipe on `user===null`. `LoginForm` has no auto-redirect; guests are `user===null`; throw = outage.                                                                          | Expire `sb-*auth*` cookies only when `getUser()` **resolves with `error`**. Keep cookies on throw. Guest no-op. Dashboard `!user` redirect unchanged.                         | Loop is false. Blanket null-user wipe logs out guests and outage victims.                                                                             |
+| C50 | v5 `homeCarePediatricNote` “Fever in infants” vs AAP 100.4°F / 38°C vs panel “rectal” in the rationale.                                                                                                                     | Paste **100.4°F (38°C)** in EN+ES. **No** “rectal” in the UI string. Tests `/100\.4\|38/`.                                                                                    | Same paste-example class as CF-27. Axillary/forehead under-read; the number is the 911-class exception.                                               |
+| C51 | Day 2 cell lists `4` first vs parenthetical “6 first” vs panel 08:00–20:00 clock. P4 has no DB dependency.                                                                                                                  | **Cell: 6 first, then 5, 7; 4 parallel.** No AM/PM. P6 before P5 unchanged.                                                                                                   | Solo-agent list order is the trap; the clock is folklore (C41).                                                                                       |
+| C52 | Panel `max-w-md` overlay + “Rutas de aprendizaje” overflow vs HEAD accordion + 8 short `es.json` keys vs v5 Playwright `/es` 1280.                                                                                          | **Keep full-width accordion.** Overflow already gated. Tighten NavLink tokens **only if** 1280 `/es` fails. No dropdown.                                                      | C33 / CF-21 relitigation. Invented labels ≠ `Rutas`.                                                                                                  |
+
+### 1.3 Product decisions locked for this window
+
+| Decision           | Choice                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         | Why                                                                                                                                                                                                                                                                                                     |
+| ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Quiz storage model | **One best-score row per `(user_id, quiz_id)`.** Canonical units: `score` = correct count, `max_score` = question count, `passed = score/max_score >= 0.7`. Live percent-in-`score` rows are normalized in `015` **before** dedupe. `quiz_id` is the bundle id (equals `lessonId`); queries accept optional legacy `${id}-quiz`.                                                                                                                                                                                                                                               | Matches lesson UI. Dashboard `(score/max)*100` only works after units match.                                                                                                                                                                                                                            |
+| Guest progress     | **`localStorage` is canonical** for AppProviders UI keys (`hmc-completed-lessons`, `hmc-quiz-scores`) **and** for guest migrate keys (`hmc_guest_completedLessons`, `hmc_guest_quizAttempts`). SessionStorage is a one-time migrate-from. **Do not** merge guest quiz attempts into `QuizScore` (`lessonId`). Guest attempts keep `quizId` / count units. `QuizScore.score` stays **percent** for UI. Migrate runs `normalizeStoredScore`.                                                                                                                                     | Tab close must not wipe progress. Signup migrate must send real `quiz_id` and count units.                                                                                                                                                                                                              |
+| Care guide voice   | **Education, not triage.** Describe typical settings; never "take OTC" or "go to X now" as an instruction. Emergency banner stays, qualified as US 911. **Rewrite all care-guide i18n keys** (bodies, checklists, both scenarios, when-in-doubt), not only `homeCareBody`.                                                                                                                                                                                                                                                                                                     | Highest clinical-liability surface.                                                                                                                                                                                                                                                                     |
+| Privacy            | **Describe both modes** (anonymous local vs signed-in sync) and GA **page-path** collection. Do not claim search queries are sent (they are not).                                                                                                                                                                                                                                                                                                                                                                                                                              | Current copy is false for authenticated users.                                                                                                                                                                                                                                                          |
+| Account deletion   | **Deploy `delete_user`**, then **local** `signOut({ scope: "local" })` in `finally` (ignore logout errors). **Then `resetLocalProgress()`** (empty AppProviders React state **then** `clearLocalHealthData()`). Same wipe on **logout** via `AuthProvider.signOut` **`try/finally`** (not success-only). Middleware expires `sb-*auth*` cookies when `getUser()` **resolves with `error`** (not on throw; not on guest `user===null`). Contact rows stay (not user-linked). Privacy copy must say that **and** how to request contact erasure (`privacy@healthmadeclear.com`). | GDPR/CCPA control must work on cookies **and** shared-device `localStorage`, not only in Postgres. `removeItem` without resetting mounted `AppProviders` is rewritten by the persist effect. Success-only logout skips the wipe when GoTrue errors. Expire-on-throw logs everyone out during an outage. |
+| New tools          | **None.**                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      | See §11.                                                                                                                                                                                                                                                                                                |
+| Print              | **`window.print()` + existing `@media print`.**                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | No jsPDF.                                                                                                                                                                                                                                                                                               |
+
+### 1.4 Already fixed or verify-only (do not redo blindly)
+
+Confirm in the phase that owns the surface. If still broken, fix. If already good, note in PR and move on.
+
+| Surface                   | Current code                                                                          | Visual/file claim                         |
+| ------------------------- | ------------------------------------------------------------------------------------- | ----------------------------------------- |
+| Visit checklist row tap   | `VisitChecklistClient.tsx` wraps `<input>` in full-width `<label className="… py-4">` | 20×20 raw checkbox                        |
+| Glossary letter size      | buttons use `h-11 min-w-11` (44px)                                                    | 28×28 — **wrapping** is the remaining bug |
+| Language toggle names     | `aria-label` on each radio                                                            | missing accessible name                   |
+| Article reader disclaimer | `ArticlePageClient.tsx` includes `<MedicalDisclaimer />`                              | sometimes described as absent             |
+| Search locale split       | `import(\`@/data/searchIndex.${locale}.ts\`)`                                         | lessons/quizzes still dual-bundle         |
+| Emergency aria            | `emergencyCallAria` mentions US 911                                                   | visible label does not                    |
+
+---
+
+## 2. Finding → phase matrix (every accepted item)
+
+Severity: 🔴 blocker / 🟡 should-fix this window / 🟢 include only if the phase is already open.
+
+| Finding                                                                  | Sev     | Phase                                                                                                | Notes                                                                                                                                                                                                                                                                                                        |
+| ------------------------------------------------------------------------ | ------- | ---------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| ADV-10 public INSERT `contact_submissions`                               | 🔴      | 1                                                                                                    | Plus REVOKE                                                                                                                                                                                                                                                                                                  |
+| ADV-09 `delete_user` missing                                             | 🔴      | 1 + **9 (client finally + health wipe + AuthProvider `signOut` finally + middleware cookie expire)** | Throwaway RPC that deletes `auth.users` is a **gate**. Settings: local `signOut` in `finally` + `resetLocalProgress`. `AuthProvider.signOut` same `try/finally`. Middleware expires `sb-*` cookies on resolved `getUser` error only.                                                                         |
+| ADV-15 `handle_new_user` search_path + EXECUTE PUBLIC                    | 🟡      | 1                                                                                                    | Same migration; truncate `display_name` to 100                                                                                                                                                                                                                                                               |
+| ADV-01 quiz unique vs insert vs live dupes                               | 🔴      | 1 (write `015` file in `pending/`) + **6 (apply `015` + client)**                                    | **Do not apply `015` in Phase 1.**                                                                                                                                                                                                                                                                           |
+| `daily_log` no UPDATE (upsert fails day 2)                               | 🟡      | 1                                                                                                    |                                                                                                                                                                                                                                                                                                              |
+| Indexes 011/012 not applied                                              | 🟡      | 1                                                                                                    | Folded into `014`; do not run `011`/`012` files via `db push`                                                                                                                                                                                                                                                |
+| Pending repo `009`–`013` vs live `001`–`008`                             | 🔴      | 1                                                                                                    | Repair-as-applied; `014` supersets. Never execute `013` separately.                                                                                                                                                                                                                                          |
+| SEC-01 `SUPABASE_SERVICE_ROLE_KEY` env gate                              | 🔴      | 1 Gate 0 + 3                                                                                         | **Gate 0 before `db push`.** NETLIFY-only script in P3. Not GitHub CI.                                                                                                                                                                                                                                       |
+| `set_updated_at` / 010 absent                                            | 🟢      | 1                                                                                                    | Cheap with 014                                                                                                                                                                                                                                                                                               |
+| FORCE RLS + REVOKE TRUNCATE/TRIGGER from `anon`                          | 🟡      | 1                                                                                                    | Defense in depth                                                                                                                                                                                                                                                                                             |
+| `auth_rls_initplan` wrap `(select auth.uid())` on remaining policies     | 🟢      | 1                                                                                                    | profiles SELECT                                                                                                                                                                                                                                                                                              |
+| BUG-01 reset hash-only                                                   | 🔴      | 2                                                                                                    | Plus session-aware reset **and** consume-once PKCE (`exchangedRef` + strip URL)                                                                                                                                                                                                                              |
+| BUG-02 confirm ignores `token_hash`                                      | 🔴      | 2                                                                                                    |                                                                                                                                                                                                                                                                                                              |
+| BUG-05 locale-less auth redirects                                        | 🟡      | 2                                                                                                    |                                                                                                                                                                                                                                                                                                              |
+| ADV-11 (same as BUG-01/02)                                               | 🔴      | 2                                                                                                    |                                                                                                                                                                                                                                                                                                              |
+| ADV-08 privacy lie                                                       | 🔴      | 3                                                                                                    |                                                                                                                                                                                                                                                                                                              |
+| ADV-06 contact double-submit                                             | 🟡      | 3                                                                                                    | Client lock; no new DB column                                                                                                                                                                                                                                                                                |
+| Contact stream 400/413 taxonomy                                          | 🔴      | 3                                                                                                    | Null body + bad JSON → **400** not 500; overflow `reader.cancel()` → 413; do not `reportServerError` those                                                                                                                                                                                                   |
+| ADV-12 care-guide treatment voice                                        | 🔴      | 4                                                                                                    | Atypical-ACS chest-pain spec strings + one 988 sentence + `homeCarePediatricNote` **with 100.4°F / 38°C**                                                                                                                                                                                                    |
+| A11Y-01 urgent-care contrast                                             | 🔴      | 4                                                                                                    |                                                                                                                                                                                                                                                                                                              |
+| MED-03 911 visible qualifier                                             | 🟡      | 4                                                                                                    |                                                                                                                                                                                                                                                                                                              |
+| Articles catalog missing disclaimer                                      | 🟡      | 4                                                                                                    |                                                                                                                                                                                                                                                                                                              |
+| BUG-03 guest session vs local                                            | 🟡      | 5                                                                                                    |                                                                                                                                                                                                                                                                                                              |
+| BUG-04 / ADV-03 migration race + unhandled rejection                     | 🟡      | 5                                                                                                    |                                                                                                                                                                                                                                                                                                              |
+| Guest `JSON.parse as T`                                                  | 🟡      | 5                                                                                                    |                                                                                                                                                                                                                                                                                                              |
+| ADV-04 quiz optimistic no rollback                                       | 🟡      | 6                                                                                                    |                                                                                                                                                                                                                                                                                                              |
+| Client quiz `.insert`                                                    | 🔴      | 6                                                                                                    | **Same deploy as applying `015`.** Unique without upsert → retakes 23505.                                                                                                                                                                                                                                    |
+| Dashboard summary sums all quiz rows                                     | 🟡      | 6                                                                                                    | Best-score aggregation **after unit normalize**                                                                                                                                                                                                                                                              |
+| Quiz `score` percent vs `max_score` count (1600% avg; UI fail / DB pass) | 🔴      | 6                                                                                                    | Option A + 015 `score > max_score` normalize. `QuizClient` in this phase.                                                                                                                                                                                                                                    |
+| Completed-lessons tab `${id}-quiz` vs live `quiz.id === lessonId`        | 🔴      | 6                                                                                                    | Query both ids. Do not rewrite rows.                                                                                                                                                                                                                                                                         |
+| ADV-02 dead achievements + side-effect order                             | 🟡      | 7                                                                                                    | Slim `lessonMeta` only — **no** client `loadLessons` import                                                                                                                                                                                                                                                  |
+| ADV-14 English achievement toasts                                        | 🟡      | 7                                                                                                    | Locale arg on **quiz** sideEffects too. Hook `t`, not client `getMessages`. Notifications not EN inside award fn.                                                                                                                                                                                            |
+| MED-01 article sources omitted                                           | 🔴      | 8                                                                                                    |                                                                                                                                                                                                                                                                                                              |
+| LessonNotes omits `reviewedBy`                                           | 🟡      | 8                                                                                                    |                                                                                                                                                                                                                                                                                                              |
+| MED-02 validate-content sources/reviewedBy                               | 🟡      | 8                                                                                                    | Presence + placeholder denylist. Keep 400-day `lastReviewed`. No credential regex.                                                                                                                                                                                                                           |
+| Visual trust banner / compact review line                                | 🟡      | 8                                                                                                    | Mobile compact (with Phase 13) so CTAs stay on-screen                                                                                                                                                                                                                                                        |
+| ADV-13 signup email enumeration                                          | 🟡      | 9                                                                                                    |                                                                                                                                                                                                                                                                                                              |
+| ADV-05 expired JWT generic error                                         | 🟡      | 9                                                                                                    |                                                                                                                                                                                                                                                                                                              |
+| TEST-01 auth form unit tests                                             | 🟡      | 9                                                                                                    | **Day 1 after Phase 2** (required — delete wipe + AuthProvider `finally` + middleware cookie expire live here).                                                                                                                                                                                              |
+| Visual header `2xl` → **`xl`** (not `lg`)                                | 🔴 UX   | 10                                                                                                   | Compact-at-xl. 8 nav items. Login icon-only at `xl` **with** `aria-label={authT("loginButton")}`. Playwright no overflow 1280/1440 **on `/en` and `/es`**. No Tools dropdown. Drawer stays full-width accordion (not `max-w-md` overlay). If 1280 `/es` fails, tighten NavLink tokens before dropping items. |
+| Display button duplicate accessible name                                 | 🟡      | 10                                                                                                   |                                                                                                                                                                                                                                                                                                              |
+| Unstyled root 404                                                        | 🔴 UX   | 10                                                                                                   | Import `globals.css`; static `theme-light`. `<html>` already present.                                                                                                                                                                                                                                        |
+| ErrorBoundary hardcoded English                                          | 🟡      | 10                                                                                                   |                                                                                                                                                                                                                                                                                                              |
+| Onboarding title hardcoded                                               | 🟢      | 10                                                                                                   |                                                                                                                                                                                                                                                                                                              |
+| Footer / drawer / terms / inputs tap                                     | 🔴 UX   | 11                                                                                                   | Drawer: **verify-first** (toggle already `min-h-11`)                                                                                                                                                                                                                                                         |
+| Inline glossary tap expander                                             | 🔴 UX   | 11                                                                                                   |                                                                                                                                                                                                                                                                                                              |
+| Breadcrumbs (`PageHeader` links)                                         | 🟡      | 11                                                                                                   | `min-h-11 inline-flex` — real gap. Quiz rows / learn `.chip` already 44px.                                                                                                                                                                                                                                   |
+| Glossary A-Z horizontal snap                                             | 🟡      | 11                                                                                                   | Plus right-edge fade mask on mobile (`-webkit-mask-image` **and** `mask-image`). No scroll-linked dual fade.                                                                                                                                                                                                 |
+| A11Y-03 search `aria-live` + loading                                     | 🟡      | 12                                                                                                   | Debounce 350ms; mount empty live region; mutate text; `max-h-[calc(100dvh-14rem)]`                                                                                                                                                                                                                           |
+| Visual search grouping                                                   | 🟡      | 12                                                                                                   |                                                                                                                                                                                                                                                                                                              |
+| A11Y-02 planner focus                                                    | 🟡      | 12                                                                                                   |                                                                                                                                                                                                                                                                                                              |
+| BUG-06 planner locale strings                                            | 🟡      | 12                                                                                                   | Per-type default IDs matching `visitType`. Map **inside** the hook — do not pass visitType-keyed arrays into the hydrate effect.                                                                                                                                                                             |
+| Visual planner summary contrast                                          | 🟡      | 12                                                                                                   |                                                                                                                                                                                                                                                                                                              |
+| Hero type scale + home video order                                       | 🟡      | 13                                                                                                   | `Hero.tsx` clamp. **`HomeClient.tsx`:** `<sm` Hero then video. **Also** `preload="none"` + reduced-motion (moved from P16).                                                                                                                                                                                  |
+| Article `max-w-prose` + TOC                                              | 🟡      | 13                                                                                                   | `<main>` first in DOM, sticky `<aside>` second; CSS grid for visual. No scroll-spy.                                                                                                                                                                                                                          |
+| Quiz feedback CLS                                                        | 🟡      | 13                                                                                                   |                                                                                                                                                                                                                                                                                                              |
+| Learn pills/cards                                                        | 🟡      | 13                                                                                                   | Pills already `.chip` 44px — cards/gap only if still needed                                                                                                                                                                                                                                                  |
+| Path mobile stacked steps                                                | 🟡      | 13                                                                                                   |                                                                                                                                                                                                                                                                                                              |
+| PERF-01 EN+ES lesson/quiz(/path/glossary) eager import                   | 🔴 perf | 14                                                                                                   | Generators + **client** graph. Keep sync server loaders.                                                                                                                                                                                                                                                     |
+| Print CTAs lesson/article/care-guide                                     | 🟡 feat | 15                                                                                                   | Print-only 911/988 line on care-guide. Red banner stays `no-print`. Print-only educational disclaimer footer.                                                                                                                                                                                                |
+| Lesson copy/share parity                                                 | 🟢 feat | 15                                                                                                   |                                                                                                                                                                                                                                                                                                              |
+| `markLessonViewed` on lesson page                                        | 🟢 feat | 15                                                                                                   |                                                                                                                                                                                                                                                                                                              |
+| Empty achievements section                                               | 🟢      | 15                                                                                                   |                                                                                                                                                                                                                                                                                                              |
+| SEC-02 CSP dual source                                                   | 🟡      | 16                                                                                                   |                                                                                                                                                                                                                                                                                                              |
+| JsonLd extra validation                                                  | 🟢      | 16                                                                                                   |                                                                                                                                                                                                                                                                                                              |
+| ADV-16 Sentry `extra`/breadcrumbs                                        | 🟡      | 16                                                                                                   | `sendDefaultPii: false`; clear user IP; strip query **and hash**; **keep path slugs**; privacy `collectBodyErrors`                                                                                                                                                                                           |
+| SEC-03 server Sentry                                                     | 🟢      | 16                                                                                                   | HTTP ingest + flood throttle + **`AbortSignal.timeout(2000)`**. Never drop the timeout.                                                                                                                                                                                                                      |
+| PERF-02 AppProviders split                                               | 🟡      | 16                                                                                                   | Drop if Day 4 slips                                                                                                                                                                                                                                                                                          |
+| PERF-03 dashboard N+1                                                    | 🟢      | 16                                                                                                   | Drop if Day 4 slips                                                                                                                                                                                                                                                                                          |
+| ADV-07 minutes learned lie                                               | 🟡      | 16                                                                                                   |                                                                                                                                                                                                                                                                                                              |
+| TEST-02 tool unit tests                                                  | 🟡      | 4, 12                                                                                                | In those phases                                                                                                                                                                                                                                                                                              |
+| Home autoplay video 1.3MB                                                | 🟢      | 13                                                                                                   | `preload="none"` / respect reduced motion — **Phase 13, not 16**                                                                                                                                                                                                                                             |
+
+**Rejected for this window** (still listed in §11): mock strict types, Flesch-Kincaid linter, localhost CSRF port match, Logo `next/image`, cheat-proof RPCs, PWA, TTS, new clinical tools, email send, glossary audio, reading-time instrumentation.
+
+---
+
+## 3. Four-day calendar
+
+Assume ~10 hour days, mergeable PRs, CI ~15 min/PR.
+
+| Day       | Phases                                                                                                      | Theme                                                                                                                                                                                                                                                                     |
+| --------- | ----------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Day 1** | **1 (`014` only, Gate 0 first)**, 2, 3, **9 (after P2)**                                                    | Security + auth + legal copy + account-delete **and logout** wipe + stale-JWT cookie expire. **Do not announce launch until 1–3 are on production.** **Do not apply `015`.** P9 is **not** optional.                                                                      |
+| **Day 2** | **6 (`015` + client) first**, **5 (after unique live)**, 7; **4 parallel** (copy/CSS; anytime Day 2, no DB) | Quiz unique/upsert **first**, then guest storage + achievements. Care-guide copy is **independent** — do not block 015 on it. **P6 before P5.** No AM/PM clock.                                                                                                           |
+| **Day 3** | **8**, 10, 11, 12                                                                                           | Citations/MDX, then visual/a11y chrome, search, planner. If 8 lands early, start 13.                                                                                                                                                                                      |
+| **Day 4** | 13 (if leftover), **14 (descoped, 3h timebox)**, **16 must-dos (19.1)**, 15                                 | Reading UX, **generator + client** split, **then CSP/Sentry PII**, then print/share polish. P14 is **not** the first task of the morning. Stop P14 at 13:00 if not green; **leave `revamp/p14-*` unmerged** (do not `git checkout main` as discard). **Never drop 19.1.** |
+
+**Slip protocol:** If Day 3 is not done by start of Day 4, **cut Phase 16 AppProviders/N+1** and any remaining P14 **path/glossary** generator work after lessons/quizzes client split is done. **Never cut 19.1 (CSP sync + Sentry PII).** P15 print/share may slip. Never cut Phases 1–6. Never apply `015` without the Phase 6 client. Never merge Phase 5 while unique is missing.
+
+**Parallelism:** Phase 2 can start while Phase 1 SQL is in review. **Phase 3 env-gate file may merge (and should) before `014` is applied** — Gate 0 still required at apply time. **Phase 4 is independent of 1–3 and of 6** — it may run anytime on Day 2 (including in parallel with P6). Do **not** treat listed calendar order as a single-threaded queue that puts copy work ahead of 015. Phase 8 (Day 3) can start as a branch on Day 2 afternoon after P4 copy is stable; **merge on Day 3**. If P7 lands early, **branch** Phase 10 (do **not** merge Header onto Day 2). Phase 6 **must not apply `015` to production** until the upsert client is in the same Netlify deploy (or already live). Phase 5 **must not merge** until that unique exists. **P6 is larger this round** (units + `QuizClient` + dashboard ids) — still one PR, still before P5. **P9 after P2 on Day 1** so delete **and logout** wipe **and** stale-JWT cookie expire exist before P5 makes localStorage canonical.
+
+**Atomic quiz gate:** `014` (RLS/functions/indexes/contact lock) ≠ `015` (dedupe + unique). Mixing them on Day 1 breaks retakes. **P5 after P6**, not a combined PR.
+
+---
+
+## 4. Global implementation constraints
+
+- Locales: `en`, `es` only. `localePrefix: "always"`. Every auth redirect is `/${locale}/...`.
+- Dashboard remains the only middleware-guarded area.
+- Guest mode must keep working with no Supabase.
+- Do not add Zod as a new production dependency unless a phase explicitly says so; prefer existing `parsePlannerState`-style allowlists.
+- New i18n keys: add to **both** `src/messages/en.json` and `src/messages/es.json` at the same JSON path. Spanish must be real translation, not English leftovers.
+- Tests: colocate `*.test.ts(x)` next to the file. E2E lives in `e2e/`. Follow existing `vi.mock` + Testing Library patterns (see `src/app/[locale]/auth/confirm/route.test.ts`, `src/lib/guestProgress.test.ts`).
+- Playwright: use `waitForAppReady` from `e2e/setup.ts`. Prefer role/label selectors.
+- CI (`.github/workflows/ci.yml`) sets fake `NEXT_PUBLIC_SUPABASE_*` only on `npm run build`. Do **not** require `SUPABASE_SERVICE_ROLE_KEY` in GitHub Actions.
+
+---
+
+# PHASES
+
+---
+
+## Phase 1 — Production schema reconciliation (`014` only)
+
+**Goal:** Production Postgres matches the security intent of migrations 009–013 without executing those files, without replaying 001–008, and **without** adding `quiz_attempts` unique (that is Phase 6).
+
+**Rationale:** Live DB is the launch blocker the file audit could not see. Public INSERT on `contact_submissions` bypasses CSRF, honeypot, and rate limits already implemented on `/api/contact`. Account deletion is a placebo. Naive `db push` applies **pending `009`–`013`** (live history stops at `008`). `013` is a one-line `DROP POLICY` on public contact INSERT — same outage risk as `014` contact lock, unreviewed as a bundle.
+
+**Complexity:** High  
+**Risk:** High (data-changing SQL)  
+**Dependencies:** None. Contact lock **coordinates with Phase 3 env**. **Gate 0 is blocking** — do not apply 014 until Netlify `SUPABASE_SERVICE_ROLE_KEY` is proven. Unique/dedupe is **not** this phase.
+
+### 4.1 Scope (files)
+
+| File                                                | Change                                                                                                |
+| --------------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
+| `supabase/migrations/014_launch_reconcile.sql`      | **Create.** Inventory migration. Idempotent. **No unique on `quiz_attempts`.**                        |
+| `supabase/pending/015_quiz_attempts_best_score.sql` | **Create here, do not move to `migrations/` yet.** Same SQL as v1 §4.3 B. Phase 6 moves + applies it. |
+| `supabase/rollback/014_emergency.sql`               | **Create.** Reverse of 014 pieces (not a forward migration).                                          |
+| `supabase/codemap.md`                               | List 014; note 015 pending.                                                                           |
+| `src/lib/supabase/schema.ts`                        | Conflict-target constants for Phase 6.                                                                |
+
+No quiz client TypeScript. Do not apply `015`.
+
+### 4.2 Preflight (human + agent)
+
+**Gate 0 (blocking — before any `db push`):** Prove `SUPABASE_SERVICE_ROLE_KEY` is set in the **Netlify production** (and preview, if preview deploys this branch) environment. Acceptable proof in the Phase 1 PR: `netlify env:get SUPABASE_SERVICE_ROLE_KEY` showing a non-empty non-placeholder value, **or** a dashboard screenshot of the same. **Forbid** `npx supabase db push` until this is attached. `/api/contact` already 503s if the key is missing — 014 does not create that 503; 014 **does** close the anon PostgREST INSERT bypass, so the Next route is then the only path. Phase 3’s `check-production-env.mjs` may merge first; it does **not** replace Gate 0 at apply time. There is no morning/afternoon split.
+
+1. Confirm project ref `xdmbyadosmzixsxqullj`.
+2. Snapshot: in Supabase SQL editor (or MCP `execute_sql` read-only), save outputs of:
+
+```sql
+select version, name from supabase_migrations.schema_migrations order by version;
+select tablename, policyname, cmd, roles, qual, with_check
+from pg_policies where schemaname = 'public' order by tablename, policyname;
+select proname from pg_proc p join pg_namespace n on n.oid = p.pronamespace
+where n.nspname = 'public';
+select conname, pg_get_constraintdef(oid)
+from pg_constraint
+where conrelid = 'public.quiz_attempts'::regclass;
+select rolname, rolbypassrls from pg_roles where rolname in ('anon','authenticated','service_role');
+```
+
+3. **Stop** if you cannot take this snapshot. Do not apply SQL blind.
+4. **Gate 0** (above). Do not treat this as optional coordination with Phase 3.
+5. Run `npx supabase migration list` (or dashboard equivalent). Expect remote `001`–`008` applied, local `009`–`013` **pending**. If `009`–`013` show as pending, **do not `db push` yet.**
+
+### 4.3 Implementation steps
+
+**A. Write `014_launch_reconcile.sql`** with this exact intent (adapt only if live names differ from the 2026-08-27 audit; if they differ, update names from the snapshot, do not invent):
+
+1. **Contact lock (last statements in the 014 file — after functions/policies/indexes).** Gate 0 must already be green. Putting this last means a human applying statements by hand cannot revoke INSERT before the rest of 014 is in the editor. In a single transaction, order does not change atomicity.
+   - `DROP POLICY IF EXISTS "Anyone can insert contact submissions" ON public.contact_submissions;`
+   - Keep SELECT `USING (false)` (policy `"Only service role can read contact submissions"` or live equivalent).
+   - `REVOKE INSERT, UPDATE, DELETE, TRUNCATE, REFERENCES, TRIGGER ON public.contact_submissions FROM anon, authenticated;`
+   - Do **not** revoke from `service_role`.
+   - `service_role` must keep `rolbypassrls` (Supabase default). FORCE RLS must not break `/api/contact` service-role insert. If snapshot shows `service_role.rolbypassrls = false`, **stop** and do not FORCE RLS on `contact_submissions`.
+2. **`delete_user`** — copy body from `009_delete_user.sql` (`SECURITY DEFINER`, `SET search_path = public`, `auth.uid()` null check, `DELETE FROM auth.users WHERE id = auth.uid()`). Then:
+   - `REVOKE ALL ON FUNCTION public.delete_user() FROM PUBLIC;`
+   - `GRANT EXECUTE ON FUNCTION public.delete_user() TO authenticated;`
+   - Function owner must be a role that can delete `auth.users` (typically `postgres` / superuser on this project). If a throwaway RPC fails, fix owner/grants in this phase — do not ship a second placebo.
+3. **`handle_new_user`** — `CREATE OR REPLACE` using `001_profiles.sql` body (`SET search_path = public`) with truncated **and** control-stripped display name:
+
+```sql
+insert into public.profiles (id, display_name)
+values (
+  new.id,
+  nullif(
+    substring(
+      regexp_replace(
+        trim(coalesce(new.raw_user_meta_data->>'display_name', '')),
+        '[[:cntrl:]]',
+        '',
+        'g'
+      )
+      from 1 for 100
+    ),
+    ''
+  )
+);
+```
+
+`[[:cntrl:]]` is the POSIX class (NUL + C0 + DEL). Do **not** use `[\\x00-\\x1F]` — Postgres POSIX regex does not treat that like JS. Then:
+
+- `REVOKE ALL ON FUNCTION public.handle_new_user() FROM PUBLIC;`
+- `REVOKE ALL ON FUNCTION public.handle_new_user() FROM anon, authenticated;`
+- Trigger `on_auth_user_created` must remain. Do not drop it.
+- **Never** use `raw_user_meta_data` for authorization (display name only).
+- Whitespace/control-only names become SQL `NULL`. Profiles UI already fallbacks (`display_name ?? email ?? t("defaultUser")`). **Do not** change that SQL. Cheap follow-up in Phase 9: Header / dashboard `user_metadata.display_name` must `trim()` then `||` fallback so `""` and `"   "` do not render as a blank welcome.
+
+4. **`set_updated_at`** — from `010_updated_at_triggers.sql`. Use `CREATE OR REPLACE FUNCTION`. Triggers: `DROP TRIGGER IF EXISTS` then create on `profiles`, `lesson_progress`, `streaks`.
+5. **`daily_log` UPDATE policy** — live has select/insert/delete only. Add:
+   - `DROP POLICY IF EXISTS daily_log_update ON public.daily_log;`
+   - `CREATE POLICY daily_log_update ON public.daily_log FOR UPDATE TO authenticated USING ((select auth.uid()) = user_id) WITH CHECK ((select auth.uid()) = user_id);`
+6. **Profiles SELECT wrap** (lint 0003): drop and recreate `"Users can view their own profile"` as `TO authenticated` (or keep `TO public` if you must match live, but **USING `((select auth.uid()) = id)`**). Do **not** add a client-callable INSERT policy if signup still uses the trigger; live missing INSERT is OK.
+7. **FORCE ROW LEVEL SECURITY** on: `profiles`, `lesson_progress`, `quiz_attempts`, `achievements`, `streaks`, `daily_log`, `notifications`, `contact_submissions` — **after** step A.1 bypass check.
+8. **REVOKE** `TRUNCATE, TRIGGER` on all those tables `FROM anon, authenticated`. Leave SELECT/INSERT/UPDATE/DELETE as today so RLS remains the row gate.
+9. **Indexes** — copy `011_indexes.sql` and `012_additional_indexes.sql` (`IF NOT EXISTS`). Do not `db push` those original files.
+
+**B. Write `supabase/pending/015_quiz_attempts_best_score.sql` (do not apply):**
+
+1. Snapshot backup first (Phase 6 apply): `create table quiz_attempts_backup_20260827 as select * from quiz_attempts;`
+2. **Normalize units before any comparison.** Live `QuizClient` wrote **percent** into `score` and **question count** into `max_score` (so `score > max_score`, e.g. 80/5). Canonical: `score` = correct count, `max_score` = question count. Skip rows that already look like counts (`score <= max_score`):
+
+```sql
+-- Convert percent-in-score rows (80/5) to count/count (4/5). Leave 4/5 and 80/100 alone.
+UPDATE public.quiz_attempts
+SET score = LEAST(max_score, GREATEST(0, ROUND(score * max_score / 100.0)::int))
+WHERE max_score > 0 AND score > max_score;
+
+UPDATE public.quiz_attempts
+SET passed = (max_score > 0 AND score::numeric / max_score >= 0.7);
+```
+
+Do **not** skip this step. Dedupe-then-unique on raw 80/5 freezes the inverted row; later count writes of 4/5 lose (`Math.max(80,4)`). 3. Dedupe, keeping the highest `score` **after normalize**, then latest `attempted_at`, then `id` as **arbitrary deterministic tiebreak** (UUID `<` is **not** insertion order — comment that in SQL):
+
+```sql
+-- id comparison is a deterministic tiebreak only (UUID is not temporal).
+-- Run only after the percent→count UPDATE above.
+DELETE FROM public.quiz_attempts a
+USING public.quiz_attempts b
+WHERE a.user_id = b.user_id
+  AND a.quiz_id = b.quiz_id
+  AND a.id <> b.id
+  AND (
+    a.score < b.score
+    OR (a.score = b.score AND a.attempted_at < b.attempted_at)
+    OR (a.score = b.score AND a.attempted_at = b.attempted_at AND a.id < b.id)
+  );
+```
+
+4. `ALTER TABLE public.quiz_attempts ADD CONSTRAINT quiz_attempts_user_id_quiz_id_key UNIQUE (user_id, quiz_id);`  
+   Use `IF NOT EXISTS` pattern: wrap in a `DO $$ BEGIN ... EXCEPTION WHEN duplicate_object THEN NULL; END $$;` if needed.
+5. Do **not** change RLS to `FOR ALL`. Keep live split policies. Do **not** rewrite `quiz_id` values (live ids equal `lessonId`, no `-quiz` suffix).
+
+**C. Apply `014` only**
+
+1. Confirm `014` supersets `009` (delete_user), `010` (updated_at), `011`/`012` (indexes), `013` (drop contact INSERT policy).
+2. Mark `009`–`013` applied **without executing** them. Exact CLI (confirm against `supabase --help` for this CLI version):
+
+```bash
+npx supabase migration list
+# Then repair each pending 009–013 as applied, e.g.:
+npx supabase migration repair --status applied <version_009>
+# … repeat for 010, 011, 012, 013
+```
+
+If the CLI cannot repair by the `001`-style names, insert matching rows into `supabase_migrations.schema_migrations` from the SQL editor using the same `version`/`name` shape as existing rows — **after** 014 is written and reviewed. Do not invent versions that collide. 3. Push **only** `014`:
+
+```bash
+npx supabase db push
+```
+
+**Abort** if Gate 0 is not proven in the PR. **Abort** if the plan lists `009`–`013` or `015` as about to run. `015` must still be outside `migrations/`.
+
+**D. Verify** with the queries in §4.5.
+
+**E. `delete_user` gate:** create a throwaway auth user, `rpc('delete_user')` as that user, confirm the `auth.users` row is gone. If this fails, 014 is not done.
+
+### 4.4 Tests (this phase)
+
+No app unit tests for SQL. Add a **runbook test file** so CI documents the invariant (does not connect to prod):
+
+```ts
+export const QUIZ_ATTEMPTS_ON_CONFLICT = "user_id,quiz_id";
+```
+
+Phase 6 will import that constant. In Phase 1, export the constant from `src/lib/supabase/schema.ts` (new file) so the migration comment and client cannot drift.
+
+**New tests:**
+
+- `src/lib/supabase/schema.test.ts` — asserts the exported conflict strings equal `"user_id,quiz_id"` and `"user_id,lesson_id"`.
+
+**Playwright:** none.
+
+### 4.5 Acceptance
+
+- [ ] **Gate 0:** Phase 1 PR proves Netlify `SUPABASE_SERVICE_ROLE_KEY` non-empty before `db push`.
+- [ ] `migration list`: `009`–`013` are **not** pending execution; `014` applied; `015` **not** applied.
+- [ ] Live `pg_policies` has **no** `"Anyone can insert contact submissions"`.
+- [ ] `anon` cannot INSERT into `contact_submissions` (PostgREST 401/403 with anon key).
+- [ ] `/api/contact` still 2xx with service role (after env present).
+- [ ] `public.delete_user` exists, `prosecdef = true`, `proconfig` includes `search_path=public`, EXECUTE not granted to `PUBLIC`/`anon`.
+- [ ] **Throwaway account:** `rpc('delete_user')` removes `auth.users` row.
+- [ ] `handle_new_user` has `search_path`, EXECUTE revoked from `anon`/`authenticated`/`PUBLIC`; display_name truncated at 100 and stripped of `[[:cntrl:]]`.
+- [ ] New signup still creates a `profiles` row (trigger works).
+- [ ] `daily_log` has an UPDATE policy; second upsert same UTC day succeeds.
+- [ ] **`quiz_attempts` unique `(user_id, quiz_id)` is NOT required yet.** Duplicates may still exist. `.insert()` retakes still work.
+- [ ] Indexes from 011/012 exist.
+- [ ] `npm test` still green (constant test).
+
+### 4.6 Rollback
+
+Committed at `supabase/rollback/014_emergency.sql` (not a numbered forward migration). Contents: drop `delete_user` only if you must; restore contact INSERT **only** if the site is down **and** service_role is missing (prefer adding the Netlify env var). Do not `supabase db reset` on production.
+
+Git: revert the PR. Database: apply the rollback file by hand in the SQL editor.
+
+**Warning:** `015` is not applied in this phase. Quiz dedupe backup happens in Phase 6.
+
+---
+
+## Phase 2 — Auth recovery (reset + confirm + locale)
+
+**Goal:** Password reset and email confirmation work with current Supabase PKCE and OTP templates, and errors stay in the user's locale.
+
+**Rationale:** Users cannot recover accounts. Spanish users get bounced to `/en`. Do not ship auth until this matches templates.
+
+**Complexity:** Medium  
+**Risk:** Medium (auth)  
+**Dependencies:** None (parallel with Phase 1).
+
+### 5.1 Scope
+
+| File                                                           | How                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
+| -------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `src/app/[locale]/auth/reset-password/ResetPasswordClient.tsx` | Parse `code` from search then hash. Handle `token_hash` + allowlisted `type` via `verifyOtp`. **If no URL tokens:** `const { user, loading: authLoading } = useAuth()` from `@/hooks/useAuth`. Wait while `authLoading`. If `user` exists, **show the form** (server confirm already exchanged). Only then `auth.errorInvalidResetLink`. **Forbidden:** using `useAuthFormState().loading` for this gate (that flag is submit-in-flight and starts `false` — first paint would skip the wait). Do **not** error on first paint before auth resolves. **PKCE consume-once:** `exchangedRef = useRef(false)` — if already true, skip exchange/verify. After detecting `code` or `token_hash`, `window.history.replaceState({}, "", window.location.pathname)` (locale path kept; strip query **and** hash). Do **not** put `code` in effect deps in a way that re-runs after a successful exchange. StrictMode remount is **dev-only**; the guard is still required because a session update after exchange retriggers `[supabase, t, setError]` in production. |
+| `src/app/[locale]/auth/confirm/route.ts`                       | If `code`, `exchangeCodeForSession`. Else if `token_hash` + `type`, `verifyOtp` with allowlisted types (`signup`, `email`, `invite`, `magiclink`, `recovery`, `email_change`). **If `type=recovery`, ignore dashboard default `next` — always redirect to `/${locale}/auth/reset-password`.** Other types: `sanitizeRedirectPath(..., \`/${locale}/dashboard\`)`. Failures: `/${locale}/auth/login?error=...`. Use `request.nextUrl.pathname`(drop`as unknown as`).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
+| `src/app/[locale]/auth/callback/route.ts`                      | Same locale-prefixed error redirects. Same `request.nextUrl`.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| `src/lib/auth/parseAuthRedirect.ts`                            | **Create.** Locale from pathname, OTP allowlist, `code` vs `token_hash`, `recoveryRedirect(locale)`.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
+| `src/messages/en.json` / `es.json`                             | `auth.errorInvalidResetLink`, keep existing `errorGeneric`.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
+| `src/app/[locale]/auth/confirm/route.test.ts`                  | token_hash path; locale on redirects; **`type=recovery` → `/es/auth/reset-password` even if `next=/es/dashboard`**.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
+| `src/app/[locale]/auth/callback/route.test.ts`                 | locale on `auth_failed` and `rate_limited`.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
+
+### 5.2 Step-by-step
+
+1. Add `src/lib/auth/parseAuthRedirect.ts`:
+   - `getLocaleFromPathname(pathname: string): "en" \| "es"` — first segment, default `"en"`.
+   - `OTP_TYPES` const array + type guard.
+   - `loginErrorUrl(origin, locale, errorCode)` → `${origin}/${locale}/auth/login?error=${errorCode}`.
+2. `confirm/route.ts`:
+   - Rate limit unchanged.
+   - `const locale = getLocaleFromPathname(request.nextUrl.pathname)`.
+   - Branch: `code` → exchange; else `token_hash` + valid `type` → `verifyOtp`; else fail.
+   - **Recovery:** if `type === "recovery"`, success location is always `/${locale}/auth/reset-password` (drop attacker-controlled `next` for this type).
+   - Other types: `next` = `sanitizeRedirectPath(..., \`/${locale}/dashboard\`)`.
+   - All failures via `loginErrorUrl`.
+3. `callback/route.ts`: same locale helper; only `code` exchange (OAuth). Errors → `/${locale}/auth/login?error=auth_failed` or `rate_limited`.
+4. `ResetPasswordClient.tsx`:
+   ```
+   const search = new URLSearchParams(window.location.search);
+   const hash = new URLSearchParams(window.location.hash.replace(/^#/, ""));
+   const code = search.get("code") || hash.get("code");
+   const token_hash = search.get("token_hash") || hash.get("token_hash");
+   const type = search.get("type") || hash.get("type");
+   ```
+   - `exchangedRef` (useRef false): if true, return. Set true **before** the async call (not after).
+   - If `code`: `exchangeCodeForSession(code)`, then `replaceState` to pathname.
+   - Else if `token_hash` and type guard: `verifyOtp({ token_hash, type })`, then `replaceState`.
+   - Else: **do not set invalid-link yet.** `const { user, loading: authLoading } = useAuth()`. Wait until `authLoading === false`. If `user` exists, render the password form (no error). If no session, `setError(t("errorInvalidResetLink"))`. Do **not** read `loading` from `useAuthFormState`.
+   - On exchange/verify **error**: if `user` already exists (confirm already set cookies), still show the form — do not wipe it with `errorGeneric`. If no session, then `errorGeneric` / invalid-link.
+5. **Canonical templates (human, dashboard):**
+   - Confirmation / signup: `https://<prod>/{locale}/auth/confirm?token_hash=...&type=signup` (or PKCE `code`).
+   - **Recovery: `https://<prod>/{locale}/auth/reset-password` with PKCE `code` (query or hash).** Confirm is a fallback if templates still point at `/auth/confirm?type=recovery` — hence the forced `next`.
+   - If templates still point at `/auth/v1/verify` only, document required dashboard edits in the PR. Do not change templates from code.
+
+### 5.3 Tests
+
+**Vitest**
+
+- `src/lib/auth/parseAuthRedirect.test.ts` — locale parse; OTP allowlist rejects `foo`.
+- `src/app/[locale]/auth/reset-password/ResetPasswordClient.test.tsx` — **new**:
+  - mock `useAuthFormState` supabase.
+  - `jsdom` with `window.location` search `?code=abc` → `exchangeCodeForSession("abc")`.
+  - **React `StrictMode` wrapper (or two effect flushes):** `exchangeCodeForSession` called **once**.
+  - After successful exchange, `window.location.search` has no `code` (replaceState).
+  - hash-only `#code=xyz` still works (legacy).
+  - empty URL **and** mocked signed-in user (`useAuth` `loading: false`, `user` set) → **no** invalid-link error; form visible; no exchange.
+  - empty URL **and** `useAuth` `loading: true` → no invalid-link yet (wait).
+  - empty URL **and** auth loaded with no user → invalid-link error, no exchange.
+  - `?token_hash=th&type=recovery` → `verifyOtp`.
+- Update `confirm/route.test.ts`:
+  - `http://localhost/es/auth/confirm` no code → location contains `/es/auth/login?error=confirmation_failed`.
+  - `?token_hash=h&type=signup` calls `verifyOtp`, success redirects to next.
+  - `?token_hash=h&type=recovery&next=/es/dashboard` redirects to `/es/auth/reset-password`, **not** dashboard.
+  - `?type=not-a-type` fails.
+- Update `callback/route.test.ts` for `/es/auth/callback` error locale.
+
+**Playwright** (`e2e/auth.spec.ts` additions):
+
+- `/en/auth/reset-password` with no params shows invalid-link (or generic) alert, form not in a successful session state.
+- `/es/auth/reset-password` page renders Spanish heading (`auth.resetPasswordTitle`).
+
+Cannot click real email links in CI. Unit tests carry PKCE.
+
+### 5.4 Acceptance
+
+- [ ] Query-string `?code=` exchanges session; hash fallback still works.
+- [ ] Two effect runs (StrictMode or re-render) call `exchangeCodeForSession` **once**; URL no longer contains `code` after success.
+- [ ] Exchange error with an existing session still shows the form (does not wipe with `errorGeneric`).
+- [ ] Confirm route accepts `token_hash` + allowlisted `type`.
+- [ ] Confirm `type=recovery` always lands on `/{locale}/auth/reset-password`.
+- [ ] Reset page with **no URL tokens** and an existing session shows the form, not invalid-link.
+- [ ] Reset page with no tokens and no session (auth loaded) shows invalid-link.
+- [ ] `/es/auth/confirm` failures land on `/es/auth/login?error=...`, not `/auth/login`.
+- [ ] Same for callback rate-limit and `auth_failed`.
+- [ ] No `as unknown as { nextUrl }` casts on those two routes.
+- [ ] EN/ES keys added.
+
+### 5.5 Rollback
+
+`git revert` the PR. Supabase templates unchanged by this PR. No DB.
+
+---
+
+## Phase 3 — Privacy honesty + contact path
+
+**Goal:** Privacy/terms match what the app actually does, contact submissions only succeed through `/api/contact` with a service-role key, and the form cannot double-post.
+
+**Rationale:** A journalist can quote `privacy.collectBody` against the network tab. After Phase 1, the Next route is the only insert path — it must not 503.
+
+**Complexity:** Low–medium  
+**Risk:** Medium (legal copy)  
+**Dependencies:** Phase 1 should be applied (or ship copy first, apply 1 immediately after). **Env-gate file should merge before 014 apply when possible.** Must not go to Netlify without the key if 1 is already live. Gate 0 in Phase 1 is still required at `db push`.
+
+### 6.1 Scope
+
+| File                                         | How                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
+| -------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `src/messages/en.json` `privacy.*`           | Rewrite. See copy spec below.                                                                                                                                                                                                                                                                                                                                                                                                                                  |
+| `src/messages/es.json` `privacy.*`           | Matching Spanish.                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| `src/messages/en.json` / `es.json` `terms.*` | If any sentence says data never leaves the device, fix. `terms.disclaimerBody` educational disclaimer can stay.                                                                                                                                                                                                                                                                                                                                                |
+| `scripts/check-production-env.mjs`           | If `NETLIFY === "true"`, require non-empty `SUPABASE_SERVICE_ROLE_KEY` (not placeholder). **Do not** require it when `NETLIFY` is unset (GitHub CI).                                                                                                                                                                                                                                                                                                           |
+| `scripts/check-production-env.test.ts`       | Cases: CI+NETLIFY without key → exit 1; CI without NETLIFY → exit 0 with existing supabase public vars.                                                                                                                                                                                                                                                                                                                                                        |
+| `src/app/[locale]/contact/ContactClient.tsx` | `inFlight` ref; ignore submit if true; stay true until `finally`. Disable submit button while in flight.                                                                                                                                                                                                                                                                                                                                                       |
+| `src/app/api/contact/route.ts`               | **Keep** Origin check, `checkRateLimitDistributed`, `website` honeypot, `EMAIL_REGEX`, field length limits. **Do not rewrite those.** After origin + rate-limit, read the body per **§6.1.1** (null → 400; CL>10240 → 413 no read; stream + `reader.cancel()` on overflow → 413; `JSON.parse` own try → 400; never `request.json()`; **do not** `reportServerError` 400/413). Do **not** add `hp_company`. Idempotency-Key remains optional (memory LRU only). |
+| `src/lib/analytics.ts` / `SearchDialog.tsx`  | **Regression:** `EVENTS.SEARCH_PERFORMED` must stay unused (or, if wired, must **not** include query text). `trackPageView` must keep pathname-only.                                                                                                                                                                                                                                                                                                           |
+| `src/app/[locale]/privacy/page.tsx`          | If it inlines English, switch to messages (likely already uses `useTranslations("privacy")`).                                                                                                                                                                                                                                                                                                                                                                  |
+
+### 6.1.1 Contact body reader (paste this contract)
+
+Keep origin + rate-limit **before** reading bytes. Then:
+
+```ts
+const MAX_CONTACT_BYTES = 10240;
+const cl = request.headers.get("content-length");
+if (cl && Number(cl) > MAX_CONTACT_BYTES) {
+  return NextResponse.json({ error: "Payload too large" }, { status: 413 });
+}
+if (!request.body) {
+  return NextResponse.json({ error: "Invalid JSON" }, { status: 400 });
+}
+const reader = request.body.getReader();
+const chunks: Uint8Array[] = [];
+let totalBytes = 0;
+try {
+  while (true) {
+    const { done, value } = await reader.read();
+    if (done) break;
+    if (!value) continue;
+    totalBytes += value.byteLength;
+    if (totalBytes > MAX_CONTACT_BYTES) {
+      await reader.cancel();
+      return NextResponse.json({ error: "Payload too large" }, { status: 413 });
+    }
+    chunks.push(value);
+  }
+} finally {
+  try {
+    reader.releaseLock();
+  } catch {
+    /* already canceled */
+  }
+}
+let payload: unknown;
+try {
+  const text = new TextDecoder().decode(chunks.length === 1 ? chunks[0] : concatUint8(chunks, totalBytes));
+  payload = JSON.parse(text);
+} catch {
+  return NextResponse.json({ error: "Invalid JSON" }, { status: 400 });
+}
+```
+
+Rules:
+
+- **Never** `await request.json()` on this route (unbounded).
+- **400** for missing body and for `JSON.parse` / `TextDecoder` failure. **Do not** `reportServerError` these — they are client errors. The outer `catch` stays for unexpected failures only (and must not swallow the 400/413 returns).
+- **413** for `Content-Length` > 10KB (no read) **and** for stream overflow. Overflow **must** `reader.cancel()` so the isolate does not keep pulling.
+- Trust `Content-Length` only as a fast reject, never as a skip of the stream cap (chunked / lying CL).
+- After a successful parse, keep the existing field / honeypot / length / email checks.
+
+Helper `concatUint8` may be local to the file. Do not add Zod.
+
+### 6.2 Privacy copy spec (implement exactly)
+
+Replace `privacy.collectBody` and expand keys:
+
+**Required keys (add if missing):**
+
+- `privacy.collectBodyGuest` — Anonymous use: progress and preferences stay in the browser (`localStorage` / cookies). We do not create an account unless you sign up.
+- `privacy.collectBodyAccount` — If you create an account, we store on our database (Supabase, United States): display name, email (Auth), lesson completion, quiz scores and answers, streaks, daily activity dates, and in-app notifications. This syncs progress across devices.
+- `privacy.collectBodyContact` — If you use Contact, we store your name, email, subject, and message to respond. These messages are not linked to a learning account. Deleting your account does not delete contact messages you already sent. To request deletion of a submitted message, email privacy@healthmadeclear.com (`privacy.privacyEmail`).
+- `privacy.collectBodyAnalytics` — We use Google Analytics for page views. We send the page path (which can include lesson or article slugs — topics you opened), not your name, and not search-box text. IP anonymization is on. We do not send the URL query string.
+- `privacy.collectBodyErrors` — If crash reporting is enabled, we may receive the page path (including lesson or article slugs) and a technical error message. We do not send your name, email, or IP address in those reports. We strip URL query strings and hash fragments (the part after `#`).
+- `privacy.controlBody` — Signed-in: Dashboard → Settings to delete your account (auth user + learning data). Guests: clear site data in the browser. You can export progress from Settings (if that UI exists — keep consistent with `progressExport`).
+- `privacy.educationBody` — Keep educational; **remove** any implication that no health-related learning data is stored. Quiz answers are not medical records but are learning data about health topics.
+
+`privacy.collectBody` may become a short intro + the new paragraphs rendered as separate `<p>` in the privacy page. Update `src/app/[locale]/privacy/page.tsx` to render the new keys, including `collectBodyErrors`.
+
+**Do not claim HIPAA.** Site is educational, not a covered entity — do not newly claim HIPAA compliance.
+
+### 6.3 Env gate steps
+
+In `check-production-env.mjs`, after existing supabase public checks:
+
+```js
+if (process.env.NETLIFY === "true") {
+  const sr = process.env.SUPABASE_SERVICE_ROLE_KEY?.trim();
+  if (!sr || sr === "placeholder_service_role_key") {
+    console.error("SUPABASE_SERVICE_ROLE_KEY must be set for Netlify production/preview builds.");
+    process.exit(1);
+  }
+}
+```
+
+Extend `SUPABASE_ENV_KEYS` in the test harness so leftover keys do not leak between cases.
+
+### 6.4 Tests
+
+- `scripts/check-production-env.test.ts` — NETLIFY + CI + public supabase vars, missing service role → status 1; GitHub-style CI without NETLIFY → 0.
+- Existing `src/app/api/contact/route.test.ts` — still pass (origin 403, honeypot fake-success, rate limit). Add:
+  - empty POST (no body / `body: null`) → **400**, not 500; `reportServerError` **not** called.
+  - body `{` (malformed JSON, with origin) → **400**, not 500.
+  - oversized body → **413** (include a case **without** `Content-Length`, e.g. a mocked stream, so the after-parse hole cannot regress).
+  - `Content-Length: 20000` → **413** without consuming a huge payload.
+- `src/app/[locale]/contact/ContactClient.test.tsx` — **new**: mock `fetch`; double-click submit → one POST.
+
+**Playwright:** `e2e/smoke.spec.ts` or `e2e/flows.spec.ts` — `/en/privacy` contains a sentence that data **is** stored when you have an account (assert a unique substring from the new copy). `/es/privacy` Spanish equivalent.
+
+### 6.5 Acceptance
+
+- [ ] No remaining string "never transmitted to our servers" / "nunca se transmiten a nuestros servidores".
+- [ ] Privacy lists guest vs account vs contact vs analytics vs crash-report page paths (`collectBodyErrors`).
+- [ ] Account deletion limitation for contact PII is stated, including how to email `privacy@healthmadeclear.com` for message erasure.
+- [ ] Netlify build without service role fails; GitHub CI build still passes.
+- [ ] Contact form cannot fire two POSTs from double submit.
+- [ ] `/api/contact` still rejects bad Origin, filled `website` honeypot, and oversize bodies. Empty body and malformed JSON return **400** (not 500). Oversize returns **413**. Those four client-error paths do **not** call `reportServerError`. Do not remove origin / honeypot / rate-limit.
+- [ ] After Phase 1: PostgREST anon INSERT fails; browser contact form still 200 with service role.
+
+### 6.6 Rollback
+
+Revert PR. If privacy copy already public, reverting restores the lie — only roll back if the new copy is factually wrong.
+
+---
+
+## Phase 4 — Clinical liability, contrast, 911 qualifier
+
+**Goal:** Care guide is clearly educational, urgent-care text meets WCAG AA contrast, emergency dialer is visibly US-911, article catalog shows the medical disclaimer.
+
+**Rationale:** Highest harm-to-people surface after auth/DB.
+
+**Complexity:** Medium  
+**Risk:** Medium (copy + a11y)  
+**Dependencies:** None.
+
+### 7.1 Scope
+
+| File                                                          | How                                                                                                                                                             |
+| ------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `src/app/globals.css`                                         | Light: `--color-on-secondary-container: #2a5245` (or darker if dark-mode pair also fails). Recheck dark-theme tokens in the same file.                          |
+| `src/app/[locale]/tools/care-guide/CareGuideClient.tsx`       | Remove `/90` opacity on urgent-care body (`textColor`). Keep emergency card error tokens. Render `homeCarePediatricNote` under the home-care checklist (not a ` | ` row). |
+| `src/messages/en.json` / `es.json`                            | **Rewrite every key listed in §7.2.** ES: MedlinePlus-style terms (`medicamentos de venta libre`, `centro de urgencias médicas`), not calques.                  |
+| `src/messages/en.json` / `es.json` `disclaimer.emergencyCall` | Visible: include US 911. ES equivalent. `tools.emergencyShort` already says 911 — add "US" if missing.                                                          |
+| `src/components/MedicalDisclaimer.tsx`                        | Visible link text uses updated `emergencyCall`. Optional small note under the button: `disclaimer.emergencyRegionNote`.                                         |
+| `src/app/[locale]/articles/ArticlesClient.tsx`                | Render `<MedicalDisclaimer />` at the bottom of the catalog (same as `LearnClient`).                                                                            |
+| `src/components/MedicalDisclaimer.test.tsx`                   | Assert 911 / US in emergency variant.                                                                                                                           |
+| `src/app/[locale]/tools/care-guide/CareGuideClient.test.tsx`  | **New.** Renders heading; does **not** include leftover "over-the-counter medicine" / "medicinas de venta libre" as a directive if those strings are removed.   |
+
+### 7.2 Care-guide copy spec
+
+Voice: **compare typical care settings** so people can talk with a clinician. Forbidden: instructing the reader to take a drug, skip the ER, or treat this as a diagnosis.
+
+**There is no `tools.scenarios.*` object.** Inventory is these keys (both `en.json` and `es.json`). All must be reviewed and rewritten if they still read as personal triage:
+
+| Key                                                                                | Notes                                                                                                                                                                                                                                        |
+| ---------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `careGuideTitle`, `careGuideDescription`                                           | Description must not promise “choosing the right place.”                                                                                                                                                                                     |
+| `homeCare`, `homeCareBody`, `homeCareChecklist`, **`homeCarePediatricNote` (new)** | Checklist is educational examples, not “if you have X, stay home.” Do **not** list “Low fever” unqualified. New note under the card (not a pipe row): infant temperature **100.4°F (38°C) or higher** + pediatric dehydration are 911-class. |
+| `primaryCare`, `primaryCareBody`, `primaryCareChecklist`                           |                                                                                                                                                                                                                                              |
+| `urgentCare`, `urgentCareBody`, `urgentCareChecklist`                              | “Sprains / moderate fever” as examples of what urgent-care clinics **often treat**, not instructions.                                                                                                                                        |
+| `emergency`, `emergencyBody`, `emergencyChecklist`                                 | Keep life-threatening **physical** examples. Add one US-qualified 988 sentence (mental-health crisis). Do not expand into a crisis directory — 988 already lives in depression/anxiety/stress lessons.                                       |
+| `scenarioSoreThroatTitle`, `scenarioSoreThroatBody`, `scenarioSoreThroatLevel`     | “How settings differ,” plus: this is not a recommendation for your symptoms.                                                                                                                                                                 |
+| `scenarioChestPainTitle`, `scenarioChestPainBody`, `scenarioChestPainLevel`        | **Keep US 911.** Atypical ACS (women / older adults / diabetes) + do not wait / do not self-treat. Qualify region.                                                                                                                           |
+| `whenInDoubtTitle`, `whenInDoubtBody`                                              | No “go to urgent care” as a directive. Same 988 sentence as `emergencyBody`.                                                                                                                                                                 |
+| Persistent line on the page (new key `tools.scenarioNotAdvice` if needed)          | “These examples describe common care settings. They are not a clinical recommendation for your symptoms.”                                                                                                                                    |
+
+Examples of direction (implement **these strings**, not looser paraphrases):
+
+- `homeCareBody` EN: "Home care often means rest and fluids while mild symptoms improve. Speak with a clinician or pharmacist before taking an over-the-counter medicine, especially for children, pregnancy, or chronic conditions. This page cannot tell you which medicine is right for you."
+- `homeCareBody` ES: use `medicamentos de venta libre`; same high-risk groups; not a dosing instruction.
+- `homeCareChecklist` EN: do **not** ship unqualified “Low fever” / “Fiebre baja” as a home-care example. Use adult/older-child examples (mild cold symptoms, minor cuts, muscle aches from exercise). Fever belongs in the pediatric note and in urgent-care “often treat” examples, not as “stay home.”
+- `homeCarePediatricNote` EN: "Any temperature of 100.4°F (38°C) or higher in infants under 3 months, or signs of dehydration in young children (no wet diapers for 8 hours, crying with no tears, sunken eyes, extreme sleepiness), are treated as medical emergencies in US emergency departments — not as home monitoring. In the United States, call 911."
+- `homeCarePediatricNote` ES: "Cualquier temperatura de 100.4°F (38°C) o más en bebés menores de 3 meses, o signos de deshidratación en niños pequeños (sin pañales mojados por 8 horas, llanto sin lágrimas, ojos hundidos, somnolencia extrema), se tratan como emergencias médicas en los Estados Unidos — no como observación en el hogar. En los Estados Unidos, llame al 911."
+- Do **not** add “rectal” to the UI string (parents use axillary/forehead thermometers that under-read; any 100.4°F / 38°C in <3 months is the 911-class exception).
+- Render `homeCarePediatricNote` **under** the home-care checklist in `CareGuideClient.tsx`, not as a `|`-separated checklist item.
+- `scenarioSoreThroatBody` EN: "Most mild sore throats are evaluated in primary care or a nurse line. This page cannot tell you what you have. Severe trouble swallowing, drooling, inability to open the mouth, or trouble breathing are emergencies — in the United States, call 911."
+- `scenarioSoreThroatBody` ES: same clinical content; `911` + US qualifier; MedlinePlus-style terms (not calques).
+- `scenarioChestPainBody` EN: "Chest pressure, tightness, or pain spreading to the jaw, neck, back, or arm, sudden shortness of breath, unexplained cold sweats, nausea, or dizziness are treated as emergencies in US emergency departments — including when there is no crushing chest pain (this is more often how heart attacks present in women, older adults, and people with diabetes). Do not wait to see if symptoms improve and do not try to treat this at home with antacids or other medicine. In the United States, call 911."
+- `scenarioChestPainBody` ES: same clinical content; jaw/cuello/espalda/sudores fríos/náuseas; no esperar / no antácidos; `911` + US qualifier.
+- `whenInDoubtBody` EN: "If you think you may be having an emergency, use local emergency services. In the United States that is 911. For a mental health crisis or thoughts of self-harm in the United States, call or text 988 (Suicide & Crisis Lifeline). This site cannot triage you."
+- `emergencyBody` EN: keep physical life-threatening examples, plus the same 988 sentence. Not a directive to “go to the ER now” for every worry.
+
+Keep the four cards (home / primary / urgent / emergency) as **definitions**, not a decision tree that outputs an action. Each scenario: (1) how clinicians evaluate that presentation in different settings, (2) warning signs that are emergencies, (3) the not-advice line. **The sore-throat, chest-pain, and home-care pediatric examples above are the warning-sign requirement — do not ship clinic-only, arm-only, or unqualified-low-fever sentences.**
+
+### 7.3 Contrast steps
+
+1. Change `--color-on-secondary-container` in `:root` to `#2a5245`.
+2. Check `.dark` / `[data-theme="dark"]` pair in `globals.css`; if urgent card uses the same tokens, verify ≥4.5:1.
+3. Remove `text-on-secondary-container/90` in `CareGuideClient.tsx`.
+4. Recompute: `#2a5245` on `#c0ecda` should exceed 4.5:1. If not, darken further.
+
+### 7.4 Tests
+
+- `CareGuideClient.test.tsx` — render with `next-intl` provider pattern from `MedicalDisclaimer.test.tsx`. Assert sore-throat body matches `/drool|swallow|breath/i` (EN) and the ES file contains the matching emergency terms (not only `clínica`). Assert chest-pain body matches `/jaw|neck|back|sweat|911/i` (EN) and ES equivalents (`mandíbula` / `cuello` / `espalda` / `sudor` / `911`) — **not** only `arm`/`brazo`. Assert `988` appears in `emergencyBody` or `whenInDoubtBody` (both locales). Assert `homeCarePediatricNote` matches `/infant|3 month|dehydrat/i` **and** `/100\.4|38/` (EN) and ES (`bebés` / `3 meses` / `deshidrat` / `100.4` / `38`). Assert home-care checklist does **not** contain a bare `"Low fever"` / `"Fiebre baja"` string.
+- `MedicalDisclaimer.test.tsx` — emergency variant name matches `/911/`.
+- Update any snapshot/string tests that expected old homeCareBody.
+
+**Playwright:** `e2e/visual.spec.ts` or new `e2e/care-guide.spec.ts`:
+
+- `/en/tools/care-guide` shows disclaimer + 911.
+- `/en/articles` shows educational disclaimer text.
+- `/es/tools/care-guide` Spanish.
+
+### 7.5 Acceptance
+
+- [ ] No copy tells the user to take OTC medicine as an instruction.
+- [ ] All §7.2 keys rewritten in EN and ES; checklists are not a stay-home/go-now tree.
+- [ ] `scenarioSoreThroatBody` (EN+ES) names swallowing / drooling / mouth-opening / breathing as emergencies (not clinic-only).
+- [ ] `scenarioChestPainBody` (EN+ES) names jaw / neck / back / sudden shortness of breath / cold sweats and US 911, plus don’t-wait / don’t self-treat (not arm-only).
+- [ ] `emergencyBody` or `whenInDoubtBody` names 988 (US) in EN+ES.
+- [ ] `homeCarePediatricNote` (EN+ES) names infant fever (<3 months) at **100.4°F (38°C) or higher** and pediatric dehydration; rendered under the home-care card. Checklist has no bare “Low fever” / “Fiebre baja.” UI string does **not** say “rectal.”
+- [ ] Urgent-care body contrast ≥ 4.5:1 (document the pair in the PR).
+- [ ] Visible emergency CTA includes US 911.
+- [ ] Articles index includes `MedicalDisclaimer`.
+- [ ] EN/ES parity.
+
+### 7.6 Rollback
+
+Revert PR. Tokens and copy only.
+
+---
+
+## Phase 5 — Guest progress unification + login migration
+
+**Goal:** Guest completions survive tab close and migrate to Supabase on signup/login; UI refetches after migrate; malformed storage cannot crash upserts.
+
+**Rationale:** Dual `sessionStorage` vs `localStorage` drops history. Parallel fetch vs migrate shows empty dashboard.
+
+**Complexity:** Medium  
+**Risk:** Medium (data)  
+**Merge order: AFTER Phase 6.** Unique `(user_id, quiz_id)` must exist. `ON CONFLICT` without it is `42P10`.  
+**Dependencies:** **Phase 6 unique live in production.** `lesson_progress` unique `(user_id, lesson_id)` already exists (migration `002`). `quiz_attempts` unique does **not** until Phase 6. `ON CONFLICT (user_id, quiz_id)` without that unique is Postgres **`42P10`**, not a no-op. HEAD `guestProgress.ts` already upserts quizzes — that path is already broken for guests with quiz rows. This phase makes localStorage survive tab close and **amplifies** 42P10 if merged first. **Do not merge this PR until `015` is applied.** Do not combine this PR with Phase 6.
+
+### 8.1 Scope
+
+| File                                                                  | How                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| --------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `src/lib/guestProgress.ts`                                            | Canonical guest store: **`localStorage`**, keys stay `hmc_guest_completedLessons` and `hmc_guest_quizAttempts`. **Do not** merge quiz attempts into `STORAGE_KEYS.quizScores`. Guest quiz type: `{ quizId: string, score: number, maxScore: number, passed?: boolean, answers?: number[] }` with **count** units. Type-guard on read. On read/migrate, `normalizeStoredScore` (P6 helper — this PR merges after P6 so the helper exists). One-time copy from `sessionStorage` same keys, then delete session keys. |
+| `src/components/AppProviders.tsx`                                     | Keep writing `STORAGE_KEYS` for **UI** (`QuizScore` = `{ lessonId, score, passed, completedAt }`). `guestProgress.markLessonComplete` also merges into `STORAGE_KEYS.completedLessons`. `guestProgress.saveQuizAttempt` writes **guest quiz keys only** (quizId). `recordQuizScore` still updates UI `quizScores` with `lessonId` — separate object.                                                                                                                                                               |
+| `src/hooks/useProgress/guestMigration.ts`                             | `.then/.catch/.finally`. On throw, `setIsMigrationLoading(false)`. On `result.ok` or empty guest, `setMigrated(true)`. Export callback `onMigrated` to refetch.                                                                                                                                                                                                                                                                                                                                                    |
+| `src/hooks/useProgress.ts`                                            | Pass `onMigrated` into `useSupabaseProgress` **or** return `refreshProgress` from supabaseProgress and call it when migration completes. **Do not** fetch progress until migration finished when guest data exists. Algorithm: if user && guest has data → migrate first → then fetch. If no guest data → fetch immediately.                                                                                                                                                                                       |
+| `src/components/providers/AuthProvider.tsx`                           | **Do not regress P9.** `signOut` must stay `try { await supabase.auth.signOut() } catch { /* ignore */ } finally { resetLocalProgress(); router.push("/") }`. Kill any “after succeeds” rewrite. Do **not** add a 2-hour migrate TTL (browse-then-signup is the product). Shared-kiosk confirm dialog is **out of scope**. If this PR somehow merges before P9 (must not), create `resetLocalProgress` / `clearLocalHealthData` here rather than a second util — still `finally`, never success-only.              |
+| `src/app/[locale]/auth/login/LoginForm.tsx` / `signup/SignupForm.tsx` | i18n `auth.guestProgressWillSync`: browser learning progress on this device will be saved to the account. Visible near submit.                                                                                                                                                                                                                                                                                                                                                                                     |
+| `src/hooks/useProgress/supabaseProgress.ts`                           | Accept `enabled: boolean` or `refreshToken`. When `enabled` goes true, fetch. Expose `refetch`.                                                                                                                                                                                                                                                                                                                                                                                                                    |
+| `src/lib/guestProgress.test.ts`                                       | localStorage tests; session fallback; schema guard rejects `{foo:1}` and `{ lessonId: "x" }` without `quizId`.                                                                                                                                                                                                                                                                                                                                                                                                     |
+| `src/hooks/useProgress/guestMigration.test.tsx`                       | catch path; refetch order (mock).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
+
+### 8.2 Step-by-step
+
+1. Add `function isStringArray(x: unknown): x is string[]`.
+2. Add quiz attempt guard.
+3. `getStorage()` → `localStorage` with try/catch.
+4. `migrateLegacySessionGuest()`: if local guest keys empty, read `sessionStorage` `hmc_guest_completedLessons` / `hmc_guest_quizAttempts`, parse safely, write local, `sessionStorage.removeItem`.
+5. `getGuestProgress()`: union lesson IDs from guest key **and** `STORAGE_KEYS.completedLessons`. Quiz list = **only** guest attempt objects with `quizId` (never map `lessonId` → `quiz_id`).
+6. `migrateGuestProgressToSupabase`: upsert lessons by `lesson_id`; upsert quizzes by `quiz_id` from guest attempts only. **Requires unique `(user_id, quiz_id)` (Phase 6).** Run `normalizeStoredScore` on each guest attempt **before** upsert (percent-in-score localStorage from pre-P6 clients). `passed` via `isQuizPassed`. `clearGuestProgress` only if `errors.length === 0`. Clearing removes `hmc_guest_*` and must **not** wipe preferences. Order: migrate → refetch → then `clearGuestProgress`. Do not send `QuizScore.lessonId` as `quiz_id`.
+7. Wire `useProgress`: `const { isMigrationLoading, migrated } = useGuestMigration(...)`. `useSupabaseProgress(user, supabase, { fetchWhen: !isMigrationLoading && !!user })`. When `migrated` flips true, `refetch()`.
+8. `isLoading` remains `isMigrationLoading \|\| authLoading` plus fetch in-flight if you add `isFetchLoading`.
+
+### 8.3 Tests
+
+- `guestProgress.test.ts` — existing session tests updated to localStorage; new test: data only in `hmc-completed-lessons` still migrates; malformed JSON → `[]`; **`{ quizId, score: 80, maxScore: 5 }` normalizes to 4/5 before upsert**.
+- `guestMigration.test.tsx` — migrate reject → loading false; after resolve refetch called.
+- `useProgress.test.tsx` — if it asserts parallel fetch, update.
+- `AuthProvider.test.tsx` — already covered in P9 (`signOut` reject still `resetLocalProgress` + push; `useAppState` mocked). Do not weaken. After logout, `STORAGE_KEYS.completedLessons` is empty and `hmc-theme` remains.
+
+**Playwright:** hard without real auth. Skip live migrate e2e. Optional mock-auth flow if `e2e` already has it (`e2e/dashboard.spec.ts`) — do not invent a new auth stack.
+
+### 8.4 Acceptance
+
+- [ ] Guest quiz JSON in localStorage contains `quizId`, never only `lessonId`.
+- [ ] Complete a lesson as guest, close tab, reopen, signup/login (manual or mock) migrates completions.
+- [ ] `sessionStorage`-only legacy data still migrates once.
+- [ ] Malformed JSON does not throw; migrate skips bad entries.
+- [ ] After login with guest data, completed IDs appear without requiring a second mutation.
+- [ ] Failed migrate does not clear storage; `isMigrationLoading` does not stick true.
+- [ ] Production has unique `(user_id, quiz_id)` **before** this PR merges (Phase 6 gate).
+- [ ] `signOut` clears guest prefix **and** UI health keys via `resetLocalProgress`. Login/signup shows `guestProgressWillSync`. Theme/locale survive.
+
+### 8.5 Rollback
+
+Revert PR. Users who already wrote the new keys keep `hmc-completed-lessons` (pre-existing).
+
+**Coupled with Phase 6:** If Phase 6 / `015` must be rolled back **after** this PR merged, revert **this** PR (git + Netlify) **before** running `supabase/rollback/015_emergency.sql`. Dropping the unique while this client (and HEAD `guestProgress`) still `.upsert(..., { onConflict: "user_id,quiz_id" })` is Postgres **`42P10`**. This phase did **not** introduce upsert — HEAD guest already upserts; this phase amplifies it. See §9.5.
+
+---
+
+## Phase 6 — Quiz persist integrity
+
+**Goal:** Authenticated quiz save upserts best **count** score, rolls back optimistic UI on error, dashboard stats match lesson UI (no retake inflation, no 1600% averages, completed-tab scores visible).
+
+**Rationale:** Unique `(user_id, quiz_id)` makes `.insert()` on retake fail (`23505`). Optimistic score without rollback is a lie. Guest migrate already upserts — authenticated path does not. **This unique also fixes today's guest-migrate `42P10`.** HEAD `QuizClient` writes **percent** into `score` and **question count** into `max_score`; persist uses `score >= maxScore * 0.7` and dashboard uses `(totalScore/totalMaxScore)*100` → 1600% and UI-fail/DB-pass. `getCompletedLessonsPaginated` queries `${id}-quiz` but live `quiz.id === lessonId`.
+
+**Complexity:** Medium  
+**Risk:** Medium (data + deploy coupling)  
+**Merge order: BEFORE Phase 5.**  
+**Dependencies:** Phase 1 **`014` applied**. **`015` is applied in this phase, in the same production window as the upsert client.** Do not apply `015` while `mutations.ts` still `.insert()`. **Ship this phase before Phase 5.** Guest quiz upsert in HEAD already needs this unique (42P10 today). **015 must normalize units before dedupe.**
+
+### 9.1 Scope
+
+| File                                                      | How                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
+| --------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `supabase/pending/015_quiz_attempts_best_score.sql`       | **Move** to `supabase/migrations/015_quiz_attempts_best_score.sql`. File **must** include the percent→count `UPDATE` from Phase 1 §4.3 B **before** dedupe.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
+| `supabase/rollback/015_emergency.sql`                     | Drop unique only. Not a forward migration. Does **not** reverse the unit UPDATE (data repair stays).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| `src/lib/quizScore.ts`                                    | **New.** `PASS_RATIO = 0.7`. `isQuizPassed(score, maxScore)`. `toPercent(score, maxScore)`. `normalizeStoredScore(score, maxScore)` → if `maxScore > 0 && score > maxScore`, `{ score: clamp(round(score * maxScore / 100), 0, maxScore), maxScore }`. `quizIdsForLesson(lessonId)` → `[lessonId, `${lessonId}-quiz`]`.                                                                                                                                                                                                                                                                                                                                                                                                                           |
+| `src/lib/quizScore.test.ts`                               | **New.** 80/5 → 4/5; 4/5 unchanged; 80/100 unchanged; `isQuizPassed(4,5)` true; `isQuizPassed(1,5)` false; `toPercent(4,5) === 80`.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
+| `src/app/[locale]/learn/[slug]/quiz/QuizClient.tsx`       | Keep local `percentScore = round(correctCount/total*100)` and `passed = percentScore >= quiz.passScore` for UI. Call `saveQuizAttempt(quiz.id, lessonId, correctCount, total, answerArray)` — **not** `percentScore` as `score`.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
+| `src/hooks/useProgress/mutations.ts`                      | `saveQuizAttempt`: `normalizeStoredScore` on inbound args. `passed = isQuizPassed(score, maxScore)`. Keep previous attempts snapshot; on error restore and toast; use `.upsert(..., { onConflict: QUIZ_ATTEMPTS_ON_CONFLICT })` with `ignoreDuplicates: false`. If `existing && score <= existing.score`, **skip the `quiz_attempts` write** but **still** `await handleQuizAttemptSideEffects(...)` (daily_log + streak). If new score wins, send new `answers`. Guest branch: `guestSaveQuizAttempt(quizId, score, maxScore)` with **counts**; `recordQuizScore(lessonId, toPercent(score, maxScore), passed)` so UI `QuizScore` stays percent. **Phase 7** adds `locale` + localize callback to this call — do not forget the skip-lower path. |
+| `src/lib/supabase/schema.ts`                              | Use `QUIZ_ATTEMPTS_ON_CONFLICT` from Phase 1.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| `src/hooks/useProgress/mutations.test.ts`                 | Error path restores previous; upsert called not insert; `score <= existing` skips write and **still** calls side effects. Fixtures are count/count (`4, 5` not `80, 5`).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
+| `src/lib/dashboard/progress.ts`                           | `getUserProgressSummary`: unique by `quiz_id` keeping max **count** score before counting passed / average. `averageQuizScore = toPercent(sum score, sum max)`. `totalQuizzesAttempted` = unique quiz ids. `getCompletedLessonsPaginated`: `.in("quiz_id", pageLessonIds.flatMap(quizIdsForLesson))`. Map best percent onto the lesson via `quiz_id.replace(/-quiz$/, "")` **or** exact lesson id.                                                                                                                                                                                                                                                                                                                                                |
+| `src/lib/dashboard/progress.test.ts`                      | Duplicate quiz rows → one attempt. **Production-shaped** fixture: `quiz_id: "understanding-prescription-labels", score: 4, max_score: 5` → completed-tab `quizScore: 80`. **Legacy** fixture: `quiz_id: "lesson-a-quiz"` still maps. **Poison** fixture: `score: 80, max_score: 5` is **not** what summary sees after 015 — unit-test `normalizeStoredScore` instead of pretending the dashboard rewrites rows.                                                                                                                                                                                                                                                                                                                                   |
+| `src/lib/dashboard/quizzes.ts` / `activity.ts`            | Keep `replace("-quiz","")` (no-op on live ids). Average via `toPercent`. Do **not** require the suffix.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
+| `src/hooks/useProgress/queries.ts`                        | `getQuizBestScore` → `toPercent(attempt.score, attempt.maxScore)` after count units. Today `(score/maxScore)*100` on live 80/5 returns 1600.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| `src/app/[locale]/dashboard/progress/components/clamp.ts` | **Do not** treat `clampPercent(summary.averageQuizScore) === 100` as proof the average is correct. Inverted 1600 clamps to 100. Keep clamp for display bounds only.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
+| `src/lib/guestProgress.ts`                                | `passed: isQuizPassed(...)`. Confirm `onConflict` string matches. `normalizeStoredScore` on migrate upsert (P5 will call this; wire it here so HEAD guests after P6 write counts).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+
+### 9.2 Step-by-step
+
+0. **Backup + apply `015` (production), same window as this Netlify deploy:**
+   - `create table quiz_attempts_backup_20260827 as select * from quiz_attempts;`
+   - Confirm the pending file contains the **percent→count UPDATE before DELETE**. Abort if it does not.
+   - Move pending file into `supabase/migrations/`.
+   - `npx supabase db push` must list **only** `015` as new. Abort if `009`–`014` replay.
+   - Verify: no rows with `score > max_score`; unique exists; duplicate pairs = 0 **before** or **immediately as** the upsert client goes live. If unique lands while old client is still serving, authenticated retakes 23505 — keep the previous deploy until this one is ready, or take a short maintenance window.
+1. Add `src/lib/quizScore.ts` + tests. Import from mutations, guestProgress, dashboard.
+2. In `QuizClient` completion effect: pass `correctCount, total`. Do not pass the UI percent as `score`.
+3. In `saveQuizAttempt` authenticated branch:
+   - Normalize inbound units.
+   - `const prev =` capture via functional update or ref for rollback.
+   - Compute `bestScore = existing ? Math.max(existing.score, score) : score`.
+   - `passed = isQuizPassed(bestScore, maxScore)` (or inbound score for side effects on a lower retake — side effects still run; `perfect-quiz` uses the attempt's count vs max).
+   - If `existing && score <= existing.score`: **do not** insert/upsert `quiz_attempts`. **Do** call `handleQuizAttemptSideEffects(...)` (same args as the success path). No error toast.
+   - Else optimistic set then `upsert({ user_id, quiz_id, score: bestScore, max_score, passed, answers })`, then side effects on success.
+   - On error: `setSupabaseQuizAttempts(prev)` + toast `quizSaveError`.
+4. Dashboard: unique-by-quiz_id Map; completed tab queries **both** ids.
+
+### 9.3 Tests
+
+- `quizScore.test.ts` — normalize / pass / percent as above.
+- `mutations.test.ts` — already documents no revert; **change expectation** to revert on error. **New:** lower (and equal) score does not call `.upsert`/`.insert`; **does** call side-effects helper (mock). 4/5 passes; 1/5 fails; never `80 >= 5 * 0.7`.
+- `progress.test.ts` — duplicate quiz rows; production id without `-quiz` suffix; completed-tab `quizScore` 80 from 4/5.
+- `QuizClient.test.tsx` — if the P13 light test exists, assert `saveQuizAttempt` called with `(quiz.id, lessonId, correctCount, questionCount, …)` not `(…, 80, 5, …)`. If not yet, add a **minimal** mock test here (do not wait for P13).
+
+**Playwright:** none required (auth).
+
+### 9.4 Acceptance
+
+- [ ] `015` applied: unique `(user_id, quiz_id)` exists; duplicate pairs = 0; **no** live rows with `score > max_score`.
+- [ ] No `.insert()` on `quiz_attempts` in `src/` except tests/mocks.
+- [ ] `QuizClient` persists counts; UI still shows percent and uses `quiz.passScore`.
+- [ ] 1/5 is `passed: false` in DB; 4/5 is `passed: true`. UI and DB agree at 70%.
+- [ ] Dashboard average for one 4/5 quiz is **80**, not 1600. Assert on `summary.averageQuizScore` (raw). `clampPercent(1600) === 100` is a false green — do not assert the ProgressClient string alone.
+- [ ] Completed-lessons tab shows that 80 for `quiz_id === lessonId` (and still for legacy `-quiz` if present).
+- [ ] Retake with unique constraint does not toast save error when score updates or is lower.
+- [ ] Failed network restores previous best score in UI.
+- [ ] Dashboard average/passed counts unique quizzes.
+- [ ] `perfect-quiz` can fire (`score === maxScore` on a 5/5). Phase 7 still wires the award; this phase makes the numbers comparable.
+
+### 9.5 Rollback
+
+Two failure modes; they are **opposites**. Pair the client with the schema:
+
+1. **Unique live + `.insert()` client = `23505`** on retakes. If the P6 Netlify deploy fails after `015` applied, restore the P6 upsert client (or keep the previous deploy only if it already upserts — HEAD `mutations.ts` still inserts).
+2. **Unique dropped + any upsert client = `42P10`.** HEAD `guestProgress.ts` already upserts. P6 `mutations.ts` upserts. P5 guest localStorage **amplifies** guest upserts. **Never** run `supabase/rollback/015_emergency.sql` (drop unique) while an upsert client is on Netlify. Order: revert P5 if merged → revert P6 client → then drop unique. Unit-normalized rows stay count/count if the client rolls back — a reverted percent-writing client would invert again; **do not** roll back the client without also restoring percent writes, and prefer not to.
+
+Do not put rollback SQL in `supabase/migrations/`. Drop unique only. Does **not** reverse the unit UPDATE (data repair stays).
+
+---
+
+## Phase 7 — Achievements, streaks order, i18n gamification
+
+**Goal:** Streak/path/beginner/glossary achievements can fire; toasts and notifications follow UI locale; daily log runs before streak check.
+
+**Rationale:** Five catalog badges are dead. Spanish users get English bells.
+
+**Complexity:** Medium  
+**Risk:** Low–medium  
+**Dependencies:** Phase 1 (`daily_log` UPDATE) so the calendar is not silently empty.
+
+### 10.1 Scope
+
+| File                                        | How                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| ------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `src/hooks/useProgress/sideEffects.ts`      | Order: `updateDailyLog` → `updateStreak` (capture return) → `checkAndAwardAchievements` with full context → path close-to-complete notifications. **`handleQuizAttemptSideEffects` must take the same `locale` + localize callback as `handleLessonCompletionSideEffects`.** Toast via that callback (or `t("unlocked", { title })`), **not** `getLocalizedAchievement` / `getMessages`. Path "Almost there" strings from messages. Import `updateDailyLog` from `@/lib/dashboard/dailyLog` — **not** `@/lib/dashboard` (barrel `export *` pulls server `getLocalizedAchievement`). **Forbidden from this file:** `getMessages`, `getLocalizedAchievement`, `@/lib/i18n` value imports. |
+| `src/hooks/useProgress/mutations.ts`        | Pass `locale` into **both** `handleQuizAttemptSideEffects` call sites (skip-lower **and** upsert-success). `saveQuizAttempt` hook deps include `locale`. `useTranslations("achievements")` + `useTranslations("progress")`. Build `localizeAchievement(id) => { title, description }` from `t("items.{id}")` (next-intl nested) **or** pass `t` + id. Reuse existing `achievements.unlocked` (`"Logro desbloqueado: {title}"`). Do **not** add a duplicate `progress.achievementUnlocked`.                                                                                                                                                                                              |
+| `src/lib/achievements.ts`                   | `checkAndAwardAchievements` **returns ids only.** Stop inserting `` `Achievement Unlocked: ${achievement.title}` `` notification rows here. Keep `ACHIEVEMENTS` ids/icons. `getLocalizedAchievement` stays for **server** dashboard pages.                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| `src/lib/streaks.ts`                        | Milestone notification strings from messages (pass locale into `updateStreak` **or** return milestone ids and let sideEffects notify). Prefer return value + sideEffects for i18n.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| `src/messages/en.json` / `es.json`          | `progress.pathAlmostThere` with `{title}`; streak milestone keys if hardcoded English exists in `streaks.ts` (~line 100). **Reuse** `achievements.unlocked` — do not duplicate.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| `src/hooks/useProgress/sideEffects` tests   | If none, `src/hooks/useProgress/sideEffects.test.ts` **new**.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
+| `src/lib/achievements.test.ts`              | Pass `currentStreak: 3` → three-day id when not earned.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| `src/components/mdx/InlineGlossaryTerm.tsx` | On open, increment `localStorage` `hmc-glossary-lookups` (count unique term ids, cap 20). Callback or `checkAndAwardAchievements` if user signed in — **must not** block popover. If wiring auth here is too heavy, increment storage and award on next lesson complete (pass `glossaryTermsLookedUp` from storage). **Chosen:** read count in `handleLessonCompletionSideEffects` from localStorage; also try award on popover open via optional `useProgress` would create a hook-in-mdx cycle. **Stay with lesson-complete + quiz-complete passing `Number(localStorage...)`.**                                                                                                      |
+| `scripts/bundle-lessons.ts`                 | Emit `src/data/lessonMeta.ts` (`id` + `level` only). Header: auto-generated, do not edit by hand. Phase 14 **must keep** this emit.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| `src/data/lessonMeta.ts`                    | **Generated, not hand-written.** Export `LESSON_LEVELS` and `BEGINNER_LESSON_IDS` (ids where `level === "beginner"`). **No MDX bodies.** **Do not import `lessonBundles` or `loadLessons` from client.**                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| `src/lib/glossaryLookups.ts`                | **New.** get/set unique term ids.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
+
+Beginner complete: in `handleLessonCompletionSideEffects`, count `completedIdsAfter.filter(id => BEGINNER_LESSON_IDS.includes(id))` vs `BEGINNER_LESSON_IDS.length`. Pass `totalBeginnerLessonsCompleted` / `totalBeginnerLessonsAvailable` into `checkAndAwardAchievements` (API already exists).
+
+**Forbidden:** `import("@/lib/lessons/loadLessons")` or `@/data/lessonBundles` from any `'use client'` module or from `sideEffects.ts`. That re-opens PERF-01 and fights Phase 14. Dual message catalogs in `@/lib/i18n` are **pre-existing** (15 client importers) — do **not** newly import them from `sideEffects`. Phase 14 does **not** split catalogs.
+
+Path complete: after adding lesson, if any path's lessons all ⊆ completed set, `pathCompleted: true`. Keep existing dynamic `import("@/lib/paths/loadPaths")` for now; Phase 14 splits that import by locale.
+
+### 10.2 Tests
+
+- `achievements.test.ts` — streak/path/beginner/glossary conditions. Award helper does **not** insert notification rows with `"Achievement Unlocked:"`.
+- `sideEffects.test.ts` — mock supabase; assert `updateStreak` called before `checkAndAwardAchievements`; toast not English `"Achievement unlocked:"` hardcoded; **quiz** helper invoked with `locale` (or localize callback); ES title when locale is `es`.
+- `mutations.test.ts` — `handleQuizAttemptSideEffects` call includes `locale` on skip-lower **and** success (P7 updates the existing 8-arg assertion).
+- `src/data/lessonMeta.test.ts` — **new.** `BEGINNER_LESSON_IDS` equals every `id` in the EN lesson bundle (or MDX parse) with `level === "beginner"`. Empty array fails.
+
+**Playwright:** none.
+
+### 10.3 Acceptance
+
+- [ ] Completing lessons on consecutive UTC days can award `three-day-streak` (logic unit-tested; e2e optional).
+- [ ] Completing last lesson of a path awards `first-path-complete`.
+- [ ] Completing all beginner lessons awards `all-beginner`.
+- [ ] `lessonMeta.ts` is generated; unit test matches EN beginner ids.
+- [ ] 10 unique glossary opens then a lesson complete awards `glossary-reader`.
+- [ ] Toasts/notifications use ES when locale is `es`. Quiz-triggered badges (`first-quiz-pass`, `perfect-quiz`) included. `sideEffects.ts` has **no** `getMessages` / `getLocalizedAchievement` import.
+- [ ] Side-effect order is log → streak → achievements.
+
+### 10.4 Rollback
+
+Revert PR. No schema.
+
+---
+
+## Phase 8 — Citations, trust chrome, content validation
+
+**Goal:** Articles and lessons show sources + reviewer near the title; catalogs show a trust line; prebuild fails if sources/reviewedBy missing.
+
+**Rationale:** Clinical credibility. MED-01 is P1.
+
+**Complexity:** Medium  
+**Risk:** Low  
+**Dependencies:** None. Mini-specs §10.1–10.2. **Calendar: Day 3 morning** (may branch on Day 2 after Phase 4 copy is stable; merge Day 3). Scope not cut.
+
+### 11.1 Scope
+
+| File                                                                       | How                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
+| -------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `src/components/content/ClinicalCitationBlock.tsx`                         | **New.** Props: `sources?: string[]`, `reviewedBy?: string`, `lastReviewed?: string \| null`, `compact?: boolean`. Renders nothing if all empty. Compact: one line under H1. Full: list like `LessonNotes`. **Do not** add an “ongoing annual schedule” subtitle (400-day validator already fails stale dates).                                                                                                                                                                                                                                                                                                                                   |
+| `src/components/content/TrustBanner.tsx`                                   | **New.** i18n `trust.banner` — "Clinically reviewed health education — plain language. Not medical advice." Home + catalog headers. **`<sm`:** `text-label-sm py-1 px-3` single line. Not dismissible. Video-below-CTAs is **Phase 13 `HomeClient.tsx`**, not this file.                                                                                                                                                                                                                                                                                                                                                                          |
+| `src/components/Hero.tsx`                                                  | Place TrustBanner above H1 (below existing eyebrow or replace eyebrow if duplicate).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| `src/components/lesson/LessonHeader.tsx`                                   | After H1, compact citation (`reviewedBy`, sources join with `/`, date).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
+| `src/components/lesson/LessonNotes.tsx`                                    | Also show `reviewedBy`. Keep bottom sources list (OK to duplicate compact + full; if duplicate feels noisy, compact in header + sources only in notes). **Chosen:** compact in header; notes keep full sources + reviewedBy + date.                                                                                                                                                                                                                                                                                                                                                                                                               |
+| `src/app/[locale]/articles/[slug]/ArticlePageClient.tsx`                   | Compact under title chips; full `ClinicalCitationBlock` after article body (before share row).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
+| `src/components/PageHeader.tsx`                                            | Optional `trust?: boolean` slot — use on learn/articles/tools index pages.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| `src/app/[locale]/learn/page.tsx` / `articles/page.tsx` / `tools/page.tsx` | Pass trust slot or mount TrustBanner.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| `src/messages/en.json` / `es.json`                                         | `trust.banner`, `learn.reviewedBy`, `articles.sources`, `articles.reviewedBy` (if missing).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
+| `scripts/validate-content.ts`                                              | Lessons + articles: `sources.length ≥ 1`; each source trimmed length ≥ 3; `reviewedBy` trimmed length ≥ 3. **Denylist (case-insensitive exact or whole-string):** `Web`, `TBD`, `TODO`, `lorem`, `placeholder`, `Medical Team`, `Internet`, `Google`, `N/A`, `None`, `Unknown`. `"Health Education Review Team"` and `"RN Health Education Team"` **pass**. Do **not** add `Search`, `Online`, `Online Search`, or `Various` (false-fail real citations). Keep existing `assertFreshReview` (400-day fail / 365-day warn). **Do not** add credential regex (`MD\|DO\|PharmD`). **Do not** change fail window to 24 months (that weakens 400-day). |
+| `scripts/validate-content.test.ts`                                         | Assert current MDX corpus passes (will fail if any file lacks sources — **fix MDX** in this PR, do not weaken the assertion).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| `content/articles/{en,es}/*.mdx` / `content/lessons/{en,es}/*.mdx`         | Only if validator finds gaps.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+
+### 11.2 Steps
+
+1. Build `ClinicalCitationBlock` with `useTranslations("learn")` or `common` keys shared.
+2. Wire header + article.
+3. Run `npm run content:validate` — fix any MDX frontmatter.
+4. `npm run content:bundle` if MDX changed.
+5. TrustBanner on home + three catalogs.
+
+### 11.3 Tests
+
+- `src/components/content/ClinicalCitationBlock.test.tsx`
+- `src/app/[locale]/articles/[slug]/ArticlePageClient.test.tsx` — **new**: sources text visible (pass fixture article with sources).
+- `LessonHeader` test if exists; else add `LessonHeader.test.tsx` for compact line.
+- `scripts/validate-content.test.ts` — keep quiz stubs; add sources presence via real parser on one known article.
+
+**Playwright:** `e2e/flows.spec.ts` — `/en/articles/understanding-your-eob` (or actual slug) contains "CDC" or fixture source string from bundle. `/en/learn/reading-nutrition-labels` contains sources near top.
+
+### 11.4 Acceptance
+
+- [ ] Article reader shows `sources` and `reviewedBy`, not only `lastReviewed`.
+- [ ] Lesson header shows compact review/source line.
+- [ ] Home shows trust banner (compact on mobile).
+- [ ] `content:validate` fails if sources/reviewedBy missing **or** placeholder-denylisted. Existing 400-day `lastReviewed` fail still on.
+- [ ] `"Health Education Review Team"` still passes.
+- [ ] EN/ES.
+
+### 11.5 Rollback
+
+Revert PR. If MDX was filled in, keep MDX (harmless).
+
+---
+
+## Phase 9 — Auth UX leftovers + auth unit tests
+
+**Goal:** Signup does not enumerate emails; expired sessions get a clear message; critical auth forms have unit tests; **account delete and (via the same util) logout wipe shared-device health storage without the persist-effect rewrite;** leftover `sb-*` cookies expire when `getUser()` resolves with an auth error.
+
+**Complexity:** Medium  
+**Risk:** Low  
+**Dependencies:** Phase 2 (reset client exists to test). **Calendar: Day 1 after P2 — not optional.** Wipe must exist before Phase 5 makes guest localStorage canonical.
+
+### 12.1 Scope
+
+| File                                                     | How                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
+| -------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `src/app/[locale]/auth/signup/SignupForm.tsx`            | Any `already registered` / similar → `t("errorGeneric")` (same as login). Do not use `errorEmailInUse` for API errors. Keep client-side "email already in form" only if it is local validation, not server.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
+| `src/messages`                                           | `errorEmailInUse` may remain unused or only for identical-email confirm field — do not map server errors to it.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| `src/hooks/useProgress/mutations.ts`                     | If error code/message looks like JWT/401, toast `progress.sessionExpired` instead of `saveError`.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| `src/messages`                                           | `progress.sessionExpired` EN/ES.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
+| `src/lib/auth/isAuthSessionError.ts`                     | **New.** Detect supabase auth errors.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
+| Auth forms tests                                         | See list below.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| `src/lib/clearLocalHealthData.ts`                        | **New.** `clearLocalHealthData()`: `removeItem` on health keys in **localStorage and sessionStorage**. Keys: `STORAGE_KEYS.completedLessons`, `quizScores`, `recentLessons`, `startedPaths`, `checklist`, `visitPlanner`, `visitPlannerV2` if present, `hmc-glossary-lookups`, `hmc-visit-planner-v2` (string literal until P12 adds the const). Prefix-wipe `hmc_guest_*` in **both** stores. **Do not** wipe `locale` / `theme` / `textSize` / `simpleMode` / cookies for those prefs. `clearGuestProgress()` may call this prefix wipe or stay as a thin alias — do not leave a second incomplete clearer.                                                                                                          |
+| `src/components/AppProviders.tsx`                        | Add `resetLocalProgress()` to context: set `completedLessons` / `recentLessons` / `startedPaths` / `quizScores` to empty **first**, then `clearLocalHealthData()`. Persist effect must not restore the previous user.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
+| `src/app/[locale]/dashboard/settings/SettingsClient.tsx` | After Phase 1, delete works. **Do not** call `AuthProvider.signOut` on this path (it is global logout + `router.push` and can throw). After `rpc("delete_user")` **success:** `try { await supabase.auth.signOut({ scope: "local" }) } catch { /* ignore user-not-found / session-missing */ } finally { resetLocalProgress(); router.push("/"); toast accountDeleted }`. Keep `deleting` true until finally. Rpc **error:** toast `deleteFailed`, `setDeleting(false)`, return (no sign-out). Unit test mocks `rpc("delete_user")`. Extra cases: rpc ok + `signOut` rejects → still redirected, session mock empty, **health keys gone**, **theme remains**; persist effect does not rewrite `hmc-completed-lessons`. |
+| `src/components/providers/AuthProvider.tsx`              | **This phase owns logout wipe** (Header / MobileMenu call this, not Settings). `const { resetLocalProgress } = useAppState()` at component top (layout already wraps AppProviders → AuthProvider). `signOut`: `try { await supabase.auth.signOut() } catch { /* ignore */ } finally { resetLocalProgress(); router.push("/") }`. **Not** “after succeeds.”                                                                                                                                                                                                                                                                                                                                                             |
+| `src/lib/supabase/middleware.ts`                         | After `getUser()`: if the call **resolves** with `error`, expire cookies whose names match `/^sb-.*-auth-token/` (include chunked `sb-*-auth-token.0` suffixes) on `supabaseResponse` (`Max-Age=0; Path=/`). If `getUser()` **throws** (outage), **keep** cookies; existing dashboard-unauthenticated behavior. Guest: `user===null`, no `error`, no auth cookies → no-op (do **not** redirect `/learn` to `login?error=session_expired`). Dashboard `!user` redirect **unchanged**. `LoginForm` has no auto-redirect — do not add one.                                                                                                                                                                                |
+| `src/components/Header.tsx` / dashboard `page.tsx`       | Cheap: `user_metadata.display_name` → `trim()` then `\|\|` fallback (`t("defaultUser")` / email local-part). Do not render `""` or `"   "`.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
+
+### 12.2 Tests (filenames required)
+
+**Vitest (new unless noted):**
+
+- `src/app/[locale]/auth/signup/SignupForm.test.tsx` — server "already registered" → generic error, not in-use string.
+- `src/app/[locale]/auth/login/LoginForm.test.tsx` — validation; sanitize redirect if present.
+- `src/app/[locale]/auth/forgot-password/ForgotPasswordForm.test.tsx` — success heading focus / status.
+- `src/app/[locale]/dashboard/settings/SettingsClient.test.tsx` — rpc failure toast; success local signOut; **rpc ok + signOut reject → still `router.push("/")`**, `hmc-completed-lessons` / `hmc-quiz-scores` / `hmc-visit-planner` / `hmc_guest_*` gone, `hmc-theme` kept.
+- `src/lib/clearLocalHealthData.test.ts` — **new.** Wipes listed keys in both stores; keeps theme/locale; prefix-wipes guest keys.
+- `src/components/AppProviders.test.tsx` — `resetLocalProgress` empties React state; persist effect writes `[]` not the previous ids.
+- `src/lib/auth/isAuthSessionError.test.ts`
+- `src/components/providers/AuthProvider.test.tsx` — `vi.mock("@/components/AppProviders", () => ({ useAppState: () => ({ resetLocalProgress: mockReset }) }))`. **Do not** wrap `<AppProviders>` (persist effect). Cases: `signOut` resolve → `mockReset` + `push("/")`; `signOut` **reject** → still `mockReset` + `push("/")`. Existing session tests still pass.
+- `src/lib/supabase/middleware.test.ts` — auth cookies present + `getUser` resolves `{ data: { user: null }, error: { message: "…" } }` → response `Set-Cookie` expires `sb-` auth cookies; **no** auth cookies + `/en/learn` → 200, no expire; `getUser` **throws** + auth cookies present → cookies **not** expired (outage); dashboard `!user` still 307 to login.
+
+Phase 2 already added `ResetPasswordClient.test.tsx`.
+
+**Playwright:** extend `e2e/auth.spec.ts` — signup invalid email shows error; do **not** assert in-use copy.
+
+### 12.3 Acceptance
+
+- [ ] Signup API duplicate email looks like generic failure.
+- [ ] Completing a lesson with expired JWT shows session-expired copy (unit).
+- [ ] Listed unit tests exist and pass.
+- [ ] Settings delete unit-tested, including rpc-ok + signOut-reject still redirects **and** health keys gone (theme kept).
+- [ ] `resetLocalProgress` empties mounted AppProviders state so the persist effect cannot restore the previous user.
+- [ ] Header/MobileMenu logout (`AuthProvider.signOut`) wipes health keys even when GoTrue `signOut` rejects. Tests mock `useAppState`, not full `AppProviders`.
+- [ ] Middleware expires `sb-*auth*` cookies when `getUser()` **resolves with `error`**. Thrown `getUser` does **not** expire cookies. Guests without auth cookies are not sent to `session_expired`.
+
+### 12.4 Rollback
+
+Revert PR.
+
+---
+
+## Phase 10 — Header, 404, ErrorBoundary, Display control
+
+**Goal:** 1440px desktops see primary nav; 404 is branded and tappable; screen readers do not hear "Display" twice; crash fallback is i18n.
+
+**Complexity:** Medium  
+**Risk:** Low–medium (header is global)  
+**Dependencies:** None.
+
+### 13.1 Scope
+
+| File                                            | How                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| ----------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `src/components/Header.tsx`                     | Replace nav `2xl:flex` with **`xl:flex`** (line ~124). Hamburger `2xl:hidden` → **`xl:hidden`** (~199, ~218, ~250). **Do not** use `lg:flex` for the 8-item inline nav — auth+utilities already `lg:flex`; adding labeled nav at 1024 overflows (visual audit allowed `lg` **or** `xl`; 1440 is `xl`). **Compact at `xl` (1280–1535):** logo tagline `hidden 2xl:block` (today `sm:block`); login `ButtonLink` icon-only at `xl` (text `2xl:inline` / `xl:hidden` on the label) **and keep `aria-label={authT("loginButton")}`** (HEAD already has it; catalog key is **not** `nav.login`; icon is `LogIn` not User); **signup `ButtonLink` `2xl:hidden` → `xl:hidden`** (today “Crear cuenta” still shows at 1280); `NavLink` desktop padding `xl:px-2 xl:gap-1`. **Rule:** `< xl` (1280) = hamburger + **full-width accordion** under the bar (`border-t`, same as HEAD). **Do not** convert it into a `max-w-md ml-auto` overlay/drawer. Spanish labels are the 8 short keys (`Rutas`, `Herramientas`, `Acerca de` — **not** “Rutas de aprendizaje”). **If** Playwright 1280 `/es` overflow fails: tighten `NavLink` to `xl:text-label-sm xl:px-1.5 xl:gap-0.5` **before** dropping items or adding a Tools dropdown. Re-read all `2xl:` nav-visibility classes. Do not convert unrelated 2xl padding without checking. |
+| `src/components/Header.test.tsx`                | Assert desktop nav class includes `xl:flex` and hamburger `xl:hidden`. **Do not** mock `ButtonLink` in a way that drops `aria-label` / `className`. Assert login link accessible name is `auth.loginButton` (EN “Sign in” / ES “Iniciar sesión”) when the visible span is `xl:hidden`.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| `src/components/AccessibilityControls.tsx`      | Single visible or sr-only label. Trigger: `aria-label={t("display")}` and **one** inner span. Remove the pair `hidden 2xl:inline` + `sr-only 2xl:hidden`.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
+| `src/components/AccessibilityControls.test.tsx` | `getAllByText` display length 1 for accessible name (or `getByRole('button', {name})` count 1).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
+| `src/app/not-found.tsx`                         | **Already has `<html>`/`<body>`.** Import `src/app/globals.css`. Set `<html className="theme-light" lang="en">` (or equivalent static token). **Do not** read preference cookies here (hydration / static constraint already documented in file). Wrap buttons with `size` via `getButtonClasses` adding `min-h-12 px-6`.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
+| `src/app/[locale]/not-found.tsx`                | Use `ButtonLink` `size` large if prop exists; ensure `min-h-12`. Add secondary link to `/learn` and search hint text from messages `errors.searchHint`.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
+| `src/components/ErrorBoundary.tsx`              | Cannot use `useTranslations` in class component. Pass strings via props from a wrapper `ErrorBoundaryI18n` **new** client component using `useTranslations("errors")`, or default English **and** Spanish both on the fallback (bilingual like root 404). **Chosen:** bilingual fallback (EN + ES paragraphs) + `Try again` / `Intentar de nuevo` so it works without locale provider.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| `src/components/OnboardingDialog.tsx`           | `h2` from `onboarding.title` message, not hardcoded `"Health Made Clear"`. `lockBodyScroll: true` if that option exists on the overlay hook; else document skip.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
+| `src/messages`                                  | `onboarding.title`, `errors.tryAgain`, `errors.crashBody`.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+
+### 13.2 Tests
+
+- Header / AccessibilityControls as above.
+- `src/app/[locale]/not-found.test.tsx` if missing — go-home button min size via class.
+- `OnboardingDialog.test.tsx` — title from mock messages.
+
+**Playwright:** `e2e/visual.spec.ts` — viewport **1440×900** `/en` — `getByRole('navigation')` in header visible (not only drawer); hamburger hidden. Viewport **1280×800** and **1440×900**: evaluate header inner bar `scrollWidth <= clientWidth` (no horizontal overflow) on **both `/en` and `/es`**. At **1280**, login control `getByRole('link', { name: /sign in|iniciar sesión/i })` exists (icon-only must still be named). Do **not** collapse nav to a Tools dropdown — `getNavItems` is the 8 short catalog labels (`Rutas`, `Herramientas`, `Acerca de`), not visit-planner names. `/en/this-page-does-not-exist` — home button visible, height ≥ 44 (bounding box).
+
+### 13.3 Acceptance
+
+- [ ] **1440px:** Learn/Articles/Tools/etc. inline; hamburger hidden.
+- [ ] **1280px and 1440px:** header does not overflow (`scrollWidth <= clientWidth`) on `/en` **and** `/es`. Login at `xl` is icon-only **with** an accessible name (`auth.loginButton`).
+- [ ] **390px:** hamburger visible; accordion `min-h-11` close control (if still 36px, bump in this phase — `min-h-11 min-w-11`). Accordion is full-width under the bar, not a `max-w-md` overlay.
+- [ ] Display button accessible name not duplicated.
+- [ ] Root and locale 404 use padded buttons.
+- [ ] ErrorBoundary not English-only.
+
+### 13.4 Rollback
+
+Revert PR. Header is the risky file — visual-regression via Playwright.
+
+---
+
+## Phase 11 — Touch targets, glossary A-Z, inline terms
+
+**Goal:** Footer/legal/drawer/forms meet 44px; glossary A-Z is a horizontal snap row on small screens; inline glossary terms are easier to hit.
+
+**Complexity:** Medium  
+**Risk:** Low  
+**Dependencies:** Phase 10 (drawer close size can land here if not done).
+
+### 14.1 Scope
+
+| File                                                              | How                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
+| ----------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `src/components/Footer.tsx`                                       | Platform + legal `Link` classes: `inline-flex min-h-11 items-center py-2.5`.                                                                                                                                                                                                                                                                                                                                                                                                                           |
+| `src/components/Footer.test.tsx`                                  | class includes `min-h-11`.                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| `src/app/[locale]/terms/page.tsx`                                 | Jump links `min-h-11 py-2.5`.                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
+| `src/components/ui/Input.tsx`                                     | Input element `min-h-12 text-base` (16px) to stop iOS zoom.                                                                                                                                                                                                                                                                                                                                                                                                                                            |
+| `src/app/[locale]/contact/ContactClient.tsx`                      | If it uses raw inputs, switch to `Input` or same min-height.                                                                                                                                                                                                                                                                                                                                                                                                                                           |
+| `src/components/Header.tsx`                                       | Drawer close already `min-h-11` on the menu **toggle** (no separate 36px control). **Verify** bounding box ≥ 44 on 390px; bump only if still short.                                                                                                                                                                                                                                                                                                                                                    |
+| `src/components/PageHeader.tsx`                                   | Breadcrumb `Link`: `inline-flex min-h-11 items-center py-2.5`.                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| `src/app/[locale]/learn/LearnClient.tsx`                          | Filter pills already use `.chip` (`min-height: 44px`) + `px-4 py-3`. **Verify-first.** If still < 44, add `min-h-11`. Do not restyle from `py-1` (that class is not current).                                                                                                                                                                                                                                                                                                                          |
+| `src/components/quiz/QuizQuestion.tsx`                            | Options already full-row `px-5 py-4` labels. **Verify-first** on 390px. Rewrite only if bounding box < 44.                                                                                                                                                                                                                                                                                                                                                                                             |
+| `src/app/[locale]/glossary/GlossaryClient.tsx`                    | Mobile `< sm`: `flex flex-nowrap overflow-x-auto snap-x snap-mandatory` + `scrollbar-none`; each letter `snap-center min-h-11 min-w-11 shrink-0`. Add a right-edge fade with **both** `-webkit-mask-image` and `mask-image` (`linear-gradient(to right, black 85%, transparent 100%)` or equivalent) so H–Z are discoverable when A–G fill 390px. iOS Safari ignores unprefixed `mask-image`. **Do not** add scroll-linked dual fades in this window. Desktop can keep wrap. `showAlphabet` unchanged. |
+| `src/app/[locale]/glossary/GlossaryClient.test.tsx`               | if missing, add **new** for letter buttons.                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
+| `src/components/mdx/InlineGlossaryTerm.tsx`                       | Trigger: `relative` + `after:absolute after:-inset-y-1.5 after:-inset-x-1`; parent paragraph `leading-[1.75]` may live in `MarkdownRenderer` / `prose-hmc`.                                                                                                                                                                                                                                                                                                                                            |
+| `src/components/mdx/InlineGlossaryTerm.test.tsx`                  | exists — assert expander class.                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| `src/app/[locale]/tools/visit-checklist/VisitChecklistClient.tsx` | Verify label wrap. Set checkbox `h-6 w-6` and row `min-h-12`. If already good, only checkbox size.                                                                                                                                                                                                                                                                                                                                                                                                     |
+
+### 14.2 Tests
+
+- Footer, GlossaryClient, InlineGlossaryTerm, VisitChecklistClient (existing), LearnClient if tests exist.
+
+**Playwright:** `e2e/visual.spec.ts` mobile 390:
+
+- Footer About link box height ≥ 44.
+- Glossary: letter row `overflow-x` (evaluate computed style) or screenshot.
+- Learn filter pill height ≥ 44.
+
+### 14.3 Acceptance
+
+- [ ] Footer links ≥ 44px tall.
+- [ ] Terms TOC links ≥ 44px.
+- [ ] PageHeader breadcrumb links ≥ 44px tall.
+- [ ] Inputs ≥ 48px / 16px font.
+- [ ] Glossary A-Z does not wrap into a 26-button grid on 390px. Mobile row has a right-edge overflow cue (fade mask with `-webkit-mask-image` and `mask-image`).
+- [ ] Inline terms have expanded hit area.
+- [ ] Checklist rows full-label tappable.
+- [ ] Quiz options / learn chips / header toggle: verified ≥ 44 or patched.
+
+### 14.4 Rollback
+
+Revert PR.
+
+---
+
+## Phase 12 — Search UX/a11y + visit planner i18n/focus
+
+**Goal:** Search announces counts, groups by type, shows index loading; planner persists IDs not translations; step changes move focus; summary has contrast.
+
+**Complexity:** Medium–high (planner storage migration)  
+**Risk:** Medium  
+**Dependencies:** None.
+
+### 15.1 Scope
+
+| File                                                                       | How                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| -------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `src/components/SearchDialog.tsx`                                          | `indexStatus: "loading" \| "ready" \| "error"`. While loading, `aria-busy` and status text `search.loadingIndex`. Do not show "no results" when `entries.length===0 && query==="" && loading`.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
+| `src/components/search/SearchDialogContent.tsx`                            | Group `results` by `type` order: lesson, path, article, glossary, tool. Section headers `search.groupLessons` etc. with counts. Mount a **stable** visually hidden `role="status" aria-live="polite"` node on dialog open (empty text). After **350ms** debounce, **set text content only** — do not unmount/remount the live region. Panel: `max-h-[calc(100dvh-14rem)] overflow-y-auto`.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| `src/messages`                                                             | `search.loadingIndex`, `search.resultsFound`, group labels (some `typeLesson` exist — reuse).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
+| `src/types/visitPlanner.ts`                                                | `selectedQuestions` remains `string[]` but values are ids `new-symptom:0`.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| `src/lib/preferences.ts`                                                   | Add `visitPlannerV2: "hmc-visit-planner-v2"`. Keep `visitPlanner: "hmc-visit-planner"` for read-fallback.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
+| `src/app/[locale]/tools/visit-planner/useVisitPlanner.ts`                  | Persist ids to **`hmc-visit-planner-v2`**. Hydrate: read v2 first; else read `hmc-visit-planner` (v1), migrate in memory, write v2. If value matches `/^(new-symptom\|medication\|followup):\d+$/` use as-is; else map old locale text → id via provided `questionCatalog`; else **drop from `selectedQuestions`**. Copy `customQuestions: { id, text }[]` **as-is** (HEAD already stores custom items there, not in `selectedQuestions`). **Do not** promote unmapped `selectedQuestions` strings into `customQuestions` (that freezes stale EN catalog lines as fake custom questions). Do not delete v1 until a later window (rollback of this PR still reads v1). **`PLANNER_DEFAULTS_BY_TYPE` lives in this file.** Do **not** take `defaultQuestions` as a parent prop that changes with `visitType` (that re-triggers the hydrate effect). `changeVisitType(next)` looks up `PLANNER_DEFAULTS_BY_TYPE[next]` internally. |
+| `src/app/[locale]/tools/visit-planner/VisitPlannerClient.tsx`              | Build catalog `{ id, text }[]` from `t.raw("plannerQuestions")` with index ids. Do **not** pass `PLANNER_DEFAULTS_BY_TYPE[visitType]` into the hook as an effect input. `changeVisitType(next)` only needs `next` (hook owns the map). Pass texts to step 2 by resolving ids. `useRef` on step `<h2 tabIndex={-1}>`; `useEffect` on `step` → `headingRef.current?.focus()`.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| `src/app/[locale]/tools/visit-planner/components/Step2SelectQuestions.tsx` | Toggle by id.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
+| `src/app/[locale]/tools/visit-planner/components/Step3Review.tsx`          | Summary container `border-2 border-primary/20 bg-surface-container-lowest p-6 shadow-elevation-2`. Resolve ids to current locale text. Print: `print:border-neutral-900 print:text-black print:[print-color-adjust:exact]`.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| `src/app/[locale]/tools/visit-planner/useVisitPlanner.test.ts`             | ID persist; EN strings in storage migrate when catalog passed; **first load** defaults `new-symptom:2` + `new-symptom:3`; `changeVisitType("medication")` → medication defaults. v1 fixture with `customQuestions: [{ id: "cq-1", text: "My custom q" }]` still has that custom after migrate. Unmapped selected string is dropped, **not** appended to `customQuestions`.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| `src/app/[locale]/tools/visit-planner/VisitPlannerClient.test.tsx`         | **New.** Step 1→2; mock focus.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
+| `src/components/search/SearchDialogContent.test.tsx`                       | Group headers; live region.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+
+### 15.2 Planner ID scheme
+
+`{visitType}:{zeroBasedIndex}` matching array order in `en.json` / `es.json` (must stay same length/order — already locale-parity).
+
+Default selected **must match the current `visitType`** (hook default remains `"new-symptom"`). Export `PLANNER_DEFAULTS_BY_TYPE`:
+
+```ts
+{
+  "new-symptom": ["new-symptom:2", "new-symptom:3"], // treatment options; timeline
+  medication: ["medication:1", "medication:3"],     // side effects; other medicines
+  followup: ["followup:0", "followup:3"],             // is it working; when to follow up
+}
+```
+
+**Not** `new-symptom:0/1` (cause / which tests). **Not** a cross-type list like `medication:1` + `followup:3` while `visitType` is `new-symptom` — Step 2 would show unchecked boxes and Step 3 would show the wrong questions. `changeVisitType` applies **this map inside the hook**, not `slice(0, 2)` of locale strings, and **not** via a parent-passed array keyed on `visitType` (that loops the hydrate effect).
+
+### 15.3 Tests
+
+Listed above.
+
+**Playwright:** `e2e/flows.spec.ts` or `e2e/polish.spec.ts`:
+
+- Open search (button), type `eob`, status region eventually matches `/\d+/`.
+- `/en/tools/visit-planner` — click next, focused element is step heading (`document.activeElement` tag/role).
+
+### 15.4 Acceptance
+
+- [ ] Search loading ≠ empty miss.
+- [ ] Results grouped; SR count announced.
+- [ ] Switch locale after saving planner: questions display Spanish (or EN) from ids, not mixed.
+- [ ] Old localStorage text values migrate or drop safely. `customQuestions` survive v1→v2. Unmapped `selectedQuestions` are **not** rewritten as custom questions.
+- [ ] Step change focuses heading.
+- [ ] Step 3 summary visually separated.
+- [ ] First load: `visitType === "new-symptom"` and selected ids `["new-symptom:2","new-symptom:3"]` (visible Step 2 boxes checked). Changing to medication selects `medication:1` + `medication:3`.
+
+### 15.5 Rollback
+
+Revert PR. v2 key `hmc-visit-planner-v2` is ignored by old code; v1 `hmc-visit-planner` is still populated from the read-fallback until this PR, and is **not** deleted. Rollback does **not** show raw ids.
+
+---
+
+## Phase 13 — Reading UX (hero, articles TOC, quiz CLS, cards, paths)
+
+**Goal:** Hero CTAs above the fold on 1440; article line length ~65ch with desktop TOC; quiz Next button does not jump; learn cards/path mobile readable.
+
+**Complexity:** Medium  
+**Risk:** Low  
+**Dependencies:** Phase 8 PageHeader/trust may already change home — re-check fold.
+
+### 16.1 Scope
+
+| File                                                                    | How                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
+| ----------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `src/components/Hero.tsx`                                               | H1 `text-[clamp(2.25rem,3.5vw+1rem,3.5rem)] leading-[1.1] mb-4` instead of `clamp(3rem,7vw,5.6rem) leading-[0.95]`. CTAs stay immediately under subtitle. **No `<video>` in this file** (media here is `next/image` `/stitch/home.png`). TrustBanner already compact from Phase 8.                                                                                                                                                                             |
+| `src/app/[locale]/HomeClient.tsx`                                       | **Owns `/HMC_Video.mp4`.** Today the video block is **above** `<Hero />`. **`<sm`:** render `<Hero />` first, then the video container (CSS `order` or DOM swap). `sm+` may keep video above or beside — do not bury desktop layout. Do not move the file into `Hero.tsx`. **Also in this phase (not 16):** `preload="none"`; keep `muted` `playsInline`; `matchMedia('(prefers-reduced-motion: reduce)')` → do not autoplay (show poster).                    |
+| `src/app/[locale]/HomeClient.test.tsx`                                  | **New** if missing. Reduced-motion: `autoplay` not set (or `play()` not called). `preload="none"`.                                                                                                                                                                                                                                                                                                                                                             |
+| `src/components/Hero.test.tsx`                                          | class contains new clamp.                                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| `src/app/[locale]/articles/[slug]/ArticlePageClient.tsx`                | Body `max-w-prose` (~65ch) `leading-[1.75]`. Desktop `lg:` CSS grid (`lg:grid-cols-[1fr_240px]` or equivalent). **DOM order:** `<main id="main-content">` (article) **first**, then `<aside aria-label={t("onThisPage")}>` sticky TOC `w-60` / `top-24`. Visual TOC-on-the-right is CSS, not DOM-first. Do **not** add scroll-spy. TOC links `#section-slug`. Add `id` on each `<section>` or `h2`. **`scroll-mt-24`** on those targets (sticky header ~76px). |
+| `src/lib/slugify.ts`                                                    | Reuse if exists; else small slug helper.                                                                                                                                                                                                                                                                                                                                                                                                                       |
+| `src/components/quiz/QuizFeedback.tsx`                                  | Always render wrapper `min-h-[140px]`. Inner alert only when `showResult`.                                                                                                                                                                                                                                                                                                                                                                                     |
+| `src/app/[locale]/learn/[slug]/quiz/QuizClient.tsx`                     | Sticky action bar optional; min-height on feedback is enough.                                                                                                                                                                                                                                                                                                                                                                                                  |
+| `src/components/learn/LessonCard.tsx` / `ResourceCard`                  | Title `text-title-md line-clamp-2`; grid gap on parent `LearnClient` `gap-6`.                                                                                                                                                                                                                                                                                                                                                                                  |
+| `src/app/[locale]/learn/LearnClient.tsx`                                | `gap-6` on card grids.                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| `src/app/[locale]/learning-paths/[pathId]/LearningPathDetailClient.tsx` | `< sm`: stacked card + `Step X of Y` badge instead of cramped horizontal milestone.                                                                                                                                                                                                                                                                                                                                                                            |
+| `src/components/quiz/QuizFeedback.test.tsx`                             | **new** if missing — wrapper always in document.                                                                                                                                                                                                                                                                                                                                                                                                               |
+| `src/app/[locale]/learn/[slug]/quiz/QuizClient.test.tsx`                | **new** — light: renders question title from fixture (heavy supabase mocked). Persist-units contract is **Phase 6**; do not re-pass percent as `score` here.                                                                                                                                                                                                                                                                                                   |
+
+### 16.2 Tests
+
+As table.
+
+**Playwright:** 1440 `/en` — primary CTA `Start learning` bounding box `y + height < 900`. Article `/en/articles/understanding-your-eob` — TOC visible at lg; paragraph max width ≤ 720px (evaluate); at `lg` the article `<main>` appears before the TOC `<aside>` in DOM order (`compareDocumentPosition`). Quiz: optional screenshot stability skip.
+
+### 16.3 Acceptance
+
+- [ ] Hero H1 ≤ 56px at 1440.
+- [ ] 390px: primary CTAs above video (`HomeClient` order); TrustBanner one line; reduced-motion: video does not autoplay; `preload="none"`.
+- [ ] Article measure ~65ch; TOC on desktop; heading targets `scroll-mt-24`. Article `<main>` precedes TOC in DOM (keyboard/SR reach the article first).
+- [ ] Quiz feedback slot reserved.
+- [ ] Lesson card titles clamp; filters from Phase 11.
+- [ ] Path detail usable at 390.
+
+### 16.4 Rollback
+
+Revert PR.
+
+---
+
+## Phase 14 — Locale content code-splitting (descoped)
+
+**Goal:** Client JS for a given locale does not parse the other locale’s **path** (and lesson/quiz/glossary **if they are in the client graph**) bundles. Server SSG keep sync loaders.
+
+**Rationale:** Combined barrels are regenerated by `scripts/bundle-*.ts`. Hand-editing them is undone by Phase 8 `content:bundle`. Today `QuizClient` already receives props; the real client dual-locale hit is `sideEffects` → `import("@/lib/paths/loadPaths")` → `pathBundles` (both locales). `src/data/lessons.ts` imports the combined lesson barrel then exports EN only — still packs ES into that module for anyone who imports it.
+
+**Complexity:** Medium (was High)  
+**Risk:** Medium (was High) — **no** mass `getAllLessons` → async conversion  
+**Dependencies:** After correctness phases. **Day 4, not first thing in the morning.** Hard **3-hour** timebox: if analyzer/CI not green by **13:00**, stop; keep whatever lesson/quiz client split is done; drop remaining path/glossary generator work; **leave `revamp/p14-*` unmerged** (commit or stash on that branch — do **not** `git checkout main` as a dirty-tree discard); proceed to **Phase 16 must-dos (19.1), then Phase 15**. Do **not** move this rewrite to Day 2. Message catalogs (`@/lib/i18n` dual JSON) are **out of this timebox**.
+
+### 17.1 Scope
+
+| File                                                                   | How                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| ---------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `scripts/bundle-lessons.ts`                                            | Still emit `lessonBundles.en.ts` / `.es.ts`. **Keep emitting `lessonMeta.ts`** (Phase 7). Combined `lessonBundles.ts`: either **stop emitting** it, or emit a file that **only** re-exports types + documents “do not import from client.” Preferred: emit `loadLessonBundle(locale)` **dynamic** helper in a **non-generated** `src/lib/lessons/loadLessonsForLocale.ts` that `switch`es `import("@/data/lessonBundles.en")`. Generator must not overwrite that helper. |
+| `scripts/bundle-quizzes.ts` / `bundle-paths.ts` / `bundle-glossary.ts` | Same: locale files remain generated; **stop** or stop-using combined barrels from client. Update scripts so CI `content:bundle` cannot restore `import { en } from "./x.en"; import { es } from "./x.es"` into a module that client imports.                                                                                                                                                                                                                             |
+| `src/lib/paths/loadPaths.ts`                                           | **Client-safe:** `export async function loadPathsForLocale(locale)` with `switch` dynamic import of `pathBundles.en` / `.es` **only**. `getAllLearningPaths` sync may remain for **server** files if it imports **one** locale via a server-only wrapper. `pathsCache.ts` must call the async **single-locale** loader, not the combined barrel.                                                                                                                         |
+| `src/data/lessons.ts`                                                  | Stop `import { lessonBundles } from "@/data/lessonBundles"` (pulls both). Import `@/data/lessonBundles.en` only (IDs are locale-identical for `generateStaticParams`).                                                                                                                                                                                                                                                                                                   |
+| `src/lib/lessons/loadLessons.ts`                                       | **Keep sync `getAllLessons` for server.** Implement by importing **one** locale module inside a `switch` **without** a shared `Record` object that statically imports both. If a static switch still dual-packs in webpack, use **separate server files** `loadLessons.en.ts` / `loadLessons.es.ts` imported only from server `page.tsx` via locale branch. **Do not** convert every `getAllLessons(` caller to async.                                                   |
+| `src/lib/localizedQuiz.ts`                                             | Server-only (already used from `page.tsx`). Same single-locale static pattern. Not imported from `QuizClient`.                                                                                                                                                                                                                                                                                                                                                           |
+| `src/hooks/useProgress/sideEffects.ts`                                 | **No** `loadLessons`. Paths: single-locale dynamic import.                                                                                                                                                                                                                                                                                                                                                                                                               |
+| Tests                                                                  | Generator tests or snapshot: combined barrel is not imported from any file matching `'use client'`. Analyzer: EN client chunk lacks a distinctive ES lesson title.                                                                                                                                                                                                                                                                                                       |
+
+### 17.2 Steps (do not guess)
+
+1. `rg 'use client' -l src | xargs rg 'lessonBundles|quizBundles|pathBundles|glossaryBundles|loadLessons|localizedQuiz|loadPaths'` — list client hits. Expected today: `pathsCache` / `sideEffects` / maybe glossary tokenizer. Lesson/quiz pages already pass props.
+2. Change generators so `content:bundle` cannot recreate a client-imported dual barrel.
+3. Fix each **client** hit with locale-dynamic import or props from server.
+4. Keep server `getAllLessons(locale)` sync.
+5. `npm run analyze` (or `source-map-explorer` on the lesson client chunk): English session must not contain a distinctive Spanish string from `lessonBundles.es.ts`. If only path bundles were in the client graph, prove path ES strings are absent.
+
+### 17.3 Tests
+
+- Generator still writes `*.en.ts` / `*.es.ts`.
+- `loadPaths` client path: mock shows only one locale module imported.
+- Existing `loadLessons.test.ts` can stay sync.
+
+**Playwright:** smoke `/en/learn` and `/es/learn` still render titles.
+
+### 17.4 Acceptance
+
+- [ ] `content:bundle` does not restore a client dual-locale barrel.
+- [ ] Client graph for `/en/learn/[slug]` does not include `lessonBundles.es` **or** `pathBundles.es` (analyzer evidence on the PR).
+- [ ] All locales still SSG. `getAllLessons` remains sync on the server.
+- [ ] Search still lazy-loads `searchIndex.${locale}`.
+- [ ] Phase 7 still uses `BEGINNER_LESSON_IDS`, not `loadLessons`. `content:bundle` still emits `lessonMeta.ts`.
+
+### 17.5 Rollback
+
+Revert PR. Combined barrels come back. High value to keep if green.
+
+---
+
+## Phase 15 — Approved small features
+
+**Goal:** Print from lesson/article/care-guide; share/copy on lessons; resume recents from the lesson page; empty achievements not a hole.
+
+**Complexity:** Medium  
+**Risk:** Low  
+**Dependencies:** Phase 8 citations should print; Phase 13 article layout. **Calendar: after Phase 16 §19.1.** May slip if Day 4 is gone; 19.1 may not.
+
+See **mini-specs in §10**.
+
+### 18.1 Scope
+
+| File                                                           | How                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
+| -------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `src/components/content/PrintButton.tsx`                       | **New.** `onClick={() => window.print()}`; `aria-label` from `common.print`; `className="no-print"` on the button itself.                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| `src/app/globals.css` (or the print `@media` already in tree)  | Printable article/lesson/care-guide/planner review: `print:border-neutral-900 print:text-black` and `print-color-adjust: exact` (`-webkit-print-color-adjust: exact`). No jsPDF.                                                                                                                                                                                                                                                                                                                                                                          |
+| `src/components/lesson/LessonHeader.tsx`                       | PrintButton + copy/share (clone article handlers; extract `src/lib/shareCurrentPage.ts`).                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| `src/app/[locale]/articles/[slug]/ArticlePageClient.tsx`       | PrintButton in the share row.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| `src/app/[locale]/tools/care-guide/CareGuideClient.tsx`        | PrintButton in header. Keep `no-print` on the red emergency banner. Add a **print-only** line (`hidden print:block`): "For medical emergencies, call 911. For mental health crises, call or text 988 (US)." ES equivalent. Add a **print-only footer** (`hidden print:block text-xs … mt-6 pt-4 border-t`): "Health Made Clear provides health education and is not a substitute for clinical diagnosis or individualized medical advice. For emergencies, call 911 (US)." ES equivalent. Do **not** rely only on card body copy for the fridge artifact. |
+| `src/app/[locale]/learn/[slug]/LessonPageClient.tsx`           | `useEffect` → `markLessonViewed(lesson.id)` once on mount.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| `src/app/[locale]/dashboard/components/EarnedAchievements.tsx` | Empty: `EmptyState` + link to `/learn`, not `return null`.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| `src/messages`                                                 | `common.print`, `common.shareOnX` already under articles — move shared keys to `common` if duplicated.                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
+| `src/app/[locale]/learn/[slug]/LessonPageClient.test.tsx`      | **new** if missing — viewed called.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
+| `src/components/content/PrintButton.test.tsx`                  | clicks `print`.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
+| `EarnedAchievements` test                                      | empty state.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+
+### 18.2 Tests
+
+As table.
+
+**Playwright:** lesson page has a Print control; dashboard empty achievements shows CTA (needs auth — if dashboard e2e uses mock, add; else unit only).
+
+### 18.3 Acceptance
+
+- [ ] Lesson, article, care-guide have Print; `@media print` hides `no-print`. Printable surfaces use `print-color-adjust: exact`. Care-guide print includes a print-only 911/988 line **and** a print-only educational disclaimer footer; red banner stays `no-print`.
+- [ ] Lesson has copy link + X share like articles.
+- [ ] Opening a lesson updates recents without catalog click.
+- [ ] Zero achievements shows empty state.
+
+### 18.4 Rollback
+
+Revert PR.
+
+---
+
+## Phase 16 — Hardening
+
+**Goal:** Headers cannot drift; Sentry does not leak lesson extras; dashboard minutes are honest; remaining perf nits if time.
+
+**Complexity:** Medium  
+**Risk:** Low–medium  
+**Dependencies:** Most prior phases. **Calendar: after P14 timebox, 19.1 before P15.** **Drop AppProviders split and N+1 if Day 4 is gone. Never drop 19.1.**
+
+### 19.1 Must-do (do not drop)
+
+| File                                                       | How                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
+| ---------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `scripts/sync-security-headers.mjs`                        | **New.** Single CSP/HSTS/Permissions-Policy string source. Writes/checks `next.config.mjs` is hard — **simpler:** extract `securityHeaders` to `security-headers.mjs` imported by `next.config.mjs`; Netlify cannot import JS in `netlify.toml`. **Chosen:** `scripts/check-security-headers.mjs` reads both files and asserts CSP `connect-src` tokens match a canonical list in `security-headers.json`. CI runs it.                                                                                                                                                                                                                            |
+| `security-headers.json`                                    | Canonical directives. **`connect-src` must include the same wildcards HEAD already has:** `'self'`, `https://*.supabase.co`, `wss://*.supabase.co`, `https://*.ingest.sentry.io`, `https://www.google-analytics.com`, `https://*.google-analytics.com`, `https://*.analytics.google.com`, `https://www.googletagmanager.com`. **Do not** pin `https://xdmbyadosmzixsxqullj.supabase.co`.                                                                                                                                                                                                                                                          |
+| `netlify.toml` / `next.config.mjs`                         | Edit to match JSON (script can be check-only). **Keep** `script-src 'unsafe-inline'` for Next App Router inline bootstrap. `/pref-bootstrap.js` is an **external** file — do **not** treat hashing that file as a way to drop `'unsafe-inline'`.                                                                                                                                                                                                                                                                                                                                                                                                  |
+| `src/lib/errorReporting.ts`                                | `Sentry.init`: **`sendDefaultPii: false`**. Do **not** pass `dataCollection: {}` (v10: any `dataCollection` object enables permissive defaults including IP unless every category is opted out). `beforeSend`: scrub `event.extra`, breadcrumbs with `sanitizeContext` + `scrubPII`; set `event.user = { id: undefined, ip_address: undefined, email: undefined, username: undefined }`; strip `?…` **and `#…`** from `event.request.url` and breadcrumb URLs; drop `ui.input` values. **Keep path slugs** (`/learn/managing-high-blood-pressure`) — same class as GA disclosure; do **not** rewrite to `/learn/*`. Keep console-breadcrumb drop. |
+| `errorReporting.test.ts`                                   | extra.lessonId redacted; `sendDefaultPii === false`; `event.user.ip_address` undefined; query **and hash** stripped from URL (`#access_token=` gone); path slug **retained**.                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| `src/lib/errorReporting.ts` `reportServerError`            | If `SENTRY_DSN` or `NEXT_PUBLIC_SENTRY_DSN` set, POST to Sentry envelope **or** log JSON with `level`. Do not add `@sentry/nextjs` unless already trivial. **Chosen:** HTTP ingest with `SENTRY_DSN` server env (not public) in `reportServerError`. Document env in Netlify. **Flood throttle:** in-memory sliding window, max **5** ingest POSTs per **10 seconds** per isolate. Overflow → `console.error` only, no fetch. **Abort:** `fetch(..., { signal: AbortSignal.timeout(2000) })`. `.catch(() => {})` so a hung ingest **cannot** stall the isolate (contact 500 path).                                                                |
+| `src/app/[locale]/dashboard/components/DashboardStats.tsx` | If `totalTimeSpentMinutes === 0`, show `t("statsTimeSpentUnavailable")` (`—`) not `0 min`.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| `src/components/JsonLd.tsx`                                | Keep stringify escapes; reject non-plain objects (`data` must be JSON-serializable; `JSON.parse(JSON.stringify(data))` round-trip). Test already in `JsonLd.test.tsx` — extend.                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
+
+### 19.2 Time-permitting (drop first)
+
+| File                              | How                                                                                                                                                                                                                                    |
+| --------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `src/components/AppProviders.tsx` | Split `PreferencesContext` vs `ProgressContext`. Update `useAppState` to a compatibility hook merging both **or** migrate callers. High churn — only if tests in `AppProviders.test.tsx` stay green and grep `useAppState` is updated. |
+| `src/lib/dashboard/progress.ts`   | Parallelize the two queries (`Promise.all`) — already sequential. Easy win: `Promise.all` progress + quiz. Skip Postgres view.                                                                                                         |
+
+### 19.3 Tests
+
+- `scripts/check-security-headers.test.ts` or spawn like env check.
+- `errorReporting.test.ts` extra/breadcrumb.
+- `errorReporting.test.ts` — `reportServerError`: 6th call inside 10s does not `fetch`. Hung ingest: mock `fetch` that never resolves; with fake timers advance 2s → call still returns (abort), isolate not blocked.
+- `DashboardStats` test if exists.
+- `JsonLd.test.tsx`.
+
+**Playwright:** none required.
+
+### 19.4 Acceptance
+
+- [ ] CI fails if netlify CSP connect-src diverges from next.config.
+- [ ] Sentry client: `sendDefaultPii: false`; no user IP/email; query **and hash** stripped; **path slugs kept**.
+- [ ] Privacy page includes `collectBodyErrors`.
+- [ ] Server reporter attempts ingest when DSN set; 6th error in 10s does not `fetch`; ingest uses `AbortSignal.timeout(2000)`.
+- [ ] Canonical `connect-src` uses `*.supabase.co` / `*.ingest.sentry.io` wildcards — **not** a pinned project-ref host.
+- [ ] Dashboard does not claim minutes learned when column unused.
+- [ ] JsonLd still escapes `<`.
+- [ ] Reduced-motion: home video does not autoplay (**owned by Phase 13**; skip here if P13 merged).
+
+### 19.5 Rollback
+
+Revert PR. Header script is check-only — safe.
+
+---
+
+# 10. Mini-specs (approved new / newly productized UI)
+
+Only these net-new UX pieces are in scope. Bugfixes above are not repeated unless they need a story.
+
+---
+
+### 10.1 Clinical citation block
+
+**User story:** As a reader, I see who reviewed this page and which agencies it draws from, so I can trust it is education with sources.
+
+**UX flow:**
+
+1. Open any article or lesson.
+2. Directly under the title, a compact line: `Reviewed by {reviewedBy} · {date} · Sources: A / B`.
+3. End of content: full list (articles were missing this entirely).
+4. Print includes citations; share buttons remain `no-print`.
+
+**Data model / RLS:** none. Fields already on MDX/`Article`/`Lesson` types (`sources?`, `reviewedBy?`, `lastReviewed?`).
+
+**Edge cases:** missing date → omit date; empty sources → validator should prevent in Phase 8; compact mode hides empty parts.
+
+**Analytics:** none. Do not send source clicks to GA.
+
+**A11y:** list is a `<ul>`; compact line is `<p>` not color-only; 4.5:1 text.
+
+**Phase:** 8.
+
+---
+
+### 10.2 Trust banner
+
+**User story:** As a first-time visitor, I understand this is clinically reviewed education, not a clinic.
+
+**UX flow:** Home (and learn/articles/tools indexes): one-line banner above the H1/page title. Not a modal. Dismissible? **No** (legal/education, not a cookie banner).
+
+**Data:** i18n only.
+
+**Edge cases:** simple mode still shows it (high importance). Dark theme: use `bg-surface-container` + `text-on-surface`, not low-contrast mint. **Mobile:** compact padding so hero CTAs stay in view (Phase 13).
+
+**Analytics:** none.
+
+**A11y:** not `role="alert"` (not an emergency). Plain text or `role="note"`.
+
+**Phase:** 8.
+
+---
+
+### 10.3 Print CTA (lesson, article, care-guide)
+
+**User story:** As a patient in a waiting room, I print the page without the chrome.
+
+**UX flow:** Button "Print" → `window.print()`. Existing `globals.css` `@media print` and `.no-print` hide header/footer/share. Visit planner/checklist already print; do not duplicate a PDF export.
+
+**Data:** none.
+
+**Edge cases:** browsers without print → button still invokes `print()`; no toast required. Care-guide emergency banner: `no-print` already on the top alert (keeps red chrome off paper). Printed page must still include educational cards + disclaimer **plus a print-only 911/988 line** **plus a print-only educational footer** (“not a substitute for clinical diagnosis”) so a fridge print is not missing the numbers **or** the not-diagnosis line if the reader never reaches the card bodies.
+
+**Analytics:** optional `trackEvent` is unused in prod — **do not** wire GA.
+
+**A11y:** `type="button"`; label `common.print`; min 44px.
+
+**Phase:** 15.
+
+---
+
+### 10.4 Lesson copy link + share
+
+**User story:** As a learner, I share a lesson the same way I share an article.
+
+**UX flow:** Same controls as `ArticlePageClient` (`clipboard` + X intent). Toast success/fail. `no-print`.
+
+**Data:** none.
+
+**Edge cases:** non-HTTPS clipboard failure → error toast. Share URL is canonical `window.location.href` (includes locale prefix).
+
+**Analytics:** none.
+
+**A11y:** `aria-label` on icon-only if labels collapse; prefer visible text like articles.
+
+**Phase:** 15.
+
+---
+
+### 10.5 Resume last lesson from the lesson route
+
+**User story:** As a returning guest, the home/dashboard "continue" list includes lessons I opened from a deep link, not only catalog clicks.
+
+**UX flow:** Mount `LessonPageClient` → `markLessonViewed(lesson.id)` once. Existing `recentLessons` in AppProviders/localStorage.
+
+**Data:** `STORAGE_KEYS.recentLessons` only. No Supabase column.
+
+**Edge cases:** Strict mode double mount → viewed twice; `markLessonViewed` must be idempotent (already unshifts unique). Do not mark complete.
+
+**Analytics:** none (GA page_view already fires).
+
+**A11y:** no UI.
+
+**Phase:** 15.
+
+---
+
+### 10.6 Search grouped results + live region
+
+**User story:** As a keyboard/SR user, I know how many hits and which type they are.
+
+**UX flow:** Cmd/Ctrl+K → type → grouped lists with headers. Status: "8 results". Loading index: "Loading search…".
+
+**Data:** existing `SearchEntry.type`.
+
+**Edge cases:** unknown type → "Other". Empty query: show no groups, not "0 results" (unless product already shows suggestions — keep current empty state).
+
+**Analytics:** none.
+
+**A11y:** `role="status" aria-live="polite"` visually hidden; groups as `<h3>` + `<ul>`. Focus trap unchanged.
+
+**Phase:** 12.
+
+---
+
+### 10.7 Article sticky TOC
+
+**User story:** As a desktop reader, I jump sections without 100-character lines.
+
+**UX flow:** `lg+` two columns; TOC sticky; click scrolls to `id`. Mobile: no TOC (sections still have headings).
+
+**Data:** `article.content.sections[].title`.
+
+**Edge cases:** duplicate titles → suffix `-2`. Hash on load: optional skip for time.
+
+**Analytics:** none.
+
+**A11y:** TOC `aside`/`nav` `aria-label={t("onThisPage")}`; skip link already to `#main-content`. **DOM order:** article `<main>` first, TOC second; CSS grid for visual right column. **No scroll-spy required this window** (IntersectionObserver is polish, not WCAG).
+
+**Phase:** 13.
+
+---
+
+### 10.8 Achievement wiring (product completion, not a new system)
+
+**User story:** As a signed-in learner, badges in the catalog can actually unlock.
+
+**UX flow:** Unchanged celebration toast + notification bell. Empty dashboard uses Phase 15 empty state.
+
+**Data model:** existing `achievements` table. Unique `(user_id, achievement_id)`. RLS ownership unchanged. **No new tables.** Glossary count is **localStorage** `hmc-glossary-lookups` (JSON string array of term ids), not a cloud column. Beginner set is `BEGINNER_LESSON_IDS` in `lessonMeta.ts` — **not** `loadLessons` / MDX bundles.
+
+**Edge cases:** user switches browsers → glossary-reader progress resets (acceptable). Streak uses UTC dates (`streaks.ts`). Parallel lesson completes can still race streaks (out of scope to RPC).
+
+**Analytics:** none.
+
+**A11y:** toasts already `aria-live`; Spanish strings required. Client toasts/notifications come from `useTranslations("achievements")` at the hook — **not** `getMessages` in `sideEffects`. Quiz path must pass `locale`. Award helper returns ids only.
+
+**Phase:** 7 (+ empty state in 15).
+
+---
+
+### 10.9 Visit planner locale-stable storage (BUG-06)
+
+**User story:** As a bilingual user, my saved questions stay the same questions after I switch language.
+
+**UX flow:** unchanged stepper. Persistence format version: ids. Custom questions still `{id, text}` in the language they typed (not translated).
+
+**Data:** `localStorage` **`hmc-visit-planner-v2`** (write). Read fallback to `hmc-visit-planner` (v1); do not delete v1 in this window. No Supabase.
+
+**Edge cases:** see Phase 12 hydrate. Defaults from `PLANNER_DEFAULTS_BY_TYPE` matching current `visitType` (not a cross-type list). Map lives **inside** `useVisitPlanner`; `changeVisitType` looks it up internally. Do **not** pass a visitType-keyed defaults array into a hydrate effect.
+
+**Analytics:** none.
+
+**A11y:** step heading focus (Phase 12).
+
+**Phase:** 12.
+
+---
+
+# 11. Out of scope (4-day window)
+
+| Item                                                                               | Why                                                                                     |
+| ---------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- |
+| Medication schedule generator                                                      | M effort + clinical dosing liability after P0s                                          |
+| Lab results decoder                                                                | M effort + range-misinterpretation harm                                                 |
+| USPSTF screening timeline                                                          | M effort + sex/age medical advice                                                       |
+| Medical bill dispute workflow                                                      | M; EOB article already exists                                                           |
+| Offline PWA / service worker                                                       | Cache invalidation + PHI-adjacent progress in SW is a project                           |
+| Lesson/article TTS                                                                 | M; a11y win but needs voice QA EN/ES                                                    |
+| Glossary pronunciation audio                                                       | Asset pipeline + hosting                                                                |
+| Symptom journal                                                                    | New PHI-ish local dataset + privacy rewrite again                                       |
+| Email visit plan (Resend)                                                          | Widens PII; adversarial: not until privacy is true **and** still skip this window       |
+| jsPDF / clinician PDF                                                              | Print CSS exists                                                                        |
+| Cheat-proof streaks/achievements (SECURITY DEFINER RPCs)                           | Integrity, not launch-blocking PHI                                                      |
+| `time_spent_seconds` instrumentation                                               | Honesty via hiding metric is enough                                                     |
+| Flesch-Kincaid linter                                                              | NTH; false positives on medical terms                                                   |
+| Mock client strict `Database` generics                                             | Dev-only                                                                                |
+| Localhost CSRF exact port                                                          | Dev-only                                                                                |
+| Logo `next/image`                                                                  | NTH                                                                                     |
+| Hashing `/pref-bootstrap.js` to drop `'unsafe-inline'`                             | File is external; Next inline scripts need `'unsafe-inline'` until a hash/nonce program |
+| `@sentry/nextjs` full wizard                                                       | Partial ingest in Phase 16                                                              |
+| Sentry path-slug → `/learn/*`                                                      | Same path class as disclosed GA; kills routing debug                                    |
+| 2-hour guest-migrate TTL / kiosk confirm dialog                                    | TTL kills browse-then-signup; confirm is post-launch UX                                 |
+| Mega-merge Phase 5 + Phase 6 into one PR                                           | Order P6 then P5 instead                                                                |
+| Credential regex / 24-month `lastReviewed` in validate-content                     | Would fail honest `reviewedBy`; 400-day fail already exists                             |
+| Applying/replaying `001`–`013` as-is (including pending `009`–`013` via `db push`) | Would break live policies / lock contact outside 014                                    |
+| Quiz attempt **history** product (many rows)                                       | Opposite of unique+best-score decision                                                  |
+| New locales beyond EN/ES                                                           |                                                                                         |
+| HIPAA program, patient accounts, messaging                                         | Wrong product                                                                           |
+| Upstash fail-closed rate limit                                                     | Availability choice; document only                                                      |
+| Onboarding on every first lesson (not only `/`)                                    | Nice; skip unless Phase 10 leftover time                                                |
+| Streak celebratory animation                                                       | Visual NTH                                                                              |
+| Article TOC scroll-spy (`IntersectionObserver`)                                    | Polish; sticky TOC + `scroll-mt-24` is enough this window                               |
+| Split `@/lib/i18n` formatters from dual JSON catalogs                              | Pre-existing client import; not P14; drop-if-slip                                       |
+| Restore login **text** at `xl` / Tools dropdown                                    | Fights compact-at-xl overflow; `aria-label` is the a11y fix                             |
+
+---
+
+# 12. Global Definition of Done (entire revamp)
+
+The revamp is done when **all** of the following are true. Phase 16 AppProviders-split and N+1 may be unchecked if explicitly dropped in a Day-4 slip note on this file. **Phase 16 §19.1 (CSP + Sentry PII + ingest timeout) may not be dropped.** Phase 14 descoped split must still have analyzer evidence **or** an explicit slip note. Phase 15 print/share may slip.
+
+### Security & data
+
+- [ ] Production `contact_submissions` has no public INSERT; anon PostgREST insert fails.
+- [ ] Netlify has `SUPABASE_SERVICE_ROLE_KEY`; `/api/contact` returns 2xx on a valid POST in production.
+- [ ] `delete_user` exists; Settings deletion removes auth user **and** clears local session even if GoTrue logout errors (spot-check on a throwaway account). **Health `localStorage` keys gone; theme/locale kept.** Persist effect does not restore the previous user. Logout (`AuthProvider.signOut` `finally`) uses the same wipe. Middleware expires `sb-*auth*` cookies when `getUser()` **resolves with `error`** (not on throw).
+- [ ] Gate 0: Netlify `SUPABASE_SERVICE_ROLE_KEY` proven before 014 `db push`. Contact `/api/contact` stream-caps bodies (~10KB) even without `Content-Length`. Empty body and malformed JSON return **400**; oversize **413**; those paths do not `reportServerError`.
+- [ ] `handle_new_user` has `search_path`; not executable by `anon`.
+- [ ] `quiz_attempts` unique `(user_id, quiz_id)`; no duplicate pairs. **Applied with Phase 6 client, not Day 1. Phase 5 guest-storage PR merges after this unique exists.**
+- [ ] Privacy page does not say learning data never leaves the device.
+- [ ] CSP in `netlify.toml` and `next.config.mjs` match the canonical list (`*.supabase.co` / `*.ingest.sentry.io` wildcards — not a pinned project-ref).
+- [ ] Server `reportServerError` ingest uses `AbortSignal.timeout(2000)` and cannot stall the isolate.
+
+### Auth
+
+- [ ] Recovery: `?code=` on reset page **or** confirm `type=recovery` → reset page with session; form not invalid-link. Second effect run does not `invalid_grant` (consume-once).
+- [ ] ES auth error URLs stay under `/es/`.
+- [ ] Signup does not confirm whether an email is registered.
+
+### Clinical & trust
+
+- [ ] Care guide does not instruct OTC use or personal triage.
+- [ ] Sore-throat scenario names airway/abscess red flags (swallow / drool / mouth-opening / breathing) in EN+ES.
+- [ ] Chest-pain scenario names atypical ACS (jaw / neck / back / sudden SOB / cold sweats) + don’t-wait / don’t self-treat + US 911 in EN+ES.
+- [ ] Care guide emergency or when-in-doubt names 988 (US) in EN+ES.
+- [ ] Home-care pediatric note names infant temperature **100.4°F (38°C) or higher** (<3 months) and pediatric dehydration in EN+ES; checklist has no bare “Low fever.”
+- [ ] Urgent-care text contrast ≥ 4.5:1.
+- [ ] Visible 911 control says US.
+- [ ] Every article shows sources + reviewedBy.
+- [ ] `npm run content:validate` enforces sources + reviewedBy.
+- [ ] Home trust banner visible.
+
+### Progress
+
+- [ ] Guest progress survives tab close and migrates on login (`quizId` preserved; not `lessonId` as `quiz_id`).
+- [ ] Quiz save upserts; error rolls back optimistic UI. Persist units are count/count; dashboard average for 4/5 is 80 not 1600; completed-tab scores show for `quiz_id === lessonId`.
+- [ ] Streak/path/beginner/glossary achievements can unlock (unit-proven).
+
+### UX / a11y
+
+- [ ] 1440px header shows desktop nav (`xl`, not `lg`). Header does not overflow at 1280 or 1440 on `/en` **and** `/es`. Login at `xl` is icon-only **with** `aria-label={auth.loginButton}`. `< xl` hamburger opens a **full-width accordion**, not a `max-w-md` overlay.
+- [ ] Footer/legal/glossary letters/checklist/pills meet 44px on 390px.
+- [ ] Search announces result counts; groups by type.
+- [ ] Planner survives EN↔ES; step focus moves; first-load selected IDs match `new-symptom` defaults; storage key `hmc-visit-planner-v2`.
+- [ ] 390px home: primary CTAs above video (`HomeClient` order); `preload="none"`; reduced-motion no autoplay.
+- [ ] 404 buttons are padded and branded.
+- [ ] Quiz feedback does not shove the Next control (reserved min-height).
+- [ ] Article body ~65ch + desktop TOC (`<main>` before TOC in DOM).
+
+### Performance
+
+- [ ] English session does not download Spanish lesson/quiz/**path** bundles in the main client graph (analyzer evidence attached to Phase 14 PR).
+
+### Quality gates (CI on `main`)
+
+- [ ] `npm run lint`
+- [ ] `npm run typecheck`
+- [ ] `npm test`
+- [ ] `npm run content:validate`
+- [ ] `npm run test:e2e`
+- [ ] `npm run build` (GitHub CI with public supabase placeholders; Netlify with real secrets)
+
+### i18n
+
+- [ ] `en.json` / `es.json` key parity (existing test still 0 missing).
+- [ ] No new user-visible hardcoded English in components touched (ErrorBoundary bilingual or i18n; achievement toasts localized, **including quiz-triggered badges**).
+
+### Explicit non-goals remain out
+
+- [ ] PR descriptions list anything deferred from §11 (so the next sprint does not forget).
+
+---
+
+# 13. Appendix
+
+### 13.1 Phase dependency graph
+
+```
+P1 Gate 0 (Netlify service role proven) ──► P1 db push (014 only; repair 009–013) ──► P3 env+contact path
+P1 daily_log UPDATE ──► P7
+P2 (auth routes, session-aware reset) ──► P9 (delete wipe + AuthProvider signOut finally + middleware cookie expire; Day 1)
+P6 (015 + upsert client, one window) ──► unique live ──► P5 (guest keys; after unique; signOut uses P9 wipe)
+P4 independent (parallel with P6 on Day 2); P8 Day 3 (branch may start after P4)
+P7 **no** loadLessons; generated lessonMeta only; **no** client getMessages; quiz sideEffects take locale
+P10–P13 independent (P13 video = HomeClient order **+** preload/reduced-motion)
+P14 generators + client path split (Day 4, 3h timebox, not morning-first; **not** message catalogs)
+P16 19.1 (CSP + Sentry PII, strip ? and #, ingest AbortSignal.timeout(2000)) after P14 timebox
+P15 after P8/P13 **and after 19.1** (print/share may slip)
+```
+
+### 13.2 Distinctive files junior engineers touch most
+
+```
+src/app/[locale]/auth/reset-password/ResetPasswordClient.tsx
+src/app/[locale]/auth/confirm/route.ts
+src/app/[locale]/auth/callback/route.ts
+src/lib/quizScore.ts
+src/lib/clearLocalHealthData.ts
+src/components/providers/AuthProvider.tsx
+src/lib/supabase/middleware.ts
+src/lib/guestProgress.ts
+src/hooks/useProgress.ts
+src/hooks/useProgress/mutations.ts
+src/hooks/useProgress/sideEffects.ts
+src/lib/achievements.ts
+src/messages/en.json
+src/messages/es.json
+src/components/Header.tsx
+src/app/globals.css
+src/app/[locale]/articles/[slug]/ArticlePageClient.tsx
+src/app/[locale]/tools/care-guide/CareGuideClient.tsx
+src/app/[locale]/HomeClient.tsx
+src/app/[locale]/dashboard/settings/SettingsClient.tsx
+src/components/AppProviders.tsx
+src/lib/errorReporting.ts
+src/app/[locale]/tools/visit-planner/useVisitPlanner.ts
+scripts/check-production-env.mjs
+scripts/validate-content.ts
+supabase/migrations/014_launch_reconcile.sql
+supabase/pending/015_quiz_attempts_best_score.sql
+supabase/rollback/014_emergency.sql
+supabase/rollback/015_emergency.sql
+```
+
+### 13.3 Live verification cheatsheet (post-Phase 1)
+
+```sql
+-- must be 0
+select count(*) from pg_policies
+where tablename = 'contact_submissions' and policyname = 'Anyone can insert contact submissions';
+
+select proname from pg_proc p
+join pg_namespace n on n.oid = p.pronamespace
+where n.nspname = 'public' and proname in ('delete_user', 'handle_new_user', 'set_updated_at');
+
+select pg_get_constraintdef(oid) from pg_constraint
+where conrelid = 'public.quiz_attempts'::regclass and contype = 'u';
+```
+
+### 13.4 Screenshot regression set (re-capture after visual phases)
+
+Replace `REVAMP/SCREENSHOTS/` for: `desktop-01-home`, `desktop-08-article`, `desktop-09-glossary`, `desktop-10–13` tools, `desktop-26-not-found`, `desktop-27–28` search, `mobile-00` drawer, `mobile-01`, `mobile-09`, `mobile-11–13`. Not a merge blocker if Playwright covers the assertions.
+
+### 13.5 Audit ID index (quick)
+
+BUG-01, BUG-02, BUG-05 → P2  
+SEC-01 Gate 0 → P1; SEC-01 env script + ADV-08, ADV-06 → P3  
+ADV-10, ADV-09, ADV-15 → P1 (`014`)  
+ADV-01 SQL file → `supabase/pending/` until P6  
+ADV-01 apply + client, ADV-04, score-units, `${id}-quiz` tab → P6 **then** BUG-03, BUG-04, ADV-03 → P5  
+ADV-12, A11Y-01, MED-03 → P4  
+ADV-02, ADV-14 → P7  
+MED-01, MED-02 → P8  
+ADV-13, ADV-05, TEST-01, shared-device wipe → P9 (Day 1, required)  
+SEC-01 Gate 0 → P1; env script → P3  
+Visual 1, 8, 10 → P10  
+Visual 2, 5, glossary, inline terms → P11  
+A11Y-02, A11Y-03, BUG-06, Visual 9 → P12  
+Visual 3–4, 7, quiz CLS, cards, paths → P13 (`HomeClient` video order + preload, not `Hero.tsx`)  
+PERF-01 → P14  
+Print/share/resume → P15  
+SEC-02, ADV-16, SEC-03, ADV-07, PERF-02/03 → P16
