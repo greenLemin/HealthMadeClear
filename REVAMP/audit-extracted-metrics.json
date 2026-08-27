@@ -1,0 +1,6546 @@
+[
+  {
+    "page": "01-home",
+    "path": "/en",
+    "desktop": {
+      "h1": "Understand Your Health, One Clear Step at a Time",
+      "headings": [
+        {
+          "tag": "H1",
+          "text": "Understand Your Health, One Clear Step at a Time",
+          "fontSize": "89.6px",
+          "lineHeight": "85.12px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H2",
+          "text": "Find the right resource for you",
+          "fontSize": "34px",
+          "lineHeight": "38.08px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H3",
+          "text": "Learning Paths",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H3",
+          "text": "Learn",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H3",
+          "text": "Glossary",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H3",
+          "text": "Tools",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H2",
+          "text": "Start with a short guided introduction.",
+          "fontSize": "34px",
+          "lineHeight": "38.08px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H2",
+          "text": "Why health literacy matters",
+          "fontSize": "34px",
+          "lineHeight": "38.08px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H3",
+          "text": "Knowledge is power",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H3",
+          "text": "Confidence in every visit",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H3",
+          "text": "Free for everyone",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H2",
+          "text": "Featured learning paths",
+          "fontSize": "34px",
+          "lineHeight": "38.08px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H3",
+          "text": "Safer Medicine Use",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H3",
+          "text": "Preparing for Doctor Visits",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H2",
+          "text": "More ways to learn",
+          "fontSize": "34px",
+          "lineHeight": "38.08px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H3",
+          "text": "Explore Library",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H3",
+          "text": "Glossary",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H3",
+          "text": "Health tools",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H2",
+          "text": "Create your free account",
+          "fontSize": "34px",
+          "lineHeight": "38.08px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H2",
+          "text": "Note: Educational purpose only",
+          "fontSize": "18px",
+          "lineHeight": "25.2px",
+          "marginBottom": "8px"
+        },
+        {
+          "tag": "H2",
+          "text": "Experiencing a medical emergency?",
+          "fontSize": "18px",
+          "lineHeight": "25.2px",
+          "marginBottom": "8px"
+        },
+        {
+          "tag": "H2",
+          "text": "Health Made Clear",
+          "fontSize": "34px",
+          "lineHeight": "38.08px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H2",
+          "text": "Platform",
+          "fontSize": "16px",
+          "lineHeight": "22.4px",
+          "marginBottom": "16px"
+        },
+        {
+          "tag": "H2",
+          "text": "Legal & Support",
+          "fontSize": "16px",
+          "lineHeight": "22.4px",
+          "marginBottom": "16px"
+        },
+        {
+          "tag": "H2",
+          "text": "Health Made Clear",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "0px"
+        }
+      ],
+      "paragraphs": [
+        {
+          "text": "Free, easy-to-understand health informat",
+          "fontSize": "20px",
+          "lineHeight": "32px",
+          "color": "rgb(63, 72, 74)",
+          "width": 690,
+          "charsPerLine": 66
+        },
+        {
+          "text": "Arrive with questions and notes ready.",
+          "fontSize": "16px",
+          "lineHeight": "22.4px",
+          "color": "rgb(63, 72, 74)",
+          "width": 260,
+          "charsPerLine": 31
+        },
+        {
+          "text": "Short explanations in plain language.",
+          "fontSize": "16px",
+          "lineHeight": "22.4px",
+          "color": "rgb(63, 72, 74)",
+          "width": 260,
+          "charsPerLine": 31
+        },
+        {
+          "text": "Follow structured guides to master healt",
+          "fontSize": "18px",
+          "lineHeight": "29.7px",
+          "color": "rgb(63, 72, 74)",
+          "width": 546,
+          "charsPerLine": 58
+        },
+        {
+          "text": "Browse our library of clear lessons on c",
+          "fontSize": "18px",
+          "lineHeight": "29.7px",
+          "color": "rgb(63, 72, 74)",
+          "width": 546,
+          "charsPerLine": 58
+        }
+      ],
+      "hasHorizontalScroll": false,
+      "scrollWidth": 1440,
+      "clientWidth": 1440,
+      "trust": {
+        "hasMedicalDisclaimer": true,
+        "hasSources": true,
+        "hasLastUpdated": false
+      }
+    },
+    "mobile": {
+      "hasHorizontalScroll": false,
+      "scrollWidth": 390,
+      "clientWidth": 390,
+      "smallTargetsCount": 8,
+      "smallTargets": [
+        {
+          "tag": "A",
+          "text": "About",
+          "width": 47,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Paths",
+          "width": 44,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Tools",
+          "width": 41,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Glossary",
+          "width": 68,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Accessibility",
+          "width": 99,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Privacy",
+          "width": 56,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Terms of Service",
+          "width": 132,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Contact",
+          "width": 61,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        }
+      ]
+    }
+  },
+  {
+    "page": "02-learn-catalog",
+    "path": "/en/learn",
+    "desktop": {
+      "h1": "What would you like to learn today?",
+      "headings": [
+        {
+          "tag": "H1",
+          "text": "What would you like to learn today?",
+          "fontSize": "42px",
+          "lineHeight": "45.36px",
+          "marginBottom": "16px"
+        },
+        {
+          "tag": "H2",
+          "text": "Recommended for you",
+          "fontSize": "34px",
+          "lineHeight": "38.08px",
+          "marginBottom": "24px"
+        },
+        {
+          "tag": "H3",
+          "text": "Understanding Prescription Labels",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H3",
+          "text": "Asking About Your Medications",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H2",
+          "text": "Explore Library",
+          "fontSize": "34px",
+          "lineHeight": "38.08px",
+          "marginBottom": "32px"
+        },
+        {
+          "tag": "H3",
+          "text": "Medication Safety",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "24px"
+        },
+        {
+          "tag": "H3",
+          "text": "Managing Side Effects",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H3",
+          "text": "Pain Medications Safely",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H3",
+          "text": "Generic vs Brand-Name Drugs",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H3",
+          "text": "OTC Drug Interactions",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H3",
+          "text": "Antibiotic Stewardship",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H3",
+          "text": "Drug-Food Interactions",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H3",
+          "text": "Doctor Visits",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "24px"
+        },
+        {
+          "tag": "H3",
+          "text": "Before Your Doctor Visit",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H3",
+          "text": "During Your Doctor Visit",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H3",
+          "text": "After Your Doctor Visit",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H3",
+          "text": "Lab Results",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "24px"
+        },
+        {
+          "tag": "H3",
+          "text": "Blood Test Basics",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H3",
+          "text": "Understanding Common Lab Tests",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H3",
+          "text": "When to Worry About Lab Results",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H3",
+          "text": "Reading Your Lab Report",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H3",
+          "text": "Understanding a CBC",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H3",
+          "text": "Understanding A1c",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H3",
+          "text": "Preventive Care",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "24px"
+        },
+        {
+          "tag": "H3",
+          "text": "Why Preventive Care Matters",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H3",
+          "text": "Common Adult Screenings by Age",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H3",
+          "text": "Understanding Vaccines",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H3",
+          "text": "Cancer Screening Basics",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H3",
+          "text": "Smoking Cessation Medicines",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H3",
+          "text": "Chronic Conditions",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "24px"
+        },
+        {
+          "tag": "H3",
+          "text": "Living with Hypertension",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H3",
+          "text": "Understanding Type 2 Diabetes",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H3",
+          "text": "Asthma Basics",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H3",
+          "text": "Introduction to Heart Disease",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H3",
+          "text": "Understanding Allergies",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H3",
+          "text": "Sleep Apnea Basics",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H3",
+          "text": "Understanding Lipids",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H3",
+          "text": "How Statins Work",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H3",
+          "text": "Type 1 vs Type 2 Diabetes",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H3",
+          "text": "Thyroid Disorders Basics",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H3",
+          "text": "Insulin Resistance Explained",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H3",
+          "text": "COPD vs Asthma",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H3",
+          "text": "Understanding Oxygen Saturation",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H3",
+          "text": "Mental Health",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "24px"
+        },
+        {
+          "tag": "H3",
+          "text": "Understanding Depression",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H3",
+          "text": "Anxiety and Panic",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H3",
+          "text": "Sleep and Health",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H3",
+          "text": "Managing Stress",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H3",
+          "text": "How Antidepressants Work",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H3",
+          "text": "Insurance & Billing",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "24px"
+        },
+        {
+          "tag": "H3",
+          "text": "Understanding Your Health Insurance",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H3",
+          "text": "How to Read a Medical Bill",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H3",
+          "text": "Understanding Copay Assistance Programs",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H3",
+          "text": "Emergency & First Aid",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "24px"
+        },
+        {
+          "tag": "H3",
+          "text": "When to Call 911 vs Go to Urgent Care",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H3",
+          "text": "Building a Home First-Aid Kit",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H3",
+          "text": "When to Use Urgent Care",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H3",
+          "text": "Heart Attack vs Stroke Signs",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H3",
+          "text": "Nutrition & Diet",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "24px"
+        },
+        {
+          "tag": "H3",
+          "text": "Reading a Nutrition Label",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H3",
+          "text": "Building a Balanced Plate",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H3",
+          "text": "Hydration and Health",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H3",
+          "text": "Micronutrient Deficiencies",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H3",
+          "text": "Glycemic Index and Load",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H2",
+          "text": "Health Made Clear",
+          "fontSize": "34px",
+          "lineHeight": "38.08px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H2",
+          "text": "Platform",
+          "fontSize": "16px",
+          "lineHeight": "22.4px",
+          "marginBottom": "16px"
+        },
+        {
+          "tag": "H2",
+          "text": "Legal & Support",
+          "fontSize": "16px",
+          "lineHeight": "22.4px",
+          "marginBottom": "16px"
+        }
+      ],
+      "paragraphs": [
+        {
+          "text": "Clear, reliable guides to help you navig",
+          "fontSize": "18px",
+          "lineHeight": "29.7px",
+          "color": "rgb(63, 72, 74)",
+          "width": 830,
+          "charsPerLine": 89
+        },
+        {
+          "text": "Learn how to read and understand your me",
+          "fontSize": "18px",
+          "lineHeight": "29.7px",
+          "color": "rgb(63, 72, 74)",
+          "width": 626,
+          "charsPerLine": 67
+        },
+        {
+          "text": "Learn the right questions to ask your do",
+          "fontSize": "18px",
+          "lineHeight": "29.7px",
+          "color": "rgb(63, 72, 74)",
+          "width": 626,
+          "charsPerLine": 67
+        },
+        {
+          "text": "Learn what side effects are, which ones ",
+          "fontSize": "18px",
+          "lineHeight": "29.7px",
+          "color": "rgb(63, 72, 74)",
+          "width": 390,
+          "charsPerLine": 42
+        },
+        {
+          "text": "Understand acetaminophen and ibuprofen l",
+          "fontSize": "18px",
+          "lineHeight": "29.7px",
+          "color": "rgb(63, 72, 74)",
+          "width": 390,
+          "charsPerLine": 42
+        }
+      ],
+      "hasHorizontalScroll": false,
+      "scrollWidth": 1440,
+      "clientWidth": 1440,
+      "trust": {
+        "hasMedicalDisclaimer": true,
+        "hasSources": true,
+        "hasLastUpdated": false
+      }
+    },
+    "mobile": {
+      "hasHorizontalScroll": false,
+      "scrollWidth": 390,
+      "clientWidth": 390,
+      "smallTargetsCount": 8,
+      "smallTargets": [
+        {
+          "tag": "A",
+          "text": "About",
+          "width": 47,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Paths",
+          "width": 44,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Tools",
+          "width": 41,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Glossary",
+          "width": 68,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Accessibility",
+          "width": 99,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Privacy",
+          "width": 56,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Terms of Service",
+          "width": 132,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Contact",
+          "width": 61,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        }
+      ]
+    }
+  },
+  {
+    "page": "03-lesson-reading-nutrition-labels",
+    "path": "/en/learn/reading-nutrition-labels",
+    "desktop": {
+      "h1": "Reading a Nutrition Label",
+      "headings": [
+        {
+          "tag": "H1",
+          "text": "Reading a Nutrition Label",
+          "fontSize": "42px",
+          "lineHeight": "45.36px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H2",
+          "text": "The Updated Nutrition Facts Label",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H2",
+          "text": "Section 1: Serving Size",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H2",
+          "text": "Section 2: Calories",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H2",
+          "text": "Section 3: Nutrients to Limit",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H3",
+          "text": "Saturated Fat",
+          "fontSize": "17.9999px",
+          "lineHeight": "28px",
+          "marginBottom": "7.99997px"
+        },
+        {
+          "tag": "H3",
+          "text": "Trans Fat",
+          "fontSize": "17.9999px",
+          "lineHeight": "28px",
+          "marginBottom": "7.99997px"
+        },
+        {
+          "tag": "H3",
+          "text": "Sodium",
+          "fontSize": "17.9999px",
+          "lineHeight": "28px",
+          "marginBottom": "7.99997px"
+        },
+        {
+          "tag": "H3",
+          "text": "Added Sugars",
+          "fontSize": "17.9999px",
+          "lineHeight": "28px",
+          "marginBottom": "7.99997px"
+        },
+        {
+          "tag": "H2",
+          "text": "Section 4: Nutrients to Get More Of",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H3",
+          "text": "Dietary Fiber",
+          "fontSize": "17.9999px",
+          "lineHeight": "28px",
+          "marginBottom": "7.99997px"
+        },
+        {
+          "tag": "H3",
+          "text": "Vitamin D",
+          "fontSize": "17.9999px",
+          "lineHeight": "28px",
+          "marginBottom": "7.99997px"
+        },
+        {
+          "tag": "H3",
+          "text": "Calcium",
+          "fontSize": "17.9999px",
+          "lineHeight": "28px",
+          "marginBottom": "7.99997px"
+        },
+        {
+          "tag": "H3",
+          "text": "Potassium",
+          "fontSize": "17.9999px",
+          "lineHeight": "28px",
+          "marginBottom": "7.99997px"
+        },
+        {
+          "tag": "H3",
+          "text": "Iron",
+          "fontSize": "17.9999px",
+          "lineHeight": "28px",
+          "marginBottom": "7.99997px"
+        },
+        {
+          "tag": "H2",
+          "text": "Section 5: The % Daily Value (%DV)",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H2",
+          "text": "Section 6: Ingredient List",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H2",
+          "text": "Quick Comparison Example",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H2",
+          "text": "Common Label Tricks",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H3",
+          "text": "Take a short quiz to check your understanding of t",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H3",
+          "text": "Label reading quick guide",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H2",
+          "text": "Keep learning",
+          "fontSize": "34px",
+          "lineHeight": "38.08px",
+          "marginBottom": "24px"
+        },
+        {
+          "tag": "H3",
+          "text": "Building a Balanced Plate",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "12px"
+        },
+        {
+          "tag": "H3",
+          "text": "Hydration and Health",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "12px"
+        },
+        {
+          "tag": "H3",
+          "text": "Micronutrient Deficiencies",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "12px"
+        },
+        {
+          "tag": "H2",
+          "text": "Health Made Clear",
+          "fontSize": "34px",
+          "lineHeight": "38.08px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H2",
+          "text": "Platform",
+          "fontSize": "16px",
+          "lineHeight": "22.4px",
+          "marginBottom": "16px"
+        },
+        {
+          "tag": "H2",
+          "text": "Legal & Support",
+          "fontSize": "16px",
+          "lineHeight": "22.4px",
+          "marginBottom": "16px"
+        }
+      ],
+      "paragraphs": [
+        {
+          "text": "Learn how to read nutrition labels to ma",
+          "fontSize": "20px",
+          "lineHeight": "32px",
+          "color": "rgb(63, 72, 74)",
+          "width": 703,
+          "charsPerLine": 68
+        },
+        {
+          "text": "In 2020, the FDA updated the label to ma",
+          "fontSize": "14px",
+          "lineHeight": "24.0001px",
+          "color": "rgb(63, 72, 74)",
+          "width": 816,
+          "charsPerLine": 112
+        },
+        {
+          "text": "The most important number on the label. ",
+          "fontSize": "14px",
+          "lineHeight": "24.0001px",
+          "color": "rgb(63, 72, 74)",
+          "width": 816,
+          "charsPerLine": 112
+        },
+        {
+          "text": "Example: A bag of chips with 3 servings ",
+          "fontSize": "14px",
+          "lineHeight": "24.0001px",
+          "color": "rgb(63, 72, 74)",
+          "width": 816,
+          "charsPerLine": 112
+        },
+        {
+          "text": "This tells you how much a nutrient contr",
+          "fontSize": "14px",
+          "lineHeight": "24.0001px",
+          "color": "rgb(63, 72, 74)",
+          "width": 816,
+          "charsPerLine": 112
+        }
+      ],
+      "hasHorizontalScroll": false,
+      "scrollWidth": 1440,
+      "clientWidth": 1440,
+      "trust": {
+        "hasMedicalDisclaimer": true,
+        "hasSources": true,
+        "hasLastUpdated": true
+      }
+    },
+    "mobile": {
+      "hasHorizontalScroll": false,
+      "scrollWidth": 390,
+      "clientWidth": 390,
+      "smallTargetsCount": 16,
+      "smallTargets": [
+        {
+          "tag": "A",
+          "text": "Home",
+          "width": 44,
+          "height": 20,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "All topics",
+          "width": 76,
+          "height": 20,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "BUTTON",
+          "text": "cholesterol",
+          "width": 74,
+          "height": 26,
+          "classes": "no-print cursor-help border-b-2 border-dashed bord"
+        },
+        {
+          "tag": "BUTTON",
+          "text": "blood pressure",
+          "width": 99,
+          "height": 26,
+          "classes": "no-print cursor-help border-b-2 border-dashed bord"
+        },
+        {
+          "tag": "BUTTON",
+          "text": "diabetes",
+          "width": 57,
+          "height": 26,
+          "classes": "no-print cursor-help border-b-2 border-dashed bord"
+        },
+        {
+          "tag": "BUTTON",
+          "text": "cholesterol",
+          "width": 74,
+          "height": 26,
+          "classes": "no-print cursor-help border-b-2 border-dashed bord"
+        },
+        {
+          "tag": "BUTTON",
+          "text": "blood sugar",
+          "width": 78,
+          "height": 26,
+          "classes": "no-print cursor-help border-b-2 border-dashed bord"
+        },
+        {
+          "tag": "BUTTON",
+          "text": "blood pressure",
+          "width": 99,
+          "height": 26,
+          "classes": "no-print cursor-help border-b-2 border-dashed bord"
+        },
+        {
+          "tag": "A",
+          "text": "About",
+          "width": 47,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Paths",
+          "width": 44,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Tools",
+          "width": 41,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Glossary",
+          "width": 68,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Accessibility",
+          "width": 99,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Privacy",
+          "width": 56,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Terms of Service",
+          "width": 132,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        }
+      ]
+    }
+  },
+  {
+    "page": "04-lesson-understanding-prescription-labels",
+    "path": "/en/learn/understanding-prescription-labels",
+    "desktop": {
+      "h1": "Understanding Prescription Labels",
+      "headings": [
+        {
+          "tag": "H1",
+          "text": "Understanding Prescription Labels",
+          "fontSize": "42px",
+          "lineHeight": "45.36px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H2",
+          "text": "What is a Prescription Label?",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H2",
+          "text": "Key Parts of a Label",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H2",
+          "text": "Understanding Dosage Instructions",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H2",
+          "text": "Special Warnings",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H2",
+          "text": "Questions to Ask Your Pharmacist",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H2",
+          "text": "Refills and Pharmacy Information",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H2",
+          "text": "Storing Medicine at Home",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H3",
+          "text": "Take a short quiz to check your understanding of t",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H3",
+          "text": "Still confused?",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H2",
+          "text": "Keep learning",
+          "fontSize": "34px",
+          "lineHeight": "38.08px",
+          "marginBottom": "24px"
+        },
+        {
+          "tag": "H3",
+          "text": "Asking About Your Medications",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "12px"
+        },
+        {
+          "tag": "H3",
+          "text": "Managing Side Effects",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "12px"
+        },
+        {
+          "tag": "H3",
+          "text": "Pain Medications Safely",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "12px"
+        },
+        {
+          "tag": "H2",
+          "text": "Health Made Clear",
+          "fontSize": "34px",
+          "lineHeight": "38.08px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H2",
+          "text": "Platform",
+          "fontSize": "16px",
+          "lineHeight": "22.4px",
+          "marginBottom": "16px"
+        },
+        {
+          "tag": "H2",
+          "text": "Legal & Support",
+          "fontSize": "16px",
+          "lineHeight": "22.4px",
+          "marginBottom": "16px"
+        }
+      ],
+      "paragraphs": [
+        {
+          "text": "Learn how to read and understand your me",
+          "fontSize": "20px",
+          "lineHeight": "32px",
+          "color": "rgb(63, 72, 74)",
+          "width": 703,
+          "charsPerLine": 68
+        },
+        {
+          "text": "A prescriptionprescription label is the ",
+          "fontSize": "14px",
+          "lineHeight": "24.0001px",
+          "color": "rgb(63, 72, 74)",
+          "width": 816,
+          "charsPerLine": 112
+        },
+        {
+          "text": "Every prescriptionprescription label has",
+          "fontSize": "14px",
+          "lineHeight": "24.0001px",
+          "color": "rgb(63, 72, 74)",
+          "width": 816,
+          "charsPerLine": 112
+        },
+        {
+          "text": "DosageDosage instructions tell you exact",
+          "fontSize": "14px",
+          "lineHeight": "24.0001px",
+          "color": "rgb(63, 72, 74)",
+          "width": 816,
+          "charsPerLine": 112
+        },
+        {
+          "text": "PrescriptionPrescription labels may incl",
+          "fontSize": "14px",
+          "lineHeight": "24.0001px",
+          "color": "rgb(63, 72, 74)",
+          "width": 816,
+          "charsPerLine": 112
+        }
+      ],
+      "hasHorizontalScroll": false,
+      "scrollWidth": 1440,
+      "clientWidth": 1440,
+      "trust": {
+        "hasMedicalDisclaimer": true,
+        "hasSources": true,
+        "hasLastUpdated": true
+      }
+    },
+    "mobile": {
+      "hasHorizontalScroll": false,
+      "scrollWidth": 390,
+      "clientWidth": 390,
+      "smallTargetsCount": 16,
+      "smallTargets": [
+        {
+          "tag": "A",
+          "text": "Home",
+          "width": 44,
+          "height": 20,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "All topics",
+          "width": 76,
+          "height": 20,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "BUTTON",
+          "text": "prescription",
+          "width": 80,
+          "height": 26,
+          "classes": "no-print cursor-help border-b-2 border-dashed bord"
+        },
+        {
+          "tag": "BUTTON",
+          "text": "dosage",
+          "width": 48,
+          "height": 26,
+          "classes": "no-print cursor-help border-b-2 border-dashed bord"
+        },
+        {
+          "tag": "BUTTON",
+          "text": "prescription",
+          "width": 80,
+          "height": 26,
+          "classes": "no-print cursor-help border-b-2 border-dashed bord"
+        },
+        {
+          "tag": "BUTTON",
+          "text": "Dosage",
+          "width": 49,
+          "height": 26,
+          "classes": "no-print cursor-help border-b-2 border-dashed bord"
+        },
+        {
+          "tag": "BUTTON",
+          "text": "Dosage",
+          "width": 49,
+          "height": 26,
+          "classes": "no-print cursor-help border-b-2 border-dashed bord"
+        },
+        {
+          "tag": "BUTTON",
+          "text": "Prescription",
+          "width": 81,
+          "height": 26,
+          "classes": "no-print cursor-help border-b-2 border-dashed bord"
+        },
+        {
+          "tag": "A",
+          "text": "About",
+          "width": 47,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Paths",
+          "width": 44,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Tools",
+          "width": 41,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Glossary",
+          "width": 68,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Accessibility",
+          "width": 99,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Privacy",
+          "width": 56,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Terms of Service",
+          "width": 132,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        }
+      ]
+    }
+  },
+  {
+    "page": "05-learning-paths-catalog",
+    "path": "/en/learning-paths",
+    "desktop": {
+      "h1": "Learning Paths",
+      "headings": [
+        {
+          "tag": "H1",
+          "text": "Learning Paths",
+          "fontSize": "42px",
+          "lineHeight": "45.36px",
+          "marginBottom": "16px"
+        },
+        {
+          "tag": "H2",
+          "text": "Safer Medicine Use",
+          "fontSize": "34px",
+          "lineHeight": "38.08px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H3",
+          "text": "Medications can improve your health, but only if t",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "12px"
+        },
+        {
+          "tag": "H2",
+          "text": "Preparing for Doctor Visits",
+          "fontSize": "34px",
+          "lineHeight": "38.08px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H3",
+          "text": "Doctor visits can feel rushed and overwhelming. Th",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "12px"
+        },
+        {
+          "tag": "H2",
+          "text": "Understanding Lab Results",
+          "fontSize": "34px",
+          "lineHeight": "38.08px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H3",
+          "text": "Lab results are full of numbers and abbreviations ",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "12px"
+        },
+        {
+          "tag": "H2",
+          "text": "Managing a New Diagnosis",
+          "fontSize": "34px",
+          "lineHeight": "38.08px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H3",
+          "text": "Receiving a new diagnosis can feel overwhelming. T",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "12px"
+        },
+        {
+          "tag": "H2",
+          "text": "Staying Healthy: Preventive Care",
+          "fontSize": "34px",
+          "lineHeight": "38.08px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H3",
+          "text": "Preventive care is one of the most powerful tools ",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "12px"
+        },
+        {
+          "tag": "H2",
+          "text": "Mental Wellness Basics",
+          "fontSize": "34px",
+          "lineHeight": "38.08px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H3",
+          "text": "Mental health is just as important as physical hea",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "12px"
+        },
+        {
+          "tag": "H2",
+          "text": "Navigating Healthcare",
+          "fontSize": "34px",
+          "lineHeight": "38.08px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H3",
+          "text": "The healthcare system can feel overwhelming. This ",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "12px"
+        },
+        {
+          "tag": "H2",
+          "text": "Health Made Clear",
+          "fontSize": "34px",
+          "lineHeight": "38.08px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H2",
+          "text": "Platform",
+          "fontSize": "16px",
+          "lineHeight": "22.4px",
+          "marginBottom": "16px"
+        },
+        {
+          "tag": "H2",
+          "text": "Legal & Support",
+          "fontSize": "16px",
+          "lineHeight": "22.4px",
+          "marginBottom": "16px"
+        }
+      ],
+      "paragraphs": [
+        {
+          "text": "Clear, reliable guides to help you navig",
+          "fontSize": "18px",
+          "lineHeight": "29.7px",
+          "color": "rgb(63, 72, 74)",
+          "width": 830,
+          "charsPerLine": 89
+        },
+        {
+          "text": "Learn how to safely take and manage your",
+          "fontSize": "18px",
+          "lineHeight": "29.7px",
+          "color": "rgb(63, 72, 74)",
+          "width": 768,
+          "charsPerLine": 82
+        },
+        {
+          "text": "Always talk to your doctor or pharmacist",
+          "fontSize": "14px",
+          "lineHeight": "24.0001px",
+          "color": "rgb(63, 72, 74)",
+          "width": 601,
+          "charsPerLine": 83
+        },
+        {
+          "text": "Get ready for your appointments by knowi",
+          "fontSize": "18px",
+          "lineHeight": "29.7px",
+          "color": "rgb(63, 72, 74)",
+          "width": 768,
+          "charsPerLine": 82
+        },
+        {
+          "text": "You are the expert on your own body. A g",
+          "fontSize": "14px",
+          "lineHeight": "24.0001px",
+          "color": "rgb(63, 72, 74)",
+          "width": 601,
+          "charsPerLine": 83
+        }
+      ],
+      "hasHorizontalScroll": false,
+      "scrollWidth": 1440,
+      "clientWidth": 1440,
+      "trust": {
+        "hasMedicalDisclaimer": true,
+        "hasSources": false,
+        "hasLastUpdated": true
+      }
+    },
+    "mobile": {
+      "hasHorizontalScroll": false,
+      "scrollWidth": 390,
+      "clientWidth": 390,
+      "smallTargetsCount": 10,
+      "smallTargets": [
+        {
+          "tag": "BUTTON",
+          "text": "diagnosis",
+          "width": 64,
+          "height": 26,
+          "classes": "no-print cursor-help border-b-2 border-dashed bord"
+        },
+        {
+          "tag": "BUTTON",
+          "text": "chronic",
+          "width": 48,
+          "height": 26,
+          "classes": "no-print cursor-help border-b-2 border-dashed bord"
+        },
+        {
+          "tag": "A",
+          "text": "About",
+          "width": 47,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Paths",
+          "width": 44,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Tools",
+          "width": 41,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Glossary",
+          "width": 68,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Accessibility",
+          "width": 99,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Privacy",
+          "width": 56,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Terms of Service",
+          "width": 132,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Contact",
+          "width": 61,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        }
+      ]
+    }
+  },
+  {
+    "page": "06-learning-path-doctor-visit-prep",
+    "path": "/en/learning-paths/doctor-visit-prep",
+    "desktop": {
+      "h1": "Preparing for Doctor Visits",
+      "headings": [
+        {
+          "tag": "H1",
+          "text": "Preparing for Doctor Visits",
+          "fontSize": "42px",
+          "lineHeight": "45.36px",
+          "marginBottom": "16px"
+        },
+        {
+          "tag": "H2",
+          "text": "Doctor visits can feel rushed and overwhelming. Th",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "12px"
+        },
+        {
+          "tag": "H3",
+          "text": "path progress",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H2",
+          "text": "Health Made Clear",
+          "fontSize": "34px",
+          "lineHeight": "38.08px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H2",
+          "text": "Platform",
+          "fontSize": "16px",
+          "lineHeight": "22.4px",
+          "marginBottom": "16px"
+        },
+        {
+          "tag": "H2",
+          "text": "Legal & Support",
+          "fontSize": "16px",
+          "lineHeight": "22.4px",
+          "marginBottom": "16px"
+        }
+      ],
+      "paragraphs": [
+        {
+          "text": "Get ready for your appointments by knowi",
+          "fontSize": "18px",
+          "lineHeight": "29.7px",
+          "color": "rgb(63, 72, 74)",
+          "width": 830,
+          "charsPerLine": 89
+        },
+        {
+          "text": "This content is for educational purposes",
+          "fontSize": "18px",
+          "lineHeight": "29.7px",
+          "color": "rgb(63, 72, 74)",
+          "width": 1392,
+          "charsPerLine": 149
+        },
+        {
+          "text": "Health information, made simple.",
+          "fontSize": "18px",
+          "lineHeight": "29.7px",
+          "color": "rgb(63, 72, 74)",
+          "width": 563,
+          "charsPerLine": 60
+        }
+      ],
+      "hasHorizontalScroll": false,
+      "scrollWidth": 1440,
+      "clientWidth": 1440,
+      "trust": {
+        "hasMedicalDisclaimer": true,
+        "hasSources": false,
+        "hasLastUpdated": false
+      }
+    },
+    "mobile": {
+      "hasHorizontalScroll": false,
+      "scrollWidth": 390,
+      "clientWidth": 390,
+      "smallTargetsCount": 10,
+      "smallTargets": [
+        {
+          "tag": "A",
+          "text": "Home",
+          "width": 44,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Learning Paths",
+          "width": 117,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "About",
+          "width": 47,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Paths",
+          "width": 44,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Tools",
+          "width": 41,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Glossary",
+          "width": 68,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Accessibility",
+          "width": 99,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Privacy",
+          "width": 56,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Terms of Service",
+          "width": 132,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Contact",
+          "width": 61,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        }
+      ]
+    }
+  },
+  {
+    "page": "07-articles-catalog",
+    "path": "/en/articles",
+    "desktop": {
+      "h1": "Health Articles",
+      "headings": [
+        {
+          "tag": "H1",
+          "text": "Health Articles",
+          "fontSize": "42px",
+          "lineHeight": "45.36px",
+          "marginBottom": "16px"
+        },
+        {
+          "tag": "H3",
+          "text": "How to Choose a Primary Care Doctor",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H3",
+          "text": "What Happens at an Annual Physical",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H3",
+          "text": "Understanding Your Pharmacy Benefits",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H3",
+          "text": "Health Literacy: Asking Better Questions",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H3",
+          "text": "When Online Health Information Is Reliable",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H3",
+          "text": "Understanding Your Explanation of Benefits (EOB)",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H3",
+          "text": "Finding In-Network Providers",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H3",
+          "text": "Preparing for a Blood Draw",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H3",
+          "text": "When and How to Get a Second Opinion",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H3",
+          "text": "Telehealth Visit Tips",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H3",
+          "text": "Medication Adherence Strategies",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H3",
+          "text": "When to Call Your Doctor vs Urgent Care vs 911",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H3",
+          "text": "Patient Portal Basics",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H3",
+          "text": "Health Literacy for Caregivers",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H3",
+          "text": "Understanding Prior Authorization",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H2",
+          "text": "Health Made Clear",
+          "fontSize": "34px",
+          "lineHeight": "38.08px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H2",
+          "text": "Platform",
+          "fontSize": "16px",
+          "lineHeight": "22.4px",
+          "marginBottom": "16px"
+        },
+        {
+          "tag": "H2",
+          "text": "Legal & Support",
+          "fontSize": "16px",
+          "lineHeight": "22.4px",
+          "marginBottom": "16px"
+        }
+      ],
+      "paragraphs": [
+        {
+          "text": "Short reads on navigating healthcare, pr",
+          "fontSize": "18px",
+          "lineHeight": "29.7px",
+          "color": "rgb(63, 72, 74)",
+          "width": 830,
+          "charsPerLine": 89
+        },
+        {
+          "text": "Practical steps to find a clinician who ",
+          "fontSize": "18px",
+          "lineHeight": "29.7px",
+          "color": "rgb(63, 72, 74)",
+          "width": 393,
+          "charsPerLine": 42
+        },
+        {
+          "text": "What to expect during a routine wellness",
+          "fontSize": "18px",
+          "lineHeight": "29.7px",
+          "color": "rgb(63, 72, 74)",
+          "width": 393,
+          "charsPerLine": 42
+        },
+        {
+          "text": "Formularies, tiers, prior authorization,",
+          "fontSize": "18px",
+          "lineHeight": "29.7px",
+          "color": "rgb(63, 72, 74)",
+          "width": 393,
+          "charsPerLine": 42
+        },
+        {
+          "text": "Simple phrases that help you understand ",
+          "fontSize": "18px",
+          "lineHeight": "29.7px",
+          "color": "rgb(63, 72, 74)",
+          "width": 393,
+          "charsPerLine": 42
+        }
+      ],
+      "hasHorizontalScroll": false,
+      "scrollWidth": 1440,
+      "clientWidth": 1440,
+      "trust": {
+        "hasMedicalDisclaimer": true,
+        "hasSources": true,
+        "hasLastUpdated": false
+      }
+    },
+    "mobile": {
+      "hasHorizontalScroll": false,
+      "scrollWidth": 390,
+      "clientWidth": 390,
+      "smallTargetsCount": 8,
+      "smallTargets": [
+        {
+          "tag": "A",
+          "text": "About",
+          "width": 47,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Paths",
+          "width": 44,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Tools",
+          "width": 41,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Glossary",
+          "width": 68,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Accessibility",
+          "width": 99,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Privacy",
+          "width": 56,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Terms of Service",
+          "width": 132,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Contact",
+          "width": 61,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        }
+      ]
+    }
+  },
+  {
+    "page": "08-article-understanding-your-eob",
+    "path": "/en/articles/understanding-your-eob",
+    "desktop": {
+      "h1": "Understanding Your Explanation of Benefits (EOB)",
+      "headings": [
+        {
+          "tag": "H1",
+          "text": "Understanding Your Explanation of Benefits (EOB)",
+          "fontSize": "42px",
+          "lineHeight": "45.36px",
+          "marginBottom": "16px"
+        },
+        {
+          "tag": "H2",
+          "text": "What an EOB Is",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "16px"
+        },
+        {
+          "tag": "H2",
+          "text": "Key Lines on an EOB",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "16px"
+        },
+        {
+          "tag": "H2",
+          "text": "Matching EOB to Bills",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "16px"
+        },
+        {
+          "tag": "H2",
+          "text": "Common Confusion",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "16px"
+        },
+        {
+          "tag": "H2",
+          "text": "When to Call Your Insurer",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "16px"
+        },
+        {
+          "tag": "H2",
+          "text": "Health Made Clear",
+          "fontSize": "34px",
+          "lineHeight": "38.08px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H2",
+          "text": "Platform",
+          "fontSize": "16px",
+          "lineHeight": "22.4px",
+          "marginBottom": "16px"
+        },
+        {
+          "tag": "H2",
+          "text": "Legal & Support",
+          "fontSize": "16px",
+          "lineHeight": "22.4px",
+          "marginBottom": "16px"
+        }
+      ],
+      "paragraphs": [
+        {
+          "text": "How to read an EOB and match it to provi",
+          "fontSize": "18px",
+          "lineHeight": "29.7px",
+          "color": "rgb(63, 72, 74)",
+          "width": 830,
+          "charsPerLine": 89
+        },
+        {
+          "text": "An Explanation of Benefits (EOB) is not ",
+          "fontSize": "14px",
+          "lineHeight": "24.0001px",
+          "color": "rgb(63, 72, 74)",
+          "width": 768,
+          "charsPerLine": 105
+        },
+        {
+          "text": "Compare date of service, provider name, ",
+          "fontSize": "14px",
+          "lineHeight": "24.0001px",
+          "color": "rgb(63, 72, 74)",
+          "width": 768,
+          "charsPerLine": 105
+        },
+        {
+          "text": "Ask if a claim was denied, applied to th",
+          "fontSize": "14px",
+          "lineHeight": "24.0001px",
+          "color": "rgb(63, 72, 74)",
+          "width": 768,
+          "charsPerLine": 105
+        },
+        {
+          "text": "This content is for educational purposes",
+          "fontSize": "18px",
+          "lineHeight": "29.7px",
+          "color": "rgb(63, 72, 74)",
+          "width": 1392,
+          "charsPerLine": 149
+        }
+      ],
+      "hasHorizontalScroll": false,
+      "scrollWidth": 1440,
+      "clientWidth": 1440,
+      "trust": {
+        "hasMedicalDisclaimer": true,
+        "hasSources": true,
+        "hasLastUpdated": true
+      }
+    },
+    "mobile": {
+      "hasHorizontalScroll": false,
+      "scrollWidth": 390,
+      "clientWidth": 390,
+      "smallTargetsCount": 10,
+      "smallTargets": [
+        {
+          "tag": "A",
+          "text": "Home",
+          "width": 44,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Articles",
+          "width": 62,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "About",
+          "width": 47,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Paths",
+          "width": 44,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Tools",
+          "width": 41,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Glossary",
+          "width": 68,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Accessibility",
+          "width": 99,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Privacy",
+          "width": 56,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Terms of Service",
+          "width": 132,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Contact",
+          "width": 61,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        }
+      ]
+    }
+  },
+  {
+    "page": "09-glossary",
+    "path": "/en/glossary",
+    "desktop": {
+      "h1": "Health Glossary",
+      "headings": [
+        {
+          "tag": "H1",
+          "text": "Health Glossary",
+          "fontSize": "42px",
+          "lineHeight": "45.36px",
+          "marginBottom": "16px"
+        },
+        {
+          "tag": "H2",
+          "text": "A",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "16px"
+        },
+        {
+          "tag": "H3",
+          "text": "Acute",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H2",
+          "text": "What It Is",
+          "fontSize": "20px",
+          "lineHeight": "28px",
+          "marginBottom": "16px"
+        },
+        {
+          "tag": "H2",
+          "text": "Why It Matters",
+          "fontSize": "20px",
+          "lineHeight": "28px",
+          "marginBottom": "16px"
+        },
+        {
+          "tag": "H2",
+          "text": "Talk With Your Care Team",
+          "fontSize": "20px",
+          "lineHeight": "28px",
+          "marginBottom": "16px"
+        },
+        {
+          "tag": "H2",
+          "text": "B",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "16px"
+        },
+        {
+          "tag": "H3",
+          "text": "Blood Pressure",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H2",
+          "text": "What It Is",
+          "fontSize": "20px",
+          "lineHeight": "28px",
+          "marginBottom": "16px"
+        },
+        {
+          "tag": "H2",
+          "text": "Why It Matters",
+          "fontSize": "20px",
+          "lineHeight": "28px",
+          "marginBottom": "16px"
+        },
+        {
+          "tag": "H2",
+          "text": "Talk With Your Care Team",
+          "fontSize": "20px",
+          "lineHeight": "28px",
+          "marginBottom": "16px"
+        },
+        {
+          "tag": "H3",
+          "text": "Blood Sugar",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H2",
+          "text": "What It Is",
+          "fontSize": "20px",
+          "lineHeight": "28px",
+          "marginBottom": "16px"
+        },
+        {
+          "tag": "H2",
+          "text": "Why It Matters",
+          "fontSize": "20px",
+          "lineHeight": "28px",
+          "marginBottom": "16px"
+        },
+        {
+          "tag": "H2",
+          "text": "Talk With Your Care Team",
+          "fontSize": "20px",
+          "lineHeight": "28px",
+          "marginBottom": "16px"
+        },
+        {
+          "tag": "H3",
+          "text": "Biopsy",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H2",
+          "text": "What It Is",
+          "fontSize": "20px",
+          "lineHeight": "28px",
+          "marginBottom": "16px"
+        },
+        {
+          "tag": "H2",
+          "text": "Why It Matters",
+          "fontSize": "20px",
+          "lineHeight": "28px",
+          "marginBottom": "16px"
+        },
+        {
+          "tag": "H2",
+          "text": "Talk With Your Care Team",
+          "fontSize": "20px",
+          "lineHeight": "28px",
+          "marginBottom": "16px"
+        },
+        {
+          "tag": "H2",
+          "text": "C",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "16px"
+        },
+        {
+          "tag": "H3",
+          "text": "Cholesterol",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H2",
+          "text": "What It Is",
+          "fontSize": "20px",
+          "lineHeight": "28px",
+          "marginBottom": "16px"
+        },
+        {
+          "tag": "H2",
+          "text": "Why It Matters",
+          "fontSize": "20px",
+          "lineHeight": "28px",
+          "marginBottom": "16px"
+        },
+        {
+          "tag": "H2",
+          "text": "Talk With Your Care Team",
+          "fontSize": "20px",
+          "lineHeight": "28px",
+          "marginBottom": "16px"
+        },
+        {
+          "tag": "H3",
+          "text": "Chronic",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H2",
+          "text": "What It Is",
+          "fontSize": "20px",
+          "lineHeight": "28px",
+          "marginBottom": "16px"
+        },
+        {
+          "tag": "H2",
+          "text": "Why It Matters",
+          "fontSize": "20px",
+          "lineHeight": "28px",
+          "marginBottom": "16px"
+        },
+        {
+          "tag": "H2",
+          "text": "Talk With Your Care Team",
+          "fontSize": "20px",
+          "lineHeight": "28px",
+          "marginBottom": "16px"
+        },
+        {
+          "tag": "H3",
+          "text": "CT Scan",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H2",
+          "text": "What It Is",
+          "fontSize": "20px",
+          "lineHeight": "28px",
+          "marginBottom": "16px"
+        },
+        {
+          "tag": "H2",
+          "text": "Why It Matters",
+          "fontSize": "20px",
+          "lineHeight": "28px",
+          "marginBottom": "16px"
+        },
+        {
+          "tag": "H2",
+          "text": "Talk With Your Care Team",
+          "fontSize": "20px",
+          "lineHeight": "28px",
+          "marginBottom": "16px"
+        },
+        {
+          "tag": "H3",
+          "text": "Clinical Trial",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H2",
+          "text": "What It Is",
+          "fontSize": "20px",
+          "lineHeight": "28px",
+          "marginBottom": "16px"
+        },
+        {
+          "tag": "H2",
+          "text": "Why It Matters",
+          "fontSize": "20px",
+          "lineHeight": "28px",
+          "marginBottom": "16px"
+        },
+        {
+          "tag": "H2",
+          "text": "Talk With Your Care Team",
+          "fontSize": "20px",
+          "lineHeight": "28px",
+          "marginBottom": "16px"
+        },
+        {
+          "tag": "H2",
+          "text": "D",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "16px"
+        },
+        {
+          "tag": "H3",
+          "text": "Diabetes",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H2",
+          "text": "What It Is",
+          "fontSize": "20px",
+          "lineHeight": "28px",
+          "marginBottom": "16px"
+        },
+        {
+          "tag": "H2",
+          "text": "Why It Matters",
+          "fontSize": "20px",
+          "lineHeight": "28px",
+          "marginBottom": "16px"
+        },
+        {
+          "tag": "H2",
+          "text": "Talk With Your Care Team",
+          "fontSize": "20px",
+          "lineHeight": "28px",
+          "marginBottom": "16px"
+        },
+        {
+          "tag": "H3",
+          "text": "Diagnosis",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H2",
+          "text": "What It Is",
+          "fontSize": "20px",
+          "lineHeight": "28px",
+          "marginBottom": "16px"
+        },
+        {
+          "tag": "H2",
+          "text": "Why It Matters",
+          "fontSize": "20px",
+          "lineHeight": "28px",
+          "marginBottom": "16px"
+        },
+        {
+          "tag": "H2",
+          "text": "Talk With Your Care Team",
+          "fontSize": "20px",
+          "lineHeight": "28px",
+          "marginBottom": "16px"
+        },
+        {
+          "tag": "H3",
+          "text": "Dosage",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H2",
+          "text": "What It Is",
+          "fontSize": "20px",
+          "lineHeight": "28px",
+          "marginBottom": "16px"
+        },
+        {
+          "tag": "H2",
+          "text": "Why It Matters",
+          "fontSize": "20px",
+          "lineHeight": "28px",
+          "marginBottom": "16px"
+        },
+        {
+          "tag": "H2",
+          "text": "Talk With Your Care Team",
+          "fontSize": "20px",
+          "lineHeight": "28px",
+          "marginBottom": "16px"
+        },
+        {
+          "tag": "H2",
+          "text": "G",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "16px"
+        },
+        {
+          "tag": "H3",
+          "text": "Glucose",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H2",
+          "text": "What It Is",
+          "fontSize": "20px",
+          "lineHeight": "28px",
+          "marginBottom": "16px"
+        },
+        {
+          "tag": "H2",
+          "text": "Why It Matters",
+          "fontSize": "20px",
+          "lineHeight": "28px",
+          "marginBottom": "16px"
+        },
+        {
+          "tag": "H2",
+          "text": "Talk With Your Care Team",
+          "fontSize": "20px",
+          "lineHeight": "28px",
+          "marginBottom": "16px"
+        },
+        {
+          "tag": "H3",
+          "text": "Generic Drug",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H2",
+          "text": "What It Is",
+          "fontSize": "20px",
+          "lineHeight": "28px",
+          "marginBottom": "16px"
+        },
+        {
+          "tag": "H2",
+          "text": "Why It Matters",
+          "fontSize": "20px",
+          "lineHeight": "28px",
+          "marginBottom": "16px"
+        },
+        {
+          "tag": "H2",
+          "text": "Talk With Your Care Team",
+          "fontSize": "20px",
+          "lineHeight": "28px",
+          "marginBottom": "16px"
+        },
+        {
+          "tag": "H2",
+          "text": "H",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "16px"
+        },
+        {
+          "tag": "H3",
+          "text": "Hypertension",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H2",
+          "text": "What It Is",
+          "fontSize": "20px",
+          "lineHeight": "28px",
+          "marginBottom": "16px"
+        },
+        {
+          "tag": "H2",
+          "text": "Why It Matters",
+          "fontSize": "20px",
+          "lineHeight": "28px",
+          "marginBottom": "16px"
+        },
+        {
+          "tag": "H2",
+          "text": "Talk With Your Care Team",
+          "fontSize": "20px",
+          "lineHeight": "28px",
+          "marginBottom": "16px"
+        },
+        {
+          "tag": "H3",
+          "text": "Hypotension",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H2",
+          "text": "What It Is",
+          "fontSize": "20px",
+          "lineHeight": "28px",
+          "marginBottom": "16px"
+        },
+        {
+          "tag": "H2",
+          "text": "Why It Matters",
+          "fontSize": "20px",
+          "lineHeight": "28px",
+          "marginBottom": "16px"
+        },
+        {
+          "tag": "H2",
+          "text": "Talk With Your Care Team",
+          "fontSize": "20px",
+          "lineHeight": "28px",
+          "marginBottom": "16px"
+        },
+        {
+          "tag": "H3",
+          "text": "HDL Cholesterol",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H2",
+          "text": "What It Is",
+          "fontSize": "20px",
+          "lineHeight": "28px",
+          "marginBottom": "16px"
+        },
+        {
+          "tag": "H2",
+          "text": "Why It Matters",
+          "fontSize": "20px",
+          "lineHeight": "28px",
+          "marginBottom": "16px"
+        },
+        {
+          "tag": "H2",
+          "text": "Talk With Your Care Team",
+          "fontSize": "20px",
+          "lineHeight": "28px",
+          "marginBottom": "16px"
+        },
+        {
+          "tag": "H2",
+          "text": "I",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "16px"
+        },
+        {
+          "tag": "H3",
+          "text": "Insulin",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H2",
+          "text": "What It Is",
+          "fontSize": "20px",
+          "lineHeight": "28px",
+          "marginBottom": "16px"
+        },
+        {
+          "tag": "H2",
+          "text": "Why It Matters",
+          "fontSize": "20px",
+          "lineHeight": "28px",
+          "marginBottom": "16px"
+        },
+        {
+          "tag": "H2",
+          "text": "Talk With Your Care Team",
+          "fontSize": "20px",
+          "lineHeight": "28px",
+          "marginBottom": "16px"
+        },
+        {
+          "tag": "H3",
+          "text": "Inflammation",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H2",
+          "text": "What It Is",
+          "fontSize": "20px",
+          "lineHeight": "28px",
+          "marginBottom": "16px"
+        },
+        {
+          "tag": "H2",
+          "text": "Why It Matters",
+          "fontSize": "20px",
+          "lineHeight": "28px",
+          "marginBottom": "16px"
+        },
+        {
+          "tag": "H2",
+          "text": "Talk With Your Care Team",
+          "fontSize": "20px",
+          "lineHeight": "28px",
+          "marginBottom": "16px"
+        },
+        {
+          "tag": "H3",
+          "text": "Immune System",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H2",
+          "text": "What It Is",
+          "fontSize": "20px",
+          "lineHeight": "28px",
+          "marginBottom": "16px"
+        },
+        {
+          "tag": "H2",
+          "text": "Why It Matters",
+          "fontSize": "20px",
+          "lineHeight": "28px",
+          "marginBottom": "16px"
+        },
+        {
+          "tag": "H2",
+          "text": "Talk With Your Care Team",
+          "fontSize": "20px",
+          "lineHeight": "28px",
+          "marginBottom": "16px"
+        },
+        {
+          "tag": "H2",
+          "text": "L",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "16px"
+        },
+        {
+          "tag": "H3",
+          "text": "LDL Cholesterol",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H2",
+          "text": "What It Is",
+          "fontSize": "20px",
+          "lineHeight": "28px",
+          "marginBottom": "16px"
+        },
+        {
+          "tag": "H2",
+          "text": "Why It Matters",
+          "fontSize": "20px",
+          "lineHeight": "28px",
+          "marginBottom": "16px"
+        },
+        {
+          "tag": "H2",
+          "text": "Talk With Your Care Team",
+          "fontSize": "20px",
+          "lineHeight": "28px",
+          "marginBottom": "16px"
+        },
+        {
+          "tag": "H2",
+          "text": "M",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "16px"
+        },
+        {
+          "tag": "H3",
+          "text": "MRI",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H2",
+          "text": "What It Is",
+          "fontSize": "20px",
+          "lineHeight": "28px",
+          "marginBottom": "16px"
+        },
+        {
+          "tag": "H2",
+          "text": "Why It Matters",
+          "fontSize": "20px",
+          "lineHeight": "28px",
+          "marginBottom": "16px"
+        },
+        {
+          "tag": "H2",
+          "text": "Talk With Your Care Team",
+          "fontSize": "20px",
+          "lineHeight": "28px",
+          "marginBottom": "16px"
+        },
+        {
+          "tag": "H3",
+          "text": "Metabolism",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H2",
+          "text": "What It Is",
+          "fontSize": "20px",
+          "lineHeight": "28px",
+          "marginBottom": "16px"
+        },
+        {
+          "tag": "H2",
+          "text": "Why It Matters",
+          "fontSize": "20px",
+          "lineHeight": "28px",
+          "marginBottom": "16px"
+        },
+        {
+          "tag": "H2",
+          "text": "Talk With Your Care Team",
+          "fontSize": "20px",
+          "lineHeight": "28px",
+          "marginBottom": "16px"
+        },
+        {
+          "tag": "H2",
+          "text": "O",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "16px"
+        },
+        {
+          "tag": "H3",
+          "text": "Over-the-Counter (OTC)",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H2",
+          "text": "What It Is",
+          "fontSize": "20px",
+          "lineHeight": "28px",
+          "marginBottom": "16px"
+        },
+        {
+          "tag": "H2",
+          "text": "Why It Matters",
+          "fontSize": "20px",
+          "lineHeight": "28px",
+          "marginBottom": "16px"
+        },
+        {
+          "tag": "H2",
+          "text": "Talk With Your Care Team",
+          "fontSize": "20px",
+          "lineHeight": "28px",
+          "marginBottom": "16px"
+        },
+        {
+          "tag": "H2",
+          "text": "P",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "16px"
+        },
+        {
+          "tag": "H3",
+          "text": "Prognosis",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H2",
+          "text": "What It Is",
+          "fontSize": "20px",
+          "lineHeight": "28px",
+          "marginBottom": "16px"
+        },
+        {
+          "tag": "H2",
+          "text": "Why It Matters",
+          "fontSize": "20px",
+          "lineHeight": "28px",
+          "marginBottom": "16px"
+        },
+        {
+          "tag": "H2",
+          "text": "Talk With Your Care Team",
+          "fontSize": "20px",
+          "lineHeight": "28px",
+          "marginBottom": "16px"
+        },
+        {
+          "tag": "H3",
+          "text": "Prescription",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H2",
+          "text": "What It Is",
+          "fontSize": "20px",
+          "lineHeight": "28px",
+          "marginBottom": "16px"
+        },
+        {
+          "tag": "H2",
+          "text": "Why It Matters",
+          "fontSize": "20px",
+          "lineHeight": "28px",
+          "marginBottom": "16px"
+        },
+        {
+          "tag": "H2",
+          "text": "Talk With Your Care Team",
+          "fontSize": "20px",
+          "lineHeight": "28px",
+          "marginBottom": "16px"
+        },
+        {
+          "tag": "H3",
+          "text": "Placebo",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H2",
+          "text": "What It Is",
+          "fontSize": "20px",
+          "lineHeight": "28px",
+          "marginBottom": "16px"
+        },
+        {
+          "tag": "H2",
+          "text": "Why It Matters",
+          "fontSize": "20px",
+          "lineHeight": "28px",
+          "marginBottom": "16px"
+        },
+        {
+          "tag": "H2",
+          "text": "Talk With Your Care Team",
+          "fontSize": "20px",
+          "lineHeight": "28px",
+          "marginBottom": "16px"
+        },
+        {
+          "tag": "H2",
+          "text": "S",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "16px"
+        },
+        {
+          "tag": "H3",
+          "text": "Symptom",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H2",
+          "text": "What It Is",
+          "fontSize": "20px",
+          "lineHeight": "28px",
+          "marginBottom": "16px"
+        },
+        {
+          "tag": "H2",
+          "text": "Why It Matters",
+          "fontSize": "20px",
+          "lineHeight": "28px",
+          "marginBottom": "16px"
+        },
+        {
+          "tag": "H2",
+          "text": "Talk With Your Care Team",
+          "fontSize": "20px",
+          "lineHeight": "28px",
+          "marginBottom": "16px"
+        },
+        {
+          "tag": "H3",
+          "text": "Sign",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H2",
+          "text": "What It Is",
+          "fontSize": "20px",
+          "lineHeight": "28px",
+          "marginBottom": "16px"
+        },
+        {
+          "tag": "H2",
+          "text": "Why It Matters",
+          "fontSize": "20px",
+          "lineHeight": "28px",
+          "marginBottom": "16px"
+        },
+        {
+          "tag": "H2",
+          "text": "Talk With Your Care Team",
+          "fontSize": "20px",
+          "lineHeight": "28px",
+          "marginBottom": "16px"
+        },
+        {
+          "tag": "H3",
+          "text": "Side Effect",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H2",
+          "text": "What It Is",
+          "fontSize": "20px",
+          "lineHeight": "28px",
+          "marginBottom": "16px"
+        },
+        {
+          "tag": "H2",
+          "text": "Why It Matters",
+          "fontSize": "20px",
+          "lineHeight": "28px",
+          "marginBottom": "16px"
+        },
+        {
+          "tag": "H2",
+          "text": "Talk With Your Care Team",
+          "fontSize": "20px",
+          "lineHeight": "28px",
+          "marginBottom": "16px"
+        },
+        {
+          "tag": "H2",
+          "text": "T",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "16px"
+        },
+        {
+          "tag": "H3",
+          "text": "Triglycerides",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H2",
+          "text": "What It Is",
+          "fontSize": "20px",
+          "lineHeight": "28px",
+          "marginBottom": "16px"
+        },
+        {
+          "tag": "H2",
+          "text": "Why It Matters",
+          "fontSize": "20px",
+          "lineHeight": "28px",
+          "marginBottom": "16px"
+        },
+        {
+          "tag": "H2",
+          "text": "Talk With Your Care Team",
+          "fontSize": "20px",
+          "lineHeight": "28px",
+          "marginBottom": "16px"
+        },
+        {
+          "tag": "H2",
+          "text": "U",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "16px"
+        },
+        {
+          "tag": "H3",
+          "text": "Ultrasound",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H2",
+          "text": "What It Is",
+          "fontSize": "20px",
+          "lineHeight": "28px",
+          "marginBottom": "16px"
+        },
+        {
+          "tag": "H2",
+          "text": "Why It Matters",
+          "fontSize": "20px",
+          "lineHeight": "28px",
+          "marginBottom": "16px"
+        },
+        {
+          "tag": "H2",
+          "text": "Talk With Your Care Team",
+          "fontSize": "20px",
+          "lineHeight": "28px",
+          "marginBottom": "16px"
+        },
+        {
+          "tag": "H2",
+          "text": "Health Made Clear",
+          "fontSize": "34px",
+          "lineHeight": "38.08px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H2",
+          "text": "Platform",
+          "fontSize": "16px",
+          "lineHeight": "22.4px",
+          "marginBottom": "16px"
+        },
+        {
+          "tag": "H2",
+          "text": "Legal & Support",
+          "fontSize": "16px",
+          "lineHeight": "22.4px",
+          "marginBottom": "16px"
+        }
+      ],
+      "paragraphs": [
+        {
+          "text": "Clear, everyday definitions for medical ",
+          "fontSize": "18px",
+          "lineHeight": "29.7px",
+          "color": "rgb(63, 72, 74)",
+          "width": 830,
+          "charsPerLine": 89
+        },
+        {
+          "text": "AcuteAcute means sudden in onset and oft",
+          "fontSize": "14px",
+          "lineHeight": "24.0001px",
+          "color": "rgb(63, 72, 74)",
+          "width": 398,
+          "charsPerLine": 55
+        },
+        {
+          "text": "Knowing whether a problem is acuteacute ",
+          "fontSize": "14px",
+          "lineHeight": "24.0001px",
+          "color": "rgb(63, 72, 74)",
+          "width": 398,
+          "charsPerLine": 55
+        },
+        {
+          "text": "Ask: Is this condition likely to resolve",
+          "fontSize": "14px",
+          "lineHeight": "24.0001px",
+          "color": "rgb(63, 72, 74)",
+          "width": 398,
+          "charsPerLine": 55
+        },
+        {
+          "text": "Blood pressureBlood pressure is the forc",
+          "fontSize": "14px",
+          "lineHeight": "24.0001px",
+          "color": "rgb(63, 72, 74)",
+          "width": 398,
+          "charsPerLine": 55
+        }
+      ],
+      "hasHorizontalScroll": false,
+      "scrollWidth": 1440,
+      "clientWidth": 1440,
+      "trust": {
+        "hasMedicalDisclaimer": true,
+        "hasSources": true,
+        "hasLastUpdated": false
+      }
+    },
+    "mobile": {
+      "hasHorizontalScroll": false,
+      "scrollWidth": 390,
+      "clientWidth": 390,
+      "smallTargetsCount": 247,
+      "smallTargets": [
+        {
+          "tag": "A",
+          "text": "Acute",
+          "width": 63,
+          "height": 24,
+          "classes": "underline hover:no-underline"
+        },
+        {
+          "tag": "BUTTON",
+          "text": "Acute",
+          "width": 38,
+          "height": 26,
+          "classes": "no-print cursor-help border-b-2 border-dashed bord"
+        },
+        {
+          "tag": "BUTTON",
+          "text": "Acute",
+          "width": 38,
+          "height": 26,
+          "classes": "no-print cursor-help border-b-2 border-dashed bord"
+        },
+        {
+          "tag": "BUTTON",
+          "text": "Acute",
+          "width": 38,
+          "height": 26,
+          "classes": "no-print cursor-help border-b-2 border-dashed bord"
+        },
+        {
+          "tag": "BUTTON",
+          "text": "chronic",
+          "width": 48,
+          "height": 26,
+          "classes": "no-print cursor-help border-b-2 border-dashed bord"
+        },
+        {
+          "tag": "BUTTON",
+          "text": "acute",
+          "width": 36,
+          "height": 26,
+          "classes": "no-print cursor-help border-b-2 border-dashed bord"
+        },
+        {
+          "tag": "BUTTON",
+          "text": "chronic",
+          "width": 48,
+          "height": 26,
+          "classes": "no-print cursor-help border-b-2 border-dashed bord"
+        },
+        {
+          "tag": "BUTTON",
+          "text": "Acute",
+          "width": 38,
+          "height": 26,
+          "classes": "no-print cursor-help border-b-2 border-dashed bord"
+        },
+        {
+          "tag": "A",
+          "text": "When to Call 911 vs Go to Urge",
+          "width": 308,
+          "height": 22,
+          "classes": "text-label-md font-semibold text-primary underline"
+        },
+        {
+          "tag": "A",
+          "text": "Building a Home First-Aid Kit",
+          "width": 308,
+          "height": 22,
+          "classes": "text-label-md font-semibold text-primary underline"
+        },
+        {
+          "tag": "A",
+          "text": "Blood Pressure",
+          "width": 161,
+          "height": 24,
+          "classes": "underline hover:no-underline"
+        },
+        {
+          "tag": "BUTTON",
+          "text": "Blood pressure",
+          "width": 100,
+          "height": 26,
+          "classes": "no-print cursor-help border-b-2 border-dashed bord"
+        },
+        {
+          "tag": "BUTTON",
+          "text": "Blood pressure",
+          "width": 100,
+          "height": 26,
+          "classes": "no-print cursor-help border-b-2 border-dashed bord"
+        },
+        {
+          "tag": "BUTTON",
+          "text": "blood pressure",
+          "width": 99,
+          "height": 26,
+          "classes": "no-print cursor-help border-b-2 border-dashed bord"
+        },
+        {
+          "tag": "A",
+          "text": "Living with Hypertension",
+          "width": 308,
+          "height": 22,
+          "classes": "text-label-md font-semibold text-primary underline"
+        }
+      ]
+    }
+  },
+  {
+    "page": "10-tools-catalog",
+    "path": "/en/tools",
+    "desktop": {
+      "h1": "Your Health Toolkit",
+      "headings": [
+        {
+          "tag": "H1",
+          "text": "Your Health Toolkit",
+          "fontSize": "42px",
+          "lineHeight": "45.36px",
+          "marginBottom": "16px"
+        },
+        {
+          "tag": "H2",
+          "text": "What should I ask?",
+          "fontSize": "34px",
+          "lineHeight": "38.08px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H2",
+          "text": "Where should I go?",
+          "fontSize": "34px",
+          "lineHeight": "38.08px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H2",
+          "text": "Understanding medicine labels",
+          "fontSize": "34px",
+          "lineHeight": "38.08px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H2",
+          "text": "Visit prep checklist",
+          "fontSize": "34px",
+          "lineHeight": "38.08px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H2",
+          "text": "Health Made Clear",
+          "fontSize": "34px",
+          "lineHeight": "38.08px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H2",
+          "text": "Platform",
+          "fontSize": "16px",
+          "lineHeight": "22.4px",
+          "marginBottom": "16px"
+        },
+        {
+          "tag": "H2",
+          "text": "Legal & Support",
+          "fontSize": "16px",
+          "lineHeight": "22.4px",
+          "marginBottom": "16px"
+        }
+      ],
+      "paragraphs": [
+        {
+          "text": "Navigating healthcare does not have to b",
+          "fontSize": "18px",
+          "lineHeight": "29.7px",
+          "color": "rgb(63, 72, 74)",
+          "width": 830,
+          "charsPerLine": 89
+        },
+        {
+          "text": "This content is for educational purposes",
+          "fontSize": "18px",
+          "lineHeight": "29.7px",
+          "color": "rgb(63, 72, 74)",
+          "width": 1392,
+          "charsPerLine": 149
+        },
+        {
+          "text": "Generate a personalized list of question",
+          "fontSize": "18px",
+          "lineHeight": "29.7px",
+          "color": "rgb(63, 72, 74)",
+          "width": 634,
+          "charsPerLine": 68
+        },
+        {
+          "text": "Compare home care, primary care, urgent ",
+          "fontSize": "18px",
+          "lineHeight": "29.7px",
+          "color": "rgb(63, 72, 74)",
+          "width": 634,
+          "charsPerLine": 68
+        },
+        {
+          "text": "Open our lesson on reading prescriptions",
+          "fontSize": "18px",
+          "lineHeight": "29.7px",
+          "color": "rgb(63, 72, 74)",
+          "width": 634,
+          "charsPerLine": 68
+        }
+      ],
+      "hasHorizontalScroll": false,
+      "scrollWidth": 1440,
+      "clientWidth": 1440,
+      "trust": {
+        "hasMedicalDisclaimer": true,
+        "hasSources": true,
+        "hasLastUpdated": false
+      }
+    },
+    "mobile": {
+      "hasHorizontalScroll": false,
+      "scrollWidth": 390,
+      "clientWidth": 390,
+      "smallTargetsCount": 8,
+      "smallTargets": [
+        {
+          "tag": "A",
+          "text": "About",
+          "width": 47,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Paths",
+          "width": 44,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Tools",
+          "width": 41,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Glossary",
+          "width": 68,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Accessibility",
+          "width": 99,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Privacy",
+          "width": 56,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Terms of Service",
+          "width": 132,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Contact",
+          "width": 61,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        }
+      ]
+    }
+  },
+  {
+    "page": "11-tool-visit-planner",
+    "path": "/en/tools/visit-planner",
+    "desktop": {
+      "h1": "Doctor Visit Planner",
+      "headings": [
+        {
+          "tag": "H1",
+          "text": "Doctor Visit Planner",
+          "fontSize": "42px",
+          "lineHeight": "45.36px",
+          "marginBottom": "16px"
+        },
+        {
+          "tag": "H2",
+          "text": "Choose your visit type",
+          "fontSize": "34px",
+          "lineHeight": "38.08px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H2",
+          "text": "Walk in with clear focus",
+          "fontSize": "34px",
+          "lineHeight": "38.08px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H3",
+          "text": "New symptom",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H3",
+          "text": "Medication question",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H3",
+          "text": "Follow-up visit",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H2",
+          "text": "Health Made Clear",
+          "fontSize": "34px",
+          "lineHeight": "38.08px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H2",
+          "text": "Platform",
+          "fontSize": "16px",
+          "lineHeight": "22.4px",
+          "marginBottom": "16px"
+        },
+        {
+          "tag": "H2",
+          "text": "Legal & Support",
+          "fontSize": "16px",
+          "lineHeight": "22.4px",
+          "marginBottom": "16px"
+        }
+      ],
+      "paragraphs": [
+        {
+          "text": "Prepare for your upcoming appointment by",
+          "fontSize": "18px",
+          "lineHeight": "29.7px",
+          "color": "rgb(63, 72, 74)",
+          "width": 830,
+          "charsPerLine": 89
+        },
+        {
+          "text": "Start with why you are going so the plan",
+          "fontSize": "18px",
+          "lineHeight": "29.7px",
+          "color": "rgb(63, 72, 74)",
+          "width": 568,
+          "charsPerLine": 61
+        },
+        {
+          "text": "Start with why you are going so the plan",
+          "fontSize": "16px",
+          "lineHeight": "22.4px",
+          "color": "rgb(63, 72, 74)",
+          "width": 328,
+          "charsPerLine": 39
+        },
+        {
+          "text": "Keep the best questions, add your own, a",
+          "fontSize": "16px",
+          "lineHeight": "22.4px",
+          "color": "rgb(63, 72, 74)",
+          "width": 328,
+          "charsPerLine": 39
+        },
+        {
+          "text": "Review the final plan before printing it",
+          "fontSize": "16px",
+          "lineHeight": "22.4px",
+          "color": "rgb(63, 72, 74)",
+          "width": 328,
+          "charsPerLine": 39
+        }
+      ],
+      "hasHorizontalScroll": false,
+      "scrollWidth": 1440,
+      "clientWidth": 1440,
+      "trust": {
+        "hasMedicalDisclaimer": true,
+        "hasSources": false,
+        "hasLastUpdated": false
+      }
+    },
+    "mobile": {
+      "hasHorizontalScroll": false,
+      "scrollWidth": 390,
+      "clientWidth": 390,
+      "smallTargetsCount": 8,
+      "smallTargets": [
+        {
+          "tag": "A",
+          "text": "About",
+          "width": 47,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Paths",
+          "width": 44,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Tools",
+          "width": 41,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Glossary",
+          "width": 68,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Accessibility",
+          "width": 99,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Privacy",
+          "width": 56,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Terms of Service",
+          "width": 132,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Contact",
+          "width": 61,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        }
+      ]
+    }
+  },
+  {
+    "page": "12-tool-visit-checklist",
+    "path": "/en/tools/visit-checklist",
+    "desktop": {
+      "h1": "Visit prep checklist",
+      "headings": [
+        {
+          "tag": "H1",
+          "text": "Visit prep checklist",
+          "fontSize": "42px",
+          "lineHeight": "45.36px",
+          "marginBottom": "16px"
+        },
+        {
+          "tag": "H2",
+          "text": "Health Made Clear",
+          "fontSize": "34px",
+          "lineHeight": "38.08px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H2",
+          "text": "Platform",
+          "fontSize": "16px",
+          "lineHeight": "22.4px",
+          "marginBottom": "16px"
+        },
+        {
+          "tag": "H2",
+          "text": "Legal & Support",
+          "fontSize": "16px",
+          "lineHeight": "22.4px",
+          "marginBottom": "16px"
+        }
+      ],
+      "paragraphs": [
+        {
+          "text": "Use this printable checklist to make sur",
+          "fontSize": "18px",
+          "lineHeight": "29.7px",
+          "color": "rgb(63, 72, 74)",
+          "width": 830,
+          "charsPerLine": 89
+        },
+        {
+          "text": "This content is for educational purposes",
+          "fontSize": "18px",
+          "lineHeight": "29.7px",
+          "color": "rgb(63, 72, 74)",
+          "width": 896,
+          "charsPerLine": 96
+        },
+        {
+          "text": "Health information, made simple.",
+          "fontSize": "18px",
+          "lineHeight": "29.7px",
+          "color": "rgb(63, 72, 74)",
+          "width": 563,
+          "charsPerLine": 60
+        }
+      ],
+      "hasHorizontalScroll": false,
+      "scrollWidth": 1440,
+      "clientWidth": 1440,
+      "trust": {
+        "hasMedicalDisclaimer": true,
+        "hasSources": false,
+        "hasLastUpdated": false
+      }
+    },
+    "mobile": {
+      "hasHorizontalScroll": false,
+      "scrollWidth": 390,
+      "clientWidth": 390,
+      "smallTargetsCount": 17,
+      "smallTargets": [
+        {
+          "tag": "INPUT",
+          "text": "",
+          "width": 20,
+          "height": 20,
+          "classes": "h-5 w-5 rounded border-outline text-primary focus:"
+        },
+        {
+          "tag": "INPUT",
+          "text": "",
+          "width": 20,
+          "height": 20,
+          "classes": "h-5 w-5 rounded border-outline text-primary focus:"
+        },
+        {
+          "tag": "INPUT",
+          "text": "",
+          "width": 20,
+          "height": 20,
+          "classes": "h-5 w-5 rounded border-outline text-primary focus:"
+        },
+        {
+          "tag": "INPUT",
+          "text": "",
+          "width": 20,
+          "height": 20,
+          "classes": "h-5 w-5 rounded border-outline text-primary focus:"
+        },
+        {
+          "tag": "INPUT",
+          "text": "",
+          "width": 18,
+          "height": 20,
+          "classes": "h-5 w-5 rounded border-outline text-primary focus:"
+        },
+        {
+          "tag": "INPUT",
+          "text": "",
+          "width": 20,
+          "height": 20,
+          "classes": "h-5 w-5 rounded border-outline text-primary focus:"
+        },
+        {
+          "tag": "INPUT",
+          "text": "",
+          "width": 16,
+          "height": 20,
+          "classes": "h-5 w-5 rounded border-outline text-primary focus:"
+        },
+        {
+          "tag": "INPUT",
+          "text": "",
+          "width": 20,
+          "height": 20,
+          "classes": "h-5 w-5 rounded border-outline text-primary focus:"
+        },
+        {
+          "tag": "INPUT",
+          "text": "",
+          "width": 16,
+          "height": 20,
+          "classes": "h-5 w-5 rounded border-outline text-primary focus:"
+        },
+        {
+          "tag": "A",
+          "text": "About",
+          "width": 47,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Paths",
+          "width": 44,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Tools",
+          "width": 41,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Glossary",
+          "width": 68,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Accessibility",
+          "width": 99,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Privacy",
+          "width": 56,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        }
+      ]
+    }
+  },
+  {
+    "page": "13-tool-care-guide",
+    "path": "/en/tools/care-guide",
+    "desktop": {
+      "h1": "Where should I go for care?",
+      "headings": [
+        {
+          "tag": "H1",
+          "text": "Where should I go for care?",
+          "fontSize": "42px",
+          "lineHeight": "45.36px",
+          "marginBottom": "16px"
+        },
+        {
+          "tag": "H2",
+          "text": "Understanding your care options",
+          "fontSize": "18px",
+          "lineHeight": "28.8px",
+          "marginBottom": "-1px"
+        },
+        {
+          "tag": "H3",
+          "text": "Home care",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H3",
+          "text": "Primary care",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H3",
+          "text": "Urgent care",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H3",
+          "text": "Emergency room",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H2",
+          "text": "Common scenarios",
+          "fontSize": "34px",
+          "lineHeight": "38.08px",
+          "marginBottom": "24px"
+        },
+        {
+          "tag": "H3",
+          "text": "Sore throat for 2 days",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H3",
+          "text": "Chest pain with shortness of breath",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H2",
+          "text": "When in doubt",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H2",
+          "text": "Experiencing a medical emergency?",
+          "fontSize": "18px",
+          "lineHeight": "25.2px",
+          "marginBottom": "8px"
+        },
+        {
+          "tag": "H2",
+          "text": "Health Made Clear",
+          "fontSize": "34px",
+          "lineHeight": "38.08px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H2",
+          "text": "Platform",
+          "fontSize": "16px",
+          "lineHeight": "22.4px",
+          "marginBottom": "16px"
+        },
+        {
+          "tag": "H2",
+          "text": "Legal & Support",
+          "fontSize": "16px",
+          "lineHeight": "22.4px",
+          "marginBottom": "16px"
+        }
+      ],
+      "paragraphs": [
+        {
+          "text": "Choosing the right place for care can sa",
+          "fontSize": "18px",
+          "lineHeight": "29.7px",
+          "color": "rgb(63, 72, 74)",
+          "width": 830,
+          "charsPerLine": 89
+        },
+        {
+          "text": "Rest, fluids, and over-the-counter medic",
+          "fontSize": "18px",
+          "lineHeight": "29.7px",
+          "color": "rgb(63, 72, 74)",
+          "width": 286,
+          "charsPerLine": 31
+        },
+        {
+          "text": "Your regular doctor for checkups, ongoin",
+          "fontSize": "18px",
+          "lineHeight": "29.7px",
+          "color": "rgb(63, 72, 74)",
+          "width": 286,
+          "charsPerLine": 31
+        },
+        {
+          "text": "Walk-in clinics for problems that need s",
+          "fontSize": "18px",
+          "lineHeight": "29.7px",
+          "color": "oklab(0.497072 -0.049909 0.00871402 / 0.9)",
+          "width": 286,
+          "charsPerLine": 31
+        },
+        {
+          "text": "Severe chest pain, trouble breathing, st",
+          "fontSize": "18px",
+          "lineHeight": "29.7px",
+          "color": "rgb(147, 0, 10)",
+          "width": 286,
+          "charsPerLine": 31
+        }
+      ],
+      "hasHorizontalScroll": false,
+      "scrollWidth": 1440,
+      "clientWidth": 1440,
+      "trust": {
+        "hasMedicalDisclaimer": true,
+        "hasSources": false,
+        "hasLastUpdated": false
+      }
+    },
+    "mobile": {
+      "hasHorizontalScroll": false,
+      "scrollWidth": 390,
+      "clientWidth": 390,
+      "smallTargetsCount": 8,
+      "smallTargets": [
+        {
+          "tag": "A",
+          "text": "About",
+          "width": 47,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Paths",
+          "width": 44,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Tools",
+          "width": 41,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Glossary",
+          "width": 68,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Accessibility",
+          "width": 99,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Privacy",
+          "width": 56,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Terms of Service",
+          "width": 132,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Contact",
+          "width": 61,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        }
+      ]
+    }
+  },
+  {
+    "page": "14-about",
+    "path": "/en/about",
+    "desktop": {
+      "h1": "Our mission is clarity.",
+      "headings": [
+        {
+          "tag": "H1",
+          "text": "Our mission is clarity.",
+          "fontSize": "42px",
+          "lineHeight": "45.36px",
+          "marginBottom": "16px"
+        },
+        {
+          "tag": "H2",
+          "text": "The content provided on Health Made Clear is for e",
+          "fontSize": "34px",
+          "lineHeight": "38.08px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H2",
+          "text": "Note: Education, not diagnosis",
+          "fontSize": "18px",
+          "lineHeight": "25.2px",
+          "marginBottom": "8px"
+        },
+        {
+          "tag": "H2",
+          "text": "Tip: Why it matters",
+          "fontSize": "18px",
+          "lineHeight": "25.2px",
+          "marginBottom": "8px"
+        },
+        {
+          "tag": "H2",
+          "text": "Education, not diagnosis",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H2",
+          "text": "Built for everyone",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H2",
+          "text": "Structured learning",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H2",
+          "text": "Open, human-centered health education",
+          "fontSize": "34px",
+          "lineHeight": "38.08px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H2",
+          "text": "Contact",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H2",
+          "text": "Health Made Clear",
+          "fontSize": "34px",
+          "lineHeight": "38.08px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H2",
+          "text": "Platform",
+          "fontSize": "16px",
+          "lineHeight": "22.4px",
+          "marginBottom": "16px"
+        },
+        {
+          "tag": "H2",
+          "text": "Legal & Support",
+          "fontSize": "16px",
+          "lineHeight": "22.4px",
+          "marginBottom": "16px"
+        }
+      ],
+      "paragraphs": [
+        {
+          "text": "We believe understanding your health sho",
+          "fontSize": "18px",
+          "lineHeight": "29.7px",
+          "color": "rgb(63, 72, 74)",
+          "width": 830,
+          "charsPerLine": 89
+        },
+        {
+          "text": "We believe understanding your health sho",
+          "fontSize": "18px",
+          "lineHeight": "29.7px",
+          "color": "rgb(63, 72, 74)",
+          "width": 768,
+          "charsPerLine": 82
+        },
+        {
+          "text": "The content provided on Health Made Clea",
+          "fontSize": "18px",
+          "lineHeight": "29.7px",
+          "color": "rgb(63, 72, 74)",
+          "width": 687,
+          "charsPerLine": 73
+        },
+        {
+          "text": "Never disregard professional medical adv",
+          "fontSize": "18px",
+          "lineHeight": "29.7px",
+          "color": "rgb(63, 72, 74)",
+          "width": 687,
+          "charsPerLine": 73
+        },
+        {
+          "text": "Low health literacy is linked to poorer ",
+          "fontSize": "18px",
+          "lineHeight": "29.7px",
+          "color": "rgb(63, 72, 74)",
+          "width": 577,
+          "charsPerLine": 62
+        }
+      ],
+      "hasHorizontalScroll": false,
+      "scrollWidth": 1440,
+      "clientWidth": 1440,
+      "trust": {
+        "hasMedicalDisclaimer": true,
+        "hasSources": false,
+        "hasLastUpdated": false
+      }
+    },
+    "mobile": {
+      "hasHorizontalScroll": false,
+      "scrollWidth": 390,
+      "clientWidth": 390,
+      "smallTargetsCount": 9,
+      "smallTargets": [
+        {
+          "tag": "A",
+          "text": "hello@healthmadeclear.org",
+          "width": 229,
+          "height": 22,
+          "classes": "font-semibold text-primary underline underline-off"
+        },
+        {
+          "tag": "A",
+          "text": "About",
+          "width": 47,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Paths",
+          "width": 44,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Tools",
+          "width": 41,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Glossary",
+          "width": 68,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Accessibility",
+          "width": 99,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Privacy",
+          "width": 56,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Terms of Service",
+          "width": 132,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Contact",
+          "width": 61,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        }
+      ]
+    }
+  },
+  {
+    "page": "15-accessibility",
+    "path": "/en/accessibility",
+    "desktop": {
+      "h1": "Accessibility",
+      "headings": [
+        {
+          "tag": "H1",
+          "text": "Accessibility",
+          "fontSize": "42px",
+          "lineHeight": "45.36px",
+          "marginBottom": "16px"
+        },
+        {
+          "tag": "H2",
+          "text": "Our commitment",
+          "fontSize": "18px",
+          "lineHeight": "28.8px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H2",
+          "text": "Built-in features",
+          "fontSize": "18px",
+          "lineHeight": "28.8px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H2",
+          "text": "Known limitations",
+          "fontSize": "18px",
+          "lineHeight": "28.8px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H2",
+          "text": "Health Made Clear",
+          "fontSize": "34px",
+          "lineHeight": "38.08px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H2",
+          "text": "Platform",
+          "fontSize": "16px",
+          "lineHeight": "22.4px",
+          "marginBottom": "16px"
+        },
+        {
+          "tag": "H2",
+          "text": "Legal & Support",
+          "fontSize": "16px",
+          "lineHeight": "22.4px",
+          "marginBottom": "16px"
+        }
+      ],
+      "paragraphs": [
+        {
+          "text": "How Health Made Clear supports accessibl",
+          "fontSize": "18px",
+          "lineHeight": "29.7px",
+          "color": "rgb(63, 72, 74)",
+          "width": 830,
+          "charsPerLine": 89
+        },
+        {
+          "text": "We aim for WCAG 2.1 Level AA where possi",
+          "fontSize": "18px",
+          "lineHeight": "29.7px",
+          "color": "rgb(63, 72, 74)",
+          "width": 270,
+          "charsPerLine": 29
+        },
+        {
+          "text": "Adjustable text size, light and dark the",
+          "fontSize": "18px",
+          "lineHeight": "29.7px",
+          "color": "rgb(63, 72, 74)",
+          "width": 270,
+          "charsPerLine": 29
+        },
+        {
+          "text": "Some decorative imagery may lack detaile",
+          "fontSize": "18px",
+          "lineHeight": "29.7px",
+          "color": "rgb(63, 72, 74)",
+          "width": 270,
+          "charsPerLine": 29
+        },
+        {
+          "text": "If you have trouble using this site, con",
+          "fontSize": "18px",
+          "lineHeight": "29.7px",
+          "color": "rgb(63, 72, 74)",
+          "width": 607,
+          "charsPerLine": 65
+        }
+      ],
+      "hasHorizontalScroll": false,
+      "scrollWidth": 1440,
+      "clientWidth": 1440,
+      "trust": {
+        "hasMedicalDisclaimer": true,
+        "hasSources": false,
+        "hasLastUpdated": false
+      }
+    },
+    "mobile": {
+      "hasHorizontalScroll": false,
+      "scrollWidth": 390,
+      "clientWidth": 390,
+      "smallTargetsCount": 9,
+      "smallTargets": [
+        {
+          "tag": "A",
+          "text": "About",
+          "width": 51,
+          "height": 22,
+          "classes": "font-semibold text-primary underline underline-off"
+        },
+        {
+          "tag": "A",
+          "text": "About",
+          "width": 47,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Paths",
+          "width": 44,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Tools",
+          "width": 41,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Glossary",
+          "width": 68,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Accessibility",
+          "width": 99,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Privacy",
+          "width": 56,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Terms of Service",
+          "width": 132,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Contact",
+          "width": 61,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        }
+      ]
+    }
+  },
+  {
+    "page": "16-contact",
+    "path": "/en/contact",
+    "desktop": {
+      "h1": "Contact Us",
+      "headings": [
+        {
+          "tag": "H1",
+          "text": "Contact Us",
+          "fontSize": "42px",
+          "lineHeight": "45.36px",
+          "marginBottom": "16px"
+        },
+        {
+          "tag": "H2",
+          "text": "Human response",
+          "fontSize": "18px",
+          "lineHeight": "28.8px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H2",
+          "text": "Accessibility help",
+          "fontSize": "18px",
+          "lineHeight": "28.8px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H2",
+          "text": "Privacy requests",
+          "fontSize": "18px",
+          "lineHeight": "28.8px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H2",
+          "text": "Health Made Clear",
+          "fontSize": "34px",
+          "lineHeight": "38.08px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H2",
+          "text": "Platform",
+          "fontSize": "16px",
+          "lineHeight": "22.4px",
+          "marginBottom": "16px"
+        },
+        {
+          "tag": "H2",
+          "text": "Legal & Support",
+          "fontSize": "16px",
+          "lineHeight": "22.4px",
+          "marginBottom": "16px"
+        }
+      ],
+      "paragraphs": [
+        {
+          "text": "Have a question, feedback, or accessibil",
+          "fontSize": "18px",
+          "lineHeight": "29.7px",
+          "color": "rgb(63, 72, 74)",
+          "width": 830,
+          "charsPerLine": 89
+        },
+        {
+          "text": "We review general questions and content ",
+          "fontSize": "18px",
+          "lineHeight": "29.7px",
+          "color": "rgb(63, 72, 74)",
+          "width": 548,
+          "charsPerLine": 59
+        },
+        {
+          "text": "Use this form to report reading, navigat",
+          "fontSize": "18px",
+          "lineHeight": "29.7px",
+          "color": "rgb(63, 72, 74)",
+          "width": 548,
+          "charsPerLine": 59
+        },
+        {
+          "text": "This channel also works for questions ab",
+          "fontSize": "18px",
+          "lineHeight": "29.7px",
+          "color": "rgb(63, 72, 74)",
+          "width": 548,
+          "charsPerLine": 59
+        },
+        {
+          "text": "Health information, made simple.",
+          "fontSize": "18px",
+          "lineHeight": "29.7px",
+          "color": "rgb(63, 72, 74)",
+          "width": 563,
+          "charsPerLine": 60
+        }
+      ],
+      "hasHorizontalScroll": false,
+      "scrollWidth": 1440,
+      "clientWidth": 1440,
+      "trust": {
+        "hasMedicalDisclaimer": false,
+        "hasSources": true,
+        "hasLastUpdated": false
+      }
+    },
+    "mobile": {
+      "hasHorizontalScroll": false,
+      "scrollWidth": 390,
+      "clientWidth": 390,
+      "smallTargetsCount": 9,
+      "smallTargets": [
+        {
+          "tag": "INPUT",
+          "text": "",
+          "width": 175,
+          "height": 29,
+          "classes": ""
+        },
+        {
+          "tag": "A",
+          "text": "About",
+          "width": 47,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Paths",
+          "width": 44,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Tools",
+          "width": 41,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Glossary",
+          "width": 68,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Accessibility",
+          "width": 99,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Privacy",
+          "width": 56,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Terms of Service",
+          "width": 132,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Contact",
+          "width": 61,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        }
+      ]
+    }
+  },
+  {
+    "page": "17-privacy",
+    "path": "/en/privacy",
+    "desktop": {
+      "h1": "Privacy",
+      "headings": [
+        {
+          "tag": "H1",
+          "text": "Privacy",
+          "fontSize": "42px",
+          "lineHeight": "45.36px",
+          "marginBottom": "16px"
+        },
+        {
+          "tag": "H2",
+          "text": "Education, not healthcare",
+          "fontSize": "18px",
+          "lineHeight": "28.8px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H2",
+          "text": "What we collect",
+          "fontSize": "18px",
+          "lineHeight": "28.8px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H2",
+          "text": "Your control",
+          "fontSize": "18px",
+          "lineHeight": "28.8px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H2",
+          "text": "Health Made Clear",
+          "fontSize": "34px",
+          "lineHeight": "38.08px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H2",
+          "text": "Platform",
+          "fontSize": "16px",
+          "lineHeight": "22.4px",
+          "marginBottom": "16px"
+        },
+        {
+          "tag": "H2",
+          "text": "Legal & Support",
+          "fontSize": "16px",
+          "lineHeight": "22.4px",
+          "marginBottom": "16px"
+        }
+      ],
+      "paragraphs": [
+        {
+          "text": "How we handle your information at Health",
+          "fontSize": "18px",
+          "lineHeight": "29.7px",
+          "color": "rgb(63, 72, 74)",
+          "width": 830,
+          "charsPerLine": 89
+        },
+        {
+          "text": "Health Made Clear is an educational reso",
+          "fontSize": "18px",
+          "lineHeight": "29.7px",
+          "color": "rgb(63, 72, 74)",
+          "width": 270,
+          "charsPerLine": 29
+        },
+        {
+          "text": "We only store data locally on your devic",
+          "fontSize": "18px",
+          "lineHeight": "29.7px",
+          "color": "rgb(63, 72, 74)",
+          "width": 270,
+          "charsPerLine": 29
+        },
+        {
+          "text": "You can clear your browser storage at an",
+          "fontSize": "18px",
+          "lineHeight": "29.7px",
+          "color": "rgb(63, 72, 74)",
+          "width": 270,
+          "charsPerLine": 29
+        },
+        {
+          "text": "We only store data locally on your devic",
+          "fontSize": "18px",
+          "lineHeight": "29.7px",
+          "color": "rgb(63, 72, 74)",
+          "width": 768,
+          "charsPerLine": 82
+        }
+      ],
+      "hasHorizontalScroll": false,
+      "scrollWidth": 1440,
+      "clientWidth": 1440,
+      "trust": {
+        "hasMedicalDisclaimer": false,
+        "hasSources": true,
+        "hasLastUpdated": false
+      }
+    },
+    "mobile": {
+      "hasHorizontalScroll": false,
+      "scrollWidth": 390,
+      "clientWidth": 390,
+      "smallTargetsCount": 8,
+      "smallTargets": [
+        {
+          "tag": "A",
+          "text": "About",
+          "width": 47,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Paths",
+          "width": 44,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Tools",
+          "width": 41,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Glossary",
+          "width": 68,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Accessibility",
+          "width": 99,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Privacy",
+          "width": 56,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Terms of Service",
+          "width": 132,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Contact",
+          "width": 61,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        }
+      ]
+    }
+  },
+  {
+    "page": "18-terms",
+    "path": "/en/terms",
+    "desktop": {
+      "h1": "Terms of Service",
+      "headings": [
+        {
+          "tag": "H1",
+          "text": "Terms of Service",
+          "fontSize": "42px",
+          "lineHeight": "45.36px",
+          "marginBottom": "16px"
+        },
+        {
+          "tag": "H2",
+          "text": "Table of Contents",
+          "fontSize": "18px",
+          "lineHeight": "28.8px",
+          "marginBottom": "16px"
+        },
+        {
+          "tag": "H2",
+          "text": "Medical Disclaimer",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H2",
+          "text": "Acceptance of Terms",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "20px"
+        },
+        {
+          "tag": "H2",
+          "text": "Description of Service",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "20px"
+        },
+        {
+          "tag": "H2",
+          "text": "User Accounts",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "20px"
+        },
+        {
+          "tag": "H2",
+          "text": "Prohibited Uses",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "20px"
+        },
+        {
+          "tag": "H2",
+          "text": "Intellectual Property",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "20px"
+        },
+        {
+          "tag": "H2",
+          "text": "Limitation of Liability",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "20px"
+        },
+        {
+          "tag": "H2",
+          "text": "Changes to Terms",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "20px"
+        },
+        {
+          "tag": "H2",
+          "text": "Contact",
+          "fontSize": "24px",
+          "lineHeight": "31.2px",
+          "marginBottom": "20px"
+        },
+        {
+          "tag": "H2",
+          "text": "Health Made Clear",
+          "fontSize": "34px",
+          "lineHeight": "38.08px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H2",
+          "text": "Platform",
+          "fontSize": "16px",
+          "lineHeight": "22.4px",
+          "marginBottom": "16px"
+        },
+        {
+          "tag": "H2",
+          "text": "Legal & Support",
+          "fontSize": "16px",
+          "lineHeight": "22.4px",
+          "marginBottom": "16px"
+        }
+      ],
+      "paragraphs": [
+        {
+          "text": "Last updated: June 1, 2026",
+          "fontSize": "18px",
+          "lineHeight": "29.7px",
+          "color": "rgb(63, 72, 74)",
+          "width": 830,
+          "charsPerLine": 89
+        },
+        {
+          "text": "Health Made Clear is not a medical provi",
+          "fontSize": "18px",
+          "lineHeight": "29.7px",
+          "color": "rgb(147, 0, 10)",
+          "width": 638,
+          "charsPerLine": 68
+        },
+        {
+          "text": "By accessing or using Health Made Clear,",
+          "fontSize": "18px",
+          "lineHeight": "29.7px",
+          "color": "rgb(63, 72, 74)",
+          "width": 638,
+          "charsPerLine": 68
+        },
+        {
+          "text": "We may update these terms at any time. C",
+          "fontSize": "18px",
+          "lineHeight": "29.7px",
+          "color": "rgb(63, 72, 74)",
+          "width": 638,
+          "charsPerLine": 68
+        },
+        {
+          "text": "Health Made Clear provides educational c",
+          "fontSize": "18px",
+          "lineHeight": "29.7px",
+          "color": "rgb(63, 72, 74)",
+          "width": 638,
+          "charsPerLine": 68
+        }
+      ],
+      "hasHorizontalScroll": false,
+      "scrollWidth": 1440,
+      "clientWidth": 1440,
+      "trust": {
+        "hasMedicalDisclaimer": true,
+        "hasSources": false,
+        "hasLastUpdated": true
+      }
+    },
+    "mobile": {
+      "hasHorizontalScroll": false,
+      "scrollWidth": 390,
+      "clientWidth": 390,
+      "smallTargetsCount": 16,
+      "smallTargets": [
+        {
+          "tag": "A",
+          "text": "1Acceptance of Terms",
+          "width": 316,
+          "height": 30,
+          "classes": "flex items-center gap-3 text-primary transition-co"
+        },
+        {
+          "tag": "A",
+          "text": "2Description of Service",
+          "width": 316,
+          "height": 30,
+          "classes": "flex items-center gap-3 text-primary transition-co"
+        },
+        {
+          "tag": "A",
+          "text": "3User Accounts",
+          "width": 316,
+          "height": 30,
+          "classes": "flex items-center gap-3 text-primary transition-co"
+        },
+        {
+          "tag": "A",
+          "text": "4Prohibited Uses",
+          "width": 316,
+          "height": 30,
+          "classes": "flex items-center gap-3 text-primary transition-co"
+        },
+        {
+          "tag": "A",
+          "text": "5Intellectual Property",
+          "width": 316,
+          "height": 30,
+          "classes": "flex items-center gap-3 text-primary transition-co"
+        },
+        {
+          "tag": "A",
+          "text": "6Limitation of Liability",
+          "width": 316,
+          "height": 30,
+          "classes": "flex items-center gap-3 text-primary transition-co"
+        },
+        {
+          "tag": "A",
+          "text": "7Changes to Terms",
+          "width": 316,
+          "height": 30,
+          "classes": "flex items-center gap-3 text-primary transition-co"
+        },
+        {
+          "tag": "A",
+          "text": "8Contact",
+          "width": 316,
+          "height": 30,
+          "classes": "flex items-center gap-3 text-primary transition-co"
+        },
+        {
+          "tag": "A",
+          "text": "About",
+          "width": 47,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Paths",
+          "width": 44,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Tools",
+          "width": 41,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Glossary",
+          "width": 68,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Accessibility",
+          "width": 99,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Privacy",
+          "width": 56,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Terms of Service",
+          "width": 132,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        }
+      ]
+    }
+  },
+  {
+    "page": "19-auth-login",
+    "path": "/en/auth/login",
+    "desktop": {
+      "h1": "Welcome back",
+      "headings": [
+        {
+          "tag": "H1",
+          "text": "Welcome back",
+          "fontSize": "42px",
+          "lineHeight": "45.36px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H2",
+          "text": "Health Made Clear",
+          "fontSize": "34px",
+          "lineHeight": "38.08px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H2",
+          "text": "Platform",
+          "fontSize": "16px",
+          "lineHeight": "22.4px",
+          "marginBottom": "16px"
+        },
+        {
+          "tag": "H2",
+          "text": "Legal & Support",
+          "fontSize": "16px",
+          "lineHeight": "22.4px",
+          "marginBottom": "16px"
+        }
+      ],
+      "paragraphs": [
+        {
+          "text": "Sign in to pick up where you left off.",
+          "fontSize": "18px",
+          "lineHeight": "29.7px",
+          "color": "rgb(63, 72, 74)",
+          "width": 502,
+          "charsPerLine": 54
+        },
+        {
+          "text": "Every lesson you complete brings you clo",
+          "fontSize": "18px",
+          "lineHeight": "29.7px",
+          "color": "rgb(63, 72, 74)",
+          "width": 452,
+          "charsPerLine": 48
+        },
+        {
+          "text": "Don't have an account? Sign up",
+          "fontSize": "16px",
+          "lineHeight": "22.4px",
+          "color": "rgb(63, 72, 74)",
+          "width": 462,
+          "charsPerLine": 56
+        },
+        {
+          "text": "Health information, made simple.",
+          "fontSize": "18px",
+          "lineHeight": "29.7px",
+          "color": "rgb(63, 72, 74)",
+          "width": 563,
+          "charsPerLine": 60
+        }
+      ],
+      "hasHorizontalScroll": false,
+      "scrollWidth": 1440,
+      "clientWidth": 1440,
+      "trust": {
+        "hasMedicalDisclaimer": false,
+        "hasSources": false,
+        "hasLastUpdated": false
+      }
+    },
+    "mobile": {
+      "hasHorizontalScroll": false,
+      "scrollWidth": 390,
+      "clientWidth": 390,
+      "smallTargetsCount": 10,
+      "smallTargets": [
+        {
+          "tag": "A",
+          "text": "Forgot your password?",
+          "width": 308,
+          "height": 22,
+          "classes": "text-primary underline-offset-2 hover:underline"
+        },
+        {
+          "tag": "A",
+          "text": "Sign up",
+          "width": 60,
+          "height": 20,
+          "classes": "font-semibold text-primary underline-offset-2 hove"
+        },
+        {
+          "tag": "A",
+          "text": "About",
+          "width": 47,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Paths",
+          "width": 44,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Tools",
+          "width": 41,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Glossary",
+          "width": 68,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Accessibility",
+          "width": 99,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Privacy",
+          "width": 56,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Terms of Service",
+          "width": 132,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Contact",
+          "width": 61,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        }
+      ]
+    }
+  },
+  {
+    "page": "20-auth-signup",
+    "path": "/en/auth/signup",
+    "desktop": {
+      "h1": "Create your free account",
+      "headings": [
+        {
+          "tag": "H1",
+          "text": "Create your free account",
+          "fontSize": "42px",
+          "lineHeight": "45.36px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H2",
+          "text": "Health Made Clear",
+          "fontSize": "34px",
+          "lineHeight": "38.08px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H2",
+          "text": "Platform",
+          "fontSize": "16px",
+          "lineHeight": "22.4px",
+          "marginBottom": "16px"
+        },
+        {
+          "tag": "H2",
+          "text": "Legal & Support",
+          "fontSize": "16px",
+          "lineHeight": "22.4px",
+          "marginBottom": "16px"
+        }
+      ],
+      "paragraphs": [
+        {
+          "text": "Track your progress across every lesson ",
+          "fontSize": "18px",
+          "lineHeight": "29.7px",
+          "color": "rgb(63, 72, 74)",
+          "width": 606,
+          "charsPerLine": 65
+        },
+        {
+          "text": "At least 8 characters",
+          "fontSize": "16px",
+          "lineHeight": "22.4px",
+          "color": "rgb(63, 72, 74)",
+          "width": 606,
+          "charsPerLine": 73
+        },
+        {
+          "text": "By creating an account, you agree to our",
+          "fontSize": "16px",
+          "lineHeight": "22.4px",
+          "color": "rgb(63, 72, 74)",
+          "width": 606,
+          "charsPerLine": 73
+        },
+        {
+          "text": "Already have an account? Log in",
+          "fontSize": "16px",
+          "lineHeight": "22.4px",
+          "color": "rgb(63, 72, 74)",
+          "width": 606,
+          "charsPerLine": 73
+        },
+        {
+          "text": "Health information, made simple.",
+          "fontSize": "18px",
+          "lineHeight": "29.7px",
+          "color": "rgb(63, 72, 74)",
+          "width": 563,
+          "charsPerLine": 60
+        }
+      ],
+      "hasHorizontalScroll": false,
+      "scrollWidth": 1440,
+      "clientWidth": 1440,
+      "trust": {
+        "hasMedicalDisclaimer": false,
+        "hasSources": false,
+        "hasLastUpdated": false
+      }
+    },
+    "mobile": {
+      "hasHorizontalScroll": false,
+      "scrollWidth": 390,
+      "clientWidth": 390,
+      "smallTargetsCount": 11,
+      "smallTargets": [
+        {
+          "tag": "A",
+          "text": "Terms of Service",
+          "width": 133,
+          "height": 20,
+          "classes": "font-semibold text-primary underline-offset-2 hove"
+        },
+        {
+          "tag": "A",
+          "text": "Privacy Policy",
+          "width": 110,
+          "height": 20,
+          "classes": "font-semibold text-primary underline-offset-2 hove"
+        },
+        {
+          "tag": "A",
+          "text": "Log in",
+          "width": 49,
+          "height": 20,
+          "classes": "font-semibold text-primary underline-offset-2 hove"
+        },
+        {
+          "tag": "A",
+          "text": "About",
+          "width": 47,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Paths",
+          "width": 44,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Tools",
+          "width": 41,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Glossary",
+          "width": 68,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Accessibility",
+          "width": 99,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Privacy",
+          "width": 56,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Terms of Service",
+          "width": 132,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Contact",
+          "width": 61,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        }
+      ]
+    }
+  },
+  {
+    "page": "21-auth-forgot-password",
+    "path": "/en/auth/forgot-password",
+    "desktop": {
+      "h1": "Reset your password",
+      "headings": [
+        {
+          "tag": "H1",
+          "text": "Reset your password",
+          "fontSize": "42px",
+          "lineHeight": "45.36px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H2",
+          "text": "Health Made Clear",
+          "fontSize": "34px",
+          "lineHeight": "38.08px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H2",
+          "text": "Platform",
+          "fontSize": "16px",
+          "lineHeight": "22.4px",
+          "marginBottom": "16px"
+        },
+        {
+          "tag": "H2",
+          "text": "Legal & Support",
+          "fontSize": "16px",
+          "lineHeight": "22.4px",
+          "marginBottom": "16px"
+        }
+      ],
+      "paragraphs": [
+        {
+          "text": "Enter your email and we'll send you a re",
+          "fontSize": "18px",
+          "lineHeight": "29.7px",
+          "color": "rgb(63, 72, 74)",
+          "width": 606,
+          "charsPerLine": 65
+        },
+        {
+          "text": "Back to log in",
+          "fontSize": "16px",
+          "lineHeight": "22.4px",
+          "color": "rgb(63, 72, 74)",
+          "width": 606,
+          "charsPerLine": 73
+        },
+        {
+          "text": "Health information, made simple.",
+          "fontSize": "18px",
+          "lineHeight": "29.7px",
+          "color": "rgb(63, 72, 74)",
+          "width": 563,
+          "charsPerLine": 60
+        }
+      ],
+      "hasHorizontalScroll": false,
+      "scrollWidth": 1440,
+      "clientWidth": 1440,
+      "trust": {
+        "hasMedicalDisclaimer": false,
+        "hasSources": false,
+        "hasLastUpdated": false
+      }
+    },
+    "mobile": {
+      "hasHorizontalScroll": false,
+      "scrollWidth": 390,
+      "clientWidth": 390,
+      "smallTargetsCount": 9,
+      "smallTargets": [
+        {
+          "tag": "A",
+          "text": "Back to log in",
+          "width": 109,
+          "height": 20,
+          "classes": "font-semibold text-primary underline-offset-2 hove"
+        },
+        {
+          "tag": "A",
+          "text": "About",
+          "width": 47,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Paths",
+          "width": 44,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Tools",
+          "width": 41,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Glossary",
+          "width": 68,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Accessibility",
+          "width": 99,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Privacy",
+          "width": 56,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Terms of Service",
+          "width": 132,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Contact",
+          "width": 61,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        }
+      ]
+    }
+  },
+  {
+    "page": "22-dashboard-overview",
+    "path": "/en/dashboard",
+    "desktop": {
+      "h1": "Welcome back",
+      "headings": [
+        {
+          "tag": "H1",
+          "text": "Welcome back",
+          "fontSize": "42px",
+          "lineHeight": "45.36px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H2",
+          "text": "Health Made Clear",
+          "fontSize": "34px",
+          "lineHeight": "38.08px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H2",
+          "text": "Platform",
+          "fontSize": "16px",
+          "lineHeight": "22.4px",
+          "marginBottom": "16px"
+        },
+        {
+          "tag": "H2",
+          "text": "Legal & Support",
+          "fontSize": "16px",
+          "lineHeight": "22.4px",
+          "marginBottom": "16px"
+        }
+      ],
+      "paragraphs": [
+        {
+          "text": "Sign in to pick up where you left off.",
+          "fontSize": "18px",
+          "lineHeight": "29.7px",
+          "color": "rgb(63, 72, 74)",
+          "width": 502,
+          "charsPerLine": 54
+        },
+        {
+          "text": "Every lesson you complete brings you clo",
+          "fontSize": "18px",
+          "lineHeight": "29.7px",
+          "color": "rgb(63, 72, 74)",
+          "width": 452,
+          "charsPerLine": 48
+        },
+        {
+          "text": "Don't have an account? Sign up",
+          "fontSize": "16px",
+          "lineHeight": "22.4px",
+          "color": "rgb(63, 72, 74)",
+          "width": 462,
+          "charsPerLine": 56
+        },
+        {
+          "text": "Health information, made simple.",
+          "fontSize": "18px",
+          "lineHeight": "29.7px",
+          "color": "rgb(63, 72, 74)",
+          "width": 563,
+          "charsPerLine": 60
+        }
+      ],
+      "hasHorizontalScroll": false,
+      "scrollWidth": 1440,
+      "clientWidth": 1440,
+      "trust": {
+        "hasMedicalDisclaimer": false,
+        "hasSources": false,
+        "hasLastUpdated": false
+      }
+    },
+    "mobile": {
+      "hasHorizontalScroll": false,
+      "scrollWidth": 390,
+      "clientWidth": 390,
+      "smallTargetsCount": 10,
+      "smallTargets": [
+        {
+          "tag": "A",
+          "text": "Forgot your password?",
+          "width": 308,
+          "height": 22,
+          "classes": "text-primary underline-offset-2 hover:underline"
+        },
+        {
+          "tag": "A",
+          "text": "Sign up",
+          "width": 60,
+          "height": 20,
+          "classes": "font-semibold text-primary underline-offset-2 hove"
+        },
+        {
+          "tag": "A",
+          "text": "About",
+          "width": 47,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Paths",
+          "width": 44,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Tools",
+          "width": 41,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Glossary",
+          "width": 68,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Accessibility",
+          "width": 99,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Privacy",
+          "width": 56,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Terms of Service",
+          "width": 132,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Contact",
+          "width": 61,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        }
+      ]
+    }
+  },
+  {
+    "page": "23-dashboard-progress",
+    "path": "/en/dashboard/progress",
+    "desktop": {
+      "h1": "Welcome back",
+      "headings": [
+        {
+          "tag": "H1",
+          "text": "Welcome back",
+          "fontSize": "42px",
+          "lineHeight": "45.36px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H2",
+          "text": "Health Made Clear",
+          "fontSize": "34px",
+          "lineHeight": "38.08px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H2",
+          "text": "Platform",
+          "fontSize": "16px",
+          "lineHeight": "22.4px",
+          "marginBottom": "16px"
+        },
+        {
+          "tag": "H2",
+          "text": "Legal & Support",
+          "fontSize": "16px",
+          "lineHeight": "22.4px",
+          "marginBottom": "16px"
+        }
+      ],
+      "paragraphs": [
+        {
+          "text": "Sign in to pick up where you left off.",
+          "fontSize": "18px",
+          "lineHeight": "29.7px",
+          "color": "rgb(63, 72, 74)",
+          "width": 502,
+          "charsPerLine": 54
+        },
+        {
+          "text": "Every lesson you complete brings you clo",
+          "fontSize": "18px",
+          "lineHeight": "29.7px",
+          "color": "rgb(63, 72, 74)",
+          "width": 452,
+          "charsPerLine": 48
+        },
+        {
+          "text": "Don't have an account? Sign up",
+          "fontSize": "16px",
+          "lineHeight": "22.4px",
+          "color": "rgb(63, 72, 74)",
+          "width": 462,
+          "charsPerLine": 56
+        },
+        {
+          "text": "Health information, made simple.",
+          "fontSize": "18px",
+          "lineHeight": "29.7px",
+          "color": "rgb(63, 72, 74)",
+          "width": 563,
+          "charsPerLine": 60
+        }
+      ],
+      "hasHorizontalScroll": false,
+      "scrollWidth": 1440,
+      "clientWidth": 1440,
+      "trust": {
+        "hasMedicalDisclaimer": false,
+        "hasSources": false,
+        "hasLastUpdated": false
+      }
+    },
+    "mobile": {
+      "hasHorizontalScroll": false,
+      "scrollWidth": 390,
+      "clientWidth": 390,
+      "smallTargetsCount": 10,
+      "smallTargets": [
+        {
+          "tag": "A",
+          "text": "Forgot your password?",
+          "width": 308,
+          "height": 22,
+          "classes": "text-primary underline-offset-2 hover:underline"
+        },
+        {
+          "tag": "A",
+          "text": "Sign up",
+          "width": 60,
+          "height": 20,
+          "classes": "font-semibold text-primary underline-offset-2 hove"
+        },
+        {
+          "tag": "A",
+          "text": "About",
+          "width": 47,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Paths",
+          "width": 44,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Tools",
+          "width": 41,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Glossary",
+          "width": 68,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Accessibility",
+          "width": 99,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Privacy",
+          "width": 56,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Terms of Service",
+          "width": 132,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Contact",
+          "width": 61,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        }
+      ]
+    }
+  },
+  {
+    "page": "24-dashboard-achievements",
+    "path": "/en/dashboard/achievements",
+    "desktop": {
+      "h1": "Welcome back",
+      "headings": [
+        {
+          "tag": "H1",
+          "text": "Welcome back",
+          "fontSize": "42px",
+          "lineHeight": "45.36px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H2",
+          "text": "Health Made Clear",
+          "fontSize": "34px",
+          "lineHeight": "38.08px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H2",
+          "text": "Platform",
+          "fontSize": "16px",
+          "lineHeight": "22.4px",
+          "marginBottom": "16px"
+        },
+        {
+          "tag": "H2",
+          "text": "Legal & Support",
+          "fontSize": "16px",
+          "lineHeight": "22.4px",
+          "marginBottom": "16px"
+        }
+      ],
+      "paragraphs": [
+        {
+          "text": "Sign in to pick up where you left off.",
+          "fontSize": "18px",
+          "lineHeight": "29.7px",
+          "color": "rgb(63, 72, 74)",
+          "width": 502,
+          "charsPerLine": 54
+        },
+        {
+          "text": "Every lesson you complete brings you clo",
+          "fontSize": "18px",
+          "lineHeight": "29.7px",
+          "color": "rgb(63, 72, 74)",
+          "width": 452,
+          "charsPerLine": 48
+        },
+        {
+          "text": "Don't have an account? Sign up",
+          "fontSize": "16px",
+          "lineHeight": "22.4px",
+          "color": "rgb(63, 72, 74)",
+          "width": 462,
+          "charsPerLine": 56
+        },
+        {
+          "text": "Health information, made simple.",
+          "fontSize": "18px",
+          "lineHeight": "29.7px",
+          "color": "rgb(63, 72, 74)",
+          "width": 563,
+          "charsPerLine": 60
+        }
+      ],
+      "hasHorizontalScroll": false,
+      "scrollWidth": 1440,
+      "clientWidth": 1440,
+      "trust": {
+        "hasMedicalDisclaimer": false,
+        "hasSources": false,
+        "hasLastUpdated": false
+      }
+    },
+    "mobile": {
+      "hasHorizontalScroll": false,
+      "scrollWidth": 390,
+      "clientWidth": 390,
+      "smallTargetsCount": 10,
+      "smallTargets": [
+        {
+          "tag": "A",
+          "text": "Forgot your password?",
+          "width": 308,
+          "height": 22,
+          "classes": "text-primary underline-offset-2 hover:underline"
+        },
+        {
+          "tag": "A",
+          "text": "Sign up",
+          "width": 60,
+          "height": 20,
+          "classes": "font-semibold text-primary underline-offset-2 hove"
+        },
+        {
+          "tag": "A",
+          "text": "About",
+          "width": 47,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Paths",
+          "width": 44,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Tools",
+          "width": 41,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Glossary",
+          "width": 68,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Accessibility",
+          "width": 99,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Privacy",
+          "width": 56,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Terms of Service",
+          "width": 132,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Contact",
+          "width": 61,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        }
+      ]
+    }
+  },
+  {
+    "page": "25-dashboard-settings",
+    "path": "/en/dashboard/settings",
+    "desktop": {
+      "h1": "Welcome back",
+      "headings": [
+        {
+          "tag": "H1",
+          "text": "Welcome back",
+          "fontSize": "42px",
+          "lineHeight": "45.36px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H2",
+          "text": "Health Made Clear",
+          "fontSize": "34px",
+          "lineHeight": "38.08px",
+          "marginBottom": "0px"
+        },
+        {
+          "tag": "H2",
+          "text": "Platform",
+          "fontSize": "16px",
+          "lineHeight": "22.4px",
+          "marginBottom": "16px"
+        },
+        {
+          "tag": "H2",
+          "text": "Legal & Support",
+          "fontSize": "16px",
+          "lineHeight": "22.4px",
+          "marginBottom": "16px"
+        }
+      ],
+      "paragraphs": [
+        {
+          "text": "Sign in to pick up where you left off.",
+          "fontSize": "18px",
+          "lineHeight": "29.7px",
+          "color": "rgb(63, 72, 74)",
+          "width": 502,
+          "charsPerLine": 54
+        },
+        {
+          "text": "Every lesson you complete brings you clo",
+          "fontSize": "18px",
+          "lineHeight": "29.7px",
+          "color": "rgb(63, 72, 74)",
+          "width": 452,
+          "charsPerLine": 48
+        },
+        {
+          "text": "Don't have an account? Sign up",
+          "fontSize": "16px",
+          "lineHeight": "22.4px",
+          "color": "rgb(63, 72, 74)",
+          "width": 462,
+          "charsPerLine": 56
+        },
+        {
+          "text": "Health information, made simple.",
+          "fontSize": "18px",
+          "lineHeight": "29.7px",
+          "color": "rgb(63, 72, 74)",
+          "width": 563,
+          "charsPerLine": 60
+        }
+      ],
+      "hasHorizontalScroll": false,
+      "scrollWidth": 1440,
+      "clientWidth": 1440,
+      "trust": {
+        "hasMedicalDisclaimer": false,
+        "hasSources": false,
+        "hasLastUpdated": false
+      }
+    },
+    "mobile": {
+      "hasHorizontalScroll": false,
+      "scrollWidth": 390,
+      "clientWidth": 390,
+      "smallTargetsCount": 10,
+      "smallTargets": [
+        {
+          "tag": "A",
+          "text": "Forgot your password?",
+          "width": 308,
+          "height": 22,
+          "classes": "text-primary underline-offset-2 hover:underline"
+        },
+        {
+          "tag": "A",
+          "text": "Sign up",
+          "width": 60,
+          "height": 20,
+          "classes": "font-semibold text-primary underline-offset-2 hove"
+        },
+        {
+          "tag": "A",
+          "text": "About",
+          "width": 47,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Paths",
+          "width": 44,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Tools",
+          "width": 41,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Glossary",
+          "width": 68,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Accessibility",
+          "width": 99,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Privacy",
+          "width": 56,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Terms of Service",
+          "width": 132,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        },
+        {
+          "tag": "A",
+          "text": "Contact",
+          "width": 61,
+          "height": 22,
+          "classes": "transition-colors hover:text-primary"
+        }
+      ]
+    }
+  },
+  {
+    "page": "26-not-found",
+    "path": "/en/this-page-does-not-exist-404",
+    "desktop": {
+      "h1": "Page not found",
+      "headings": [
+        {
+          "tag": "H1",
+          "text": "Page not found",
+          "fontSize": "32px",
+          "lineHeight": "normal",
+          "marginBottom": "21.44px"
+        }
+      ],
+      "paragraphs": [
+        {
+          "text": "The page you are looking for does not ex",
+          "fontSize": "16px",
+          "lineHeight": "normal",
+          "color": "rgb(0, 0, 0)",
+          "width": 1424,
+          "charsPerLine": 171
+        },
+        {
+          "text": "La página que buscas no existe o se movi",
+          "fontSize": "16px",
+          "lineHeight": "normal",
+          "color": "rgb(0, 0, 0)",
+          "width": 1424,
+          "charsPerLine": 171
+        }
+      ],
+      "hasHorizontalScroll": false,
+      "scrollWidth": 1440,
+      "clientWidth": 1440,
+      "trust": {
+        "hasMedicalDisclaimer": false,
+        "hasSources": false,
+        "hasLastUpdated": false
+      }
+    },
+    "mobile": {
+      "hasHorizontalScroll": false,
+      "scrollWidth": 390,
+      "clientWidth": 390,
+      "smallTargetsCount": 2,
+      "smallTargets": [
+        {
+          "tag": "A",
+          "text": "Go home",
+          "width": 59,
+          "height": 18,
+          "classes": "btn-primary focus-visible:outline-none focus-visib"
+        },
+        {
+          "tag": "A",
+          "text": "Ir al inicio",
+          "width": 67,
+          "height": 18,
+          "classes": "btn-secondary focus-visible:outline-none focus-vis"
+        }
+      ]
+    }
+  }
+]
