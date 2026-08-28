@@ -1,0 +1,223 @@
+{
+  "authFlow": {},
+  "interactiveFlows": {},
+  "keyboardAudit": {
+    "home": [
+      {
+        "tag": "A",
+        "text": "Skip to main content",
+        "outline": "none",
+        "boxShadow": "rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(255, 255, 255, 0.647) 0px 0px 0px 1.29375px, rgba(255, 255, 255, 0.647) 0px 0px 0px 2.58749px, rgba(0, 67, 73, 0.28) 0px 36px 68px -34px, rgba(0, 67, 73, 0.18) 0px 14px 28px -26px",
+        "ring": true
+      },
+      {
+        "tag": "A",
+        "text": "Health Made ClearClear health learn",
+        "outline": "3px rgb(0, 67, 73)",
+        "boxShadow": "none",
+        "ring": true
+      },
+      {
+        "tag": "A",
+        "text": "Sign in",
+        "outline": "none",
+        "boxShadow": "rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgb(255, 255, 255) 0px 0px 0px 2px, rgb(0, 67, 73) 0px 0px 0px 4px, rgba(0, 0, 0, 0) 0px 0px 0px 0px",
+        "ring": true
+      },
+      {
+        "tag": "A",
+        "text": "Create account",
+        "outline": "none",
+        "boxShadow": "rgba(0, 67, 73, 0.055) 0px 4.6933px 9.3866px -5.86663px, rgba(0, 67, 73, 0.035) 0px 1.95554px 3.51998px -3.51998px, rgba(255, 255, 255, 0.804) 0px 0px 0px 1.60889px, rgba(0, 67, 73, 0.804) 0px 0px 0px 3.21778px, rgba(0, 0, 0, 0) 0px 0px 0px 0px",
+        "ring": true
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Search lessons, articles, glossary…",
+        "outline": "3px rgb(18, 68, 73)",
+        "boxShadow": "rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 67, 73, 0.18) 0px 12px 20px -18px, rgba(0, 67, 73, 0.18) 0px 6px 10px -10px",
+        "ring": true
+      },
+      {
+        "tag": "BUTTON",
+        "text": "EN",
+        "outline": "none",
+        "boxShadow": "rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(255, 255, 255, 0.804) 0px 0px 0px 1.60889px, rgba(0, 67, 73, 0.804) 0px 0px 0px 3.21778px, rgba(0, 0, 0, 0) 0px 0px 0px 0px",
+        "ring": true
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Switch to dark mode",
+        "outline": "3px rgb(0, 67, 73)",
+        "boxShadow": "rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 67, 73, 0.18) 0px 12px 20px -18px, rgba(0, 67, 73, 0.18) 0px 6px 10px -10px",
+        "ring": true
+      },
+      {
+        "tag": "BUTTON",
+        "text": "DisplayDisplay",
+        "outline": "none",
+        "boxShadow": "rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(255, 255, 255, 0.804) 0px 0px 0px 1.60889px, rgba(0, 67, 73, 0.804) 0px 0px 0px 3.21778px, rgba(0, 0, 0, 0) 0px 0px 0px 0px",
+        "ring": true
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Toggle navigation",
+        "outline": "3px rgb(0, 67, 73)",
+        "boxShadow": "rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 67, 73, 0.18) 0px 12px 20px -18px, rgba(0, 67, 73, 0.18) 0px 6px 10px -10px",
+        "ring": true
+      },
+      {
+        "tag": "A",
+        "text": "Start Learning",
+        "outline": "none",
+        "boxShadow": "rgba(0, 67, 73, 0.055) 0px 4.6933px 9.3866px -5.86663px, rgba(0, 67, 73, 0.035) 0px 1.95554px 3.51998px -3.51998px, rgba(255, 255, 255, 0.804) 0px 0px 0px 1.60889px, rgba(0, 67, 73, 0.804) 0px 0px 0px 3.21778px, rgba(0, 0, 0, 0) 0px 0px 0px 0px",
+        "ring": true
+      }
+    ],
+    "lesson": [
+      {
+        "tag": "A",
+        "text": "Skip to main content",
+        "outline": "none",
+        "boxShadow": "rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(255, 255, 255, 0.46) 0px 0px 0px 0.915378px, rgba(255, 255, 255, 0.46) 0px 0px 0px 1.83076px, rgba(0, 67, 73, 0.28) 0px 36px 68px -34px, rgba(0, 67, 73, 0.18) 0px 14px 28px -26px",
+        "ring": true
+      },
+      {
+        "tag": "A",
+        "text": "Health Made ClearClear health learn",
+        "outline": "3px rgb(0, 67, 73)",
+        "boxShadow": "none",
+        "ring": true
+      },
+      {
+        "tag": "A",
+        "text": "Sign in",
+        "outline": "none",
+        "boxShadow": "rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgb(255, 255, 255) 0px 0px 0px 2px, rgb(0, 67, 73) 0px 0px 0px 4px, rgba(0, 0, 0, 0) 0px 0px 0px 0px",
+        "ring": true
+      },
+      {
+        "tag": "A",
+        "text": "Create account",
+        "outline": "none",
+        "boxShadow": "rgba(0, 67, 73, 0.055) 0px 4.68011px 9.36021px -5.85013px, rgba(0, 67, 73, 0.035) 0px 1.95004px 3.51008px -3.51008px, rgba(255, 255, 255, 0.804) 0px 0px 0px 1.60999px, rgba(0, 67, 73, 0.804) 0px 0px 0px 3.21998px, rgba(0, 0, 0, 0) 0px 0px 0px 0px",
+        "ring": true
+      },
+      {
+        "tag": "BUTTON",
+        "text": "EN",
+        "outline": "none",
+        "boxShadow": "rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(255, 255, 255, 0.804) 0px 0px 0px 1.60999px, rgba(0, 67, 73, 0.804) 0px 0px 0px 3.21998px, rgba(0, 0, 0, 0) 0px 0px 0px 0px",
+        "ring": true
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Switch to dark mode",
+        "outline": "3px rgb(0, 67, 73)",
+        "boxShadow": "rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 67, 73, 0.18) 0px 12px 20px -18px, rgba(0, 67, 73, 0.18) 0px 6px 10px -10px",
+        "ring": true
+      },
+      {
+        "tag": "BUTTON",
+        "text": "DisplayDisplay",
+        "outline": "none",
+        "boxShadow": "rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(255, 255, 255, 0.804) 0px 0px 0px 1.60999px, rgba(0, 67, 73, 0.804) 0px 0px 0px 3.21998px, rgba(0, 0, 0, 0) 0px 0px 0px 0px",
+        "ring": true
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Toggle navigation",
+        "outline": "3px rgb(0, 67, 73)",
+        "boxShadow": "rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 67, 73, 0.18) 0px 12px 20px -18px, rgba(0, 67, 73, 0.18) 0px 6px 10px -10px",
+        "ring": true
+      },
+      {
+        "tag": "A",
+        "text": "Home",
+        "outline": "3px rgb(19, 69, 73)",
+        "boxShadow": "none",
+        "ring": true
+      },
+      {
+        "tag": "A",
+        "text": "All topics",
+        "outline": "3px rgb(19, 69, 73)",
+        "boxShadow": "none",
+        "ring": true
+      }
+    ],
+    "planner": [
+      {
+        "tag": "A",
+        "text": "Skip to main content",
+        "outline": "none",
+        "boxShadow": "rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(255, 255, 255, 0.647) 0px 0px 0px 1.29186px, rgba(255, 255, 255, 0.647) 0px 0px 0px 2.58373px, rgba(0, 67, 73, 0.28) 0px 36px 68px -34px, rgba(0, 67, 73, 0.18) 0px 14px 28px -26px",
+        "ring": true
+      },
+      {
+        "tag": "A",
+        "text": "Health Made ClearClear health learn",
+        "outline": "3px rgb(0, 67, 73)",
+        "boxShadow": "none",
+        "ring": true
+      },
+      {
+        "tag": "A",
+        "text": "Sign in",
+        "outline": "none",
+        "boxShadow": "rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgb(255, 255, 255) 0px 0px 0px 2px, rgb(0, 67, 73) 0px 0px 0px 4px, rgba(0, 0, 0, 0) 0px 0px 0px 0px",
+        "ring": true
+      },
+      {
+        "tag": "A",
+        "text": "Create account",
+        "outline": "none",
+        "boxShadow": "rgba(0, 67, 73, 0.055) 0px 4.68011px 9.36021px -5.85013px, rgba(0, 67, 73, 0.035) 0px 1.95004px 3.51008px -3.51008px, rgba(255, 255, 255, 0.804) 0px 0px 0px 1.60999px, rgba(0, 67, 73, 0.804) 0px 0px 0px 3.21998px, rgba(0, 0, 0, 0) 0px 0px 0px 0px",
+        "ring": true
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Search lessons, articles, glossary…",
+        "outline": "3px rgb(18, 68, 73)",
+        "boxShadow": "rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 67, 73, 0.18) 0px 12px 20px -18px, rgba(0, 67, 73, 0.18) 0px 6px 10px -10px",
+        "ring": true
+      },
+      {
+        "tag": "BUTTON",
+        "text": "EN",
+        "outline": "none",
+        "boxShadow": "rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(255, 255, 255, 0.804) 0px 0px 0px 1.60889px, rgba(0, 67, 73, 0.804) 0px 0px 0px 3.21778px, rgba(0, 0, 0, 0) 0px 0px 0px 0px",
+        "ring": true
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Switch to dark mode",
+        "outline": "3px rgb(0, 67, 73)",
+        "boxShadow": "rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 67, 73, 0.18) 0px 12px 20px -18px, rgba(0, 67, 73, 0.18) 0px 6px 10px -10px",
+        "ring": true
+      },
+      {
+        "tag": "BUTTON",
+        "text": "DisplayDisplay",
+        "outline": "none",
+        "boxShadow": "rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(255, 255, 255, 0.804) 0px 0px 0px 1.60999px, rgba(0, 67, 73, 0.804) 0px 0px 0px 3.21998px, rgba(0, 0, 0, 0) 0px 0px 0px 0px",
+        "ring": true
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Toggle navigation",
+        "outline": "3px rgb(0, 67, 73)",
+        "boxShadow": "rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 67, 73, 0.18) 0px 12px 20px -18px, rgba(0, 67, 73, 0.18) 0px 6px 10px -10px",
+        "ring": true
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Step 1Visit typeStart with why you ",
+        "outline": "3px rgb(0, 67, 73)",
+        "boxShadow": "rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 67, 73, 0.28) 0px 22px 38px -28px, rgba(0, 67, 73, 0.18) 0px 10px 18px -18px",
+        "ring": true
+      }
+    ]
+  },
+  "mobileAudit": {}
+}
