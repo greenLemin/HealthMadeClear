@@ -1,5 +1,8 @@
 import { describe, expect, it } from "vitest";
-import { getPathsForLesson, getLoadPathsPromise } from "./pathsCache";
+import { readFileSync } from "node:fs";
+import { dirname, join } from "node:path";
+import { fileURLToPath } from "node:url";
+import { getPathsForLesson, loadPathsForLocale } from "./pathsCache";
 import type { LearningPath } from "@/types/learningPath";
 import type { PathId } from "@/types/content";
 import type { Locale } from "@/lib/i18n";
@@ -91,18 +94,33 @@ describe("pathsCache", () => {
     });
   });
 
-  describe("getLoadPathsPromise", () => {
-    it("returns a promise that resolves the module", async () => {
-      const promise = getLoadPathsPromise();
-      expect(promise).toBeInstanceOf(Promise);
-      const loadedModule = await promise;
-      expect(loadedModule).toBeDefined();
+  describe("loadPathsForLocale", () => {
+    it("does not import the combined path barrel or loadPaths.ts", () => {
+      const src = readFileSync(join(dirname(fileURLToPath(import.meta.url)), "pathsCache.ts"), "utf8");
+      expect(src).not.toMatch(/from ["']@\/lib\/paths\/loadPaths["']/);
+      expect(src).not.toMatch(/import\(["']@\/lib\/paths\/loadPaths["']\)/);
+      expect(src).not.toMatch(/@\/data\/pathBundles["']/);
+      expect(src).toMatch(/@\/data\/pathBundles\.en/);
+      expect(src).toMatch(/@\/data\/pathBundles\.es/);
     });
 
-    it("returns the exact same promise instance on subsequent calls", () => {
-      const promise1 = getLoadPathsPromise();
-      const promise2 = getLoadPathsPromise();
+    it("returns a promise of paths for the requested locale", async () => {
+      const promise = loadPathsForLocale("en");
+      expect(promise).toBeInstanceOf(Promise);
+      const paths = await promise;
+      expect(Array.isArray(paths)).toBe(true);
+    });
+
+    it("returns the exact same promise instance on subsequent calls for the same locale", () => {
+      const promise1 = loadPathsForLocale("en");
+      const promise2 = loadPathsForLocale("en");
       expect(promise1).toBe(promise2);
+    });
+
+    it("uses a separate promise per locale", () => {
+      const enPromise = loadPathsForLocale("en");
+      const esPromise = loadPathsForLocale("es");
+      expect(enPromise).not.toBe(esPromise);
     });
   });
 });

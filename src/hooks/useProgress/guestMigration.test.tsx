@@ -1,13 +1,14 @@
 // @vitest-environment jsdom
-import { renderHook, waitFor } from "@testing-library/react";
+import { renderHook, waitFor, act } from "@testing-library/react";
 import { describe, expect, it, vi, beforeEach } from "vitest";
 import { useGuestMigration } from "./guestMigration";
-import { getGuestProgress, migrateGuestProgressToSupabase } from "@/lib/guestProgress";
+import { getGuestProgress, migrateGuestProgressToSupabase, clearGuestProgress } from "@/lib/guestProgress";
 import type { User } from "@supabase/supabase-js";
 
 vi.mock("@/lib/guestProgress", () => ({
   getGuestProgress: vi.fn(),
   migrateGuestProgressToSupabase: vi.fn(),
+  clearGuestProgress: vi.fn(),
 }));
 
 describe("useGuestMigration hook", () => {
@@ -71,7 +72,7 @@ describe("useGuestMigration hook", () => {
     expect(migrateGuestProgressToSupabase).toHaveBeenCalledWith(mockSupabase, "user-123");
   });
 
-  it("should handle failed migration gracefully", async () => {
+  it("should handle failed migration gracefully: migrated stays false, loading false", async () => {
     vi.mocked(getGuestProgress).mockReturnValue({
       completedLessons: ["lesson-1"],
       quizAttempts: [],
@@ -85,6 +86,73 @@ describe("useGuestMigration hook", () => {
     });
 
     expect(migrateGuestProgressToSupabase).toHaveBeenCalledWith(mockSupabase, "user-123");
+    // migrated should remain false when result.ok is false
+    expect(result.current.migrated).toBe(false);
+    expect(clearGuestProgress).not.toHaveBeenCalled();
+  });
+
+  it("catch path: migration reject sets isMigrationLoading false and does not stick true", async () => {
+    vi.mocked(getGuestProgress).mockReturnValue({
+      completedLessons: ["lesson-1"],
+      quizAttempts: [],
+    });
+    // Simulate a thrown error (network outage, etc.)
+    vi.mocked(migrateGuestProgressToSupabase).mockRejectedValue(new Error("Network error"));
+
+    const { result } = renderHook(() => useGuestMigration(mockUser, mockSupabase, false));
+
+    // Use act to flush promises including the catch/finally chain
+    await act(async () => {
+      await new Promise((resolve) => setTimeout(resolve, 50));
+    });
+
+    expect(result.current.isMigrationLoading).toBe(false);
+    expect(clearGuestProgress).not.toHaveBeenCalled();
+  });
+
+  it("calls onMigrated then clearGuestProgress after successful migration", async () => {
+    vi.mocked(getGuestProgress).mockReturnValue({
+      completedLessons: ["lesson-1"],
+      quizAttempts: [],
+    });
+    vi.mocked(migrateGuestProgressToSupabase).mockResolvedValue({ ok: true, errors: [] });
+
+    const order: string[] = [];
+    const onMigrated = vi.fn(async () => {
+      order.push("onMigrated");
+    });
+    vi.mocked(clearGuestProgress).mockImplementation(() => {
+      order.push("clear");
+    });
+
+    const { result } = renderHook(() => useGuestMigration(mockUser, mockSupabase, false, onMigrated));
+
+    await waitFor(() => {
+      expect(result.current.isMigrationLoading).toBe(false);
+    });
+
+    expect(onMigrated).toHaveBeenCalledTimes(1);
+    expect(clearGuestProgress).toHaveBeenCalledTimes(1);
+    expect(order).toEqual(["onMigrated", "clear"]);
+    expect(result.current.migrated).toBe(true);
+  });
+
+  it("does NOT call onMigrated when migration returns ok: false", async () => {
+    vi.mocked(getGuestProgress).mockReturnValue({
+      completedLessons: ["lesson-1"],
+      quizAttempts: [],
+    });
+    vi.mocked(migrateGuestProgressToSupabase).mockResolvedValue({ ok: false, errors: ["err"] });
+
+    const onMigrated = vi.fn();
+    const { result } = renderHook(() => useGuestMigration(mockUser, mockSupabase, false, onMigrated));
+
+    await waitFor(() => {
+      expect(result.current.isMigrationLoading).toBe(false);
+    });
+
+    expect(onMigrated).not.toHaveBeenCalled();
+    expect(clearGuestProgress).not.toHaveBeenCalled();
   });
 
   it("should complete migration loading immediately if guest has no progress", async () => {

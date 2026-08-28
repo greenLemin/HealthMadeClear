@@ -16,49 +16,54 @@ import {
   type TextSize,
   type ThemeMode,
 } from "@/lib/preferences";
+import { clearLocalHealthData } from "@/lib/clearLocalHealthData";
 import type { ExportedProgress, QuizScore } from "@/lib/progressExport";
 import { readStoredQuizScores } from "@/lib/progressExport";
 
 export type { TextSize, ThemeMode };
 
-type AppContextValue = {
+type PreferencesContextValue = {
   locale: Locale;
   theme: ThemeMode;
   textSize: TextSize;
   simpleMode: boolean;
-  completedLessons: Set<string>;
-  recentLessons: string[];
-  startedPaths: string[];
-  quizScores: QuizScore[];
   setLocale: (locale: Locale) => void;
   setTheme: (theme: ThemeMode) => void;
   setTextSize: (size: TextSize) => void;
   setSimpleMode: (value: boolean) => void;
+};
+
+type ProgressContextValue = {
+  completedLessons: Set<string>;
+  recentLessons: string[];
+  startedPaths: string[];
+  quizScores: QuizScore[];
+  wipeGeneration: number;
   toggleLessonComplete: (lessonId: string) => void;
   markLessonViewed: (lessonId: string) => void;
   markPathStarted: (pathId: string) => void;
   markLessonComplete: (lessonId: string) => void;
   recordQuizScore: (lessonId: string, score: number, passed: boolean) => void;
   importProgress: (data: ExportedProgress) => void;
+  resetLocalProgress: () => void;
 };
 
-const AppContext = createContext<AppContextValue | null>(null);
+type AppContextValue = PreferencesContextValue & ProgressContextValue;
 
-export default function AppProviders({
+const PreferencesContext = createContext<PreferencesContextValue | null>(null);
+const ProgressContext = createContext<ProgressContextValue | null>(null);
+
+function PreferencesProvider({
   children,
-  locale: initialLocale,
+  initialLocale,
 }: {
   children: React.ReactNode;
-  locale: Locale;
+  initialLocale: Locale;
 }) {
   const [locale, setLocaleState] = useState<Locale>(initialLocale);
   const [theme, setThemeState] = useState<ThemeMode>("light");
   const [textSize, setTextSizeState] = useState<TextSize>("standard");
   const [simpleMode, setSimpleModeState] = useState(false);
-  const [completedLessons, setCompletedLessons] = useState<Set<string>>(new Set());
-  const [recentLessons, setRecentLessons] = useState<string[]>([]);
-  const [startedPaths, setStartedPaths] = useState<string[]>([]);
-  const [quizScores, setQuizScores] = useState<QuizScore[]>([]);
   const [hydrated, setHydrated] = useState(false);
 
   useEffect(() => {
@@ -72,12 +77,6 @@ export default function AppProviders({
     setTextSizeState(readStoredTextSize());
 
     setSimpleModeState(readStoredSimpleMode());
-    setCompletedLessons(new Set(readStoredStringArray(STORAGE_KEYS.completedLessons)));
-    setRecentLessons(readStoredStringArray(STORAGE_KEYS.recentLessons));
-
-    setStartedPaths(readStoredStringArray(STORAGE_KEYS.startedPaths));
-
-    setQuizScores(readStoredQuizScores());
 
     setHydrated(true);
   }, [initialLocale]);
@@ -104,6 +103,48 @@ export default function AppProviders({
     setPreferenceCookie("hmc-simple-mode", String(simpleMode));
   }, [hydrated, locale, theme, textSize, simpleMode]);
 
+  const setLocale = useCallback((value: Locale) => setLocaleState(value), []);
+  const setTheme = useCallback((value: ThemeMode) => setThemeState(value), []);
+  const setTextSize = useCallback((value: TextSize) => setTextSizeState(value), []);
+  const setSimpleMode = useCallback((value: boolean) => setSimpleModeState(value), []);
+
+  const value = useMemo<PreferencesContextValue>(
+    () => ({
+      locale,
+      theme,
+      textSize,
+      simpleMode,
+      setLocale,
+      setTheme,
+      setTextSize,
+      setSimpleMode,
+    }),
+    [locale, theme, textSize, simpleMode, setLocale, setTheme, setTextSize, setSimpleMode]
+  );
+
+  return <PreferencesContext.Provider value={value}>{children}</PreferencesContext.Provider>;
+}
+
+function ProgressProvider({ children }: { children: React.ReactNode }) {
+  const [completedLessons, setCompletedLessons] = useState<Set<string>>(new Set());
+  const [recentLessons, setRecentLessons] = useState<string[]>([]);
+  const [startedPaths, setStartedPaths] = useState<string[]>([]);
+  const [quizScores, setQuizScores] = useState<QuizScore[]>([]);
+  const [wipeGeneration, setWipeGeneration] = useState(0);
+  const [hydrated, setHydrated] = useState(false);
+
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- Load persisted progress after mount, blocking persist until hydrated
+    setCompletedLessons(new Set(readStoredStringArray(STORAGE_KEYS.completedLessons)));
+    setRecentLessons(readStoredStringArray(STORAGE_KEYS.recentLessons));
+
+    setStartedPaths(readStoredStringArray(STORAGE_KEYS.startedPaths));
+
+    setQuizScores(readStoredQuizScores());
+
+    setHydrated(true);
+  }, []);
+
   useEffect(() => {
     if (!hydrated) return;
     try {
@@ -122,11 +163,6 @@ export default function AppProviders({
       window.localStorage.setItem(STORAGE_KEYS.quizScores, JSON.stringify(quizScores));
     } catch {}
   }, [hydrated, completedLessons, recentLessons, startedPaths, quizScores]);
-
-  const setLocale = useCallback((value: Locale) => setLocaleState(value), []);
-  const setTheme = useCallback((value: ThemeMode) => setThemeState(value), []);
-  const setTextSize = useCallback((value: TextSize) => setTextSizeState(value), []);
-  const setSimpleMode = useCallback((value: boolean) => setSimpleModeState(value), []);
 
   const toggleLessonComplete = useCallback((lessonId: string) => {
     setCompletedLessons((current) => {
@@ -158,13 +194,15 @@ export default function AppProviders({
   }, []);
 
   const recordQuizScore = useCallback((lessonId: string, score: number, passed: boolean) => {
-    const entry: QuizScore = {
-      lessonId,
-      score,
-      passed,
-      completedAt: new Date().toISOString(),
-    };
     setQuizScores((current) => {
+      const existing = current.find((item) => item.lessonId === lessonId);
+      if (existing && existing.score > score) return current;
+      const entry: QuizScore = {
+        lessonId,
+        score,
+        passed,
+        completedAt: new Date().toISOString(),
+      };
       const without = current.filter((item) => item.lessonId !== lessonId);
       return [...without, entry];
     });
@@ -177,68 +215,97 @@ export default function AppProviders({
     setQuizScores(data.quizScores);
   }, []);
 
-  const value = useMemo<AppContextValue>(
-    () => ({
-      locale,
-      theme,
-      textSize,
-      simpleMode,
-      completedLessons,
-      recentLessons,
-      startedPaths,
-      quizScores,
-      setLocale,
-      setTheme,
-      setTextSize,
-      setSimpleMode,
-      toggleLessonComplete,
-      markLessonViewed,
-      markPathStarted,
-      markLessonComplete,
-      recordQuizScore,
-      importProgress,
-    }),
+  const resetLocalProgress = useCallback(() => {
+    setCompletedLessons(new Set());
+    setRecentLessons([]);
+    setStartedPaths([]);
+    setQuizScores([]);
+    clearLocalHealthData();
+    setWipeGeneration((g) => g + 1);
+  }, []);
 
-    [
-      locale,
-      theme,
-      textSize,
-      simpleMode,
+  const value = useMemo<ProgressContextValue>(
+    () => ({
       completedLessons,
       recentLessons,
       startedPaths,
       quizScores,
-      setLocale,
-      setTheme,
-      setTextSize,
-      setSimpleMode,
+      wipeGeneration,
       toggleLessonComplete,
       markLessonViewed,
       markPathStarted,
       markLessonComplete,
       recordQuizScore,
       importProgress,
+      resetLocalProgress,
+    }),
+    [
+      completedLessons,
+      recentLessons,
+      startedPaths,
+      quizScores,
+      wipeGeneration,
+      toggleLessonComplete,
+      markLessonViewed,
+      markPathStarted,
+      markLessonComplete,
+      recordQuizScore,
+      importProgress,
+      resetLocalProgress,
     ]
   );
 
+  return <ProgressContext.Provider value={value}>{children}</ProgressContext.Provider>;
+}
+
+export default function AppProviders({
+  children,
+  locale: initialLocale,
+}: {
+  children: React.ReactNode;
+  locale: Locale;
+}) {
   return (
-    <AppContext.Provider value={value}>
-      <ErrorBoundary>
-        <ToastProvider>
-          {children}
-          <OnboardingDialog />
-        </ToastProvider>
-      </ErrorBoundary>
-    </AppContext.Provider>
+    <PreferencesProvider initialLocale={initialLocale}>
+      <ProgressProvider>
+        <ErrorBoundary>
+          <ToastProvider>
+            {children}
+            <OnboardingDialog />
+          </ToastProvider>
+        </ErrorBoundary>
+      </ProgressProvider>
+    </PreferencesProvider>
   );
 }
 
-export function useAppState() {
-  const context = useContext(AppContext);
+export function usePreferences() {
+  const context = useContext(PreferencesContext);
 
   if (!context) {
-    throw new Error("useAppState must be used within AppProviders");
+    throw new Error("usePreferences must be used within AppProviders");
   }
 
   return context;
+}
+
+export function useProgressContext() {
+  const context = useContext(ProgressContext);
+
+  if (!context) {
+    throw new Error("useProgressContext must be used within AppProviders");
+  }
+
+  return context;
+}
+
+export function useAppState(): AppContextValue {
+  const preferences = useContext(PreferencesContext);
+  const progress = useContext(ProgressContext);
+
+  if (!preferences || !progress) {
+    throw new Error("useAppState must be used within AppProviders");
+  }
+
+  return { ...preferences, ...progress };
 }

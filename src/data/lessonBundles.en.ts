@@ -50,7 +50,7 @@ export const lessons: Lesson[] = [
             {
               type: "warning",
               content:
-                "Never take more than the prescribed amount. If you miss a dose, ask your pharmacist what to do.",
+                "Never take more than the prescribed amount. If you miss a dose, ask your pharmacist what to do.\n\nIf someone collapses, is not breathing, or is having a seizure, call 911 first. For questions about accidental double doses, medicine mix-ups, or suspected poisoning, call US Poison Help at 1-800-222-1222 (free, confidential, 24/7).",
             },
           ],
         },

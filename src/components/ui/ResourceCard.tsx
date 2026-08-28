@@ -11,6 +11,7 @@ interface ResourceCardProps {
   footer: ReactNode;
   header?: ReactNode;
   onNavigate?: () => void;
+  titleClassName?: string;
 }
 
 export default function ResourceCard({
@@ -20,6 +21,7 @@ export default function ResourceCard({
   footer,
   header,
   onNavigate,
+  titleClassName = "text-title-md line-clamp-2",
 }: ResourceCardProps) {
   return (
     <Link
@@ -32,7 +34,9 @@ export default function ResourceCard({
     >
       <Card clickable padding="md" className="group overflow-hidden md:px-7 md:py-7">
         {header ? <div className="mb-4">{header}</div> : null}
-        <h3 className="font-display text-headline-md text-primary transition-colors group-hover:text-primary-container">
+        <h3
+          className={`font-display text-primary transition-colors group-hover:text-primary-container ${titleClassName}`}
+        >
           {title}
         </h3>
         <p className="mt-3 line-clamp-3 text-body-md text-on-surface-variant">{description}</p>

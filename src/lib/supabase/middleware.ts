@@ -3,6 +3,13 @@ import { NextResponse, type NextRequest } from "next/server";
 import { sanitizeRedirectPath } from "@/lib/auth/sanitizeRedirect";
 import { getSupabaseAnonKey, getSupabaseUrl, isSupabaseConfigured, shouldUseMockClient } from "./env";
 
+function expireSbAuthCookies(request: NextRequest, res: NextResponse) {
+  const sbCookies = request.cookies.getAll().filter((c) => /^sb-.*-auth-token/.test(c.name));
+  sbCookies.forEach(({ name }) => {
+    res.cookies.set(name, "", { maxAge: 0, path: "/" });
+  });
+}
+
 export async function updateSession(request: NextRequest, response?: NextResponse) {
   let supabaseResponse = response || NextResponse.next({ request });
 
@@ -37,7 +44,11 @@ export async function updateSession(request: NextRequest, response?: NextRespons
         const loginUrl = request.nextUrl.clone();
         loginUrl.pathname = `/${locale}/auth/login`;
         loginUrl.searchParams.set("redirect", sanitizeRedirectPath(pathname));
-        return NextResponse.redirect(loginUrl);
+        const redirectResponse = NextResponse.redirect(loginUrl);
+        supabaseResponse.cookies.getAll().forEach(({ name, value, ...options }) => {
+          redirectResponse.cookies.set(name, value, options);
+        });
+        return redirectResponse;
       }
     }
     return supabaseResponse;
@@ -56,8 +67,7 @@ export async function updateSession(request: NextRequest, response?: NextRespons
         return request.cookies.getAll();
       },
       setAll(cookiesToSet) {
-        // Forward options to request cookies so downstream handlers see e.g. path/maxAge;
-        // NextRequest cookies `set` may be typed as 2-arg in some versions — cast to allow 3-arg forwarding.
+        // (1) Always — 2xx and 3xx. Mutate the request Cookie header for downstream RSC / 200 rewrites.
         cookiesToSet.forEach(({ name, value, options }) =>
           (request.cookies as unknown as { set: (n: string, v: string, o?: unknown) => void }).set(
             name,
@@ -65,7 +75,25 @@ export async function updateSession(request: NextRequest, response?: NextRespons
             options
           )
         );
-        supabaseResponse = NextResponse.next({ request });
+
+        if (supabaseResponse.status >= 300 && supabaseResponse.status < 400) {
+          // (2) True 3xx: do not NextResponse.next. Set cookies on THAT redirect.
+          cookiesToSet.forEach(({ name, value, options }) =>
+            supabaseResponse.cookies.set(name, value, options)
+          );
+          return;
+        }
+
+        // (3) 2xx (including next-intl rewrite): copy RESPONSE headers, not request.headers.
+        const prevCookies = supabaseResponse.cookies.getAll();
+        supabaseResponse = NextResponse.next({
+          request,
+          headers: supabaseResponse.headers, // ResponseInit — keeps x-middleware-rewrite
+        });
+        // then copy previous response cookies onto the new supabaseResponse, then cookiesToSet
+        prevCookies.forEach(({ name, value, ...options }) => {
+          supabaseResponse.cookies.set(name, value, options);
+        });
         cookiesToSet.forEach(({ name, value, options }) =>
           supabaseResponse.cookies.set(name, value, options)
         );
@@ -74,11 +102,13 @@ export async function updateSession(request: NextRequest, response?: NextRespons
   });
 
   let user: { id: string } | null = null;
+  let authError: { message?: string } | null = null;
   try {
     const result = await supabase.auth.getUser();
     user = result.data.user;
+    authError = result.error; // resolved AuthError, including stale JWT
   } catch {
-    // If Supabase is down, treat as unauthenticated — dashboard will redirect.
+    authError = null; // outage: do not expire
   }
 
   if (isDashboardRoute && !user) {
@@ -86,7 +116,30 @@ export async function updateSession(request: NextRequest, response?: NextRespons
     const loginUrl = request.nextUrl.clone();
     loginUrl.pathname = `/${locale}/auth/login`;
     loginUrl.searchParams.set("redirect", sanitizeRedirectPath(pathname));
-    return NextResponse.redirect(loginUrl);
+    const redirectResponse = NextResponse.redirect(loginUrl);
+    supabaseResponse.cookies.getAll().forEach(({ name, value, ...options }) => {
+      redirectResponse.cookies.set(name, value, options);
+    });
+    if (authError != null) {
+      expireSbAuthCookies(request, redirectResponse);
+    }
+    return redirectResponse;
+  }
+
+  if (authError != null) {
+    expireSbAuthCookies(request, supabaseResponse);
+  }
+
+  // Regression guard: if incoming i18n response was 3xx and current is 200, return the 3xx with cookies copied
+  if (response && response.status >= 300 && response.status < 400 && supabaseResponse.status === 200) {
+    const fallbackRedirect = response;
+    supabaseResponse.cookies.getAll().forEach(({ name, value, ...options }) => {
+      fallbackRedirect.cookies.set(name, value, options);
+    });
+    if (authError != null) {
+      expireSbAuthCookies(request, fallbackRedirect);
+    }
+    return fallbackRedirect;
   }
 
   return supabaseResponse;

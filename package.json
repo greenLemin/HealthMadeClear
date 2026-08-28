@@ -11,6 +11,7 @@
     "start": "next start",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
+    "check:security-headers": "node scripts/check-security-headers.mjs",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",

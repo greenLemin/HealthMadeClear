@@ -1,11 +1,6 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
 import { updateStreak } from "./streaks";
-import { createNotification } from "@/lib/notifications";
 import type { SupabaseClient } from "@supabase/supabase-js";
-
-vi.mock("@/lib/notifications", () => ({
-  createNotification: vi.fn(),
-}));
 
 describe("updateStreak", () => {
   let mockSupabase: any;
@@ -52,7 +47,12 @@ describe("updateStreak", () => {
 
     const result = await updateStreak(mockSupabase as unknown as SupabaseClient, "user1");
 
-    expect(result).toEqual({ currentStreak: 1, longestStreak: 1, isNewDay: true });
+    expect(result).toEqual({
+      currentStreak: 1,
+      longestStreak: 1,
+      isNewDay: true,
+      milestoneReached: null,
+    });
 
     expect(mockFrom).toHaveBeenCalledWith("streaks");
     expect(mockSelect).toHaveBeenCalledWith("*");
@@ -67,8 +67,6 @@ describe("updateStreak", () => {
       },
       { onConflict: "user_id" }
     );
-
-    expect(createNotification).not.toHaveBeenCalled();
   });
 
   it("should not increment streak if returning on the same day", async () => {
@@ -89,7 +87,12 @@ describe("updateStreak", () => {
 
     const result = await updateStreak(mockSupabase as unknown as SupabaseClient, "user1");
 
-    expect(result).toEqual({ currentStreak: 5, longestStreak: 10, isNewDay: false });
+    expect(result).toEqual({
+      currentStreak: 5,
+      longestStreak: 10,
+      isNewDay: false,
+      milestoneReached: null,
+    });
 
     expect(mockUpsert).toHaveBeenCalledWith(
       {
@@ -100,8 +103,6 @@ describe("updateStreak", () => {
       },
       { onConflict: "user_id" }
     );
-
-    expect(createNotification).not.toHaveBeenCalled();
   });
 
   it("should increment current streak and possibly longest streak if returning consecutive day", async () => {
@@ -121,7 +122,12 @@ describe("updateStreak", () => {
 
     const result = await updateStreak(mockSupabase as unknown as SupabaseClient, "user1");
 
-    expect(result).toEqual({ currentStreak: 6, longestStreak: 6, isNewDay: true });
+    expect(result).toEqual({
+      currentStreak: 6,
+      longestStreak: 6,
+      isNewDay: true,
+      milestoneReached: null,
+    });
 
     expect(mockUpsert).toHaveBeenCalledWith(
       {
@@ -132,8 +138,6 @@ describe("updateStreak", () => {
       },
       { onConflict: "user_id" }
     );
-
-    expect(createNotification).not.toHaveBeenCalled();
   });
 
   it("should reset streak to 1 if user missed a day", async () => {
@@ -153,7 +157,12 @@ describe("updateStreak", () => {
 
     const result = await updateStreak(mockSupabase as unknown as SupabaseClient, "user1");
 
-    expect(result).toEqual({ currentStreak: 1, longestStreak: 10, isNewDay: true });
+    expect(result).toEqual({
+      currentStreak: 1,
+      longestStreak: 10,
+      isNewDay: true,
+      milestoneReached: null,
+    });
 
     expect(mockUpsert).toHaveBeenCalledWith(
       {
@@ -164,8 +173,6 @@ describe("updateStreak", () => {
       },
       { onConflict: "user_id" }
     );
-
-    expect(createNotification).not.toHaveBeenCalled();
   });
 
   it("should trigger notification on streak milestones (e.g. 3)", async () => {
@@ -185,12 +192,11 @@ describe("updateStreak", () => {
 
     const result = await updateStreak(mockSupabase as unknown as SupabaseClient, "user1");
 
-    expect(result).toEqual({ currentStreak: 3, longestStreak: 10, isNewDay: true });
-
-    expect(createNotification).toHaveBeenCalledWith(mockSupabase, "user1", {
-      type: "streak",
-      title: "3-Day Streak!",
-      body: "You're on a 3-day learning streak. Keep it up!",
+    expect(result).toEqual({
+      currentStreak: 3,
+      longestStreak: 10,
+      isNewDay: true,
+      milestoneReached: 3,
     });
   });
 
@@ -212,8 +218,36 @@ describe("updateStreak", () => {
 
     const result = await updateStreak(mockSupabase as unknown as SupabaseClient, "user1");
 
-    expect(result).toEqual({ currentStreak: 3, longestStreak: 10, isNewDay: false });
+    expect(result).toEqual({
+      currentStreak: 3,
+      longestStreak: 10,
+      isNewDay: false,
+      milestoneReached: null,
+    });
+  });
 
-    expect(createNotification).not.toHaveBeenCalled();
+  it("returns milestoneReached 7 when a new-day streak hits 7", async () => {
+    vi.setSystemTime(new Date("2023-10-16T12:00:00Z")); // Today
+
+    mockSingle.mockResolvedValueOnce({
+      data: {
+        user_id: "user1",
+        current_streak: 6,
+        longest_streak: 10,
+        last_activity_date: "2023-10-15", // Yesterday
+      },
+      error: null,
+    });
+
+    mockUpsert.mockResolvedValueOnce({ error: null });
+
+    const result = await updateStreak(mockSupabase as unknown as SupabaseClient, "user1");
+
+    expect(result).toEqual({
+      currentStreak: 7,
+      longestStreak: 10,
+      isNewDay: true,
+      milestoneReached: 7,
+    });
   });
 });

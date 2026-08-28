@@ -123,6 +123,8 @@ export default function LoginForm() {
 
       <FormErrorAlert error={error} />
 
+      <p className="text-center text-label-md text-on-surface-variant">{t("guestProgressWillSync")}</p>
+
       <Button type="submit" loading={loading} fullWidth>
         {t("loginButton")}
       </Button>

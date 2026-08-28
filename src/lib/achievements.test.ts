@@ -1,3 +1,6 @@
+import { readFileSync } from "node:fs";
+import { dirname, join } from "node:path";
+import { fileURLToPath } from "node:url";
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { getLocalizedAchievement, checkAndAwardAchievements, ACHIEVEMENTS } from "./achievements";
 import { getMessages } from "./i18n";
@@ -10,6 +13,7 @@ vi.mock("./i18n", () => ({
 
 vi.mock("./notifications", () => ({
   createNotifications: vi.fn(),
+  createNotification: vi.fn(),
 }));
 
 describe("achievements", () => {
@@ -91,7 +95,7 @@ describe("achievements", () => {
       };
     });
 
-    it("awards first-lesson achievement when condition is met", async () => {
+    it("awards first-lesson achievement when condition is met and returns IDs only", async () => {
       const context = { totalLessonsCompleted: 1 };
 
       const result = await checkAndAwardAchievements(
@@ -100,7 +104,8 @@ describe("achievements", () => {
         context
       );
 
-      expect(result).toContain("first-lesson");
+      expect(result).toEqual(["first-lesson"]);
+      expect(createNotifications).not.toHaveBeenCalled();
       expect(mockUpsert).toHaveBeenCalledWith(
         [
           {
@@ -113,7 +118,70 @@ describe("achievements", () => {
           ignoreDuplicates: true,
         }
       );
-      expect(createNotifications).toHaveBeenCalled();
+    });
+
+    it("awards three-day-streak when currentStreak is 3 and not previously earned", async () => {
+      const context = { totalLessonsCompleted: 3, currentStreak: 3 };
+
+      const result = await checkAndAwardAchievements(
+        mockSupabase as unknown as SupabaseClient,
+        "user1",
+        context
+      );
+
+      expect(result).toContain("three-day-streak");
+    });
+
+    it("does not award three-day-streak when currentStreak is 2", async () => {
+      const context = { totalLessonsCompleted: 2, currentStreak: 2 };
+
+      const result = await checkAndAwardAchievements(
+        mockSupabase as unknown as SupabaseClient,
+        "user1",
+        context
+      );
+
+      expect(result).not.toContain("three-day-streak");
+    });
+
+    it("awards first-path-complete when pathCompleted is true", async () => {
+      const context = { totalLessonsCompleted: 5, pathCompleted: true };
+
+      const result = await checkAndAwardAchievements(
+        mockSupabase as unknown as SupabaseClient,
+        "user1",
+        context
+      );
+
+      expect(result).toContain("first-path-complete");
+    });
+
+    it("awards all-beginner when all beginner lessons are completed", async () => {
+      const context = {
+        totalLessonsCompleted: 34,
+        totalBeginnerLessonsCompleted: 34,
+        totalBeginnerLessonsAvailable: 34,
+      };
+
+      const result = await checkAndAwardAchievements(
+        mockSupabase as unknown as SupabaseClient,
+        "user1",
+        context
+      );
+
+      expect(result).toContain("all-beginner");
+    });
+
+    it("awards glossary-reader when glossaryTermsLookedUp >= 10", async () => {
+      const context = { totalLessonsCompleted: 1, glossaryTermsLookedUp: 10 };
+
+      const result = await checkAndAwardAchievements(
+        mockSupabase as unknown as SupabaseClient,
+        "user1",
+        context
+      );
+
+      expect(result).toContain("glossary-reader");
     });
 
     it("does not award first-lesson achievement when condition is not met", async () => {
@@ -127,7 +195,6 @@ describe("achievements", () => {
 
       expect(result).not.toContain("first-lesson");
       expect(mockUpsert).not.toHaveBeenCalled();
-      expect(createNotifications).not.toHaveBeenCalled();
     });
 
     it("does not award achievement if already earned", async () => {
@@ -144,7 +211,6 @@ describe("achievements", () => {
 
       expect(result).not.toContain("first-lesson");
       expect(mockUpsert).not.toHaveBeenCalled();
-      expect(createNotifications).not.toHaveBeenCalled();
     });
 
     it("handles all available achievement checks correctly", async () => {
@@ -181,8 +247,7 @@ describe("achievements", () => {
       expect(mockUpsert.mock.calls[0][0]).toHaveLength(10);
     });
 
-    it("does not award notification if the achievement does not exist", async () => {
-      // Test when DB fails to insert
+    it("returns empty array when DB upsert fails", async () => {
       const context = { totalLessonsCompleted: 1 };
 
       mockSelectChain.mockResolvedValueOnce({ data: null, error: { message: "DB Error" } });
@@ -193,31 +258,7 @@ describe("achievements", () => {
         context
       );
 
-      expect(result).not.toContain("first-lesson");
-      expect(createNotifications).not.toHaveBeenCalled();
-    });
-
-    it("does not call createNotification if achievement lookup returns null/undefined", async () => {
-      const context = { totalLessonsCompleted: 1 };
-      const originalFirstLesson = ACHIEVEMENTS["first-lesson"];
-
-      // Temporarily delete achievement to test branch
-      // We need to bypass TS here since it's an object property mutation for testing
-      // The easiest way is to mock a completely missing achievement ID by passing custom context logic,
-      // mutate ACHIEVEMENTS via any casting just for this test
-      delete (ACHIEVEMENTS as any)["first-lesson"];
-
-      const result = await checkAndAwardAchievements(
-        mockSupabase as unknown as SupabaseClient,
-        "user1",
-        context
-      );
-
-      expect(result).toContain("first-lesson"); // It gets pushed to newlyEarned
-      expect(createNotifications).not.toHaveBeenCalled(); // But no notification is created
-
-      // Restore
-      (ACHIEVEMENTS as any)["first-lesson"] = originalFirstLesson;
+      expect(result).toEqual([]);
     });
 
     it("handles case where existing data is null", async () => {
@@ -235,5 +276,10 @@ describe("achievements", () => {
       expect(result).toContain("first-lesson");
       expect(mockUpsert).toHaveBeenCalled();
     });
+  });
+
+  it("award helper source does not insert Achievement Unlocked notifications", () => {
+    const src = readFileSync(join(dirname(fileURLToPath(import.meta.url)), "achievements.ts"), "utf8");
+    expect(src).not.toMatch(/Achievement Unlocked:/);
   });
 });

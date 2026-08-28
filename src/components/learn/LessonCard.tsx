@@ -27,6 +27,7 @@ export default function LessonCard({ lesson, isComplete = false, onNavigate }: L
     <ResourceCard
       href={`/learn/${lesson.id}`}
       title={lesson.title}
+      titleClassName="text-title-md line-clamp-2"
       description={lesson.description}
       onNavigate={onNavigate}
       header={

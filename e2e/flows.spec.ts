@@ -119,6 +119,18 @@ test("article detail page loads full content", async ({ page }) => {
   await expect(page.getByRole("heading", { level: 2 }).first()).toBeVisible();
 });
 
+test("article reader shows listed sources", async ({ page }) => {
+  await page.goto("/en/articles/understanding-your-eob");
+  await expect(page.getByRole("heading", { level: 1 })).toContainText(/explanation of benefits/i);
+  await expect(page.getByText("CDC").first()).toBeVisible();
+});
+
+test("lesson header shows sources near the title", async ({ page }) => {
+  await page.goto("/en/learn/reading-nutrition-labels");
+  await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
+  await expect(page.getByText(/FDA - Nutrition Facts Label/).first()).toBeVisible();
+});
+
 test("english quiz shows substantive explanation after wrong answer", async ({ page }) => {
   await page.goto("/en/learn/pain-medications-safely/quiz");
   await page.getByRole("button", { name: /start quiz/i }).click();
@@ -241,10 +253,8 @@ test("contact form validation clears as fields are corrected", async ({ page }) 
 });
 
 test("header reflects guest and signed-in states", async ({ page }) => {
-  // The header shows the full "Create account" / "Sign in" pair below the 2xl
-  // breakpoint; at 2xl and above the sign-up link is hidden and sign-in
-  // collapses to an icon. Pin this test to a sub-2xl viewport.
-  await page.setViewportSize({ width: 1280, height: 900 });
+  // Compact-at-xl hides signup; pin the Create account / Sign in pair below xl.
+  await page.setViewportSize({ width: 1024, height: 768 });
   await page.goto("/en");
   await waitForAppReady(page);
   const header = page.getByRole("banner");
@@ -260,4 +270,105 @@ test("header reflects guest and signed-in states", async ({ page }) => {
   await expect(page).toHaveURL(/\/en(?:\/)?$/);
   await expect(header.getByRole("link", { name: /create account/i })).toBeVisible();
   await expect(header.getByRole("link", { name: /log in|sign in/i })).toBeVisible();
+});
+
+test("P12 search eob live region announces a count", async ({ page }) => {
+  await page.goto("/en");
+  await waitForAppReady(page);
+  await page.getByRole("button", { name: /open search/i }).click();
+  const dialog = page.getByRole("dialog", { name: /search/i });
+  await dialog.getByPlaceholder(/search lessons/i).fill("eob");
+  await expect(dialog.getByRole("status")).toHaveText(/\d+/, { timeout: 15_000 });
+});
+
+test("P12 visit planner next focuses the step heading", async ({ page }) => {
+  await page.goto("/en/tools/visit-planner");
+  await waitForAppReady(page);
+  const next = page.getByRole("button", { name: /continue/i }).first();
+  await expect(next).toBeEnabled({ timeout: 10_000 });
+  await next.click();
+  const focused = await page.evaluate(() => {
+    const el = document.activeElement;
+    return {
+      tag: el?.tagName ?? "",
+      role: el?.getAttribute("role"),
+      tabIndex: el instanceof HTMLElement ? el.tabIndex : null,
+    };
+  });
+  expect(focused.tag).toBe("H2");
+});
+
+test("P13A 1440 Start learning CTA sits above the fold", async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.goto("/en");
+  await waitForAppReady(page);
+  const cta = page.locator("main a[href*='/learning-paths']").filter({ hasText: /start learning/i });
+  await expect(cta).toBeVisible();
+  const box = await cta.boundingBox();
+  expect(box, "Start learning bounding box").not.toBeNull();
+  const foldBottom = box!.y + box!.height;
+  console.log(`P13A fold: y=${box!.y} height=${box!.height} bottom=${foldBottom}`);
+  expect(foldBottom, `CTA fold bottom ${foldBottom}`).toBeLessThan(900);
+});
+
+test("P13B article TOC reading shell at lg", async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.goto("/en/articles/understanding-your-eob");
+  await waitForAppReady(page);
+
+  const toc = page.getByRole("complementary", { name: /on this page/i });
+  await expect(toc).toBeVisible();
+
+  const metrics = await page.evaluate(() => {
+    const article = document.getElementById("article-body");
+    const aside = document.querySelector("aside");
+    const mains = Array.from(document.querySelectorAll("main#main-content"));
+    const paragraphs = article ? Array.from(article.querySelectorAll("p")) : [];
+    const maxParagraph = paragraphs.reduce((max, p) => Math.max(max, p.getBoundingClientRect().width), 0);
+    const ar = article?.getBoundingClientRect();
+    const as = aside?.getBoundingClientRect();
+    const gap = ar && as ? as.left - ar.right : null;
+    const following =
+      article && aside ? article.compareDocumentPosition(aside) & Node.DOCUMENT_POSITION_FOLLOWING : 0;
+    return {
+      maxParagraph,
+      gap,
+      following: following !== 0,
+      mainCount: mains.length,
+      articleBeforeAside: !!(
+        article &&
+        aside &&
+        article.compareDocumentPosition(aside) === Node.DOCUMENT_POSITION_FOLLOWING
+      ),
+    };
+  });
+
+  console.log(
+    `P13B-1 gap=${metrics.gap} maxParagraph=${metrics.maxParagraph} mainCount=${metrics.mainCount}`
+  );
+  expect(metrics.maxParagraph, `paragraph max width ${metrics.maxParagraph}`).toBeLessThanOrEqual(720);
+  expect(metrics.following, "article must precede aside in DOM").toBe(true);
+  expect(metrics.mainCount, "exactly one main#main-content").toBe(1);
+  expect(metrics.gap, `TOC–prose gap ${metrics.gap}`).not.toBeNull();
+  expect(metrics.gap!, `TOC–prose gap ${metrics.gap}px`).toBeLessThanOrEqual(80);
+});
+
+test("P14 learn titles render in both locales", async ({ page }) => {
+  await page.goto("/en/learn");
+  await waitForAppReady(page);
+  await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
+
+  await page.goto("/es/learn");
+  await waitForAppReady(page);
+  await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
+});
+
+test("P15 lesson print control and print-only disclaimer exist", async ({ page }) => {
+  await page.goto("/en/learn/understanding-prescription-labels");
+  await waitForAppReady(page);
+  await expect(page.getByRole("button", { name: /print/i })).toBeVisible();
+  const disclaimer = page.getByText(/does not replace medical advice/i);
+  await expect(disclaimer).toBeAttached();
+  await expect(disclaimer).toBeHidden();
 });

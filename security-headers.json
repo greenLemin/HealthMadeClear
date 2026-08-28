@@ -1,0 +1,12 @@
+{
+  "connect-src": [
+    "'self'",
+    "https://*.supabase.co",
+    "wss://*.supabase.co",
+    "https://*.ingest.sentry.io",
+    "https://www.google-analytics.com",
+    "https://*.google-analytics.com",
+    "https://*.analytics.google.com",
+    "https://www.googletagmanager.com"
+  ]
+}

@@ -31,6 +31,7 @@ export default function LearningPathDetailClient({ path, lessons, glossaryTerms 
   const t = useTranslations("paths");
   const tCommon = useTranslations("common");
   const tNav = useTranslations("nav");
+  const tTools = useTranslations("tools");
 
   const pathLessons = useMemo(() => {
     const lessonMap = new Map<string, Lesson>();
@@ -131,11 +132,12 @@ export default function LearningPathDetailClient({ path, lessons, glossaryTerms 
                   {pathLessons.map((lesson, index) => {
                     const isCompleted = completedLessonIdsSet.has(lesson.id);
                     const isNext = lesson.id === nextLesson?.id;
+                    const stepLabel = `${tTools("step")} ${index + 1} ${tCommon("of")} ${pathLessons.length}`;
                     return (
                       <Link
                         key={lesson.id}
                         href={`/learn/${lesson.id}`}
-                        className={`flex items-center gap-4 rounded-[1.35rem] border px-4 py-4 transition-all duration-300 ease-premium hover:-translate-y-0.5 hover:shadow-elevation-2 ${
+                        className={`flex flex-col gap-3 rounded-[1.35rem] border px-4 py-4 transition-all duration-300 ease-premium hover:-translate-y-0.5 hover:shadow-elevation-2 sm:flex-row sm:items-center sm:gap-4 ${
                           isCompleted
                             ? "border-secondary/30 bg-secondary-container/15"
                             : isNext && !allDone
@@ -144,7 +146,7 @@ export default function LearningPathDetailClient({ path, lessons, glossaryTerms 
                         }`}
                       >
                         <span
-                          className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-label-md font-bold ${
+                          className={`hidden h-11 w-11 shrink-0 items-center justify-center rounded-full text-label-md font-bold sm:flex ${
                             isCompleted
                               ? "bg-secondary text-on-secondary"
                               : isNext && !allDone
@@ -154,6 +156,9 @@ export default function LearningPathDetailClient({ path, lessons, glossaryTerms 
                         >
                           {isCompleted ? <CheckCircle2 size={20} /> : index + 1}
                         </span>
+                        <span className="chip inline-flex w-fit min-h-9 items-center px-3 py-1 text-label-sm sm:hidden">
+                          {stepLabel}
+                        </span>
                         <div className="min-w-0 flex-1">
                           <span className="block text-label-md text-on-surface">{lesson.title}</span>
                           <span className="mt-1 block text-label-md text-on-surface-variant">
@@ -162,16 +167,19 @@ export default function LearningPathDetailClient({ path, lessons, glossaryTerms 
                         </div>
                         {isNext && !allDone ? (
                           <span
-                            className={getButtonClasses({ size: "sm", className: "shrink-0 text-label-md" })}
+                            className={getButtonClasses({
+                              size: "sm",
+                              className: "w-full justify-center text-label-md sm:w-auto sm:shrink-0",
+                            })}
                           >
                             {tCommon("start")}
                           </span>
                         ) : isCompleted ? (
-                          <span className="inline-flex items-center gap-1 text-label-md font-semibold text-secondary">
+                          <span className="inline-flex items-center gap-1 text-label-md font-semibold text-secondary sm:shrink-0">
                             {tCommon("completed")}
                           </span>
                         ) : (
-                          <span className="inline-flex items-center gap-1 text-label-md text-primary">
+                          <span className="inline-flex items-center gap-1 text-label-md text-primary sm:shrink-0">
                             <BookOpen size={16} />
                             {tCommon("read")}
                           </span>

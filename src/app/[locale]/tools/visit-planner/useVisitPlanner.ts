@@ -1,12 +1,22 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { useAppState } from "@/components/AppProviders";
 import { STORAGE_KEYS, readStoredJson, writeStoredJson } from "@/lib/preferences";
 import {
   VISIT_TYPE_KEYS,
   type VisitTypeKey,
   type StepValue,
   type CustomQuestion,
+  type PlannerQuestion,
   type PlannerState,
 } from "@/types/visitPlanner";
+
+const PLANNER_ID_RE = /^(new-symptom|medication|followup):\d+$/;
+
+export const PLANNER_DEFAULTS_BY_TYPE: Record<VisitTypeKey, string[]> = {
+  "new-symptom": ["new-symptom:2", "new-symptom:3"],
+  medication: ["medication:1", "medication:3"],
+  followup: ["followup:0", "followup:3"],
+};
 
 function parsePlannerState(value: unknown): PlannerState | null {
   if (!value || typeof value !== "object") return null;
@@ -35,6 +45,31 @@ function parsePlannerState(value: unknown): PlannerState | null {
         ? (parsed.step as StepValue)
         : 1,
   };
+}
+
+function migrateSelectedQuestions(selected: string[], catalog: readonly PlannerQuestion[]): string[] {
+  const textToId = new Map<string, string>();
+  for (const item of catalog) {
+    if (!textToId.has(item.text)) textToId.set(item.text, item.id);
+  }
+
+  const migrated: string[] = [];
+  for (const value of selected) {
+    if (PLANNER_ID_RE.test(value)) {
+      migrated.push(value);
+      continue;
+    }
+    const mapped = textToId.get(value);
+    if (mapped) migrated.push(mapped);
+  }
+  return migrated;
+}
+
+function readPlannerState(): PlannerState | null {
+  return (
+    readStoredJson(STORAGE_KEYS.visitPlannerV2, parsePlannerState) ??
+    readStoredJson(STORAGE_KEYS.visitPlanner, parsePlannerState)
+  );
 }
 
 function useCustomQuestions() {
@@ -84,8 +119,9 @@ function useSelectedQuestions() {
   };
 }
 
-export function useVisitPlanner(defaultQuestions: string[]) {
-  const [step, setStep] = useState<StepValue>(1);
+export function useVisitPlanner(questionCatalog: PlannerQuestion[] = []) {
+  const { wipeGeneration } = useAppState();
+  const [step, setStepState] = useState<StepValue>(1);
   const [visitType, setVisitType] = useState<VisitTypeKey>("new-symptom");
   const { selectedQuestions, setSelectedQuestions, toggleQuestion } = useSelectedQuestions();
   const {
@@ -98,27 +134,45 @@ export function useVisitPlanner(defaultQuestions: string[]) {
   } = useCustomQuestions();
   const [notes, setNotes] = useState("");
   const [hydrated, setHydrated] = useState(false);
-  const defaultQuestionsStr = JSON.stringify(defaultQuestions);
+  const catalogRef = useRef(questionCatalog);
+  const wipeGenAtHydrateRef = useRef(0);
 
   useEffect(() => {
-    const saved = readStoredJson(STORAGE_KEYS.visitPlanner, parsePlannerState);
+    catalogRef.current = questionCatalog;
+  }, [questionCatalog]);
+
+  useEffect(() => {
+    const saved = readPlannerState();
 
     if (saved) {
       // eslint-disable-next-line react-hooks/set-state-in-effect -- Restore planner state from storage on mount
-      setStep(saved.step);
+      setStepState(saved.step);
       setVisitType(saved.visitType);
-      setSelectedQuestions(saved.selectedQuestions);
+      setSelectedQuestions(migrateSelectedQuestions(saved.selectedQuestions, catalogRef.current));
       setCustomQuestions(saved.customQuestions ?? []);
       setNotes(saved.notes);
     } else {
-      setSelectedQuestions(JSON.parse(defaultQuestionsStr));
+      setSelectedQuestions([...PLANNER_DEFAULTS_BY_TYPE["new-symptom"]]);
     }
 
+    wipeGenAtHydrateRef.current = wipeGeneration;
     setHydrated(true);
-  }, [defaultQuestionsStr, setSelectedQuestions, setCustomQuestions]);
+    // Hydrate once. Catalog is read via ref for v1 text→id mapping; visitType must not retrigger this.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     if (!hydrated) return;
+    if (wipeGeneration > wipeGenAtHydrateRef.current) {
+      wipeGenAtHydrateRef.current = wipeGeneration;
+      setStepState(1);
+      setVisitType("new-symptom");
+      setSelectedQuestions([...PLANNER_DEFAULTS_BY_TYPE["new-symptom"]]);
+      setCustomQuestions([]);
+      setCustomInput("");
+      setNotes("");
+      return;
+    }
 
     const state: PlannerState = {
       visitType,
@@ -128,12 +182,29 @@ export function useVisitPlanner(defaultQuestions: string[]) {
       step,
     };
 
-    writeStoredJson(STORAGE_KEYS.visitPlanner, state);
-  }, [customQuestions, hydrated, notes, selectedQuestions, step, visitType]);
+    writeStoredJson(STORAGE_KEYS.visitPlannerV2, state);
+  }, [
+    customQuestions,
+    hydrated,
+    notes,
+    selectedQuestions,
+    setCustomInput,
+    setCustomQuestions,
+    setSelectedQuestions,
+    step,
+    visitType,
+    wipeGeneration,
+  ]);
 
-  const changeVisitType = (nextType: VisitTypeKey, newDefaultQuestions: string[]) => {
+  const setStep = (next: StepValue) => {
+    if (!hydrated) return;
+    setStepState(next);
+  };
+
+  const changeVisitType = (nextType: VisitTypeKey) => {
+    if (!hydrated) return;
     setVisitType(nextType);
-    setSelectedQuestions(newDefaultQuestions);
+    setSelectedQuestions([...PLANNER_DEFAULTS_BY_TYPE[nextType]]);
   };
 
   return {

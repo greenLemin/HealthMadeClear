@@ -37,7 +37,7 @@ export default function ArticlesClient({ articles }: Props) {
   return (
     <div className="py-10 md:py-14">
       <div className="max-w-container mx-auto px-4 md:px-6">
-        <PageHeader centered title={t("title")} description={t("description")} className="mb-8">
+        <PageHeader centered title={t("title")} description={t("description")} className="mb-8" trust>
           <div className="mx-auto max-w-3xl">
             <div className="surface-card-glass px-4 py-4 text-left md:px-6 md:py-5">
               <label htmlFor="articles-search" className="relative block">

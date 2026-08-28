@@ -2,6 +2,7 @@ import type { SupabaseClient } from "@supabase/supabase-js";
 import { getAllLessons } from "@/lib/lessons/loadLessons";
 import type { Locale } from "@/lib/i18n";
 import type { Summary } from "@/types/dashboard";
+import { quizIdsForLesson, toPercent } from "@/lib/quizScore";
 import { logQueryError } from "./utils";
 
 export async function getUserProgressSummary(
@@ -34,22 +35,27 @@ export async function getUserProgressSummary(
   }, 0);
   const totalLessonsCompleted = new Set(completedLessons.map((l) => l.lesson_id)).size;
 
-  const passedQuizzes = quizAttempts.filter((q) => q.passed).length;
-  const totalScore = quizAttempts.reduce((sum, q) => {
-    const v = Number(q.score ?? 0);
-    return sum + (Number.isFinite(v) ? v : 0);
-  }, 0);
-  const totalMaxScore = quizAttempts.reduce((sum, q) => {
-    const v = Number(q.max_score ?? 0);
-    return sum + (Number.isFinite(v) ? v : 0);
-  }, 0);
-  const rawAverage = totalMaxScore > 0 ? Math.round((totalScore / totalMaxScore) * 100) : 0;
+  const bestByQuizId = new Map<string, { score: number; maxScore: number; passed: boolean }>();
+  for (const q of quizAttempts) {
+    const score = Number(q.score ?? 0);
+    const maxScore = Number(q.max_score ?? 0);
+    if (!Number.isFinite(score) || !Number.isFinite(maxScore)) continue;
+    const existing = bestByQuizId.get(q.quiz_id);
+    if (!existing || score > existing.score) {
+      bestByQuizId.set(q.quiz_id, { score, maxScore, passed: Boolean(q.passed) });
+    }
+  }
+  const uniqueQuizzes = [...bestByQuizId.values()];
+  const passedQuizzes = uniqueQuizzes.filter((q) => q.passed).length;
+  const totalScore = uniqueQuizzes.reduce((sum, q) => sum + q.score, 0);
+  const totalMaxScore = uniqueQuizzes.reduce((sum, q) => sum + q.maxScore, 0);
+  const rawAverage = toPercent(totalScore, totalMaxScore);
 
   return {
     totalLessonsCompleted,
     totalLessonsAvailable: allLessons.length,
     totalQuizzesPassed: passedQuizzes,
-    totalQuizzesAttempted: quizAttempts.length,
+    totalQuizzesAttempted: uniqueQuizzes.length,
     averageQuizScore: Number.isFinite(rawAverage) ? rawAverage : 0,
     totalTimeSpentMinutes: Math.round(totalTimeSpentSeconds / 60),
     currentStreak: streakResult.data?.current_streak ?? 0,
@@ -99,7 +105,7 @@ export async function getCompletedLessonsPaginated(
   logQueryError("getCompletedLessonsPaginated:progress", progressError);
 
   const pageLessonIds = (progressData ?? []).map((p) => p.lesson_id);
-  const pageQuizIds = pageLessonIds.map((id) => `${id}-quiz`);
+  const pageQuizIds = pageLessonIds.flatMap(quizIdsForLesson);
 
   let quizAttempts: Array<{ quiz_id: string; score: number; max_score: number }> = [];
   if (pageQuizIds.length > 0) {
@@ -114,26 +120,25 @@ export async function getCompletedLessonsPaginated(
 
   const bestQuizScores = new Map<string, number>();
   for (const attempt of quizAttempts) {
-    const existing = bestQuizScores.get(attempt.quiz_id) ?? 0;
+    const lessonKey = attempt.quiz_id.replace(/-quiz$/, "");
     const s = Number(attempt.score);
     const m = Number(attempt.max_score);
-    const pct = Number.isFinite(s) && Number.isFinite(m) && m > 0 ? Math.round((s / m) * 100) : 0;
-    const safePct = Number.isFinite(pct) ? pct : 0;
-    if (safePct > existing) {
-      bestQuizScores.set(attempt.quiz_id, safePct);
+    const pct = Number.isFinite(s) && Number.isFinite(m) ? toPercent(s, m) : 0;
+    const existing = bestQuizScores.get(lessonKey);
+    if (existing === undefined || pct > existing) {
+      bestQuizScores.set(lessonKey, pct);
     }
   }
 
   const lessons = (progressData ?? []).map((p) => {
     const lesson = lessonMap.get(p.lesson_id);
-    const quizId = `${p.lesson_id}-quiz`;
     return {
       lessonId: p.lesson_id,
       title: lesson?.title ?? "Unknown Lesson",
       category: lesson?.category ?? "",
       categoryId: lesson?.categoryId ?? "",
       completedAt: p.completed_at ?? "",
-      quizScore: bestQuizScores.get(quizId) ?? null,
+      quizScore: bestQuizScores.get(p.lesson_id) ?? null,
     };
   });
 

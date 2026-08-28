@@ -62,7 +62,9 @@
     "emergencyBody": "Do not rely on this platform for urgent medical needs. Call your local emergency number immediately.",
     "emergencyCall": "Call 911 (US)",
     "emergencyCallAria": "Call emergency services (911 in the US)",
-    "emergencyRegionNote": "911 is the emergency number in the United States. If you are elsewhere, use your local emergency number."
+    "emergencyRegionNote": "911 is the emergency number in the United States. If you are elsewhere, use your local emergency number.",
+    "printMedicalWarning": "Health Made Clear is for educational purposes only and does not replace medical advice. Always talk to your doctor or pharmacist about your own health and prescriptions.",
+    "printTimestamp": "Printed {date}."
   },
   "common": {
     "keyTakeaway": "Key Takeaway",
@@ -111,7 +113,9 @@
     "relatedTerms": "Related terms",
     "copyLink": "Copy link",
     "progressPercent": "Progress: {percent}%",
-    "itemsCompletedCount": "{completed} of {total} completed"
+    "itemsCompletedCount": "{completed} of {total} completed",
+    "print": "Print",
+    "shareOnX": "Share on X"
   },
   "categories": {
     "medication-safety": "Medication Safety",
@@ -175,7 +179,8 @@
     "lessonNavigation": "Lesson navigation",
     "updatedOn": "Updated {date}",
     "readingProgress": "Reading progress",
-    "showingLessons": "Showing {count} lessons"
+    "showingLessons": "Showing {count} lessons",
+    "reviewedBy": "Reviewed by {name}"
   },
   "paths": {
     "resumeJourney": "Resume journey",
@@ -275,7 +280,11 @@
     "completeLabel": "{completed} of {total} complete",
     "completedLabel": "Completed",
     "quizResultPassed": "{score}% — Passed",
-    "quizResultFailed": "{score}% — Not passed"
+    "quizResultFailed": "{score}% — Not passed",
+    "statsTimeSpentUnavailable": "—",
+    "emptyAchievementsTitle": "No achievements yet",
+    "emptyAchievementsBody": "Complete lessons and quizzes to earn your first badge.",
+    "emptyAchievementsCta": "Start learning"
   },
   "settings": {
     "title": "Settings",
@@ -317,6 +326,7 @@
   "progress": {
     "saveError": "Failed to save progress",
     "quizSaveError": "Failed to save quiz result",
+    "sessionExpired": "Your session has expired. Please log in again.",
     "title": "My Progress",
     "overallProgress": "Overall Progress",
     "lessonsCompleted": "{count} of {total} lessons completed",
@@ -360,7 +370,11 @@
     "startLearningCta": "Start learning",
     "categoryMobileSummary": "{completed}/{total} lessons · Quizzes: {passed}/{attempts}",
     "categoriesCount": "{count} categories",
-    "trackedAreasCount": "{count} areas tracked"
+    "trackedAreasCount": "{count} areas tracked",
+    "pathAlmostThereTitle": "Almost there!",
+    "pathAlmostThere": "You're one lesson away from completing \"{title}\".",
+    "streakMilestoneTitle": "{count}-Day Streak!",
+    "streakMilestoneBody": "You're on a {count}-day learning streak. Keep it up!"
   },
   "achievements": {
     "title": "Achievements",
@@ -639,7 +653,9 @@
     "scenarioChestPainBody": "A heart attack can cause many different symptoms — not just crushing chest pain. Warning signs include jaw, neck, back, or arm pain, sudden shortness of breath, unexplained cold sweats, nausea, or dizziness. These symptoms may be more common in women, older adults, and people with diabetes, but anyone can experience them. If you notice any of these symptoms, do not wait and do not self-treat. In the United States, call 911 immediately.",
     "scenarioChestPainLevel": "Emergency signs — US 911",
     "whenInDoubtTitle": "If you are not sure",
-    "whenInDoubtBody": "If you think you may be having an emergency, use local emergency services. In the United States that is 911. For a mental health crisis or thoughts of self-harm in the United States, call or text 988 (Suicide & Crisis Lifeline). For questions about accidental double doses, medicine mix-ups, or suspected poisoning in the United States, call Poison Help at 1-800-222-1222 (free, confidential, 24/7). If the person collapsed, is not breathing, or is having a seizure, call 911 first. This site cannot tell you how serious your symptoms are or where you should go."
+    "whenInDoubtBody": "If you think you may be having an emergency, use local emergency services. In the United States that is 911. For a mental health crisis or thoughts of self-harm in the United States, call or text 988 (Suicide & Crisis Lifeline). For questions about accidental double doses, medicine mix-ups, or suspected poisoning in the United States, call Poison Help at 1-800-222-1222 (free, confidential, 24/7). If the person collapsed, is not breathing, or is having a seizure, call 911 first. This site cannot tell you how serious your symptoms are or where you should go.",
+    "printEmergencyLine": "For medical emergencies, call 911. For mental health crises, call or text 988 (US).",
+    "printFooter": "Printed from Health Made Clear (healthmadeclear.com) on {date}. Educational content — not a substitute for clinical diagnosis or individualized medical advice. For emergencies, call 911 (US)."
   },
   "sectionNav": {
     "learn": "Learn",
@@ -699,7 +715,10 @@
     "share": "Share",
     "shareOnX": "Share on X",
     "linkCopied": "Link copied to clipboard",
-    "linkCopyError": "Could not copy link"
+    "linkCopyError": "Could not copy link",
+    "sources": "Sources",
+    "reviewedBy": "Reviewed by {name}",
+    "onThisPage": "On this page"
   },
   "search": {
     "openSearch": "Open search",
@@ -714,7 +733,14 @@
     "typeTool": "Tool",
     "escapeKey": "ESC",
     "shortcutMac": "⌘K",
-    "shortcutWindows": "Ctrl K"
+    "shortcutWindows": "Ctrl K",
+    "loadingIndex": "Loading search…",
+    "resultsFound": "{count} results found",
+    "groupLessons": "Lessons",
+    "groupPaths": "Paths",
+    "groupArticles": "Articles",
+    "groupGlossary": "Glossary",
+    "groupTools": "Tools"
   },
   "onboarding": {
     "welcome": "Welcome to Health Made Clear",
@@ -726,7 +752,8 @@
     "step3Title": "Find what you need",
     "step3Body": "Use search to quickly find the health topic you are looking for.",
     "getStarted": "Get started",
-    "close": "Close"
+    "close": "Close",
+    "title": "Health Made Clear"
   },
   "auth": {
     "loginTitle": "Welcome back",
@@ -783,12 +810,14 @@
     "errorAuthFailed": "Authentication failed. Please try again.",
     "errorRateLimited": "Too many sign-in attempts. Please wait a few minutes and try again.",
     "emailRequired": "Please enter your email address.",
+    "errorEmailInvalid": "Please enter a valid email address.",
     "passwordRequired": "Please enter your password.",
     "showPassword": "Show password",
     "hidePassword": "Hide password",
     "passwordStrengthLabel": "Password strength",
     "resetSuccessTitle": "Password updated",
-    "resetSuccessMessage": "Your password has been changed. Redirecting you to sign in…"
+    "resetSuccessMessage": "Your password has been changed. Redirecting you to sign in…",
+    "guestProgressWillSync": "Your browser learning progress on this device will be saved to your account."
   },
   "terms": {
     "title": "Terms of Service",
@@ -873,6 +902,12 @@
     "home": "Go home",
     "notFoundTitle": "Page not found",
     "notFoundBody": "The page you are looking for does not exist or has been moved.",
-    "goHome": "Go home"
+    "goHome": "Go home",
+    "tryAgain": "Try again",
+    "crashBody": "An unexpected error occurred. Please try refreshing the page.",
+    "searchHint": "Try searching the site, or browse lessons in the library."
+  },
+  "trust": {
+    "banner": "Health education with listed sources — plain language. Not medical advice."
   }
 }

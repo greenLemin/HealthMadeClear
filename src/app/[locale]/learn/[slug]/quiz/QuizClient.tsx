@@ -58,8 +58,8 @@ export default function QuizClient({ quiz, lessonTitle, lessonId }: Props) {
     [answers, quiz.questions]
   );
 
-  const score = total > 0 ? Math.round((correctCount / total) * 100) : 0;
-  const passed = score >= quiz.passScore;
+  const percentScore = total > 0 ? Math.round((correctCount / total) * 100) : 0;
+  const passed = percentScore >= quiz.passScore;
   const percent = total > 0 ? Math.round((answered / total) * 100) : 0;
 
   const handleAnswer = useCallback((questionIndex: number, optionIndex: number) => {
@@ -119,8 +119,8 @@ export default function QuizClient({ quiz, lessonTitle, lessonId }: Props) {
     if (state !== "completed" || recordedRef.current || total === 0) return;
     recordedRef.current = true;
     const answerArray = quiz.questions.map((_, i) => answers[i] ?? -1);
-    saveQuizAttempt(quiz.id, lessonId, score, total, answerArray);
-  }, [state, score, total, lessonId, quiz.id, quiz.questions, answers, saveQuizAttempt]);
+    saveQuizAttempt(quiz.id, lessonId, correctCount, total, answerArray);
+  }, [state, correctCount, total, lessonId, quiz.id, quiz.questions, answers, saveQuizAttempt]);
 
   if (total === 0) {
     return <QuizEmpty quiz={quiz} lessonId={lessonId} />;
@@ -146,7 +146,7 @@ export default function QuizClient({ quiz, lessonTitle, lessonId }: Props) {
             <QuizResults
               quiz={quiz}
               answers={quiz.questions.map((_, i) => answers[i] ?? -1)}
-              score={score}
+              score={percentScore}
               passed={passed}
               onRetake={handleReset}
               onContinue={handleContinue}

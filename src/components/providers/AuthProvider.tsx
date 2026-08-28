@@ -4,6 +4,8 @@ import { createContext, useCallback, useEffect, useMemo, useState } from "react"
 import type { AuthChangeEvent, Session, User } from "@supabase/supabase-js";
 import { createClient } from "@/lib/supabase/client";
 import { useRouter } from "@/i18n/navigation";
+import { useAppState } from "@/components/AppProviders";
+import { expireClientAuthCookies } from "@/lib/clearLocalHealthData";
 
 type AuthContextValue = {
   user: User | null;
@@ -15,6 +17,7 @@ type AuthContextValue = {
 export const AuthContext = createContext<AuthContextValue | null>(null);
 
 export default function AuthProvider({ children }: { children: React.ReactNode }) {
+  const { resetLocalProgress } = useAppState();
   const [user, setUser] = useState<User | null>(null);
   const [session, setSession] = useState<Session | null>(null);
   const [loading, setLoading] = useState(true);
@@ -42,9 +45,25 @@ export default function AuthProvider({ children }: { children: React.ReactNode }
   }, [supabase]);
 
   const signOut = useCallback(async () => {
-    await supabase.auth.signOut();
-    router.push("/");
-  }, [supabase, router]);
+    try {
+      const { error } = await supabase.auth.signOut();
+      if (error) {
+        await supabase.auth.signOut({ scope: "local" });
+      }
+    } catch {
+      try {
+        await supabase.auth.signOut({ scope: "local" });
+      } catch {
+        /* ignore */
+      }
+    } finally {
+      expireClientAuthCookies();
+      resetLocalProgress();
+      setUser(null);
+      setSession(null);
+      router.push("/");
+    }
+  }, [supabase, router, resetLocalProgress]);
 
   const value = useMemo<AuthContextValue>(
     () => ({ user, session, loading, signOut }),

@@ -75,4 +75,26 @@ describe("Footer", () => {
     const contactLink = screen.getByRole("link", { name: en.footer.contact });
     expect(contactLink).toHaveAttribute("href", "/contact");
   });
+
+  it("gives platform and legal links a 44px min height", () => {
+    renderComponent();
+
+    const names = [
+      en.nav.about,
+      en.nav.paths,
+      en.nav.tools,
+      en.nav.glossary,
+      en.footer.accessibility,
+      en.footer.privacy,
+      en.footer.terms,
+      en.footer.contact,
+    ];
+
+    for (const name of names) {
+      const link = screen.getByRole("link", { name });
+      expect(link.className).toContain("min-h-11");
+      expect(link.className).toContain("inline-flex");
+      expect(link.className).toContain("py-2.5");
+    }
+  });
 });

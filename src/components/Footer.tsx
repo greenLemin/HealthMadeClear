@@ -3,6 +3,8 @@
 import { Link } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
 
+const NAV_LINK_CLASS = "inline-flex min-h-11 items-center py-2.5 transition-colors hover:text-primary";
+
 function AboutSection() {
   const t = useTranslations("footer");
   const tNav = useTranslations("nav");
@@ -32,22 +34,22 @@ function PlatformLinks() {
       </h2>
       <ul className="space-y-3 text-body-md text-on-surface">
         <li>
-          <Link href="/about" className="transition-colors hover:text-primary">
+          <Link href="/about" className={NAV_LINK_CLASS}>
             {tNav("about")}
           </Link>
         </li>
         <li>
-          <Link href="/learning-paths" className="transition-colors hover:text-primary">
+          <Link href="/learning-paths" className={NAV_LINK_CLASS}>
             {tNav("paths")}
           </Link>
         </li>
         <li>
-          <Link href="/tools" className="transition-colors hover:text-primary">
+          <Link href="/tools" className={NAV_LINK_CLASS}>
             {tNav("tools")}
           </Link>
         </li>
         <li>
-          <Link href="/glossary" className="transition-colors hover:text-primary">
+          <Link href="/glossary" className={NAV_LINK_CLASS}>
             {tNav("glossary")}
           </Link>
         </li>
@@ -66,22 +68,22 @@ function LegalLinks() {
       </h2>
       <ul className="space-y-3 text-body-md text-on-surface">
         <li>
-          <Link href="/accessibility" className="transition-colors hover:text-primary">
+          <Link href="/accessibility" className={NAV_LINK_CLASS}>
             {t("accessibility")}
           </Link>
         </li>
         <li>
-          <Link href="/privacy" className="transition-colors hover:text-primary">
+          <Link href="/privacy" className={NAV_LINK_CLASS}>
             {t("privacy")}
           </Link>
         </li>
         <li>
-          <Link href="/terms" className="transition-colors hover:text-primary">
+          <Link href="/terms" className={NAV_LINK_CLASS}>
             {t("terms")}
           </Link>
         </li>
         <li>
-          <Link href="/contact" className="transition-colors hover:text-primary">
+          <Link href="/contact" className={NAV_LINK_CLASS}>
             {t("contact")}
           </Link>
         </li>

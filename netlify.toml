@@ -9,6 +9,12 @@
   NODE_VERSION = "22"
   NPM_VERSION = "10"
   # Set NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY in Netlify UI
+  # Optional Sentry — set in Netlify UI (do not commit values here):
+  #   SENTRY_DSN — server-only ingest DSN used by reportServerError (not NEXT_PUBLIC_)
+  #   SENTRY_SERVER_SAMPLE_RATE — 0..1, default 1 if unset
+  #   In-memory flood throttle is 5 POSTs / 10s per isolate; cold starts reset the counter.
+  #   Configure Sentry project-level rate limiting as the global backstop.
+  #   NEXT_PUBLIC_SENTRY_DSN — browser client reporting
 
 [[plugins]]
   package = "@netlify/plugin-nextjs"
@@ -54,7 +60,8 @@
   [headers.values]
     Cache-Control = "public, max-age=86400"
 
-# Security headers for all routes (backup to next.config.mjs — keep CSP in sync with securityHeaders there)
+# Security headers for all routes (backup to next.config.mjs).
+# Canonical connect tokens live in security-headers.json (CI: npm run check:security-headers).
 # script-src keeps 'unsafe-inline' because Next.js App Router emits framework-generated inline
 # bootstrap/flight scripts (self.__next_f) that cannot be hashed or nonced under static generation.
 # Our own scripts live in /pref-bootstrap.js and /ga-init.js (external, CSP-safe).

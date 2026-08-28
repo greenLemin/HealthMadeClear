@@ -10,6 +10,11 @@ export const PREFERENCE_COOKIES = {
   simpleMode: "hmc-simple-mode",
 } as const;
 
+/**
+ * Storage keys used across the application.
+ * Every value MUST match `/^hmc[-_]/` so that `clearLocalHealthData()`
+ * can safely identify and clean health/session storage while preserving preferences.
+ */
 export const STORAGE_KEYS = {
   locale: "hmc-locale",
   theme: "hmc-theme",
@@ -21,6 +26,7 @@ export const STORAGE_KEYS = {
   quizScores: "hmc-quiz-scores",
   checklist: "hmc-checklist",
   visitPlanner: "hmc-visit-planner",
+  visitPlannerV2: "hmc-visit-planner-v2",
 } as const;
 
 const COOKIE_MAX_AGE = 60 * 60 * 24 * 365;

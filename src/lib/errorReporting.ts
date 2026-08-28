@@ -43,6 +43,18 @@ const SENSITIVE_WORDS = new Set([
   "address",
 ]);
 
+/** Extra keys stripped from Sentry extras/breadcrumbs (lesson extras must not leak). */
+const SENTRY_EXTRA_WORDS = new Set(["lesson", "quiz", "path"]);
+
+const REDACTED = "[redacted]";
+
+const INGEST_WINDOW_MS = 10_000;
+const INGEST_MAX_POSTS = 5;
+const INGEST_TIMEOUT_MS = 2000;
+
+/** Per-isolate sliding window. Cold starts reset this — not a global cap. */
+const ingestTimestamps: number[] = [];
+
 /** Splits `apiKey`, `api_key`, `API-KEY` and `PHI_data` into lowercase words. */
 function toWords(key: string): string[] {
   return key
@@ -56,7 +68,9 @@ function isSensitiveKey(key: string): boolean {
   return toWords(key).some((word) => SENSITIVE_WORDS.has(word));
 }
 
-const REDACTED = "[redacted]";
+function isSentrySensitiveKey(key: string): boolean {
+  return isSensitiveKey(key) || toWords(key).some((word) => SENTRY_EXTRA_WORDS.has(word));
+}
 
 /**
  * Replaces sensitive values rather than dropping the keys. A missing key is
@@ -116,6 +130,69 @@ function stripEventUrls(event: {
   }
 }
 
+function scrubSentryValue(value: unknown): unknown {
+  if (typeof value === "string") return scrubPII(value);
+  if (value && typeof value === "object" && !Array.isArray(value)) {
+    return scrubSentryRecord(value as Record<string, unknown>);
+  }
+  return value;
+}
+
+function scrubSentryRecord(record: Record<string, unknown>): Record<string, unknown> {
+  const safe: Record<string, unknown> = {};
+  for (const key of Object.keys(record)) {
+    safe[key] = isSentrySensitiveKey(key) ? REDACTED : scrubSentryValue(record[key]);
+  }
+  return safe;
+}
+
+function blankSentryUser() {
+  return { id: undefined, ip_address: undefined, email: undefined, username: undefined };
+}
+
+function scrubExceptionEvent(event: {
+  extra?: Record<string, unknown>;
+  breadcrumbs?: Array<{ message?: string; data?: Record<string, unknown> }>;
+  user?: Record<string, unknown>;
+  message?: string;
+  exception?: {
+    values?: Array<{
+      value?: string;
+      stacktrace?: { frames?: Array<{ filename?: string; function?: string }> };
+    }>;
+  };
+}) {
+  stripEventUrls(event);
+  if (event.extra) {
+    event.extra = scrubSentryRecord(event.extra);
+  }
+  if (event.breadcrumbs) {
+    for (const crumb of event.breadcrumbs) {
+      if (typeof crumb.message === "string") {
+        crumb.message = scrubPII(crumb.message);
+      }
+      if (crumb.data) {
+        crumb.data = scrubSentryRecord(crumb.data);
+      }
+    }
+  }
+  event.user = blankSentryUser();
+  if (event.message) {
+    event.message = scrubPII(event.message);
+  }
+  if (event.exception?.values) {
+    for (const ex of event.exception.values) {
+      if (ex.value) ex.value = scrubPII(ex.value);
+      if (ex.stacktrace?.frames) {
+        for (const frame of ex.stacktrace.frames) {
+          if (frame.filename) frame.filename = scrubPII(frame.filename);
+          if (frame.function) frame.function = scrubPII(frame.function);
+        }
+      }
+    }
+  }
+}
+
 export function reportClientError(error: unknown, context?: ErrorContext) {
   const normalized = error instanceof Error ? error : new Error(String(error));
   const safeContext = sanitizeContext(context);
@@ -134,27 +211,14 @@ export function reportClientError(error: unknown, context?: ErrorContext) {
         Sentry.init({
           dsn,
           environment: process.env.NODE_ENV,
+          sendDefaultPii: false,
           beforeBreadcrumb(breadcrumb) {
             if (breadcrumb.category === "console") return null;
+            if (breadcrumb.category === "ui.input") return null;
             return breadcrumb;
           },
           beforeSend(event) {
-            stripEventUrls(event);
-            // Scrub PII from error messages and stack traces
-            if (event.message) {
-              event.message = scrubPII(event.message);
-            }
-            if (event.exception?.values) {
-              for (const ex of event.exception.values) {
-                if (ex.value) ex.value = scrubPII(ex.value);
-                if (ex.stacktrace?.frames) {
-                  for (const frame of ex.stacktrace.frames) {
-                    if (frame.filename) frame.filename = scrubPII(frame.filename);
-                    if (frame.function) frame.function = scrubPII(frame.function);
-                  }
-                }
-              }
-            }
+            scrubExceptionEvent(event);
             return event;
           },
         });
@@ -166,10 +230,86 @@ export function reportClientError(error: unknown, context?: ErrorContext) {
     });
 }
 
-/** Server/API route errors — structured console logging; wire @sentry/nextjs for full capture (INF-002). */
+function getServerSampleRate(): number {
+  const raw = process.env.SENTRY_SERVER_SAMPLE_RATE;
+  if (raw == null || raw === "") return 1;
+  const parsed = Number(raw);
+  if (!Number.isFinite(parsed)) return 1;
+  return Math.min(1, Math.max(0, parsed));
+}
+
+function parseSentryDsn(dsn: string): { envelopeUrl: string; publicKey: string } | null {
+  try {
+    const url = new URL(dsn);
+    const publicKey = decodeURIComponent(url.username);
+    const projectId = url.pathname
+      .replace(/^\/|\/$/g, "")
+      .split("/")
+      .pop();
+    if (!publicKey || !projectId || !url.host) return null;
+    return {
+      publicKey,
+      envelopeUrl: `${url.protocol}//${url.host}/api/${projectId}/envelope/`,
+    };
+  } catch {
+    return null;
+  }
+}
+
+function takeIngestSlot(now = Date.now()): boolean {
+  while (ingestTimestamps.length > 0 && now - ingestTimestamps[0]! >= INGEST_WINDOW_MS) {
+    ingestTimestamps.shift();
+  }
+  if (ingestTimestamps.length >= INGEST_MAX_POSTS) return false;
+  ingestTimestamps.push(now);
+  return true;
+}
+
+function postSentryEnvelope(dsn: string, error: Error, extra: ErrorContext | undefined): void {
+  const parsed = parseSentryDsn(dsn);
+  if (!parsed) return;
+  if (Math.random() >= getServerSampleRate()) return;
+  if (!takeIngestSlot()) return;
+
+  const eventId = crypto.randomUUID().replace(/-/g, "");
+  const extraRecord = extra ? scrubSentryRecord({ ...extra }) : undefined;
+  const event = {
+    event_id: eventId,
+    timestamp: Date.now() / 1000,
+    platform: "node",
+    level: "error",
+    environment: process.env.NODE_ENV,
+    exception: {
+      values: [{ type: error.name, value: scrubPII(error.message) }],
+    },
+    extra: extraRecord,
+    user: blankSentryUser(),
+  };
+  const envelope = [
+    JSON.stringify({ event_id: eventId, sent_at: new Date().toISOString(), dsn }),
+    JSON.stringify({ type: "event" }),
+    JSON.stringify(event),
+  ].join("\n");
+
+  fetch(parsed.envelopeUrl, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/x-sentry-envelope",
+      "X-Sentry-Auth": `Sentry sentry_version=7, sentry_client=health-made-clear/0.1.0, sentry_key=${parsed.publicKey}`,
+    },
+    body: envelope,
+    signal: AbortSignal.timeout(INGEST_TIMEOUT_MS),
+  }).catch(() => {});
+}
+
+/** Server/API route errors — console + optional HTTP ingest via SENTRY_DSN. */
 export function reportServerError(error: unknown, context?: ErrorContext) {
   const normalized = error instanceof Error ? error : new Error(String(error));
   const safeContext = sanitizeContext(context);
   const scrubbedMessage = scrubPII(normalized.message);
   console.error("[hmc:server]", scrubbedMessage, safeContext);
+
+  const dsn = process.env.SENTRY_DSN;
+  if (!dsn) return;
+  postSentryEnvelope(dsn, normalized, safeContext);
 }

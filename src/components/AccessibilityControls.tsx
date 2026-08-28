@@ -206,17 +206,13 @@ export default function AccessibilityControls() {
         type="button"
         className="flex min-h-11 items-center gap-2 rounded-full border border-outline-variant bg-surface px-4 py-2 text-label-md font-semibold text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
         onClick={() => setIsOpen((current) => !current)}
+        aria-label={t("display")}
         aria-expanded={isOpen}
         aria-haspopup="dialog"
         aria-controls="accessibility-panel"
       >
         <Settings2 size={18} aria-hidden="true" />
-        <span className="hidden 2xl:inline">{t("display")}</span>
-        {/* Below 2xl the visible label is hidden, so the button would otherwise
-            have no accessible name. Keep the visible text as-is at 2xl and up
-            rather than overriding it with aria-label, which would break
-            speech-input users who say what they see. */}
-        <span className="sr-only 2xl:hidden">{t("display")}</span>
+        <span>{t("display")}</span>
       </button>
 
       <AnimatePresence>

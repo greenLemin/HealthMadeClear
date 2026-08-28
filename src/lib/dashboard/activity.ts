@@ -2,6 +2,7 @@ import type { SupabaseClient } from "@supabase/supabase-js";
 import { getAllLessons } from "@/lib/lessons/loadLessons";
 import type { Locale } from "@/lib/i18n";
 import type { ActivityItem } from "@/types/dashboard";
+import { toPercent } from "@/lib/quizScore";
 import { logQueryError } from "./utils";
 
 export async function getRecentActivity(
@@ -65,10 +66,7 @@ export async function getRecentActivity(
     const lessonData = lessonMap.get(quizLessonId);
     const scoreNum = Number(quiz.score);
     const maxNum = Number(quiz.max_score);
-    const pct =
-      Number.isFinite(scoreNum) && Number.isFinite(maxNum) && maxNum > 0
-        ? Math.round((scoreNum / maxNum) * 100)
-        : 0;
+    const pct = Number.isFinite(scoreNum) && Number.isFinite(maxNum) ? toPercent(scoreNum, maxNum) : 0;
     activity.push({
       type: "quiz",
       lessonId: quizLessonId,

@@ -1,6 +1,13 @@
 // @vitest-environment jsdom
-import { render, screen, fireEvent } from "@testing-library/react";
+import { act, render, screen, fireEvent, waitFor } from "@testing-library/react";
 import { describe, it, expect, vi, beforeEach } from "vitest";
+import { STORAGE_KEYS } from "@/lib/preferences";
+
+const wipeState = { generation: 0 };
+
+vi.mock("@/components/AppProviders", () => ({
+  useAppState: () => ({ wipeGeneration: wipeState.generation }),
+}));
 
 vi.mock("@/components/ui/Reveal", () => ({
   default: ({ children }: { children: React.ReactNode }) => <div>{children}</div>,
@@ -30,6 +37,7 @@ import VisitChecklistClient from "./VisitChecklistClient";
 
 describe("VisitChecklistClient", () => {
   beforeEach(() => {
+    wipeState.generation = 0;
     window.localStorage.clear();
   });
 
@@ -43,5 +51,30 @@ describe("VisitChecklistClient", () => {
 
     fireEvent.click(checkbox1);
     expect(checkbox1.checked).toBe(true);
+  });
+
+  it("uses a 24px checkbox and 48px row", () => {
+    render(<VisitChecklistClient />);
+    const checkbox = screen.getByLabelText("Item 1");
+    expect(checkbox.className).toContain("h-6");
+    expect(checkbox.className).toContain("w-6");
+    expect(checkbox.closest("label")?.className).toContain("min-h-12");
+  });
+
+  it("skips persist writes after wipeGeneration increases", async () => {
+    const { rerender } = render(<VisitChecklistClient />);
+    fireEvent.click(screen.getByLabelText("Item 1"));
+
+    await waitFor(() => {
+      expect(window.localStorage.getItem(STORAGE_KEYS.checklist)).toContain("Item 1");
+    });
+
+    window.localStorage.removeItem(STORAGE_KEYS.checklist);
+    wipeState.generation = 1;
+    await act(async () => {
+      rerender(<VisitChecklistClient />);
+    });
+
+    expect(window.localStorage.getItem(STORAGE_KEYS.checklist)).toBeNull();
   });
 });

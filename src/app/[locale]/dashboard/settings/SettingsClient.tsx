@@ -12,8 +12,8 @@ import Button from "@/components/ui/Button";
 import Input from "@/components/ui/Input";
 import Reveal from "@/components/ui/Reveal";
 import { useToast } from "@/components/ui/ToastProvider";
-import { useAuth } from "@/hooks/useAuth";
 import { useAppState } from "@/components/AppProviders";
+import { expireClientAuthCookies } from "@/lib/clearLocalHealthData";
 import type { ThemeMode } from "@/lib/preferences";
 
 const Modal = dynamic(() => import("@/components/ui/Modal"), { ssr: false });
@@ -35,8 +35,7 @@ export default function SettingsClient({
   const router = useRouter();
   const supabase = useMemo(() => createClient(), []);
   const { showToast } = useToast();
-  const { signOut } = useAuth();
-  const { theme, setTheme } = useAppState();
+  const { theme, setTheme, resetLocalProgress } = useAppState();
   const t = useTranslations("settings");
   const tDash = useTranslations("dashboard");
   const deleteConfirmToken = t("deleteConfirmToken");
@@ -84,9 +83,16 @@ export default function SettingsClient({
       return;
     }
 
-    await signOut();
-    showToast("info", t("accountDeleted"));
-    router.push("/");
+    try {
+      await supabase.auth.signOut({ scope: "local" });
+    } catch {
+      // ignore user-not-found / session-missing
+    } finally {
+      expireClientAuthCookies();
+      resetLocalProgress();
+      router.push("/");
+      showToast("info", t("accountDeleted"));
+    }
   }
 
   const themeOptions: Array<{ value: ThemeMode; label: string }> = [
@@ -94,12 +100,14 @@ export default function SettingsClient({
     { value: "dark", label: t("themeDark") },
   ];
 
+  const trimmedDisplayName = displayName?.trim() || tDash("defaultUser");
+
   return (
     <div className="space-y-8">
       <PageHeader
         badge={tDash("navSettings")}
         title={t("title")}
-        subtitle={displayName || tDash("defaultUser")}
+        subtitle={trimmedDisplayName}
         description={email}
       />
 
@@ -111,12 +119,10 @@ export default function SettingsClient({
               <div className="space-y-6">
                 <div className="flex items-center gap-4">
                   <div className="flex h-16 w-16 items-center justify-center rounded-full bg-primary text-headline-md font-bold text-on-primary shadow-elevation-2">
-                    {(displayName || tDash("defaultUser")).charAt(0).toUpperCase()}
+                    {trimmedDisplayName.charAt(0).toUpperCase()}
                   </div>
                   <div>
-                    <p className="text-label-lg font-semibold text-on-surface">
-                      {displayName || tDash("defaultUser")}
-                    </p>
+                    <p className="text-label-lg font-semibold text-on-surface">{trimmedDisplayName}</p>
                     <p className="text-label-sm text-on-surface-variant">{email}</p>
                   </div>
                 </div>

@@ -26,6 +26,7 @@ function renderCareGuide(locale: "en" | "es" = "en") {
 describe("CareGuideClient", () => {
   afterEach(() => {
     cleanup();
+    vi.useRealTimers();
   });
 
   it("renders the care-guide heading", () => {
@@ -155,5 +156,53 @@ describe("CareGuideClient", () => {
     cleanup();
     renderCareGuide("es");
     expect(screen.queryByText("Fiebre baja")).not.toBeInTheDocument();
+  });
+
+  it("puts Print in the header and keeps no-print on the red emergency banner", () => {
+    renderCareGuide();
+    const printButton = screen.getByRole("button", { name: en.common.print });
+    expect(printButton).toHaveClass("no-print");
+    expect(screen.getByRole("alert")).toHaveClass("no-print");
+  });
+
+  it("includes a print-only 911/988 line and print-time educational footer", () => {
+    vi.useFakeTimers();
+    vi.setSystemTime(new Date("2026-08-28T15:00:00"));
+    renderCareGuide();
+
+    const emergencyLine = screen.getByText(en.tools.printEmergencyLine);
+    expect(emergencyLine.className).toMatch(/\bhidden\b/);
+    expect(emergencyLine.className).toMatch(/print:block/);
+    expect(en.tools.printEmergencyLine).toMatch(/911/);
+    expect(en.tools.printEmergencyLine).toMatch(/988/);
+
+    const expectedDate = new Date("2026-08-28T15:00:00").toLocaleDateString("en-US", {
+      month: "long",
+      day: "numeric",
+      year: "numeric",
+    });
+    const footer = screen.getByText(en.tools.printFooter.replace("{date}", expectedDate));
+    expect(footer.className).toMatch(/\bhidden\b/);
+    expect(footer.className).toMatch(/print:block/);
+    expect(footer.className).toMatch(/text-xs/);
+    expect(footer.className).toMatch(/mt-6/);
+    expect(footer.className).toMatch(/pt-4/);
+    expect(footer.className).toMatch(/border-t/);
+    vi.useRealTimers();
+  });
+
+  it("prints the Spanish 911/988 line and locale-aware footer date", () => {
+    vi.useFakeTimers();
+    vi.setSystemTime(new Date("2026-08-28T15:00:00"));
+    renderCareGuide("es");
+
+    expect(screen.getByText(es.tools.printEmergencyLine)).toBeInTheDocument();
+    const expectedDate = new Date("2026-08-28T15:00:00").toLocaleDateString("es-ES", {
+      month: "long",
+      day: "numeric",
+      year: "numeric",
+    });
+    expect(screen.getByText(es.tools.printFooter.replace("{date}", expectedDate))).toBeInTheDocument();
+    vi.useRealTimers();
   });
 });

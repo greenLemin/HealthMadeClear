@@ -27,12 +27,27 @@ export function getPathsForLesson(
   return localeMap.get(lessonId) || [];
 }
 
-// Cache the dynamic import to improve performance
-let loadPathsPromise: Promise<typeof import("@/lib/paths/loadPaths")> | null = null;
+const pathsByLocalePromise = new Map<Locale, Promise<LearningPath[]>>();
 
-export function getLoadPathsPromise() {
-  if (!loadPathsPromise) {
-    loadPathsPromise = import("@/lib/paths/loadPaths");
+async function importPathsForLocale(locale: Locale): Promise<LearningPath[]> {
+  switch (locale) {
+    case "es": {
+      const mod = await import("@/data/pathBundles.es");
+      return mod.paths;
+    }
+    default: {
+      const mod = await import("@/data/pathBundles.en");
+      return mod.paths;
+    }
   }
-  return loadPathsPromise;
+}
+
+/** Client-safe: dynamic-imports one locale module. Do not import the server path loader. */
+export function loadPathsForLocale(locale: Locale): Promise<LearningPath[]> {
+  let pending = pathsByLocalePromise.get(locale);
+  if (!pending) {
+    pending = importPathsForLocale(locale);
+    pathsByLocalePromise.set(locale, pending);
+  }
+  return pending;
 }

@@ -7,16 +7,37 @@ import {
   saveQuizAttempt as guestSaveQuizAttempt,
 } from "@/lib/guestProgress";
 import { handleLessonCompletionSideEffects, handleQuizAttemptSideEffects } from "./sideEffects";
+import { QUIZ_ATTEMPTS_ON_CONFLICT } from "@/lib/supabase/schema";
 import type { QuizAttempts } from "./supabaseProgress";
 import type { User } from "@supabase/supabase-js";
 
 vi.mock("next-intl", () => ({
-  useTranslations: vi.fn(() => (key: string) => {
-    const map: Record<string, string> = {
-      saveError: "Failed to save progress",
-      quizSaveError: "Failed to save quiz result",
+  useTranslations: vi.fn((namespace: string) => {
+    return (key: string, values?: { title?: string; count?: number }) => {
+      if (namespace === "achievements") {
+        if (key === "unlocked") return `Achievement unlocked: ${values?.title}`;
+        if (key === "items.first-lesson.title") return "First Step";
+        if (key === "items.first-lesson.description") return "Completed your first lesson";
+        return key;
+      }
+      if (namespace === "progress") {
+        if (key === "pathAlmostThere") {
+          return `You're one lesson away from completing "${values?.title}".`;
+        }
+        if (key === "streakMilestoneTitle") return `${values?.count}-Day Streak!`;
+        if (key === "streakMilestoneBody") {
+          return `You're on a ${values?.count}-day learning streak. Keep it up!`;
+        }
+        const map: Record<string, string> = {
+          saveError: "Failed to save progress",
+          quizSaveError: "Failed to save quiz result",
+          pathAlmostThereTitle: "Almost there!",
+          sessionExpired: "Your session has expired. Please log in again.",
+        };
+        return map[key] ?? key;
+      }
+      return key;
     };
-    return map[key] ?? key;
   }),
 }));
 
@@ -42,6 +63,23 @@ describe("useProgressMutations", () => {
 
   const mockUser = { id: "user-123" } as User;
 
+  function renderMutations(user: User | null, completed: string[] = [], quizAttempts: QuizAttempts = {}) {
+    return renderHook(() =>
+      useProgressMutations(
+        user,
+        mockSupabase as never,
+        mockShowToast,
+        completed,
+        mockSetSupabaseCompletedLessonIds,
+        quizAttempts,
+        mockSetSupabaseQuizAttempts,
+        mockAppStateMarkLessonComplete,
+        mockRecordQuizScore,
+        "en"
+      )
+    );
+  }
+
   beforeEach(() => {
     vi.clearAllMocks();
 
@@ -56,7 +94,7 @@ describe("useProgressMutations", () => {
     };
 
     mockQuizAttemptsTable = {
-      insert: vi.fn().mockResolvedValue({ error: null }),
+      upsert: vi.fn().mockResolvedValue({ error: null }),
     };
 
     mockSupabase = {
@@ -70,19 +108,7 @@ describe("useProgressMutations", () => {
 
   describe("Guest Mode (user is null)", () => {
     it("should invoke guest storage and appState callback for markLessonComplete", async () => {
-      const { result } = renderHook(() =>
-        useProgressMutations(
-          null,
-          mockSupabase,
-          mockShowToast,
-          [],
-          mockSetSupabaseCompletedLessonIds,
-          mockSetSupabaseQuizAttempts,
-          mockAppStateMarkLessonComplete,
-          mockRecordQuizScore,
-          "en"
-        )
-      );
+      const { result } = renderMutations(null);
 
       await act(async () => {
         await result.current.markLessonComplete("lesson-guest-1");
@@ -94,55 +120,29 @@ describe("useProgressMutations", () => {
       expect(mockSetSupabaseCompletedLessonIds).not.toHaveBeenCalled();
     });
 
-    it("should calculate pass status and invoke guest functions for saveQuizAttempt", async () => {
-      const { result } = renderHook(() =>
-        useProgressMutations(
-          null,
-          mockSupabase,
-          mockShowToast,
-          [],
-          mockSetSupabaseCompletedLessonIds,
-          mockSetSupabaseQuizAttempts,
-          mockAppStateMarkLessonComplete,
-          mockRecordQuizScore,
-          "en"
-        )
-      );
+    it("should persist counts and record UI percent for saveQuizAttempt", async () => {
+      const { result } = renderMutations(null);
 
-      // Score 7 out of 10 -> passed = true (>= 70%)
       await act(async () => {
         await result.current.saveQuizAttempt("quiz-1", "lesson-1", 7, 10, [1, 2]);
       });
 
       expect(guestSaveQuizAttempt).toHaveBeenCalledWith("quiz-1", 7, 10);
-      expect(mockRecordQuizScore).toHaveBeenCalledWith("lesson-1", 7, true);
+      expect(mockRecordQuizScore).toHaveBeenCalledWith("lesson-1", 70, true);
 
-      // Score 6 out of 10 -> passed = false (< 70%)
       await act(async () => {
         await result.current.saveQuizAttempt("quiz-2", "lesson-2", 6, 10, [1]);
       });
 
       expect(guestSaveQuizAttempt).toHaveBeenCalledWith("quiz-2", 6, 10);
-      expect(mockRecordQuizScore).toHaveBeenCalledWith("lesson-2", 6, false);
+      expect(mockRecordQuizScore).toHaveBeenCalledWith("lesson-2", 60, false);
       expect(mockSupabase.from).not.toHaveBeenCalled();
     });
   });
 
   describe("Authenticated Mode - markLessonComplete", () => {
     it("should optimistically update state, call Supabase upsert, and invoke side effects on success", async () => {
-      const { result } = renderHook(() =>
-        useProgressMutations(
-          mockUser,
-          mockSupabase,
-          mockShowToast,
-          ["existing-lesson"],
-          mockSetSupabaseCompletedLessonIds,
-          mockSetSupabaseQuizAttempts,
-          mockAppStateMarkLessonComplete,
-          mockRecordQuizScore,
-          "en"
-        )
-      );
+      const { result } = renderMutations(mockUser, ["existing-lesson"]);
 
       await act(async () => {
         await result.current.markLessonComplete("new-lesson");
@@ -167,24 +167,22 @@ describe("useProgressMutations", () => {
         "new-lesson",
         ["existing-lesson", "new-lesson"],
         mockShowToast,
-        "en"
+        "en",
+        expect.any(Function),
+        expect.objectContaining({
+          pathAlmostThereTitle: "Almost there!",
+        })
+      );
+
+      const localize = vi.mocked(handleLessonCompletionSideEffects).mock.calls.at(0)?.at(6);
+      expect(localize).toEqual(expect.any(Function));
+      expect((localize as (id: string) => { unlocked: string })("first-lesson").unlocked).toBe(
+        "Achievement unlocked: First Step"
       );
     });
 
     it("should avoid adding duplicate lesson ID if already present in state", async () => {
-      const { result } = renderHook(() =>
-        useProgressMutations(
-          mockUser,
-          mockSupabase,
-          mockShowToast,
-          ["lesson-1"],
-          mockSetSupabaseCompletedLessonIds,
-          mockSetSupabaseQuizAttempts,
-          mockAppStateMarkLessonComplete,
-          mockRecordQuizScore,
-          "en"
-        )
-      );
+      const { result } = renderMutations(mockUser, ["lesson-1"]);
 
       await act(async () => {
         await result.current.markLessonComplete("lesson-1");
@@ -196,181 +194,194 @@ describe("useProgressMutations", () => {
     it("should rollback optimistic state and show toast error when Supabase upsert fails", async () => {
       mockLessonProgressTable.upsert.mockResolvedValueOnce({ error: new Error("DB Upsert Error") });
 
-      const { result } = renderHook(() =>
-        useProgressMutations(
-          mockUser,
-          mockSupabase,
-          mockShowToast,
-          ["existing-lesson"],
-          mockSetSupabaseCompletedLessonIds,
-          mockSetSupabaseQuizAttempts,
-          mockAppStateMarkLessonComplete,
-          mockRecordQuizScore,
-          "en"
-        )
-      );
+      const { result } = renderMutations(mockUser, ["existing-lesson"]);
 
       await act(async () => {
         await result.current.markLessonComplete("failed-lesson");
       });
 
-      // First optimistic update
       expect(mockSetSupabaseCompletedLessonIds).toHaveBeenNthCalledWith(1, [
         "existing-lesson",
         "failed-lesson",
       ]);
 
-      // Error toast shown
       expect(mockShowToast).toHaveBeenCalledWith("error", "Failed to save progress");
 
-      // Rollback call to setSupabaseCompletedLessonIds excluding failed-lesson
+      expect(mockSetSupabaseCompletedLessonIds).toHaveBeenNthCalledWith(2, ["existing-lesson"]);
+      expect(handleLessonCompletionSideEffects).not.toHaveBeenCalled();
+    });
+
+    it("shows session-expired copy and rolls back when lesson upsert returns an expired JWT", async () => {
+      mockLessonProgressTable.upsert.mockResolvedValueOnce({
+        error: { status: 401, message: "JWT expired" },
+      });
+
+      const { result } = renderMutations(mockUser, ["existing-lesson"]);
+
+      await act(async () => {
+        await result.current.markLessonComplete("failed-lesson");
+      });
+
+      expect(mockSetSupabaseCompletedLessonIds).toHaveBeenNthCalledWith(1, [
+        "existing-lesson",
+        "failed-lesson",
+      ]);
+      expect(mockShowToast).toHaveBeenCalledWith("error", "Your session has expired. Please log in again.");
       expect(mockSetSupabaseCompletedLessonIds).toHaveBeenNthCalledWith(2, ["existing-lesson"]);
       expect(handleLessonCompletionSideEffects).not.toHaveBeenCalled();
     });
   });
 
   describe("Authenticated Mode - saveQuizAttempt", () => {
-    it("should update quiz attempts optimistically and insert into Supabase on success", async () => {
-      const { result } = renderHook(() =>
-        useProgressMutations(
-          mockUser,
-          mockSupabase,
-          mockShowToast,
-          ["lesson-1"],
-          mockSetSupabaseCompletedLessonIds,
-          mockSetSupabaseQuizAttempts,
-          mockAppStateMarkLessonComplete,
-          mockRecordQuizScore,
-          "en"
-        )
-      );
+    it("should update quiz attempts optimistically and upsert into Supabase on success", async () => {
+      const { result } = renderMutations(mockUser, ["lesson-1"]);
 
       await act(async () => {
-        await result.current.saveQuizAttempt("quiz-1", "lesson-1", 8, 10, [0, 1]);
+        await result.current.saveQuizAttempt("quiz-1", "lesson-1", 4, 5, [0, 1]);
       });
 
-      expect(mockSetSupabaseQuizAttempts).toHaveBeenCalledWith(expect.any(Function));
-
-      // Test state update function passed to setSupabaseQuizAttempts for new attempt
-      const updateFn = mockSetSupabaseQuizAttempts.mock.calls[0][0];
-      const nextState = updateFn({});
-      expect(nextState).toEqual({
-        "quiz-1": { score: 8, maxScore: 10, passed: true },
+      expect(mockSetSupabaseQuizAttempts).toHaveBeenCalledWith({
+        "quiz-1": { score: 4, maxScore: 5, passed: true },
       });
 
       expect(mockSupabase.from).toHaveBeenCalledWith("quiz_attempts");
-      expect(mockQuizAttemptsTable.insert).toHaveBeenCalledWith({
-        user_id: "user-123",
-        quiz_id: "quiz-1",
-        score: 8,
-        max_score: 10,
-        passed: true,
-        answers: [0, 1],
-      });
+      expect(mockQuizAttemptsTable.upsert).toHaveBeenCalledWith(
+        {
+          user_id: "user-123",
+          quiz_id: "quiz-1",
+          score: 4,
+          max_score: 5,
+          passed: true,
+          answers: [0, 1],
+        },
+        { onConflict: QUIZ_ATTEMPTS_ON_CONFLICT, ignoreDuplicates: false }
+      );
+      expect(mockQuizAttemptsTable).not.toHaveProperty("insert");
 
       expect(handleQuizAttemptSideEffects).toHaveBeenCalledWith(
         mockSupabase,
         "user-123",
         "lesson-1",
-        8,
-        10,
+        4,
+        5,
         true,
         ["lesson-1"],
-        mockShowToast
+        mockShowToast,
+        "en",
+        expect.any(Function),
+        expect.objectContaining({
+          pathAlmostThereTitle: "Almost there!",
+        })
+      );
+
+      const localize = vi.mocked(handleQuizAttemptSideEffects).mock.calls.at(0)?.at(9);
+      expect(localize).toEqual(expect.any(Function));
+      expect((localize as (id: string) => { unlocked: string })("first-lesson").unlocked).toBe(
+        "Achievement unlocked: First Step"
       );
     });
 
-    it("should keep best score via Math.max in optimistic update logic", async () => {
-      const { result } = renderHook(() =>
-        useProgressMutations(
-          mockUser,
-          mockSupabase,
-          mockShowToast,
-          [],
-          mockSetSupabaseCompletedLessonIds,
-          mockSetSupabaseQuizAttempts,
-          mockAppStateMarkLessonComplete,
-          mockRecordQuizScore,
-          "en"
-        )
+    it("treats 4/5 as passed and 1/5 as failed; never uses 80 >= 5 * 0.7", async () => {
+      const { result } = renderMutations(mockUser);
+
+      await act(async () => {
+        await result.current.saveQuizAttempt("quiz-1", "lesson-1", 1, 5, [1]);
+      });
+
+      expect(mockQuizAttemptsTable.upsert).toHaveBeenCalledWith(
+        expect.objectContaining({ score: 1, max_score: 5, passed: false }),
+        expect.any(Object)
       );
 
       await act(async () => {
-        await result.current.saveQuizAttempt("quiz-1", "lesson-1", 5, 10, [1]);
+        await result.current.saveQuizAttempt("quiz-2", "lesson-2", 80, 5, [1]);
       });
 
-      const updateFn = mockSetSupabaseQuizAttempts.mock.calls[0][0];
+      expect(mockQuizAttemptsTable.upsert).toHaveBeenCalledWith(
+        expect.objectContaining({ quiz_id: "quiz-2", score: 4, max_score: 5, passed: true }),
+        expect.any(Object)
+      );
+    });
 
-      // Existing attempt with higher score (8) should be preserved unchanged
-      const prevState: QuizAttempts = {
-        "quiz-1": { score: 8, maxScore: 10, passed: true },
+    it("skips upsert on lower or equal score and still runs side effects with locale", async () => {
+      const existing: QuizAttempts = {
+        "quiz-1": { score: 4, maxScore: 5, passed: true },
       };
-      const resultState = updateFn(prevState);
-      expect(resultState).toBe(prevState); // Returns prev directly
+      const { result } = renderMutations(mockUser, ["lesson-1"], existing);
 
-      // Existing attempt with lower score (3) should be updated to 5
-      const prevLowerState: QuizAttempts = {
-        "quiz-1": { score: 3, maxScore: 10, passed: false },
-      };
-      const resultLowerState = updateFn(prevLowerState);
-      expect(resultLowerState).toEqual({
-        "quiz-1": { score: 5, maxScore: 10, passed: false },
+      await act(async () => {
+        await result.current.saveQuizAttempt("quiz-1", "lesson-1", 3, 5, [1]);
       });
+
+      expect(mockQuizAttemptsTable.upsert).not.toHaveBeenCalled();
+      expect(mockSetSupabaseQuizAttempts).not.toHaveBeenCalled();
+      expect(handleQuizAttemptSideEffects).toHaveBeenCalledWith(
+        mockSupabase,
+        "user-123",
+        "lesson-1",
+        3,
+        5,
+        false,
+        ["lesson-1"],
+        mockShowToast,
+        "en",
+        expect.any(Function),
+        expect.any(Object)
+      );
+      expect(mockShowToast).not.toHaveBeenCalled();
+
+      await act(async () => {
+        await result.current.saveQuizAttempt("quiz-1", "lesson-1", 4, 5, [1]);
+      });
+
+      expect(mockQuizAttemptsTable.upsert).not.toHaveBeenCalled();
+      expect(handleQuizAttemptSideEffects).toHaveBeenCalledTimes(2);
+
+      const localize = vi.mocked(handleQuizAttemptSideEffects).mock.calls.at(0)?.at(9);
+      expect(localize).toEqual(expect.any(Function));
+      expect((localize as (id: string) => { unlocked: string })("first-lesson").unlocked).toBe(
+        "Achievement unlocked: First Step"
+      );
     });
 
     it("should append current lessonId to sideEffects completedIds list if missing from ref", async () => {
-      const { result } = renderHook(() =>
-        useProgressMutations(
-          mockUser,
-          mockSupabase,
-          mockShowToast,
-          ["lesson-completed"],
-          mockSetSupabaseCompletedLessonIds,
-          mockSetSupabaseQuizAttempts,
-          mockAppStateMarkLessonComplete,
-          mockRecordQuizScore,
-          "en"
-        )
-      );
+      const { result } = renderMutations(mockUser, ["lesson-completed"]);
 
       await act(async () => {
-        await result.current.saveQuizAttempt("quiz-1", "lesson-not-completed", 10, 10, [1, 2]);
+        await result.current.saveQuizAttempt("quiz-1", "lesson-not-completed", 5, 5, [1, 2]);
       });
 
       expect(handleQuizAttemptSideEffects).toHaveBeenCalledWith(
         mockSupabase,
         "user-123",
         "lesson-not-completed",
-        10,
-        10,
+        5,
+        5,
         true,
         ["lesson-completed", "lesson-not-completed"],
-        mockShowToast
+        mockShowToast,
+        "en",
+        expect.any(Function),
+        expect.any(Object)
       );
     });
 
-    it("should show toast error and skip side effects when Supabase insert fails", async () => {
-      mockQuizAttemptsTable.insert.mockResolvedValueOnce({ error: new Error("DB Insert Error") });
-
-      const { result } = renderHook(() =>
-        useProgressMutations(
-          mockUser,
-          mockSupabase,
-          mockShowToast,
-          [],
-          mockSetSupabaseCompletedLessonIds,
-          mockSetSupabaseQuizAttempts,
-          mockAppStateMarkLessonComplete,
-          mockRecordQuizScore,
-          "en"
-        )
-      );
+    it("should restore previous best score and skip side effects when upsert fails", async () => {
+      mockQuizAttemptsTable.upsert.mockResolvedValueOnce({ error: new Error("DB Upsert Error") });
+      const prev: QuizAttempts = {
+        "quiz-1": { score: 2, maxScore: 5, passed: false },
+      };
+      const { result } = renderMutations(mockUser, ["lesson-1"], prev);
 
       await act(async () => {
-        await result.current.saveQuizAttempt("quiz-1", "lesson-1", 10, 10, [1, 2]);
+        await result.current.saveQuizAttempt("quiz-1", "lesson-1", 4, 5, [1, 2]);
       });
 
+      expect(mockSetSupabaseQuizAttempts).toHaveBeenNthCalledWith(1, {
+        "quiz-1": { score: 4, maxScore: 5, passed: true },
+      });
       expect(mockShowToast).toHaveBeenCalledWith("error", "Failed to save quiz result");
+      expect(mockSetSupabaseQuizAttempts).toHaveBeenNthCalledWith(2, prev);
       expect(handleQuizAttemptSideEffects).not.toHaveBeenCalled();
     });
   });

@@ -7,6 +7,12 @@ vi.mock("@/lib/lessons/loadLessons", () => ({
   getAllLessons: vi.fn(() => [
     { id: "lesson-a", title: "Lesson A", category: "Insurance", categoryId: "insurance" },
     { id: "lesson-b", title: "Lesson B", category: "Meds", categoryId: "medications" },
+    {
+      id: "understanding-prescription-labels",
+      title: "Prescription Labels",
+      category: "Meds",
+      categoryId: "medications",
+    },
   ]),
 }));
 
@@ -75,10 +81,10 @@ describe("getUserProgressSummary", () => {
     const summary = await getUserProgressSummary(mockSupabase as unknown as SupabaseClient, "user1");
 
     expect(summary.totalLessonsCompleted).toBe(2); // dedupe by lesson_id set
-    expect(summary.totalLessonsAvailable).toBe(2);
+    expect(summary.totalLessonsAvailable).toBe(3);
     expect(summary.totalQuizzesPassed).toBe(2);
-    expect(summary.totalQuizzesAttempted).toBe(3);
-    expect(summary.averageQuizScore).toBe(Math.round(((6 + 8 + 2) / (10 + 10 + 10)) * 100));
+    expect(summary.totalQuizzesAttempted).toBe(2); // unique quiz_id; duplicate lesson-b-quiz kept max 8
+    expect(summary.averageQuizScore).toBe(70); // toPercent(6+8, 10+10)
     expect(summary.totalTimeSpentMinutes).toBe(Math.round((1200 + 600 + 1800) / 60));
     expect(summary.currentStreak).toBe(3);
     expect(summary.longestStreak).toBe(7);
@@ -139,6 +145,112 @@ describe("getUserProgressSummary", () => {
     expect(logQueryError).toHaveBeenCalledWith("getUserProgressSummary:lessons", lessonErr);
     expect(logQueryError).toHaveBeenCalledWith("getUserProgressSummary:quizzes", quizErr);
     expect(logQueryError).toHaveBeenCalledWith("getUserProgressSummary:streak", streakErr);
+  });
+
+  it("duplicate quiz rows count as one attempt", async () => {
+    const lesson = buildLessonChain({ data: [], error: null });
+    const quiz = buildQuizChain({
+      data: [
+        { quiz_id: "lesson-a-quiz", score: 6, max_score: 10, passed: true },
+        { quiz_id: "lesson-a-quiz", score: 2, max_score: 10, passed: false },
+      ],
+      error: null,
+    });
+    const streak = buildStreakChain({ data: null, error: null });
+
+    mockSupabase = {
+      from: vi.fn((table: string) => {
+        if (table === "lesson_progress") return { select: lesson.select };
+        if (table === "quiz_attempts") return { select: quiz.select };
+        if (table === "streaks") return { select: streak.select };
+        return { select: vi.fn() };
+      }),
+    };
+
+    const summary = await getUserProgressSummary(mockSupabase as unknown as SupabaseClient, "user1");
+
+    expect(summary.totalQuizzesAttempted).toBe(1);
+    expect(summary.totalQuizzesPassed).toBe(1);
+    expect(summary.averageQuizScore).toBe(60);
+  });
+
+  it("average for one 4/5 quiz is 80 (raw), not 1600", async () => {
+    const lesson = buildLessonChain({ data: [], error: null });
+    const quiz = buildQuizChain({
+      data: [{ quiz_id: "understanding-prescription-labels", score: 4, max_score: 5, passed: true }],
+      error: null,
+    });
+    const streak = buildStreakChain({ data: null, error: null });
+
+    mockSupabase = {
+      from: vi.fn((table: string) => {
+        if (table === "lesson_progress") return { select: lesson.select };
+        if (table === "quiz_attempts") return { select: quiz.select };
+        if (table === "streaks") return { select: streak.select };
+        return { select: vi.fn() };
+      }),
+    };
+
+    const summary = await getUserProgressSummary(mockSupabase as unknown as SupabaseClient, "user1");
+
+    expect(summary.averageQuizScore).toBe(80);
+    expect(summary.averageQuizScore).not.toBe(1600);
+  });
+
+  it("starts lesson, quiz, and streak queries before any of them resolve", async () => {
+    const started: string[] = [];
+    let resolveLesson!: (value: { data: unknown; error: unknown }) => void;
+    let resolveQuiz!: (value: { data: unknown; error: unknown }) => void;
+    let resolveStreak!: (value: { data: unknown; error: unknown }) => void;
+
+    const lessonPromise = new Promise<{ data: unknown; error: unknown }>((resolve) => {
+      resolveLesson = resolve;
+    });
+    const quizPromise = new Promise<{ data: unknown; error: unknown }>((resolve) => {
+      resolveQuiz = resolve;
+    });
+    const streakPromise = new Promise<{ data: unknown; error: unknown }>((resolve) => {
+      resolveStreak = resolve;
+    });
+
+    mockSupabase = {
+      from: vi.fn((table: string) => {
+        started.push(table);
+        if (table === "lesson_progress") {
+          return {
+            select: vi.fn().mockReturnValue({
+              eq: vi.fn().mockReturnValue({ eq: vi.fn().mockReturnValue(lessonPromise) }),
+            }),
+          };
+        }
+        if (table === "quiz_attempts") {
+          return {
+            select: vi.fn().mockReturnValue({
+              eq: vi.fn().mockReturnValue(quizPromise),
+            }),
+          };
+        }
+        if (table === "streaks") {
+          return {
+            select: vi.fn().mockReturnValue({
+              eq: vi.fn().mockReturnValue({ single: vi.fn().mockReturnValue(streakPromise) }),
+            }),
+          };
+        }
+        return { select: vi.fn() };
+      }),
+    };
+
+    const pending = getUserProgressSummary(mockSupabase as unknown as SupabaseClient, "user1");
+
+    expect(started).toEqual(["lesson_progress", "quiz_attempts", "streaks"]);
+
+    resolveLesson({ data: [], error: null });
+    resolveQuiz({ data: [], error: null });
+    resolveStreak({ data: null, error: null });
+
+    const summary = await pending;
+    expect(summary.totalLessonsCompleted).toBe(0);
   });
 });
 
@@ -212,6 +324,12 @@ describe("getCompletedLessonsPaginated", () => {
 
     const lessonB = result.lessons.find((l) => l.lessonId === "lesson-b");
     expect(lessonB?.quizScore).toBe(50);
+    expect(quizzes.inFn).toHaveBeenCalledWith("quiz_id", [
+      "lesson-a",
+      "lesson-a-quiz",
+      "lesson-b",
+      "lesson-b-quiz",
+    ]);
   });
 
   it("returns empty page when no progress and count is null", async () => {
@@ -295,5 +413,69 @@ describe("getCompletedLessonsPaginated", () => {
     expect(result.totalPages).toBe(5);
     // Verify range() was called with non-negative values
     expect(progress.range).toHaveBeenCalledWith(0, 0);
+  });
+
+  it("maps production quiz_id === lessonId 4/5 to completed-tab quizScore 80", async () => {
+    const progress = buildProgressChain({
+      data: [{ lesson_id: "understanding-prescription-labels", completed_at: "2024-01-02T00:00:00Z" }],
+      count: 1,
+      error: null,
+    });
+    const quizzes = buildQuizInChain({
+      data: [{ quiz_id: "understanding-prescription-labels", score: 4, max_score: 5 }],
+      error: null,
+    });
+
+    mockSupabase = {
+      from: vi.fn((table: string) => {
+        if (table === "lesson_progress") return { select: progress.select };
+        if (table === "quiz_attempts") return { select: quizzes.select };
+        return { select: vi.fn() };
+      }),
+    };
+
+    const result = await getCompletedLessonsPaginated(
+      mockSupabase as unknown as SupabaseClient,
+      "user1",
+      "en",
+      1,
+      10
+    );
+
+    expect(result.lessons[0]!.quizScore).toBe(80);
+    expect(quizzes.inFn).toHaveBeenCalledWith("quiz_id", [
+      "understanding-prescription-labels",
+      "understanding-prescription-labels-quiz",
+    ]);
+  });
+
+  it("still maps legacy quiz_id lesson-a-quiz onto the lesson", async () => {
+    const progress = buildProgressChain({
+      data: [{ lesson_id: "lesson-a", completed_at: "2024-01-02T00:00:00Z" }],
+      count: 1,
+      error: null,
+    });
+    const quizzes = buildQuizInChain({
+      data: [{ quiz_id: "lesson-a-quiz", score: 4, max_score: 5 }],
+      error: null,
+    });
+
+    mockSupabase = {
+      from: vi.fn((table: string) => {
+        if (table === "lesson_progress") return { select: progress.select };
+        if (table === "quiz_attempts") return { select: quizzes.select };
+        return { select: vi.fn() };
+      }),
+    };
+
+    const result = await getCompletedLessonsPaginated(
+      mockSupabase as unknown as SupabaseClient,
+      "user1",
+      "en",
+      1,
+      10
+    );
+
+    expect(result.lessons[0]!.quizScore).toBe(80);
   });
 });

@@ -27,20 +27,22 @@ vi.mock("@/lib/guestProgress", () => ({
   markLessonComplete: vi.fn(),
   saveQuizAttempt: vi.fn(),
   migrateGuestProgressToSupabase: vi.fn(() => Promise.resolve({ ok: true })),
+  clearGuestProgress: vi.fn(),
 }));
 vi.mock("@/lib/achievements", () => ({
   ACHIEVEMENTS: {},
   checkAndAwardAchievements: vi.fn(() => Promise.resolve([])),
 }));
 vi.mock("@/lib/streaks", () => ({ updateStreak: vi.fn(() => Promise.resolve({ currentStreak: 1 })) }));
-vi.mock("@/lib/dashboard", () => ({ updateDailyLog: vi.fn(() => Promise.resolve()) }));
+vi.mock("@/lib/dashboard/dailyLog", () => ({ updateDailyLog: vi.fn(() => Promise.resolve()) }));
 vi.mock("@/lib/notifications", () => ({
   createNotification: vi.fn(() => Promise.resolve()),
   createNotifications: vi.fn(() => Promise.resolve()),
 }));
 vi.mock("@/lib/errorReporting", () => ({ reportClientError: vi.fn() }));
-vi.mock("@/lib/paths/loadPaths", () => ({
-  getAllLearningPaths: vi.fn(() => []),
+vi.mock("./useProgress/pathsCache", () => ({
+  getPathsForLesson: vi.fn(() => []),
+  loadPathsForLocale: vi.fn(async () => []),
 }));
 
 describe("useProgress hook", () => {
@@ -75,7 +77,7 @@ describe("useProgress hook", () => {
             select: vi.fn().mockReturnValue({
               eq: vi.fn().mockResolvedValue({ data: [] }),
             }),
-            insert: vi.fn().mockResolvedValue({ error: null }),
+            upsert: vi.fn().mockResolvedValue({ error: null }),
           };
         }
         return {};
@@ -133,7 +135,7 @@ describe("useProgress hook", () => {
                 data: [{ quiz_id: "quiz-auth-1", score: 90, max_score: 100, passed: true }],
               }),
             }),
-            insert: vi.fn().mockResolvedValue({ error: null }),
+            upsert: vi.fn().mockResolvedValue({ error: null }),
           };
         }
         return {};
@@ -250,6 +252,67 @@ describe("useProgress hook", () => {
         expect(migrateGuestProgressToSupabase).not.toHaveBeenCalled();
       });
     });
+
+    it("does not fetch progress until guest migration resolves, then IDs appear from refetch", async () => {
+      let resolveMigrate!: (value: { ok: boolean; errors: string[] }) => void;
+      const migratePromise = new Promise<{ ok: boolean; errors: string[] }>((resolve) => {
+        resolveMigrate = resolve;
+      });
+
+      vi.mocked(useAuth).mockReturnValue({ user: { id: "user-123" }, loading: false } as any);
+      vi.mocked(getGuestProgress).mockReturnValue({
+        completedLessons: ["lesson-guest"],
+        quizAttempts: [],
+      });
+      vi.mocked(migrateGuestProgressToSupabase).mockReturnValue(migratePromise);
+
+      const lessonSelect = vi.fn().mockReturnValue({
+        eq: vi.fn().mockReturnValue({
+          eq: vi.fn().mockResolvedValue({ data: [{ lesson_id: "lesson-guest" }] }),
+        }),
+      });
+      const quizSelect = vi.fn().mockReturnValue({
+        eq: vi.fn().mockResolvedValue({ data: [] }),
+      });
+
+      mockSupabase.from = vi.fn((table: string) => {
+        if (table === "lesson_progress") {
+          return {
+            select: lessonSelect,
+            upsert: vi.fn().mockResolvedValue({ error: null }),
+          };
+        }
+        if (table === "quiz_attempts") {
+          return {
+            select: quizSelect,
+            upsert: vi.fn().mockResolvedValue({ error: null }),
+          };
+        }
+        return {};
+      });
+      vi.mocked(createClient).mockReturnValue(mockSupabase as any);
+
+      const { result } = renderHook(() => useProgress());
+
+      await act(async () => {
+        await Promise.resolve();
+      });
+
+      expect(lessonSelect).not.toHaveBeenCalled();
+      expect(quizSelect).not.toHaveBeenCalled();
+      expect(result.current.completedLessonIds).toEqual([]);
+
+      await act(async () => {
+        resolveMigrate({ ok: true, errors: [] });
+        await migratePromise;
+      });
+
+      await waitFor(() => {
+        expect(result.current.completedLessonIds).toEqual(["lesson-guest"]);
+      });
+      expect(lessonSelect).toHaveBeenCalled();
+      expect(migrateGuestProgressToSupabase).toHaveBeenCalledWith(mockSupabase, "user-123");
+    });
   });
 
   describe("Authenticated Mutations", () => {
@@ -273,7 +336,7 @@ describe("useProgress hook", () => {
               select: vi.fn().mockReturnValue({
                 eq: vi.fn().mockResolvedValue({ data: [] }),
               }),
-              insert: vi.fn().mockResolvedValue({ error: null }),
+              upsert: vi.fn().mockResolvedValue({ error: null }),
             };
           }
           return {};
@@ -319,11 +382,9 @@ describe("useProgress hook", () => {
   describe("Error Handling", () => {
     it("should report client error when path loading fails during progress calculation", async () => {
       const { reportClientError } = await import("@/lib/errorReporting");
-      const { getAllLearningPaths } = await import("@/lib/paths/loadPaths");
+      const { loadPathsForLocale } = await import("./useProgress/pathsCache");
 
-      vi.mocked(getAllLearningPaths).mockImplementationOnce(() => {
-        throw new Error("Test path loading error");
-      });
+      vi.mocked(loadPathsForLocale).mockRejectedValueOnce(new Error("Test path loading error"));
 
       // Override the mockSupabase for this test so upsert succeeds!
       const successSupabase = {
@@ -391,7 +452,7 @@ describe("useProgress hook", () => {
               select: vi.fn().mockReturnValue({
                 eq: vi.fn().mockResolvedValue({ data: [] }),
               }),
-              insert: vi.fn().mockResolvedValue({ error: new Error("Insert failed") }),
+              upsert: vi.fn().mockResolvedValue({ error: new Error("Upsert failed") }),
             };
           }
           return {};
@@ -448,7 +509,7 @@ describe("useProgress hook", () => {
               select: vi.fn().mockReturnValue({
                 eq: vi.fn().mockResolvedValue({ data: [] }),
               }),
-              insert: vi.fn().mockResolvedValue({ error: null }),
+              upsert: vi.fn().mockResolvedValue({ error: null }),
             };
           }
           return {};

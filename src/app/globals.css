@@ -258,6 +258,8 @@
       background-color: #ffffff !important;
       color: #000000 !important;
       font-size: 14pt !important;
+      print-color-adjust: exact;
+      -webkit-print-color-adjust: exact;
     }
 
     .no-print {
@@ -309,6 +311,8 @@
       backdrop-filter: none !important;
       padding: 1.5rem !important;
       page-break-inside: avoid;
+      print-color-adjust: exact;
+      -webkit-print-color-adjust: exact;
     }
 
     section,

@@ -38,15 +38,18 @@ export default class ErrorBoundary extends React.Component<ErrorBoundaryProps, E
       return (
         <div role="alert" className="mx-auto max-w-2xl p-6 text-center">
           <h2 className="mb-2 font-display text-headline-md text-primary">Something went wrong</h2>
-          <p className="mb-4 text-body-md text-on-surface-variant">
+          <p className="mb-2 text-body-md text-on-surface-variant">
             An unexpected error occurred. Please try refreshing the page.
+          </p>
+          <p lang="es" className="mb-4 text-body-md text-on-surface-variant">
+            Algo salió mal. Ocurrió un error inesperado. Prueba a actualizar la página.
           </p>
           <button
             type="button"
             onClick={this.handleReset}
             className="rounded-full bg-primary px-6 py-2.5 text-label-md text-on-primary hover:bg-primary/90"
           >
-            Try again
+            Try again / Intentar de nuevo
           </button>
         </div>
       );

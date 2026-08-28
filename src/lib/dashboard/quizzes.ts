@@ -1,6 +1,7 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { getAllLessons } from "@/lib/lessons/loadLessons";
 import type { Locale } from "@/lib/i18n";
+import { toPercent } from "@/lib/quizScore";
 import { logQueryError } from "./utils";
 
 export async function getQuizPerformanceByCategory(
@@ -54,7 +55,7 @@ export async function getQuizPerformanceByCategory(
       category: categoryLabelMap.get(categoryId) ?? categoryId,
       categoryId,
       attemptsCount: stats.attempts,
-      averageScore: stats.totalMax > 0 ? Math.round((stats.totalScore / stats.totalMax) * 100) : 0,
+      averageScore: toPercent(stats.totalScore, stats.totalMax),
       passRate: stats.attempts > 0 ? Math.round((stats.passed / stats.attempts) * 100) : 0,
     }))
     .sort((a, b) => b.attemptsCount - a.attemptsCount);

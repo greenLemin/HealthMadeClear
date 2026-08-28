@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { getButtonClasses } from "@/components/ui/buttonStyles";
 import Card from "@/components/ui/Card";
+import "./globals.css";
 
 // Static by design: this boundary is part of every route's shell, so dynamic
 // APIs here (cookies/headers) would force the entire app to server-render.
@@ -8,7 +9,7 @@ import Card from "@/components/ui/Card";
 // handles paths outside any locale segment and offers both locales.
 export default function RootNotFound() {
   return (
-    <html lang="en">
+    <html lang="en" className="theme-light">
       <body className="min-h-screen bg-[var(--color-surface)] font-hyperlegible">
         <main className="py-16">
           <div className="mx-auto max-w-container px-4 md:px-6">
@@ -23,7 +24,9 @@ export default function RootNotFound() {
               <div className="flex gap-3">
                 <Link
                   href="/en"
-                  className={getButtonClasses({ className: "inline-flex items-center justify-center" })}
+                  className={getButtonClasses({
+                    className: "inline-flex min-h-12 items-center justify-center px-6",
+                  })}
                 >
                   Go home
                 </Link>
@@ -31,7 +34,7 @@ export default function RootNotFound() {
                   href="/es"
                   className={getButtonClasses({
                     variant: "secondary",
-                    className: "inline-flex items-center justify-center",
+                    className: "inline-flex min-h-12 items-center justify-center px-6",
                   })}
                 >
                   Ir al inicio

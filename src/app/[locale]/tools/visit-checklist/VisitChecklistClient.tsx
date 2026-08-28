@@ -1,7 +1,8 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Printer } from "lucide-react";
+import { useAppState } from "@/components/AppProviders";
 import Button from "@/components/ui/Button";
 import MedicalDisclaimer from "@/components/MedicalDisclaimer";
 import PageHeader from "@/components/PageHeader";
@@ -11,8 +12,10 @@ import { STORAGE_KEYS, readStoredStringArray, writeStoredJson } from "@/lib/pref
 import { useTranslations } from "next-intl";
 
 function useChecklistState() {
+  const { wipeGeneration } = useAppState();
   const [checkedItems, setCheckedItems] = useState<string[]>([]);
   const [hydrated, setHydrated] = useState(false);
+  const wipeAtHydrateRef = useRef(0);
 
   useEffect(() => {
     const stored = readStoredStringArray(STORAGE_KEYS.checklist);
@@ -21,13 +24,16 @@ function useChecklistState() {
       setCheckedItems(stored);
     }
 
+    wipeAtHydrateRef.current = wipeGeneration;
     setHydrated(true);
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- Capture wipeGeneration only at hydrate so later logout increments skip persist
   }, []);
 
   useEffect(() => {
     if (!hydrated) return;
+    if (wipeGeneration > wipeAtHydrateRef.current) return;
     writeStoredJson(STORAGE_KEYS.checklist, checkedItems);
-  }, [checkedItems, hydrated]);
+  }, [checkedItems, hydrated, wipeGeneration]);
 
   const toggleItem = (item: string) => {
     setCheckedItems((current) => {
@@ -102,14 +108,14 @@ function ChecklistItems({
               htmlFor={inputId}
               className={
                 checked
-                  ? "flex w-full cursor-pointer items-center gap-4 rounded-[1.2rem] border-2 border-primary bg-primary-fixed px-5 py-4 text-left shadow-elevation-1"
-                  : "flex w-full cursor-pointer items-center gap-4 rounded-[1.2rem] border border-outline-variant bg-surface px-5 py-4 text-left transition-all duration-300 ease-premium hover:-translate-y-0.5 hover:bg-surface-container"
+                  ? "flex min-h-12 w-full cursor-pointer items-center gap-4 rounded-[1.2rem] border-2 border-primary bg-primary-fixed px-5 py-4 text-left shadow-elevation-1"
+                  : "flex min-h-12 w-full cursor-pointer items-center gap-4 rounded-[1.2rem] border border-outline-variant bg-surface px-5 py-4 text-left transition-all duration-300 ease-premium hover:-translate-y-0.5 hover:bg-surface-container"
               }
             >
               <input
                 id={inputId}
                 type="checkbox"
-                className="h-5 w-5 rounded border-outline text-primary focus:ring-primary"
+                className="h-6 w-6 rounded border-outline text-primary focus:ring-primary"
                 checked={checked}
                 onChange={() => toggleItem(item)}
               />

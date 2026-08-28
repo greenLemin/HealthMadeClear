@@ -6,10 +6,16 @@ import { useContext } from "react";
 import type { Session, User } from "@supabase/supabase-js";
 
 const mockPush = vi.fn();
+const mockResetLocalProgress = vi.hoisted(() => vi.fn());
+
 vi.mock("@/i18n/navigation", () => ({
   useRouter: () => ({
     push: mockPush,
   }),
+}));
+
+vi.mock("@/components/AppProviders", () => ({
+  useAppState: () => ({ resetLocalProgress: mockResetLocalProgress }),
 }));
 
 const mockGetSession = vi.fn();
@@ -45,9 +51,29 @@ const TestConsumer = () => {
   );
 };
 
+async function renderReady() {
+  render(
+    <AuthProvider>
+      <TestConsumer />
+    </AuthProvider>
+  );
+  await act(async () => {
+    await new Promise((resolve) => setTimeout(resolve, 0));
+  });
+  await waitFor(() => {
+    expect(screen.getByTestId("loading")).toHaveTextContent("false");
+  });
+}
+
 describe("AuthProvider", () => {
   beforeEach(() => {
     vi.clearAllMocks();
+    document.cookie.split(";").forEach((cookie) => {
+      const name = cookie.split("=")[0]?.trim();
+      if (name) {
+        document.cookie = `${name}=; Max-Age=0; path=/`;
+      }
+    });
 
     mockGetSession.mockResolvedValue({ data: { session: null } });
     mockGetUser.mockResolvedValue({ data: { user: null } });
@@ -58,7 +84,7 @@ describe("AuthProvider", () => {
         },
       },
     });
-    mockSignOut.mockResolvedValue(undefined);
+    mockSignOut.mockResolvedValue({ error: null });
   });
 
   afterEach(() => {
@@ -128,19 +154,11 @@ describe("AuthProvider", () => {
     expect(screen.getByTestId("loading")).toHaveTextContent("false");
   });
 
-  it("handles signOut which calls supabase auth sign out and routes to '/'", async () => {
-    render(
-      <AuthProvider>
-        <TestConsumer />
-      </AuthProvider>
-    );
+  it("handles signOut which calls supabase auth sign out, wipes local progress, and routes to '/'", async () => {
+    document.cookie = "sb-projectref-auth-token=jwt-token; path=/";
+    document.cookie = "hmc-theme=dark; path=/";
 
-    await act(async () => {
-      await new Promise((resolve) => setTimeout(resolve, 0));
-    });
-    await waitFor(() => {
-      expect(screen.getByTestId("loading")).toHaveTextContent("false");
-    });
+    await renderReady();
 
     const signOutBtn = screen.getByTestId("signout-btn");
     await act(async () => {
@@ -149,6 +167,43 @@ describe("AuthProvider", () => {
     });
 
     expect(mockSignOut).toHaveBeenCalled();
+    expect(mockResetLocalProgress).toHaveBeenCalled();
+    expect(mockPush).toHaveBeenCalledWith("/");
+    expect(document.cookie).not.toContain("sb-projectref-auth-token=");
+    expect(document.cookie).toContain("hmc-theme=dark");
+    expect(screen.getByTestId("user")).toHaveTextContent("null");
+    expect(screen.getByTestId("session")).toHaveTextContent("null");
+  });
+
+  it("falls back to local signOut and still wipes when auth.signOut returns an error", async () => {
+    mockSignOut
+      .mockResolvedValueOnce({ error: { message: "network" } })
+      .mockResolvedValueOnce({ error: null });
+
+    await renderReady();
+
+    await act(async () => {
+      fireEvent.click(screen.getByTestId("signout-btn"));
+      await new Promise((resolve) => setTimeout(resolve, 0));
+    });
+
+    expect(mockSignOut).toHaveBeenCalledWith();
+    expect(mockSignOut).toHaveBeenCalledWith({ scope: "local" });
+    expect(mockResetLocalProgress).toHaveBeenCalled();
+    expect(mockPush).toHaveBeenCalledWith("/");
+  });
+
+  it("still wipes and redirects when auth.signOut rejects", async () => {
+    mockSignOut.mockRejectedValueOnce(new Error("offline")).mockResolvedValueOnce({ error: null });
+
+    await renderReady();
+
+    await act(async () => {
+      fireEvent.click(screen.getByTestId("signout-btn"));
+      await new Promise((resolve) => setTimeout(resolve, 0));
+    });
+
+    expect(mockResetLocalProgress).toHaveBeenCalled();
     expect(mockPush).toHaveBeenCalledWith("/");
   });
 

@@ -1,43 +1,43 @@
 import { describe, expect, it, vi } from "vitest";
 import { getQuizByLessonId, getAllQuizzes } from "@/lib/localizedQuiz";
 
-// Mock quizBundles to isolate and deterministically unit test quiz lookups
-vi.mock("@/data/quizBundles", () => ({
-  quizBundles: {
-    en: [
-      {
-        id: "quiz-1-en",
-        lessonId: "lesson-1",
-        title: "Lesson 1 Quiz EN",
-        description: "Quiz for lesson 1 in English",
-        questions: [
-          {
-            id: "q1",
-            question: "Question 1?",
-            options: ["Option A", "Option B", "Option C", "Option D"],
-            correctAnswer: 0,
-            explanation: "Explanation 1",
-          },
-        ],
-      },
-      {
-        id: "quiz-2-en",
-        lessonId: "lesson-2",
-        title: "Lesson 2 Quiz EN",
-        description: "Quiz for lesson 2 in English",
-        questions: [],
-      },
-    ],
-    es: [
-      {
-        id: "quiz-1-es",
-        lessonId: "lesson-1",
-        title: "Lesson 1 Quiz ES",
-        description: "Quiz for lesson 1 in Spanish",
-        questions: [],
-      },
-    ],
-  },
+vi.mock("@/data/quizBundles.en", () => ({
+  quizzes: [
+    {
+      id: "quiz-1-en",
+      lessonId: "lesson-1",
+      title: "Lesson 1 Quiz EN",
+      description: "Quiz for lesson 1 in English",
+      questions: [
+        {
+          id: "q1",
+          question: "Question 1?",
+          options: ["Option A", "Option B", "Option C", "Option D"],
+          correctAnswer: 0,
+          explanation: "Explanation 1",
+        },
+      ],
+    },
+    {
+      id: "quiz-2-en",
+      lessonId: "lesson-2",
+      title: "Lesson 2 Quiz EN",
+      description: "Quiz for lesson 2 in English",
+      questions: [],
+    },
+  ],
+}));
+
+vi.mock("@/data/quizBundles.es", () => ({
+  quizzes: [
+    {
+      id: "quiz-1-es",
+      lessonId: "lesson-1",
+      title: "Lesson 1 Quiz ES",
+      description: "Quiz for lesson 1 in Spanish",
+      questions: [],
+    },
+  ],
 }));
 
 describe("localizedQuiz", () => {

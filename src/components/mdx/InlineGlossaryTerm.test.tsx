@@ -103,6 +103,27 @@ describe("InlineGlossaryTerm", () => {
     });
   });
 
+  it("does not close when clicking inside the portaled popover", async () => {
+    renderComponent();
+    const button = screen.getByRole("button", { name: "Definition for Test Display" });
+    fireEvent.click(button);
+
+    const popover = await screen.findByRole("dialog");
+    fireEvent.mouseDown(popover);
+    fireEvent.mouseDown(screen.getByText("This is a test definition for the test term."));
+
+    expect(screen.getByRole("dialog")).toBeInTheDocument();
+  });
+
+  it("expands the trigger hit area with an inset after pseudo", () => {
+    renderComponent();
+    const button = screen.getByRole("button", { name: "Definition for Test Display" });
+    expect(button.className).toContain("relative");
+    expect(button.className).toContain("after:absolute");
+    expect(button.className).toContain("after:-inset-y-1.5");
+    expect(button.className).toContain("after:-inset-x-1");
+  });
+
   it("handles keyboard interaction (Enter key) to toggle popover", async () => {
     renderComponent();
     const button = screen.getByRole("button", { name: "Definition for Test Display" });

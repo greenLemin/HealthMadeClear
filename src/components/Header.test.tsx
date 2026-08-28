@@ -1,5 +1,5 @@
 // @vitest-environment jsdom
-import { render, screen } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
 vi.mock("@/i18n/navigation", () => ({
@@ -52,7 +52,21 @@ vi.mock("@/components/header/NavLink", () => ({
 }));
 
 vi.mock("@/components/ui/ButtonLink", () => ({
-  default: ({ children }: { children: React.ReactNode }) => <button>{children}</button>,
+  default: ({
+    children,
+    href,
+    className,
+    "aria-label": ariaLabel,
+  }: {
+    children: React.ReactNode;
+    href?: string;
+    className?: string;
+    "aria-label"?: string;
+  }) => (
+    <a href={href} className={className} aria-label={ariaLabel}>
+      {children}
+    </a>
+  ),
 }));
 
 vi.mock("@/components/ui/Skeleton", () => ({
@@ -73,7 +87,28 @@ vi.mock("@/components/ui/NotificationCenter", () => ({
 
 vi.mock("motion/react", () => ({
   AnimatePresence: ({ children }: { children: React.ReactNode }) => <>{children}</>,
-  motion: { div: ({ children }: { children: React.ReactNode }) => <div>{children}</div> },
+  motion: {
+    div: ({
+      children,
+      className,
+      id,
+      role,
+      ...rest
+    }: {
+      children: React.ReactNode;
+      className?: string;
+      id?: string;
+      role?: string;
+      [key: string]: unknown;
+    }) => {
+      const { initial: _initial, animate: _animate, exit: _exit, transition: _transition, ...dom } = rest;
+      return (
+        <div className={className} id={id} role={role} {...dom}>
+          {children}
+        </div>
+      );
+    },
+  },
 }));
 
 vi.mock("@/components/ui/animation", () => ({ revealEase: "ease" }));
@@ -84,6 +119,12 @@ import { useAuth } from "@/hooks/useAuth";
 describe("Header", () => {
   beforeEach(() => {
     vi.clearAllMocks();
+    vi.mocked(useAuth).mockReturnValue({
+      user: null,
+      session: null,
+      loading: false,
+      signOut: vi.fn(),
+    });
   });
 
   it("renders the skip link pointing to #main-content", () => {
@@ -110,5 +151,53 @@ describe("Header", () => {
 
     render(<Header />);
     expect(screen.getByLabelText("auth.signOutAria")).toBeInTheDocument();
+  });
+
+  it("shows desktop nav at xl and hides the hamburger at xl", () => {
+    render(<Header />);
+    const desktopNav = screen.getByRole("navigation", { name: "nav.mainNavigation" });
+    expect(desktopNav.className).toContain("xl:flex");
+    expect(desktopNav.className).not.toContain("lg:flex");
+
+    const hamburger = screen.getByRole("button", { name: "nav.toggleNavigation" });
+    expect(hamburger.className).toContain("xl:hidden");
+    expect(hamburger.className).toContain("min-h-11");
+    expect(hamburger.className).toContain("min-w-11");
+  });
+
+  it("keeps a visible login word at xl with auth.loginButton as the accessible name", () => {
+    render(<Header />);
+    const login = screen.getByRole("link", { name: "auth.loginButton" });
+    expect(login).toHaveAttribute("aria-label", "auth.loginButton");
+    expect(login).toHaveAttribute("href", "/auth/login");
+    expect(login.className).toBeTruthy();
+
+    const word = screen.getByText("auth.loginButton");
+    expect(word.tagName).toBe("SPAN");
+    expect(word.className).not.toMatch(/\bxl:hidden\b/);
+    expect(word.className).toContain("2xl:hidden");
+
+    const signup = screen.getByText("auth.signupButton").closest("a");
+    expect(signup?.className).toContain("xl:hidden");
+  });
+
+  it("opens a solid accordion sibling of the overflow-hidden glass bar", () => {
+    render(<Header />);
+    fireEvent.click(screen.getByRole("button", { name: "nav.toggleNavigation" }));
+
+    const accordion = document.getElementById("mobile-menu");
+    expect(accordion).not.toBeNull();
+    expect(accordion?.className).toContain("max-h-[calc(100dvh-5rem)]");
+    expect(accordion?.className).toContain("overflow-y-auto");
+    expect(accordion?.className).toContain("overscroll-contain");
+    expect(accordion?.className).toContain("bg-surface-container-lowest");
+    expect(accordion?.className).toContain("rounded-b-[1.5rem]");
+    expect(accordion?.className).not.toContain("max-w-md");
+
+    const glass = document.querySelector(".surface-card-glass");
+    expect(glass).not.toBeNull();
+    expect(glass?.className).toContain("overflow-hidden");
+    expect(glass?.contains(accordion)).toBe(false);
+    expect(glass?.parentElement?.className).toContain("overflow-visible");
   });
 });

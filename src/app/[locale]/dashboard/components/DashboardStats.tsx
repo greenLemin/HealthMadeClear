@@ -80,7 +80,9 @@ export default function DashboardStats({ summary, locale }: DashboardStatsProps)
           </div>
           <div>
             <p className="text-headline-md text-primary">
-              {formatDuration(summary.totalTimeSpentMinutes, locale as "en" | "es")}
+              {summary.totalTimeSpentMinutes === 0
+                ? t("statsTimeSpentUnavailable")
+                : formatDuration(summary.totalTimeSpentMinutes, locale as "en" | "es")}
             </p>
             <p className="text-label-sm text-on-surface-variant">{t("statsTimeSpent")}</p>
           </div>

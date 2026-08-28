@@ -3,16 +3,18 @@ import { useTranslations } from "next-intl";
 import { ArrowLeft, Printer } from "lucide-react";
 import Button from "@/components/ui/Button";
 import Reveal from "@/components/ui/Reveal";
-import { type CustomQuestion, type VisitTypeKey } from "@/types/visitPlanner";
+import { type CustomQuestion, type PlannerQuestion, type VisitTypeKey } from "@/types/visitPlanner";
 
 type Props = {
   visitType: VisitTypeKey;
   visitTypeLabel: string;
   visitTypeDescription: string;
   selectedQuestions: string[];
+  questionCatalog: PlannerQuestion[];
   customQuestions: CustomQuestion[];
   totalQuestions: number;
   notes: string;
+  actionsDisabled?: boolean;
   onBack: () => void;
 };
 
@@ -71,29 +73,36 @@ function VisitTypeCard({
 
 function QuestionsList({
   selectedQuestions,
+  questionCatalog,
   customQuestions,
   totalQuestions,
 }: {
   selectedQuestions: string[];
+  questionCatalog: PlannerQuestion[];
   customQuestions: CustomQuestion[];
   totalQuestions: number;
 }) {
   const t = useTranslations("tools");
+  const textById = new Map(questionCatalog.map((item) => [item.id, item.text]));
 
   return (
     <Reveal delay={0.05}>
-      <div className="surface-card-glass px-6 py-6 md:px-8 md:py-8">
+      <div className="border-2 border-primary/20 bg-surface-container-lowest p-6 shadow-elevation-2 print:border-neutral-900 print:text-black print:[print-color-adjust:exact]">
         <div className="eyebrow mb-4">{t("questionsToAsk")}</div>
         {totalQuestions > 0 ? (
           <ul className="space-y-3">
-            {selectedQuestions.map((question) => (
-              <li key={question} className="surface-card flex items-start gap-3 px-4 py-4">
-                <span className="text-primary" aria-hidden="true">
-                  •
-                </span>
-                <span className="text-body-md text-on-surface">{question}</span>
-              </li>
-            ))}
+            {selectedQuestions.map((id) => {
+              const text = textById.get(id);
+              if (!text) return null;
+              return (
+                <li key={id} className="surface-card flex items-start gap-3 px-4 py-4">
+                  <span className="text-primary" aria-hidden="true">
+                    •
+                  </span>
+                  <span className="text-body-md text-on-surface">{text}</span>
+                </li>
+              );
+            })}
             {customQuestions.map((cq) => (
               <li key={cq.id} className="surface-card flex items-start gap-3 px-4 py-4">
                 <span className="text-secondary" aria-hidden="true">
@@ -126,12 +135,12 @@ function NotesCard({ notes }: { notes: string }) {
   );
 }
 
-function ActionButtons({ onBack }: { onBack: () => void }) {
+function ActionButtons({ onBack, disabled }: { onBack: () => void; disabled: boolean }) {
   const t = useTranslations("tools");
 
   return (
     <div className="no-print flex flex-wrap justify-between gap-3">
-      <Button variant="secondary" icon={<ArrowLeft size={18} />} onClick={onBack}>
+      <Button variant="secondary" icon={<ArrowLeft size={18} />} onClick={onBack} disabled={disabled}>
         {t("editQuestions")}
       </Button>
       <Button icon={<Printer size={18} />} onClick={() => window.print()}>
@@ -145,9 +154,11 @@ export default function Step3Review({
   visitTypeLabel,
   visitTypeDescription,
   selectedQuestions,
+  questionCatalog,
   customQuestions,
   totalQuestions,
   notes,
+  actionsDisabled = false,
   onBack,
 }: Props) {
   return (
@@ -158,6 +169,7 @@ export default function Step3Review({
         <VisitTypeCard visitTypeLabel={visitTypeLabel} visitTypeDescription={visitTypeDescription} />
         <QuestionsList
           selectedQuestions={selectedQuestions}
+          questionCatalog={questionCatalog}
           customQuestions={customQuestions}
           totalQuestions={totalQuestions}
         />
@@ -165,7 +177,7 @@ export default function Step3Review({
 
       <NotesCard notes={notes} />
 
-      <ActionButtons onBack={onBack} />
+      <ActionButtons onBack={onBack} disabled={actionsDisabled} />
     </div>
   );
 }

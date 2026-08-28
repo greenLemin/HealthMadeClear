@@ -17,8 +17,14 @@ export default function SearchDialog() {
   const { locale } = useAppState();
   const [isOpen, setIsOpen] = useState(false);
   const [query, setQuery] = useState("");
-  const [entries, setEntries] = useState<SearchEntry[]>([]);
+  const [indexState, setIndexState] = useState<{
+    locale: string | null;
+    entries: SearchEntry[];
+    status: "ready" | "error";
+  }>({ locale: null, entries: [], status: "ready" });
   const [mounted, setMounted] = useState(false);
+  const indexReady = indexState.locale === locale;
+  const indexStatus: "loading" | "ready" | "error" = indexReady ? indexState.status : "loading";
   const inputRef = useRef<HTMLInputElement>(null);
   const dialogRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
@@ -37,9 +43,15 @@ export default function SearchDialog() {
 
   useEffect(() => {
     let active = true;
-    import(`@/data/searchIndex.${locale}.ts`).then((mod) => {
-      if (active) setEntries(mod.searchIndex);
-    });
+    import(`@/data/searchIndex.${locale}.ts`)
+      .then((mod) => {
+        if (!active) return;
+        setIndexState({ locale, entries: mod.searchIndex, status: "ready" });
+      })
+      .catch(() => {
+        if (!active) return;
+        setIndexState({ locale, entries: [], status: "error" });
+      });
     return () => {
       active = false;
     };
@@ -61,6 +73,7 @@ export default function SearchDialog() {
   });
 
   const results = useMemo(() => {
+    const entries = indexState.locale === locale ? indexState.entries : [];
     if (!query.trim()) return entries.slice(0, 6);
     const q = query.toLowerCase();
     return entries
@@ -72,7 +85,7 @@ export default function SearchDialog() {
           e.category.toLowerCase().includes(q)
       )
       .slice(0, 12);
-  }, [query, entries]);
+  }, [query, locale, indexState]);
 
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
@@ -97,6 +110,7 @@ export default function SearchDialog() {
     query,
     setQuery,
     results,
+    indexStatus,
     noResultsTitle,
     noResultsDescription,
   };
@@ -131,6 +145,7 @@ export default function SearchDialog() {
                 role="dialog"
                 aria-modal="true"
                 aria-labelledby="search-dialog-title"
+                aria-busy={indexStatus === "loading" || undefined}
                 className="surface-card-glass relative z-10 w-full max-w-2xl overflow-hidden"
               >
                 <SearchDialogContent {...contentProps} />
@@ -141,6 +156,7 @@ export default function SearchDialog() {
                 role="dialog"
                 aria-modal="true"
                 aria-labelledby="search-dialog-title"
+                aria-busy={indexStatus === "loading" || undefined}
                 variants={modalVariants}
                 initial="hidden"
                 animate="visible"

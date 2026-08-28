@@ -3,15 +3,16 @@ import { useTranslations } from "next-intl";
 import { ArrowLeft, ClipboardList, NotebookPen, Printer } from "lucide-react";
 import Button from "@/components/ui/Button";
 import Reveal from "@/components/ui/Reveal";
-import { type CustomQuestion } from "@/types/visitPlanner";
+import { type CustomQuestion, type PlannerQuestion } from "@/types/visitPlanner";
 
 type Props = {
-  questions: string[];
+  questions: PlannerQuestion[];
   selectedQuestions: string[];
   customQuestions: CustomQuestion[];
   customInput: string;
   notes: string;
-  onToggleQuestion: (question: string) => void;
+  actionsDisabled?: boolean;
+  onToggleQuestion: (questionId: string) => void;
   onCustomInputChange: (val: string) => void;
   onAddCustomQuestion: () => void;
   onRemoveCustomQuestion: (id: string) => void;
@@ -26,6 +27,7 @@ export default function Step2SelectQuestions({
   customQuestions,
   customInput,
   notes,
+  actionsDisabled = false,
   onToggleQuestion,
   onCustomInputChange,
   onAddCustomQuestion,
@@ -68,11 +70,11 @@ export default function Step2SelectQuestions({
         <legend className="sr-only">{t("selectQuestions")}</legend>
         <div className="grid gap-4 md:grid-cols-2">
           {questions.map((question, index) => {
-            const selected = selectedQuestionsSet.has(question);
-            const inputId = `question-${question.slice(0, 24).replace(/\s+/g, "-")}-${index}`;
+            const selected = selectedQuestionsSet.has(question.id);
+            const inputId = `question-${question.id}`;
 
             return (
-              <Reveal key={question} delay={Math.min(index * 0.02, 0.14)}>
+              <Reveal key={question.id} delay={Math.min(index * 0.02, 0.14)}>
                 <label
                   htmlFor={inputId}
                   className={[
@@ -87,10 +89,10 @@ export default function Step2SelectQuestions({
                     type="checkbox"
                     className="mt-1 h-5 w-5 rounded border-outline text-primary focus:ring-primary"
                     checked={selected}
-                    onChange={() => onToggleQuestion(question)}
+                    onChange={() => onToggleQuestion(question.id)}
                   />
                   <div className="min-w-0 flex-1">
-                    <span className="block text-label-lg text-on-surface">{question}</span>
+                    <span className="block text-label-lg text-on-surface">{question.text}</span>
                     <span className="mt-2 block text-label-md text-on-surface-variant">
                       {selected ? tPlanner("questionHintActive") : tPlanner("questionHintIdle")}
                     </span>
@@ -188,11 +190,16 @@ export default function Step2SelectQuestions({
       </div>
 
       <div className="no-print flex flex-wrap justify-between gap-3">
-        <Button variant="secondary" icon={<ArrowLeft size={18} />} onClick={onBack}>
+        <Button
+          variant="secondary"
+          icon={<ArrowLeft size={18} />}
+          onClick={onBack}
+          disabled={actionsDisabled}
+        >
           {tCommon("back")}
         </Button>
         <div className="flex flex-wrap gap-3">
-          <Button variant="secondary" onClick={onNext}>
+          <Button variant="secondary" onClick={onNext} disabled={actionsDisabled}>
             {t("reviewList")}
           </Button>
           <Button icon={<Printer size={18} />} onClick={() => window.print()}>

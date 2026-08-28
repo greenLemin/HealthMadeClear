@@ -79,7 +79,7 @@ function OnboardingContent({
 
       <div className="eyebrow mb-4">{t("welcome")}</div>
       <h2 id="onboarding-title" className="font-display text-headline-md text-primary">
-        Health Made Clear
+        {t("title")}
       </h2>
       <p className="mt-2 text-body-md text-on-surface-variant">{t("subtitle")}</p>
 
@@ -137,7 +137,7 @@ export default function OnboardingDialog() {
     isOpen: visible,
     onClose: dismiss,
     containerRef: dialogRef,
-    lockBodyScroll: false,
+    lockBodyScroll: true,
   });
 
   return (

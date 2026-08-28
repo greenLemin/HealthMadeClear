@@ -1,9 +1,8 @@
 import { describe, expect, it, vi } from "vitest";
-import { getAllLearningPaths, getPathByIdFromBundle } from "./loadPaths";
-import type { LearningPath } from "@/types/learningPath";
+import { getAllLearningPaths, getPathByIdFromBundle, loadPathsForLocale } from "./loadPaths";
 
-vi.mock("@/data/pathBundles", () => {
-  const mockEnPaths = [
+vi.mock("@/data/pathBundles.en", () => ({
+  paths: [
     {
       id: "en-path-1",
       title: "English Path 1",
@@ -22,9 +21,11 @@ vi.mock("@/data/pathBundles", () => {
       icon: "book",
       lessons: [],
     },
-  ] as unknown as LearningPath[];
+  ],
+}));
 
-  const mockEsPaths = [
+vi.mock("@/data/pathBundles.es", () => ({
+  paths: [
     {
       id: "es-path-1",
       title: "Ruta en Español 1",
@@ -34,15 +35,8 @@ vi.mock("@/data/pathBundles", () => {
       icon: "book",
       lessons: [],
     },
-  ] as unknown as LearningPath[];
-
-  return {
-    pathBundles: {
-      en: mockEnPaths,
-      es: mockEsPaths,
-    },
-  };
-});
+  ],
+}));
 
 describe("loadPaths", () => {
   describe("getAllLearningPaths", () => {
@@ -83,6 +77,21 @@ describe("loadPaths", () => {
     it("returns undefined for an id from a different locale", () => {
       const path = getPathByIdFromBundle("es-path-1", "en");
       expect(path).toBeUndefined();
+    });
+  });
+
+  describe("loadPathsForLocale", () => {
+    it("dynamic-imports only the English locale module", async () => {
+      const paths = await loadPathsForLocale("en");
+      expect(paths).toHaveLength(2);
+      expect(paths[0]?.id).toBe("en-path-1");
+      expect(JSON.stringify(paths)).not.toContain("Ruta en Español");
+    });
+
+    it("dynamic-imports only the Spanish locale module", async () => {
+      const paths = await loadPathsForLocale("es");
+      expect(paths).toHaveLength(1);
+      expect(paths[0]?.id).toBe("es-path-1");
     });
   });
 });

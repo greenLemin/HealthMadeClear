@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo } from "react";
+import { useCallback, useEffect, useMemo, useRef } from "react";
 import { useAuth } from "@/hooks/useAuth";
 import { useAppState } from "@/components/AppProviders";
 import { useToast } from "@/components/ui/ToastProvider";
@@ -43,14 +43,27 @@ export function useProgress(): ProgressState & ProgressActions {
   const { showToast } = useToast();
   const supabase = useMemo(() => createClient(), []);
 
-  const { isMigrationLoading } = useGuestMigration(user, supabase, authLoading);
+  const refetchRef = useRef<() => Promise<void>>(async () => {});
+  const onMigrated = useCallback(async () => {
+    await refetchRef.current();
+  }, []);
+
+  const { isMigrationLoading } = useGuestMigration(user, supabase, authLoading, onMigrated);
 
   const {
     supabaseCompletedLessonIds,
     setSupabaseCompletedLessonIds,
     supabaseQuizAttempts,
     setSupabaseQuizAttempts,
-  } = useSupabaseProgress(user, supabase);
+    refetch,
+    isFetchLoading,
+  } = useSupabaseProgress(user, supabase, {
+    fetchWhen: !isMigrationLoading && !!user,
+  });
+
+  useEffect(() => {
+    refetchRef.current = refetch;
+  }, [refetch]);
 
   const { completedLessonIds, quizAttempts, completedLessonIdsSet } = useDerivedProgress(
     user,
@@ -66,6 +79,7 @@ export function useProgress(): ProgressState & ProgressActions {
     showToast,
     supabaseCompletedLessonIds,
     setSupabaseCompletedLessonIds,
+    supabaseQuizAttempts,
     setSupabaseQuizAttempts,
     appStateMarkLessonComplete,
     recordQuizScore,
@@ -80,7 +94,7 @@ export function useProgress(): ProgressState & ProgressActions {
   return {
     completedLessonIds,
     quizAttempts,
-    isLoading: isMigrationLoading || authLoading,
+    isLoading: isMigrationLoading || authLoading || isFetchLoading,
     markLessonComplete,
     saveQuizAttempt,
     isLessonComplete,

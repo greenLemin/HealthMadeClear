@@ -6,32 +6,74 @@ import { getAllArticlesFromMdx } from "../src/lib/articles/mdxParser";
 import { assertLocaleIdParity } from "./lib/validateLocaleParity";
 import { LESSON_IDS } from "../src/types/content";
 
+export const CITATION_DENYLIST = [
+  "Web",
+  "TBD",
+  "TODO",
+  "lorem",
+  "placeholder",
+  "Medical Team",
+  "Internet",
+  "Google",
+  "N/A",
+  "None",
+  "Unknown",
+] as const;
+
+const DENYLIST_LOWER = new Set(CITATION_DENYLIST.map((value) => value.toLowerCase()));
+
+export const MAX_REVIEW_WARN_MS = 365 * 24 * 60 * 60 * 1000;
+export const MAX_REVIEW_FAIL_MS = 400 * 24 * 60 * 60 * 1000;
+
+export function isDeniedCitation(value: string): boolean {
+  return DENYLIST_LOWER.has(value.trim().toLowerCase());
+}
+
+export function assertFreshReview(id: string, lastReviewed: string | undefined) {
+  if (!lastReviewed) {
+    throw new Error(`${id} is missing lastReviewed (required for clinical review workflow)`);
+  }
+  const reviewed = new Date(lastReviewed);
+  if (Number.isNaN(reviewed.getTime())) {
+    throw new Error(`${id} has invalid lastReviewed date: ${lastReviewed}`);
+  }
+  const age = Date.now() - reviewed.getTime();
+  if (age > MAX_REVIEW_FAIL_MS) {
+    throw new Error(`${id} lastReviewed (${lastReviewed}) is older than 400 days — re-review required`);
+  }
+  if (age > MAX_REVIEW_WARN_MS) {
+    console.warn(
+      `Warning: ${id} lastReviewed (${lastReviewed}) is older than 12 months — re-review recommended`
+    );
+  }
+}
+
+export function assertSourcesAndReviewer(label: string, sources: unknown, reviewedBy: unknown): void {
+  if (!Array.isArray(sources) || sources.length < 1) {
+    throw new Error(`${label} is missing sources (at least one source required)`);
+  }
+  for (const source of sources) {
+    const trimmed = String(source).trim();
+    if (trimmed.length < 3) {
+      throw new Error(`${label} has a source shorter than 3 characters`);
+    }
+    if (isDeniedCitation(trimmed)) {
+      throw new Error(`${label} source is placeholder-denylisted: ${trimmed}`);
+    }
+  }
+  const reviewer = String(reviewedBy ?? "").trim();
+  if (reviewer.length < 3) {
+    throw new Error(`${label} is missing reviewedBy (trimmed length must be ≥ 3)`);
+  }
+  if (isDeniedCitation(reviewer)) {
+    throw new Error(`${label} reviewedBy is placeholder-denylisted: ${reviewer}`);
+  }
+}
+
 async function main() {
   const enLessons = await getAllLessonsFromMdx("en");
   const esLessons = await getAllLessonsFromMdx("es");
   assertLocaleIdParity(enLessons, esLessons, "lessons");
-
-  const MAX_REVIEW_WARN_MS = 365 * 24 * 60 * 60 * 1000;
-  const MAX_REVIEW_FAIL_MS = 400 * 24 * 60 * 60 * 1000;
-
-  function assertFreshReview(id: string, lastReviewed: string | undefined) {
-    if (!lastReviewed) {
-      throw new Error(`${id} is missing lastReviewed (required for clinical review workflow)`);
-    }
-    const reviewed = new Date(lastReviewed);
-    if (Number.isNaN(reviewed.getTime())) {
-      throw new Error(`${id} has invalid lastReviewed date: ${lastReviewed}`);
-    }
-    const age = Date.now() - reviewed.getTime();
-    if (age > MAX_REVIEW_FAIL_MS) {
-      throw new Error(`${id} lastReviewed (${lastReviewed}) is older than 400 days — re-review required`);
-    }
-    if (age > MAX_REVIEW_WARN_MS) {
-      console.warn(
-        `Warning: ${id} lastReviewed (${lastReviewed}) is older than 12 months — re-review recommended`
-      );
-    }
-  }
 
   for (const lesson of [...enLessons, ...esLessons]) {
     if (!lesson.title || !lesson.description) {
@@ -41,6 +83,7 @@ async function main() {
       throw new Error(`Lesson ${lesson.id} has no sections`);
     }
     assertFreshReview(`Lesson ${lesson.id}`, lesson.lastReviewed);
+    assertSourcesAndReviewer(`Lesson ${lesson.id}`, lesson.sources, lesson.reviewedBy);
   }
 
   const enPaths = await getAllPathsFromMdx("en");
@@ -107,12 +150,15 @@ async function main() {
       throw new Error(`Article ${article.id} has no sections`);
     }
     assertFreshReview(`Article ${article.id}`, article.lastReviewed);
+    assertSourcesAndReviewer(`Article ${article.id}`, article.sources, article.reviewedBy);
   }
 
   console.log("Content validation passed.");
 }
 
-main().catch((e) => {
-  console.error(e);
-  process.exit(1);
-});
+if (!process.env.VITEST) {
+  main().catch((e) => {
+    console.error(e);
+    process.exit(1);
+  });
+}

@@ -1,12 +1,17 @@
 "use client";
 
-import { ArrowLeft, ArrowRight, CheckCircle2 } from "lucide-react";
+import { useCallback } from "react";
+import { ArrowLeft, ArrowRight, CheckCircle2, Link2, Share2 } from "lucide-react";
 import { useTranslations } from "next-intl";
+import ClinicalCitationBlock from "@/components/content/ClinicalCitationBlock";
+import PrintButton from "@/components/content/PrintButton";
 import LessonThumbnail from "@/components/LessonThumbnail";
 import Button from "@/components/ui/Button";
 import ButtonLink from "@/components/ui/ButtonLink";
+import { useToast } from "@/components/ui/ToastProvider";
 import { Link } from "@/i18n/navigation";
 import { formatLevel, getCategoryLabel, type Locale } from "@/lib/i18n";
+import { shareCurrentPage } from "@/lib/shareCurrentPage";
 import type { Lesson } from "@/types/lesson";
 import type { LessonId } from "@/types/content";
 
@@ -34,6 +39,27 @@ export default function LessonHeader({
   const t = useTranslations("learn");
   const tCommon = useTranslations("common");
   const tNav = useTranslations("nav");
+  const tArticles = useTranslations("articles");
+  const { showToast } = useToast();
+
+  const handleCopyShare = useCallback(async () => {
+    await shareCurrentPage({
+      url: window.location.href,
+      title: lesson.title,
+      onCopied: () => showToast("success", tArticles("linkCopied")),
+      onError: () => showToast("error", tArticles("linkCopyError")),
+    });
+  }, [lesson.title, showToast, tArticles]);
+
+  const handleShareOnX = useCallback(() => {
+    const text = encodeURIComponent(`${lesson.title} — Health Made Clear`);
+    const shareUrl = encodeURIComponent(window.location.href);
+    window.open(
+      `https://twitter.com/intent/tweet?text=${text}&url=${shareUrl}`,
+      "_blank",
+      "noopener,noreferrer"
+    );
+  }, [lesson.title]);
 
   return (
     <section className="section-frame px-6 py-6 md:px-8 md:py-8">
@@ -67,6 +93,12 @@ export default function LessonHeader({
           </div>
 
           <h1 className="mt-5 font-display text-headline-xl text-primary">{lesson.title}</h1>
+          <ClinicalCitationBlock
+            compact
+            sources={lesson.sources}
+            reviewedBy={lesson.reviewedBy}
+            lastReviewed={reviewedDate}
+          />
           <p className="mt-4 max-w-readable text-body-lg text-on-surface-variant">{lesson.description}</p>
 
           <div className="no-print mt-6 flex flex-wrap gap-3" aria-live="polite">
@@ -101,6 +133,25 @@ export default function LessonHeader({
                 {bestQuizScore !== null ? t("quizRetake") : t("takeQuiz")}
               </ButtonLink>
             ) : null}
+            <PrintButton />
+            <Button
+              type="button"
+              variant="secondary"
+              icon={<Link2 size={16} />}
+              onClick={handleCopyShare}
+              aria-label={tCommon("copyLink")}
+            >
+              {tCommon("copyLink")}
+            </Button>
+            <Button
+              type="button"
+              variant="secondary"
+              icon={<Share2 size={16} />}
+              onClick={handleShareOnX}
+              aria-label={tCommon("shareOnX")}
+            >
+              {tCommon("shareOnX")}
+            </Button>
           </div>
         </div>
 

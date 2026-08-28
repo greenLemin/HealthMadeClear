@@ -7,6 +7,7 @@ import { createPortal } from "react-dom";
 import { X } from "lucide-react";
 import { useFocusTrap } from "@/hooks/useFocusTrap";
 import { useOptionalScrollSpyContext } from "./ScrollSpyProvider";
+import { recordGlossaryLookup } from "@/lib/glossaryLookups";
 import type { GlossaryTermSummary } from "@/types/glossary";
 
 interface InlineGlossaryTermProps {
@@ -20,15 +21,16 @@ function Popover({
   triggerRect,
   onClose,
   popoverId,
+  popoverRef,
 }: {
   term: GlossaryTermSummary;
   triggerRect: DOMRect;
   onClose: () => void;
   popoverId: string;
+  popoverRef: React.RefObject<HTMLDivElement | null>;
 }) {
   const t = useTranslations("glossary");
   const tCommon = useTranslations("common");
-  const popoverRef = useRef<HTMLDivElement>(null);
   const [popoverHeight, setPopoverHeight] = useState(0);
   const gap = 8;
   const popoverWidth = 288;
@@ -116,6 +118,7 @@ function usePopoverInteraction(
   containerRef: React.RefObject<HTMLSpanElement | null>,
   buttonRef: React.RefObject<HTMLButtonElement | null>
 ) {
+  const popoverRef = useRef<HTMLDivElement>(null);
   const [isOpen, setIsOpen] = useState(false);
   const [triggerRect, setTriggerRect] = useState<DOMRect | null>(null);
 
@@ -140,9 +143,10 @@ function usePopoverInteraction(
     if (!isOpen) return;
 
     function handleClickOutside(event: MouseEvent) {
-      if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
-        close();
-      }
+      const target = event.target as Node;
+      if (containerRef.current?.contains(target)) return;
+      if (popoverRef.current?.contains(target)) return;
+      close();
     }
 
     function handleKeyDown(event: KeyboardEvent) {
@@ -163,9 +167,9 @@ function usePopoverInteraction(
       document.removeEventListener("keydown", handleKeyDown);
       window.removeEventListener("scroll", handleScroll, true);
     };
-  }, [isOpen, close, containerRef]);
+  }, [isOpen, close, containerRef, popoverRef]);
 
-  return { isOpen, triggerRect, toggle, close };
+  return { isOpen, triggerRect, toggle, close, popoverRef };
 }
 
 export default function InlineGlossaryTerm({ term, displayText, instanceId }: InlineGlossaryTermProps) {
@@ -174,12 +178,18 @@ export default function InlineGlossaryTerm({ term, displayText, instanceId }: In
   const buttonRef = useRef<HTMLButtonElement>(null);
 
   const { isActive } = useScrollSpyRegistration(instanceId, buttonRef);
-  const { isOpen, triggerRect, toggle, close } = usePopoverInteraction(containerRef, buttonRef);
+  const { isOpen, triggerRect, toggle, close, popoverRef } = usePopoverInteraction(containerRef, buttonRef);
+
+  useEffect(() => {
+    if (isOpen && term?.id) {
+      recordGlossaryLookup(term.id);
+    }
+  }, [isOpen, term?.id]);
 
   const popoverId = `glossary-popover-${term.id}${instanceId ? `-${instanceId}` : ""}`;
 
   const baseClasses =
-    "no-print cursor-help border-b-2 border-dashed border-primary-container font-semibold text-primary hover:bg-primary-container/10 focus:bg-primary-container/20 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 transition-colors";
+    "no-print relative cursor-help border-b-2 border-dashed border-primary-container font-semibold text-primary hover:bg-primary-container/10 focus:bg-primary-container/20 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 transition-colors after:absolute after:-inset-y-1.5 after:-inset-x-1 after:content-['']";
   const activeClasses = isActive ? "bg-primary-container/20 shadow-sm" : "";
 
   return (
@@ -209,7 +219,13 @@ export default function InlineGlossaryTerm({ term, displayText, instanceId }: In
         triggerRect &&
         typeof document !== "undefined" &&
         createPortal(
-          <Popover term={term} triggerRect={triggerRect} onClose={close} popoverId={popoverId} />,
+          <Popover
+            term={term}
+            triggerRect={triggerRect}
+            onClose={close}
+            popoverId={popoverId}
+            popoverRef={popoverRef}
+          />,
           document.body
         )}
     </span>

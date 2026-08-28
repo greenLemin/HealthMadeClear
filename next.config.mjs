@@ -69,6 +69,7 @@ const securityHeaders = [
       "style-src 'self' 'unsafe-inline'",
       "img-src 'self' data: blob:",
       "font-src 'self' data:",
+      // Canonical connect tokens live in security-headers.json (CI: npm run check:security-headers).
       "connect-src 'self' https://*.supabase.co wss://*.supabase.co https://*.ingest.sentry.io https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com",
       "frame-ancestors 'none'",
       "base-uri 'self'",
@@ -78,13 +79,20 @@ const securityHeaders = [
   },
 ];
 
+const isAnalyze = process.env.ANALYZE === "true";
+
 const bundleAnalyzer = withBundleAnalyzer({
-  enabled: process.env.ANALYZE === "true",
+  enabled: isAnalyze,
+  // Default off so `npm run analyze` does not hang/open a browser in CI or agents.
+  // Set OPEN_ANALYZER=true to open the static HTML report locally.
+  openAnalyzer: process.env.OPEN_ANALYZER === "true",
 });
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  // Keep `next dev` on `.next` while an analyze build runs in parallel.
+  ...(isAnalyze ? { distDir: ".next-analyze" } : {}),
   turbopack: {
     root: projectRoot,
   },

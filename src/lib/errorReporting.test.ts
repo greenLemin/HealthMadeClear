@@ -118,6 +118,9 @@ describe("reportClientError", () => {
       vi.stubEnv("NODE_ENV", "production");
       vi.stubEnv("NEXT_PUBLIC_SENTRY_DSN", "https://examplePublicKey@o0.ingest.sentry.io/0");
       vi.stubGlobal("window", globalThis.window);
+      vi.mocked(Sentry.getClient).mockReturnValue(
+        undefined as unknown as ReturnType<typeof Sentry.getClient>
+      );
     });
 
     afterEach(() => {
@@ -183,8 +186,10 @@ describe("reportClientError", () => {
         expect.objectContaining({
           dsn: "https://examplePublicKey@o0.ingest.sentry.io/0",
           environment: "production",
+          sendDefaultPii: false,
         })
       );
+      expect(vi.mocked(Sentry.init).mock.calls[0]![0]).not.toHaveProperty("dataCollection");
 
       // Test the beforeBreadcrumb logic
       const initCall = vi.mocked(Sentry.init).mock.calls[0]![0];
@@ -221,6 +226,47 @@ describe("reportClientError", () => {
       expect(Sentry.captureException).toHaveBeenCalled();
     });
 
+    it("sets sendDefaultPii false, redacts extra.lessonId, and blanks user PII in beforeSend", async () => {
+      vi.stubGlobal("window", {} as Window & typeof globalThis);
+
+      reportClientError("Prod Error");
+      await new Promise((resolve) => setTimeout(resolve, 0));
+
+      const initCall = vi.mocked(Sentry.init).mock.calls[0]![0];
+      expect(initCall?.sendDefaultPii).toBe(false);
+
+      const event = {
+        user: { id: "u1", ip_address: "1.2.3.4", email: "a@b.c", username: "pat" },
+        extra: { lessonId: "living-with-hypertension", route: "learn" },
+      };
+      const result = initCall!.beforeSend!(event as unknown as Sentry.ErrorEvent, {} as Sentry.EventHint);
+
+      expect(result).toBe(event);
+      expect(event.user.ip_address).toBeUndefined();
+      expect(event.user.email).toBeUndefined();
+      expect(event.user.id).toBeUndefined();
+      expect(event.user.username).toBeUndefined();
+      expect(event.extra.lessonId).toBe("[redacted]");
+      expect(event.extra.route).toBe("learn");
+    });
+
+    it("drops ui.input breadcrumbs so SearchDialog keystrokes are not stored", async () => {
+      vi.stubGlobal("window", {} as Window & typeof globalThis);
+
+      reportClientError("Prod Error");
+      await new Promise((resolve) => setTimeout(resolve, 0));
+
+      const initCall = vi.mocked(Sentry.init).mock.calls[0]![0];
+      const dropped = initCall!.beforeBreadcrumb!(
+        {
+          category: "ui.input",
+          data: { value: "chest pain", from: "SearchDialog" },
+        } as Sentry.Breadcrumb,
+        undefined
+      );
+      expect(dropped).toBeNull();
+    });
+
     it("catches import errors silently", async () => {
       vi.stubGlobal("window", {} as Window & typeof globalThis);
 
@@ -232,5 +278,108 @@ describe("reportClientError", () => {
       reportClientError("Error");
       await new Promise(process.nextTick);
     });
+  });
+});
+
+describe("reportServerError", () => {
+  const DSN = "https://abc123@o0.ingest.sentry.io/99";
+
+  beforeEach(() => {
+    vi.resetModules();
+    vi.stubEnv("NODE_ENV", "production");
+    vi.stubEnv("SENTRY_DSN", DSN);
+    vi.spyOn(console, "error").mockImplementation(() => {});
+  });
+
+  afterEach(() => {
+    vi.unstubAllGlobals();
+    vi.useRealTimers();
+    vi.restoreAllMocks();
+  });
+
+  async function loadReporter() {
+    const mod = await import("./errorReporting");
+    return mod.reportServerError;
+  }
+
+  it("POSTs a Sentry envelope when SENTRY_DSN is set", async () => {
+    const timeoutSpy = vi.spyOn(AbortSignal, "timeout");
+    const fetchMock = vi.fn().mockResolvedValue({ ok: true });
+    vi.stubGlobal("fetch", fetchMock);
+
+    const reportServerError = await loadReporter();
+    reportServerError(new Error("server boom"), { route: "contact" });
+
+    expect(fetchMock).toHaveBeenCalledTimes(1);
+    const [url, init] = fetchMock.mock.calls[0] as [string, RequestInit];
+    expect(url).toBe("https://o0.ingest.sentry.io/api/99/envelope/");
+    expect(init.method).toBe("POST");
+    expect(timeoutSpy).toHaveBeenCalledWith(2000);
+    expect(init.signal).toBeInstanceOf(AbortSignal);
+    expect(String(init.body)).toContain("server boom");
+  });
+
+  it("does not fetch on the 6th call inside 10s", async () => {
+    const fetchMock = vi.fn().mockResolvedValue({ ok: true });
+    vi.stubGlobal("fetch", fetchMock);
+
+    const reportServerError = await loadReporter();
+    for (let i = 0; i < 6; i += 1) {
+      reportServerError(new Error(`e${i}`));
+    }
+
+    expect(fetchMock).toHaveBeenCalledTimes(5);
+    expect(console.error).toHaveBeenCalled();
+  });
+
+  it("aborts hung ingest after 2s and does not block the isolate", async () => {
+    vi.useFakeTimers();
+    vi.spyOn(AbortSignal, "timeout").mockImplementation((ms: number) => {
+      const controller = new AbortController();
+      setTimeout(() => controller.abort(), ms);
+      return controller.signal;
+    });
+    const fetchMock = vi.fn(
+      (_url: string, init?: RequestInit) =>
+        new Promise((_resolve, reject) => {
+          init?.signal?.addEventListener("abort", () => {
+            reject(init.signal?.reason ?? new Error("aborted"));
+          });
+        })
+    );
+    vi.stubGlobal("fetch", fetchMock);
+
+    const reportServerError = await loadReporter();
+    reportServerError(new Error("hung"));
+
+    expect(fetchMock).toHaveBeenCalledTimes(1);
+    const signal = (fetchMock.mock.calls[0] as [string, RequestInit])[1].signal as AbortSignal;
+    expect(signal.aborted).toBe(false);
+
+    await vi.advanceTimersByTimeAsync(2000);
+    expect(signal.aborted).toBe(true);
+  });
+
+  it("skips ingest when SENTRY_DSN is unset", async () => {
+    vi.stubEnv("SENTRY_DSN", "");
+    const fetchMock = vi.fn();
+    vi.stubGlobal("fetch", fetchMock);
+
+    const reportServerError = await loadReporter();
+    reportServerError(new Error("no dsn"));
+
+    expect(fetchMock).not.toHaveBeenCalled();
+    expect(console.error).toHaveBeenCalledWith("[hmc:server]", "no dsn", undefined);
+  });
+
+  it("does not fetch when SENTRY_SERVER_SAMPLE_RATE is 0", async () => {
+    vi.stubEnv("SENTRY_SERVER_SAMPLE_RATE", "0");
+    const fetchMock = vi.fn().mockResolvedValue({ ok: true });
+    vi.stubGlobal("fetch", fetchMock);
+
+    const reportServerError = await loadReporter();
+    reportServerError(new Error("sampled out"));
+
+    expect(fetchMock).not.toHaveBeenCalled();
   });
 });

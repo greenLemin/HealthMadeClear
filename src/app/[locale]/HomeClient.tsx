@@ -12,6 +12,7 @@ import HomeTools from "@/components/home/HomeTools";
 import HomeCta from "@/components/home/HomeCta";
 import { useAppState } from "@/components/AppProviders";
 import { useAuth } from "@/hooks/useAuth";
+import { useMotionSafe } from "@/hooks/useMotionSafe";
 import type { LessonListItem } from "@/types/lesson";
 import type { LearningPath } from "@/types/learningPath";
 import { useTranslations } from "next-intl";
@@ -25,6 +26,8 @@ export default function HomeClient({ lessons, learningPaths }: HomeClientProps) 
   const { completedLessons, recentLessons, locale } = useAppState();
   const { user } = useAuth();
   const tDisclaimer = useTranslations("disclaimer");
+  // true when prefers-reduced-motion: reduce — skip autoplay, keep poster.
+  const prefersReducedMotion = useMotionSafe();
 
   const lastUncompletedRecentLessonId = useMemo(() => {
     return recentLessons.find((id) => !completedLessons.has(id));
@@ -45,21 +48,21 @@ export default function HomeClient({ lessons, learningPaths }: HomeClientProps) 
 
   return (
     <div className="pb-14">
+      <Hero />
       <div className="w-full overflow-hidden">
         <video
           src="/HMC_Video.mp4"
           poster="/hmc-video-poster.jpg"
           width={1280}
           height={720}
-          autoPlay
+          autoPlay={!prefersReducedMotion}
           loop
           muted
           playsInline
-          preload="metadata"
+          preload="none"
           className="block h-auto w-full"
         />
       </div>
-      <Hero />
       <SectionNav />
 
       <HomeIntro />

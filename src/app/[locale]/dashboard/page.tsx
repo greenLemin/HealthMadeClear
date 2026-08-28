@@ -41,7 +41,11 @@ export default async function Dashboard({ params }: Props) {
   ]);
 
   const t = await getTranslations({ locale, namespace: "dashboard" });
-  const displayName = user.user_metadata?.display_name ?? user.email?.split("@")[0] ?? t("defaultUser");
+  const rawDisplayName = user.user_metadata?.display_name;
+  const displayName =
+    (typeof rawDisplayName === "string" && rawDisplayName.trim()) ||
+    user.email?.split("@")[0] ||
+    t("defaultUser");
 
   return (
     <DashboardClient

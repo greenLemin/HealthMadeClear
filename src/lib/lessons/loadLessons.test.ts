@@ -1,17 +1,18 @@
 import { describe, expect, it, vi } from "vitest";
-import { getAllLessons, getLessonByIdFromBundle } from "./loadLessons";
+import { getAllLessons, getLessonByIdFromBundle, loadLessonsForLocale } from "./loadLessons";
 
-vi.mock("@/data/lessonBundles", () => ({
-  lessonBundles: {
-    en: [
-      { id: "lesson-1", title: "Lesson One", categoryId: "basics" },
-      { id: "lesson-2", title: "Lesson Two", categoryId: "basics" },
-    ],
-    es: [
-      { id: "lesson-1", title: "Lección Uno", categoryId: "basics" },
-      { id: "lesson-3", title: "Lección Tres", categoryId: "advanced" },
-    ],
-  },
+vi.mock("@/data/lessonBundles.en", () => ({
+  lessons: [
+    { id: "lesson-1", title: "Lesson One", categoryId: "basics" },
+    { id: "lesson-2", title: "Lesson Two", categoryId: "basics" },
+  ],
+}));
+
+vi.mock("@/data/lessonBundles.es", () => ({
+  lessons: [
+    { id: "lesson-1", title: "Lección Uno", categoryId: "basics" },
+    { id: "lesson-3", title: "Lección Tres", categoryId: "advanced" },
+  ],
 }));
 
 describe("loadLessons", () => {
@@ -46,6 +47,20 @@ describe("loadLessons", () => {
 
       const existsInOtherLocaleOnly = getLessonByIdFromBundle("lesson-2", "es");
       expect(existsInOtherLocaleOnly).toBeUndefined();
+    });
+  });
+
+  describe("loadLessonsForLocale", () => {
+    it("dynamic-imports the English locale module", async () => {
+      const lessons = await loadLessonsForLocale("en");
+      expect(lessons).toHaveLength(2);
+      expect(lessons[0]!.title).toBe("Lesson One");
+    });
+
+    it("dynamic-imports the Spanish locale module", async () => {
+      const lessons = await loadLessonsForLocale("es");
+      expect(lessons).toHaveLength(2);
+      expect(lessons[0]!.title).toBe("Lección Uno");
     });
   });
 });

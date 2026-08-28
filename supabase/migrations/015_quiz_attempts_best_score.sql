@@ -1,8 +1,9 @@
--- pending/015_quiz_attempts_best_score.sql
--- Phase 6 moves this file into supabase/migrations/ and applies it.
--- Do NOT apply in Phase 1. Do NOT place this file in migrations/ yet.
+-- migrations/015_quiz_attempts_best_score.sql
+-- Phase 6: apply only after Netlify shows Published for the P6 production deploy.
+-- Do NOT apply while mutations.ts still .insert(), and do not apply if that deploy failed.
 -- Client onConflict target must stay in sync with QUIZ_ATTEMPTS_ON_CONFLICT
 -- in src/lib/supabase/schema.ts ("user_id,quiz_id").
+-- Percent→count UPDATE must run before DELETE. Unique is last.
 
 -- Snapshot backup first (Phase 6 apply).
 -- CREATE TABLE AS does not copy RLS. Live public default ACL grants table ALL to

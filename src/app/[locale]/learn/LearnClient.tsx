@@ -86,7 +86,7 @@ export default function LearnClient({ lessons }: LearnClientProps) {
   return (
     <div className="px-4 py-10 md:px-6 md:py-14">
       <div className="mx-auto max-w-container">
-        <PageHeader centered title={t("title")} description={t("description")} className="mb-8">
+        <PageHeader centered title={t("title")} description={t("description")} className="mb-8" trust>
           <label className="relative mt-6 block text-left">
             <span className="sr-only">{tCommon("searchLessons")}</span>
             <Search

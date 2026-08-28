@@ -1,5 +1,4 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
-import { createNotifications } from "@/lib/notifications";
 import { getMessages, type Locale } from "@/lib/i18n";
 
 export const ACHIEVEMENTS = {
@@ -148,26 +147,7 @@ export async function checkAndAwardAchievements(
       return [];
     }
 
-    const actuallyEarned = (inserted ?? []).map((row) => row.achievement_id);
-
-    if (actuallyEarned.length > 0) {
-      const earnedNotifications = actuallyEarned.flatMap((id) => {
-        const achievement = ACHIEVEMENTS[id as AchievementId];
-        if (!achievement) return [];
-        return [
-          {
-            type: "achievement",
-            title: `Achievement Unlocked: ${achievement.title}`,
-            body: achievement.description,
-          },
-        ];
-      });
-      if (earnedNotifications.length > 0) {
-        await createNotifications(supabase, userId, earnedNotifications);
-      }
-    }
-
-    return actuallyEarned;
+    return (inserted ?? []).map((row) => row.achievement_id);
   }
 
   return newlyEarned;

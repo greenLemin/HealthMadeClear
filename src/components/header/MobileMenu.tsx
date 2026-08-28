@@ -24,8 +24,10 @@ interface MobileMenuProps {
 export default function MobileMenu({ onClose }: MobileMenuProps) {
   const t = useTranslations("nav");
   const authT = useTranslations("auth");
-  const { user, loading } = useAuth();
-  const displayName = user?.user_metadata?.display_name || user?.email?.split("@")[0] || "";
+  const { user, loading, signOut } = useAuth();
+  const rawDisplayName = user?.user_metadata?.display_name;
+  const displayName =
+    (typeof rawDisplayName === "string" && rawDisplayName.trim()) || user?.email?.split("@")[0] || "";
 
   return (
     <>
@@ -58,7 +60,10 @@ export default function MobileMenu({ onClose }: MobileMenuProps) {
             </div>
             <button
               type="button"
-              onClick={onClose}
+              onClick={async () => {
+                await signOut();
+                onClose();
+              }}
               className="flex w-full items-center justify-center gap-2 rounded-full border border-outline-variant bg-surface-container-lowest px-4 py-3 text-label-md font-semibold text-on-surface transition-all duration-300 ease-premium hover:bg-surface"
             >
               <LogOut size={18} />

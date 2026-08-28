@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import { ClipboardList, HeartPulse, NotebookPen, Stethoscope, type LucideIcon } from "lucide-react";
 import { useTranslations } from "next-intl";
 import MedicalDisclaimer from "@/components/MedicalDisclaimer";
@@ -8,7 +8,12 @@ import PageHeader from "@/components/PageHeader";
 import ProgressBar from "@/components/ui/ProgressBar";
 import Reveal from "@/components/ui/Reveal";
 
-import { type StepValue, type VisitTypeKey } from "@/types/visitPlanner";
+import {
+  VISIT_TYPE_KEYS,
+  type PlannerQuestion,
+  type StepValue,
+  type VisitTypeKey,
+} from "@/types/visitPlanner";
 import { useVisitPlanner } from "./useVisitPlanner";
 import Step1ChooseVisitType from "./components/Step1ChooseVisitType";
 import Step2SelectQuestions from "./components/Step2SelectQuestions";
@@ -17,6 +22,8 @@ import Step3Review from "./components/Step3Review";
 export default function VisitPlannerClient() {
   const t = useTranslations("tools");
   const tPlanner = useTranslations("tools.visitPlanner");
+  const headingRef = useRef<HTMLHeadingElement>(null);
+  const skipInitialFocusRef = useRef(true);
 
   const prepBullets = useMemo(() => tPlanner.raw("prepBullets") as string[], [tPlanner]);
   const stepDescriptions = useMemo(
@@ -33,26 +40,39 @@ export default function VisitPlannerClient() {
     [tPlanner]
   );
 
+  const plannerQuestions = useMemo(() => t.raw("plannerQuestions") as Record<VisitTypeKey, string[]>, [t]);
+
+  const questionCatalog = useMemo<PlannerQuestion[]>(
+    () =>
+      VISIT_TYPE_KEYS.flatMap((type) =>
+        (plannerQuestions[type] ?? []).map((text, index) => ({
+          id: `${type}:${index}`,
+          text,
+        }))
+      ),
+    [plannerQuestions]
+  );
+
   const visitTypes = useMemo(
     () =>
       ({
         "new-symptom": {
           label: t("visitTypes.new-symptom"),
-          questions: t.raw("plannerQuestions.new-symptom") as string[],
+          questions: plannerQuestions["new-symptom"] ?? [],
           icon: HeartPulse,
         },
         medication: {
           label: t("visitTypes.medication"),
-          questions: t.raw("plannerQuestions.medication") as string[],
+          questions: plannerQuestions.medication ?? [],
           icon: Stethoscope,
         },
         followup: {
           label: t("visitTypes.followup"),
-          questions: t.raw("plannerQuestions.followup") as string[],
+          questions: plannerQuestions.followup ?? [],
           icon: ClipboardList,
         },
       }) as Record<VisitTypeKey, { label: string; questions: string[]; icon: LucideIcon }>,
-    [t]
+    [plannerQuestions, t]
   );
 
   const steps = useMemo(
@@ -96,11 +116,24 @@ export default function VisitPlannerClient() {
     removeCustomQuestion,
     notes,
     setNotes,
-  } = useVisitPlanner(visitTypes["new-symptom"].questions.slice(0, 2));
+    hydrated,
+  } = useVisitPlanner(questionCatalog);
 
-  const questions = visitTypes[visitType].questions;
+  useEffect(() => {
+    if (skipInitialFocusRef.current) {
+      skipInitialFocusRef.current = false;
+      return;
+    }
+    headingRef.current?.focus();
+  }, [step]);
+
+  const questionsForType = useMemo(
+    () => questionCatalog.filter((q) => q.id.startsWith(`${visitType}:`)),
+    [questionCatalog, visitType]
+  );
   const totalQuestions = selectedQuestions.length + customQuestions.length;
   const stepProgress = Math.round((step / 3) * 100);
+  const stepBusy = !hydrated;
 
   return (
     <div className="py-12 md:py-16">
@@ -122,7 +155,13 @@ export default function VisitPlannerClient() {
             <div className="flex flex-col gap-6 xl:flex-row xl:items-end xl:justify-between">
               <div>
                 <div className="eyebrow mb-3">{tPlanner("introEyebrow")}</div>
-                <h2 className="font-display text-headline-lg text-primary">{steps[step - 1]!.title}</h2>
+                <h2
+                  ref={headingRef}
+                  tabIndex={-1}
+                  className="font-display text-headline-lg text-primary outline-none"
+                >
+                  {steps[step - 1]!.title}
+                </h2>
                 <p className="mt-3 max-w-readable text-body-md text-on-surface-variant">
                   {steps[step - 1]!.description}
                 </p>
@@ -140,6 +179,7 @@ export default function VisitPlannerClient() {
                   <button
                     key={entry.value}
                     type="button"
+                    disabled={stepBusy}
                     aria-current={active ? "step" : undefined}
                     className={[
                       "text-left",
@@ -168,48 +208,51 @@ export default function VisitPlannerClient() {
           </section>
         </Reveal>
 
-        {step === 1 ? (
-          <Step1ChooseVisitType
-            visitType={visitType}
-            visitTypes={visitTypes}
-            visitTypeDescriptions={visitTypeDescriptions}
-            prepBullets={prepBullets}
-            onChangeVisitType={(nextType) =>
-              changeVisitType(nextType, visitTypes[nextType].questions.slice(0, 2))
-            }
-            onNext={() => setStep(2)}
-          />
-        ) : null}
+        <div aria-busy={stepBusy || undefined} {...(stepBusy ? { inert: true } : {})}>
+          {step === 1 ? (
+            <Step1ChooseVisitType
+              visitType={visitType}
+              visitTypes={visitTypes}
+              visitTypeDescriptions={visitTypeDescriptions}
+              prepBullets={prepBullets}
+              onChangeVisitType={(nextType) => changeVisitType(nextType)}
+              onNext={() => setStep(2)}
+            />
+          ) : null}
 
-        {step === 2 ? (
-          <Step2SelectQuestions
-            questions={questions}
-            selectedQuestions={selectedQuestions}
-            customQuestions={customQuestions}
-            customInput={customInput}
-            notes={notes}
-            onToggleQuestion={toggleQuestion}
-            onCustomInputChange={setCustomInput}
-            onAddCustomQuestion={addCustomQuestion}
-            onRemoveCustomQuestion={removeCustomQuestion}
-            onNotesChange={setNotes}
-            onBack={() => setStep(1)}
-            onNext={() => setStep(3)}
-          />
-        ) : null}
+          {step === 2 ? (
+            <Step2SelectQuestions
+              questions={questionsForType}
+              selectedQuestions={selectedQuestions}
+              customQuestions={customQuestions}
+              customInput={customInput}
+              notes={notes}
+              actionsDisabled={stepBusy}
+              onToggleQuestion={toggleQuestion}
+              onCustomInputChange={setCustomInput}
+              onAddCustomQuestion={addCustomQuestion}
+              onRemoveCustomQuestion={removeCustomQuestion}
+              onNotesChange={setNotes}
+              onBack={() => setStep(1)}
+              onNext={() => setStep(3)}
+            />
+          ) : null}
 
-        {step === 3 ? (
-          <Step3Review
-            visitType={visitType}
-            visitTypeLabel={visitTypes[visitType].label}
-            visitTypeDescription={visitTypeDescriptions[visitType]}
-            selectedQuestions={selectedQuestions}
-            customQuestions={customQuestions}
-            totalQuestions={totalQuestions}
-            notes={notes}
-            onBack={() => setStep(2)}
-          />
-        ) : null}
+          {step === 3 ? (
+            <Step3Review
+              visitType={visitType}
+              visitTypeLabel={visitTypes[visitType].label}
+              visitTypeDescription={visitTypeDescriptions[visitType]}
+              selectedQuestions={selectedQuestions}
+              questionCatalog={questionCatalog}
+              customQuestions={customQuestions}
+              totalQuestions={totalQuestions}
+              notes={notes}
+              actionsDisabled={stepBusy}
+              onBack={() => setStep(2)}
+            />
+          ) : null}
+        </div>
 
         <div className="mt-10">
           <MedicalDisclaimer />

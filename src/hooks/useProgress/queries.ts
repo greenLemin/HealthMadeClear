@@ -1,4 +1,5 @@
 import { useCallback } from "react";
+import { toPercent } from "@/lib/quizScore";
 import type { QuizAttempts } from "./supabaseProgress";
 
 export function useProgressQueries(completedLessonIdsSet: Set<string>, quizAttempts: QuizAttempts) {
@@ -13,7 +14,7 @@ export function useProgressQueries(completedLessonIdsSet: Set<string>, quizAttem
       if (!attempt) return null;
       const maxScore = attempt.maxScore;
       if (!isFinite(maxScore) || maxScore <= 0) return null;
-      return Math.round((attempt.score / maxScore) * 100);
+      return toPercent(attempt.score, maxScore);
     },
     [quizAttempts]
   );

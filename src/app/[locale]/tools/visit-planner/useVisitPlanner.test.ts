@@ -1,11 +1,33 @@
 import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
 import { renderHook, act } from "@testing-library/react";
-import { useVisitPlanner } from "./useVisitPlanner";
+import { PLANNER_DEFAULTS_BY_TYPE, useVisitPlanner } from "./useVisitPlanner";
 import { STORAGE_KEYS } from "@/lib/preferences";
-import type { PlannerState } from "@/types/visitPlanner";
+import type { PlannerQuestion, PlannerState } from "@/types/visitPlanner";
+
+let mockWipeGeneration = 0;
+
+vi.mock("@/components/AppProviders", () => ({
+  useAppState: () => ({ wipeGeneration: mockWipeGeneration }),
+}));
+
+const EN_CATALOG: PlannerQuestion[] = [
+  { id: "new-symptom:0", text: "What could be causing this symptom?" },
+  { id: "new-symptom:1", text: "What tests do I need?" },
+  { id: "new-symptom:2", text: "What are the treatment options?" },
+  { id: "new-symptom:3", text: "When should I expect to feel better?" },
+  { id: "medication:0", text: "Why am I taking this medicine?" },
+  { id: "medication:1", text: "What side effects should I watch for?" },
+  { id: "medication:2", text: "What should I do if I miss a dose?" },
+  { id: "medication:3", text: "Can I take this with my other medicines?" },
+  { id: "followup:0", text: "Is my treatment working as expected?" },
+  { id: "followup:1", text: "Do I need any changes to my plan?" },
+  { id: "followup:2", text: "What results should we review today?" },
+  { id: "followup:3", text: "When should I follow up again?" },
+];
 
 describe("useVisitPlanner", () => {
   beforeEach(() => {
+    mockWipeGeneration = 0;
     window.localStorage.clear();
     vi.useFakeTimers();
   });
@@ -15,75 +37,124 @@ describe("useVisitPlanner", () => {
     vi.useRealTimers();
   });
 
-  it("initializes with default questions when no storage exists", () => {
-    const { result } = renderHook(() => useVisitPlanner(["q1", "q2"]));
+  it("uses visitType-matched defaults on first load", () => {
+    const { result } = renderHook(() => useVisitPlanner(EN_CATALOG));
 
     expect(result.current.hydrated).toBe(true);
-    expect(result.current.selectedQuestions).toEqual(["q1", "q2"]);
-    expect(result.current.step).toBe(1);
     expect(result.current.visitType).toBe("new-symptom");
+    expect(result.current.selectedQuestions).toEqual(["new-symptom:2", "new-symptom:3"]);
+    expect(result.current.selectedQuestions).toEqual(PLANNER_DEFAULTS_BY_TYPE["new-symptom"]);
+    expect(result.current.step).toBe(1);
     expect(result.current.customQuestions).toEqual([]);
     expect(result.current.notes).toBe("");
   });
 
-  it("initializes from localStorage when data exists", () => {
+  it("prefers v2 storage over v1", () => {
+    const v1: PlannerState = {
+      step: 1,
+      visitType: "followup",
+      selectedQuestions: ["followup:0"],
+      notes: "v1 notes",
+    };
+    const v2: PlannerState = {
+      step: 2,
+      visitType: "medication",
+      selectedQuestions: ["medication:1", "medication:3"],
+      customQuestions: [{ id: "cq-1", text: "My custom q" }],
+      notes: "v2 notes",
+    };
+    window.localStorage.setItem(STORAGE_KEYS.visitPlanner, JSON.stringify(v1));
+    window.localStorage.setItem(STORAGE_KEYS.visitPlannerV2, JSON.stringify(v2));
+
+    const { result } = renderHook(() => useVisitPlanner(EN_CATALOG));
+
+    expect(result.current.step).toBe(2);
+    expect(result.current.visitType).toBe("medication");
+    expect(result.current.selectedQuestions).toEqual(["medication:1", "medication:3"]);
+    expect(result.current.customQuestions).toEqual([{ id: "cq-1", text: "My custom q" }]);
+    expect(result.current.notes).toBe("v2 notes");
+  });
+
+  it("migrates v1 locale text to ids and copies customQuestions as-is", () => {
     const savedState: PlannerState = {
       step: 2,
       visitType: "medication",
-      selectedQuestions: ["q3"],
+      selectedQuestions: ["What side effects should I watch for?", "Gobbledygook unmapped", "medication:3"],
       customQuestions: [{ id: "cq-1", text: "My custom q" }],
       notes: "some notes",
     };
     window.localStorage.setItem(STORAGE_KEYS.visitPlanner, JSON.stringify(savedState));
 
-    const { result } = renderHook(() => useVisitPlanner(["q1", "q2"]));
+    const { result } = renderHook(() => useVisitPlanner(EN_CATALOG));
 
     expect(result.current.hydrated).toBe(true);
     expect(result.current.step).toBe(2);
     expect(result.current.visitType).toBe("medication");
-    expect(result.current.selectedQuestions).toEqual(["q3"]);
+    expect(result.current.selectedQuestions).toEqual(["medication:1", "medication:3"]);
     expect(result.current.customQuestions).toEqual([{ id: "cq-1", text: "My custom q" }]);
+    expect(result.current.customQuestions).not.toContainEqual(
+      expect.objectContaining({ text: "Gobbledygook unmapped" })
+    );
     expect(result.current.notes).toBe("some notes");
+  });
+
+  it("does not delete the v1 key after writing v2", () => {
+    const v1: PlannerState = {
+      step: 1,
+      visitType: "new-symptom",
+      selectedQuestions: ["What are the treatment options?"],
+      notes: "keep me",
+    };
+    window.localStorage.setItem(STORAGE_KEYS.visitPlanner, JSON.stringify(v1));
+
+    const { result } = renderHook(() => useVisitPlanner(EN_CATALOG));
+
+    expect(result.current.selectedQuestions).toEqual(["new-symptom:2"]);
+    const storedV1 = JSON.parse(window.localStorage.getItem(STORAGE_KEYS.visitPlanner) || "{}");
+    expect(storedV1.selectedQuestions).toEqual(["What are the treatment options?"]);
+    expect(storedV1.notes).toBe("keep me");
+    const storedV2 = JSON.parse(window.localStorage.getItem(STORAGE_KEYS.visitPlannerV2) || "{}");
+    expect(storedV2.selectedQuestions).toEqual(["new-symptom:2"]);
   });
 
   it("ignores invalid localStorage data and uses defaults", () => {
     window.localStorage.setItem(STORAGE_KEYS.visitPlanner, JSON.stringify({ invalid: "data" }));
 
-    const { result } = renderHook(() => useVisitPlanner(["q1", "q2"]));
+    const { result } = renderHook(() => useVisitPlanner(EN_CATALOG));
 
-    expect(result.current.selectedQuestions).toEqual(["q1", "q2"]);
+    expect(result.current.selectedQuestions).toEqual(["new-symptom:2", "new-symptom:3"]);
     expect(result.current.step).toBe(1);
   });
 
-  it("changeVisitType updates visitType and resets selectedQuestions", () => {
-    const { result } = renderHook(() => useVisitPlanner(["q1", "q2"]));
+  it("changeVisitType applies PLANNER_DEFAULTS_BY_TYPE for medication", () => {
+    const { result } = renderHook(() => useVisitPlanner(EN_CATALOG));
 
     act(() => {
-      result.current.changeVisitType("followup", ["q3", "q4"]);
+      result.current.changeVisitType("medication");
     });
 
-    expect(result.current.visitType).toBe("followup");
-    expect(result.current.selectedQuestions).toEqual(["q3", "q4"]);
+    expect(result.current.visitType).toBe("medication");
+    expect(result.current.selectedQuestions).toEqual(["medication:1", "medication:3"]);
   });
 
-  it("toggleQuestion adds and removes questions", () => {
-    const { result } = renderHook(() => useVisitPlanner(["q1"]));
+  it("toggleQuestion adds and removes question ids", () => {
+    const { result } = renderHook(() => useVisitPlanner(EN_CATALOG));
 
     act(() => {
-      result.current.toggleQuestion("q2");
+      result.current.toggleQuestion("new-symptom:0");
     });
-    expect(result.current.selectedQuestions).toEqual(["q1", "q2"]);
+    expect(result.current.selectedQuestions).toEqual(["new-symptom:2", "new-symptom:3", "new-symptom:0"]);
 
     act(() => {
-      result.current.toggleQuestion("q1");
+      result.current.toggleQuestion("new-symptom:2");
     });
-    expect(result.current.selectedQuestions).toEqual(["q2"]);
+    expect(result.current.selectedQuestions).toEqual(["new-symptom:3", "new-symptom:0"]);
   });
 
   it("addCustomQuestion adds a new question if not empty and not duplicate", () => {
     vi.setSystemTime(new Date("2023-01-01T00:00:00Z"));
 
-    const { result } = renderHook(() => useVisitPlanner([]));
+    const { result } = renderHook(() => useVisitPlanner(EN_CATALOG));
 
     act(() => {
       result.current.setCustomInput("  New Question  ");
@@ -99,7 +170,6 @@ describe("useVisitPlanner", () => {
     });
     expect(result.current.customInput).toBe("");
 
-    // Test duplicate (case insensitive)
     act(() => {
       result.current.setCustomInput("new question");
     });
@@ -108,7 +178,6 @@ describe("useVisitPlanner", () => {
     });
     expect(result.current.customQuestions).toHaveLength(1);
 
-    // Test empty
     act(() => {
       result.current.setCustomInput("   ");
     });
@@ -122,16 +191,16 @@ describe("useVisitPlanner", () => {
     const savedState: PlannerState = {
       step: 1,
       visitType: "new-symptom",
-      selectedQuestions: [],
+      selectedQuestions: ["new-symptom:2"],
       customQuestions: [
         { id: "cq-1", text: "Q1" },
         { id: "cq-2", text: "Q2" },
       ],
       notes: "",
     };
-    window.localStorage.setItem(STORAGE_KEYS.visitPlanner, JSON.stringify(savedState));
+    window.localStorage.setItem(STORAGE_KEYS.visitPlannerV2, JSON.stringify(savedState));
 
-    const { result } = renderHook(() => useVisitPlanner([]));
+    const { result } = renderHook(() => useVisitPlanner(EN_CATALOG));
 
     act(() => {
       result.current.removeCustomQuestion("cq-1");
@@ -140,29 +209,31 @@ describe("useVisitPlanner", () => {
     expect(result.current.customQuestions).toEqual([{ id: "cq-2", text: "Q2" }]);
   });
 
-  it("updates localStorage when state changes", () => {
-    const { result } = renderHook(() => useVisitPlanner(["q1"]));
+  it("persists ids to the v2 key when state changes", () => {
+    const { result } = renderHook(() => useVisitPlanner(EN_CATALOG));
 
     act(() => {
       result.current.setStep(2);
       result.current.setNotes("test note");
     });
 
-    const stored = JSON.parse(window.localStorage.getItem(STORAGE_KEYS.visitPlanner) || "{}");
+    const stored = JSON.parse(window.localStorage.getItem(STORAGE_KEYS.visitPlannerV2) || "{}");
     expect(stored).toMatchObject({
       step: 2,
       notes: "test note",
-      selectedQuestions: ["q1"],
+      selectedQuestions: ["new-symptom:2", "new-symptom:3"],
       visitType: "new-symptom",
       customQuestions: [],
     });
+    expect(window.localStorage.getItem(STORAGE_KEYS.visitPlanner)).toBeNull();
   });
+
   it("handles null value in localStorage parse", () => {
     window.localStorage.setItem(STORAGE_KEYS.visitPlanner, "null");
 
-    const { result } = renderHook(() => useVisitPlanner(["q1"]));
+    const { result } = renderHook(() => useVisitPlanner(EN_CATALOG));
 
-    expect(result.current.selectedQuestions).toEqual(["q1"]);
+    expect(result.current.selectedQuestions).toEqual(["new-symptom:2", "new-symptom:3"]);
   });
 
   it("handles invalid visitType in localStorage parse", () => {
@@ -174,28 +245,27 @@ describe("useVisitPlanner", () => {
     };
     window.localStorage.setItem(STORAGE_KEYS.visitPlanner, JSON.stringify(savedState));
 
-    const { result } = renderHook(() => useVisitPlanner(["q1"]));
+    const { result } = renderHook(() => useVisitPlanner(EN_CATALOG));
 
-    expect(result.current.selectedQuestions).toEqual(["q1"]);
-    expect(result.current.visitType).toBe("new-symptom"); // fallback to default
+    expect(result.current.selectedQuestions).toEqual(["new-symptom:2", "new-symptom:3"]);
+    expect(result.current.visitType).toBe("new-symptom");
   });
 
   it("handles partial/invalid fields in localStorage parse gracefully", () => {
     const savedState = {
       visitType: "new-symptom",
-      // missing step, selectedQuestions, notes, customQuestions, or wrong types
-      step: 99, // invalid step
+      step: 99,
       selectedQuestions: "not an array",
-      notes: 12345, // not a string
+      notes: 12345,
       customQuestions: [null, "not an object", { id: "valid", text: "valid text" }],
     };
     window.localStorage.setItem(STORAGE_KEYS.visitPlanner, JSON.stringify(savedState));
 
-    const { result } = renderHook(() => useVisitPlanner(["q1"]));
+    const { result } = renderHook(() => useVisitPlanner(EN_CATALOG));
 
-    expect(result.current.step).toBe(1); // fallback since 99 is invalid
-    expect(result.current.selectedQuestions).toEqual([]); // fallback since it was not an array
-    expect(result.current.notes).toBe(""); // fallback since it was not a string
+    expect(result.current.step).toBe(1);
+    expect(result.current.selectedQuestions).toEqual([]);
+    expect(result.current.notes).toBe("");
     expect(result.current.customQuestions).toEqual([{ id: "valid", text: "valid text" }]);
   });
 
@@ -203,14 +273,31 @@ describe("useVisitPlanner", () => {
     const savedState = {
       step: 1,
       visitType: "new-symptom",
-      selectedQuestions: [],
+      selectedQuestions: ["new-symptom:2"],
       notes: "",
-      // customQuestions is omitted entirely
     };
-    window.localStorage.setItem(STORAGE_KEYS.visitPlanner, JSON.stringify(savedState));
+    window.localStorage.setItem(STORAGE_KEYS.visitPlannerV2, JSON.stringify(savedState));
 
-    const { result } = renderHook(() => useVisitPlanner(["q1"]));
+    const { result } = renderHook(() => useVisitPlanner(EN_CATALOG));
 
     expect(result.current.customQuestions).toEqual([]);
+  });
+
+  it("skips persist when wipeGeneration increased since hydrate", () => {
+    const { result, rerender } = renderHook(() => useVisitPlanner(EN_CATALOG));
+
+    act(() => {
+      result.current.setNotes("keep");
+    });
+    expect(JSON.parse(window.localStorage.getItem(STORAGE_KEYS.visitPlannerV2) || "{}").notes).toBe("keep");
+
+    mockWipeGeneration = 1;
+    rerender();
+    act(() => {
+      result.current.setNotes("should not persist");
+    });
+
+    expect(JSON.parse(window.localStorage.getItem(STORAGE_KEYS.visitPlannerV2) || "{}").notes).toBe("keep");
+    expect(result.current.notes).toBe("should not persist");
   });
 });

@@ -2,6 +2,7 @@
 import { Link } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
 import Card from "@/components/ui/Card";
+import EmptyState from "@/components/ui/EmptyState";
 import { formatRelativeDate } from "@/lib/i18n";
 import type { AchievementItem } from "@/types/dashboard";
 
@@ -14,7 +15,21 @@ export default function EarnedAchievements({ earnedAchievements, locale }: Earne
   const t = useTranslations("dashboard");
 
   if (earnedAchievements.length === 0) {
-    return null;
+    return (
+      <section>
+        <h2 className="mb-4 font-display text-headline-md text-primary">{t("recentlyEarned")}</h2>
+        <EmptyState
+          variant="learning"
+          title={t("emptyAchievementsTitle")}
+          description={t("emptyAchievementsBody")}
+          action={{
+            label: t("emptyAchievementsCta"),
+            onClick: () => {},
+            href: "/learn",
+          }}
+        />
+      </section>
+    );
   }
 
   return (

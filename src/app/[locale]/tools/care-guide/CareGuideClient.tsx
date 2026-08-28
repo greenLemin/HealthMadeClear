@@ -3,8 +3,9 @@
 import { Home, Hospital, Stethoscope, Siren } from "lucide-react";
 import MedicalDisclaimer from "@/components/MedicalDisclaimer";
 import PageHeader from "@/components/PageHeader";
+import PrintButton from "@/components/content/PrintButton";
 import Reveal from "@/components/ui/Reveal";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 
 function ChecklistItems({ items, textColor }: { items: string; textColor?: string }) {
   const list = items.split("|");
@@ -143,8 +144,18 @@ function ScenariosSection() {
   );
 }
 
+function formatPrintDate(locale: string, date: Date = new Date()): string {
+  return date.toLocaleDateString(locale === "es" ? "es-ES" : "en-US", {
+    month: "long",
+    day: "numeric",
+    year: "numeric",
+  });
+}
+
 export default function CareGuideClient() {
   const t = useTranslations("tools");
+  const locale = useLocale();
+  const printDate = formatPrintDate(locale);
 
   return (
     <div className="pb-16">
@@ -154,13 +165,20 @@ export default function CareGuideClient() {
       >
         {t("emergencyShort")}
       </div>
+      <p className="hidden print:block px-4 py-3 text-center text-label-md font-semibold">
+        {t("printEmergencyLine")}
+      </p>
       <div className="max-w-container mx-auto px-4 py-10 md:px-6 md:py-12">
         <PageHeader
           centered
           title={t("careGuideTitle")}
           description={t("careGuideDescription")}
           className="mb-8"
-        />
+        >
+          <div className="flex justify-center">
+            <PrintButton />
+          </div>
+        </PageHeader>
 
         <CareOptionsSection />
 
@@ -174,6 +192,10 @@ export default function CareGuideClient() {
         </Reveal>
 
         <MedicalDisclaimer variant="emergency" />
+
+        <p className="hidden print:block mt-6 border-t pt-4 text-xs" suppressHydrationWarning>
+          {t("printFooter", { date: printDate })}
+        </p>
       </div>
     </div>
   );

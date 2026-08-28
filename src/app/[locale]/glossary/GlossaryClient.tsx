@@ -110,7 +110,13 @@ export default function GlossaryClient({
             <div className="mb-3 text-label-md font-semibold uppercase tracking-[0.14em] text-on-surface-variant">
               A-Z
             </div>
-            <div className="flex flex-wrap gap-2">
+            <div
+              className={[
+                "flex flex-nowrap gap-2 overflow-x-auto snap-x snap-proximity scrollbar-none [scrollbar-width:none] [&::-webkit-scrollbar]:hidden",
+                "[-webkit-mask-image:linear-gradient(to_right,black_85%,transparent_100%)] [mask-image:linear-gradient(to_right,black_85%,transparent_100%)]",
+                "sm:flex-wrap sm:overflow-visible sm:snap-none sm:[scrollbar-width:auto] sm:[&::-webkit-scrollbar]:block sm:[-webkit-mask-image:none] sm:[mask-image:none]",
+              ].join(" ")}
+            >
               {alphabet.map((letter) => {
                 const isAll = letter === "All";
                 const hasTerms = isAll || populatedLetters.has(letter);
@@ -123,7 +129,7 @@ export default function GlossaryClient({
                     onClick={() => setActiveLetter(letter)}
                     aria-pressed={active}
                     className={[
-                      "chip flex h-11 min-w-11 items-center justify-center px-3",
+                      "chip snap-center flex h-11 min-h-11 min-w-11 shrink-0 items-center justify-center px-3 py-2 text-label-md",
                       active ? "chip-active" : "",
                       !hasTerms ? "opacity-35 cursor-not-allowed pointer-events-none" : "",
                     ].join(" ")}
@@ -180,7 +186,7 @@ export default function GlossaryClient({
                                 <Link
                                   key={lessonId}
                                   href={`/learn/${lessonId}`}
-                                  className="text-label-md font-semibold text-primary underline hover:underline"
+                                  className="inline-flex min-h-11 items-center py-2.5 text-label-md font-semibold text-primary underline hover:underline"
                                 >
                                   {title}
                                 </Link>

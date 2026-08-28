@@ -1,5 +1,4 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
-import { createNotification } from "@/lib/notifications";
 
 const STREAK_MILESTONES = [3, 7, 14, 21, 30];
 
@@ -22,6 +21,7 @@ export async function updateStreak(
   currentStreak: number;
   longestStreak: number;
   isNewDay: boolean;
+  milestoneReached: number | null;
 }> {
   const today = todayUTC();
   const yesterday = yesterdayUTC();
@@ -58,6 +58,7 @@ export async function updateStreak(
       currentStreak: inserted?.current_streak ?? 1,
       longestStreak: inserted?.longest_streak ?? 1,
       isNewDay: true,
+      milestoneReached: null,
     };
   }
 
@@ -94,13 +95,7 @@ export async function updateStreak(
 
   if (updateError) throw updateError;
 
-  if (isNewDay && STREAK_MILESTONES.includes(currentStreak)) {
-    await createNotification(supabase, userId, {
-      type: "streak",
-      title: `${currentStreak}-Day Streak!`,
-      body: `You're on a ${currentStreak}-day learning streak. Keep it up!`,
-    });
-  }
+  const milestoneReached = isNewDay && STREAK_MILESTONES.includes(currentStreak) ? currentStreak : null;
 
-  return { currentStreak, longestStreak, isNewDay };
+  return { currentStreak, longestStreak, isNewDay, milestoneReached };
 }

@@ -67,9 +67,10 @@ export default function LessonPageClient({
   quiz: Quiz | null;
   relatedLessons: Lesson[];
 }) {
-  const { locale } = useAppState();
+  const { locale, markLessonViewed } = useAppState();
   const { markLessonComplete, isLessonComplete, getQuizBestScore } = useProgress();
   const t = useTranslations("learn");
+  const tDisclaimer = useTranslations("disclaimer");
   const [isSaving, setIsSaving] = useState(false);
   const lessonId = lesson.id as LessonId;
   const sidebar = useSidebarContent(lesson, t);
@@ -79,6 +80,15 @@ export default function LessonPageClient({
   const hasQuiz = quiz !== null;
   const bestQuizScore = quiz ? getQuizBestScore(quiz.id) : null;
   const reviewedDate = lesson.lastReviewed ? formatReviewDate(lesson.lastReviewed, locale) : null;
+  const printDate = new Date().toLocaleDateString(locale === "es" ? "es-ES" : "en-US", {
+    month: "long",
+    day: "numeric",
+    year: "numeric",
+  });
+
+  useEffect(() => {
+    markLessonViewed(lesson.id);
+  }, [markLessonViewed, lesson.id]);
 
   // Reading progress bar
   useEffect(() => {
@@ -132,7 +142,7 @@ export default function LessonPageClient({
     <>
       {/* Reading progress bar */}
       <div
-        className="fixed top-0 left-0 z-50 h-1.5 will-change-[width] bg-primary transition-[width] duration-150 motion-reduce:transition-none"
+        className="fixed top-0 left-0 z-[60] h-1.5 will-change-[width] bg-primary transition-[width] duration-150 motion-reduce:transition-none"
         style={{ width: `${scrollProgress}%` }}
         role="progressbar"
         aria-valuenow={Math.round(scrollProgress)}
@@ -192,6 +202,14 @@ export default function LessonPageClient({
             </article>
 
             <LessonSidebar sidebar={sidebar} title={lesson.sidebarTitle} />
+          </div>
+
+          <div
+            className="hidden print:block mt-8 border-t pt-4 text-xs text-on-surface-variant"
+            suppressHydrationWarning
+          >
+            <p>{tDisclaimer("printMedicalWarning")}</p>
+            <p className="mt-1">{tDisclaimer("printTimestamp", { date: printDate })}</p>
           </div>
 
           <LessonRelatedClient relatedLessons={relatedLessons} />

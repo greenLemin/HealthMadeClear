@@ -72,11 +72,7 @@ export default function SignupForm() {
       });
 
       if (authError) {
-        if (authError.message.includes("already registered")) {
-          setError(t("errorEmailInUse"));
-        } else {
-          setError(t("errorGeneric"));
-        }
+        setError(t("errorGeneric"));
         return;
       }
 
@@ -173,6 +169,8 @@ export default function SignupForm() {
         </div>
 
         <FormErrorAlert error={error} />
+
+        <p className="text-center text-label-md text-on-surface-variant">{t("guestProgressWillSync")}</p>
 
         <Button type="submit" loading={loading} fullWidth>
           {t("signupButton")}

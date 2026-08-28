@@ -41,3 +41,14 @@ test("forgot-password form submits and shows confirmation", async ({ page }) => 
   await expect(page.getByRole("heading", { level: 1, name: /check your email/i })).toBeVisible();
   await expect(page.getByRole("status")).toBeVisible();
 });
+
+test("signup form validates invalid email and shows field error", async ({ page }) => {
+  await page.goto("/en/auth/signup");
+  await waitForAppReady(page);
+
+  await page.getByLabel(/email address/i).fill("not-an-email");
+  await page.locator('input[type="password"]').fill("ValidPassword123!");
+  await page.getByRole("button", { name: /create account/i }).click();
+
+  await expect(page.getByText(/valid email address/i)).toBeVisible();
+});

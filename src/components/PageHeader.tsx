@@ -2,6 +2,7 @@
 
 import type { ReactNode } from "react";
 import { useTranslations } from "next-intl";
+import TrustBanner from "@/components/content/TrustBanner";
 import { Link } from "@/i18n/navigation";
 
 interface PageHeaderProps {
@@ -13,6 +14,7 @@ interface PageHeaderProps {
   centered?: boolean;
   children?: ReactNode;
   className?: string;
+  trust?: boolean;
 }
 
 export default function PageHeader({
@@ -24,6 +26,7 @@ export default function PageHeader({
   centered = false,
   children,
   className = "",
+  trust = false,
 }: PageHeaderProps) {
   const tCommon = useTranslations("common");
 
@@ -51,7 +54,10 @@ export default function PageHeader({
                     </span>
                   ) : null}
                   {item.href ? (
-                    <Link href={item.href} className="transition-colors hover:text-primary">
+                    <Link
+                      href={item.href}
+                      className="inline-flex min-h-11 items-center py-2.5 transition-colors hover:text-primary"
+                    >
                       {item.label}
                     </Link>
                   ) : (
@@ -61,6 +67,11 @@ export default function PageHeader({
               ))}
             </ol>
           </nav>
+        ) : null}
+        {trust ? (
+          <div className={centered ? "mb-4 flex justify-center" : "mb-4"}>
+            <TrustBanner />
+          </div>
         ) : null}
         {badge ? <div className="eyebrow mb-4">{badge}</div> : null}
         <h1 className="mb-4 font-display text-headline-lg-mobile text-primary md:text-headline-xl">

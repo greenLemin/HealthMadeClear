@@ -47,6 +47,30 @@ describe("JsonLd", () => {
     expect(innerHTML).toContain("\\u2029"); // \u2029
   });
 
+  it("rejects non-plain objects via JSON round-trip", () => {
+    expect(() => render(<JsonLd data={new Date() as unknown as Record<string, unknown>} />)).toThrow(
+      /plain object or array/
+    );
+
+    class Payload {
+      name = "not-plain";
+    }
+    expect(() => render(<JsonLd data={new Payload() as unknown as Record<string, unknown>} />)).toThrow(
+      /plain object or array/
+    );
+
+    const circular: Record<string, unknown> = { ok: true };
+    circular.self = circular;
+    expect(() => render(<JsonLd data={circular} />)).toThrow(/plain object or array/);
+  });
+
+  it("accepts a nested plain object after JSON.parse(JSON.stringify(data))", () => {
+    const data = { "@type": "WebSite", nested: { n: 1, flag: true, empty: null } };
+    const { container } = render(<JsonLd data={data} />);
+    const parsedData = JSON.parse(container.querySelector("script")?.innerHTML || "{}");
+    expect(parsedData).toEqual(data);
+  });
+
   it("remains valid JSON when parsed", () => {
     const dangerousData = {
       malicious: "</script><script>alert('XSS & co')</script>",

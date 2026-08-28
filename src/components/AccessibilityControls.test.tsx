@@ -73,6 +73,12 @@ describe("AccessibilityControls", () => {
     expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
   });
 
+  it("exposes Display as a single accessible name", () => {
+    renderComponent();
+    expect(screen.getAllByRole("button", { name: en.accessibility.display })).toHaveLength(1);
+    expect(screen.getAllByText(en.accessibility.display)).toHaveLength(1);
+  });
+
   it("opens and closes panel on toggle button click", () => {
     renderComponent();
     const toggleBtn = getToggleButton();

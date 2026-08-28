@@ -194,7 +194,7 @@ export default function ContactClient() {
                     id="subject"
                     value={subject}
                     onChange={(e) => handleSubjectChange(e.target.value)}
-                    className="input-field"
+                    className="input-field min-h-12 text-base"
                   >
                     {SUBJECTS.map((s) => (
                       <option key={s} value={s}>

@@ -1,15 +1,20 @@
 import type { User } from "@supabase/supabase-js";
-import { useCallback, useEffect, useRef } from "react";
+import { useCallback, useEffect, useMemo, useRef } from "react";
 import { useTranslations } from "next-intl";
 import { createClient } from "@/lib/supabase/client";
 import {
   markLessonComplete as guestMarkLessonComplete,
   saveQuizAttempt as guestSaveQuizAttempt,
 } from "@/lib/guestProgress";
+import { isQuizPassed, normalizeStoredScore, toPercent } from "@/lib/quizScore";
+import { QUIZ_ATTEMPTS_ON_CONFLICT } from "@/lib/supabase/schema";
+import { isAuthSessionError } from "@/lib/auth/isAuthSessionError";
 import {
   handleLessonCompletionSideEffects,
   handleQuizAttemptSideEffects,
   type Callback,
+  type LocalizeAchievement,
+  type ProgressCopy,
 } from "./sideEffects";
 import type { QuizAttempts } from "./supabaseProgress";
 
@@ -19,21 +24,48 @@ export function useProgressMutations(
   showToast: Callback,
   supabaseCompletedLessonIds: string[],
   setSupabaseCompletedLessonIds: React.Dispatch<React.SetStateAction<string[]>>,
+  supabaseQuizAttempts: QuizAttempts,
   setSupabaseQuizAttempts: React.Dispatch<React.SetStateAction<QuizAttempts>>,
   appStateMarkLessonComplete: (lessonId: string) => void,
   recordQuizScore: (lessonId: string, score: number, passed: boolean) => void,
   locale: string
 ) {
-  const t = useTranslations("progress");
+  const tProgress = useTranslations("progress");
+  const tAchievements = useTranslations("achievements");
+
   const completedIdsRef = useRef(supabaseCompletedLessonIds);
   useEffect(() => {
     completedIdsRef.current = supabaseCompletedLessonIds;
   }, [supabaseCompletedLessonIds]);
 
+  const quizAttemptsRef = useRef(supabaseQuizAttempts);
+  useEffect(() => {
+    quizAttemptsRef.current = supabaseQuizAttempts;
+  }, [supabaseQuizAttempts]);
+
+  const localizeAchievement: LocalizeAchievement = useCallback(
+    (id: string) => {
+      const title = tAchievements(`items.${id}.title` as never);
+      const description = tAchievements(`items.${id}.description` as never);
+      const unlocked = tAchievements("unlocked", { title });
+      return { title, description, unlocked };
+    },
+    [tAchievements]
+  );
+
+  const progressCopy: ProgressCopy = useMemo(
+    () => ({
+      pathAlmostThereTitle: tProgress("pathAlmostThereTitle"),
+      pathAlmostThereBody: (title: string) => tProgress("pathAlmostThere", { title }),
+      streakMilestoneTitle: (count: number) => tProgress("streakMilestoneTitle", { count }),
+      streakMilestoneBody: (count: number) => tProgress("streakMilestoneBody", { count }),
+    }),
+    [tProgress]
+  );
+
   const markLessonComplete = useCallback(
     async (lessonId: string) => {
       if (user) {
-        // Optimistic update using ref to avoid stale closure on rapid double-complete
         const prev = completedIdsRef.current;
         const next = prev.includes(lessonId) ? prev : [...prev, lessonId];
         completedIdsRef.current = next;
@@ -49,71 +81,124 @@ export function useProgressMutations(
           { onConflict: "user_id,lesson_id" }
         );
         if (error) {
-          showToast("error", t("saveError"));
+          const message = isAuthSessionError(error) ? tProgress("sessionExpired") : tProgress("saveError");
+          showToast("error", message);
           const rolled = completedIdsRef.current.filter((id) => id !== lessonId);
           completedIdsRef.current = rolled;
           setSupabaseCompletedLessonIds(rolled);
         } else {
-          await handleLessonCompletionSideEffects(supabase, user.id, lessonId, next, showToast, locale);
+          await handleLessonCompletionSideEffects(
+            supabase,
+            user.id,
+            lessonId,
+            next,
+            showToast,
+            locale,
+            localizeAchievement,
+            progressCopy
+          );
         }
       } else {
         guestMarkLessonComplete(lessonId);
         appStateMarkLessonComplete(lessonId);
       }
     },
-    [user, supabase, showToast, appStateMarkLessonComplete, locale, setSupabaseCompletedLessonIds, t]
+    [
+      user,
+      supabase,
+      showToast,
+      appStateMarkLessonComplete,
+      locale,
+      setSupabaseCompletedLessonIds,
+      tProgress,
+      localizeAchievement,
+      progressCopy,
+    ]
   );
 
   const saveQuizAttempt = useCallback(
     async (quizId: string, lessonId: string, score: number, maxScore: number, answers: number[]) => {
-      const passed = score >= maxScore * 0.7;
+      const normalized = normalizeStoredScore(score, maxScore);
+      score = normalized.score;
+      maxScore = normalized.maxScore;
+      const passed = isQuizPassed(score, maxScore);
+
       if (user) {
-        // Optimistic update — keep best score via Math.max to avoid overwriting higher score with lower
-        setSupabaseQuizAttempts((prev) => {
-          const existing = prev[quizId];
-          if (existing) {
-            const bestScore = Math.max(existing.score, score);
-            if (bestScore === existing.score) return prev;
-            return {
-              ...prev,
-              [quizId]: { score: bestScore, maxScore, passed: bestScore >= maxScore * 0.7 },
-            };
-          }
-          return { ...prev, [quizId]: { score, maxScore, passed } };
-        });
-        const { error } = await supabase.from("quiz_attempts").insert({
-          user_id: user.id,
-          quiz_id: quizId,
+        const prev = quizAttemptsRef.current;
+        const existing = prev[quizId];
+        const currentCompleted = completedIdsRef.current;
+        const allCompleted = currentCompleted.includes(lessonId)
+          ? currentCompleted
+          : [...currentCompleted, lessonId];
+
+        const sideEffectArgs = [
+          supabase,
+          user.id,
+          lessonId,
           score,
-          max_score: maxScore,
+          maxScore,
           passed,
-          answers,
-        });
-        if (error) {
-          showToast("error", t("quizSaveError"));
-        } else {
-          // Use ref's current value for achievement counts to avoid stale closure
-          const currentCompleted = completedIdsRef.current;
-          const allCompleted = currentCompleted.includes(lessonId)
-            ? currentCompleted
-            : [...currentCompleted, lessonId];
-          await handleQuizAttemptSideEffects(
-            supabase,
-            user.id,
-            lessonId,
-            score,
+          allCompleted,
+          showToast,
+          locale,
+          localizeAchievement,
+          progressCopy,
+        ] as const;
+
+        if (existing && score <= existing.score) {
+          await handleQuizAttemptSideEffects(...sideEffectArgs);
+          return;
+        }
+
+        const bestScore = existing ? Math.max(existing.score, score) : score;
+        const next = {
+          ...prev,
+          [quizId]: {
+            score: bestScore,
             maxScore,
-            passed,
-            allCompleted,
-            showToast
-          );
+            passed: isQuizPassed(bestScore, maxScore),
+          },
+        };
+        quizAttemptsRef.current = next;
+        setSupabaseQuizAttempts(next);
+
+        const { error } = await supabase.from("quiz_attempts").upsert(
+          {
+            user_id: user.id,
+            quiz_id: quizId,
+            score: bestScore,
+            max_score: maxScore,
+            passed: isQuizPassed(bestScore, maxScore),
+            answers,
+          },
+          { onConflict: QUIZ_ATTEMPTS_ON_CONFLICT, ignoreDuplicates: false }
+        );
+        if (error) {
+          quizAttemptsRef.current = prev;
+          setSupabaseQuizAttempts(prev);
+          const message = isAuthSessionError(error)
+            ? tProgress("sessionExpired")
+            : tProgress("quizSaveError");
+          showToast("error", message);
+        } else {
+          await handleQuizAttemptSideEffects(...sideEffectArgs);
         }
       } else {
         guestSaveQuizAttempt(quizId, score, maxScore);
-        recordQuizScore(lessonId, score, passed);
+        recordQuizScore(lessonId, toPercent(score, maxScore), passed);
       }
     },
-    [user, supabase, showToast, recordQuizScore, setSupabaseQuizAttempts, t]
+    [
+      user,
+      supabase,
+      showToast,
+      recordQuizScore,
+      setSupabaseQuizAttempts,
+      tProgress,
+      locale,
+      localizeAchievement,
+      progressCopy,
+    ]
   );
 
   return { markLessonComplete, saveQuizAttempt };

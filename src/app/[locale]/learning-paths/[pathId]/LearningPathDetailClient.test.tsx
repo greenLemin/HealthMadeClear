@@ -32,6 +32,7 @@ vi.mock("next-intl", () => ({
         upNext: "Up Next",
         continue: "Continue",
         startPath: "Start Path",
+        lesson: "Lesson",
       },
       common: {
         of: "of",
@@ -41,6 +42,9 @@ vi.mock("next-intl", () => ({
       },
       nav: {
         home: "Home",
+      },
+      tools: {
+        step: "Step",
       },
     };
     return translations[namespace]?.[key] ?? key;
@@ -116,5 +120,16 @@ describe("LearningPathDetailClient", () => {
     expect(screen.getByText("First Lesson")).toBeInTheDocument();
     expect(screen.getAllByText("Second Lesson")).toHaveLength(2);
     expect(screen.getByText("Continue")).toBeInTheDocument();
+  });
+
+  it("stacks lesson cards below sm and shows Step X of Y badges", () => {
+    render(<LearningPathDetailClient path={mockPath} lessons={mockLessons} glossaryTerms={[]} />);
+
+    const firstLessonLink = screen.getByRole("link", { name: /First Lesson/ });
+    expect(firstLessonLink.className).toMatch(/flex-col/);
+    expect(firstLessonLink.className).toMatch(/sm:flex-row/);
+    expect(screen.getByText("Step 1 of 2")).toBeInTheDocument();
+    expect(screen.getByText("Step 2 of 2")).toBeInTheDocument();
+    expect(screen.getByText("Step 1 of 2")).toHaveClass("sm:hidden");
   });
 });

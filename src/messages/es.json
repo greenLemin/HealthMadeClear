@@ -62,7 +62,9 @@
     "emergencyBody": "No dependas de esta plataforma para necesidades urgentes. Llama de inmediato a tu número local de emergencias.",
     "emergencyCall": "Llamar al 911 (EE. UU.)",
     "emergencyCallAria": "Llamar a emergencias (911 en EE. UU.)",
-    "emergencyRegionNote": "El 911 es el número de emergencias en los Estados Unidos. Si se encuentra en otro país, use el número local de emergencias."
+    "emergencyRegionNote": "El 911 es el número de emergencias en los Estados Unidos. Si se encuentra en otro país, use el número local de emergencias.",
+    "printMedicalWarning": "Health Made Clear es únicamente para fines educativos y no sustituye el consejo médico. Hable siempre con su médico o farmacéutico sobre su salud y sus recetas.",
+    "printTimestamp": "Impreso el {date}."
   },
   "common": {
     "keyTakeaway": "Punto clave",
@@ -111,7 +113,9 @@
     "relatedTerms": "Términos relacionados",
     "copyLink": "Copiar enlace",
     "progressPercent": "Progreso: {percent}%",
-    "itemsCompletedCount": "{completed} de {total} completados"
+    "itemsCompletedCount": "{completed} de {total} completados",
+    "print": "Imprimir",
+    "shareOnX": "Compartir en X"
   },
   "categories": {
     "medication-safety": "Seguridad con medicamentos",
@@ -175,7 +179,8 @@
     "lessonNavigation": "Navegación de lecciones",
     "updatedOn": "Actualizado el {date}",
     "readingProgress": "Progreso de lectura",
-    "showingLessons": "Mostrando {count} lecciones"
+    "showingLessons": "Mostrando {count} lecciones",
+    "reviewedBy": "Revisado por {name}"
   },
   "paths": {
     "resumeJourney": "Retomar recorrido",
@@ -275,7 +280,11 @@
     "completeLabel": "{completed} de {total} completadas",
     "completedLabel": "Completado",
     "quizResultPassed": "{score}% — Aprobado",
-    "quizResultFailed": "{score}% — No aprobado"
+    "quizResultFailed": "{score}% — No aprobado",
+    "statsTimeSpentUnavailable": "—",
+    "emptyAchievementsTitle": "Aún no tienes logros",
+    "emptyAchievementsBody": "Completa lecciones y cuestionarios para ganar tu primera insignia.",
+    "emptyAchievementsCta": "Empezar a aprender"
   },
   "settings": {
     "title": "Configuración",
@@ -317,6 +326,7 @@
   "progress": {
     "saveError": "No se pudo guardar el progreso",
     "quizSaveError": "No se pudo guardar el resultado del cuestionario",
+    "sessionExpired": "Tu sesión ha expirado. Por favor, inicia sesión nuevamente.",
     "title": "Mi Progreso",
     "overallProgress": "Progreso General",
     "lessonsCompleted": "{count} de {total} lecciones completadas",
@@ -360,7 +370,11 @@
     "startLearningCta": "Empezar a aprender",
     "categoryMobileSummary": "{completed}/{total} lecciones · Cuestionarios: {passed}/{attempts}",
     "categoriesCount": "{count} categorías",
-    "trackedAreasCount": "{count} áreas activas"
+    "trackedAreasCount": "{count} áreas activas",
+    "pathAlmostThereTitle": "¡Casi listo!",
+    "pathAlmostThere": "Estás a una lección de completar \"{title}\".",
+    "streakMilestoneTitle": "¡Racha de {count} días!",
+    "streakMilestoneBody": "Estás en una racha de aprendizaje de {count} días. ¡Sigue así!"
   },
   "achievements": {
     "title": "Logros",
@@ -639,7 +653,9 @@
     "scenarioChestPainBody": "Un ataque al corazón puede causar muchos síntomas diferentes, no solo un dolor fuerte en el pecho. Las señales de alerta incluyen dolor en la mandíbula, cuello, espalda o brazos, falta de aire repentina, sudoración fría inexplicable, náuseas o mareos. Estos síntomas pueden ser más comunes en mujeres, adultos mayores y personas con diabetes, pero cualquier persona puede experimentarlos. Si nota cualquiera de estos síntomas, no espere y no se automedique. En los Estados Unidos, llame al 911 de inmediato.",
     "scenarioChestPainLevel": "Señales de emergencia — 911 en EE. UU.",
     "whenInDoubtTitle": "Si no está seguro",
-    "whenInDoubtBody": "Si cree que puede estar teniendo una emergencia, use los servicios de emergencia locales. En los Estados Unidos eso es el 911. Para una crisis de salud mental o pensamientos de autolesión en los Estados Unidos, llame o envíe un mensaje de texto al 988 (Línea de Prevención del Suicidio y Crisis). Para preguntas sobre dosis dobles accidentales, confusión de medicamentos o sospecha de intoxicación en los Estados Unidos, llame a Poison Help (Centro de Control de Intoxicaciones) al 1-800-222-1222 (gratuito, confidencial, 24/7). Si la persona se desmaya, no respira o tiene una convulsión, llame primero al 911. Este sitio no puede decirle qué tan graves son sus síntomas ni a dónde debe ir."
+    "whenInDoubtBody": "Si cree que puede estar teniendo una emergencia, use los servicios de emergencia locales. En los Estados Unidos eso es el 911. Para una crisis de salud mental o pensamientos de autolesión en los Estados Unidos, llame o envíe un mensaje de texto al 988 (Línea de Prevención del Suicidio y Crisis). Para preguntas sobre dosis dobles accidentales, confusión de medicamentos o sospecha de intoxicación en los Estados Unidos, llame a Poison Help (Centro de Control de Intoxicaciones) al 1-800-222-1222 (gratuito, confidencial, 24/7). Si la persona se desmaya, no respira o tiene una convulsión, llame primero al 911. Este sitio no puede decirle qué tan graves son sus síntomas ni a dónde debe ir.",
+    "printEmergencyLine": "En emergencias médicas, llame al 911. En crisis de salud mental, llame o envíe un mensaje de texto al 988 (EE. UU.).",
+    "printFooter": "Impreso desde Health Made Clear (healthmadeclear.com) el {date}. Contenido educativo — no sustituye un diagnóstico clínico ni un consejo médico individualizado. En emergencias, llame al 911 (EE. UU.)."
   },
   "sectionNav": {
     "learn": "Aprender",
@@ -699,7 +715,10 @@
     "share": "Compartir",
     "shareOnX": "Compartir en X",
     "linkCopied": "Enlace copiado al portapapeles",
-    "linkCopyError": "No se pudo copiar el enlace"
+    "linkCopyError": "No se pudo copiar el enlace",
+    "sources": "Fuentes",
+    "reviewedBy": "Revisado por {name}",
+    "onThisPage": "En esta página"
   },
   "search": {
     "openSearch": "Abrir búsqueda",
@@ -714,7 +733,14 @@
     "typeTool": "Herramienta",
     "escapeKey": "ESC",
     "shortcutMac": "⌘K",
-    "shortcutWindows": "Ctrl K"
+    "shortcutWindows": "Ctrl K",
+    "loadingIndex": "Cargando búsqueda…",
+    "resultsFound": "{count} resultados encontrados",
+    "groupLessons": "Lecciones",
+    "groupPaths": "Rutas",
+    "groupArticles": "Artículos",
+    "groupGlossary": "Glosario",
+    "groupTools": "Herramientas"
   },
   "onboarding": {
     "welcome": "Bienvenido a Health Made Clear",
@@ -726,7 +752,8 @@
     "step3Title": "Encuentra lo que necesitas",
     "step3Body": "Usa la búsqueda para encontrar rápidamente el tema de salud que buscas.",
     "getStarted": "Comenzar",
-    "close": "Cerrar"
+    "close": "Cerrar",
+    "title": "Health Made Clear"
   },
   "auth": {
     "loginTitle": "Bienvenido de nuevo",
@@ -783,12 +810,14 @@
     "errorAuthFailed": "La autenticación falló. Por favor, inténtalo de nuevo.",
     "errorRateLimited": "Demasiados intentos de inicio de sesión. Espera unos minutos e inténtalo de nuevo.",
     "emailRequired": "Introduce tu correo electrónico.",
+    "errorEmailInvalid": "Introduce un correo electrónico válido.",
     "passwordRequired": "Introduce tu contraseña.",
     "showPassword": "Mostrar contraseña",
     "hidePassword": "Ocultar contraseña",
     "passwordStrengthLabel": "Seguridad de la contraseña",
     "resetSuccessTitle": "Contraseña actualizada",
-    "resetSuccessMessage": "Tu contraseña ha sido cambiada. Redirigiéndote para iniciar sesión…"
+    "resetSuccessMessage": "Tu contraseña ha sido cambiada. Redirigiéndote para iniciar sesión…",
+    "guestProgressWillSync": "Tu progreso de aprendizaje en este dispositivo se guardará en tu cuenta."
   },
   "terms": {
     "title": "Términos del Servicio",
@@ -875,6 +904,12 @@
     "home": "Ir al inicio",
     "notFoundTitle": "Página no encontrada",
     "notFoundBody": "La página que buscas no existe o ha sido movida.",
-    "goHome": "Ir al inicio"
+    "goHome": "Ir al inicio",
+    "tryAgain": "Intentar de nuevo",
+    "crashBody": "Ocurrió un error inesperado. Prueba a actualizar la página.",
+    "searchHint": "Prueba a buscar en el sitio, o explora las lecciones de la biblioteca."
+  },
+  "trust": {
+    "banner": "Educación en salud con fuentes listadas — lenguaje sencillo. No es consejo médico."
   }
 }

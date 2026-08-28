@@ -1,6 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
+import ClinicalCitationBlock from "@/components/content/ClinicalCitationBlock";
 import Reveal from "@/components/ui/Reveal";
 import KeyTakeaway from "@/components/ui/KeyTakeaway";
 import type { Lesson } from "@/types/lesson";
@@ -30,24 +31,14 @@ export default function LessonNotes({
         </Reveal>
       ) : null}
 
-      {lesson.lastReviewed || lesson.sources?.length ? (
+      {lesson.lastReviewed || lesson.reviewedBy || lesson.sources?.length ? (
         <Reveal delay={0.1} className="mt-8">
           <div className="surface-card-muted px-6 py-6 md:px-8">
-            {reviewedDate ? (
-              <p className="text-label-md text-on-surface-variant">
-                {t("lastReviewed")}: {reviewedDate}
-              </p>
-            ) : null}
-            {lesson.sources?.length ? (
-              <div className={reviewedDate ? "mt-4" : ""}>
-                <div className="font-semibold text-primary">{t("sources")}</div>
-                <ul className="mt-2 list-disc space-y-1 pl-5 text-label-md text-on-surface-variant">
-                  {lesson.sources.map((source) => (
-                    <li key={source}>{source}</li>
-                  ))}
-                </ul>
-              </div>
-            ) : null}
+            <ClinicalCitationBlock
+              sources={lesson.sources}
+              reviewedBy={lesson.reviewedBy}
+              lastReviewed={reviewedDate}
+            />
           </div>
         </Reveal>
       ) : null}

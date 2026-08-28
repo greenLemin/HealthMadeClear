@@ -102,6 +102,7 @@ export default function ToolsClient() {
           title={t("pageTitle")}
           description={t("pageDescription")}
           className="mb-8"
+          trust
         />
 
         <div className="mb-10">
