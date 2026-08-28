@@ -13,6 +13,18 @@ const LIMITS = {
   message: 5000,
 };
 
+const MAX_CONTACT_BYTES = 10240;
+
+function concatUint8(chunks: Uint8Array[], totalBytes: number): Uint8Array {
+  const out = new Uint8Array(totalBytes);
+  let offset = 0;
+  for (const chunk of chunks) {
+    out.set(chunk, offset);
+    offset += chunk.byteLength;
+  }
+  return out;
+}
+
 const RATE_LIMIT_WINDOW_MS = 10 * 60 * 1000; // 10 minutes
 const MAX_REQUESTS = 5;
 
@@ -80,8 +92,48 @@ export async function POST(request: Request) {
       );
     }
 
-    const body = await request.json();
-    const { name, email, subject, message, website } = body;
+    const cl = request.headers.get("content-length");
+    if (cl && Number(cl) > MAX_CONTACT_BYTES) {
+      return NextResponse.json({ error: "Payload too large" }, { status: 413 });
+    }
+    if (!request.body) {
+      return NextResponse.json({ error: "Invalid JSON" }, { status: 400 });
+    }
+    const reader = request.body.getReader();
+    const chunks: Uint8Array[] = [];
+    let totalBytes = 0;
+    try {
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        if (!value) continue;
+        totalBytes += value.byteLength;
+        if (totalBytes > MAX_CONTACT_BYTES) {
+          await reader.cancel();
+          return NextResponse.json({ error: "Payload too large" }, { status: 413 });
+        }
+        chunks.push(value);
+      }
+    } finally {
+      try {
+        reader.releaseLock();
+      } catch {
+        /* already canceled */
+      }
+    }
+    let payload: unknown;
+    try {
+      const text = new TextDecoder().decode(
+        chunks.length === 1 ? chunks[0] : concatUint8(chunks, totalBytes)
+      );
+      payload = JSON.parse(text);
+    } catch {
+      return NextResponse.json({ error: "Invalid JSON" }, { status: 400 });
+    }
+    if (payload === null || typeof payload !== "object" || Array.isArray(payload)) {
+      return NextResponse.json({ error: "Invalid JSON" }, { status: 400 });
+    }
+    const { name, email, subject, message, website } = payload as Record<string, unknown>;
 
     // Honeypot — any truthy value (including whitespace-only) indicates a bot
     // that filled the hidden field. Empty string / undefined is user intent clear.

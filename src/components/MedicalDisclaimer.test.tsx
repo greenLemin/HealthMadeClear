@@ -28,11 +28,13 @@ describe("MedicalDisclaimer", () => {
     renderComponent({ variant: "emergency" });
     expect(screen.getByText(en.disclaimer.emergencyTitle)).toBeInTheDocument();
     expect(screen.getByText(en.disclaimer.emergencyBody)).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: en.disclaimer.emergencyCallAria })).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: en.disclaimer.emergencyCallAria })).toHaveAttribute(
-      "href",
-      "tel:911"
-    );
+    expect(screen.getByText(en.disclaimer.emergencyRegionNote)).toBeInTheDocument();
+    const link = screen.getByRole("link", { name: en.disclaimer.emergencyCallAria });
+    expect(link).toBeInTheDocument();
+    expect(link).toHaveAttribute("href", "tel:911");
+    expect(link).toHaveTextContent(en.disclaimer.emergencyCall);
+    expect(link).toHaveTextContent(/911/);
+    expect(link).toHaveTextContent(/US/);
   });
 
   it("applies className prop to inline variant", () => {

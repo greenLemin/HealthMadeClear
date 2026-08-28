@@ -29,6 +29,7 @@ function CareOptionsSection() {
       title: t("homeCare"),
       description: t("homeCareBody"),
       checklist: t("homeCareChecklist"),
+      pediatricNote: t("homeCarePediatricNote"),
       tone: "border-outline-variant bg-surface",
       icon: Home,
     },
@@ -47,7 +48,7 @@ function CareOptionsSection() {
       icon: Hospital,
       iconColor: "text-on-secondary-container",
       titleColor: "text-on-secondary-container font-bold",
-      textColor: "text-on-secondary-container/90",
+      textColor: "text-on-secondary-container",
     },
     {
       title: t("emergency"),
@@ -88,6 +89,11 @@ function CareOptionsSection() {
                   {option.description}
                 </p>
                 <ChecklistItems items={option.checklist} textColor={option.textColor} />
+                {option.pediatricNote ? (
+                  <p className={`mt-4 text-body-md ${option.textColor || "text-on-surface-variant"}`}>
+                    {option.pediatricNote}
+                  </p>
+                ) : null}
               </article>
             </Reveal>
           );
@@ -116,7 +122,8 @@ function ScenariosSection() {
 
   return (
     <section className="mb-12">
-      <h2 className="mb-6 font-display text-headline-lg text-primary">{t("scenariosHeading")}</h2>
+      <h2 className="mb-3 font-display text-headline-lg text-primary">{t("scenariosHeading")}</h2>
+      <p className="mb-6 text-body-md text-on-surface-variant">{t("scenarioNotAdvice")}</p>
       <div className="grid gap-6 md:grid-cols-2">
         {scenarios.map((scenario, index) => (
           <Reveal key={scenario.title} delay={Math.min(index * 0.05, 0.1)}>
@@ -138,7 +145,6 @@ function ScenariosSection() {
 
 export default function CareGuideClient() {
   const t = useTranslations("tools");
-  const tDisclaimer = useTranslations("disclaimer");
 
   return (
     <div className="pb-16">
@@ -146,7 +152,7 @@ export default function CareGuideClient() {
         role="alert"
         className="no-print bg-error px-4 py-3 text-center text-label-md font-semibold text-on-error"
       >
-        {tDisclaimer("emergencyTitle")}: {t("emergencyShort")}
+        {t("emergencyShort")}
       </div>
       <div className="max-w-container mx-auto px-4 py-10 md:px-6 md:py-12">
         <PageHeader

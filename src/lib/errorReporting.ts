@@ -96,6 +96,26 @@ function scrubPII(text: string): string {
   return result;
 }
 
+function stripUrlQueryAndHash(url: string): string {
+  const cut = url.search(/[?#]/);
+  return cut === -1 ? url : url.slice(0, cut);
+}
+
+function stripEventUrls(event: {
+  request?: { url?: string };
+  breadcrumbs?: Array<{ data?: { url?: unknown } }>;
+}) {
+  if (typeof event.request?.url === "string") {
+    event.request.url = stripUrlQueryAndHash(event.request.url);
+  }
+  if (!event.breadcrumbs) return;
+  for (const crumb of event.breadcrumbs) {
+    if (crumb.data && typeof crumb.data.url === "string") {
+      crumb.data.url = stripUrlQueryAndHash(crumb.data.url);
+    }
+  }
+}
+
 export function reportClientError(error: unknown, context?: ErrorContext) {
   const normalized = error instanceof Error ? error : new Error(String(error));
   const safeContext = sanitizeContext(context);
@@ -119,6 +139,7 @@ export function reportClientError(error: unknown, context?: ErrorContext) {
             return breadcrumb;
           },
           beforeSend(event) {
+            stripEventUrls(event);
             // Scrub PII from error messages and stack traces
             if (event.message) {
               event.message = scrubPII(event.message);

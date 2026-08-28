@@ -28,3 +28,15 @@ test("root redirects to default locale", async ({ page }) => {
   await page.goto("/");
   await expect(page).toHaveURL(/\/en(\/|$)/);
 });
+
+test("privacy page states account data is stored", async ({ page }) => {
+  await page.goto("/en/privacy");
+  await waitForAppReady(page);
+  await expect(page.getByText(/quiz scores and answers/)).toBeVisible();
+});
+
+test("Spanish privacy page states account data is stored", async ({ page }) => {
+  await page.goto("/es/privacy");
+  await waitForAppReady(page);
+  await expect(page.getByText(/puntuaciones y respuestas de los cuestionarios/)).toBeVisible();
+});

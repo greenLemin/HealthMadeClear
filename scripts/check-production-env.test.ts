@@ -11,6 +11,7 @@ const SUPABASE_ENV_KEYS = [
   "SUPABASE_ANON_KEY",
   "SUPABASE_URL",
   "SUPABASE_DATABASE_URL",
+  "SUPABASE_SERVICE_ROLE_KEY",
 ] as const;
 
 function runCheck(env: Record<string, string | undefined>) {
@@ -18,6 +19,7 @@ function runCheck(env: Record<string, string | undefined>) {
   for (const key of SUPABASE_ENV_KEYS) {
     delete baseEnv[key];
   }
+  delete baseEnv.NETLIFY;
 
   return spawnSync(process.execPath, [scriptPath], {
     env: { ...baseEnv, ...env },
@@ -52,6 +54,7 @@ describe("check-production-env.mjs", () => {
       URL: "https://healthmadeclear.netlify.app",
       SUPABASE_URL: "https://example.supabase.co",
       SUPABASE_ANON_KEY: "legacy_anon_key_value",
+      SUPABASE_SERVICE_ROLE_KEY: "real_service_role_key_value",
     });
     expect(result.status).toBe(0);
   });
@@ -63,6 +66,7 @@ describe("check-production-env.mjs", () => {
       URL: "https://healthmadeclear.netlify.app",
       SUPABASE_DATABASE_URL: "https://xdmbyadosmzixsxqullj.supabase.co",
       SUPABASE_ANON_KEY: "real_anon_key_value",
+      SUPABASE_SERVICE_ROLE_KEY: "real_service_role_key_value",
     });
     expect(result.status).toBe(0);
   });
@@ -74,6 +78,7 @@ describe("check-production-env.mjs", () => {
       URL: "https://healthmadeclear.netlify.app",
       SUPABASE_DATABASE_URL: "postgresql://postgres.abc123:pw@db.abc123.supabase.co:5432/postgres",
       SUPABASE_ANON_KEY: "real_anon_key_value",
+      SUPABASE_SERVICE_ROLE_KEY: "real_service_role_key_value",
     });
     expect(result.status).toBe(0);
   });
@@ -95,6 +100,42 @@ describe("check-production-env.mjs", () => {
       CI: "true",
       NETLIFY: "true",
       URL: "https://healthmadeclear.org",
+      NEXT_PUBLIC_SUPABASE_URL: "https://example.supabase.co",
+      NEXT_PUBLIC_SUPABASE_ANON_KEY: "real_anon_key_value",
+      SUPABASE_SERVICE_ROLE_KEY: "real_service_role_key_value",
+    });
+    expect(result.status).toBe(0);
+  });
+
+  it("exits 1 when NETLIFY+CI and service role key is missing", () => {
+    const result = runCheck({
+      CI: "true",
+      NETLIFY: "true",
+      URL: "https://healthmadeclear.org",
+      NEXT_PUBLIC_SUPABASE_URL: "https://example.supabase.co",
+      NEXT_PUBLIC_SUPABASE_ANON_KEY: "real_anon_key_value",
+    });
+    expect(result.status).toBe(1);
+    expect(result.stderr).toContain("SUPABASE_SERVICE_ROLE_KEY must be set");
+  });
+
+  it("exits 1 when NETLIFY+CI and service role key is a placeholder", () => {
+    const result = runCheck({
+      CI: "true",
+      NETLIFY: "true",
+      URL: "https://healthmadeclear.org",
+      NEXT_PUBLIC_SUPABASE_URL: "https://example.supabase.co",
+      NEXT_PUBLIC_SUPABASE_ANON_KEY: "real_anon_key_value",
+      SUPABASE_SERVICE_ROLE_KEY: "placeholder_service_role_key",
+    });
+    expect(result.status).toBe(1);
+    expect(result.stderr).toContain("SUPABASE_SERVICE_ROLE_KEY must be set");
+  });
+
+  it("exits 0 on GitHub-style CI without NETLIFY even if service role is missing", () => {
+    const result = runCheck({
+      CI: "true",
+      NEXT_PUBLIC_SITE_URL: "https://healthmadeclear.org",
       NEXT_PUBLIC_SUPABASE_URL: "https://example.supabase.co",
       NEXT_PUBLIC_SUPABASE_ANON_KEY: "real_anon_key_value",
     });

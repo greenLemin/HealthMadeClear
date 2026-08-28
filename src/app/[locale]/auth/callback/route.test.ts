@@ -33,7 +33,7 @@ describe("GET /auth/callback", () => {
 
     expect(reportServerError).toHaveBeenCalledWith(expect.any(Error), { route: "auth/callback" });
     expect(res.status).toBe(307);
-    expect(res.headers.get("Location")).toContain("/auth/login?error=auth_failed");
+    expect(res.headers.get("Location")).toContain("/en/auth/login?error=auth_failed");
   });
 
   it("redirects to next param on success", async () => {
@@ -63,7 +63,7 @@ describe("GET /auth/callback", () => {
     const res = await GET(req);
 
     expect(res.status).toBe(307);
-    expect(res.headers.get("Location")).toContain("/auth/login?error=auth_failed");
+    expect(res.headers.get("Location")).toContain("/en/auth/login?error=auth_failed");
   });
 
   it("redirects to error if no code provided", async () => {
@@ -71,7 +71,15 @@ describe("GET /auth/callback", () => {
     const res = await GET(req);
 
     expect(res.status).toBe(307);
-    expect(res.headers.get("Location")).toContain("/auth/login?error=auth_failed");
+    expect(res.headers.get("Location")).toContain("/en/auth/login?error=auth_failed");
+  });
+
+  it("keeps locale on auth_failed for /es/auth/callback", async () => {
+    const req = new NextRequest("http://localhost/es/auth/callback");
+    const res = await GET(req);
+
+    expect(res.status).toBe(307);
+    expect(res.headers.get("Location")).toBe("http://localhost/es/auth/login?error=auth_failed");
   });
 
   it("redirects with rate_limited error if rate limit exceeded", async () => {
@@ -95,6 +103,27 @@ describe("GET /auth/callback", () => {
     const res = await GET(req);
 
     expect(res.status).toBe(307);
-    expect(res.headers.get("Location")).toContain("/auth/login?error=rate_limited");
+    expect(res.headers.get("Location")).toContain("/en/auth/login?error=rate_limited");
+  });
+
+  it("keeps locale on rate_limited for /es/auth/callback", async () => {
+    const mockSupabase = {
+      auth: {
+        exchangeCodeForSession: vi.fn().mockResolvedValue({ error: null }),
+      },
+    };
+    (createClient as any).mockResolvedValue(mockSupabase);
+
+    const esHeaders = { "x-forwarded-for": "10.0.0.2" };
+    for (let i = 0; i < 5; i++) {
+      await GET(new NextRequest("http://localhost/es/auth/callback?code=code" + i, { headers: esHeaders }));
+    }
+
+    const res = await GET(
+      new NextRequest("http://localhost/es/auth/callback?code=too_many", { headers: esHeaders })
+    );
+
+    expect(res.status).toBe(307);
+    expect(res.headers.get("Location")).toBe("http://localhost/es/auth/login?error=rate_limited");
   });
 });

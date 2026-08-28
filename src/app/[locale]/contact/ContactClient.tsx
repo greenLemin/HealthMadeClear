@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useTranslations } from "next-intl";
 import { Mail, User, MessageSquare, Send, Clock3, ShieldCheck, Accessibility } from "lucide-react";
 import PageHeader from "@/components/PageHeader";
@@ -26,6 +26,7 @@ export default function ContactClient() {
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const inFlight = useRef(false);
 
   function handleNameChange(value: string) {
     setName(value);
@@ -59,10 +60,12 @@ export default function ContactClient() {
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
+    if (inFlight.current) return;
     if (honeypot) return;
 
     if (!validate()) return;
 
+    inFlight.current = true;
     setSubmitting(true);
 
     try {
@@ -95,6 +98,7 @@ export default function ContactClient() {
     } catch {
       setErrors({ form: t("errorGeneric") });
     } finally {
+      inFlight.current = false;
       setSubmitting(false);
     }
   }

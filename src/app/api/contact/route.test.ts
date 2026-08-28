@@ -1,6 +1,11 @@
 import { describe, expect, it, vi, beforeEach } from "vitest";
 import { POST } from "./route";
 import { clearRateLimitStore } from "@/lib/rateLimit";
+import { reportServerError } from "@/lib/errorReporting";
+
+vi.mock("@/lib/errorReporting", () => ({
+  reportServerError: vi.fn(),
+}));
 
 function makeRequest(body: Record<string, unknown>, headers: Record<string, string> = {}): Request {
   return new Request("http://localhost/api/contact", {
@@ -15,6 +20,7 @@ describe("POST /api/contact", () => {
     vi.stubEnv("NEXT_PUBLIC_SUPABASE_URL", "https://test.supabase.co");
     vi.stubEnv("SUPABASE_SERVICE_ROLE_KEY", "test_service_key");
     clearRateLimitStore("contact");
+    vi.mocked(reportServerError).mockClear();
   });
 
   it("returns 400 for missing fields", async () => {
@@ -132,5 +138,70 @@ describe("POST /api/contact", () => {
       })
     );
     expect(res.status).toBe(400);
+  });
+
+  it("returns 400 for empty POST with no body and does not reportServerError", async () => {
+    const req = new Request("http://localhost/api/contact", {
+      method: "POST",
+      headers: { origin: "http://localhost:3000" },
+    });
+    const res = await POST(req);
+    expect(res.status).toBe(400);
+    expect(reportServerError).not.toHaveBeenCalled();
+  });
+
+  it("returns 400 for malformed JSON and does not reportServerError", async () => {
+    const req = new Request("http://localhost/api/contact", {
+      method: "POST",
+      headers: { origin: "http://localhost:3000", "content-type": "application/json" },
+      body: "{",
+    });
+    const res = await POST(req);
+    expect(res.status).toBe(400);
+    expect(reportServerError).not.toHaveBeenCalled();
+  });
+
+  it("returns 413 for Content-Length over 10KB without reading the body", async () => {
+    const getReader = vi.fn(() => {
+      throw new Error("should not read body");
+    });
+    const req = {
+      url: "http://localhost/api/contact",
+      headers: new Headers({ origin: "http://localhost:3000", "content-length": "20000" }),
+      body: { getReader },
+    } as unknown as Request;
+    const res = await POST(req);
+    expect(res.status).toBe(413);
+    expect(getReader).not.toHaveBeenCalled();
+    expect(reportServerError).not.toHaveBeenCalled();
+  });
+
+  it("returns 413 for an oversized stream without Content-Length and cancels the reader", async () => {
+    let cancelled = false;
+    let index = 0;
+    const chunk = new Uint8Array(10241);
+    const req = {
+      url: "http://localhost/api/contact",
+      headers: new Headers({ origin: "http://localhost:3000" }),
+      body: {
+        getReader() {
+          return {
+            async read() {
+              if (index > 0) return { done: true as const, value: undefined };
+              index += 1;
+              return { done: false as const, value: chunk };
+            },
+            async cancel() {
+              cancelled = true;
+            },
+            releaseLock() {},
+          };
+        },
+      },
+    } as unknown as Request;
+    const res = await POST(req);
+    expect(res.status).toBe(413);
+    expect(cancelled).toBe(true);
+    expect(reportServerError).not.toHaveBeenCalled();
   });
 });

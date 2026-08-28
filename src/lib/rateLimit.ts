@@ -1,6 +1,23 @@
 type RateLimitRecord = { count: number; resetAt: number };
 
+const STORE_CAP = 5000;
 const stores = new Map<string, Map<string, RateLimitRecord>>();
+
+function evictOldestUntilUnderCap(store: Map<string, RateLimitRecord>) {
+  while (store.size >= STORE_CAP) {
+    let oldestKey: string | undefined;
+    let oldestResetAt = Infinity;
+    for (const [key, value] of store.entries()) {
+      // Strict < keeps insertion-oldest on a resetAt tie (Map iteration order).
+      if (value.resetAt < oldestResetAt) {
+        oldestResetAt = value.resetAt;
+        oldestKey = key;
+      }
+    }
+    if (oldestKey === undefined) break;
+    store.delete(oldestKey);
+  }
+}
 
 function getStore(namespace: string) {
   let store = stores.get(namespace);
@@ -75,8 +92,13 @@ export function checkRateLimit(
     return { allowed: true };
   }
 
+  evictOldestUntilUnderCap(store);
   store.set(ip, { count: 1, resetAt: now + windowMs });
   return { allowed: true };
+}
+
+export function getRateLimitStoreSize(namespace: string): number {
+  return stores.get(namespace)?.size ?? 0;
 }
 
 export function clearRateLimitStore(namespace?: string) {

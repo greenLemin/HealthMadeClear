@@ -50,3 +50,11 @@ if (
   );
   process.exit(1);
 }
+
+if (process.env.NETLIFY === "true") {
+  const sr = process.env.SUPABASE_SERVICE_ROLE_KEY?.trim();
+  if (!sr || sr === "placeholder_service_role_key") {
+    console.error("SUPABASE_SERVICE_ROLE_KEY must be set for Netlify production/preview builds.");
+    process.exit(1);
+  }
+}

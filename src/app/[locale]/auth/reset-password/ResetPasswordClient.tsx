@@ -8,33 +8,76 @@ import Input from "@/components/ui/Input";
 import FormErrorAlert from "@/components/ui/FormErrorAlert";
 import { Lock } from "lucide-react";
 import { useAuthFormState } from "@/lib/auth/useAuthFormState";
+import { isOtpType } from "@/lib/auth/parseAuthRedirect";
+import { useAuth } from "@/hooks/useAuth";
 
 export default function ResetPasswordClient() {
   const t = useTranslations("auth");
   const router = useRouter();
   const { error, setError, clearError, supabase } = useAuthFormState();
+  const { user, loading: authLoading } = useAuth();
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [fieldErrors, setFieldErrors] = useState<{ password?: string; confirm?: string }>({});
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [consumeFailed, setConsumeFailed] = useState(false);
   const successHeadingRef = useRef<HTMLHeadingElement>(null);
+  const exchangedRef = useRef(false);
+  const linkErrorRef = useRef(false);
 
   useEffect(() => {
-    const params = new URLSearchParams(window.location.hash.substring(1));
-    const code = params.get("code");
+    const search = new URLSearchParams(window.location.search);
+    const hash = new URLSearchParams(window.location.hash.replace(/^#/, ""));
+    const code = search.get("code") || hash.get("code");
+    const tokenHash = search.get("token_hash") || hash.get("token_hash");
+    const type = search.get("type") || hash.get("type");
+    const canConsume = Boolean(code || (tokenHash && isOtpType(type)));
 
-    if (!code) {
-      setError(t("errorGeneric"));
+    if (canConsume) {
+      if (exchangedRef.current) return;
+      exchangedRef.current = true;
+      // Strip query and hash before the async call so a retrigger cannot re-consume.
+      window.history.replaceState({}, "", window.location.pathname);
+
+      // Defer so a sync throw (missing verifyOtp, etc.) becomes a rejection, not an
+      // error boundary, and setState is not in the effect body.
+      void Promise.resolve()
+        .then(async () => {
+          const result = code
+            ? await supabase.auth.exchangeCodeForSession(code)
+            : isOtpType(type)
+              ? await supabase.auth.verifyOtp({ token_hash: tokenHash!, type })
+              : { error: { message: "invalid_otp_type" } };
+          if (result.error) setConsumeFailed(true);
+        })
+        .catch(() => {
+          setConsumeFailed(true);
+        });
       return;
     }
 
-    supabase.auth.exchangeCodeForSession(code).then(({ error: exchangeError }) => {
-      if (exchangeError) {
-        setError(t("errorGeneric"));
+    if (exchangedRef.current && !consumeFailed) return;
+
+    if (authLoading) return;
+
+    if (user) {
+      if (linkErrorRef.current) {
+        clearError();
+        linkErrorRef.current = false;
       }
-    });
-  }, [supabase, t, setError]);
+      return;
+    }
+
+    if (consumeFailed) {
+      setError(t("errorGeneric"));
+      linkErrorRef.current = true;
+      return;
+    }
+
+    setError(t("errorInvalidResetLink"));
+    linkErrorRef.current = true;
+  }, [supabase, t, setError, clearError, user, authLoading, consumeFailed]);
 
   useEffect(() => {
     if (!submitted) return;

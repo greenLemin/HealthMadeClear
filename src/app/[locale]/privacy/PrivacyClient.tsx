@@ -5,11 +5,19 @@ import Reveal from "@/components/ui/Reveal";
 import { Database, Settings2, ShieldCheck } from "lucide-react";
 import { useTranslations } from "next-intl";
 
+const COLLECT_KEYS = [
+  "collectBody",
+  "collectBodyGuest",
+  "collectBodyAccount",
+  "collectBodyContact",
+  "collectBodyAnalytics",
+  "collectBodyErrors",
+] as const;
+
 export default function PrivacyClient() {
   const t = useTranslations("privacy");
   const sections = [
     { title: t("educationTitle"), body: t("educationBody"), icon: ShieldCheck },
-    { title: t("collectTitle"), body: t("collectBody"), icon: Database },
     { title: t("controlTitle"), body: t("controlBody"), icon: Settings2 },
   ];
 
@@ -19,7 +27,7 @@ export default function PrivacyClient() {
         <PageHeader centered title={t("title")} description={t("description")} className="mb-8" />
 
         <div className="mx-auto max-w-5xl">
-          <div className="grid gap-5 md:grid-cols-3">
+          <div className="grid gap-5 md:grid-cols-2">
             {sections.map((section, index) => {
               const Icon = section.icon;
               return (
@@ -35,6 +43,20 @@ export default function PrivacyClient() {
               );
             })}
           </div>
+
+          <Reveal delay={0.1} className="mt-5">
+            <section className="surface-card px-6 py-6 md:px-7">
+              <div className="flex h-12 w-12 items-center justify-center rounded-full bg-surface-container text-primary shadow-elevation-1">
+                <Database size={18} />
+              </div>
+              <h2 className="mt-4 font-display text-headline-sm text-primary">{t("collectTitle")}</h2>
+              {COLLECT_KEYS.map((key) => (
+                <p key={key} className="mt-3 text-body-md text-on-surface-variant">
+                  {key === "collectBodyContact" ? t(key, { privacyEmail: t("privacyEmail") }) : t(key)}
+                </p>
+              ))}
+            </section>
+          </Reveal>
 
           <Reveal delay={0.14} className="mt-8">
             <section className="surface-card-glass px-6 py-6 text-center md:px-8">

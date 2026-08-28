@@ -11,6 +11,25 @@ test("signup form renders required fields", async ({ page }) => {
   await expect(page.getByRole("button", { name: /create account/i })).toBeVisible();
 });
 
+test("reset-password without params shows an invalid-link alert", async ({ page }) => {
+  await page.goto("/en/auth/reset-password");
+  await waitForAppReady(page);
+
+  await expect(
+    page.getByRole("alert").filter({ hasText: /invalid or has expired|something went wrong/i })
+  ).toBeVisible();
+  await expect(page.getByRole("heading", { level: 1, name: /password updated/i })).toHaveCount(0);
+});
+
+test("reset-password page renders the Spanish heading", async ({ page }) => {
+  await page.goto("/es/auth/reset-password");
+  await waitForAppReady(page);
+
+  await expect(
+    page.getByRole("heading", { level: 1, name: /establece una nueva contraseña/i })
+  ).toBeVisible();
+});
+
 test("forgot-password form submits and shows confirmation", async ({ page }) => {
   await page.goto("/en/auth/forgot-password");
   await waitForAppReady(page);

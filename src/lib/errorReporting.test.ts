@@ -138,6 +138,38 @@ describe("reportClientError", () => {
       expect(Sentry.captureException).not.toHaveBeenCalled();
     });
 
+    it("strips query and hash from request and breadcrumb URLs in beforeSend", async () => {
+      vi.stubGlobal("window", {} as Window & typeof globalThis);
+
+      reportClientError("Prod Error");
+      await new Promise((resolve) => setTimeout(resolve, 0));
+
+      const initCall = vi.mocked(Sentry.init).mock.calls[0]![0];
+      expect(initCall?.beforeSend).toBeDefined();
+
+      const event = {
+        request: {
+          url: "https://example.com/en/learn/understanding-prescription-labels?code=abc#access_token=secret",
+        },
+        breadcrumbs: [
+          {
+            data: {
+              url: "https://example.com/en/learn/understanding-prescription-labels?q=1#access_token=secret",
+            },
+          },
+        ],
+      };
+      const result = initCall!.beforeSend!(event as unknown as Sentry.ErrorEvent, {} as Sentry.EventHint);
+
+      expect(result).toBe(event);
+      expect(event.request.url).toBe("https://example.com/en/learn/understanding-prescription-labels");
+      expect(event.request.url).not.toContain("#access_token=");
+      expect(event.request.url).not.toContain("?");
+      expect(event.breadcrumbs[0]?.data?.url).toBe(
+        "https://example.com/en/learn/understanding-prescription-labels"
+      );
+    });
+
     it("initializes Sentry and captures exception", async () => {
       // Simulate browser environment
       vi.stubGlobal("window", {} as Window & typeof globalThis);

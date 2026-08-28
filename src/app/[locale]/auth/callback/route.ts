@@ -1,24 +1,22 @@
 import { type NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { sanitizeRedirectPath } from "@/lib/auth/sanitizeRedirect";
+import { getLocaleFromPathname, loginErrorUrl } from "@/lib/auth/parseAuthRedirect";
 import { getClientIp } from "@/lib/rateLimit";
 import { checkRateLimitDistributed } from "@/lib/rateLimitDistributed";
 import { reportServerError } from "@/lib/errorReporting";
 
 export async function GET(request: NextRequest) {
+  const locale = getLocaleFromPathname(request.nextUrl.pathname);
+  const origin = request.nextUrl.origin;
+
   const limit = await checkRateLimitDistributed("auth-callback", getClientIp(request), 5, 60_000);
   if (!limit.allowed) {
-    return NextResponse.redirect(new URL("/auth/login?error=rate_limited", request.url));
+    return NextResponse.redirect(loginErrorUrl(origin, locale, "rate_limited"));
   }
 
-  const { searchParams } = new URL(request.url);
-  const code = searchParams.get("code");
-  const pathname =
-    (request as unknown as { nextUrl?: { pathname: string } }).nextUrl?.pathname ??
-    new URL(request.url).pathname;
-  const localePart = pathname.split("/")[1];
-  const locale = ["en", "es"].includes(localePart || "") ? localePart! : "en";
-  const next = sanitizeRedirectPath(searchParams.get("next"), `/${locale}/dashboard`);
+  const code = request.nextUrl.searchParams.get("code");
+  const next = sanitizeRedirectPath(request.nextUrl.searchParams.get("next"), `/${locale}/dashboard`);
 
   if (code) {
     try {
@@ -34,5 +32,5 @@ export async function GET(request: NextRequest) {
     }
   }
 
-  return NextResponse.redirect(new URL("/auth/login?error=auth_failed", request.url));
+  return NextResponse.redirect(loginErrorUrl(origin, locale, "auth_failed"));
 }

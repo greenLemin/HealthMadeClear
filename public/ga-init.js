@@ -12,6 +12,6 @@
 
   gtag("config", id, {
     page_path: window.location.pathname,
-    anonymize_ip: true,
+    page_location: window.location.origin + window.location.pathname,
   });
 })();

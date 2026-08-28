@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 import { Search } from "lucide-react";
 import ArticleCard from "@/components/articles/ArticleCard";
+import MedicalDisclaimer from "@/components/MedicalDisclaimer";
 import PageHeader from "@/components/PageHeader";
 import Button from "@/components/ui/Button";
 import EmptyState from "@/components/ui/EmptyState";
@@ -86,6 +87,8 @@ export default function ArticlesClient({ articles }: Props) {
             action={{ label: t("clearSearch"), onClick: () => setQuery("") }}
           />
         )}
+
+        <MedicalDisclaimer />
       </div>
     </div>
   );

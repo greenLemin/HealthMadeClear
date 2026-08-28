@@ -23,13 +23,16 @@ export default function MedicalDisclaimer({
           <h2 className="mb-2 text-label-lg text-error">{t("emergencyTitle")}</h2>
           <p className="text-body-md text-on-error-container">{t("emergencyBody")}</p>
         </div>
-        <a
-          href="tel:911"
-          className={getButtonClasses({ className: "mt-4 inline-flex items-center justify-center md:mt-0" })}
-          aria-label={t("emergencyCallAria")}
-        >
-          {t("emergencyCall")}
-        </a>
+        <div className="mt-4 md:mt-0">
+          <a
+            href="tel:911"
+            className={getButtonClasses({ className: "inline-flex items-center justify-center" })}
+            aria-label={t("emergencyCallAria")}
+          >
+            {t("emergencyCall")}
+          </a>
+          <p className="mt-2 text-label-md text-on-error-container">{t("emergencyRegionNote")}</p>
+        </div>
       </div>
     );
   }

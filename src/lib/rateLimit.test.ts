@@ -1,5 +1,5 @@
 import { describe, expect, it, beforeEach } from "vitest";
-import { checkRateLimit, clearRateLimitStore, getClientIp } from "./rateLimit";
+import { checkRateLimit, clearRateLimitStore, getClientIp, getRateLimitStoreSize } from "./rateLimit";
 
 describe("rateLimit", () => {
   beforeEach(() => {
@@ -31,6 +31,17 @@ describe("rateLimit", () => {
       checkRateLimit("a", ip, 5, 60_000);
     }
     expect(checkRateLimit("b", ip, 5, 60_000)).toEqual({ allowed: true });
+  });
+
+  it("caps the in-memory store at 5000 IPs per namespace", () => {
+    for (let i = 0; i < 5001; i++) {
+      expect(checkRateLimit("cap", `10.1.${Math.floor(i / 256)}.${i % 256}`, 5, 60_000)).toEqual({
+        allowed: true,
+      });
+    }
+    expect(getRateLimitStoreSize("cap")).toBeLessThanOrEqual(5000);
+    expect(checkRateLimit("cap", "10.2.0.1", 5, 60_000)).toEqual({ allowed: true });
+    expect(getRateLimitStoreSize("cap")).toBeLessThanOrEqual(5000);
   });
 });
 
