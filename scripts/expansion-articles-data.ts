@@ -411,9 +411,12 @@ Use registro simple o app para medicamentos "según necesidad" y no exceder lím
     category: "Emergency",
     readingTime: "6 min",
     en: {
-      title: "When to Call Your Doctor vs Urgent Care vs 911",
-      description: "A simple decision guide for non-emergency symptoms.",
+      title: "Doctor visits, urgent care, and 911: how settings differ",
+      description:
+        "Educational overview of care settings for non-emergency symptoms. This page does not tell you where to go.",
       body: `## Call 911 or Go to ER
+
+This article explains how care settings differ. It is not a recommendation for where you should go.
 
 - Chest pain or pressure
 - Trouble breathing
@@ -444,9 +447,12 @@ Many clinics offer nurse triage lines — describe symptoms and they advise timi
 Err toward safer care. It is OK to go to ER; it is also OK to call 911 for guidance.`,
     },
     es: {
-      title: "Cuándo llamar al médico vs urgencias vs 911",
-      description: "Guía simple para síntomas no emergentes.",
+      title: "Consultas médicas, urgencias y 911: cómo se diferencian",
+      description:
+        "Resumen educativo de los lugares de atención para síntomas que no son de emergencia. Esta página no le indica a dónde ir.",
       body: `## Llame 911 o vaya a emergencias
+
+Este artículo explica cómo se diferencian los lugares de atención. No es una recomendación sobre a dónde ir.
 
 - Dolor u opresión de pecho
 - Dificultad para respirar

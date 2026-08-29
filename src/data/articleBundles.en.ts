@@ -495,8 +495,9 @@ export const articles: Article[] = [
   },
   {
     id: "when-to-call-your-doctor",
-    title: "When to Call Your Doctor vs Urgent Care vs 911",
-    description: "A simple decision guide for non-emergency symptoms.",
+    title: "Doctor visits, urgent care, and 911: how settings differ",
+    description:
+      "Educational overview of care settings for non-emergency symptoms. This page does not tell you where to go.",
     category: "Emergency",
     readingTime: "6 min",
     lastReviewed: "2026-06-11",
@@ -507,7 +508,7 @@ export const articles: Article[] = [
         {
           title: "Call 911 or Go to ER",
           content:
-            "- Chest pain or pressure\n- Trouble breathing\n- Stroke signs (FAST: face, arm, speech, time)\n- Severe bleeding or unconsciousness\n- Suicidal thoughts with a plan",
+            "This article explains how care settings differ. It is not a recommendation for where you should go.\n\n- Chest pain or pressure\n- Trouble breathing\n- Stroke signs (FAST: face, arm, speech, time)\n- Severe bleeding or unconsciousness\n- Suicidal thoughts with a plan",
         },
         {
           title: "Urgent Care (Same Day)",

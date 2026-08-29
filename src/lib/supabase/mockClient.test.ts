@@ -134,6 +134,13 @@ describe("mockClient", () => {
     expect(exchangeRes.error).toBeNull();
     expect(exchangeRes.data.user?.email).toBe("casey@example.com");
 
+    await client.auth.signOut();
+    const otpRes = await client.auth.verifyOtp({ token_hash: "mock-confirm", type: "email" });
+    expect(otpRes.error).toBeNull();
+    expect(otpRes.data.user?.email).toBe("casey@example.com");
+    const badOtp = await client.auth.verifyOtp({ token_hash: "not-a-code", type: "recovery" });
+    expect(badOtp.error).not.toBeNull();
+
     const updateRes = await client.auth.updateUser({
       password: "new-password-123",
       data: { display_name: "Casey Ray" },

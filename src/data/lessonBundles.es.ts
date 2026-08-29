@@ -50,7 +50,7 @@ export const lessons: Lesson[] = [
             {
               type: "warning",
               content:
-                "Nunca tomes más de la cantidad indicada. Si olvidas una dosis, pregunta a tu farmacéutico qué debes hacer.\n\nSi la persona se desmaya, no respira o tiene una convulsión, llame primero al 911. Para preguntas sobre dosis dobles accidentales, confusión de medicamentos o sospecha de intoxicación, llame a Poison Help (Centro de Control de Intoxicaciones de EE. UU.) al 1-800-222-1222 (gratuito, confidencial, 24/7).",
+                "Nunca tome más de la cantidad indicada. Si olvida una dosis, pregunte a su farmacéutico qué debe hacer.\n\nSi la persona se desmaya, no respira o tiene una convulsión, llame primero al 911. Para preguntas sobre dosis dobles accidentales, confusión de medicamentos o sospecha de intoxicación, llame a Poison Help (Centro de Control de Intoxicaciones de EE. UU.) al 1-800-222-1222 (gratuito, confidencial, 24/7).",
             },
           ],
         },

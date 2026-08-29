@@ -17,7 +17,9 @@ Supabase client configuration and environment handling.
 - `mock/normalizers.ts`: Data normalization and migration helpers for cookie persistence
 - `mock/store.ts`: Storage persistence handlers (cookie/document) and user/session builders
 - `mock/queryBuilder.ts`: In-memory query builder, filtering, ordering, pagination, and table mutations
-- `mock/auth.ts`: In-memory Supabase Auth implementation with event emitter support
+- `mock/auth.ts`: In-memory Supabase Auth (`exchangeCodeForSession`, `verifyOtp`, password reset/confirm codes)
+- `schema.ts`: PostgREST `onConflict` targets (`QUIZ_ATTEMPTS_ON_CONFLICT`, `LESSON_PROGRESS_ON_CONFLICT`)
+- `schema.test.ts`: Asserts conflict targets match the intended unique columns
 
 ## Integration
 

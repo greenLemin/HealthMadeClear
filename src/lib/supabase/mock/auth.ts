@@ -22,6 +22,40 @@ export function emitAuthStateChange(event: AuthChangeEvent, session: Session | n
 }
 
 export function createMockAuth(cookieStore?: CookieStore) {
+  async function consumeAuthCode(code?: string) {
+    const db = getMockDb(cookieStore);
+    const account = db.auth.account;
+    const validCodes = [
+      account.pending_reset_code,
+      account.pending_confirm_code,
+      MOCK_RESET_CODE,
+      MOCK_CONFIRM_CODE,
+    ].filter((value): value is string => typeof value === "string" && value.length > 0);
+
+    if (!code || !validCodes.includes(code)) {
+      return {
+        data: { session: null, user: null },
+        error: createMockAuthError("Invalid or expired code"),
+      };
+    }
+
+    account.confirmed = true;
+    if (code === account.pending_reset_code || code === MOCK_RESET_CODE) {
+      account.pending_reset_code = null;
+    }
+    if (code === account.pending_confirm_code || code === MOCK_CONFIRM_CODE) {
+      account.pending_confirm_code = null;
+    }
+
+    db.auth.current_user_id = account.id;
+    syncProfileFromAccount(db, account);
+    saveMockDb(db, cookieStore);
+
+    const session = buildMockSession(account);
+    emitAuthStateChange("SIGNED_IN", session as unknown as Session);
+    return { data: { session, user: session.user }, error: null };
+  }
+
   return {
     async getUser() {
       const db = getMockDb(cookieStore);
@@ -137,37 +171,10 @@ export function createMockAuth(cookieStore?: CookieStore) {
       return { data: {}, error: null };
     },
     async exchangeCodeForSession(code?: string) {
-      const db = getMockDb(cookieStore);
-      const account = db.auth.account;
-      const validCodes = [
-        account.pending_reset_code,
-        account.pending_confirm_code,
-        MOCK_RESET_CODE,
-        MOCK_CONFIRM_CODE,
-      ].filter((value): value is string => typeof value === "string" && value.length > 0);
-
-      if (!code || !validCodes.includes(code)) {
-        return {
-          data: { session: null, user: null },
-          error: createMockAuthError("Invalid or expired code"),
-        };
-      }
-
-      account.confirmed = true;
-      if (code === account.pending_reset_code || code === MOCK_RESET_CODE) {
-        account.pending_reset_code = null;
-      }
-      if (code === account.pending_confirm_code || code === MOCK_CONFIRM_CODE) {
-        account.pending_confirm_code = null;
-      }
-
-      db.auth.current_user_id = account.id;
-      syncProfileFromAccount(db, account);
-      saveMockDb(db, cookieStore);
-
-      const session = buildMockSession(account);
-      emitAuthStateChange("SIGNED_IN", session as unknown as Session);
-      return { data: { session, user: session.user }, error: null };
+      return consumeAuthCode(code);
+    },
+    async verifyOtp(params?: { token_hash?: string; type?: string; token?: string }) {
+      return consumeAuthCode(params?.token_hash ?? params?.token);
     },
     async updateUser(updates?: { password?: string; data?: { display_name?: string } }) {
       const db = getMockDb(cookieStore);

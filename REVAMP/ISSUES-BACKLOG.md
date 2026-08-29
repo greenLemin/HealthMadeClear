@@ -24,25 +24,25 @@ Production history includes `20260825133455` / `create_test_file`. Harmless for 
 
 **Found:** Phase 1  
 **Severity:** Low  
-**Status:** open
+**Status:** done
 
-Phase 1 file scope listed `supabase/codemap.md` only. `src/lib/supabase/schema.ts` and `schema.test.ts` exist but are absent from `src/lib/supabase/codemap.md`. Update that map in a docs-only follow-up.
+`src/lib/supabase/codemap.md` lists `schema.ts` and `schema.test.ts`.
 
 ## P2-1 — Mock auth has no `verifyOtp`
 
 **Found:** Phase 2 (2026-08-28)  
 **Severity:** Medium (local/dev only)  
-**Status:** open
+**Status:** done
 
-`src/lib/supabase/mock/auth.ts` implements `exchangeCodeForSession` but not `verifyOtp`. Phase 2 client now calls `verifyOtp` for `token_hash` recovery. Local mock-client recovery links that still use OTP templates will throw. Out of Phase 2 file scope. Add `verifyOtp` on the mock in a later auth/mock phase.
+`createMockAuth` `verifyOtp` consumes `token_hash` / `token` on the same path as `exchangeCodeForSession`. Covered in `mockClient.test.ts`.
 
 ## P2-2 — Auth codemaps omit `parseAuthRedirect.ts`
 
 **Found:** Phase 2  
 **Severity:** Low  
-**Status:** open
+**Status:** done
 
-Phase 2 file scope did not include maps. `src/lib/auth/codemap.md` still lists only `requireAuth.ts` and `sanitizeRedirect.ts`. `src/app/[locale]/auth/codemap.md` still names `callback/page.tsx` and `confirm/page.tsx` though those routes are `route.ts`. Docs-only follow-up.
+`src/lib/auth/codemap.md` lists `parseAuthRedirect.ts`. Auth app map names `callback/route.ts` and `confirm/route.ts`.
 
 ## P2-3 — Playwright Firefox/WebKit binaries missing locally
 
@@ -64,17 +64,17 @@ Phase 2 §5.2 step 5: dashboard templates must point confirmation at `/{locale}/
 
 **Found:** Phase 2  
 **Severity:** Medium (agent contract)  
-**Status:** open
+**Status:** done
 
-Workspace `REVAMP/` on disk had only `ISSUES-BACKLOG.md`. Phase 2 contract was recovered from `origin/cursor/plan-v10-0f7a` (`f7c112ed`). Later phase agents will miss the plan unless that file is copied onto the implementation branch or the plan branch is merged.
+`REVAMP/PLAN.v10.md` is on `main` (`90aaad56`).
 
 ## P3-1 — Contact sidebar still says “local storage”
 
 **Found:** Phase 3 (2026-08-28)  
 **Severity:** Low (copy drift)  
-**Status:** open
+**Status:** done
 
-`contact.supportPrivacyBody` still reads as questions about “data, local storage, and account preferences.” Privacy copy now says Contact messages live on the server and are not deleted with the account. Out of Phase 3 file scope (`contact.*` keys were not in §6.1). Update that string in a copy follow-up so the contact page does not undercut `/privacy`.
+`contact.supportPrivacyBody` now names Contact messages stored on the server. ES uses _usted_.
 
 ## P3-2 — PostgREST anon INSERT still open until `014` applies
 
@@ -88,51 +88,49 @@ Phase 3 contact path is the Next route + env gate only. Live `contact_submission
 
 **Found:** Phase 3  
 **Severity:** Low (docs/scope)  
-**Status:** open
+**Status:** done
 
-§6.1 listed `src/app/[locale]/privacy/page.tsx`. That file only sets locale + mounts `PrivacyClient`. New collect paragraphs had to go in `PrivacyClient.tsx`. Codemap still describes the folder as a generic privacy page. Docs-only follow-up if maps should name the client.
+`src/app/[locale]/privacy/codemap.md` names `PrivacyClient.tsx`. Locale `codemap.md` already did.
 
 ## P4-1 — Tools index still asks “Where should I go?”
 
 **Found:** Phase 4 (2026-08-28)  
 **Severity:** Medium (copy drift vs care-guide)  
-**Status:** open
+**Status:** done
 
-§7.2 rewrote `careGuideTitle` to “How care settings differ.” `/en/tools` still uses `tools.careTitle` (“Where should I go?”) and ES `¿Dónde debo ir?` as the card that links to the care guide. Those keys were not in the Phase 4 inventory. Follow-up copy so the tools index does not reintroduce a triage promise.
+`tools.careTitle` matches `careGuideTitle` (EN/ES). Card no longer asks where to go.
 
 ## P4-2 — Articles catalog still titles a 911 “decision guide”
 
 **Found:** Phase 4  
 **Severity:** Medium (content vs liability framing)  
-**Status:** open
+**Status:** done
 
-`/en/articles` now shows `MedicalDisclaimer`, but the catalog still lists “When to Call Your Doctor vs Urgent Care vs 911” with description “A simple decision guide for non-emergency symptoms.” Article MDX is out of Phase 4 file scope (closer to Phase 8). Review that article so it does not undercut the care-guide “not a recommendation” voice.
-
-Phase 8 (2026-08-28) confirmed this is still live on `/en/articles`. Validator already passed (sources/reviewedBy present), so the required MDX inventory did not include a rewrite. Leave for a copy follow-up.
+`when-to-call-your-doctor` title/description (EN+ES) drop “decision guide” / triage promise. Lead sentence states the page is not a recommendation. 911 lists unchanged.
 
 ## P4-3 — Disclaimer emergency strings still informal _tú_ in ES
 
 **Found:** Phase 4  
 **Severity:** Low (voice)  
-**Status:** open
+**Status:** done
 
-Care-guide `tools.*` copy now uses _usted_. `disclaimer.emergencyTitle` / `emergencyBody` still use _tú_ (“¿Tienes una emergencia médica?”, “No dependas… Llama…”). Phase 4 only rewrote `emergencyCall` (+ optional `emergencyRegionNote`). Align remaining disclaimer emergency keys in a copy follow-up.
+`disclaimer.emergencyTitle` / `emergencyBody` now use _usted_.
 
 ## P6-1 — `supabase/codemap.md` still lists 015 as pending
 
 **Found:** Phase 6 (2026-08-28)  
 **Severity:** Low (docs)  
-**Status:** open
+**Status:** done
 
-Phase 6 moved `015_quiz_attempts_best_score.sql` into `supabase/migrations/` and added `supabase/rollback/015_emergency.sql`. File scope did not include `supabase/codemap.md`, which still describes 015 as pending and lists migrations through 014.
+`supabase/codemap.md` lists `migrations/015_quiz_attempts_best_score.sql` and `rollback/015_emergency.sql`. Apply remains P6-3.
 
 ## P6-2 — `src/lib/codemap.md` omits `quizScore.ts`
 
 **Found:** Phase 6  
 **Severity:** Low (docs)  
-**Status:** open
+**Status:** done
 
-New `src/lib/quizScore.ts` (pass ratio, normalize, percent, lesson quiz ids) is out of the lib atlas. Docs-only follow-up.
+`src/lib/codemap.md` lists `quizScore.ts`.
 
 ## P6-3 — Production `015` apply is post-Published, not this PR
 
@@ -146,9 +144,9 @@ New `src/lib/quizScore.ts` (pass ratio, normalize, percent, lesson quiz ids) is 
 
 **Found:** Phase 8 (2026-08-28)  
 **Severity:** Low (voice)  
-**Status:** open
+**Status:** done
 
-`content/lessons/es/understanding-prescription-labels.mdx` dosage `:::warning` still opens with HEAD _tú_ (“Nunca tomes más de la cantidad indicada”). Phase 8 v10 paste adds _usted_ (“llame primero al 911”). Same callout, two registers. Follow-up should pick one voice; do not change the required 911-first / `1-800-222-1222` facts.
+Dosage `:::warning` now uses _usted_ throughout. 911-first and `1-800-222-1222` unchanged.
 
 ## P10-path — NavLink lives in `header/NavLink.tsx`, not inline in Header
 
@@ -330,9 +328,9 @@ If `P14-1` still shows ES strings in the EN client after the leftover importers 
 
 **Found:** Phase 14 (2026-08-28)  
 **Severity:** Low (test contract)  
-**Status:** open
+**Status:** done
 
-`useProgress.test.tsx` mock was updated for `loadPathsForLocale`. That mock is required or the suite fails. Any later loader rename must keep the test mock in lockstep.
+`useProgress.test.tsx` mocks `loadPathsForLocale`. Later loader renames must keep that mock in lockstep.
 
 ## P15-4 — Care-guide print footer date is mount-time
 

@@ -494,8 +494,9 @@ export const articles: Article[] = [
   },
   {
     id: "when-to-call-your-doctor",
-    title: "Cuándo llamar al médico vs urgencias vs 911",
-    description: "Guía simple para síntomas no emergentes.",
+    title: "Consultas médicas, urgencias y 911: cómo se diferencian",
+    description:
+      "Resumen educativo de los lugares de atención para síntomas que no son de emergencia. Esta página no le indica a dónde ir.",
     category: "Emergency",
     readingTime: "6 min",
     lastReviewed: "2026-06-11",
@@ -506,7 +507,7 @@ export const articles: Article[] = [
         {
           title: "Llame 911 o vaya a emergencias",
           content:
-            "- Dolor u opresión de pecho\n- Dificultad para respirar\n- Signos de ACV (FAST: cara, brazo, habla, tiempo)\n- Sangrado severo o inconsciencia\n- Pensamientos suicidas con plan",
+            "Este artículo explica cómo se diferencian los lugares de atención. No es una recomendación sobre a dónde ir.\n\n- Dolor u opresión de pecho\n- Dificultad para respirar\n- Signos de ACV (FAST: cara, brazo, habla, tiempo)\n- Sangrado severo o inconsciencia\n- Pensamientos suicidas con plan",
         },
         {
           title: "Atención urgente (mismo día)",

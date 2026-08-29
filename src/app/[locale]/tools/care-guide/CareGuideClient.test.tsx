@@ -34,6 +34,11 @@ describe("CareGuideClient", () => {
     expect(screen.getByRole("heading", { level: 1, name: en.tools.careGuideTitle })).toBeInTheDocument();
   });
 
+  it("keeps tools index card title aligned with care-guide heading", () => {
+    expect(en.tools.careTitle).toBe(en.tools.careGuideTitle);
+    expect(es.tools.careTitle).toBe(es.tools.careGuideTitle);
+  });
+
   it("renders the emergency alert banner without duplicated question prefix", () => {
     renderCareGuide();
     const bannerEn = screen.getByRole("alert");

@@ -530,7 +530,7 @@
     "pageDescription": "Navigating healthcare does not have to be confusing. Use these practical tools to prepare for visits, understand care options, and ask better questions.",
     "askTitle": "What should I ask?",
     "askDescription": "Generate a personalized list of questions to bring to your next doctor's appointment.",
-    "careTitle": "Where should I go?",
+    "careTitle": "How care settings differ",
     "careDescription": "Compare home care, primary care, urgent care, and emergency care in clear language.",
     "labelsTitle": "Understanding medicine labels",
     "labelsDescription": "Open our lesson on reading prescriptions, dosage, warnings, and refill details.",
@@ -896,7 +896,7 @@
     "supportAccessibilityTitle": "Accessibility help",
     "supportAccessibilityBody": "Use this form to report reading, navigation, or interaction barriers in the site experience.",
     "supportPrivacyTitle": "Privacy requests",
-    "supportPrivacyBody": "This channel also works for questions about data, local storage, and account preferences."
+    "supportPrivacyBody": "This channel also works for privacy questions, including Contact messages stored on the server and account preferences."
   },
   "errors": {
     "title": "Something went wrong",

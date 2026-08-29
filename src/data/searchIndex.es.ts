@@ -741,12 +741,13 @@ export const searchIndex: SearchEntry[] = [
   {
     id: "when-to-call-your-doctor",
     type: "article",
-    title: "Cuándo llamar al médico vs urgencias vs 911",
-    description: "Guía simple para síntomas no emergentes.",
+    title: "Consultas médicas, urgencias y 911: cómo se diferencian",
+    description:
+      "Resumen educativo de los lugares de atención para síntomas que no son de emergencia. Esta página no le indica a dónde ir.",
     category: "Emergency",
     categoryId: "articles",
     content:
-      "Llame 911 o vaya a emergencias - Dolor u opresión de pecho\n- Dificultad para respirar\n- Signos de ACV (FAST: cara, brazo, habla, tiempo)\n- Sangrado severo o inconsciencia\n- Pensamientos suicidas con plan Atención urgente (mismo día) - Esguinces, cortes menores que necesitan puntos\n- Fiebre sin angustia severa en adultos sanos\n- Ardor al orinar si no puede contactar al médico\n- Brote leve de asma si inhalador no ayuda tras una hora Llame al consultorio - Efectos secundarios de medicamentos\n- Empeoramiento de condición crónica\n- Preguntas sobre resultados\n- Referencias y citas preventivas Si no está seguro Prefiera atención más segura. Está bien ir a emergencias; también llamar al 911 para orientación.",
+      "Llame 911 o vaya a emergencias Este artículo explica cómo se diferencian los lugares de atención. No es una recomendación sobre a dónde ir.\n\n- Dolor u opresión de pecho\n- Dificultad para respirar\n- Signos de ACV (FAST: cara, brazo, habla, tiempo)\n- Sangrado severo o inconsciencia\n- Pensamientos suicidas con plan Atención urgente (mismo día) - Esguinces, cortes menores que necesitan puntos\n- Fiebre sin angustia severa en adultos sanos\n- Ardor al orinar si no puede contactar al médico\n- Brote leve de asma si inhalador no ayuda tras una hora Llame al consultorio - Efectos secundarios de medicamentos\n- Empeoramiento de condición crónica\n- Preguntas sobre resultados\n- Referencias y citas preventivas Si no está seguro Prefiera atención más segura. Está bien ir a emergencias; también llamar al 911 para orientación.",
     url: "/articles/when-to-call-your-doctor",
   },
   {

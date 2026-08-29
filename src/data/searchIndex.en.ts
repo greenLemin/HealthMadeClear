@@ -728,12 +728,13 @@ export const searchIndex: SearchEntry[] = [
   {
     id: "when-to-call-your-doctor",
     type: "article",
-    title: "When to Call Your Doctor vs Urgent Care vs 911",
-    description: "A simple decision guide for non-emergency symptoms.",
+    title: "Doctor visits, urgent care, and 911: how settings differ",
+    description:
+      "Educational overview of care settings for non-emergency symptoms. This page does not tell you where to go.",
     category: "Emergency",
     categoryId: "articles",
     content:
-      "Call 911 or Go to ER - Chest pain or pressure\n- Trouble breathing\n- Stroke signs (FAST: face, arm, speech, time)\n- Severe bleeding or unconsciousness\n- Suicidal thoughts with a plan Urgent Care (Same Day) - Sprains, minor cuts needing stitches\n- Fever without severe distress in otherwise healthy adults\n- Urinary burning if you cannot reach your doctor\n- Mild asthma flare with inhaler not helping after one hour Call Your Doctor's Office - Medication side effects\n- Worsening chronic condition\n- Test result questions\n- Referrals and preventive scheduling When Unsure Err toward safer care. It is OK to go to ER; it is also OK to call 911 for guidance.",
+      "Call 911 or Go to ER This article explains how care settings differ. It is not a recommendation for where you should go.\n\n- Chest pain or pressure\n- Trouble breathing\n- Stroke signs (FAST: face, arm, speech, time)\n- Severe bleeding or unconsciousness\n- Suicidal thoughts with a plan Urgent Care (Same Day) - Sprains, minor cuts needing stitches\n- Fever without severe distress in otherwise healthy adults\n- Urinary burning if you cannot reach your doctor\n- Mild asthma flare with inhaler not helping after one hour Call Your Doctor's Office - Medication side effects\n- Worsening chronic condition\n- Test result questions\n- Referrals and preventive scheduling When Unsure Err toward safer care. It is OK to go to ER; it is also OK to call 911 for guidance.",
     url: "/articles/when-to-call-your-doctor",
   },
   {

@@ -8,10 +8,10 @@ Authentication pages using Supabase Auth.
 
 - `login/page.tsx`: Login form
 - `signup/page.tsx`: Registration form
-- `callback/page.tsx`: OAuth callback handler
+- `callback/route.ts`: OAuth / PKCE callback (`GET`)
 - `forgot-password/page.tsx`: Password reset request
 - `reset-password/page.tsx`: New password form
-- `confirm/page.tsx`: Email confirmation status
+- `confirm/route.ts`: Email confirmation (`token_hash` / PKCE `code`)
 
 ## Integration
 
