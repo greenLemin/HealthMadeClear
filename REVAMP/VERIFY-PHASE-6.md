@@ -1,6 +1,14 @@
 # VERIFY-PHASE-6
 
-**Verdict: CHANGES REQUIRED**
+**Verdict: APPROVED** (follow-up 2026-08-29)
+
+Client + migration file match §9.4. Process punch (mixed P5 branch) is obsolete. `015` **apply** remains post-Published (`P6-3`) — live unique still absent 2026-08-29.
+
+---
+
+## Historical write/review (2026-08-28)
+
+Original verdict was **CHANGES REQUIRED** for git isolation. Product rows already passed. Do not re-open them.
 
 Reviewer is not the Phase 6 author. Spec read from `REVAMP/PLAN.v10.md` §0.1, §9.1–§9.5. Completion report was not found as a standalone file on disk; author intent and findings were reconstructed from staged diffs plus `REVAMP/ISSUES-BACKLOG.md` P6-1…P6-3.
 

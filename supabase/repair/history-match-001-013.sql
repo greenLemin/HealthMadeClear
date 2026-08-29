@@ -1,0 +1,63 @@
+-- supabase/repair/history-match-001-013.sql
+-- NOT a forward migration. Never copy this file into supabase/migrations/.
+--
+-- Why this exists (P1-1):
+-- Live schema_migrations uses timestamp versions for 001–008. Repo files are
+-- numbered 001_*.sql … 015_*.sql. The CLI versions for those filenames are
+-- 001 … 015, which are NOT the live timestamps. Blind `npx supabase db push`
+-- therefore treats 001–013 as pending and would EXECUTE them (003 even adds
+-- quiz_attempts unique — forbidden in 014).
+--
+-- Live snapshot 2026-08-29 project xdmbyadosmzixsxqullj (do not invent versions):
+--   20260612202742  001_profiles
+--   20260612202752  002_lesson_progress
+--   20260612202757  003_quiz_attempts
+--   20260612202802  004_achievements
+--   20260612202807  005_streaks
+--   20260612202811  006_daily_log
+--   20260612202818  007_notifications
+--   20260612202824  008_contact_submissions
+--   20260825133455  create_test_file   (dummy — leave it)
+-- 009–015 are not in live history.
+--
+-- WHEN: after Gate 0 (Netlify SUPABASE_SERVICE_ROLE_KEY proven) AND Gate 1
+-- (Phase 9 production deploy Ready). Immediately before applying 014.
+--
+-- 015 park: migrations/015_quiz_attempts_best_score.sql must NOT be in
+-- migrations/ during the 014 push, or db push applies 014 and 015 together.
+-- Move 015 aside, push 014, restore 015 only after Netlify Published for the
+-- upsert client, then push 015 (P6-3).
+--
+-- Preferred CLI (confirm `npx supabase migration repair --help`):
+--
+--   mv supabase/migrations/015_quiz_attempts_best_score.sql /tmp/015_quiz_attempts_best_score.sql
+--   npx supabase migration repair --status applied --project-ref xdmbyadosmzixsxqullj \
+--     001 002 003 004 005 006 007 008 009 010 011 012 013
+--   npx supabase migration list --project-ref xdmbyadosmzixsxqullj
+--   # Abort unless 014 is the only pending numbered file.
+--   npx supabase db push --project-ref xdmbyadosmzixsxqullj
+--   mv /tmp/015_quiz_attempts_best_score.sql supabase/migrations/015_quiz_attempts_best_score.sql
+--
+-- SQL editor fallback if the CLI cannot repair by numbered versions.
+-- Inserts CLI version keys 001–013 as applied. Does NOT insert colliding
+-- timestamps. Does NOT execute 001–013 SQL. Does NOT apply 014 or 015.
+--
+-- INSERT INTO supabase_migrations.schema_migrations (version, name)
+-- VALUES
+--   ('001', '001_profiles'),
+--   ('002', '002_lesson_progress'),
+--   ('003', '003_quiz_attempts'),
+--   ('004', '004_achievements'),
+--   ('005', '005_streaks'),
+--   ('006', '006_daily_log'),
+--   ('007', '007_notifications'),
+--   ('008', '008_contact_submissions'),
+--   ('009', '009_delete_user'),
+--   ('010', '010_updated_at_triggers'),
+--   ('011', '011_indexes'),
+--   ('012', '012_additional_indexes'),
+--   ('013', '013_secure_contact_submissions')
+-- ON CONFLICT (version) DO NOTHING;
+--
+-- Then apply 014 via `npx supabase db push` (015 still parked).
+SELECT 'history-match-001-013 runbook loaded — do not execute this file as a migration' AS notice;

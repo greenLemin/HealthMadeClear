@@ -62,7 +62,7 @@ function getMockPassword() {
 
 test("dashboard redirects guests to login and sign-in returns to dashboard", async ({ page }) => {
   await page.goto("/en/dashboard");
-  await expect(page).toHaveURL(/\/en\/auth\/login\?redirect=%2Fdashboard/);
+  await expect(page).toHaveURL(/\/en\/auth\/login\?redirect=%2Fen%2Fdashboard/);
   await waitForAppReady(page);
   await page.getByLabel(/email address/i).fill("guest@example.com");
   await page.locator('input[type="password"]').fill(getMockPassword());

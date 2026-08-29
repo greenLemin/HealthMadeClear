@@ -2,7 +2,16 @@
 
 import { useRef, useState } from "react";
 import { useTranslations } from "next-intl";
-import { Mail, User, MessageSquare, Send, Clock3, ShieldCheck, Accessibility } from "lucide-react";
+import {
+  Mail,
+  User,
+  MessageSquare,
+  Send,
+  Clock3,
+  ShieldCheck,
+  Accessibility,
+  ChevronDown,
+} from "lucide-react";
 import PageHeader from "@/components/PageHeader";
 import Reveal from "@/components/ui/Reveal";
 import Button from "@/components/ui/Button";
@@ -190,20 +199,27 @@ export default function ContactClient() {
                   <label htmlFor="subject" className="mb-2 block text-label-md font-medium text-on-surface">
                     {t("subjectLabel")}
                   </label>
-                  <select
-                    id="subject"
-                    value={subject}
-                    onChange={(e) => handleSubjectChange(e.target.value)}
-                    className="input-field min-h-12 text-base"
-                  >
-                    {SUBJECTS.map((s) => (
-                      <option key={s} value={s}>
-                        {t(
-                          `subject${s.charAt(0).toUpperCase() + s.slice(1).replace(/-./g, (m) => m[1]!.toUpperCase())}`
-                        )}
-                      </option>
-                    ))}
-                  </select>
+                  <div className="relative">
+                    <select
+                      id="subject"
+                      value={subject}
+                      onChange={(e) => handleSubjectChange(e.target.value)}
+                      className="input-field min-h-12 appearance-none pr-12 text-base"
+                    >
+                      {SUBJECTS.map((s) => (
+                        <option key={s} value={s}>
+                          {t(
+                            `subject${s.charAt(0).toUpperCase() + s.slice(1).replace(/-./g, (m) => m[1]!.toUpperCase())}`
+                          )}
+                        </option>
+                      ))}
+                    </select>
+                    <ChevronDown
+                      aria-hidden="true"
+                      size={18}
+                      className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-on-surface-variant"
+                    />
+                  </div>
                 </div>
 
                 <div>

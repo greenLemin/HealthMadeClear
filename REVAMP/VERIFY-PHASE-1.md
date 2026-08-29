@@ -1,6 +1,23 @@
 # VERIFY-PHASE-1
 
-**Verdict: CHANGES REQUIRED**
+**Verdict: APPROVED** (follow-up 2026-08-29)
+
+Product/SQL punches from the 2026-08-28 write/review are closed in the repo. This remains a **write** approval. **Do not treat as apply-green.**
+
+Closed punches:
+
+1. `delete_user` now `REVOKE … FROM anon, authenticated` then `GRANT authenticated` (`014_launch_reconcile.sql`).
+2. `015` backup table immediately `REVOKE`s `anon`/`authenticated`, enables RLS, no policies.
+3. `014` header + `supabase/repair/history-match-001-013.sql` history-match **001–008 and 009–013**. Unit pins in `schema.test.ts`.
+4. Mixed git index / one-PR process — obsolete; work is on `main` for human review.
+
+Apply-gated §4.5 rows stay **BLOCKED until a human** proves Gate 0 (Netlify `SUPABASE_SERVICE_ROLE_KEY`) and Gate 1 (Phase 9 production Ready), then follows the repair runbook and pushes **only** `014` (park `015`). Live 2026-08-29: `schema_migrations` still 001–008 + dummy; anon still `INSERT` on `contact_submissions`; no `quiz_attempts` unique.
+
+---
+
+## Historical write/review (2026-08-28)
+
+Original verdict was **CHANGES REQUIRED**. Do not re-open closed product punches from that snapshot.
 
 Reviewer is not the Phase 1 author. Spec read from `cursor/plan-v10-0f7a:REVAMP/PLAN.v10.md` (file is **not** on `main` disk; workspace `REVAMP/` had only `ISSUES-BACKLOG.md`). Completion report read from the Phase 1 agent transcript (never committed).
 

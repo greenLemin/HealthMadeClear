@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState, useCallback, useMemo } from "react";
+import { createPortal } from "react-dom";
 import { AnimatePresence, motion } from "motion/react";
 import { useAppState } from "@/components/AppProviders";
 import { useDismissibleOverlay } from "@/hooks/useDismissibleOverlay";
@@ -115,61 +116,60 @@ export default function SearchDialog() {
     noResultsDescription,
   };
 
+  const overlay = (
+    <AnimatePresence>
+      {isOpen ? (
+        <div className="fixed inset-0 z-[100] isolate flex items-start justify-center px-4 pt-[10vh]">
+          {motionSafe ? (
+            <div className="fixed inset-0 bg-black/45 backdrop-blur-sm" onClick={close} aria-hidden="true" />
+          ) : (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2, ease: revealEase }}
+              className="fixed inset-0 bg-black/45 backdrop-blur-sm"
+              onClick={close}
+              aria-hidden="true"
+            />
+          )}
+          {motionSafe ? (
+            <div
+              ref={dialogRef}
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby="search-dialog-title"
+              aria-busy={indexStatus === "loading" || undefined}
+              className="surface-card-glass relative z-10 w-full max-w-2xl overflow-hidden"
+            >
+              <SearchDialogContent {...contentProps} />
+            </div>
+          ) : (
+            <motion.div
+              ref={dialogRef}
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby="search-dialog-title"
+              aria-busy={indexStatus === "loading" || undefined}
+              variants={modalVariants}
+              initial="hidden"
+              animate="visible"
+              exit="exit"
+              transition={{ duration: 0.26, ease: revealEase }}
+              className="surface-card-glass relative z-10 w-full max-w-2xl overflow-hidden"
+            >
+              <SearchDialogContent {...contentProps} />
+            </motion.div>
+          )}
+        </div>
+      ) : null}
+    </AnimatePresence>
+  );
+
   return (
     <>
       <SearchTrigger triggerRef={triggerRef} setIsOpen={setIsOpen} t={t} shortcutLabel={shortcutLabel} />
-
-      <AnimatePresence>
-        {isOpen ? (
-          <div className="fixed inset-0 z-[100] flex items-start justify-center px-4 pt-[10vh]">
-            {motionSafe ? (
-              <div
-                className="fixed inset-0 bg-black/45 backdrop-blur-sm"
-                onClick={close}
-                aria-hidden="true"
-              />
-            ) : (
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.2, ease: revealEase }}
-                className="fixed inset-0 bg-black/45 backdrop-blur-sm"
-                onClick={close}
-                aria-hidden="true"
-              />
-            )}
-            {motionSafe ? (
-              <div
-                ref={dialogRef}
-                role="dialog"
-                aria-modal="true"
-                aria-labelledby="search-dialog-title"
-                aria-busy={indexStatus === "loading" || undefined}
-                className="surface-card-glass relative z-10 w-full max-w-2xl overflow-hidden"
-              >
-                <SearchDialogContent {...contentProps} />
-              </div>
-            ) : (
-              <motion.div
-                ref={dialogRef}
-                role="dialog"
-                aria-modal="true"
-                aria-labelledby="search-dialog-title"
-                aria-busy={indexStatus === "loading" || undefined}
-                variants={modalVariants}
-                initial="hidden"
-                animate="visible"
-                exit="exit"
-                transition={{ duration: 0.26, ease: revealEase }}
-                className="surface-card-glass relative z-10 w-full max-w-2xl overflow-hidden"
-              >
-                <SearchDialogContent {...contentProps} />
-              </motion.div>
-            )}
-          </div>
-        ) : null}
-      </AnimatePresence>
+      {mounted ? createPortal(overlay, document.body) : null}
     </>
   );
 }

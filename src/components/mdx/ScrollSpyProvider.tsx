@@ -40,6 +40,7 @@ export function ScrollSpyProvider({ children }: { children: ReactNode }) {
     }
     elementsRef.current.delete(id);
     setActiveTermIds((prev) => {
+      if (!prev.has(id)) return prev;
       const next = new Set(prev);
       next.delete(id);
       return next;
@@ -51,15 +52,19 @@ export function ScrollSpyProvider({ children }: { children: ReactNode }) {
       (entries) => {
         setActiveTermIds((prev) => {
           const next = new Set(prev);
+          let changed = false;
           for (const entry of entries) {
             const id = entry.target.id;
             if (entry.isIntersecting) {
-              next.add(id);
-            } else {
-              next.delete(id);
+              if (!next.has(id)) {
+                next.add(id);
+                changed = true;
+              }
+            } else if (next.delete(id)) {
+              changed = true;
             }
           }
-          return next;
+          return changed ? next : prev;
         });
       },
       { rootMargin: "0px 0px -50% 0px", threshold: 0.1 }

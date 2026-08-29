@@ -1,6 +1,14 @@
 # VERIFY-PHASE-9
 
-**Verdict: CHANGES REQUIRED**
+**Verdict: APPROVED** (follow-up 2026-08-29)
+
+Punch 1 closed: `mutations.test.ts` toasts session-expired copy on JWT-expired lesson upsert. Process punch obsolete. **Gate 1 for `014`:** code is Ready; production deploy Ready is still a human Netlify check.
+
+---
+
+## Historical write/review (2026-08-28)
+
+Original verdict was **CHANGES REQUIRED** for the missing unit. Do not re-open it.
 
 Reviewer is not the Phase 9 author. Spec read from `REVAMP/PLAN.v10.md` §12.1–12.4 (Phase 9 — Auth UX leftovers + auth unit tests), §0.1–0.3, and `REVAMP/CRITIQUES/ROUND-9.md` (Staff 🔴 2, Staff 🟡 4, CF-53). Completion report read from workspace draft and author artifacts.
 

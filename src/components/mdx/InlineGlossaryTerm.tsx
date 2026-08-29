@@ -42,7 +42,7 @@ function Popover({
       setPopoverHeight(popoverRef.current.offsetHeight);
       popoverRef.current.focus();
     }
-  }, []);
+  }, [popoverRef]);
 
   const spaceAbove = triggerRect.top - gap;
   const spaceBelow = window.innerHeight - triggerRect.bottom - gap;
@@ -105,11 +105,14 @@ function useScrollSpyRegistration(
   const scrollSpy = useOptionalScrollSpyContext();
   const isActive = instanceId ? scrollSpy?.activeTermIds.has(instanceId) : false;
 
+  const registerTerm = scrollSpy?.registerTerm;
+  const unregisterTerm = scrollSpy?.unregisterTerm;
+
   useEffect(() => {
-    if (!instanceId || !scrollSpy || !buttonRef.current) return;
-    scrollSpy.registerTerm(instanceId, buttonRef.current);
-    return () => scrollSpy.unregisterTerm(instanceId);
-  }, [instanceId, scrollSpy, buttonRef]);
+    if (!instanceId || !registerTerm || !unregisterTerm || !buttonRef.current) return;
+    registerTerm(instanceId, buttonRef.current);
+    return () => unregisterTerm(instanceId);
+  }, [instanceId, registerTerm, unregisterTerm, buttonRef]);
 
   return { isActive };
 }

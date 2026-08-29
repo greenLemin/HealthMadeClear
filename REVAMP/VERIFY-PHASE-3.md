@@ -1,6 +1,14 @@
 # VERIFY-PHASE-3
 
-**Verdict: CHANGES REQUIRED**
+**Verdict: APPROVED** (follow-up 2026-08-29)
+
+§6.5 product checkboxes that can be proven without `014` pass. Process punch (three PRs / mixed index) is obsolete. PostgREST anon INSERT remains **BLOCKED (expected)** until `014` apply (`P3-2`).
+
+---
+
+## Historical write/review (2026-08-28)
+
+Original verdict was **CHANGES REQUIRED** for git hygiene only. Do not re-open product rows from that snapshot.
 
 Reviewer is not the Phase 3 author. Spec read from `cursor/plan-v10-0f7a:REVAMP/PLAN.v10.md` (file is **not** on `main` disk; workspace `REVAMP/` still has no `PLAN.v10.md` — P2-5). Completion report read from agent transcript [`52867a63`](52867a63-5282-4eac-b4f1-17fa32cab170) (never committed).
 

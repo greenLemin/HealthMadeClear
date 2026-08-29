@@ -1,6 +1,14 @@
 # VERIFY-PHASE-4
 
-**Verdict: CHANGES REQUIRED**
+**Verdict: APPROVED** (follow-up 2026-08-29)
+
+Banner stutter closed: care-guide red alert renders `{t("emergencyShort")}` only. Emergency CTA still asserts 911/US in the DOM (`MedicalDisclaimer.test.tsx`). Process punch obsolete. `P4-1`–`P4-3` copy follow-ups are done.
+
+---
+
+## Historical write/review (2026-08-28)
+
+Original verdict was **CHANGES REQUIRED**. Do not re-open the duplicate emergency banner from that snapshot.
 
 Reviewer is not the Phase 4 author. Spec read from `cursor/plan-v10-0f7a:REVAMP/PLAN.v10.md` §7.1–7.6. Completion report was not found as a standalone file on disk; author intent and findings were reconstructed from staged diffs plus `REVAMP/ISSUES-BACKLOG.md` P4-1…P4-3.
 

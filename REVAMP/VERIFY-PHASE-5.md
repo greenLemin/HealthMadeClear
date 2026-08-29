@@ -1,6 +1,16 @@
 # VERIFY-PHASE-5
 
-**Verdict: CHANGES REQUIRED**
+**Verdict: APPROVED** (follow-up 2026-08-29)
+
+Product punches 3–5 are closed in `main`: `AuthProvider.signOut` wipes via `resetLocalProgress` + cookie expire; `onMigrated` calls `refetch`; mixed guest arrays filter bad rows. Process mega-merge punch is obsolete.
+
+**Merge/apply gate still human:** production `quiz_attempts` has no unique `(user_id, quiz_id)` (live 2026-08-29). Upsert client must not be the only live writer until `015` applies (`P6-3`). Do not `db push` 015 until Netlify **Published** for the upsert SHA.
+
+---
+
+## Historical write/review (2026-08-28)
+
+Original verdict was **CHANGES REQUIRED**. Do not re-open wipe / refetch / mixed-array punches from that snapshot.
 
 Reviewer is not the Phase 5 author. Spec read from `REVAMP/PLAN.v10.md` §0.1–0.3, §8.1–8.5 (Phase 5 — Guest progress unification + login migration). No PHASE-5 COMPLETION REPORT exists on disk or in a dedicated implementer transcript. Author intent reconstructed from `git diff --staged` on `revamp/p05-guest-progress`, `REVAMP/ISSUES-BACKLOG.md` (P6-1…P6-3 only), and the Phase 6 implementer transcript which already noted Phase 5 files dirty on this same branch.
 

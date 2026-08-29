@@ -2,11 +2,26 @@
 
 New findings from phase work. Not fixed in the discovering phase.
 
+## Hardening sweep 2026-08-29
+
+Backlog has no 🔴 markers. Treated **High** as 🔴.
+
+| ID                  | Severity | Action                                                                                                                                                                                                                                                                          |
+| ------------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| P1-1                | High     | **Runbook fixed** (`supabase/repair/history-match-001-013.sql` + `schema.test.ts`). **Apply still deferred** — human Gate 0/1, then CLI repair, then 014 only.                                                                                                                  |
+| P3-2                | High     | **Deferred** — same 014 apply. Live anon INSERT still true 2026-08-29.                                                                                                                                                                                                          |
+| P6-3                | High     | **Deferred** — apply 015 after Netlify Published for the upsert client. Park 015 during the 014 push.                                                                                                                                                                           |
+| P2-3                | Low      | **Binaries installed.** Local **Firefox skipped on macOS 27** (CLI launch hang, Playwright [#42082](https://github.com/microsoft/playwright/issues/42082)). WebKit + Chromium still run locally. CI Ubuntu still installs and runs all three. Override: `PLAYWRIGHT_FIREFOX=1`. |
+| P10-16-e2e          | Low      | **Done** — guest dashboard redirect assertion is `%2Fen%2Fdashboard`. Live Netlify audit (`e2e/audit.spec.ts`) is opt-in (`AUDIT_LIVE=1`).                                                                                                                                      |
+| All other open rows | Med/Low  | **Deferred** — human or post-launch (templates, Sentry DSN, dummy migration, contingent P14 split).                                                                                                                                                                             |
+
+---
+
 ## P1-1 — Local migration filenames vs live timestamp versions
 
 **Found:** Phase 1 (2026-08-28)  
 **Severity:** High (apply hazard)  
-**Status:** open
+**Status:** runbook ready; apply deferred (Gate 0/1)
 
 Live `supabase_migrations.schema_migrations` uses timestamp `version` values (`20260612202742` / name `001_profiles`, … `008_contact_submissions`, plus dummy `20260825133455` / `create_test_file`). Repo files are `001_profiles.sql` … `014_launch_reconcile.sql`.
 
@@ -48,9 +63,11 @@ Production history includes `20260825133455` / `create_test_file`. Harmless for 
 
 **Found:** Phase 2 e2e  
 **Severity:** Low (env)  
-**Status:** open
+**Status:** binaries installed; local Firefox launch blocked on macOS 27
 
-`npx playwright test e2e/auth.spec.ts` failed on firefox/webkit: `Executable doesn't exist` under `~/Library/Caches/ms-playwright/`. Chromium passed. Not a product bug. `npx playwright install firefox webkit` on this machine (or CI image) before relying on the three-project config.
+Firefox/WebKit binaries are on this machine. CI already runs `npx playwright install --with-deps chromium firefox webkit`.
+
+Local Firefox CLI launch hangs (`sandbox_extension_issue_file_to_process` on `plugin-container.app` + SWGL framebuffer). Upstream: Playwright [#42082](https://github.com/microsoft/playwright/issues/42082) / Firefox on macOS 27. `playwright.config.ts` skips the Firefox project on Darwin 27+ unless `CI` or `PLAYWRIGHT_FIREFOX=1`. WebKit launches. Not a product bug.
 
 ## P2-4 — Supabase Auth email templates still a human check
 
@@ -368,6 +385,6 @@ If Netlify defines `NEXT_PUBLIC_SENTRY_DSN` but not server `SENTRY_DSN`, `report
 
 **Found:** Phase 10–16 (2026-08-28)  
 **Severity:** Low (env / pre-existing e2e)  
-**Status:** open
+**Status:** done
 
-This wave’s Playwright checks ran Chromium only. Firefox/WebKit binaries are still missing locally (`P2-3`; do not duplicate). Separate pre-existing mock-auth dashboard redirect expects `redirect=%2Fdashboard` but got `redirect=%2Fen%2Fdashboard`. Locale-prefixed redirect is out of P10–16 product scope; fix the assertion (or mock-auth helper) in an auth/e2e follow-up.
+Guest dashboard login URL expects `redirect=%2Fen%2Fdashboard`. Playwright webServer clears inherited Supabase keys so mock `guest@example.com` works. Firefox/WebKit covered by P2-3. Live Netlify audit is opt-in (`AUDIT_LIVE=1`).

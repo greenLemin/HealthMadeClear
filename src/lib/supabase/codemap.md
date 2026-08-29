@@ -19,7 +19,7 @@ Supabase client configuration and environment handling.
 - `mock/queryBuilder.ts`: In-memory query builder, filtering, ordering, pagination, and table mutations
 - `mock/auth.ts`: In-memory Supabase Auth (`exchangeCodeForSession`, `verifyOtp`, password reset/confirm codes)
 - `schema.ts`: PostgREST `onConflict` targets (`QUIZ_ATTEMPTS_ON_CONFLICT`, `LESSON_PROGRESS_ON_CONFLICT`)
-- `schema.test.ts`: Asserts conflict targets match the intended unique columns
+- `schema.test.ts`: Asserts conflict targets and pins 014/015/repair runbook invariants
 
 ## Integration
 

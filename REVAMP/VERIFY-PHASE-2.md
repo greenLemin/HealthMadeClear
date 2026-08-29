@@ -1,6 +1,16 @@
 # VERIFY-PHASE-2
 
-**Verdict: CHANGES REQUIRED**
+**Verdict: APPROVED** (follow-up 2026-08-29)
+
+Product punch 1 is closed: `ResetPasswordClient` defers consume so a sync `verifyOtp` throw becomes a rejection; `.catch` sets `consumeFailed`. Units cover throw-with-no-session and throw-with-session. Mock `verifyOtp` exists (`P2-1`, done). Process punch (mixed index) is obsolete.
+
+Human leftover: Supabase Auth email templates (`P2-4`) — not a code merge blocker.
+
+---
+
+## Historical write/review (2026-08-28)
+
+Original verdict was **CHANGES REQUIRED**. Do not re-open the client catch from that snapshot.
 
 Reviewer is not the Phase 2 author. Spec read from `cursor/plan-v10-0f7a:REVAMP/PLAN.v10.md` (file is **not** on `main` disk; workspace `REVAMP/` still has no `PLAN.v10.md`). Completion report was **not** found on disk or in local agent transcripts (Phase 1 report is in `4540cc07…`; Phase 2 cloud id `bc-a0339aed` has no local transcript). Author intent reconstructed from staged diffs plus `REVAMP/ISSUES-BACKLOG.md` P2-1…P2-5.
 

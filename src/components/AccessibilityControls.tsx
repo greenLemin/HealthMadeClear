@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState, type KeyboardEvent } from "react";
+import { createPortal } from "react-dom";
 import { AnimatePresence, motion } from "motion/react";
 import { Moon, Settings2, Sun, Type, X } from "lucide-react";
 import { useAppState, type TextSize, type ThemeMode } from "@/components/AppProviders";
@@ -150,11 +151,17 @@ function SimpleModeControl({ t }: { t: ReturnType<typeof useTranslations<"access
 
 export default function AccessibilityControls() {
   const [isOpen, setIsOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const panelRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
   const t = useTranslations("accessibility");
   const tCommon = useTranslations("common");
   const motionSafe = useMotionSafe();
+
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- Portal target exists only after mount
+    setMounted(true);
+  }, []);
 
   useFocusTrap(panelRef, isOpen);
   useDismissibleOverlay({
@@ -215,52 +222,57 @@ export default function AccessibilityControls() {
         <span>{t("display")}</span>
       </button>
 
-      <AnimatePresence>
-        {isOpen ? (
-          <>
-            {motionSafe ? (
-              <div className="fixed inset-0 z-40 bg-black/20 backdrop-blur-sm" aria-hidden="true" />
-            ) : (
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.18, ease: revealEase }}
-                className="fixed inset-0 z-40 bg-black/20 backdrop-blur-sm"
-                aria-hidden="true"
-              />
-            )}
-            {motionSafe ? (
-              <div
-                id="accessibility-panel"
-                ref={panelRef}
-                role="dialog"
-                aria-modal="true"
-                aria-labelledby="accessibility-panel-title"
-                className="fixed inset-x-4 top-20 z-50 max-h-[calc(100vh-6rem)] overflow-y-auto rounded-xl border border-outline-variant bg-surface p-5 shadow-elevation-2 sm:absolute sm:inset-x-auto sm:right-0 sm:top-14 sm:w-80 sm:max-h-none"
-              >
-                {panelContent}
-              </div>
-            ) : (
-              <motion.div
-                id="accessibility-panel"
-                ref={panelRef}
-                role="dialog"
-                aria-modal="true"
-                aria-labelledby="accessibility-panel-title"
-                variants={modalVariants}
-                initial="hidden"
-                animate="visible"
-                exit="exit"
-                transition={{ duration: 0.22, ease: revealEase }}
-                className="fixed inset-x-4 top-20 z-50 max-h-[calc(100vh-6rem)] overflow-y-auto rounded-xl border border-outline-variant bg-surface p-5 shadow-elevation-2 sm:absolute sm:inset-x-auto sm:right-0 sm:top-14 sm:w-80 sm:max-h-none"
-              >
-                {panelContent}
-              </motion.div>
-            )}
-          </>
-        ) : null}
-      </AnimatePresence>
+      {mounted
+        ? createPortal(
+            <AnimatePresence>
+              {isOpen ? (
+                <>
+                  {motionSafe ? (
+                    <div className="fixed inset-0 z-[100] bg-black/20 backdrop-blur-sm" aria-hidden="true" />
+                  ) : (
+                    <motion.div
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.18, ease: revealEase }}
+                      className="fixed inset-0 z-[100] bg-black/20 backdrop-blur-sm"
+                      aria-hidden="true"
+                    />
+                  )}
+                  {motionSafe ? (
+                    <div
+                      id="accessibility-panel"
+                      ref={panelRef}
+                      role="dialog"
+                      aria-modal="true"
+                      aria-labelledby="accessibility-panel-title"
+                      className="fixed inset-x-4 top-20 z-[110] max-h-[calc(100vh-6rem)] overflow-y-auto rounded-xl border border-outline-variant bg-surface p-5 shadow-elevation-2 sm:inset-x-auto sm:right-4 sm:w-80 sm:max-h-none"
+                    >
+                      {panelContent}
+                    </div>
+                  ) : (
+                    <motion.div
+                      id="accessibility-panel"
+                      ref={panelRef}
+                      role="dialog"
+                      aria-modal="true"
+                      aria-labelledby="accessibility-panel-title"
+                      variants={modalVariants}
+                      initial="hidden"
+                      animate="visible"
+                      exit="exit"
+                      transition={{ duration: 0.22, ease: revealEase }}
+                      className="fixed inset-x-4 top-20 z-[110] max-h-[calc(100vh-6rem)] overflow-y-auto rounded-xl border border-outline-variant bg-surface p-5 shadow-elevation-2 sm:inset-x-auto sm:right-4 sm:w-80 sm:max-h-none"
+                    >
+                      {panelContent}
+                    </motion.div>
+                  )}
+                </>
+              ) : null}
+            </AnimatePresence>,
+            document.body
+          )
+        : null}
     </div>
   );
 }

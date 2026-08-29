@@ -13,8 +13,8 @@ React component library — all UI components organized by domain.
 - `Footer.tsx`: Site footer
 - `Hero.tsx`: Home page hero section (fold: `items-start`, stitch `object-cover object-top`)
 - `LanguageToggle.tsx`: EN/ES language switcher
-- `AccessibilityControls.tsx`: Font size, simple mode toggles
-- `SearchDialog.tsx`: Search overlay for glossary/lessons
+- `AccessibilityControls.tsx`: Font size, simple mode toggles. Open panel portals to `document.body` (same header-glass containing-block issue as search).
+- `SearchDialog.tsx`: Search overlay for glossary/lessons. Overlay portals to `document.body` so header glass (`overflow-hidden` + `backdrop-filter`) cannot clip or steal clicks.
 - `OnboardingDialog.tsx`: First-visit onboarding modal
 - `LessonThumbnail.tsx`: Lesson card thumbnail
 - `MedicalDisclaimer.tsx`: Medical info disclaimer banner

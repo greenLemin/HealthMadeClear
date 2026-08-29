@@ -75,14 +75,10 @@ test.describe("UI Polish & Responsiveness", () => {
     await page.goto("/en");
     await waitForAppReady(page);
 
-    // Tab to first element
-    await page.keyboard.press("Tab");
-
-    const hasFocus = await page.evaluate(() => {
-      const active = document.activeElement;
-      return active && active !== document.body;
-    });
-
-    expect(hasFocus).toBe(true);
+    const skip = page.getByRole("link", { name: /skip to main content/i });
+    await skip.focus();
+    await expect(skip).toBeFocused();
+    await skip.press("Enter");
+    await expect(page.locator("#main-content")).toBeFocused();
   });
 });

@@ -496,6 +496,11 @@
     background: rgba(21, 35, 39, 0.82);
   }
 
+  select.input-field {
+    appearance: none;
+    -webkit-appearance: none;
+  }
+
   .input-field:focus {
     border-color: var(--color-primary);
     outline: none;

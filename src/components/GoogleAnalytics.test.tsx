@@ -5,10 +5,8 @@ import { render } from "@testing-library/react";
 import { describe, expect, it, vi, afterEach } from "vitest";
 
 vi.mock("next/script", () => ({
-  default: ({ children, id, src, strategy, ...props }: any) => (
-    <script id={id} src={src} data-strategy={strategy} {...props}>
-      {children}
-    </script>
+  default: ({ id, src, strategy }: { id?: string; src?: string; strategy?: string }) => (
+    <div data-next-script="" id={id} data-src={src} data-strategy={strategy} />
   ),
 }));
 
@@ -40,17 +38,18 @@ describe("GoogleAnalytics", () => {
     vi.stubEnv("NEXT_PUBLIC_GA_MEASUREMENT_ID", "G-1234567890");
 
     const { container } = render(<GoogleAnalytics />);
-    const scripts = container.querySelectorAll("script");
+    const scripts = container.querySelectorAll("[data-next-script]");
 
     expect(scripts.length).toBe(2);
 
-    // First script
-    expect(scripts[0]).toHaveAttribute("src", "https://www.googletagmanager.com/gtag/js?id=G-1234567890");
+    expect(scripts[0]).toHaveAttribute(
+      "data-src",
+      "https://www.googletagmanager.com/gtag/js?id=G-1234567890"
+    );
     expect(scripts[0]).toHaveAttribute("data-strategy", "afterInteractive");
 
-    // Second script: external init loader (CSP-safe, no inline executable code)
     expect(scripts[1]).toHaveAttribute("id", "ga-init");
-    expect(scripts[1]).toHaveAttribute("src", "/ga-init.js?id=G-1234567890");
+    expect(scripts[1]).toHaveAttribute("data-src", "/ga-init.js?id=G-1234567890");
     expect(scripts[1]).toHaveAttribute("data-strategy", "afterInteractive");
     expect(scripts[1]!.innerHTML).toBe("");
   });

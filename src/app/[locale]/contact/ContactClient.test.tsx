@@ -60,4 +60,11 @@ describe("ContactClient", () => {
     fireEvent.submit(form!);
     expect(fetchMock).toHaveBeenCalledTimes(1);
   });
+
+  it("sizes the subject select for a 48px touch target on WebKit", () => {
+    renderContact();
+    const select = screen.getByLabelText(/subject/i);
+    expect(select).toHaveClass("min-h-12");
+    expect(select).toHaveClass("appearance-none");
+  });
 });
