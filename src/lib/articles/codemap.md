@@ -13,4 +13,4 @@ Article data loading and MDX parsing.
 
 - Loaders consumed by: Article page components via `src/lib/content.ts`
 - Parser consumed by: `scripts/bundle-articles.ts`
-- Depends on: `src/data/articleBundles.ts`, `src/types/article.ts`
+- Depends on: `src/data/articleBundles.en.ts` / `articleBundles.es.ts` (not the combined barrel), `src/types/article.ts`

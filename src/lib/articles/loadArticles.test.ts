@@ -1,18 +1,18 @@
 import { describe, expect, it, vi } from "vitest";
 import { getAllArticles, getArticleByIdFromBundle, loadArticlesForLocale } from "./loadArticles";
 
-// Mock the article bundles so we don't depend on actual content files
-vi.mock("@/data/articleBundles", () => ({
-  articleBundles: {
-    en: [
-      { id: "article-1", title: "English Article 1" },
-      { id: "article-2", title: "English Article 2" },
-    ],
-    es: [
-      { id: "article-1", title: "Spanish Article 1" },
-      { id: "article-3", title: "Spanish Article 3" },
-    ],
-  },
+vi.mock("@/data/articleBundles.en", () => ({
+  articles: [
+    { id: "article-1", title: "English Article 1" },
+    { id: "article-2", title: "English Article 2" },
+  ],
+}));
+
+vi.mock("@/data/articleBundles.es", () => ({
+  articles: [
+    { id: "article-1", title: "Spanish Article 1" },
+    { id: "article-3", title: "Spanish Article 3" },
+  ],
 }));
 
 // Provide dynamic imports via mock resolution on the actual function

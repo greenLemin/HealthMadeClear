@@ -13,4 +13,4 @@ Learning path data loading and MDX parsing.
 
 - Loaders consumed by: Page components via `src/lib/content.ts`
 - Parser consumed by: `scripts/bundle-paths.ts`
-- Depends on: `src/data/pathBundles.ts`, `src/types/learningPath.ts`
+- Depends on: `src/data/pathBundles.en.ts` / `pathBundles.es.ts` (not the combined barrel), `src/types/learningPath.ts`

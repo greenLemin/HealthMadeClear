@@ -1,18 +1,18 @@
 import { describe, expect, it, vi } from "vitest";
 import { getAllGlossaryTerms, getGlossaryTermById, getGlossaryLabelFromBundle } from "./loadGlossary";
 
-// Mock glossaryBundles
-vi.mock("@/data/glossaryBundles", () => ({
-  glossaryBundles: {
-    en: [
-      { id: "term1", term: "Term One", definition: "Def 1" },
-      { id: "term2", term: "Term Two", definition: "Def 2" },
-    ],
-    es: [
-      { id: "term1", term: "Término Uno", definition: "Def 1 es" },
-      { id: "term2", term: "Término Dos", definition: "Def 2 es" },
-    ],
-  },
+vi.mock("@/data/glossaryBundles.en", () => ({
+  terms: [
+    { id: "term1", term: "Term One", definition: "Def 1" },
+    { id: "term2", term: "Term Two", definition: "Def 2" },
+  ],
+}));
+
+vi.mock("@/data/glossaryBundles.es", () => ({
+  terms: [
+    { id: "term1", term: "Término Uno", definition: "Def 1 es" },
+    { id: "term2", term: "Término Dos", definition: "Def 2 es" },
+  ],
 }));
 
 describe("loadGlossary", () => {

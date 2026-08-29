@@ -24,7 +24,6 @@ export default function EarnedAchievements({ earnedAchievements, locale }: Earne
           description={t("emptyAchievementsBody")}
           action={{
             label: t("emptyAchievementsCta"),
-            onClick: () => {},
             href: "/learn",
           }}
         />

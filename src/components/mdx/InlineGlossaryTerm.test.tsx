@@ -122,6 +122,7 @@ describe("InlineGlossaryTerm", () => {
     expect(button.className).toContain("after:absolute");
     expect(button.className).toContain("after:-inset-y-1.5");
     expect(button.className).toContain("after:-inset-x-1");
+    expect(button.className).toContain("after:content-['']");
   });
 
   it("handles keyboard interaction (Enter key) to toggle popover", async () => {

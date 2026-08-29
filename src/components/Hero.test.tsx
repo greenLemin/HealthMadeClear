@@ -89,6 +89,6 @@ describe("Hero", () => {
     expect(grid?.className).not.toMatch(/\bitems-center\b/);
 
     const stitch = screen.getByRole("img", { name: en.hero.imageAlt });
-    expect(stitch).toHaveClass("aspect-[3/2]", "object-cover", "max-h-[min(20rem,36vh)]");
+    expect(stitch).toHaveClass("aspect-[3/2]", "object-cover", "object-top", "max-h-[min(20rem,36vh)]");
   });
 });

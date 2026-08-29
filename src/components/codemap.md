@@ -8,9 +8,10 @@ React component library — all UI components organized by domain.
 
 - `AnalyticsPageViewTracker.tsx`: Client component that tracks page views on path/locale change
 - `AppProviders.tsx`: Client context provider — theme, text size, simple mode, locale, learning progress (Context API + localStorage)
-- `Header.tsx`: Navigation header with mobile menu, auth controls, search, language/theme toggles
+- `Header.tsx`: Navigation header with mobile menu, auth controls, search, language/theme toggles. Desktop/mobile nav items render `header/NavLink.tsx` (xl label tokens), not an inline nav block.
+- `ErrorBoundary.tsx`: Class boundary; default fallback uses `errors.title` / `errors.crashBody` / `errors.tryAgain` via a function child (next-intl).
 - `Footer.tsx`: Site footer
-- `Hero.tsx`: Home page hero section
+- `Hero.tsx`: Home page hero section (fold: `items-start`, stitch `object-cover object-top`)
 - `LanguageToggle.tsx`: EN/ES language switcher
 - `AccessibilityControls.tsx`: Font size, simple mode toggles
 - `SearchDialog.tsx`: Search overlay for glossary/lessons
@@ -28,8 +29,9 @@ React component library — all UI components organized by domain.
 
 | Directory    | Responsibility                                                                               |
 | ------------ | -------------------------------------------------------------------------------------------- |
+| `header/`    | Header pieces (`NavLink`, `MobileMenu`)                                                      |
 | `layout/`    | Layout primitives (Container, Section)                                                       |
-| `ui/`        | Design system primitives (Button, Card, Input, Modal, Toast, Badge, etc.)                    |
+| `ui/`        | Design system primitives (Button, Card, Input, Modal, Toast, Badge, `ResourceCard`, etc.)    |
 | `providers/` | React context providers (AuthProvider)                                                       |
 | `learn/`     | Learning catalog cards (LessonCard, LearningPathCard)                                        |
 | `lesson/`    | Lesson detail widgets (LessonRelatedClient)                                                  |

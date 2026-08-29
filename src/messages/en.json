@@ -200,7 +200,8 @@
     "progressForPath": "{title} progress",
     "nextLesson": "Next lesson",
     "pathCompleted": "Path completed!",
-    "start": "Start"
+    "start": "Start",
+    "stepXofY": "Step {current} of {total}"
   },
   "dashboard": {
     "greetingMorning": "Good morning",
@@ -740,7 +741,9 @@
     "groupPaths": "Paths",
     "groupArticles": "Articles",
     "groupGlossary": "Glossary",
-    "groupTools": "Tools"
+    "groupTools": "Tools",
+    "groupOther": "Other",
+    "indexError": "Search could not load. Try again in a moment."
   },
   "onboarding": {
     "welcome": "Welcome to Health Made Clear",

@@ -4,6 +4,7 @@ import {
   getCategoryLabel,
   normalizeGlossaryLetter,
   formatDuration,
+  formatTimeSpentMinutes,
   formatReviewDate,
 } from "./i18n";
 
@@ -72,6 +73,17 @@ describe("i18n", () => {
 
     it("formats hours and minutes in Spanish", () => {
       expect(formatDuration(90, "es")).toBe("1h 30m");
+    });
+  });
+
+  describe("formatTimeSpentMinutes", () => {
+    it("returns the unavailable marker when minutes are unused", () => {
+      expect(formatTimeSpentMinutes(0, "en", "—")).toBe("—");
+      expect(formatTimeSpentMinutes(0, "es", "—")).toBe("—");
+    });
+
+    it("formats non-zero minutes", () => {
+      expect(formatTimeSpentMinutes(45, "en", "—")).toBe("45 min");
     });
   });
 

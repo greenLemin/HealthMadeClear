@@ -25,6 +25,14 @@
     },
     "target": "ES2022"
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", ".next/dev/types/**/*.ts"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    ".next/dev/types/**/*.ts",
+    ".next-analyze/types/**/*.ts",
+    ".next-analyze/dev/types/**/*.ts"
+  ],
   "exclude": ["node_modules", ".next", "coverage", "dist"]
 }

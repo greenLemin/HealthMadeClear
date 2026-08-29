@@ -112,7 +112,7 @@ export default function GlossaryClient({
             </div>
             <div
               className={[
-                "flex flex-nowrap gap-2 overflow-x-auto snap-x snap-proximity scrollbar-none [scrollbar-width:none] [&::-webkit-scrollbar]:hidden",
+                "flex flex-nowrap gap-2 overflow-x-auto snap-x snap-proximity scrollbar-none",
                 "[-webkit-mask-image:linear-gradient(to_right,black_85%,transparent_100%)] [mask-image:linear-gradient(to_right,black_85%,transparent_100%)]",
                 "sm:flex-wrap sm:overflow-visible sm:snap-none sm:[scrollbar-width:auto] sm:[&::-webkit-scrollbar]:block sm:[-webkit-mask-image:none] sm:[mask-image:none]",
               ].join(" ")}

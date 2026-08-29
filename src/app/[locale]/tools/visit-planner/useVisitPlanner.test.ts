@@ -283,21 +283,27 @@ describe("useVisitPlanner", () => {
     expect(result.current.customQuestions).toEqual([]);
   });
 
-  it("skips persist when wipeGeneration increased since hydrate", () => {
+  it("resets in-memory planner state when wipeGeneration increases", () => {
     const { result, rerender } = renderHook(() => useVisitPlanner(EN_CATALOG));
 
     act(() => {
       result.current.setNotes("keep");
+      result.current.changeVisitType("medication");
     });
     expect(JSON.parse(window.localStorage.getItem(STORAGE_KEYS.visitPlannerV2) || "{}").notes).toBe("keep");
+    expect(result.current.visitType).toBe("medication");
 
+    window.localStorage.removeItem(STORAGE_KEYS.visitPlannerV2);
     mockWipeGeneration = 1;
-    rerender();
     act(() => {
-      result.current.setNotes("should not persist");
+      rerender();
     });
 
-    expect(JSON.parse(window.localStorage.getItem(STORAGE_KEYS.visitPlannerV2) || "{}").notes).toBe("keep");
-    expect(result.current.notes).toBe("should not persist");
+    expect(result.current.notes).toBe("");
+    expect(result.current.visitType).toBe("new-symptom");
+    expect(result.current.step).toBe(1);
+    expect(result.current.selectedQuestions).toEqual(PLANNER_DEFAULTS_BY_TYPE["new-symptom"]);
+    const stored = window.localStorage.getItem(STORAGE_KEYS.visitPlannerV2);
+    expect(stored ?? "").not.toContain("keep");
   });
 });

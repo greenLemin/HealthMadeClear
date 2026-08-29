@@ -27,7 +27,7 @@ export default function TermsClient() {
                     <li key={s.key}>
                       <a
                         href={`#${s.key}`}
-                        className="inline-flex min-h-11 items-center gap-3 py-2.5 text-primary transition-colors hover:text-primary-container"
+                        className="flex min-h-11 w-full items-center gap-3 py-2.5 text-primary transition-colors hover:text-primary-container"
                       >
                         <span className="flex h-7 w-7 items-center justify-center rounded-full bg-surface text-label-md font-semibold text-primary">
                           {index + 1}

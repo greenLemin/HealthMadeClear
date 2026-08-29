@@ -44,6 +44,8 @@ describe("SearchDialogContent", () => {
       groupArticles: "Articles",
       groupGlossary: "Glossary",
       groupTools: "Tools",
+      groupOther: "Other",
+      indexError: "Search could not load. Try again in a moment.",
     };
     if (key === "resultsFound") return `${values?.count ?? 0} results found`;
     return translations[key] || key;
@@ -180,6 +182,13 @@ describe("SearchDialogContent", () => {
 
     expect(screen.queryByTestId("empty-state")).not.toBeInTheDocument();
     expect(screen.getByText("Loading search…")).toBeInTheDocument();
+  });
+
+  it("shows an error message when the index fails instead of empty miss", () => {
+    renderContent({ query: "eob", results: [], indexStatus: "error" });
+
+    expect(screen.queryByTestId("empty-state")).not.toBeInTheDocument();
+    expect(screen.getByText("Search could not load. Try again in a moment.")).toBeInTheDocument();
   });
 
   it("does not show empty miss for an empty query when ready with no results", () => {

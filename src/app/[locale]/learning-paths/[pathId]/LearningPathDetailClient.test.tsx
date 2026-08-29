@@ -21,7 +21,7 @@ vi.mock("@/hooks/useProgress", () => ({
 }));
 
 vi.mock("next-intl", () => ({
-  useTranslations: (namespace: string) => (key: string) => {
+  useTranslations: (namespace: string) => (key: string, values?: Record<string, string | number>) => {
     const translations: Record<string, Record<string, string>> = {
       paths: {
         pageTitle: "Learning Paths",
@@ -33,6 +33,7 @@ vi.mock("next-intl", () => ({
         continue: "Continue",
         startPath: "Start Path",
         lesson: "Lesson",
+        stepXofY: "Step {current} of {total}",
       },
       common: {
         of: "of",
@@ -43,11 +44,10 @@ vi.mock("next-intl", () => ({
       nav: {
         home: "Home",
       },
-      tools: {
-        step: "Step",
-      },
     };
-    return translations[namespace]?.[key] ?? key;
+    const raw = translations[namespace]?.[key] ?? key;
+    if (!values) return raw;
+    return raw.replace(/\{(\w+)\}/g, (_, name: string) => String(values[name] ?? `{${name}}`));
   },
 }));
 

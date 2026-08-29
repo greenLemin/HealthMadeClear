@@ -1,78 +1,52 @@
-# VERIFY-PHASE-14 — analyzer evidence (§17.2 step 5 / §17.4 client chunk)
+# VERIFY-PHASE-14
 
-**§17.4 client-chunk checkbox: PASS**
+**Verdict: APPROVED**
 
-`/en/learn/[slug]` required client JS does not parse `lessonBundles.es` or `pathBundles.es`. Lesson ES is absent from the whole client compilation. Path ES is a non-initial async chunk loaded only when `locale === "es"`.
+Reviewer is not the Phase 14 author. Spec read from `REVAMP/PLAN.v10.md` §17.1–17.5 and the PHASE-14 COMPLETION REPORT ([P14 locale split](fc548982-53fa-4361-8124-5481f060a178)). Analyzer evidence from the implementer’s `ANALYZE=true` run (originally recorded in this file) was re-checked against the current loaders, `'use client'` import graph, and Playwright learn-title smoke.
 
-No generator / loader changes. Analyzer did not show dual-locale lesson+path content inlined into the EN learn-slug graph.
+All §17.4 product checkboxes pass. Combined barrels still exist for **server** SSG (`P14-2`); the contract was stop-**using** them from client, not stop-**emitting**. Mixed staging on `main` is the same tree-wide process note as P10/P11 — not a unique P14 product fail.
 
 ---
 
-## Command
+## Method
+
+- **Spec**: `REVAMP/PLAN.v10.md` §17.1–17.5.
+- **Diff**: bundle-*.ts, `bundle-locale-split.test.ts`, `loadPaths.ts`, `pathsCache.ts`, `lessons.ts`, `loadLessons.ts`, `localizedQuiz.ts`, `sideEffects.ts`, generated `*.en.ts` / `*.es.ts`, `lessonMeta.ts`.
+- **Client import scan**: `'use client'` files do not import combined `lessonBundles` / `quizBundles` / `pathBundles` / `glossaryBundles`. Real client path load is `pathsCache.loadPathsForLocale` dynamic-importing one of `@/data/pathBundles.en` | `.es`.
+- **Units**: loaders, `bundle-locale-split.test.ts`, `pathsCache`, `sideEffects`, `lessonMeta` — pass (in 956).
+- **Playwright**: `/en/learn` and `/es/learn` H1 visible.
+- **Analyzer**: implementer run `OPEN_ANALYZER=false ANALYZE=true npm run analyze` → `.next-analyze/analyze/client.html`. `next.config.mjs` gates `distDir: ".next-analyze"` on `ANALYZE=true`. This reviewer did not re-run the full analyzer (prior evidence + current import graph agree).
+
+---
+
+## Acceptance criteria (re-checked)
+
+| Criterion                                                                        |  Result  | Evidence                                                                                                                                                                                                                                                                                                                               |
+| -------------------------------------------------------------------------------- | :------: | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `content:bundle` does not restore a client dual-locale barrel                    | **PASS** | Generators still emit combined barrels **with** “do not import from `'use client'`” banners. Guard: `scripts/bundle-locale-split.test.ts`. Client path is `pathsCache.ts:32-52` dynamic import of **one** locale. CI `git diff --exit-code` after bundle requires those generated files staged (they are).                             |
+| `/en/learn/[slug]` client graph lacks `lessonBundles.es` **or** `pathBundles.es` | **PASS** | Analyzer `client.html`: `lessonBundles.es` **0**. `pathBundles.es` only in async chunk `6982…` with `isInitialByEntrypoint: {}`. Required JS for `/en/learn/[slug]` does not include 6982. Distinctive ES strings (`Nunca tomes más de la cantidad indicada`, `Nunca comparta medicamentos recetados`) absent from that required list. |
+| All locales still SSG; `getAllLessons` remains sync                              | **PASS** | `loadLessons.ts:15-17` `export function getAllLessons` still sync. Callers in `page.tsx` / dashboard libs not converted to async. Dual static import of EN+ES in `loadLessons.ts:1-2` packs **server** (`nodejs.html`); not in client compilation.                                                                                     |
+| Search still lazy-loads `searchIndex.${locale}`                                  | **PASS** | `SearchDialog.tsx:43` `import(\`@/data/searchIndex.${locale}.ts\`)`. Analyzer: `searchIndex.es` async chunk 9474, not in learn-slug required list.                                                                                                                                                                                     |
+| Phase 7 `BEGINNER_LESSON_IDS`; `content:bundle` still emits `lessonMeta.ts`      | **PASS** | `sideEffects.ts` still imports `BEGINNER_LESSON_IDS` from `@/data/lessonMeta`. Bundle scripts still emit `lessonMeta.ts`.                                                                                                                                                                                                              |
+
+---
+
+## Analyzer evidence (implementer run; not re-executed)
+
+Command:
 
 ```bash
 OPEN_ANALYZER=false ANALYZE=true NODE_OPTIONS='--max-old-space-size=8192' npm run analyze
 ```
 
-(`package.json`: `"analyze": "ANALYZE=true next build --webpack"`.)
+| Needle             |    `client.html`     | `nodejs.html` | `edge.html` |
+| ------------------ | :------------------: | :-----------: | :---------: |
+| `lessonBundles.es` |        **0**         |       2       |      0      |
+| `lessonBundles.en` |        **0**         |       2       |      0      |
+| `pathBundles.es`   | 2 (async chunk 6982) |      10       |      0      |
+| `pathBundles.en`   | 2 (async chunk 6725) |      10       |      0      |
 
-Tiny config so the run does not open a browser or clobber a live `next dev` `.next`:
-
-- `next.config.mjs`: `openAnalyzer: process.env.OPEN_ANALYZER === "true"`; `distDir: ".next-analyze"` when `ANALYZE=true`
-- `.gitignore`: `.next-analyze/`
-
-Next.js rewrote `tsconfig.json` include for `.next-analyze/types` during the build; that rewrite was reverted and is **not** staged.
-
-Elapsed: ~28s. 363 pages generated. Analyzer wrote static HTML (did not hang).
-
----
-
-## Reports (not committed)
-
-| File                                | Size | Role                         |
-| ----------------------------------- | ---- | ---------------------------- |
-| `.next-analyze/analyze/client.html` | 834K | webpack client graph         |
-| `.next-analyze/analyze/nodejs.html` | 907K | server / SSG graph           |
-| `.next-analyze/analyze/edge.html`   | 349K | edge; no path/lesson bundles |
-
----
-
-## Module-name grep (`rg -F`)
-
-| Needle             | `client.html` | `nodejs.html` | `edge.html` |
-| ------------------ | ------------- | ------------- | ----------- |
-| `lessonBundles.es` | **0**         | 2             | 0           |
-| `lessonBundles.en` | **0**         | 2             | 0           |
-| `pathBundles.es`   | 2             | 10            | 0           |
-| `pathBundles.en`   | 2             | 10            | 0           |
-
-Client analyzer placements (`isInitialByEntrypoint: {}` = not an eager entry chunk):
-
-- `./src/data/pathBundles.es.ts` → `static/chunks/6982.b34c2bb8924bdc20.js` (parsed 6.0K)
-- `./src/data/pathBundles.en.ts` → `static/chunks/6725.57b0a3cbe918dec2.js` (parsed 6.3K)
-- `lessonBundles.es.ts` / `.en.ts`: **not present** in `client.html`
-
-Server (`nodejs.html`) still has both lesson locales — expected; `getAllLessons` stays sync for SSG.
-
----
-
-## `/en/learn/[slug]` required client chunks
-
-From `LessonPageClient` + `[locale]` layout in `.next-analyze/server/app/[locale]/learn/[slug]/page_client-reference-manifest.js`.
-
-Page: `static/chunks/app/[locale]/learn/[slug]/page-2d3981b7ca1dfd1d.js`  
-Layout: `static/chunks/app/[locale]/layout-0516104b032929ca.js`  
-Shared (incl. `pathsCache`): `static/chunks/9580-3c6376edd30ae862.js` plus vendor/layout helpers (`44530001-…`, `8500-…`, `1697-…`, `5-…`, `2305-…`, `5541-…`, `5271-…`, `6408-…`, `7205-…`, `3710-…`, `4575-…`, `6620-…`, `6011-…`).
-
-**Not** in that required list: `6982…` (`pathBundles.es`), `6725…` (`pathBundles.en`), `9474…` (`searchIndex.es`).
-
-Distinctive strings in those required files: **zero** hits for
-
-- `Nunca tomes más de la cantidad indicada` (lesson ES callout, not in `searchIndex.es`)
-- `Nunca comparta medicamentos recetados` (path ES-only callout)
-- `lessonBundles.es` / `pathBundles.es`
-
-`9580-3c6376edd30ae862.js` is the locale switch only (no ES path body):
+`9580-…js` locale switch only:
 
 ```js
 return "es" === e
@@ -80,12 +54,23 @@ return "es" === e
   : (await r.e(6725).then(r.bind(r, 56725))).paths;
 ```
 
-EN completion loads chunk **6725** (`Safer Medicine Use`). ES loads **6982** (`Nunca comparta medicamentos recetados`; title stored as `Uso m\xe1s seguro de medicamentos`).
+---
 
-`9474.54309be2c3cad8ab.js` contains `Entender las etiquetas de receta` because it **is** `searchIndex.es` (`n.d(a,{searchIndex:…})`), lazy from `SearchDialog` — out of this checkbox; §17.4 still requires `searchIndex.${locale}` lazy load.
+## Punch list
+
+None that block APPROVED.
+
+Logged follow-ups:
+
+- Server leftover combined-barrel importers listed in `P14-2` now import locale files (`paths.ts`, `learningPaths.ts`, `glossary.ts`, `loadGlossary.ts`, `sitemap.ts`). `loadArticles.ts` also uses `.en` / `.es`. Combined barrels still exist as generator output (`P14-2`, done).
+- `eslint.config.mjs` ignores `.next/**` and `.next-analyze/**`.
+- Codemaps describe locale-split runtime imports (`P14-5`, done).
 
 ---
 
-## Checkbox
+## What is actually correct (do not redo)
 
-- [x] Client graph for `/en/learn/[slug]` does not include `lessonBundles.es` **or** `pathBundles.es` (`ANALYZE=true npm run analyze` evidence on the PR).
+1. `pathsCache.ts` is the client path loader. Do not import `loadPaths.ts` from `'use client'`.
+2. `lessons.ts` imports EN only for identical IDs / `generateStaticParams`.
+3. `sideEffects` uses `loadPathsForLocale` + `BEGINNER_LESSON_IDS`, not `loadLessons`.
+4. Analyzer `distDir` is gated: `isAnalyze = process.env.ANALYZE === "true"`.

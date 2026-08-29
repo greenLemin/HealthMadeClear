@@ -12,6 +12,7 @@ type Props = {
   prepBullets: string[];
   onChangeVisitType: (key: VisitTypeKey) => void;
   onNext: () => void;
+  disabled?: boolean;
 };
 
 export default function Step1ChooseVisitType({
@@ -21,6 +22,7 @@ export default function Step1ChooseVisitType({
   prepBullets,
   onChangeVisitType,
   onNext,
+  disabled = false,
 }: Props) {
   const t = useTranslations("tools");
   const tPlanner = useTranslations("tools.visitPlanner");
@@ -59,6 +61,7 @@ export default function Step1ChooseVisitType({
                   <button
                     type="button"
                     aria-pressed={active}
+                    disabled={disabled}
                     className={[
                       "h-full text-left",
                       active
@@ -86,7 +89,9 @@ export default function Step1ChooseVisitType({
       </section>
 
       <div className="no-print mt-8 flex justify-end">
-        <Button onClick={onNext}>{tCommon("continue")}</Button>
+        <Button onClick={onNext} disabled={disabled}>
+          {tCommon("continue")}
+        </Button>
       </div>
     </div>
   );

@@ -217,6 +217,7 @@ export default function VisitPlannerClient() {
               prepBullets={prepBullets}
               onChangeVisitType={(nextType) => changeVisitType(nextType)}
               onNext={() => setStep(2)}
+              disabled={stepBusy}
             />
           ) : null}
 

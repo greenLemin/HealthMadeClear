@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import Hero from "@/components/Hero";
 import SectionNav from "@/components/SectionNav";
 import Callout from "@/components/Callout";
@@ -26,8 +26,16 @@ export default function HomeClient({ lessons, learningPaths }: HomeClientProps) 
   const { completedLessons, recentLessons, locale } = useAppState();
   const { user } = useAuth();
   const tDisclaimer = useTranslations("disclaimer");
-  // true when prefers-reduced-motion: reduce — skip autoplay, keep poster.
+  // true when reduce is set *or* preference is unknown — skip autoplay, keep poster.
   const prefersReducedMotion = useMotionSafe();
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (video && prefersReducedMotion) {
+      video.pause();
+    }
+  }, [prefersReducedMotion]);
 
   const lastUncompletedRecentLessonId = useMemo(() => {
     return recentLessons.find((id) => !completedLessons.has(id));
@@ -51,6 +59,7 @@ export default function HomeClient({ lessons, learningPaths }: HomeClientProps) 
       <Hero />
       <div className="w-full overflow-hidden">
         <video
+          ref={videoRef}
           src="/HMC_Video.mp4"
           poster="/hmc-video-poster.jpg"
           width={1280}

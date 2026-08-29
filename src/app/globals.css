@@ -1,6 +1,13 @@
 @config "../../tailwind.config.ts";
 @import "tailwindcss";
 
+@utility scrollbar-none {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
 @layer base {
   *,
   *::before,
@@ -614,8 +621,13 @@
   background-color: var(--tools-accent);
 }
 
+html.theme-light {
+  color-scheme: light;
+}
+
 :root[data-text-size="large"] .text-body-md,
-:root[data-text-size="large"] .text-label-md {
+:root[data-text-size="large"] .text-label-md,
+:root[data-text-size="large"] .text-base {
   font-size: 20px !important;
 }
 
@@ -628,6 +640,10 @@
   font-size: 28px !important;
 }
 
+:root[data-text-size="large"] .text-title-md {
+  font-size: 22px !important;
+}
+
 :root[data-text-size="large"] .text-headline-lg {
   font-size: 38px !important;
 }
@@ -637,7 +653,8 @@
 }
 
 :root[data-text-size="largest"] .text-body-md,
-:root[data-text-size="largest"] .text-label-md {
+:root[data-text-size="largest"] .text-label-md,
+:root[data-text-size="largest"] .text-base {
   font-size: 22px !important;
 }
 
@@ -648,6 +665,10 @@
 
 :root[data-text-size="largest"] .text-headline-md {
   font-size: 32px !important;
+}
+
+:root[data-text-size="largest"] .text-title-md {
+  font-size: 24px !important;
 }
 
 :root[data-text-size="largest"] .text-headline-lg {

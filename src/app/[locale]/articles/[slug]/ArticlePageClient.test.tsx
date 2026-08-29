@@ -116,9 +116,12 @@ describe("ArticlePageClient", () => {
 
   it("puts Print in the share row", () => {
     renderArticle();
-    const printButtons = screen.getAllByRole("button", { name: en.common.print });
-    expect(printButtons.length).toBeGreaterThan(0);
-    expect(printButtons[0]).toHaveClass("no-print");
+    const shareCard = screen.getByText(en.articles.share).closest(".surface-card-glass");
+    expect(shareCard).not.toBeNull();
+    const printInShare = shareCard!.querySelector("button");
+    expect(printInShare).toHaveAccessibleName(en.common.print);
+    expect(printInShare).toHaveClass("no-print");
+    expect(screen.getAllByRole("button", { name: en.common.print }).length).toBeGreaterThan(1);
   });
 
   it("renders a print-only clinical footer outside Reveal", () => {

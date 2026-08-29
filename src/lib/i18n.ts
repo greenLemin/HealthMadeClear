@@ -78,3 +78,8 @@ export function formatDuration(minutes: number, locale: Locale): string {
   }
   return copy.timeHours.replace("{hours}", String(hrs));
 }
+
+/** When time-spent is unused (0), show the unavailable marker instead of "0 min". */
+export function formatTimeSpentMinutes(minutes: number, locale: Locale, unavailable: string): string {
+  return minutes === 0 ? unavailable : formatDuration(minutes, locale);
+}

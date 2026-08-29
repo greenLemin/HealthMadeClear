@@ -43,7 +43,7 @@ export default function Hero() {
                   alt={t("imageAlt")}
                   width={600}
                   height={400}
-                  className="aspect-[3/2] h-auto max-h-[min(20rem,36vh)] w-full object-cover object-center"
+                  className="aspect-[3/2] h-auto max-h-[min(20rem,36vh)] w-full object-cover object-top"
                   priority
                 />
               </div>

@@ -15,7 +15,7 @@ const config = [
     },
   },
   {
-    ignores: ["coverage/**"],
+    ignores: ["coverage/**", ".next/**", ".next-analyze/**"],
   },
 ];
 export default config;

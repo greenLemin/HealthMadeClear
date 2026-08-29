@@ -200,7 +200,8 @@
     "progressForPath": "Progreso de {title}",
     "nextLesson": "Siguiente lección",
     "pathCompleted": "¡Ruta completada!",
-    "start": "Comenzar"
+    "start": "Comenzar",
+    "stepXofY": "Paso {current} de {total}"
   },
   "dashboard": {
     "greetingMorning": "Buenos días",
@@ -740,7 +741,9 @@
     "groupPaths": "Rutas",
     "groupArticles": "Artículos",
     "groupGlossary": "Glosario",
-    "groupTools": "Herramientas"
+    "groupTools": "Herramientas",
+    "groupOther": "Otros",
+    "indexError": "No se pudo cargar la búsqueda. Inténtelo de nuevo en un momento."
   },
   "onboarding": {
     "welcome": "Bienvenido a Health Made Clear",

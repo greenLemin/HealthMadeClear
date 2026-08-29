@@ -31,7 +31,11 @@ function useChecklistState() {
 
   useEffect(() => {
     if (!hydrated) return;
-    if (wipeGeneration > wipeAtHydrateRef.current) return;
+    if (wipeGeneration > wipeAtHydrateRef.current) {
+      wipeAtHydrateRef.current = wipeGeneration;
+      setCheckedItems([]);
+      return;
+    }
     writeStoredJson(STORAGE_KEYS.checklist, checkedItems);
   }, [checkedItems, hydrated, wipeGeneration]);
 

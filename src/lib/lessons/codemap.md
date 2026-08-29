@@ -13,4 +13,4 @@ Lesson data loading and MDX parsing for the build pipeline.
 
 - Loaders consumed by: All page components via `src/lib/content.ts` facade
 - Parser consumed by: `scripts/bundle-lessons.ts`
-- Depends on: `src/data/lessonBundles.ts`, `src/types/lesson.ts`, `gray-matter`
+- Depends on: `src/data/lessonBundles.en.ts` / `lessonBundles.es.ts` (not the combined barrel), `src/types/lesson.ts`, `gray-matter`

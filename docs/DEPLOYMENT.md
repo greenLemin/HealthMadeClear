@@ -12,15 +12,17 @@ HMC runs as a localized Next.js application. All configurations must be mapped b
 
 Configure these variables in the Netlify site settings dashboard (**Site configuration > Environment variables**):
 
-| Variable Name                   | Description                                             | Example / Required                    |
-| ------------------------------- | ------------------------------------------------------- | ------------------------------------- |
-| `NEXT_PUBLIC_SITE_URL`          | Canonical site URL (used for sitemap and metadata)      | `https://healthmadeclear.netlify.app` |
-| `NEXT_PUBLIC_SUPABASE_URL`      | Production Supabase database endpoint                   | `https://your-proj.supabase.co`       |
-| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Production Supabase anonymous API key                   | `eyJhbGciOiJIUzI1NiIsIn...`           |
-| `NEXT_PUBLIC_SENTRY_DSN`        | (Optional) Sentry project DSN for client error tracking | `https://sentry.io/12345`             |
-| `NEXT_PUBLIC_GA_MEASUREMENT_ID` | (Optional) Google Analytics 4 Measurement ID            | `G-XXXXXXXXXX`                        |
-| `NODE_VERSION`                  | Locked Node.js version                                  | `22`                                  |
-| `NPM_VERSION`                   | Locked npm package manager version                      | `10`                                  |
+| Variable Name                   | Description                                                                                          | Example / Required                    |
+| ------------------------------- | ---------------------------------------------------------------------------------------------------- | ------------------------------------- |
+| `NEXT_PUBLIC_SITE_URL`          | Canonical site URL (used for sitemap and metadata)                                                   | `https://healthmadeclear.netlify.app` |
+| `NEXT_PUBLIC_SUPABASE_URL`      | Production Supabase database endpoint                                                                | `https://your-proj.supabase.co`       |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Production Supabase anonymous API key                                                                | `eyJhbGciOiJIUzI1NiIsIn...`           |
+| `NEXT_PUBLIC_SENTRY_DSN`        | (Optional) Sentry project DSN for client error tracking                                              | `https://sentry.io/12345`             |
+| `SENTRY_DSN`                    | (Optional) Server-only Sentry DSN for `reportServerError`. Public DSN does not cover server reports. | same project DSN, server env only     |
+| `SENTRY_SERVER_SAMPLE_RATE`     | (Optional) Server ingest sample rate 0–1. Default `1`.                                               | `1`                                   |
+| `NEXT_PUBLIC_GA_MEASUREMENT_ID` | (Optional) Google Analytics 4 Measurement ID                                                         | `G-XXXXXXXXXX`                        |
+| `NODE_VERSION`                  | Locked Node.js version                                                                               | `22`                                  |
+| `NPM_VERSION`                   | Locked npm package manager version                                                                   | `10`                                  |
 
 ---
 

@@ -310,6 +310,12 @@ test("P13A 1440 Start learning CTA sits above the fold", async ({ page }) => {
   const foldBottom = box!.y + box!.height;
   console.log(`P13A fold: y=${box!.y} height=${box!.height} bottom=${foldBottom}`);
   expect(foldBottom, `CTA fold bottom ${foldBottom}`).toBeLessThan(900);
+  const h1Px = await page.locator("main h1").evaluate((el) => parseFloat(getComputedStyle(el).fontSize));
+  expect(h1Px, `hero H1 computed ${h1Px}px`).toBeLessThanOrEqual(56);
+  const video = page.locator("main video");
+  await expect(video).toBeVisible();
+  await expect(video).not.toHaveAttribute("autoplay");
+  expect(await video.evaluate((el) => (el as HTMLVideoElement).paused)).toBe(true);
 });
 
 test("P13B article TOC reading shell at lg", async ({ page }) => {

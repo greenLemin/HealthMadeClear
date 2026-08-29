@@ -121,7 +121,7 @@ export function SearchDialogContent({
       case "tool":
         return t("groupTools");
       default:
-        return "Other";
+        return t("groupOther");
     }
   };
 
@@ -178,6 +178,8 @@ export function SearchDialogContent({
       >
         {loading ? (
           <p className="px-2 py-6 text-body-md text-on-surface-variant">{t("loadingIndex")}</p>
+        ) : indexStatus === "error" ? (
+          <p className="px-2 py-6 text-body-md text-on-surface-variant">{t("indexError")}</p>
         ) : emptyQuery && results.length === 0 ? null : results.length === 0 ? (
           <EmptyState
             variant="search"

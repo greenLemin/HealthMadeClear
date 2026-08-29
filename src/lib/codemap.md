@@ -6,7 +6,7 @@ Core business logic and utility library — content loading, i18n utilities, Sup
 
 ## Key Files
 
-- `i18n.ts`: Type-safe locale utilities — `Locale` type, formatLevel, getCategoryLabel, formatRelativeDate, formatMemberSince
+- `i18n.ts`: Type-safe locale utilities — `Locale` type, formatLevel, getCategoryLabel, formatRelativeDate, formatMemberSince, formatDuration, formatTimeSpentMinutes
 - `locale.ts`: Locale validation — `parseLocale`, `requireLocale`
 - `content.ts`: Content access facade — wraps loaders with filtering, path progress calculations
 - `preferences.ts`: User preference management — localStorage read/write, cookie sync, bootstrap script for SSR hydration. Manages theme, textSize, simpleMode, completedLessons, quizScores
@@ -22,7 +22,8 @@ Core business logic and utility library — content loading, i18n utilities, Sup
 - `notifications.ts`: In-app notification CRUD against Supabase
 - `progressExport.ts`: Progress import/export (JSON format, v1/v2 compatible)
 - `guestProgress.ts`: Guest (unauthenticated) progress in sessionStorage + migration to Supabase
-- `safeHref.ts`: URL sanitizer to prevent XSS in Markdown links (`isSafeHref`)
+- `slugify.ts`: Heading ids for article TOC (`slugify(title, used)` — unique, strips Spanish marks)
+- `quizScore.ts`: Quiz pass ratio, normalize, percent, lesson quiz ids
 - `errorReporting.ts`: Error boundary reporting utility
 
 ## Subdirectories

@@ -31,7 +31,6 @@ export default function LearningPathDetailClient({ path, lessons, glossaryTerms 
   const t = useTranslations("paths");
   const tCommon = useTranslations("common");
   const tNav = useTranslations("nav");
-  const tTools = useTranslations("tools");
 
   const pathLessons = useMemo(() => {
     const lessonMap = new Map<string, Lesson>();
@@ -132,7 +131,7 @@ export default function LearningPathDetailClient({ path, lessons, glossaryTerms 
                   {pathLessons.map((lesson, index) => {
                     const isCompleted = completedLessonIdsSet.has(lesson.id);
                     const isNext = lesson.id === nextLesson?.id;
-                    const stepLabel = `${tTools("step")} ${index + 1} ${tCommon("of")} ${pathLessons.length}`;
+                    const stepLabel = t("stepXofY", { current: index + 1, total: pathLessons.length });
                     return (
                       <Link
                         key={lesson.id}

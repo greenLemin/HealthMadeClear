@@ -25,16 +25,16 @@ describe("useMotionSafe", () => {
     expect(result.current).toBe(false);
   });
 
-  it("returns false when useReducedMotion returns undefined", () => {
+  it("returns true when useReducedMotion returns undefined", () => {
     vi.mocked(motionReact.useReducedMotion).mockReturnValue(undefined as any);
     const { result } = renderHook(() => useMotionSafe());
-    expect(result.current).toBe(false);
+    expect(result.current).toBe(true);
   });
 
-  it("returns false when useReducedMotion returns null", () => {
+  it("returns true when useReducedMotion returns null", () => {
     vi.mocked(motionReact.useReducedMotion).mockReturnValue(null as any);
     const { result } = renderHook(() => useMotionSafe());
-    expect(result.current).toBe(false);
+    expect(result.current).toBe(true);
   });
 
   it("dynamically respects motion safe state when it toggles", () => {

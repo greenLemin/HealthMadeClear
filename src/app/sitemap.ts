@@ -3,7 +3,7 @@ import { routing } from "@/i18n/routing";
 import { articles } from "@/data/articles";
 import { lessons } from "@/data/lessons";
 import { paths } from "@/data/paths";
-import { glossaryBundles } from "@/data/glossaryBundles";
+import { terms as glossaryTerms } from "@/data/glossaryBundles.en";
 import { getSiteUrl } from "@/lib/site";
 
 const staticPaths = [
@@ -88,7 +88,7 @@ function getArticleRoutes(base: string): MetadataRoute.Sitemap {
 
 function getGlossaryRoutes(base: string, now: Date): MetadataRoute.Sitemap {
   return routing.locales.flatMap((locale) =>
-    glossaryBundles[locale as keyof typeof glossaryBundles].map((term) => ({
+    glossaryTerms.map((term) => ({
       url: `${base}/${locale}/glossary/${term.id}`,
       lastModified: now,
       changeFrequency: "monthly" as const,

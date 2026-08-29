@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useMemo, useRef } from "react";
 import { ArrowLeft, Clock, Link2, Share2 } from "lucide-react";
 import Button from "@/components/ui/Button";
 import ButtonLink from "@/components/ui/ButtonLink";
@@ -15,6 +15,8 @@ import { useToast } from "@/components/ui/ToastProvider";
 import Reveal from "@/components/ui/Reveal";
 import { formatReviewDate } from "@/lib/i18n";
 import { slugify } from "@/lib/slugify";
+import { usePrintDate } from "@/hooks/usePrintDate";
+import { useReadingProgress } from "@/hooks/useReadingProgress";
 import { useTranslations } from "next-intl";
 import type { Article } from "@/types/article";
 import type { GlossaryTerm } from "@/types/glossary";
@@ -35,13 +37,9 @@ export default function ArticlePageClient({
   const { showToast } = useToast();
   const url = typeof window !== "undefined" ? window.location.href : "";
   const reviewedDate = article.lastReviewed ? formatReviewDate(article.lastReviewed, locale) : null;
-  const printDate = new Date().toLocaleDateString(locale === "es" ? "es-ES" : "en-US", {
-    month: "long",
-    day: "numeric",
-    year: "numeric",
-  });
+  const printDate = usePrintDate(locale);
   const contentRef = useRef<HTMLElement>(null);
-  const [scrollProgress, setScrollProgress] = useState(0);
+  const scrollProgress = useReadingProgress(contentRef);
 
   const sections = useMemo(() => {
     const used = new Set<string>();
@@ -50,19 +48,6 @@ export default function ArticlePageClient({
       id: slugify(section.title, used),
     }));
   }, [article.content.sections]);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      if (!contentRef.current) return;
-      const { top, height } = contentRef.current.getBoundingClientRect();
-      const scrollable = height - window.innerHeight;
-      const scrolled = -top;
-      const progress = scrollable > 0 ? Math.min(100, Math.max(0, (scrolled / scrollable) * 100)) : 100;
-      setScrollProgress(progress);
-    };
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
 
   const handleCopyLink = useCallback(async () => {
     try {

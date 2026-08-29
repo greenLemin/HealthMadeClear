@@ -32,6 +32,8 @@ Content build pipeline — generates TypeScript data bundles from MDX source fil
 ### Other
 
 - `check-production-env.mjs`: Verifies production environment variables before build
+- `check-security-headers.mjs`: CI check — next.config / netlify.toml `connect-src` vs `security-headers.json`
+- `bundle-locale-split.test.ts`: Guards that `'use client'` modules do not import combined locale barrels
 
 ## Subdirectories
 

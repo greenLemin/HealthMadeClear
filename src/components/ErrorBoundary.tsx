@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { useTranslations } from "next-intl";
 
 interface ErrorBoundaryProps {
   children: React.ReactNode;
@@ -10,6 +11,24 @@ interface ErrorBoundaryProps {
 interface ErrorBoundaryState {
   hasError: boolean;
   error?: Error;
+}
+
+function DefaultCrashFallback({ onReset }: { onReset: () => void }) {
+  const t = useTranslations("errors");
+
+  return (
+    <div role="alert" className="mx-auto max-w-2xl p-6 text-center">
+      <h2 className="mb-2 font-display text-headline-md text-primary">{t("title")}</h2>
+      <p className="mb-4 text-body-md text-on-surface-variant">{t("crashBody")}</p>
+      <button
+        type="button"
+        onClick={onReset}
+        className="min-h-11 rounded-full bg-primary px-6 py-2.5 text-label-md text-on-primary hover:bg-primary/90"
+      >
+        {t("tryAgain")}
+      </button>
+    </div>
+  );
 }
 
 export default class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundaryState> {
@@ -35,24 +54,7 @@ export default class ErrorBoundary extends React.Component<ErrorBoundaryProps, E
       if (this.props.fallback) {
         return this.props.fallback;
       }
-      return (
-        <div role="alert" className="mx-auto max-w-2xl p-6 text-center">
-          <h2 className="mb-2 font-display text-headline-md text-primary">Something went wrong</h2>
-          <p className="mb-2 text-body-md text-on-surface-variant">
-            An unexpected error occurred. Please try refreshing the page.
-          </p>
-          <p lang="es" className="mb-4 text-body-md text-on-surface-variant">
-            Algo salió mal. Ocurrió un error inesperado. Prueba a actualizar la página.
-          </p>
-          <button
-            type="button"
-            onClick={this.handleReset}
-            className="rounded-full bg-primary px-6 py-2.5 text-label-md text-on-primary hover:bg-primary/90"
-          >
-            Try again / Intentar de nuevo
-          </button>
-        </div>
-      );
+      return <DefaultCrashFallback onReset={this.handleReset} />;
     }
 
     return this.props.children;

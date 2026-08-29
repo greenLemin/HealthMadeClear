@@ -75,6 +75,7 @@ describe("VisitChecklistClient", () => {
       rerender(<VisitChecklistClient />);
     });
 
-    expect(window.localStorage.getItem(STORAGE_KEYS.checklist)).toBeNull();
+    expect((screen.getByLabelText("Item 1") as HTMLInputElement).checked).toBe(false);
+    expect(window.localStorage.getItem(STORAGE_KEYS.checklist) ?? "").not.toContain("Item 1");
   });
 });

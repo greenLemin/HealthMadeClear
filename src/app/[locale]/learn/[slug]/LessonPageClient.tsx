@@ -16,6 +16,8 @@ import { useAppState } from "@/components/AppProviders";
 import { useProgress } from "@/hooks/useProgress";
 import { useTranslations } from "next-intl";
 import { formatReviewDate } from "@/lib/i18n";
+import { usePrintDate } from "@/hooks/usePrintDate";
+import { useReadingProgress } from "@/hooks/useReadingProgress";
 import type { Lesson } from "@/types/lesson";
 import type { LessonId } from "@/types/content";
 import type { GlossaryTerm } from "@/types/glossary";
@@ -75,34 +77,16 @@ export default function LessonPageClient({
   const lessonId = lesson.id as LessonId;
   const sidebar = useSidebarContent(lesson, t);
   const contentRef = useRef<HTMLDivElement>(null);
-  const [scrollProgress, setScrollProgress] = useState(0);
+  const scrollProgress = useReadingProgress(contentRef);
   const isComplete = isLessonComplete(lessonId);
   const hasQuiz = quiz !== null;
   const bestQuizScore = quiz ? getQuizBestScore(quiz.id) : null;
   const reviewedDate = lesson.lastReviewed ? formatReviewDate(lesson.lastReviewed, locale) : null;
-  const printDate = new Date().toLocaleDateString(locale === "es" ? "es-ES" : "en-US", {
-    month: "long",
-    day: "numeric",
-    year: "numeric",
-  });
+  const printDate = usePrintDate(locale);
 
   useEffect(() => {
     markLessonViewed(lesson.id);
   }, [markLessonViewed, lesson.id]);
-
-  // Reading progress bar
-  useEffect(() => {
-    const handleScroll = () => {
-      if (!contentRef.current) return;
-      const { top, height } = contentRef.current.getBoundingClientRect();
-      const scrollable = height - window.innerHeight;
-      const scrolled = -top;
-      const progress = scrollable > 0 ? Math.min(100, Math.max(0, (scrolled / scrollable) * 100)) : 100;
-      setScrollProgress(progress);
-    };
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
 
   const handleMarkComplete = useCallback(async () => {
     setIsSaving(true);

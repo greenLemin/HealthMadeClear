@@ -5,6 +5,7 @@ import MedicalDisclaimer from "@/components/MedicalDisclaimer";
 import PageHeader from "@/components/PageHeader";
 import PrintButton from "@/components/content/PrintButton";
 import Reveal from "@/components/ui/Reveal";
+import { usePrintDate } from "@/hooks/usePrintDate";
 import { useLocale, useTranslations } from "next-intl";
 
 function ChecklistItems({ items, textColor }: { items: string; textColor?: string }) {
@@ -144,18 +145,10 @@ function ScenariosSection() {
   );
 }
 
-function formatPrintDate(locale: string, date: Date = new Date()): string {
-  return date.toLocaleDateString(locale === "es" ? "es-ES" : "en-US", {
-    month: "long",
-    day: "numeric",
-    year: "numeric",
-  });
-}
-
 export default function CareGuideClient() {
   const t = useTranslations("tools");
   const locale = useLocale();
-  const printDate = formatPrintDate(locale);
+  const printDate = usePrintDate(locale);
 
   return (
     <div className="pb-16">

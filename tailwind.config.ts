@@ -69,6 +69,7 @@ const config: Config = {
         "label-lg": ["18px", { lineHeight: "1.4", fontWeight: "600" }],
         "label-md": ["16px", { lineHeight: "1.4", fontWeight: "600", letterSpacing: "0.02em" }],
         "label-sm": ["12px", { lineHeight: "1.4", fontWeight: "600" }],
+        "title-md": ["20px", { lineHeight: "1.35", fontWeight: "600" }],
         "headline-lg-mobile": ["30px", { lineHeight: "1.12", letterSpacing: "-0.025em", fontWeight: "600" }],
       },
       borderRadius: {

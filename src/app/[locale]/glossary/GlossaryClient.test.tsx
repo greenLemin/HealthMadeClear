@@ -82,8 +82,8 @@ describe("GlossaryClient", () => {
     expect(row!.className).toContain("snap-proximity");
     expect(row!.className).not.toContain("snap-mandatory");
     expect(row!.className).toContain("scrollbar-none");
-    expect(row!.className).toContain("-webkit-mask-image");
-    expect(row!.className).toContain("mask-image");
+    expect(row!.className).toContain("[-webkit-mask-image:");
+    expect(row!.className).toContain("[mask-image:");
   });
 
   it("gives related-lesson links a 44px min height", () => {

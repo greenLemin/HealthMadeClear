@@ -6,7 +6,11 @@ import en from "@/messages/en.json";
 import PageHeader from "./PageHeader";
 
 vi.mock("@/i18n/navigation", () => ({
-  Link: ({ children, href }: any) => <a href={href}>{children}</a>,
+  Link: ({ children, href, className, ...props }: any) => (
+    <a href={href} className={className} {...props}>
+      {children}
+    </a>
+  ),
 }));
 
 describe("PageHeader", () => {
@@ -58,10 +62,17 @@ describe("PageHeader", () => {
 
     const links = screen.getAllByRole("link");
     expect(links).toHaveLength(2);
-    expect(links[0]).toHaveTextContent("Home");
-    expect(links[0]).toHaveAttribute("href", "/");
-    expect(links[1]).toHaveTextContent("Category");
-    expect(links[1]).toHaveAttribute("href", "/category");
+    const home = links[0];
+    const category = links[1];
+    expect(home).toBeDefined();
+    expect(category).toBeDefined();
+    expect(home).toHaveTextContent("Home");
+    expect(home).toHaveAttribute("href", "/");
+    expect(category).toHaveTextContent("Category");
+    expect(category).toHaveAttribute("href", "/category");
+    expect(home!.className).toContain("min-h-11");
+    expect(home!.className).toContain("inline-flex");
+    expect(category!.className).toContain("min-h-11");
 
     const currentPage = screen.getByText("Current Page");
     expect(currentPage).toBeInTheDocument();

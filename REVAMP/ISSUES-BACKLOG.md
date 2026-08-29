@@ -154,145 +154,145 @@ New `src/lib/quizScore.ts` (pass ratio, normalize, percent, lesson quiz ids) is 
 
 **Found:** Phase 10 (2026-08-28)  
 **Severity:** Low (docs/scope)  
-**Status:** open
+**Status:** done
 
-Nav is `src/components/header/NavLink.tsx`, not an inline block in `Header.tsx`. Pre-authorized. Desktop tokens now `xl:text-label-sm xl:px-1.5 xl:gap-0.5`. Update maps/plans that still describe Header-inline nav.
+Nav is `src/components/header/NavLink.tsx`, not an inline block in `Header.tsx`. Pre-authorized. Desktop tokens now `xl:text-label-sm xl:px-1.5 xl:gap-0.5`. `src/components/codemap.md` names `header/NavLink.tsx`.
 
 ## P10-1 — `.theme-light` has no CSS rule
 
 **Found:** Phase 10 (2026-08-28)  
 **Severity:** Low  
-**Status:** open
+**Status:** done
 
-Root 404 (`src/app/not-found.tsx`) sets `className="theme-light"`. `src/app/globals.css` has no `.theme-light` rule. Light tokens come from `:root`. Class is a no-op today; add the rule or drop the class so theme hooks stay honest.
+Root 404 (`src/app/not-found.tsx`) sets `className="theme-light"`. `html.theme-light { color-scheme: light; }` now exists in `globals.css`.
 
 ## P10-2 — ErrorBoundary copy is hardcoded bilingual, not catalog keys
 
 **Found:** Phase 10 (2026-08-28)  
 **Severity:** Low (i18n wiring)  
-**Status:** open
+**Status:** done
 
-`src/components/ErrorBoundary.tsx` crash/retry strings are hardcoded EN+ES. Catalogs already have `errors.crashBody` / `errors.tryAgain`. Not wired. Follow-up should use those keys (or next-intl) so crash copy cannot drift from catalogs.
+Default fallback is a function child using `useTranslations("errors")` for `title`, `crashBody`, and `tryAgain`. Units cover EN and ES.
 
 ## P11-path — Terms TOC lives in `TermsClient.tsx`, not `page.tsx`
 
 **Found:** Phase 11 (2026-08-28)  
 **Severity:** Low (docs/scope)  
-**Status:** open
+**Status:** done
 
-`src/app/[locale]/terms/page.tsx` only sets locale and mounts the client. TOC / in-page nav is in `TermsClient.tsx`. Same pattern as privacy (`P3-3`). Update maps that list `page.tsx` as the TOC owner.
+`src/app/[locale]/terms/page.tsx` only sets locale and mounts the client. TOC / in-page nav is in `TermsClient.tsx`. `src/app/[locale]/codemap.md` names `TermsClient.tsx`.
 
 ## P11-1 — `scrollbar-none` is not a Tailwind utility in this project
 
 **Found:** Phase 11 (2026-08-28)  
 **Severity:** Low  
-**Status:** open
+**Status:** done
 
-`scrollbar-none` is not a configured Tailwind utility here. Scrollbar hiding is extra arbitrary utilities. Either add the utility (plugin/theme) or keep documenting the arbitrary workaround so a later Tailwind bump does not silently show scrollbars.
+`@utility scrollbar-none` is now in `globals.css`. Glossary A–Z uses that class.
 
 ## P11-2 — `PageHeader.test.tsx` Link mock drops `className`
 
 **Found:** Phase 11 (2026-08-28)  
 **Severity:** Low (test gap)  
-**Status:** open
+**Status:** done
 
-The `Link` mock in `PageHeader` unit tests does not forward `className`, so breadcrumb `min-h-11` is not unit-asserted. Forward `className` (and other props) on the mock before treating breadcrumb tap-target as covered.
+PageHeader Link mock forwards `className`. Breadcrumb `min-h-11` is unit-asserted.
 
 ## P11-3 — Same-tab logout: checklist persist skip works; React ticks until remount
 
 **Found:** Phase 11 (2026-08-28)  
 **Severity:** Medium (logout UX)  
-**Status:** open
+**Status:** done
 
-Visit-checklist persist skip on logout is in place. Same-tab React ticks can still show prior checklist state until remount. Not a persist bug. Follow-up should reset client state on logout in the same tab, or force remount of checklist consumers.
+Same-tab wipe now clears checklist ticks and resets planner state when `wipeGeneration` increases. Persist skip remains; guest can persist again after the hydrate-generation ref advances.
 
 ## P12-path — Step1 visit-type buttons rely on `inert`
 
 **Found:** Phase 12 (2026-08-28)  
 **Severity:** Low (defense in depth)  
-**Status:** open
+**Status:** done
 
-Step1 visit-type buttons are gated with `inert`. If a browser ignores `inert`, those controls stay activatable. Pass `disabled` into Step1 as well so non-`inert` agents cannot change visit type.
+Step1 visit-type buttons and Continue now take `disabled={!hydrated}` in addition to the `inert` wrapper.
 
 ## P12-1 — Search group header "Other" is English-only
 
 **Found:** Phase 12 (2026-08-28)  
 **Severity:** Medium (i18n)  
-**Status:** open
+**Status:** done
 
-Search result grouping still labels the leftover bucket `"Other"` in English on both locales. Add a catalog key and use it for the group header.
+Catalog key `search.groupOther` (EN “Other” / ES “Otros”).
 
 ## P12-2 — Locale-switch planner display is unit-proven, not e2e
 
 **Found:** Phase 12 (2026-08-28)  
 **Severity:** Low (coverage)  
-**Status:** open
+**Status:** done
 
-Visit-planner locale switch is covered at unit level (stable ids). There is no e2e that remounts EN→ES and checks displayed copy. Add a Playwright remount if that path is launch-critical; ids-only tests do not prove catalog strings.
+VisitPlannerClient unit test remounts with `es.json` and asserts Spanish checkbox labels for saved ids.
 
 ## P13A-2 — H1 ≤ 56px is CSS clamp max, not 1440 computed style
 
 **Found:** Phase 13A (2026-08-28)  
 **Severity:** Low (measurement)  
-**Status:** open
+**Status:** done
 
-Hero H1 “≤ 56px” is the CSS `clamp` maximum, not a computed-style read at 1440px viewport. Do not treat the fold token as visually proven at 1440 until that measurement exists.
+P13A e2e at 1440 reads `getComputedStyle` on `main h1` and asserts `font-size <= 56`.
 
 ## P13A-3 — `useMotionSafe` can autoplay once on first paint for reduced-motion
 
 **Found:** Phase 13A (2026-08-28)  
 **Severity:** Medium (a11y)  
-**Status:** open
+**Status:** done
 
-`useMotionSafe` is `useReducedMotion() ?? false`. First paint with `null` treats motion as allowed, so reduced-motion users can get one autoplay before the hook resolves. Default to no-motion until known, or gate autoplay on a definite `false`.
+`useMotionSafe` is now `useReducedMotion() ?? true`. Unknown preference skips autoplay; HomeClient also pauses the video when the flag is set. P13A e2e asserts no `autoplay` under `reducedMotion: "reduce"`.
 
 ## P13A-4 — Stitch image crop (3:2 + max-h) may clip faces
 
 **Found:** Phase 13A (2026-08-28)  
 **Severity:** Low (visual)  
-**Status:** open
+**Status:** done
 
-Stitch/hero image is cropped to 3:2 plus a max-height for the fold. Faces (or other focal points) can clip. Visual follow-up: `object-position` or a crop that keeps faces in frame at fold breakpoints.
+Stitch image uses `object-cover object-top` so faces stay in the fold crop.
 
 ## P13B-1 — Wave 0 missed `paths.stepXofY`; badge uses `tools.step` + `common.of`
 
 **Found:** Phase 13B (2026-08-28)  
 **Severity:** Low (i18n)  
-**Status:** open
+**Status:** done
 
-Wave 0 did not add `paths.stepXofY`. Path step badge composes `tools.step` + `common.of`. Works, but it is the wrong namespace and may not match a dedicated “step X of Y” string. Add `paths.stepXofY` (EN/ES) and switch the badge.
+Path badge uses `paths.stepXofY` (`Step {current} of {total}` / `Paso {current} de {total}`).
 
 ## P13B-2 — `text-title-md` missing from Tailwind type scale
 
 **Found:** Phase 13B (2026-08-28)  
 **Severity:** Medium (design token)  
-**Status:** open
+**Status:** done
 
-Cards use `text-title-md`, but that token is not on the Tailwind type scale in this project. Class is present; computed size may not change. Register the token or replace with a real scale class.
+`title-md` is registered on the Tailwind type scale (20px / 1.35 / 600) and scales with Display large/largest.
 
 ## P13B-3 — `src/lib/codemap.md` omits `slugify.ts`
 
 **Found:** Phase 13B (2026-08-28)  
 **Severity:** Low (docs)  
-**Status:** open
+**Status:** done
 
-New `src/lib/slugify.ts` is out of the lib atlas (same class of gap as `P6-2` / `quizScore.ts`). Docs-only follow-up.
+`src/lib/codemap.md` lists `slugify.ts`.
 
 ## P13B-5 — Article progress stays 0 until first scroll
 
 **Found:** Phase 13B (2026-08-28)  
 **Severity:** Medium (UX)  
-**Status:** open
+**Status:** done
 
-Article reading progress stays 0 until the first scroll event. Same as lessons: no `handleScroll` on mount. Short articles / already-scrolled restores look empty. Call the scroll handler once on mount (and on resize) so initial percent is correct.
+`useReadingProgress` samples on mount and resize as well as scroll (article + lesson).
 
 ## P13B-path — ResourceCard is `src/components/ui/ResourceCard.tsx`
 
 **Found:** Phase 13B (2026-08-28)  
 **Severity:** Low (docs/scope)  
-**Status:** open
+**Status:** done
 
-`ResourceCard` lives at `src/components/ui/ResourceCard.tsx`, not `src/components/learn/`. Update maps/plans that still point at `components/learn/`.
+`src/components/codemap.md` lists `ResourceCard` under `ui/`.
 
 ## P14-1 — `ANALYZE=true npm run analyze` still pending
 
@@ -306,9 +306,9 @@ Analyzer proof in `REVAMP/VERIFY-PHASE-14.md`: EN `/learn/[slug]` required clien
 
 **Found:** Phase 14 (2026-08-28)  
 **Severity:** Medium  
-**Status:** open
+**Status:** done
 
-These still import combined barrels on the server: `learningPaths.ts`, `paths.ts`, `glossary.ts`, `loadGlossary.ts`, `sitemap.ts`. Switch them to locale-split loaders (or equivalent) so ES/EN data is not pulled together at the old entry points.
+`paths.ts`, `learningPaths.ts`, `glossary.ts`, `loadGlossary.ts`, and `sitemap.ts` import locale files (`.en` / `.es`) instead of combined barrels.
 
 ## P14-3 — Split `loadLessons.en.ts` / `.es.ts` if analyzer still shows ES in EN client
 
@@ -322,9 +322,9 @@ If `P14-1` still shows ES strings in the EN client after the leftover importers 
 
 **Found:** Phase 14 (2026-08-28)  
 **Severity:** Low (docs)  
-**Status:** open
+**Status:** done
 
-Codemaps still describe combined lesson/path/glossary barrels. Update them to locale-split modules after the split is the real import graph (`P14-1` / `P14-2`).
+`src/data/codemap.md` and loader maps (`lessons`, `paths`, `articles`, `glossary`) describe locale files as the runtime import; combined barrels are generator-only and banned from `'use client'`.
 
 ## P14-path — `useProgress.test.tsx` mock updated for `loadPathsForLocale`
 
@@ -338,25 +338,25 @@ Codemaps still describe combined lesson/path/glossary barrels. Update them to lo
 
 **Found:** Phase 15 (2026-08-28)  
 **Severity:** Low  
-**Status:** open
+**Status:** done
 
-Care-guide print footer date is captured at mount. An overnight tab can print yesterday’s date. Refresh the date on `beforeprint` (or equivalent) so the footer matches print time.
+`usePrintDate` refreshes on `beforeprint` for care-guide, article, and lesson footers.
 
 ## P16A-1 — `ProgressClient.tsx` still `formatDuration(totalTimeSpentMinutes)`
 
 **Found:** Phase 16A (2026-08-28)  
 **Severity:** Medium (wrong dashboard number)  
-**Status:** open
+**Status:** done
 
-`/dashboard/progress` can show `0 min` because `ProgressClient.tsx` still calls `formatDuration(totalTimeSpentMinutes)`. Out of 16A allowed files. Follow-up should use the same duration source as the rest of the dashboard (or convert units) so progress time matches stats.
+Progress page uses `formatTimeSpentMinutes` — unused column shows `—`, not `0 min`.
 
 ## P16A-2 — `.env.example` and `docs/DEPLOYMENT.md` omit server Sentry vars
 
 **Found:** Phase 16A (2026-08-28)  
 **Severity:** Low (docs)  
-**Status:** open
+**Status:** done
 
-Server `SENTRY_DSN` and `SENTRY_SERVER_SAMPLE_RATE` are mentioned in `netlify.toml` comments only. `.env.example` and `docs/DEPLOYMENT.md` omit them. Document both so production is not configured with the public DSN alone.
+`.env.example` and `docs/DEPLOYMENT.md` document `SENTRY_DSN` and `SENTRY_SERVER_SAMPLE_RATE`.
 
 ## P16A-3 — Server Sentry stays console-only if Netlify has only `NEXT_PUBLIC_SENTRY_DSN`
 

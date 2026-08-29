@@ -40,6 +40,13 @@ describe("LessonCard", () => {
     );
   };
 
+  it("clamps the title to two lines", () => {
+    renderComponent();
+    const title = screen.getByText("Test Lesson");
+    expect(title.className).toContain("line-clamp-2");
+    expect(title.className).toContain("text-title-md");
+  });
+
   it("renders correctly with basic lesson details", () => {
     renderComponent();
     expect(screen.getByText("Test Lesson")).toBeInTheDocument();

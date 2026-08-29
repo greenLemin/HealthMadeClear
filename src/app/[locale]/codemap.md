@@ -35,8 +35,8 @@ Locale-aware pages and layout for Health Made Clear. Dynamic segment `[locale]` 
 | `/about`                   |                                    | Static info page                                                               |
 | `/accessibility`           |                                    | Accessibility statement                                                        |
 | `/contact`                 |                                    | Contact form                                                                   |
-| `/privacy`                 |                                    | Privacy policy                                                                 |
-| `/terms`                   |                                    | Terms of service                                                               |
+| `/privacy`                 |                                    | Privacy policy (`PrivacyClient.tsx`)                                           |
+| `/terms`                   |                                    | Terms of service (`TermsClient.tsx` owns in-page TOC, not `page.tsx`)          |
 
 ## Data Flow
 

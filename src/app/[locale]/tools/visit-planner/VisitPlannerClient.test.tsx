@@ -4,6 +4,7 @@ import type { ReactNode } from "react";
 import { describe, expect, it, vi, beforeEach } from "vitest";
 import { NextIntlClientProvider } from "next-intl";
 import en from "@/messages/en.json";
+import es from "@/messages/es.json";
 import type { PlannerQuestion } from "@/types/visitPlanner";
 import { useVisitPlanner } from "./useVisitPlanner";
 import VisitPlannerClient from "./VisitPlannerClient";
@@ -71,6 +72,8 @@ describe("VisitPlannerClient", () => {
     expect(continueBtn.closest("[inert]")).not.toBeNull();
     expect(typeBtn.closest("[inert]")).not.toBeNull();
     expect(continueBtn.closest("[aria-busy='true']")).not.toBeNull();
+    expect(continueBtn).toBeDisabled();
+    expect(typeBtn).toBeDisabled();
 
     const stepButtons = screen.getAllByRole("button", { name: /Step 1|Step 2|Step 3/i });
     for (const button of stepButtons) {
@@ -121,6 +124,24 @@ describe("VisitPlannerClient", () => {
     expect(treatment).toBeChecked();
     expect(timeline).toBeChecked();
     expect(cause).not.toBeChecked();
+  });
+
+  it("resolves selected ids to Spanish catalog text on step 2", () => {
+    vi.mocked(useVisitPlanner).mockReturnValue(makePlanner({ step: 2, hydrated: true }));
+    render(
+      <NextIntlClientProvider locale="es" messages={es}>
+        <VisitPlannerClient />
+      </NextIntlClientProvider>
+    );
+
+    const treatment = screen.getByRole("checkbox", {
+      name: new RegExp(es.tools.plannerQuestions["new-symptom"][2]!.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")),
+    });
+    const timeline = screen.getByRole("checkbox", {
+      name: new RegExp(es.tools.plannerQuestions["new-symptom"][3]!.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")),
+    });
+    expect(treatment).toBeChecked();
+    expect(timeline).toBeChecked();
   });
 
   it("renders step 3 summary with resolved question text and contrast classes", () => {

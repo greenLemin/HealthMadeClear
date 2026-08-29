@@ -5,7 +5,7 @@ import { CheckCircle2, Clock, Flame, TrendingUp } from "lucide-react";
 import MetricCard from "@/components/ui/MetricCard";
 import ProgressBar from "@/components/ui/ProgressBar";
 import Reveal from "@/components/ui/Reveal";
-import { formatDuration, formatMemberSince, type Locale } from "@/lib/i18n";
+import { formatMemberSince, formatTimeSpentMinutes, type Locale } from "@/lib/i18n";
 import type { Summary } from "@/types/dashboard";
 import { clampPercent } from "./components/clamp";
 import CategoryProgressList from "./components/CategoryProgressList";
@@ -66,6 +66,12 @@ export default function ProgressClient({
   locale,
 }: ProgressClientProps) {
   const t = useTranslations("progress");
+  const tDash = useTranslations("dashboard");
+  const timeSpentLabel = formatTimeSpentMinutes(
+    summary.totalTimeSpentMinutes,
+    locale,
+    tDash("statsTimeSpentUnavailable")
+  );
   const overallPct =
     summary.totalLessonsAvailable > 0
       ? clampPercent((summary.totalLessonsCompleted / summary.totalLessonsAvailable) * 100)
@@ -115,7 +121,7 @@ export default function ProgressClient({
                   className="mt-6"
                 />
                 <div className="mt-6 flex flex-wrap gap-3">
-                  <span className="metric-pill">{formatDuration(summary.totalTimeSpentMinutes, locale)}</span>
+                  <span className="metric-pill">{timeSpentLabel}</span>
                   <span className="metric-pill bg-secondary-container/60 text-secondary">
                     {t("avgQuizScoreColumn")}: {averageScore}
                   </span>
@@ -130,7 +136,7 @@ export default function ProgressClient({
             <MetricCard
               icon={Clock}
               label={t("totalTime")}
-              value={formatDuration(summary.totalTimeSpentMinutes, locale)}
+              value={timeSpentLabel}
               detail={memberSinceLabel}
             />
             <MetricCard

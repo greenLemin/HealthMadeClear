@@ -14,4 +14,4 @@ Glossary term loading, MDX parsing, and inline highlighter cache.
 
 - Loaders consumed by: Glossary page components, GlossaryHighlighter MDX component
 - Parser consumed by: `scripts/bundle-glossary.ts`
-- Depends on: `src/data/glossaryBundles.ts`, `src/types/glossary.ts`
+- Depends on: `src/data/glossaryBundles.en.ts` / `glossaryBundles.es.ts` (not the combined barrel), `src/types/glossary.ts`

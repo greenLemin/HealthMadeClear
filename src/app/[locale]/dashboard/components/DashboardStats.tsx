@@ -2,7 +2,7 @@
 import { BookOpen, CheckCircle2, Flame, Clock } from "lucide-react";
 import { useTranslations } from "next-intl";
 import Card from "@/components/ui/Card";
-import { formatDuration } from "@/lib/i18n";
+import { formatTimeSpentMinutes } from "@/lib/i18n";
 import type { Summary } from "@/types/dashboard";
 
 type DashboardStatsProps = {
@@ -80,9 +80,11 @@ export default function DashboardStats({ summary, locale }: DashboardStatsProps)
           </div>
           <div>
             <p className="text-headline-md text-primary">
-              {summary.totalTimeSpentMinutes === 0
-                ? t("statsTimeSpentUnavailable")
-                : formatDuration(summary.totalTimeSpentMinutes, locale as "en" | "es")}
+              {formatTimeSpentMinutes(
+                summary.totalTimeSpentMinutes,
+                locale as "en" | "es",
+                t("statsTimeSpentUnavailable")
+              )}
             </p>
             <p className="text-label-sm text-on-surface-variant">{t("statsTimeSpent")}</p>
           </div>

@@ -14,7 +14,7 @@ interface EmptyStateProps {
   description: string;
   action?: {
     label: string;
-    onClick: () => void;
+    onClick?: () => void;
     href?: string;
   };
   className?: string;
@@ -59,9 +59,9 @@ export default function EmptyState({
         {action ? (
           action.href ? (
             <ButtonLink href={action.href}>{action.label}</ButtonLink>
-          ) : (
+          ) : action.onClick ? (
             <Button onClick={action.onClick}>{action.label}</Button>
-          )
+          ) : null
         ) : null}
       </div>
     </Card>
