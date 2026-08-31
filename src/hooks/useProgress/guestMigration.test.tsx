@@ -195,4 +195,82 @@ describe("useGuestMigration hook", () => {
       expect(result.current.isMigrationLoading).toBe(false);
     });
   });
+
+  it("catch path: handles thrown error inside onMigrated callback gracefully", async () => {
+    vi.mocked(getGuestProgress).mockReturnValue({
+      completedLessons: ["lesson-1"],
+      quizAttempts: [],
+    });
+    vi.mocked(migrateGuestProgressToSupabase).mockResolvedValue({ ok: true, errors: [] });
+
+    const throwingOnMigrated = vi.fn(() => {
+      throw new Error("Callback error");
+    });
+
+    const { result } = renderHook(() => useGuestMigration(mockUser, mockSupabase, false, throwingOnMigrated));
+
+    await act(async () => {
+      await new Promise((resolve) => setTimeout(resolve, 50));
+    });
+
+    expect(result.current.isMigrationLoading).toBe(false);
+    expect(clearGuestProgress).not.toHaveBeenCalled();
+  });
+
+  it("updates onMigrated callback ref without re-triggering migration effect", async () => {
+    vi.mocked(getGuestProgress).mockReturnValue({
+      completedLessons: ["lesson-1"],
+      quizAttempts: [],
+    });
+    vi.mocked(migrateGuestProgressToSupabase).mockResolvedValue({ ok: true, errors: [] });
+
+    const onMigrated1 = vi.fn();
+    const onMigrated2 = vi.fn();
+
+    const { result, rerender } = renderHook(
+      ({ onMigrated }) => useGuestMigration(mockUser, mockSupabase, false, onMigrated),
+      {
+        initialProps: { onMigrated: onMigrated1 },
+      }
+    );
+
+    await waitFor(() => {
+      expect(result.current.isMigrationLoading).toBe(false);
+    });
+
+    expect(migrateGuestProgressToSupabase).toHaveBeenCalledTimes(1);
+
+    // Rerender with a new onMigrated function callback
+    rerender({ onMigrated: onMigrated2 });
+
+    // migrateGuestProgressToSupabase should still have been called only once
+    expect(migrateGuestProgressToSupabase).toHaveBeenCalledTimes(1);
+  });
+
+  it("triggers migration when transitioning from authLoading: true to authLoading: false", async () => {
+    vi.mocked(getGuestProgress).mockReturnValue({
+      completedLessons: ["lesson-1"],
+      quizAttempts: [],
+    });
+    vi.mocked(migrateGuestProgressToSupabase).mockResolvedValue({ ok: true, errors: [] });
+
+    const { result, rerender } = renderHook(
+      ({ authLoading }) => useGuestMigration(mockUser, mockSupabase, authLoading),
+      {
+        initialProps: { authLoading: true },
+      }
+    );
+
+    expect(result.current.isMigrationLoading).toBe(true);
+    expect(migrateGuestProgressToSupabase).not.toHaveBeenCalled();
+
+    // Finish auth loading
+    rerender({ authLoading: false });
+
+    await waitFor(() => {
+      expect(result.current.isMigrationLoading).toBe(false);
+    });
+
+    expect(migrateGuestProgressToSupabase).toHaveBeenCalledWith(mockSupabase, "user-123");
+  });
 });
