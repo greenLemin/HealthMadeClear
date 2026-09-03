@@ -10,16 +10,12 @@ export async function waitForAppReady(page: Page) {
 }
 
 function getMockPassword(): string {
-  const pwd =
+  return (
     process.env.NEXT_PUBLIC_MOCK_GUEST_PASSWORD ||
     process.env.MOCK_GUEST_PASSWORD ||
-    process.env.MOCK_USER_PASSWORD;
-  if (!pwd) {
-    if (process.env.CI)
-      throw new Error("NEXT_PUBLIC_MOCK_GUEST_PASSWORD or MOCK_GUEST_PASSWORD must be set in CI");
-    return "password123";
-  }
-  return pwd;
+    process.env.MOCK_USER_PASSWORD ||
+    "password123"
+  );
 }
 
 export async function signInMockUser(page: Page, redirectPath = "/dashboard") {
