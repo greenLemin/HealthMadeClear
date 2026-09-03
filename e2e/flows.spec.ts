@@ -1,4 +1,4 @@
-import { expect, signInMockUser, test, waitForAppReady } from "./setup";
+import { expect, getMockPassword, signInMockUser, test, waitForAppReady } from "./setup";
 
 test("lesson detail and mark complete", async ({ page }) => {
   await page.goto("/en/learn/understanding-prescription-labels");
@@ -46,19 +46,6 @@ test("progress export button exists on dashboard", async ({ page }) => {
   await expect(page).toHaveURL(/\/en\/dashboard(?:\?|$)/);
   await expect(page.getByRole("button", { name: /export progress/i })).toBeVisible();
 });
-
-function getMockPassword() {
-  const pwd =
-    process.env.NEXT_PUBLIC_MOCK_GUEST_PASSWORD ||
-    process.env.MOCK_GUEST_PASSWORD ||
-    process.env.MOCK_USER_PASSWORD;
-  if (!pwd) {
-    if (process.env.CI)
-      throw new Error("NEXT_PUBLIC_MOCK_GUEST_PASSWORD or MOCK_GUEST_PASSWORD must be set in CI");
-    return "password123";
-  }
-  return pwd;
-}
 
 test("dashboard redirects guests to login and sign-in returns to dashboard", async ({ page }) => {
   await page.goto("/en/dashboard");
