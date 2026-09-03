@@ -103,16 +103,16 @@ export function applyMutation(
 
     case "achievements": {
       const rows: Record<string, unknown>[] = [];
+      const existingKeys = new Set(db.achievements.map((row) => `${row.user_id}:${row.achievement_id}`));
+
       for (const input of inputs) {
         const nextRow = parseAchievementInput(db, input);
         if (!nextRow) continue;
 
-        const existing = db.achievements.find(
-          (row) => row.user_id === nextRow.user_id && row.achievement_id === nextRow.achievement_id
-        );
+        const key = `${nextRow.user_id}:${nextRow.achievement_id}`;
+        if (existingKeys.has(key)) continue;
 
-        if (existing) continue;
-
+        existingKeys.add(key);
         db.achievements.push(nextRow);
         rows.push({ ...nextRow });
       }
