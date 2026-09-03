@@ -72,9 +72,7 @@ describe("supabaseProgress hooks", () => {
     });
 
     it("should not fetch progress if fetchWhen is false", () => {
-      const { result } = renderHook(() =>
-        useSupabaseProgress(mockUser, mockSupabase, { fetchWhen: false })
-      );
+      const { result } = renderHook(() => useSupabaseProgress(mockUser, mockSupabase, { fetchWhen: false }));
 
       expect(result.current.isFetchLoading).toBe(false);
       expect(result.current.supabaseCompletedLessonIds).toEqual([]);
@@ -274,16 +272,12 @@ describe("supabaseProgress hooks", () => {
       const supabaseCompleted = ["sup-1", "sup-2"];
       const supabaseQuizzes = { "quiz-sup": { score: 90, maxScore: 100, passed: true } };
       const guestCompleted = new Set(["guest-1"]);
-      const guestQuizzes: QuizScore[] = [{ lessonId: "quiz-guest", score: 50, passed: false, completedAt: "2026-01-01" }];
+      const guestQuizzes: QuizScore[] = [
+        { lessonId: "quiz-guest", score: 50, passed: false, completedAt: "2026-01-01" },
+      ];
 
       const { result } = renderHook(() =>
-        useDerivedProgress(
-          mockUser,
-          supabaseCompleted,
-          supabaseQuizzes,
-          guestCompleted,
-          guestQuizzes
-        )
+        useDerivedProgress(mockUser, supabaseCompleted, supabaseQuizzes, guestCompleted, guestQuizzes)
       );
 
       expect(result.current.completedLessonIds).toEqual(["sup-1", "sup-2"]);
@@ -295,16 +289,12 @@ describe("supabaseProgress hooks", () => {
       const supabaseCompleted: string[] = [];
       const supabaseQuizzes = {};
       const guestCompleted = new Set(["guest-1", "guest-2"]);
-      const guestQuizzes: QuizScore[] = [{ lessonId: "quiz-guest", score: 75, passed: true, completedAt: "2026-01-01" }];
+      const guestQuizzes: QuizScore[] = [
+        { lessonId: "quiz-guest", score: 75, passed: true, completedAt: "2026-01-01" },
+      ];
 
       const { result } = renderHook(() =>
-        useDerivedProgress(
-          null,
-          supabaseCompleted,
-          supabaseQuizzes,
-          guestCompleted,
-          guestQuizzes
-        )
+        useDerivedProgress(null, supabaseCompleted, supabaseQuizzes, guestCompleted, guestQuizzes)
       );
 
       expect(result.current.completedLessonIds).toEqual(["guest-1", "guest-2"]);
