@@ -1,4 +1,5 @@
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
+import fs from "fs";
 import { getAllPathsFromMdx, getPathMdxDir } from "@/lib/paths/mdxParser";
 import path from "path";
 
@@ -13,6 +14,12 @@ describe("paths mdxParser", () => {
     const paths = await getAllPathsFromMdx("es");
     const path = paths.find((p) => p.id === "safer-medicine-use");
     expect(path?.title).toBe("Uso más seguro de medicamentos");
+  });
+
+  it("throws an error when a path MDX file is missing in getAllPathsFromMdx", async () => {
+    const spy = vi.spyOn(fs.promises, "access").mockRejectedValueOnce(new Error("ENOENT"));
+    await expect(getAllPathsFromMdx("en")).rejects.toThrow(/Missing path MDX file/);
+    spy.mockRestore();
   });
 });
 
