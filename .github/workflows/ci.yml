@@ -14,6 +14,8 @@ jobs:
     runs-on: ubuntu-latest
     env:
       NEXT_PUBLIC_SITE_URL: https://healthmadeclear.netlify.app
+      NEXT_PUBLIC_MOCK_GUEST_PASSWORD: mock-guest-password-123
+      MOCK_GUEST_PASSWORD: mock-guest-password-123
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
