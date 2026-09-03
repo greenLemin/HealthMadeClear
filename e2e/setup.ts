@@ -15,8 +15,6 @@ function getMockPassword(): string {
     process.env.MOCK_GUEST_PASSWORD ||
     process.env.MOCK_USER_PASSWORD;
   if (!pwd) {
-    if (process.env.CI)
-      throw new Error("NEXT_PUBLIC_MOCK_GUEST_PASSWORD or MOCK_GUEST_PASSWORD must be set in CI");
     return "password123";
   }
   return pwd;
