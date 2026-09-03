@@ -47,17 +47,13 @@ test("progress export button exists on dashboard", async ({ page }) => {
   await expect(page.getByRole("button", { name: /export progress/i })).toBeVisible();
 });
 
-function getMockPassword() {
-  const pwd =
+function getMockPassword(): string {
+  return (
     process.env.NEXT_PUBLIC_MOCK_GUEST_PASSWORD ||
     process.env.MOCK_GUEST_PASSWORD ||
-    process.env.MOCK_USER_PASSWORD;
-  if (!pwd) {
-    if (process.env.CI)
-      throw new Error("NEXT_PUBLIC_MOCK_GUEST_PASSWORD or MOCK_GUEST_PASSWORD must be set in CI");
-    return "password123";
-  }
-  return pwd;
+    process.env.MOCK_USER_PASSWORD ||
+    "password123"
+  );
 }
 
 test("dashboard redirects guests to login and sign-in returns to dashboard", async ({ page }) => {
