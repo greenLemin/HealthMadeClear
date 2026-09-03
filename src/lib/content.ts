@@ -16,6 +16,14 @@ export function getLessonsByPath(pathId: string, lessonItems: LessonListItem[], 
   return result;
 }
 
+export function calculateProgress(completedCount: number, totalCount: number) {
+  return {
+    completedCount,
+    totalCount,
+    percentage: totalCount === 0 ? 0 : Math.round((completedCount / totalCount) * 100),
+  };
+}
+
 export function getPathProgress(
   pathId: string,
   completedLessonIds: string[],
@@ -26,11 +34,7 @@ export function getPathProgress(
   const completedLessonIdsSet = new Set(completedLessonIds);
   const completedCount = pathLessons.filter((lesson) => completedLessonIdsSet.has(lesson.id)).length;
   const totalCount = pathLessons.length;
-  return {
-    completedCount,
-    totalCount,
-    percentage: totalCount === 0 ? 0 : Math.round((completedCount / totalCount) * 100),
-  };
+  return calculateProgress(completedCount, totalCount);
 }
 
 export function getStartedPathCount(
