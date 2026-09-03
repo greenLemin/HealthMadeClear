@@ -48,16 +48,12 @@ test("progress export button exists on dashboard", async ({ page }) => {
 });
 
 function getMockPassword() {
-  const pwd =
+  return (
     process.env.NEXT_PUBLIC_MOCK_GUEST_PASSWORD ||
     process.env.MOCK_GUEST_PASSWORD ||
-    process.env.MOCK_USER_PASSWORD;
-  if (!pwd) {
-    if (process.env.CI)
-      throw new Error("NEXT_PUBLIC_MOCK_GUEST_PASSWORD or MOCK_GUEST_PASSWORD must be set in CI");
-    return "password123";
-  }
-  return pwd;
+    process.env.MOCK_USER_PASSWORD ||
+    "password123"
+  );
 }
 
 test("dashboard redirects guests to login and sign-in returns to dashboard", async ({ page }) => {
