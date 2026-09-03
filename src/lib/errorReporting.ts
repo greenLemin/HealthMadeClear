@@ -95,7 +95,7 @@ const PII_PATTERNS: Array<{ pattern: RegExp; replacement: string }> = [
   // Email addresses
   { pattern: /\b[\w.+-]+@[\w-]+\.[\w.-]+\b/g, replacement: "[email]" },
   // US phone numbers (xxx) xxx-xxxx, xxx-xxx-xxxx, +1 xxx-xxx-xxxx
-  { pattern: /(\+1[-.\s]?)?\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}\b/g, replacement: "[phone]" },
+  { pattern: /(?<![\w+])(?:\+1[-.\s]?)?\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}(?!\d)/g, replacement: "[phone]" },
   // SSN xxx-xx-xxxx
   { pattern: /\b\d{3}-\d{2}-\d{4}\b/g, replacement: "[ssn]" },
   // Credit card numbers (13-19 digits, optionally space/dash separated)
