@@ -22,14 +22,19 @@ export function applyMutation(
 
   switch (table) {
     case "lesson_progress": {
+      const existingIndexMap = new Map<string, number>();
+      for (let i = 0; i < db.lesson_progress.length; i++) {
+        const row = db.lesson_progress[i]!;
+        existingIndexMap.set(`${row.user_id}:${row.lesson_id}`, i);
+      }
+
       const rows: Record<string, unknown>[] = [];
       for (const input of inputs) {
         const nextRow = parseLessonProgressInput(db, input);
         if (!nextRow) continue;
 
-        const existingIndex = db.lesson_progress.findIndex(
-          (row) => row.user_id === nextRow.user_id && row.lesson_id === nextRow.lesson_id
-        );
+        const key = `${nextRow.user_id}:${nextRow.lesson_id}`;
+        const existingIndex = existingIndexMap.get(key) ?? -1;
 
         if (mutation.kind === "insert" && existingIndex >= 0) {
           return {
@@ -54,7 +59,9 @@ export function applyMutation(
           };
           rows.push({ ...db.lesson_progress[existingIndex] });
         } else {
+          const newIndex = db.lesson_progress.length;
           db.lesson_progress.push(nextRow);
+          existingIndexMap.set(key, newIndex);
           rows.push({ ...nextRow });
         }
       }
@@ -62,14 +69,19 @@ export function applyMutation(
     }
 
     case "quiz_attempts": {
+      const existingIndexMap = new Map<string, number>();
+      for (let i = 0; i < db.quiz_attempts.length; i++) {
+        const row = db.quiz_attempts[i]!;
+        existingIndexMap.set(`${row.user_id}:${row.quiz_id}`, i);
+      }
+
       const rows: Record<string, unknown>[] = [];
       for (const input of inputs) {
         const nextRow = parseQuizAttemptInput(db, input);
         if (!nextRow) continue;
 
-        const existingIndex = db.quiz_attempts.findIndex(
-          (row) => row.user_id === nextRow.user_id && row.quiz_id === nextRow.quiz_id
-        );
+        const key = `${nextRow.user_id}:${nextRow.quiz_id}`;
+        const existingIndex = existingIndexMap.get(key) ?? -1;
 
         if (mutation.kind === "insert" && existingIndex >= 0) {
           return {
@@ -95,7 +107,9 @@ export function applyMutation(
           }
         }
 
+        const newIndex = db.quiz_attempts.length;
         db.quiz_attempts.push(nextRow);
+        existingIndexMap.set(key, newIndex);
         rows.push({ ...nextRow });
       }
       return { rows, changed: rows.length > 0, error: null };
