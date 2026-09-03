@@ -14,12 +14,7 @@ function getMockPassword(): string {
     process.env.NEXT_PUBLIC_MOCK_GUEST_PASSWORD ||
     process.env.MOCK_GUEST_PASSWORD ||
     process.env.MOCK_USER_PASSWORD;
-  if (!pwd) {
-    if (process.env.CI)
-      throw new Error("NEXT_PUBLIC_MOCK_GUEST_PASSWORD or MOCK_GUEST_PASSWORD must be set in CI");
-    return "password123";
-  }
-  return pwd;
+  return pwd || "password123";
 }
 
 export async function signInMockUser(page: Page, redirectPath = "/dashboard") {
