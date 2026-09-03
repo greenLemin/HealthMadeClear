@@ -372,6 +372,22 @@ describe("reportServerError", () => {
     expect(console.error).toHaveBeenCalledWith("[hmc:server]", "no dsn", undefined);
   });
 
+  it("scrubs PII (emails, phone numbers, SSNs, credit cards) in server error messages", async () => {
+    const fetchMock = vi.fn().mockResolvedValue({ ok: true });
+    vi.stubGlobal("fetch", fetchMock);
+
+    const reportServerError = await loadReporter();
+    reportServerError(
+      new Error("Contact user@example.com or call 555-123-4567 or SSN 123-45-6789 card 4532-0158-9283-2049")
+    );
+
+    expect(console.error).toHaveBeenCalledWith(
+      "[hmc:server]",
+      "Contact [email] or call [phone] or SSN [ssn] card [card]",
+      undefined
+    );
+  });
+
   it("does not fetch when SENTRY_SERVER_SAMPLE_RATE is 0", async () => {
     vi.stubEnv("SENTRY_SERVER_SAMPLE_RATE", "0");
     const fetchMock = vi.fn().mockResolvedValue({ ok: true });
