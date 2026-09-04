@@ -48,12 +48,14 @@ test("progress export button exists on dashboard", async ({ page }) => {
 });
 
 function getMockPassword(): string {
-  return (
+  const pwd =
     process.env.NEXT_PUBLIC_MOCK_GUEST_PASSWORD ||
     process.env.MOCK_GUEST_PASSWORD ||
-    process.env.MOCK_USER_PASSWORD ||
-    "password123"
-  );
+    process.env.MOCK_USER_PASSWORD;
+  if (!pwd) {
+    return "password123";
+  }
+  return pwd;
 }
 
 test("dashboard redirects guests to login and sign-in returns to dashboard", async ({ page }) => {

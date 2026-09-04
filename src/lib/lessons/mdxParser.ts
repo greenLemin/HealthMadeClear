@@ -43,11 +43,8 @@ export function getLessonMdxDir(locale: "en" | "es") {
 
 export async function getAllLessonsFromMdx(locale: "en" | "es"): Promise<Lesson[]> {
   const dir = getLessonMdxDir(locale);
-  const BATCH_SIZE = 10;
-  const results: Lesson[] = [];
-  for (let i = 0; i < LESSON_IDS.length; i += BATCH_SIZE) {
-    const batch = LESSON_IDS.slice(i, i + BATCH_SIZE);
-    const batchPromises = batch.map(async (id) => {
+  return Promise.all(
+    LESSON_IDS.map(async (id) => {
       const filePath = path.join(dir, `${id}.mdx`);
       try {
         await fs.promises.access(filePath);
@@ -55,11 +52,8 @@ export async function getAllLessonsFromMdx(locale: "en" | "es"): Promise<Lesson[
         throw new Error(`Missing lesson MDX file: ${filePath}`);
       }
       return lessonFromFile(filePath);
-    });
-    const batchResults = await Promise.all(batchPromises);
-    results.push(...batchResults);
-  }
-  return results;
+    })
+  );
 }
 
 export async function getLessonFromMdx(id: string, locale: "en" | "es"): Promise<Lesson | undefined> {

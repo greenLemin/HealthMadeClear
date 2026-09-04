@@ -86,6 +86,7 @@ export async function handleLessonCompletionSideEffects(
       for (const id of path.lessons) {
         if (!allCompletedSet.has(id)) {
           uncompletedCount++;
+          if (uncompletedCount > 1) break;
         }
       }
       if (path.lessons.length > 0 && uncompletedCount === 0) {
