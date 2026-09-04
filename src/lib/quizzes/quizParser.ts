@@ -107,20 +107,16 @@ function parsePassScore(data: Record<string, unknown>, filePath: string, fallbac
 
 export async function getAllQuizzesFromMdx(locale: "en" | "es"): Promise<Quiz[]> {
   const dir = getQuizMdxDir(locale);
-  const results: Quiz[] = [];
-  const BATCH_SIZE = 10;
 
-  for (let i = 0; i < LESSON_IDS.length; i += BATCH_SIZE) {
-    const batch = LESSON_IDS.slice(i, i + BATCH_SIZE);
-    const batchPromises = batch.map(async (id) => {
+  return Promise.all(
+    LESSON_IDS.map(async (id) => {
       const filePath = path.join(dir, `${id}.mdx`);
+      let fileContent: string;
       try {
-        await fs.access(filePath);
+        fileContent = await fs.readFile(filePath, "utf8");
       } catch {
         throw new Error(`Missing quiz MDX file: ${filePath}`);
       }
-
-      const fileContent = await fs.readFile(filePath, "utf8");
 
       const raw = normalizeLineEndings(fileContent);
       let data: Record<string, unknown>;
@@ -145,13 +141,8 @@ export async function getAllQuizzesFromMdx(locale: "en" | "es"): Promise<Quiz[]>
         passScore,
         questions,
       } as Quiz;
-    });
-
-    const batchResults = await Promise.all(batchPromises);
-    results.push(...batchResults);
-  }
-
-  return results;
+    })
+  );
 }
 
 export async function getQuizFromMdx(id: string, locale: "en" | "es"): Promise<Quiz | undefined> {
