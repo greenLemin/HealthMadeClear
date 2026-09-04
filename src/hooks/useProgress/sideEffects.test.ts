@@ -13,7 +13,8 @@ import { updateStreak } from "@/lib/streaks";
 import { checkAndAwardAchievements } from "@/lib/achievements";
 import { createNotifications } from "@/lib/notifications";
 import { getGlossaryLookupCount } from "@/lib/glossaryLookups";
-import { getPathsForLesson } from "./pathsCache";
+import { reportClientError } from "@/lib/errorReporting";
+import { getPathsForLesson, loadPathsForLocale } from "./pathsCache";
 import { BEGINNER_LESSON_IDS } from "@/data/lessonMeta";
 import en from "@/messages/en.json";
 import es from "@/messages/es.json";
@@ -85,6 +86,10 @@ vi.mock("@/lib/notifications", () => ({
 
 vi.mock("@/lib/glossaryLookups", () => ({
   getGlossaryLookupCount: vi.fn().mockReturnValue(0),
+}));
+
+vi.mock("@/lib/errorReporting", () => ({
+  reportClientError: vi.fn(),
 }));
 
 vi.mock("./pathsCache", () => ({
@@ -274,6 +279,27 @@ describe("sideEffects", () => {
           }),
         ])
       );
+    });
+
+    it("reports client error when loadPathsForLocale fails and continues execution", async () => {
+      const pathError = new Error("Network error loading paths");
+      vi.mocked(loadPathsForLocale).mockRejectedValueOnce(pathError);
+
+      await handleLessonCompletionSideEffects(
+        mockSupabase,
+        "user-1",
+        "lesson-1",
+        ["lesson-1"],
+        mockShowToast,
+        "en",
+        enLocalize,
+        enProgressCopy
+      );
+
+      expect(reportClientError).toHaveBeenCalledWith(pathError, {
+        context: "Failed to load paths for progress calculation",
+      });
+      expect(checkAndAwardAchievements).toHaveBeenCalled();
     });
 
     it("notifies streak milestones from progress copy after updateStreak returns a count", async () => {
