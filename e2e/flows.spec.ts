@@ -47,7 +47,7 @@ test("progress export button exists on dashboard", async ({ page }) => {
   await expect(page.getByRole("button", { name: /export progress/i })).toBeVisible();
 });
 
-function getMockPassword() {
+function getMockPassword(): string {
   const pwd =
     process.env.NEXT_PUBLIC_MOCK_GUEST_PASSWORD ||
     process.env.MOCK_GUEST_PASSWORD ||
