@@ -39,7 +39,10 @@ export function setPreferenceCookie(name: string, value: string) {
 
 export function getCookieValue(name: string): string | null {
   if (typeof document === "undefined") return null;
-  const match = document.cookie.match(new RegExp(`(?:^|; )${name}=([^;]*)`));
+  // Escape RegExp special chars — `name` is typed as string and this helper is
+  // exported, so a caller-supplied name like "a+b" must not change the pattern.
+  const escaped = name.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  const match = document.cookie.match(new RegExp(`(?:^|; )${escaped}=([^;]*)`));
   return match ? decodeURIComponent(match[1]!) : null;
 }
 

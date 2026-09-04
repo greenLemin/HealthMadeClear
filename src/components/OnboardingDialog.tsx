@@ -127,7 +127,11 @@ export default function OnboardingDialog() {
   const dismiss = () => {
     try {
       localStorage.setItem(ONBOARDING_KEY, "true");
-    } catch {}
+    } catch (e) {
+      if (process.env.NODE_ENV === "development") {
+        console.warn("OnboardingDialog: failed to persist dismissal:", e);
+      }
+    }
     setDismissed(true);
   };
 

@@ -30,9 +30,14 @@ function clearStorageKeys(storage: Storage | null | undefined): void {
     keysToDelete.forEach((key) => {
       try {
         storage.removeItem(key);
-      } catch {}
+      } catch {
+        // Best-effort wipe: a single locked key must not abort the rest.
+      }
     });
-  } catch {}
+  } catch {
+    // Storage blocked entirely (e.g. third-party-cookie blocking) — wipe is
+    // best-effort by design; callers must not throw during logout/reset.
+  }
 }
 
 /**
@@ -44,10 +49,14 @@ export function clearLocalHealthData(): void {
   if (typeof window === "undefined") return;
   try {
     clearStorageKeys(window.localStorage);
-  } catch {}
+  } catch {
+    // Best-effort: never throw from a privacy wipe.
+  }
   try {
     clearStorageKeys(window.sessionStorage);
-  } catch {}
+  } catch {
+    // Best-effort: never throw from a privacy wipe.
+  }
 }
 
 /**

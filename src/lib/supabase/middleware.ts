@@ -28,8 +28,18 @@ export async function updateSession(request: NextRequest, response?: NextRespons
       let isMockAuthenticated = false;
       if (raw) {
         try {
-          const json =
-            raw.startsWith("%7B") || raw.includes("%") ? decodeURIComponent(raw.split(",")[0]!) : raw;
+          // Decode the full cookie value. Never split on "," — encoded JSON
+          // uses %2C for commas, and raw JSON legitimately contains commas.
+          // Truncating to the first comma breaks JSON.parse and forces a
+          // false-unauthenticated redirect loop for mock users in dev.
+          let json = raw;
+          if (raw.startsWith("%7B") || raw.includes("%")) {
+            try {
+              json = decodeURIComponent(raw);
+            } catch {
+              json = raw;
+            }
+          }
           const db = JSON.parse(json) as {
             auth?: { current_user_id?: string | null; account?: { id?: string } };
           };

@@ -34,7 +34,13 @@ export default function SaveProgressBanner() {
     setVisible(false);
     try {
       sessionStorage.setItem(BANNER_DISMISSED_KEY, "true");
-    } catch {}
+    } catch (e) {
+      // Storage blocked (private mode) — banner will reappear next mount,
+      // which is acceptable; log in dev for diagnosability.
+      if (process.env.NODE_ENV === "development") {
+        console.warn("SaveProgressBanner: failed to persist dismissal:", e);
+      }
+    }
   }
 
   if (!visible) return null;

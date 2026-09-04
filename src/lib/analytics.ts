@@ -17,15 +17,24 @@ const EVENTS = {
   AUTH_LOGIN: "auth_login",
 } as const;
 
-export function trackPageView(_url: string, _locale: string): void {
-  logger.log("[Analytics] Page view:", _url, _locale);
+export function trackPageView(url: string, _locale: string): void {
+  logger.log("[Analytics] Page view:", url, _locale);
 
   if (process.env.NODE_ENV === "development") return;
 
   if (typeof window !== "undefined") {
-    // Strip query params to prevent PII leakage (e.g., ?code=oauth_code)
-    const pagePath = window.location.pathname;
-    const pageLocation = window.location.origin + window.location.pathname;
+    // Prefer the caller-supplied URL (stripped to pathname) so SPA navigations
+    // report the navigated-to page even if location hasn't committed yet.
+    // Strip query/hash to prevent PII leakage (e.g., ?code=oauth_code).
+    let pagePath = window.location.pathname;
+    let pageLocation = window.location.origin + window.location.pathname;
+    try {
+      const parsed = new URL(url, window.location.origin);
+      pagePath = parsed.pathname;
+      pageLocation = parsed.origin + parsed.pathname;
+    } catch {
+      // Malformed URL — fall back to current location.
+    }
 
     if (typeof window.gtag === "function") {
       window.gtag("event", "page_view", {

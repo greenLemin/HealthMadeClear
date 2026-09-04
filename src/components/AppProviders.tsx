@@ -17,6 +17,7 @@ import {
   type ThemeMode,
 } from "@/lib/preferences";
 import { clearLocalHealthData } from "@/lib/clearLocalHealthData";
+import { logger } from "@/lib/logger";
 import type { ExportedProgress, QuizScore } from "@/lib/progressExport";
 import { readStoredQuizScores } from "@/lib/progressExport";
 
@@ -87,16 +88,24 @@ function PreferencesProvider({
     document.documentElement.dataset.hydrated = "true";
     try {
       window.localStorage.setItem(STORAGE_KEYS.locale, locale);
-    } catch {}
+    } catch (e) {
+      logger.warn("Failed to persist locale preference:", e);
+    }
     try {
       window.localStorage.setItem(STORAGE_KEYS.theme, theme);
-    } catch {}
+    } catch (e) {
+      logger.warn("Failed to persist theme preference:", e);
+    }
     try {
       window.localStorage.setItem(STORAGE_KEYS.textSize, textSize);
-    } catch {}
+    } catch (e) {
+      logger.warn("Failed to persist textSize preference:", e);
+    }
     try {
       window.localStorage.setItem(STORAGE_KEYS.simpleMode, String(simpleMode));
-    } catch {}
+    } catch (e) {
+      logger.warn("Failed to persist simpleMode preference:", e);
+    }
     setPreferenceCookie("hmc-locale", locale);
     setPreferenceCookie("hmc-theme", theme);
     setPreferenceCookie("hmc-text-size", textSize);
@@ -152,16 +161,24 @@ function ProgressProvider({ children }: { children: React.ReactNode }) {
         STORAGE_KEYS.completedLessons,
         JSON.stringify(Array.from(completedLessons))
       );
-    } catch {}
+    } catch (e) {
+      logger.warn("Failed to persist completedLessons:", e);
+    }
     try {
       window.localStorage.setItem(STORAGE_KEYS.recentLessons, JSON.stringify(recentLessons));
-    } catch {}
+    } catch (e) {
+      logger.warn("Failed to persist recentLessons:", e);
+    }
     try {
       window.localStorage.setItem(STORAGE_KEYS.startedPaths, JSON.stringify(startedPaths));
-    } catch {}
+    } catch (e) {
+      logger.warn("Failed to persist startedPaths:", e);
+    }
     try {
       window.localStorage.setItem(STORAGE_KEYS.quizScores, JSON.stringify(quizScores));
-    } catch {}
+    } catch (e) {
+      logger.warn("Failed to persist quizScores:", e);
+    }
   }, [hydrated, completedLessons, recentLessons, startedPaths, quizScores]);
 
   const toggleLessonComplete = useCallback((lessonId: string) => {
@@ -209,10 +226,12 @@ function ProgressProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   const importProgress = useCallback((data: ExportedProgress) => {
-    setCompletedLessons(new Set(data.completedLessons));
-    setRecentLessons(data.recentLessons);
-    setStartedPaths(data.startedPaths);
-    setQuizScores(data.quizScores);
+    // Clamp even validated imports so a crafted file cannot blow localStorage
+    // quota or render unbounded lists. Mirrors readStoredStringArray caps.
+    setCompletedLessons(new Set(data.completedLessons.filter((id) => typeof id === "string").slice(0, 500)));
+    setRecentLessons(data.recentLessons.filter((id) => typeof id === "string").slice(0, 6));
+    setStartedPaths(data.startedPaths.filter((id) => typeof id === "string").slice(0, 100));
+    setQuizScores(Array.isArray(data.quizScores) ? data.quizScores.slice(0, 200) : []);
   }, []);
 
   const resetLocalProgress = useCallback(() => {

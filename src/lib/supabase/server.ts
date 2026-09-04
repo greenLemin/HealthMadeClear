@@ -25,7 +25,10 @@ export async function createClient() {
       setAll(cookiesToSet) {
         try {
           cookiesToSet.forEach(({ name, value, options }) => cookieStore.set(name, value, options));
-        } catch {}
+        } catch {
+          // Called during static prerender / Server Component render where
+          // cookies().set() throws. Expected — middleware refreshes sessions.
+        }
       },
     },
   });

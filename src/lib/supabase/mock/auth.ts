@@ -17,7 +17,13 @@ export function emitAuthStateChange(event: AuthChangeEvent, session: Session | n
   authSubscribers.forEach((callback) => {
     try {
       callback(event, session);
-    } catch {}
+    } catch (e) {
+      // A throwing subscriber (e.g. AuthProvider) must not break other
+      // listeners or the mock auth flow itself. Surface in dev for triage.
+      if (process.env.NODE_ENV === "development") {
+        console.warn("Mock auth subscriber threw:", e);
+      }
+    }
   });
 }
 

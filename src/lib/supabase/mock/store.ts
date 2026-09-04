@@ -3,6 +3,21 @@ import { parseFirstJsonObject } from "./utils";
 import { cloneDefaultDb } from "./defaults";
 import { normalizeMockDb } from "./normalizers";
 
+export function decodeMockCookieValue(raw: string): string {
+  // request.cookies.get() returns the raw cookie value which saveMockDb stores
+  // as encodeURIComponent(JSON). Decode the full value — never split on ","
+  // (encoded commas are %2C, and a raw JSON payload legitimately contains commas;
+  // truncating to the first comma yields invalid JSON and drops auth state).
+  if (raw.startsWith("%7B") || raw.includes("%")) {
+    try {
+      return decodeURIComponent(raw);
+    } catch {
+      return raw;
+    }
+  }
+  return raw;
+}
+
 export function getMockDb(cookieStore?: Pick<CookieStore, "get">): MockDb {
   let json: string | null = null;
 
@@ -10,11 +25,7 @@ export function getMockDb(cookieStore?: Pick<CookieStore, "get">): MockDb {
     if (cookieStore) {
       const raw = cookieStore.get("hmc_mock_db")?.value || null;
       if (raw) {
-        if (raw.startsWith("%7B") || raw.includes("%")) {
-          json = decodeURIComponent(raw.split(",")[0]!);
-        } else {
-          json = raw;
-        }
+        json = decodeMockCookieValue(raw);
       }
     } else if (typeof document !== "undefined") {
       const match = document.cookie.match(/(?:^|; )hmc_mock_db=([^;]*)/);

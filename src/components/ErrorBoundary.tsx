@@ -42,7 +42,16 @@ export default class ErrorBoundary extends React.Component<ErrorBoundaryProps, E
   }
 
   componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
-    console.error("ErrorBoundary caught:", error, errorInfo);
+    // Route through the centralized reporter so production crashes reach Sentry
+    // with PII scrubbing, while dev still gets a console trace. Direct
+    // console.error here bypassed sanitization and never left the browser.
+    if (process.env.NODE_ENV === "development") {
+      console.error("ErrorBoundary caught:", error, errorInfo);
+      return;
+    }
+    void import("@/lib/errorReporting").then(({ reportClientError }) => {
+      reportClientError(error, { componentStack: Boolean(errorInfo?.componentStack) });
+    });
   }
 
   handleReset = () => {

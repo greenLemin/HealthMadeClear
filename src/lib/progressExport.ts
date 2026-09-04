@@ -34,15 +34,31 @@ export function buildProgressExport(
 }
 
 export function downloadProgressExport(data: ExportedProgress) {
+  if (typeof document === "undefined" || typeof URL === "undefined") return;
   const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
   const url = URL.createObjectURL(blob);
   const anchor = document.createElement("a");
-  anchor.href = url;
-  anchor.download = `health-made-clear-progress-${new Date().toISOString().slice(0, 10)}.json`;
-  document.body.appendChild(anchor);
-  anchor.click();
-  document.body.removeChild(anchor);
-  URL.revokeObjectURL(url);
+  try {
+    anchor.href = url;
+    anchor.download = `health-made-clear-progress-${new Date().toISOString().slice(0, 10)}.json`;
+    document.body.appendChild(anchor);
+    anchor.click();
+  } finally {
+    try {
+      // Prefer parentNode (works even if body changed), fallback to body for
+      // test mocks where parentNode is not wired up.
+      if (anchor.parentNode) anchor.parentNode.removeChild(anchor);
+      else document.body.removeChild(anchor);
+    } catch {
+      // Cleanup best-effort — a failed click must still revoke the object URL.
+      try {
+        document.body.removeChild(anchor);
+      } catch {
+        /* already removed */
+      }
+    }
+    URL.revokeObjectURL(url);
+  }
 }
 
 function isQuizScore(value: unknown): value is QuizScore {

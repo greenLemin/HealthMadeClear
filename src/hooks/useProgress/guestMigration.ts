@@ -32,10 +32,19 @@ export function useGuestMigration(
               setMigrated(true);
               await onMigratedRef.current?.();
               clearGuestProgress();
+            } else {
+              // Migration partially failed (e.g. lesson upsert ok, quiz upsert
+              // failed). Previously silent — surface for triage but still
+              // unblock the UI; next mount will retry remaining rows.
+              const { logger } = await import("@/lib/logger");
+              logger.warn("Guest migration completed with errors:", result.errors);
             }
           })
-          .catch(() => {
-            // Non-fatal: migration threw unexpectedly — unblock the UI
+          .catch(async (error) => {
+            // Non-fatal: migration threw unexpectedly — unblock the UI.
+            // Log so persistent failures (RLS, network) are diagnosable.
+            const { logger } = await import("@/lib/logger");
+            logger.warn("Guest migration failed:", error);
           })
           .finally(() => {
             setIsMigrationLoading(false);

@@ -12,10 +12,22 @@ export const logIfDev = <T extends unknown[]>(methodOrFn: LogMethod | ((...args:
   };
 };
 
+function reportErrorInProduction(...args: unknown[]) {
+  if (process.env.NODE_ENV === "development") return;
+  if (typeof window === "undefined") return;
+  const error = args.find((a) => a instanceof Error) ?? new Error(String(args[0] ?? "Unknown error"));
+  void import("./errorReporting").then(({ reportClientError }) => {
+    reportClientError(error, { source: "logger.error" });
+  });
+}
+
 export const logger = {
   log: logIfDev("log"),
   warn: logIfDev("warn"),
-  error: logIfDev("error"),
+  error: (...args: unknown[]) => {
+    logIfDev("error")(...args);
+    reportErrorInProduction(...args);
+  },
   info: logIfDev("info"),
   debug: logIfDev("debug"),
 };

@@ -39,34 +39,50 @@ async function upstashCheck(
     "Content-Type": "application/json",
   };
 
-  const resp = await fetch(`${base}/pipeline`, {
+  // Fixed window: only set expiry on the first hit in a window. The previous
+  // pipeline ran EXPIRE on every request, sliding the window forward and
+  // letting a steady 1-req-per-second client stay under the limit forever.
+  const resp = await fetch(`${base}/incr/${key}`, {
     method: "POST",
     headers,
-    body: JSON.stringify([
-      ["INCR", key],
-      ["EXPIRE", key, windowSec],
-    ]),
+    signal: AbortSignal.timeout(2000),
   });
-  if (!resp.ok) throw new Error(`Upstash pipeline failed with ${resp.status}`);
+  if (!resp.ok) throw new Error(`Upstash incr failed with ${resp.status}`);
 
   const body = (await resp.json()) as unknown;
-  const count = Number(Array.isArray(body) && Array.isArray(body[0]) ? body[0][0]?.result : NaN);
+  const count = Number(
+    (body as { result?: unknown })?.result ??
+      (Array.isArray(body) ? (body[0] as { result?: unknown })?.result : NaN)
+  );
   if (Number.isNaN(count)) throw new Error("Upstash returned unexpected shape");
+
+  if (count === 1) {
+    // First hit — arm the window. Best-effort; if this fails the key will be
+    // reaped by the next cold path via fail-open in-memory limiter.
+    await fetch(`${base}/expire/${key}/${windowSec}`, {
+      method: "POST",
+      headers,
+      signal: AbortSignal.timeout(2000),
+    }).catch(() => {});
+  }
 
   if (count <= maxRequests) return { allowed: true };
 
   // Blocked — resolve remaining TTL for the retry-after header.
   let retryAfterSeconds = windowSec;
   try {
-    const ttlResp = await fetch(`${base}/pttl`, {
-      method: "POST",
+    const ttlResp = await fetch(`${base}/ttl/${key}`, {
+      method: "GET",
       headers,
-      body: JSON.stringify([key]),
+      signal: AbortSignal.timeout(2000),
     });
     if (ttlResp.ok) {
       const ttlBody = (await ttlResp.json()) as unknown;
-      const ttl = Number(Array.isArray(ttlBody) && Array.isArray(ttlBody[0]) ? ttlBody[0][0]?.result : NaN);
-      if (!Number.isNaN(ttl) && ttl > 0) retryAfterSeconds = Math.ceil(ttl / 1000);
+      const ttl = Number(
+        (ttlBody as { result?: unknown })?.result ??
+          (Array.isArray(ttlBody) ? (ttlBody[0] as { result?: unknown })?.result : NaN)
+      );
+      if (!Number.isNaN(ttl) && ttl > 0) retryAfterSeconds = ttl;
     }
   } catch {
     // TTL read is best-effort; keep the window as the retry-after estimate.

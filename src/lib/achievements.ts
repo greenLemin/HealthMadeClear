@@ -109,8 +109,10 @@ export async function checkAndAwardAchievements(
     { id: "first-quiz-pass", condition: context.quizPassed === true },
     {
       id: "perfect-quiz",
+      // Require maxScore > 0 so a 0/0 (empty quiz, failed load) cannot award.
       condition:
         context.quizMaxScore !== undefined &&
+        context.quizMaxScore > 0 &&
         context.quizScore !== undefined &&
         context.quizScore === context.quizMaxScore,
     },
@@ -144,6 +146,10 @@ export async function checkAndAwardAchievements(
       })
       .select("achievement_id");
     if (error) {
+      // Previously indistinguishable from "no new achievements" — surface for
+      // triage (caller preserves prior toasts; next completion retries).
+      const { logger } = await import("./logger");
+      logger.warn("Failed to award achievements:", error);
       return [];
     }
 

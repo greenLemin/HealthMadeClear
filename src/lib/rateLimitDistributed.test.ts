@@ -79,14 +79,14 @@ describe("rateLimitDistributed", () => {
     expect(limit.allowed).toBe(true);
   });
 
-  it("parses a normal Upstash pipeline response as allowed", async () => {
+  it("parses a normal Upstash incr response as allowed", async () => {
     vi.stubEnv("UPSTASH_REDIS_REST_URL", "https://xx.upstash.io");
     vi.stubEnv("UPSTASH_REDIS_REST_TOKEN", "secret");
     vi.stubGlobal(
       "fetch",
       vi.fn().mockResolvedValue({
         ok: true,
-        json: async () => [[{ result: 1 }, { result: 1 }]],
+        json: async () => ({ result: 1 }),
       })
     );
 
@@ -101,11 +101,11 @@ describe("rateLimitDistributed", () => {
       .fn()
       .mockResolvedValueOnce({
         ok: true,
-        json: async () => [[{ result: 9 }, { result: 1 }]],
+        json: async () => ({ result: 9 }),
       })
       .mockResolvedValueOnce({
         ok: true,
-        json: async () => [[{ result: 45000 }]],
+        json: async () => ({ result: 45 }),
       });
     vi.stubGlobal("fetch", fetchMock);
 
@@ -121,7 +121,7 @@ describe("rateLimitDistributed", () => {
       .fn()
       .mockResolvedValueOnce({
         ok: true,
-        json: async () => [[{ result: 6 }, { result: 1 }]],
+        json: async () => ({ result: 6 }),
       })
       .mockRejectedValueOnce(new Error("ttl failed"));
     vi.stubGlobal("fetch", fetchMock);
@@ -138,7 +138,7 @@ describe("rateLimitDistributed", () => {
       .fn()
       .mockResolvedValueOnce({
         ok: true,
-        json: async () => [[{ result: 10 }, { result: 1 }]],
+        json: async () => ({ result: 10 }),
       })
       .mockResolvedValueOnce({
         ok: false,
@@ -158,11 +158,11 @@ describe("rateLimitDistributed", () => {
       .fn()
       .mockResolvedValueOnce({
         ok: true,
-        json: async () => [[{ result: 10 }, { result: 1 }]],
+        json: async () => ({ result: 10 }),
       })
       .mockResolvedValueOnce({
         ok: true,
-        json: async () => [[{ result: -2 }]],
+        json: async () => ({ result: -2 }),
       });
     vi.stubGlobal("fetch", fetchMock);
 
@@ -176,13 +176,13 @@ describe("rateLimitDistributed", () => {
     vi.stubEnv("UPSTASH_REDIS_REST_TOKEN", "secret");
     const fetchMock = vi.fn().mockResolvedValue({
       ok: true,
-      json: async () => [[{ result: 1 }, { result: 1 }]],
+      json: async () => ({ result: 1 }),
     });
     vi.stubGlobal("fetch", fetchMock);
 
     await checkRateLimitDistributed("t", "10.0.0.9", 5, 60_000);
     expect(fetchMock).toHaveBeenCalledWith(
-      "https://xx.upstash.io/pipeline",
+      "https://xx.upstash.io/incr/ratelimit:t:10.0.0.9",
       expect.objectContaining({ method: "POST" })
     );
   });
@@ -192,19 +192,14 @@ describe("rateLimitDistributed", () => {
     vi.stubEnv("UPSTASH_REDIS_REST_TOKEN", "secret");
     const fetchMock = vi.fn().mockResolvedValue({
       ok: true,
-      json: async () => [[{ result: 1 }, { result: 1 }]],
+      json: async () => ({ result: 1 }),
     });
     vi.stubGlobal("fetch", fetchMock);
 
     await checkRateLimitDistributed("t", "10.0.0.10", 5, 500);
     expect(fetchMock).toHaveBeenCalledWith(
-      "https://xx.upstash.io/pipeline",
-      expect.objectContaining({
-        body: JSON.stringify([
-          ["INCR", "ratelimit:t:10.0.0.10"],
-          ["EXPIRE", "ratelimit:t:10.0.0.10", 1],
-        ]),
-      })
+      "https://xx.upstash.io/expire/ratelimit:t:10.0.0.10/1",
+      expect.objectContaining({ method: "POST" })
     );
   });
 });

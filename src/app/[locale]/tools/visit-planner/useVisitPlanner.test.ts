@@ -164,10 +164,8 @@ describe("useVisitPlanner", () => {
     });
 
     expect(result.current.customQuestions).toHaveLength(1);
-    expect(result.current.customQuestions[0]).toEqual({
-      id: "cq-1672531200000",
-      text: "New Question",
-    });
+    expect(result.current.customQuestions[0]!.text).toBe("New Question");
+    expect(result.current.customQuestions[0]!.id).toMatch(/^cq-/);
     expect(result.current.customInput).toBe("");
 
     act(() => {

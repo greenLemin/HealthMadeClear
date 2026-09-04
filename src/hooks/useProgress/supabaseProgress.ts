@@ -56,6 +56,17 @@ export function useSupabaseProgress(
     // Guard against stale fetch if user switched accounts mid-flight
     if (!userRef.current || fetchUserId !== userRef.current.id) return;
 
+    if (lessonResult.error ?? quizResult.error) {
+      // Supabase returns { data: null, error } rather than throwing — the
+      // previous code only handled throws, leaving RLS/network failures in a
+      // silent "loaded but empty" state. Surface for triage, keep old state.
+      const { logger } = await import("@/lib/logger");
+      logger.warn("Failed to fetch Supabase progress:", lessonResult.error ?? quizResult.error);
+      const { reportClientError } = await import("@/lib/errorReporting");
+      reportClientError(lessonResult.error ?? quizResult.error, { hook: "useSupabaseProgress" });
+      return;
+    }
+
     if (lessonResult.data) {
       setSupabaseCompletedLessonIds(lessonResult.data.map((r: { lesson_id: string }) => r.lesson_id));
     }
@@ -85,7 +96,13 @@ export function useSupabaseProgress(
       try {
         await fetchProgress();
       } catch (error) {
-        // Error handling here
+        // Previously swallowed silently, leaving the UI in a "loaded but empty"
+        // state on network failure with no signal to retry. Log in dev and
+        // report in prod so failures are visible; existing state is preserved.
+        const { logger } = await import("@/lib/logger");
+        logger.warn("Failed to fetch Supabase progress:", error);
+        const { reportClientError } = await import("@/lib/errorReporting");
+        reportClientError(error, { hook: "useSupabaseProgress" });
       }
       if (!cancelled) setIsFetchLoading(false);
     };

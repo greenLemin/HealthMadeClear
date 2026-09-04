@@ -48,7 +48,10 @@ export function getGlossaryLookupCount(): number {
     if (!raw) return 0;
     const parsed = JSON.parse(raw);
     if (Array.isArray(parsed)) {
-      return parsed.length;
+      // Filter to strings for consistency with recordGlossaryLookup, which
+      // strips non-string entries. Prevents a manually-edited array like
+      // [1, null, {}] from inflating the count.
+      return parsed.filter((id): id is string => typeof id === "string").length;
     }
     return 0;
   } catch {

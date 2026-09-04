@@ -103,9 +103,11 @@ function ChecklistItems({
     <fieldset className="m-0 border-0 p-0">
       <legend className="sr-only">{pageTitle}</legend>
       <div className="space-y-3">
-        {checklistItems.map((item) => {
+        {checklistItems.map((item, index) => {
           const checked = checkedSet.has(item);
-          const inputId = `checklist-${item.replace(/\s+/g, "-")}`;
+          // Use index for a stable unique id — translated item text can collide
+          // after slugification (punctuation/accents) and is not HTML-id safe.
+          const inputId = `checklist-${index}`;
           return (
             <label
               key={item}

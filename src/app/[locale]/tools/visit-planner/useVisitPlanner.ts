@@ -25,12 +25,15 @@ function parsePlannerState(value: unknown): PlannerState | null {
 
   const rawCustom = parsed.customQuestions;
   const parsedCustomQuestions: CustomQuestion[] = Array.isArray(rawCustom)
-    ? rawCustom.filter(
-        (q): q is CustomQuestion =>
-          !!q &&
-          typeof (q as CustomQuestion).id === "string" &&
-          typeof (q as CustomQuestion).text === "string"
-      )
+    ? rawCustom
+        .filter(
+          (q): q is CustomQuestion =>
+            !!q &&
+            typeof (q as CustomQuestion).id === "string" &&
+            typeof (q as CustomQuestion).text === "string"
+        )
+        .slice(0, 50)
+        .map((q) => ({ id: q.id.slice(0, 100), text: q.text.slice(0, 500) }))
     : [];
 
   return {
@@ -77,11 +80,16 @@ function useCustomQuestions() {
   const [customInput, setCustomInput] = useState("");
 
   const addCustomQuestion = () => {
-    const trimmed = customInput.trim();
+    const trimmed = customInput.trim().slice(0, 500);
     if (!trimmed) return;
+    if (customQuestions.length >= 50) return;
     if (customQuestions.some((q) => q.text.toLowerCase() === trimmed.toLowerCase())) return;
 
-    setCustomQuestions((current) => [...current, { id: `cq-${Date.now()}`, text: trimmed }]);
+    const id =
+      typeof crypto !== "undefined" && typeof crypto.randomUUID === "function"
+        ? `cq-${crypto.randomUUID()}`
+        : `cq-${Date.now()}-${Math.floor(Math.random() * 1e6)}`;
+    setCustomQuestions((current) => [...current, { id, text: trimmed }]);
     setCustomInput("");
   };
 
