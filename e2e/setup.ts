@@ -14,7 +14,9 @@ function getMockPassword(): string {
     process.env.NEXT_PUBLIC_MOCK_GUEST_PASSWORD ||
     process.env.MOCK_GUEST_PASSWORD ||
     process.env.MOCK_USER_PASSWORD;
-  if (!pwd) return "password123";
+  if (!pwd) {
+    return "password123";
+  }
   return pwd;
 }
 
