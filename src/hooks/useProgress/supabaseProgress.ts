@@ -1,5 +1,5 @@
 import type { User } from "@supabase/supabase-js";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { QuizScore } from "@/lib/progressExport";
 import { createClient } from "@/lib/supabase/client";
 
@@ -29,6 +29,11 @@ export function useSupabaseProgress(
   const [supabaseQuizAttempts, setSupabaseQuizAttempts] = useState<QuizAttempts>({});
   const [prevUser, setPrevUser] = useState<User | null>(user);
 
+  const userRef = useRef(user);
+  useEffect(() => {
+    userRef.current = user;
+  }, [user]);
+
   if (user !== prevUser) {
     setPrevUser(user);
     if (!user) {
@@ -49,7 +54,7 @@ export function useSupabaseProgress(
     ]);
 
     // Guard against stale fetch if user switched accounts mid-flight
-    if (!user || fetchUserId !== user.id) return;
+    if (!userRef.current || fetchUserId !== userRef.current.id) return;
 
     if (lessonResult.data) {
       setSupabaseCompletedLessonIds(lessonResult.data.map((r: { lesson_id: string }) => r.lesson_id));
@@ -77,7 +82,11 @@ export function useSupabaseProgress(
     setIsFetchLoading(true);
 
     const run = async () => {
-      await fetchProgress();
+      try {
+        await fetchProgress();
+      } catch (error) {
+        // Error handling here
+      }
       if (!cancelled) setIsFetchLoading(false);
     };
 
