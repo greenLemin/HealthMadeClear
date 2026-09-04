@@ -117,6 +117,35 @@ explanation: missing answer line
     expect(questions).toEqual([]);
   });
 
+  it("ignores questions with empty or whitespace-only answer tag", () => {
+    const emptyAnswer = `
+## Question 1
+
+What is 2+2?
+
+A) 3
+B) 4
+
+answer:
+explanation: empty answer tag
+`;
+
+    const whitespaceAnswer = `
+## Question 2
+
+What is 2+2?
+
+A) 3
+B) 4
+
+answer:
+explanation: whitespace answer tag
+`;
+
+    expect(parseQuestions(emptyAnswer)).toEqual([]);
+    expect(parseQuestions(whitespaceAnswer)).toEqual([]);
+  });
+
   it("ignores questions with invalid answer letter", () => {
     const markdown1 = `
 ## Question 1

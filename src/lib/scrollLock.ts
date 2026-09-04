@@ -10,8 +10,10 @@ export function lockScroll() {
 }
 
 export function unlockScroll() {
-  scrollLockCount = Math.max(0, scrollLockCount - 1);
-  if (scrollLockCount === 0) {
-    document.body.style.overflow = previousBodyOverflow;
+  if (scrollLockCount > 0) {
+    scrollLockCount -= 1;
+    if (scrollLockCount === 0) {
+      document.body.style.overflow = previousBodyOverflow;
+    }
   }
 }

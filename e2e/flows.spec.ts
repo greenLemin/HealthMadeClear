@@ -47,13 +47,15 @@ test("progress export button exists on dashboard", async ({ page }) => {
   await expect(page.getByRole("button", { name: /export progress/i })).toBeVisible();
 });
 
-function getMockPassword() {
-  return (
+function getMockPassword(): string {
+  const pwd =
     process.env.NEXT_PUBLIC_MOCK_GUEST_PASSWORD ||
     process.env.MOCK_GUEST_PASSWORD ||
-    process.env.MOCK_USER_PASSWORD ||
-    "password123"
-  );
+    process.env.MOCK_USER_PASSWORD;
+  if (!pwd) {
+    return "password123";
+  }
+  return pwd;
 }
 
 test("dashboard redirects guests to login and sign-in returns to dashboard", async ({ page }) => {
