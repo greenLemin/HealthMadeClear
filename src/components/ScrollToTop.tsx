@@ -36,6 +36,7 @@ export default function ScrollToTop() {
         onDashboard ? "bottom-20 md:bottom-6" : "bottom-6",
       ].join(" ")}
       aria-label={t("backToTop")}
+      title={t("backToTop")}
     >
       <ArrowUp size={20} aria-hidden="true" />
     </button>
