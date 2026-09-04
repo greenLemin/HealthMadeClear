@@ -250,6 +250,25 @@ describe("reportClientError", () => {
       expect(event.extra.route).toBe("learn");
     });
 
+    it("scrubs PII formats (phone, email, ssn, card) and leaves non-PII IDs untouched", async () => {
+      vi.stubGlobal("window", {} as Window & typeof globalThis);
+
+      reportClientError(
+        "Contact user at (123) 456-7890 or user@example.com or ssn 123-45-6789 or card 4111 1111 1111 1111, but leave user_1234567890 intact"
+      );
+      await new Promise((resolve) => setTimeout(resolve, 0));
+
+      const initCall = vi.mocked(Sentry.init).mock.calls[0]![0];
+      const event = {
+        message: "Error with (123) 456-7890, +1 123-456-7890, 123.456.7890, and user_1234567890",
+        breadcrumbs: [{ message: "User email user@test.com and phone 123-456-7890" }],
+      };
+      initCall!.beforeSend!(event as unknown as Sentry.ErrorEvent, {} as Sentry.EventHint);
+
+      expect(event.message).toBe("Error with [phone], [phone], [phone], and user_1234567890");
+      expect(event.breadcrumbs[0]?.message).toBe("User email [email] and phone [phone]");
+    });
+
     it("drops ui.input breadcrumbs so SearchDialog keystrokes are not stored", async () => {
       vi.stubGlobal("window", {} as Window & typeof globalThis);
 
