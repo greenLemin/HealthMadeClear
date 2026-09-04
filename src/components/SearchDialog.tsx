@@ -73,20 +73,38 @@ export default function SearchDialog() {
     returnFocusRef: triggerRef,
   });
 
-  const results = useMemo(() => {
+  // Pre-normalize index entries with lowercase strings to avoid redundant .toLowerCase() calls during search filtering
+  const normalizedEntries = useMemo(() => {
     const entries = indexState.locale === locale ? indexState.entries : [];
-    if (!query.trim()) return entries.slice(0, 6);
+    return entries.map((e) => ({
+      ...e,
+      lowerTitle: e.title.toLowerCase(),
+      lowerDescription: e.description.toLowerCase(),
+      lowerContent: e.content.toLowerCase(),
+      lowerCategory: e.category.toLowerCase(),
+    }));
+  }, [indexState, locale]);
+
+  // Optimize search results filtering with early exit single-pass loop over pre-normalized entries
+  const results = useMemo(() => {
+    if (!query.trim()) return normalizedEntries.slice(0, 6);
     const q = query.toLowerCase();
-    return entries
-      .filter(
-        (e) =>
-          e.title.toLowerCase().includes(q) ||
-          e.description.toLowerCase().includes(q) ||
-          e.content.toLowerCase().includes(q) ||
-          e.category.toLowerCase().includes(q)
-      )
-      .slice(0, 12);
-  }, [query, locale, indexState]);
+    const filtered: SearchEntry[] = [];
+    for (let i = 0; i < normalizedEntries.length; i++) {
+      const e = normalizedEntries[i];
+      if (!e) continue;
+      if (
+        e.lowerTitle.includes(q) ||
+        e.lowerDescription.includes(q) ||
+        e.lowerContent.includes(q) ||
+        e.lowerCategory.includes(q)
+      ) {
+        filtered.push(e);
+        if (filtered.length >= 12) break;
+      }
+    }
+    return filtered;
+  }, [query, normalizedEntries]);
 
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
