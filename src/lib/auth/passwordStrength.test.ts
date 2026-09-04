@@ -6,8 +6,8 @@ describe("getPasswordStrength", () => {
     expect(getPasswordStrength("")).toEqual({ label: "", color: "", width: "0%", value: 0 });
   });
 
-  it("returns 'weak' for passwords with length less than PASSWORD_THRESHOLDS.WEAK (length < 6)", () => {
-    expect(getPasswordStrength("12345")).toEqual({
+  it("returns 'weak' for passwords with length less than PASSWORD_THRESHOLDS.WEAK (length < 8)", () => {
+    expect(getPasswordStrength("1234567")).toEqual({
       label: "weak",
       color: "bg-error",
       width: "25%",
@@ -15,8 +15,8 @@ describe("getPasswordStrength", () => {
     });
   });
 
-  it("returns 'fair' for passwords with length between WEAK and FAIR threshold (6 <= length < 10)", () => {
-    expect(getPasswordStrength("123456")).toEqual({
+  it("returns 'fair' for passwords with length between WEAK and FAIR threshold (8 <= length < 10)", () => {
+    expect(getPasswordStrength("12345678")).toEqual({
       label: "fair",
       color: "bg-tertiary",
       width: "50%",
