@@ -1,9 +1,13 @@
-type LogMethod = "log" | "warn" | "error";
+export type LogMethod = "log" | "warn" | "error" | "info" | "debug";
 
-const logIfDev = (method: LogMethod) => {
-  return (...args: Parameters<(typeof console)[LogMethod]>) => {
+export const logIfDev = <T extends unknown[]>(methodOrFn: LogMethod | ((...args: T) => void)) => {
+  return (...args: T) => {
     if (process.env.NODE_ENV === "development") {
-      console[method](...args);
+      if (typeof methodOrFn === "string") {
+        console[methodOrFn](...args);
+      } else {
+        methodOrFn(...args);
+      }
     }
   };
 };
@@ -12,4 +16,6 @@ export const logger = {
   log: logIfDev("log"),
   warn: logIfDev("warn"),
   error: logIfDev("error"),
+  info: logIfDev("info"),
+  debug: logIfDev("debug"),
 };

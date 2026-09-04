@@ -34,6 +34,7 @@ describe("parseFirstJsonObject", () => {
 
 describe("mockClient", () => {
   it("uses env variable for guest password when specified or generates random password", async () => {
+    delete process.env.NEXT_PUBLIC_MOCK_GUEST_PASSWORD;
     delete process.env.MOCK_GUEST_PASSWORD;
     delete process.env.MOCK_USER_PASSWORD;
 
@@ -55,6 +56,7 @@ describe("mockClient", () => {
   });
 
   beforeEach(() => {
+    delete process.env.NEXT_PUBLIC_MOCK_GUEST_PASSWORD;
     process.env.MOCK_GUEST_PASSWORD = "password123";
     if (typeof document !== "undefined") {
       document.cookie = "hmc_mock_db=;path=/;max-age=0";
