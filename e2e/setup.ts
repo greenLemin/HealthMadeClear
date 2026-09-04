@@ -10,12 +10,14 @@ export async function waitForAppReady(page: Page) {
 }
 
 function getMockPassword(): string {
-  return (
+  const pwd =
     process.env.NEXT_PUBLIC_MOCK_GUEST_PASSWORD ||
     process.env.MOCK_GUEST_PASSWORD ||
-    process.env.MOCK_USER_PASSWORD ||
-    "password123"
-  );
+    process.env.MOCK_USER_PASSWORD;
+  if (!pwd) {
+    return "password123";
+  }
+  return pwd;
 }
 
 export async function signInMockUser(page: Page, redirectPath = "/dashboard") {

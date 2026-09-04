@@ -22,11 +22,10 @@ export function applyMutation(
 
   switch (table) {
     case "lesson_progress": {
-      const existingIndexMap = new Map<string, number>();
-      for (let i = 0; i < db.lesson_progress.length; i++) {
-        const row = db.lesson_progress[i]!;
-        existingIndexMap.set(`${row.user_id}:${row.lesson_id}`, i);
-      }
+      const indexMap = new Map<string, number>();
+      db.lesson_progress.forEach((row, idx) => {
+        indexMap.set(`${row.user_id}:${row.lesson_id}`, idx);
+      });
 
       const rows: Record<string, unknown>[] = [];
       for (const input of inputs) {
@@ -34,7 +33,7 @@ export function applyMutation(
         if (!nextRow) continue;
 
         const key = `${nextRow.user_id}:${nextRow.lesson_id}`;
-        const existingIndex = existingIndexMap.get(key) ?? -1;
+        const existingIndex = indexMap.get(key) ?? -1;
 
         if (mutation.kind === "insert" && existingIndex >= 0) {
           return {
@@ -59,9 +58,9 @@ export function applyMutation(
           };
           rows.push({ ...db.lesson_progress[existingIndex] });
         } else {
-          const newIndex = db.lesson_progress.length;
           db.lesson_progress.push(nextRow);
-          existingIndexMap.set(key, newIndex);
+          const newIdx = db.lesson_progress.length - 1;
+          indexMap.set(key, newIdx);
           rows.push({ ...nextRow });
         }
       }
@@ -69,11 +68,10 @@ export function applyMutation(
     }
 
     case "quiz_attempts": {
-      const existingIndexMap = new Map<string, number>();
-      for (let i = 0; i < db.quiz_attempts.length; i++) {
-        const row = db.quiz_attempts[i]!;
-        existingIndexMap.set(`${row.user_id}:${row.quiz_id}`, i);
-      }
+      const indexMap = new Map<string, number>();
+      db.quiz_attempts.forEach((row, idx) => {
+        indexMap.set(`${row.user_id}:${row.quiz_id}`, idx);
+      });
 
       const rows: Record<string, unknown>[] = [];
       for (const input of inputs) {
@@ -81,7 +79,7 @@ export function applyMutation(
         if (!nextRow) continue;
 
         const key = `${nextRow.user_id}:${nextRow.quiz_id}`;
-        const existingIndex = existingIndexMap.get(key) ?? -1;
+        const existingIndex = indexMap.get(key) ?? -1;
 
         if (mutation.kind === "insert" && existingIndex >= 0) {
           return {
@@ -107,27 +105,30 @@ export function applyMutation(
           }
         }
 
-        const newIndex = db.quiz_attempts.length;
         db.quiz_attempts.push(nextRow);
-        existingIndexMap.set(key, newIndex);
+        const newIdx = db.quiz_attempts.length - 1;
+        indexMap.set(key, newIdx);
         rows.push({ ...nextRow });
       }
       return { rows, changed: rows.length > 0, error: null };
     }
 
     case "achievements": {
+      const existingSet = new Set<string>();
+      db.achievements.forEach((row) => {
+        existingSet.add(`${row.user_id}:${row.achievement_id}`);
+      });
+
       const rows: Record<string, unknown>[] = [];
       for (const input of inputs) {
         const nextRow = parseAchievementInput(db, input);
         if (!nextRow) continue;
 
-        const existing = db.achievements.find(
-          (row) => row.user_id === nextRow.user_id && row.achievement_id === nextRow.achievement_id
-        );
-
-        if (existing) continue;
+        const key = `${nextRow.user_id}:${nextRow.achievement_id}`;
+        if (existingSet.has(key)) continue;
 
         db.achievements.push(nextRow);
+        existingSet.add(key);
         rows.push({ ...nextRow });
       }
       return { rows, changed: rows.length > 0, error: null };
@@ -204,20 +205,29 @@ export function applyMutation(
     }
 
     case "daily_log": {
+      const existingSet = new Set<string>();
+      db.daily_log.forEach((row) => {
+        existingSet.add(`${row.user_id}:${row.activity_date}`);
+      });
+
       const rows: Record<string, unknown>[] = [];
       for (const input of inputs) {
         const nextRow = parseDailyLogInput(db, input);
         if (!nextRow) continue;
 
-        const existing = db.daily_log.find(
-          (row) => row.user_id === nextRow.user_id && row.activity_date === nextRow.activity_date
-        );
-        if (existing) {
-          rows.push({ ...existing });
+        const key = `${nextRow.user_id}:${nextRow.activity_date}`;
+        if (existingSet.has(key)) {
+          const existing = db.daily_log.find(
+            (row) => row.user_id === nextRow.user_id && row.activity_date === nextRow.activity_date
+          );
+          if (existing) {
+            rows.push({ ...existing });
+          }
           continue;
         }
 
         db.daily_log.push(nextRow);
+        existingSet.add(key);
         rows.push({ ...nextRow });
       }
       return { rows, changed: rows.length > 0, error: null };
