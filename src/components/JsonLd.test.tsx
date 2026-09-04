@@ -23,6 +23,13 @@ describe("JsonLd", () => {
     expect(parsedData.name).toBe("My Site");
   });
 
+  it("uses custom script id if provided", () => {
+    const data = { "@type": "WebSite" };
+    const { container } = render(<JsonLd data={data} id="custom-jsonld-id" />);
+    const script = container.querySelector("#custom-jsonld-id");
+    expect(script).toBeInTheDocument();
+  });
+
   it("safely escapes characters that could lead to XSS", () => {
     const dangerousData = {
       malicious: "</script><script>alert('XSS & co')</script>",
@@ -41,13 +48,13 @@ describe("JsonLd", () => {
     // Check specific unicode hex escapes are used
     expect(innerHTML.toLowerCase()).toContain("\\u003c\\u002fscript\\u003e"); // </script>
     expect(innerHTML.toLowerCase()).toContain("\\u003cscript\\u003e"); // <script>
-    expect(innerHTML).toContain("XSS & co"); // & (serialize-javascript doesn't escape & by default in isJSON)
-    expect(innerHTML).toContain("'"); // ' (serialize-javascript doesn't escape ' by default in isJSON)
+    expect(innerHTML).toContain("XSS & co"); // &
+    expect(innerHTML).toContain("'"); // '
     expect(innerHTML).toContain("\\u2028"); // \u2028
     expect(innerHTML).toContain("\\u2029"); // \u2029
   });
 
-  it("rejects non-plain objects via JSON round-trip", () => {
+  it("rejects non-plain objects and invalid values", () => {
     expect(() => render(<JsonLd data={new Date() as unknown as Record<string, unknown>} />)).toThrow(
       /plain object or array/
     );
@@ -62,6 +69,18 @@ describe("JsonLd", () => {
     const circular: Record<string, unknown> = { ok: true };
     circular.self = circular;
     expect(() => render(<JsonLd data={circular} />)).toThrow(/plain object or array/);
+
+    expect(() => render(<JsonLd data={null as unknown as Record<string, unknown>} />)).toThrow(
+      /plain object or array/
+    );
+
+    expect(() => render(<JsonLd data={{ invalidNum: NaN } as unknown as Record<string, unknown>} />)).toThrow(
+      /plain object or array/
+    );
+
+    expect(() =>
+      render(<JsonLd data={{ invalidFn: () => {} } as unknown as Record<string, unknown>} />)
+    ).toThrow(/plain object or array/);
   });
 
   it("accepts a nested plain object after JSON.parse(JSON.stringify(data))", () => {
