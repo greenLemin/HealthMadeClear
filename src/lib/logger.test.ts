@@ -1,11 +1,13 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
-import { logger } from "./logger";
+import { logger, logIfDev } from "./logger";
 
 describe("logger", () => {
   beforeEach(() => {
     vi.spyOn(console, "log").mockImplementation(() => {});
     vi.spyOn(console, "warn").mockImplementation(() => {});
     vi.spyOn(console, "error").mockImplementation(() => {});
+    vi.spyOn(console, "info").mockImplementation(() => {});
+    vi.spyOn(console, "debug").mockImplementation(() => {});
   });
 
   afterEach(() => {
@@ -35,6 +37,25 @@ describe("logger", () => {
       logger.error(...args);
       expect(console.error).toHaveBeenCalledWith(...args);
     });
+
+    it("should call console.info with provided arguments", () => {
+      const args = ["info message", { info: true }];
+      logger.info(...args);
+      expect(console.info).toHaveBeenCalledWith(...args);
+    });
+
+    it("should call console.debug with provided arguments", () => {
+      const args = ["debug message", { debug: true }];
+      logger.debug(...args);
+      expect(console.debug).toHaveBeenCalledWith(...args);
+    });
+
+    it("should call custom function with provided arguments", () => {
+      const customFn = vi.fn();
+      const wrapped = logIfDev(customFn);
+      wrapped("custom", 123);
+      expect(customFn).toHaveBeenCalledWith("custom", 123);
+    });
   });
 
   describe("when NODE_ENV is not development", () => {
@@ -55,6 +76,23 @@ describe("logger", () => {
     it("should not call console.error", () => {
       logger.error("error message");
       expect(console.error).not.toHaveBeenCalled();
+    });
+
+    it("should not call console.info", () => {
+      logger.info("info message");
+      expect(console.info).not.toHaveBeenCalled();
+    });
+
+    it("should not call console.debug", () => {
+      logger.debug("debug message");
+      expect(console.debug).not.toHaveBeenCalled();
+    });
+
+    it("should not call custom function", () => {
+      const customFn = vi.fn();
+      const wrapped = logIfDev(customFn);
+      wrapped("custom", 123);
+      expect(customFn).not.toHaveBeenCalled();
     });
   });
 });
