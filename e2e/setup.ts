@@ -14,7 +14,10 @@ function getMockPassword(): string {
     process.env.NEXT_PUBLIC_MOCK_GUEST_PASSWORD ||
     process.env.MOCK_GUEST_PASSWORD ||
     process.env.MOCK_USER_PASSWORD;
-  return pwd || "password123";
+  if (!pwd) {
+    return "password123";
+  }
+  return pwd;
 }
 
 export async function signInMockUser(page: Page, redirectPath = "/dashboard") {
