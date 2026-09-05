@@ -1,53 +1,51 @@
-// @vitest-environment jsdom
-import { act, fireEvent, render, screen } from "@testing-library/react";
-import { NextIntlClientProvider } from "next-intl";
-import { describe, expect, it, vi } from "vitest";
-import en from "@/messages/en.json";
+import { render, screen, fireEvent, act } from "@testing-library/react";
+import { describe, expect, it, vi, beforeEach } from "vitest";
 import ScrollToTop from "./ScrollToTop";
 
+vi.mock("next-intl", () => ({
+  useTranslations: () => (key: string) => (key === "backToTop" ? "Back to top" : key),
+}));
+
 vi.mock("@/i18n/navigation", () => ({
-  usePathname: () => "/learn",
+  usePathname: () => "/home",
 }));
 
 describe("ScrollToTop", () => {
-  const renderComponent = () => {
-    return render(
-      <NextIntlClientProvider locale="en" messages={en}>
-        <ScrollToTop />
-      </NextIntlClientProvider>
-    );
-  };
-
-  it("is hidden when window.scrollY <= 400 and visible when window.scrollY > 400", () => {
-    renderComponent();
-
-    expect(screen.queryByRole("button", { name: en.common.backToTop })).not.toBeInTheDocument();
-
-    act(() => {
-      Object.defineProperty(window, "scrollY", { value: 500, writable: true });
-      fireEvent.scroll(window);
-    });
-
-    const button = screen.getByRole("button", { name: en.common.backToTop });
-    expect(button).toBeInTheDocument();
-    expect(button).toHaveAttribute("title", en.common.backToTop);
-    expect(button).toHaveAttribute("aria-label", en.common.backToTop);
+  beforeEach(() => {
+    Object.defineProperty(window, "scrollY", { value: 0, writable: true });
+    window.scrollTo = vi.fn();
   });
 
-  it("scrolls to top when clicked", () => {
-    const scrollToSpy = vi.fn();
-    window.scrollTo = scrollToSpy;
+  it("does not render when scrollY is <= 400", () => {
+    render(<ScrollToTop />);
+    expect(screen.queryByRole("button")).toBeNull();
+  });
 
-    renderComponent();
+  it("renders with aria-label and title when scrolled past threshold (> 400)", () => {
+    render(<ScrollToTop />);
 
     act(() => {
       Object.defineProperty(window, "scrollY", { value: 500, writable: true });
       fireEvent.scroll(window);
     });
 
-    const button = screen.getByRole("button", { name: en.common.backToTop });
+    const button = screen.getByRole("button", { name: "Back to top" });
+    expect(button).toBeInTheDocument();
+    expect(button).toHaveAttribute("title", "Back to top");
+    expect(button).toHaveAttribute("aria-label", "Back to top");
+  });
+
+  it("triggers window.scrollTo when clicked", () => {
+    render(<ScrollToTop />);
+
+    act(() => {
+      Object.defineProperty(window, "scrollY", { value: 500, writable: true });
+      fireEvent.scroll(window);
+    });
+
+    const button = screen.getByRole("button", { name: "Back to top" });
     fireEvent.click(button);
 
-    expect(scrollToSpy).toHaveBeenCalledWith({ top: 0, behavior: "smooth" });
+    expect(window.scrollTo).toHaveBeenCalledWith({ top: 0, behavior: "smooth" });
   });
 });
