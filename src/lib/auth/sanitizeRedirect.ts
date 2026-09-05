@@ -1,6 +1,8 @@
 /** Allow only same-origin relative paths to prevent open redirects. */
 export function sanitizeRedirectPath(path: string | null | undefined, fallback = "/dashboard"): string {
   if (!path) return fallback;
+  // Reject null bytes or control characters in raw input (%00, \0, \x00-\x1f, \x7f-\x9f)
+  if (/[\x00-\x1F\x7F-\x9F]/.test(path) || /%00/i.test(path)) return fallback;
   let decoded: string;
   try {
     decoded = decodeURIComponent(path);
@@ -8,6 +10,8 @@ export function sanitizeRedirectPath(path: string | null | undefined, fallback =
     return fallback;
   }
   decoded = decoded.trim();
+  // Reject null bytes or control characters after decoding
+  if (/[\x00-\x1F\x7F-\x9F]/.test(decoded)) return fallback;
   // Operate on decoded+trimmed value to catch encoded bypasses (e.g. %2F, %5C, %2E)
   if (!decoded.startsWith("/") || decoded.startsWith("//") || decoded.startsWith("/\\")) return fallback;
   // CRLF injection (decoded and encoded forms)

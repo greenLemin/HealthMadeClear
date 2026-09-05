@@ -14,6 +14,13 @@ describe("sanitizeRedirectPath", () => {
     expect(sanitizeRedirectPath(null)).toBe("/dashboard");
   });
 
+  it("rejects null byte and control character injection attempts", () => {
+    expect(sanitizeRedirectPath("/%00/evil.com")).toBe("/dashboard");
+    expect(sanitizeRedirectPath("/\0/evil.com")).toBe("/dashboard");
+    expect(sanitizeRedirectPath("%00//evil.com")).toBe("/dashboard");
+    expect(sanitizeRedirectPath("/\x01/evil.com")).toBe("/dashboard");
+  });
+
   it("uses custom fallback", () => {
     expect(sanitizeRedirectPath(null, "/learn")).toBe("/learn");
   });
