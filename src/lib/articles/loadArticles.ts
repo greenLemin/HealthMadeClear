@@ -3,6 +3,12 @@ import { articles as esArticles } from "@/data/articleBundles.es";
 import type { Locale } from "@/lib/i18n";
 import type { Article } from "@/types/article";
 
+// Map-based lookup index by locale for O(1) article fetching
+const articleMapByLocale: Record<Locale, Map<string, Article>> = {
+  en: new Map(enArticles.map((a) => [a.id, a])),
+  es: new Map(esArticles.map((a) => [a.id, a])),
+};
+
 function articlesForLocale(locale: Locale): Article[] {
   switch (locale) {
     case "es":
@@ -19,7 +25,7 @@ export function getAllArticles(locale: Locale): Article[] {
 }
 
 export function getArticleByIdFromBundle(id: string, locale: Locale): Article | undefined {
-  return articlesForLocale(locale).find((article) => article.id === id);
+  return (articleMapByLocale[locale] ?? articleMapByLocale.en).get(id);
 }
 
 export async function loadArticlesForLocale(locale: Locale): Promise<Article[]> {
