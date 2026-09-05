@@ -9,14 +9,16 @@ export default function ThemeToggle() {
   const t = useTranslations("accessibility");
 
   const toggle = () => setTheme(theme === "dark" ? "light" : "dark");
+  const label = theme === "dark" ? t("switchToLight") : t("switchToDark");
 
   return (
     <button
       type="button"
       onClick={toggle}
       aria-pressed={theme === "dark"}
-      className="flex min-h-[44px] min-w-[44px] items-center justify-center rounded-full border border-outline-variant bg-surface-container-lowest/90 text-primary shadow-elevation-1 transition-all duration-300 ease-premium hover:-translate-y-0.5 hover:bg-surface hover:shadow-elevation-2"
-      aria-label={theme === "dark" ? t("switchToLight") : t("switchToDark")}
+      className="flex min-h-[44px] min-w-[44px] items-center justify-center rounded-full border border-outline-variant bg-surface-container-lowest/90 text-primary shadow-elevation-1 transition-all duration-300 ease-premium hover:-translate-y-0.5 hover:bg-surface hover:shadow-elevation-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+      aria-label={label}
+      title={label}
     >
       {theme === "dark" ? <Sun size={18} aria-hidden="true" /> : <Moon size={18} aria-hidden="true" />}
     </button>
