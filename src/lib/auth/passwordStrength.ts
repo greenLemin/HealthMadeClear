@@ -1,5 +1,5 @@
 export const PASSWORD_THRESHOLDS = {
-  WEAK: 6,
+  WEAK: 8,
   FAIR: 10,
   GOOD: 14,
 } as const;
