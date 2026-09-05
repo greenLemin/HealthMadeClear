@@ -20,7 +20,7 @@ export default function SearchDialog() {
   const [query, setQuery] = useState("");
   const [indexState, setIndexState] = useState<{
     locale: string | null;
-    entries: SearchEntry[];
+    entries: (SearchEntry & { _searchKey?: string })[];
     status: "ready" | "error";
   }>({ locale: null, entries: [], status: "ready" });
   const [mounted, setMounted] = useState(false);
@@ -47,7 +47,13 @@ export default function SearchDialog() {
     import(`@/data/searchIndex.${locale}.ts`)
       .then((mod) => {
         if (!active) return;
-        setIndexState({ locale, entries: mod.searchIndex, status: "ready" });
+        // Optimization: Pre-compute a single lowercase search string per entry once on load
+        // to avoid repeated multi-field .toLowerCase() calls per entry on every character typed.
+        const prepared = (mod.searchIndex as SearchEntry[]).map((e) => ({
+          ...e,
+          _searchKey: `${e.title} ${e.description} ${e.content} ${e.category}`.toLowerCase(),
+        }));
+        setIndexState({ locale, entries: prepared, status: "ready" });
       })
       .catch(() => {
         if (!active) return;
@@ -73,27 +79,21 @@ export default function SearchDialog() {
     returnFocusRef: triggerRef,
   });
 
-  // Pre-normalize search entries with a pre-lowercased searchable string
-  // to avoid running .toLowerCase() across hundreds of KB of text on every keystroke (~7.4x search speedup).
-  const preparedEntries = useMemo(() => {
-    const entries = indexState.locale === locale ? indexState.entries : [];
-    return entries.map((e) => ({
-      entry: e,
-      searchableText: `${e.title}\n${e.description}\n${e.content}\n${e.category}`.toLowerCase(),
-    }));
-  }, [locale, indexState]);
-
   const results = useMemo(() => {
-    const trimmed = query.trim();
-    if (!trimmed) {
-      return preparedEntries.slice(0, 6).map((item) => item.entry);
-    }
-    const q = trimmed.toLowerCase();
-    return preparedEntries
-      .filter((item) => item.searchableText.includes(q))
-      .slice(0, 12)
-      .map((item) => item.entry);
-  }, [query, preparedEntries]);
+    const entries = indexState.locale === locale ? indexState.entries : [];
+    if (!query.trim()) return entries.slice(0, 6);
+    const q = query.toLowerCase();
+    return entries
+      .filter((e) =>
+        e._searchKey
+          ? e._searchKey.includes(q)
+          : e.title.toLowerCase().includes(q) ||
+            e.description.toLowerCase().includes(q) ||
+            e.content.toLowerCase().includes(q) ||
+            e.category.toLowerCase().includes(q)
+      )
+      .slice(0, 12);
+  }, [query, locale, indexState]);
 
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
