@@ -8,6 +8,8 @@ export function sanitizeRedirectPath(path: string | null | undefined, fallback =
     return fallback;
   }
   decoded = decoded.trim();
+  // Block control characters (e.g. null bytes \x00, line breaks \x0A, etc.) in raw or decoded path
+  if (/[\x00-\x1F\x7F-\x9F]/.test(decoded) || /[\x00-\x1F\x7F-\x9F]/.test(path)) return fallback;
   // Operate on decoded+trimmed value to catch encoded bypasses (e.g. %2F, %5C, %2E)
   if (!decoded.startsWith("/") || decoded.startsWith("//") || decoded.startsWith("/\\")) return fallback;
   // CRLF injection (decoded and encoded forms)
