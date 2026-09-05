@@ -20,7 +20,7 @@ export default function SearchDialog() {
   const [query, setQuery] = useState("");
   const [indexState, setIndexState] = useState<{
     locale: string | null;
-    entries: SearchEntry[];
+    entries: (SearchEntry & { _searchKey?: string })[];
     status: "ready" | "error";
   }>({ locale: null, entries: [], status: "ready" });
   const [mounted, setMounted] = useState(false);
@@ -47,7 +47,13 @@ export default function SearchDialog() {
     import(`@/data/searchIndex.${locale}.ts`)
       .then((mod) => {
         if (!active) return;
-        setIndexState({ locale, entries: mod.searchIndex, status: "ready" });
+        // Optimization: Pre-compute a single lowercase search string per entry once on load
+        // to avoid repeated multi-field .toLowerCase() calls per entry on every character typed.
+        const prepared = (mod.searchIndex as SearchEntry[]).map((e) => ({
+          ...e,
+          _searchKey: `${e.title} ${e.description} ${e.content} ${e.category}`.toLowerCase(),
+        }));
+        setIndexState({ locale, entries: prepared, status: "ready" });
       })
       .catch(() => {
         if (!active) return;
@@ -78,12 +84,13 @@ export default function SearchDialog() {
     if (!query.trim()) return entries.slice(0, 6);
     const q = query.toLowerCase();
     return entries
-      .filter(
-        (e) =>
-          e.title.toLowerCase().includes(q) ||
-          e.description.toLowerCase().includes(q) ||
-          e.content.toLowerCase().includes(q) ||
-          e.category.toLowerCase().includes(q)
+      .filter((e) =>
+        e._searchKey
+          ? e._searchKey.includes(q)
+          : e.title.toLowerCase().includes(q) ||
+            e.description.toLowerCase().includes(q) ||
+            e.content.toLowerCase().includes(q) ||
+            e.category.toLowerCase().includes(q)
       )
       .slice(0, 12);
   }, [query, locale, indexState]);
