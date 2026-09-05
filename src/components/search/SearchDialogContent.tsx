@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useMemo } from "react";
+import { useEffect, useRef } from "react";
 import { Link } from "@/i18n/navigation";
 import { Search, X, BookOpen } from "lucide-react";
 import { useTranslations } from "next-intl";
@@ -125,8 +125,7 @@ export function SearchDialogContent({
     }
   };
 
-  // Optimization: Memoize result grouping to avoid re-categorizing search results on every render
-  const grouped = useMemo(() => groupResults(results), [results]);
+  const grouped = groupResults(results);
 
   return (
     <>
